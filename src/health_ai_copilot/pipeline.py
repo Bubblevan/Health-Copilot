@@ -14,14 +14,37 @@ class Retriever(Protocol):
 
 
 ABSTAIN_MESSAGE = "当前审核资料不足以支持可靠回答，因此本原型不对该问题作推断。"
+ABSTAIN_MESSAGES = {
+    "insufficient_evidence": (
+        f"{ABSTAIN_MESSAGE}如涉及个人健康决策，请咨询有资质的医疗专业人员。"
+    ),
+    "generator_abstained": (
+        f"{ABSTAIN_MESSAGE}如涉及个人健康决策，请咨询有资质的医疗专业人员。"
+    ),
+    "retrieval_error": (
+        "当前检索服务无法正常工作，因此本原型暂时无法生成可靠回答。"
+        "请稍后重试或咨询有资质的医疗专业人员。"
+    ),
+    "generation_error": (
+        "当前回答生成服务无法正常工作，因此本原型暂时无法生成可靠回答。"
+        "请稍后重试或咨询有资质的医疗专业人员。"
+    ),
+    "invalid_citation": (
+        "当前回答未通过来源校验，因此本原型不会返回该回答。"
+        "请稍后重试或咨询有资质的医疗专业人员。"
+    ),
+    "missing_citation": (
+        "当前回答未通过来源校验，因此本原型不会返回该回答。"
+        "请稍后重试或咨询有资质的医疗专业人员。"
+    ),
+    "invalid_input": "当前问题输入无效，暂时无法生成可靠回答。",
+}
 
 
 def abstain_response(reason: str) -> AssistantResponse:
     return AssistantResponse(
         route=Route.ABSTAIN,
-        message=(
-            f"{ABSTAIN_MESSAGE}如涉及个人健康决策，请咨询有资质的医疗专业人员。"
-        ),
+        message=ABSTAIN_MESSAGES.get(reason, ABSTAIN_MESSAGE),
         safety_reasons=[reason],
     )
 

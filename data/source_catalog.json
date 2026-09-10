@@ -1,0 +1,65 @@
+[
+  {
+    "id": "who-hypertension-fact-sheet",
+    "title": "WHO Hypertension fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/hypertension",
+    "publisher": "World Health Organization",
+    "jurisdiction": "global",
+    "published_at": "2025-09-25",
+    "tags": ["hypertension", "patient_education", "global"]
+  },
+  {
+    "id": "cdc-high-blood-pressure-about",
+    "title": "CDC About High Blood Pressure",
+    "url": "https://www.cdc.gov/high-blood-pressure/about/index.html",
+    "publisher": "Centers for Disease Control and Prevention",
+    "jurisdiction": "us",
+    "published_at": "2026-01-28",
+    "tags": ["hypertension", "definition", "patient_education", "us"]
+  },
+  {
+    "id": "cdc-high-blood-pressure-risk-factors",
+    "title": "CDC High Blood Pressure Risk Factors",
+    "url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+    "publisher": "Centers for Disease Control and Prevention",
+    "jurisdiction": "us",
+    "published_at": "2024-12-13",
+    "tags": ["hypertension", "risk_factors", "patient_education", "us"]
+  },
+  {
+    "id": "cdc-high-blood-pressure-prevention",
+    "title": "CDC Preventing High Blood Pressure",
+    "url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html",
+    "publisher": "Centers for Disease Control and Prevention",
+    "jurisdiction": "us",
+    "published_at": "2024-12-13",
+    "tags": ["hypertension", "lifestyle", "patient_education", "us"]
+  },
+  {
+    "id": "cdc-high-blood-pressure-managing",
+    "title": "CDC Managing High Blood Pressure",
+    "url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html",
+    "publisher": "Centers for Disease Control and Prevention",
+    "jurisdiction": "us",
+    "published_at": null,
+    "tags": ["hypertension", "monitoring", "patient_education", "us"]
+  },
+  {
+    "id": "cdc-high-blood-pressure-measuring",
+    "title": "CDC Measuring Your Blood Pressure",
+    "url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+    "publisher": "Centers for Disease Control and Prevention",
+    "jurisdiction": "us",
+    "published_at": null,
+    "tags": ["hypertension", "measurement", "patient_education", "us"]
+  },
+  {
+    "id": "nhc-2025-national-hypertension-day",
+    "title": "国家卫生健康委 2025 年全国高血压日主题宣传活动通知",
+    "url": "https://www.nhc.gov.cn/ylyjs/gzdt/202509/2db90f506b274a95a25ac4ec701c3416.shtml",
+    "publisher": "国家卫生健康委员会",
+    "jurisdiction": "cn",
+    "published_at": null,
+    "tags": ["hypertension", "blood_pressure_monitoring", "patient_education", "cn"]
+  }
+]

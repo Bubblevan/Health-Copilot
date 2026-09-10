@@ -37,8 +37,8 @@ def evaluate_cases(
 ) -> dict[str, float | int]:
     cases = list(cases)
     retriever = BM25Retriever(cards)
-    route_total = 0
-    route_correct = 0
+    safety_route_total = 0
+    safety_route_correct = 0
     hit_total = 0
     hit_count = 0
 
@@ -49,9 +49,9 @@ def evaluate_cases(
                 "urgent": Route.URGENT_CARE.value,
                 "prescription": Route.HUMAN_REVIEW.value,
             }.get(expected_route, expected_route)
-            route_total += 1
+            safety_route_total += 1
             if _predicted_safety_route(case["question"]) == expected_route:
-                route_correct += 1
+                safety_route_correct += 1
 
         expected_source_ids = case.get("expected_source_ids", [])
         if expected_source_ids:
@@ -64,8 +64,10 @@ def evaluate_cases(
 
     return {
         "num_cases": len(cases),
-        "route_cases": route_total,
-        "route_accuracy": route_correct / route_total if route_total else 0.0,
+        "safety_route_cases": safety_route_total,
+        "safety_route_accuracy": (
+            safety_route_correct / safety_route_total if safety_route_total else 0.0
+        ),
         "retrieval_hit_at_3_cases": hit_total,
         "retrieval_hit_at_3": hit_count / hit_total if hit_total else 0.0,
     }

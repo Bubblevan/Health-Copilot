@@ -43,6 +43,11 @@ URL 或伪造来源；Citation 的 metadata 从 Evidence 复制，不信任模�
 5. Source metadata is separate from model logic and is copied from stored objects.
 6. Tests do not require an API key, network or real patient data.
 
+M0 为保持现有 `AssistantResponse` contract，字段名仍是 `safety_reasons`；但 pipeline
+目前也会在其中记录 `insufficient_evidence`、`retrieval_error`、`generation_error` 和
+`invalid_citation` 等 status reason。后续 M1 应演进为 `reasons` 或 `status_reasons`，
+按 safety 与 runtime failure domain 分离，避免字段名产生误导。
+
 ## Later milestones
 
 M1 可以增加 typed Agent Core，但不是本阶段的一部分；后续再考虑 policy/budget/timeout/

@@ -26,7 +26,8 @@ User question
 - 生成器通过最小 Protocol 注入，测试使用 FakeGenerator，不需要网络或 API Key；
 - OpenAI-compatible generator 只从环境变量读取配置，默认温度为 `0.1`；
 - CLI 支持真实本地知识卡和可选的 OpenAI-compatible live demo；
-- 离线评测器只计算 safety route accuracy 和有标注来源时的 retrieval Hit@K。
+- 离线评测器只计算 `safety_route_accuracy` 和有标注来源时的 retrieval Hit@K；前者
+  只评估 safety gate，不是 end-to-end route accuracy。
 
 ## 快速开始
 
@@ -69,6 +70,17 @@ python -m health_ai_copilot.cli `
 
 测试用 synthetic cards 位于 `tests/fixtures/knowledge_cards/`，不能当作真实医学资料。
 
+官方资料采集工具位于 `tools/fetch_m0_data.py`：`crawl` 按
+`data/source_catalog.json` 抓取短候选片段和 provenance，供人工改写成 atomic
+KnowledgeCard；`benchmarks` 将 HealthBench 与 MIRAGE 下载到 Git 忽略的
+`artifacts/benchmarks/`。工具不会把整页 HTML 或未经审核的内容写入
+`data/knowledge_cards/`。
+
+标准检索评测使用 BEIR NFCorpus：下载并解压后可运行
+`python -m health_ai_copilot.eval.nfcorpus --data-dir artifacts/benchmarks/nfcorpus`，
+输出 Recall@K、MRR 和 nDCG@K。NFCorpus 的 qrels 保留在独立的 retrieval-eval adapter
+中，不会被伪装成产品 KnowledgeCard。
+
 ## 尚未实现
 
 M0 明确不包含 Agent Loop / ReAct、Agent Runtime、Multi-Agent、Memory、MCP、Sandbox、
@@ -80,3 +92,8 @@ Milvus、Qdrant、dense retrieval、reranker、web search、VLM、SFT/DPO/RL 和
 M0 的 citation verifier 只验证模型返回的 ID 是否属于本次检索到的 Evidence，并从存储的
 Evidence 复制标题、摘要和 URL；它不证明每个自然语言 claim 与引用之间存在语义蕴含关系。
 claim-level grounding、trace/replay 和完整 Harness Runtime 留到后续阶段。
+
+为保持 M0 的兼容性，`AssistantResponse.safety_reasons` 当前同时承载 safety reason 和
+pipeline status reason（如 `retrieval_error`、`generation_error`、`invalid_citation`）。
+这是已知技术债，后续 M1 可演进为更准确的 `reasons` 或 `status_reasons`，再按 failure
+domain 分离。

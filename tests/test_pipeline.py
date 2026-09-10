@@ -31,6 +31,16 @@ class FakeGenerator:
         return self.draft
 
 
+class RaisingRetriever:
+    def search(self, query: str, top_k: int = 5) -> list[Evidence]:
+        raise RuntimeError("synthetic retrieval failure")
+
+
+class RaisingGenerator:
+    def generate(self, question: str, evidence: Sequence[Evidence]) -> GenerationDraft:
+        raise RuntimeError("synthetic generation failure")
+
+
 def make_evidence() -> list[Evidence]:
     return [
         Evidence(
@@ -74,6 +84,29 @@ def test_no_retrieval_evidence_abstains_without_generator_call() -> None:
     assert result.route == Route.ABSTAIN
     assert result.safety_reasons == ["insufficient_evidence"]
     assert generator.calls == 0
+    assert "审核资料不足" in result.message
+
+
+def test_retrieval_error_has_system_failure_message() -> None:
+    generator = FakeGenerator(GenerationDraft("unused", ["source-a"]))
+
+    result = HealthCopilotPipeline(RaisingRetriever(), generator).answer("普通教育问题")
+
+    assert result.route == Route.ABSTAIN
+    assert result.safety_reasons == ["retrieval_error"]
+    assert "检索服务" in result.message
+    assert "审核资料不足" not in result.message
+
+
+def test_generation_error_has_system_failure_message() -> None:
+    retriever = SpyRetriever(make_evidence())
+
+    result = HealthCopilotPipeline(retriever, RaisingGenerator()).answer("普通教育问题")
+
+    assert result.route == Route.ABSTAIN
+    assert result.safety_reasons == ["generation_error"]
+    assert "回答生成服务" in result.message
+    assert "审核资料不足" not in result.message
 
 
 def test_generator_abstention_returns_abstain() -> None:
@@ -94,6 +127,8 @@ def test_fabricated_source_id_returns_abstain() -> None:
 
     assert result.route == Route.ABSTAIN
     assert result.safety_reasons == ["invalid_citation"]
+    assert "来源校验" in result.message
+    assert "审核资料不足" not in result.message
 
 
 def test_normal_path_returns_citations_from_stored_evidence() -> None:
