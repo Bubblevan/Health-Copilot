@@ -1,0 +1,15 @@
+{
+  "id": "example-card-not-clinical-data",
+  "title": "Knowledge card schema example",
+  "content": "Schema example only; this file is not clinical evidence.",
+  "source_url": "https://example.org/health-copilot/schema-example",
+  "publisher": "Example only",
+  "published_at": null,
+  "collected_at": "2026-09-10",
+  "reviewed_at": null,
+  "reviewer": "example-only",
+  "version": "1",
+  "expires_at": null,
+  "audience": ["schema_documentation"],
+  "tags": ["example"]
+}

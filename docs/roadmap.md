@@ -1,33 +1,33 @@
-# Six-week implementation plan
+# Roadmap
 
-## Week 1 — Scope and baseline
+## M0 — Safety-Gated Evidence RAG
 
-- Define non-goals and risk policy.
-- Add 20 public-source knowledge cards and 40 manually written evaluation questions.
-- Build a retrieval-only baseline with source metadata.
+当前里程碑，目标是稳定的、非自主的 vertical slice：
 
-## Week 2 — Grounded generation
+- KnowledgeCard schema/loader；
+- 中文 tokenizer 和直接实现的 BM25 baseline；
+- evidence-aware Generator Protocol；
+- deterministic citation-ID verification；
+- urgent / prescription pre-gate；
+- no-evidence / malformed generation / fabricated citation 的 abstention；
+- synthetic tests 和离线 route/retrieval eval。
 
-- Add hybrid retrieval, reranking and citation-constrained answering.
-- Track context precision, citation completeness and unsupported claims.
+## M1 — Agent Core（planned）
 
-## Week 3 — Harness and adversarial testing
+只在 M0 的检索、证据和安全契约稳定后实现 `AgentState`、受限 `AgentLoop`、ToolRegistry
+和 Session。Agent Loop 应由失败模式驱动，例如只允许一次 query rewrite recovery，而
+不是为了“有 Agent”而添加 ReAct。
 
-- Complete input, tool and output gates.
-- Add emergency, prescription, prompt-injection and stale-source regression tests.
+## M2 — Harness Runtime（planned）
 
-## Week 4 — Human review and observability
+把 policy、capability/permission、step/token/time/tool budget、timeout、fallback、
+trace/replay 做成可测试的运行时约束。YAML 可以是配置格式，但不应替代代码级 invariant、
+测试和反馈闭环。
 
-- Implement a review-item schema, feedback taxonomy and run traces.
-- Obtain feedback only through an authorized, non-patient-data review process.
+## M3+ — Evaluation and system extensions（planned）
 
-## Week 5 — Post-training baseline
+后续可按真实失败案例依次增加：evaluation harness、plugin/provider boundaries、复杂证据
+研究的 Agent Team、context/memory、dense/hybrid retrieval + reranker，以及视觉证据输入。
+任何 post-training 都必须建立在固定评测集、trajectory/failure 数据和合规数据许可之上。
 
-- Build a licensed, synthetic or publicly permitted SFT dataset.
-- Run LoRA SFT; compare against the base model on a frozen evaluation set.
-
-## Week 6 — Preference experiment and project narrative
-
-- Create preference pairs from observed failures.
-- Run a small DPO-style experiment, publish model cards and an honest limitations report.
-
+M0 不实现医疗诊断、处方、真实患者记录或临床验证。

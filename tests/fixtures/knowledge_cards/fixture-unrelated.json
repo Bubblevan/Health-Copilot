@@ -1,0 +1,15 @@
+{
+  "id": "fixture-unrelated",
+  "title": "Synthetic gardening card",
+  "content": "Synthetic test evidence: this unrelated card describes watering a house plant.",
+  "source_url": "https://example.org/fixtures/gardening",
+  "publisher": "Synthetic test fixture",
+  "published_at": "2026-01-01",
+  "collected_at": "2026-09-10",
+  "reviewed_at": "2026-09-10",
+  "reviewer": "test-fixture-review",
+  "version": "1",
+  "expires_at": null,
+  "audience": ["synthetic_test"],
+  "tags": ["gardening"]
+}

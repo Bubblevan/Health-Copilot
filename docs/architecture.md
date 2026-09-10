@@ -1,38 +1,51 @@
 # Architecture
 
+## M0 vertical slice
+
 ```text
 User question
-  -> Input validation / PII minimization
-  -> Deterministic safety gateway
+  -> basic input validation
+  -> deterministic safety gate
        -> urgent care / human review (terminal)
        -> retrieval-eligible question
-  -> Query rewrite + hybrid retrieval + reranking
-  -> Evidence-aware LLM generation
-  -> Citation verifier + output policy
-  -> Answer, review queue and observability events
+  -> KnowledgeCard loader
+  -> BM25 retrieval
+  -> EvidenceBundle (Evidence[])
+  -> injected Generator
+  -> citation-ID verifier
+       -> answer with stored Citation metadata
+       -> abstain on insufficient evidence or invalid citation
+  -> AssistantResponse
 ```
+
+安全路由先于检索和模型调用。Generator 只接收本次检索到的 Evidence，模型不能选择任意
+URL 或伪造来源；Citation 的 metadata 从 Evidence 复制，不信任模型生成的 metadata。
 
 ## Project structure
 
 | Directory | Responsibility |
 | --- | --- |
-| `src/` | Runtime code: routing, retrieval, generation, review contracts. |
-| `data/knowledge_cards/` | Versioned public-source metadata, not patient data. |
-| `evals/` | Golden questions, adversarial prompts and regression reports. |
-| `tests/` | Deterministic unit/integration tests. |
-| `docs/` | Architecture decisions, data boundary and experiment records. |
-| `artifacts/` | Local model outputs and reports; ignored by Git. |
+| `src/health_ai_copilot/contracts.py` | `Route`、KnowledgeCard、Evidence、Generator draft 和响应契约 |
+| `src/health_ai_copilot/knowledge/` | JSON knowledge-card 校验和确定性加载 |
+| `src/health_ai_copilot/retrieval/` | 中文分词和直接实现的 BM25 baseline |
+| `src/health_ai_copilot/generation/` | 最小 Generator Protocol 和 OpenAI-compatible provider |
+| `src/health_ai_copilot/verification/` | citation-ID 完整性校验 |
+| `src/health_ai_copilot/pipeline.py` | M0 组件编排，不实现组件内部逻辑 |
+| `tests/` | 不联网的 synthetic 单元/集成测试 |
+| `evals/` | M0 评测 schema 和离线评测入口 |
 
-## Harness design
+## M0 invariants
 
-Harness is the outer control system around an LLM, not a fancy prompt. The first version should include:
+1. Safety routing happens before retrieval or model calls.
+2. The model only sees the retrieved Evidence bundle.
+3. A normal answer needs at least one citation ID verified against that bundle.
+4. Empty evidence, generator abstention and invalid citations fail closed to `ABSTAIN`.
+5. Source metadata is separate from model logic and is copied from stored objects.
+6. Tests do not require an API key, network or real patient data.
 
-1. **Input gate**: size limits, PII minimization, injection-pattern logging.
-2. **Risk gate**: deterministic emergency/prescription routing before the LLM.
-3. **Tool policy**: the generator only reads reviewed knowledge cards; it cannot call arbitrary web URLs.
-4. **Output gate**: assertions require citations; disallowed claims are rejected or sent to review.
-5. **Human-in-the-loop**: uncertain / stale / high-risk cases become review items rather than model answers.
-6. **Traceability**: record prompt version, retrieved source IDs, model version, policy decision and evaluation version.
+## Later milestones
 
-The initial code implements item 2. Add the other gates one at a time and write regression tests before expanding capability.
-
+M1 可以增加 typed Agent Core，但不是本阶段的一部分；后续再考虑 policy/budget/timeout/
+recovery/trace/replay、可插拔 runtime、Agent Team、context/memory、dense/hybrid retrieval、
+multimodal evidence 和 post-training。每个里程碑都应先有 baseline、失败案例、ablation 和
+可复现评测，再增加复杂度。

@@ -1,0 +1,15 @@
+{
+  "id": "fixture-hypertension",
+  "title": "Synthetic hypertension lifestyle card",
+  "content": "合成测试证据：高血压患者教育可以介绍低盐饮食和规律活动。",
+  "source_url": "https://example.org/fixtures/hypertension",
+  "publisher": "Synthetic test fixture",
+  "published_at": "2026-01-01",
+  "collected_at": "2026-09-10",
+  "reviewed_at": "2026-09-10",
+  "reviewer": "test-fixture-review",
+  "version": "1",
+  "expires_at": null,
+  "audience": ["synthetic_test"],
+  "tags": ["高血压", "低盐饮食", "生活方式"]
+}

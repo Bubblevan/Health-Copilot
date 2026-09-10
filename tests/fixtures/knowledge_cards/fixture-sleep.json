@@ -1,0 +1,15 @@
+{
+  "id": "fixture-sleep",
+  "title": "Synthetic sleep education card",
+  "content": "合成测试证据：生活方式教育可以介绍规律睡眠和白天活动。",
+  "source_url": "https://example.org/fixtures/sleep",
+  "publisher": "Synthetic test fixture",
+  "published_at": "2026-01-01",
+  "collected_at": "2026-09-10",
+  "reviewed_at": "2026-09-10",
+  "reviewer": "test-fixture-review",
+  "version": "1",
+  "expires_at": null,
+  "audience": ["synthetic_test"],
+  "tags": ["睡眠", "生活方式", "sleep", "lifestyle"]
+}

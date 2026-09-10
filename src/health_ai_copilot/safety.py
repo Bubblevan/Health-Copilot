@@ -6,7 +6,6 @@ requires clinical governance, validation and formal operational processes.
 
 from .contracts import AssistantResponse, Route
 
-
 URGENT_MARKERS = (
     "胸痛",
     "呼吸困难",
@@ -21,7 +20,7 @@ PRESCRIPTION_MARKERS = ("开药", "处方", "剂量", "停药", "加药")
 
 def route_question(question: str) -> AssistantResponse | None:
     """Return a safe fixed response when the request must not reach the LLM."""
-    normalized = question.replace(" ", "")
+    normalized = "".join(question.split())
 
     urgent_hits = [marker for marker in URGENT_MARKERS if marker in normalized]
     if urgent_hits:
@@ -46,4 +45,3 @@ def route_question(question: str) -> AssistantResponse | None:
         )
 
     return None
-
