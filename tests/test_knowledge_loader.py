@@ -18,6 +18,13 @@ def test_valid_cards_load_in_deterministic_id_order() -> None:
     ]
 
 
+def test_schema_example_is_documentation_not_a_knowledge_card() -> None:
+    cards = load_knowledge_cards(Path("data") / "knowledge_cards")
+
+    assert len(cards) == 30
+    assert all(card.id != "example-card-not-clinical-data" for card in cards)
+
+
 def test_duplicate_id_fails(tmp_path: Path) -> None:
     source = json.loads((FIXTURE_DIR / "fixture-sleep.json").read_text(encoding="utf-8"))
     source["id"] = "fixture-hypertension"

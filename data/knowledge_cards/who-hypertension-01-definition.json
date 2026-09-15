@@ -1,0 +1,15 @@
+{
+  "id": "who-hypertension-01-definition",
+  "title": "WHO：高血压的基本定义",
+  "content": "WHO 高血压事实表将高血压（hypertension）描述为血管内压力过高；该页面以收缩压和/或舒张压达到 140/90 mmHg 作为高血压说明口径。此处是 WHO 全球患者教育页面的定义口径，不替代当地医疗人员的诊断。",
+  "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension",
+  "publisher": "World Health Organization",
+  "published_at": "2025-09-25",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2025-09-25",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "血压定义", "收缩压", "舒张压", "140/90", "WHO", "global"]
+}

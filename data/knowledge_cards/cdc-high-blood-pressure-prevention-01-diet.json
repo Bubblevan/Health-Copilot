@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-prevention-01-diet",
+  "title": "CDC：有助于血压管理的膳食方向",
+  "content": "CDC 建议与医疗团队讨论多样化饮食，选择富含钾、膳食纤维和蛋白质、同时降低盐（钠）和饱和脂肪的食物，并适当增加新鲜蔬菜和水果。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "膳食", "饮食", "蔬菜", "水果", "低盐", "钠", "CDC", "US"]
+}

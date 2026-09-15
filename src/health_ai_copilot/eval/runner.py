@@ -1,4 +1,4 @@
-"""Offline M0 evaluator for safety routes and retrieval Hit@K."""
+"""Offline M0 evaluator for safety routes and lexical retrieval metrics."""
 
 import argparse
 import json
@@ -35,12 +35,22 @@ def _predicted_safety_route(question: str) -> str:
 def evaluate_cases(
     cases: Iterable[dict[str, Any]], cards: Sequence[KnowledgeCard], top_k: int = 3
 ) -> dict[str, float | int]:
+    """Evaluate the deterministic safety gate and expected source retrieval.
+
+    Retrieval metrics are calculated only for cases with ``expected_source_ids``.
+    Hit@1 and Hit@3 use the first relevant source in the ranked list; MRR uses
+    the reciprocal rank of that first relevant source.
+    """
+    if top_k <= 0:
+        raise ValueError("top_k must be positive")
     cases = list(cases)
     retriever = BM25Retriever(cards)
     safety_route_total = 0
     safety_route_correct = 0
-    hit_total = 0
-    hit_count = 0
+    retrieval_case_total = 0
+    hit_at_1_count = 0
+    hit_at_3_count = 0
+    reciprocal_rank_sum = 0.0
 
     for case in cases:
         expected_route = case.get("expected_route")
@@ -55,12 +65,20 @@ def evaluate_cases(
 
         expected_source_ids = case.get("expected_source_ids", [])
         if expected_source_ids:
-            hit_total += 1
-            returned_ids = {
-                item.source_id for item in retriever.search(case["question"], top_k=top_k)
-            }
-            if returned_ids.intersection(expected_source_ids):
-                hit_count += 1
+            retrieval_case_total += 1
+            ranked_ids = [
+                item.source_id
+                for item in retriever.search(case["question"], top_k=max(top_k, 3))
+            ]
+            expected_ids = set(expected_source_ids)
+            if set(ranked_ids[:1]).intersection(expected_ids):
+                hit_at_1_count += 1
+            if set(ranked_ids[:3]).intersection(expected_ids):
+                hit_at_3_count += 1
+            for rank, source_id in enumerate(ranked_ids, 1):
+                if source_id in expected_ids:
+                    reciprocal_rank_sum += 1 / rank
+                    break
 
     return {
         "num_cases": len(cases),
@@ -68,8 +86,16 @@ def evaluate_cases(
         "safety_route_accuracy": (
             safety_route_correct / safety_route_total if safety_route_total else 0.0
         ),
-        "retrieval_hit_at_3_cases": hit_total,
-        "retrieval_hit_at_3": hit_count / hit_total if hit_total else 0.0,
+        "retrieval_cases": retrieval_case_total,
+        "retrieval_hit_at_1": (
+            hit_at_1_count / retrieval_case_total if retrieval_case_total else 0.0
+        ),
+        "retrieval_hit_at_3": (
+            hit_at_3_count / retrieval_case_total if retrieval_case_total else 0.0
+        ),
+        "retrieval_mrr": (
+            reciprocal_rank_sum / retrieval_case_total if retrieval_case_total else 0.0
+        ),
     }
 
 

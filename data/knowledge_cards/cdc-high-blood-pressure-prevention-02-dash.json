@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-prevention-02-dash",
+  "title": "CDC：DASH 饮食计划与血压",
+  "content": "CDC 页面将 DASH（阻止高血压的膳食方法）列为健康饮食计划，并指出它有帮助降低血压的证据记录。这里仅说明饮食模式，不为个人制定食谱或治疗方案。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "DASH", "饮食计划", "膳食模式", "血压", "CDC", "US"]
+}

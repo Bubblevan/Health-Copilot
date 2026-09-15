@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-risk-03-alcohol",
+  "title": "CDC：饮酒过量会增加高血压风险",
+  "content": "CDC 指出，饮酒过量可能升高血压；页面给出的上限是女性每天不超过 1 杯、男性每天不超过 2 杯。该信息是一般健康教育，不是针对个人的饮酒处方。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "饮酒", "酒精", "风险因素", "CDC", "US"]
+}

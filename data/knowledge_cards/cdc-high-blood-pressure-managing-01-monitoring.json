@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-managing-01-monitoring",
+  "title": "CDC：规律测量有助于管理高血压",
+  "content": "CDC 管理页面指出，规律测量血压是保持血压健康、管理高血压的重要步骤；高血压常常没有症状，测量有助于了解血压是否偏高。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "管理", "监测", "测量血压", "无症状", "CDC", "US"]
+}

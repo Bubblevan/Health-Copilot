@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-risk-05-overweight",
+  "title": "CDC：超重或肥胖会增加高血压风险",
+  "content": "CDC 指出，超重或肥胖会让心脏为了向全身输送血液和氧气而承受更多负担，长期可能增加高血压风险；体重管理应与医疗专业人员讨论。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "超重", "肥胖", "体重", "风险因素", "CDC", "US"]
+}

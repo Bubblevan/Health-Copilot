@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-risk-01-sodium",
+  "title": "CDC：高钠和低钾饮食会增加风险",
+  "content": "CDC 风险因素页面指出，钠摄入过多、钾摄入不足会增加高血压风险；膳食中的钠有很大一部分来自加工食品和餐馆食品。是否需要调整钾摄入应结合个人情况咨询医疗专业人员。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "钠", "盐", "钾", "饮食", "加工食品", "风险因素", "CDC", "US"]
+}

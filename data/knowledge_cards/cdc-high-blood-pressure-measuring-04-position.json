@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-measuring-04-position",
+  "title": "CDC：测量血压时的身体姿势",
+  "content": "CDC 的测量清单建议：测量前坐着休息至少 5 分钟，背部有支撑，双脚平放且双腿不要交叉；袖带所在的手臂应放在与胸部同高的桌面上，袖带贴在裸露皮肤上，测量时不要说话。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-05-15",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "updated-2026-09-04",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "测量姿势", "坐姿", "袖带", "手臂", "休息5分钟", "CDC", "US"]
+}

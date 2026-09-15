@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-risk-04-tobacco",
+  "title": "CDC：烟草使用会增加高血压相关风险",
+  "content": "CDC 指出，烟草使用会增加高血压风险；吸烟会损害心脏和血管，尼古丁会升高血压。戒烟可降低心脏病风险。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "吸烟", "烟草", "尼古丁", "戒烟", "风险因素", "CDC", "US"]
+}

@@ -12,12 +12,22 @@ class KnowledgeCardLoadError(ValueError):
     """Raised when a knowledge-card directory cannot be loaded safely."""
 
 
+_DOCUMENTATION_FILES = {"_schema.example.json"}
+
+
 def _json_files(directory: Path) -> Iterable[Path]:
-    return sorted(directory.glob("*.json"), key=lambda path: path.name)
+    return sorted(
+        (
+            path
+            for path in directory.glob("*.json")
+            if path.name not in _DOCUMENTATION_FILES
+        ),
+        key=lambda path: path.name,
+    )
 
 
 def load_knowledge_cards(directory: str | Path) -> list[KnowledgeCard]:
-    """Load every JSON card, failing loudly on the first invalid document."""
+    """Load every JSON card, except the reserved schema example, failing loudly."""
     path = Path(directory)
     if not path.exists():
         raise KnowledgeCardLoadError(f"knowledge-card directory does not exist: {path}")

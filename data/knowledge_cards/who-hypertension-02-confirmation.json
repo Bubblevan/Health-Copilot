@@ -1,0 +1,15 @@
+{
+  "id": "who-hypertension-02-confirmation",
+  "title": "WHO：高血压需要在不同日期测量确认",
+  "content": "WHO 页面说明：如果在不同日期测量时，收缩压两次都达到或超过 140 mmHg，和/或舒张压两次都达到或超过 90 mmHg，可达到该页面所述的高血压诊断条件。具体诊断仍应由医疗专业人员完成。",
+  "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension",
+  "publisher": "World Health Organization",
+  "published_at": "2025-09-25",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2025-09-25",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "重复测量", "不同日期", "诊断", "140/90", "WHO", "global"]
+}

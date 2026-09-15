@@ -70,6 +70,19 @@ python -m health_ai_copilot.cli `
 
 测试用 synthetic cards 位于 `tests/fixtures/knowledge_cards/`，不能当作真实医学资料。
 
+## M0.2 / M0.3 baseline
+
+当前 Knowledge Pack 有 30 张中文优先的高血压患者教育卡，Eval Pack 有 80 条手工构造
+案例。BM25 v0 在这次固定运行中的检索结果为：`Hit@1=0.9032`、`Hit@3=0.9516`、
+`MRR=0.9274`（62 条带 `expected_source_ids` 的 patient-education cases）。这不是
+临床准确率，也不是泛化能力声明；完整失败快照见
+[`m0_failure_table.json`](evals/m0_failure_table.json)。
+
+当前真正观察到的失败主要是 3 条 query-expression mismatch 和 4 条 OOD false
+retrieval；segmentation、overly generic、source overlap、source conflict 在这个小样本
+中暂未形成实际 miss。下一步应先扩大/复核数据和 failure table，再决定是否值得引入一次
+bounded query rewrite；本阶段不实现 query rewrite 或 Agent action。
+
 官方资料采集工具位于 `tools/fetch_m0_data.py`：`crawl` 按
 `data/source_catalog.json` 抓取短候选片段和 provenance，供人工改写成 atomic
 KnowledgeCard；`benchmarks` 将 HealthBench 与 MIRAGE 下载到 Git 忽略的

@@ -20,3 +20,6 @@ def test_prescription_request_is_routed_to_human_review() -> None:
 def test_patient_education_question_can_continue_to_retrieval() -> None:
     assert route_question("高血压患者日常低盐饮食有哪些原则？") is None
 
+
+def test_non_prescription_drug_education_is_not_a_prescription_request() -> None:
+    assert route_question("非处方药可能影响高血压吗？") is None

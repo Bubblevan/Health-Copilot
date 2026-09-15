@@ -1,0 +1,129 @@
+{
+  "pack_version": "m0.3-2026-09-15",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "retriever": {
+    "name": "BM25 v0",
+    "tokenizer": "jieba with NFKC/lowercase normalization",
+    "k1": 1.5,
+    "b": 0.75
+  },
+  "metrics": {
+    "num_cases": 80,
+    "safety_route_cases": 76,
+    "safety_route_accuracy": 1.0,
+    "retrieval_cases": 62,
+    "hit_at_1": 0.9032258064516129,
+    "hit_at_3": 0.9516129032258065,
+    "mrr": 0.9274193548387096
+  },
+  "classification_basis": "Failure types were assigned after inspecting ranked top-3 evidence for each miss and OOD case; challenge_type is not itself treated as a failure.",
+  "failure_types": [
+    {
+      "type": "segmentation_failure",
+      "challenge_case_ids": ["m0-047"],
+      "failure_case_ids": [],
+      "count": 0,
+      "note": "The spaced term in m0-047 still retrieved the expected position card; no observed failure in this small sample."
+    },
+    {
+      "type": "synonym_paraphrase_failure",
+      "challenge_case_ids": ["m0-002", "m0-003", "m0-005", "m0-018", "m0-034", "m0-040", "m0-061"],
+      "failure_case_ids": ["m0-003", "m0-005", "m0-034"],
+      "count": 3,
+      "observations": [
+        {
+          "case_id": "m0-003",
+          "expected_source_ids": ["who-hypertension-02-confirmation"],
+          "top_3": [
+            "who-hypertension-03-silent",
+            "cdc-high-blood-pressure-managing-01-monitoring",
+            "cdc-high-blood-pressure-about-02-symptoms"
+          ],
+          "note": "只看一次 does not lexically align with the card's 不同日期 and confirmation wording."
+        },
+        {
+          "case_id": "m0-005",
+          "expected_source_ids": ["who-hypertension-03-silent"],
+          "top_3": [
+            "cdc-high-blood-pressure-risk-03-alcohol",
+            "cdc-high-blood-pressure-risk-05-overweight",
+            "cdc-high-blood-pressure-risk-04-tobacco"
+          ],
+          "note": "头晕或不舒服 does not match the card's symptom/no-symptom terms strongly enough."
+        },
+        {
+          "case_id": "m0-034",
+          "expected_source_ids": ["cdc-high-blood-pressure-prevention-04-sleep"],
+          "top_3": [
+            "cdc-high-blood-pressure-risk-05-overweight",
+            "cdc-high-blood-pressure-risk-04-tobacco",
+            "cdc-high-blood-pressure-risk-01-sodium"
+          ],
+          "note": "睡不好 and 睡眠不足 are a paraphrase mismatch, while generic 风险 terms dominate."
+        }
+      ]
+    },
+    {
+      "type": "overly_generic_term",
+      "challenge_case_ids": ["m0-062"],
+      "failure_case_ids": [],
+      "count": 0,
+      "note": "高血压怎么管理？ still ranked the monitoring card first, but this should be retested as the pack grows."
+    },
+    {
+      "type": "source_overlap",
+      "challenge_case_ids": ["m0-007", "m0-036", "m0-059"],
+      "failure_case_ids": [],
+      "count": 0,
+      "note": "Overlapping WHO, CDC and managing cards were either accepted through multi-source labels or returned within top-3."
+    },
+    {
+      "type": "source_conflict",
+      "challenge_case_ids": ["m0-012", "m0-060"],
+      "failure_case_ids": [],
+      "count": 0,
+      "note": "The two threshold questions retrieved the scoped CDC and WHO cards; semantic scope handling remains a generation concern, not a BM25 metric."
+    },
+    {
+      "type": "ood_false_retrieval",
+      "challenge_case_ids": ["m0-077", "m0-078", "m0-079", "m0-080"],
+      "failure_case_ids": ["m0-077", "m0-078", "m0-079", "m0-080"],
+      "count": 4,
+      "observations": [
+        {
+          "case_id": "m0-077",
+          "top_3": [
+            "cdc-high-blood-pressure-managing-01-monitoring",
+            "cdc-high-blood-pressure-risk-04-tobacco",
+            "who-hypertension-03-silent"
+          ]
+        },
+        {
+          "case_id": "m0-078",
+          "top_3": [
+            "nhc-hypertension-day-03-home-monitoring",
+            "cdc-high-blood-pressure-managing-02-care-plan",
+            "who-hypertension-01-definition"
+          ]
+        },
+        {
+          "case_id": "m0-079",
+          "top_3": [
+            "cdc-high-blood-pressure-risk-04-tobacco",
+            "cdc-high-blood-pressure-risk-05-overweight",
+            "nhc-hypertension-day-02-weight"
+          ]
+        },
+        {
+          "case_id": "m0-080",
+          "top_3": [
+            "cdc-high-blood-pressure-prevention-01-diet",
+            "cdc-high-blood-pressure-managing-01-monitoring",
+            "cdc-high-blood-pressure-risk-04-tobacco"
+          ]
+        }
+      ],
+      "note": "All four OOD questions share high-blood-pressure terms with the pack and therefore receive positive lexical evidence. This is an observed false-retrieval diagnostic, not a calibrated probability."
+    }
+  ]
+}

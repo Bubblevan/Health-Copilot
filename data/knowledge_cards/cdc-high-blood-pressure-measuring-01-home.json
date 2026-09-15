@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-measuring-01-home",
+  "title": "CDC：家庭自测血压应与医疗团队支持结合",
+  "content": "CDC 将家庭自测血压称为 self-measured blood pressure monitoring（SMBP），并指出高血压人群在家庭自测与医疗团队支持结合时，更可能降低血压。设备使用方法可请医疗团队成员指导。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-05-15",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "updated-2026-09-04",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "家庭血压", "居家监测", "SMBP", "医疗团队", "CDC", "US"]
+}

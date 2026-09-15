@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-prevention-04-sleep",
+  "title": "CDC：睡眠不足与高血压风险相关",
+  "content": "CDC 页面指出，长期规律睡眠不足与心脏病、高血压和卒中风险增加相关；充足睡眠也有助于整体健康。该卡不对个人睡眠障碍作诊断。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "睡眠", "睡眠不足", "心脏病", "卒中", "CDC", "US"]
+}

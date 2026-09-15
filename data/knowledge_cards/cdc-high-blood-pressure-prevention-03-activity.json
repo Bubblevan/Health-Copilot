@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-prevention-03-activity",
+  "title": "CDC：成年人每周身体活动建议",
+  "content": "CDC 页面引用美国身体活动指南：成年人每周至少进行 2 小时 30 分钟中等强度活动，例如快走或骑车，约等于每天 30 分钟、每周 5 天。个人运动计划应考虑自身情况。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "运动", "身体活动", "150分钟", "快走", "骑车", "CDC", "US"]
+}

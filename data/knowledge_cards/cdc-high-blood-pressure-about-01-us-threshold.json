@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-about-01-us-threshold",
+  "title": "CDC：美国页面的高血压阈值口径",
+  "content": "CDC 的美国患者教育页面写明：高血压通常指血压持续达到或超过 130/80 mmHg。该页面引用美国 2025 年 ACC/AHA 等联合指南，阈值具有明确的美国指南语境，不应与其他地区口径不加区分地合并。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/about/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2026-01-28",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2026-01-28",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "血压阈值", "130/80", "ACC/AHA", "CDC", "US", "美国口径"]
+}

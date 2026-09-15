@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-managing-03-medicine-safety",
+  "title": "CDC：不要自行停用降压药",
+  "content": "CDC 说明，降压药应严格按照医生的指示服用；不要在未先咨询医生或药师的情况下自行停用当前药物，因为突然停药可能带来严重健康后果。该卡不提供药物剂量或个体化用药建议。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "降压药", "停药", "用药安全", "药师", "CDC", "US"]
+}

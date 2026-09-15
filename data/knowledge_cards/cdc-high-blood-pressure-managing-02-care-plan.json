@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-managing-02-care-plan",
+  "title": "CDC：与医疗团队共同制定管理计划",
+  "content": "CDC 建议患者与医疗团队共同制定高血压及相关疾病的管理计划，定期讨论治疗计划，并在就诊时带上自己想问的问题。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "管理计划", "医疗团队", "就诊", "问题清单", "CDC", "US"]
+}

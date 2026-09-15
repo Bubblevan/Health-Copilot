@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-measuring-03-before-reading",
+  "title": "CDC：测量前应避免影响读数的准备因素",
+  "content": "CDC 的测量清单建议：测量前 30 分钟不要进食或饮水，并先排空膀胱；这些准备有助于获得更准确的血压读数。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-05-15",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "updated-2026-09-04",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "测量前", "进食", "饮水", "膀胱", "血压读数", "CDC", "US"]
+}

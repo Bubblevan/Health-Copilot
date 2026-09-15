@@ -33,7 +33,12 @@ def route_question(question: str) -> AssistantResponse | None:
             safety_reasons=[f"urgent_marker:{marker}" for marker in urgent_hits],
         )
 
-    prescription_hits = [marker for marker in PRESCRIPTION_MARKERS if marker in normalized]
+    # "非处方药" contains the substring "处方", but a general OTC education
+    # question should not be routed as a request for a prescription.
+    prescription_text = normalized.replace("非处方", "")
+    prescription_hits = [
+        marker for marker in PRESCRIPTION_MARKERS if marker in prescription_text
+    ]
     if prescription_hits:
         return AssistantResponse(
             route=Route.HUMAN_REVIEW,

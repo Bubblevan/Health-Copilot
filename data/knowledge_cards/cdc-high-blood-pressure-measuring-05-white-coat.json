@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-measuring-05-white-coat",
+  "title": "CDC：环境和行为可能影响血压读数",
+  "content": "CDC 提醒，紧张、吸烟、饮酒、摄入咖啡因或在测量前 30 分钟内运动，都可能使读数升高；诊室紧张导致的白大衣效应也可能让诊室读数高于诊室外读数。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-05-15",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "updated-2026-09-04",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "白大衣效应", "紧张", "咖啡因", "吸烟", "饮酒", "运动", "读数", "CDC", "US"]
+}

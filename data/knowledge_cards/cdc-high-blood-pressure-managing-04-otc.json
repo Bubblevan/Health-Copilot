@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-managing-04-otc",
+  "title": "CDC：部分非处方药可能影响血压",
+  "content": "CDC 指出，一些非处方药（例如鼻减充血剂）可能升高血压或与降压药相互作用；使用其他药物或补充剂时，应告知医生。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "非处方药", "鼻减充血剂", "相互作用", "补充剂", "CDC", "US"]
+}

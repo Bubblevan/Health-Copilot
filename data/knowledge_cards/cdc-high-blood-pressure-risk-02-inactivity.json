@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-risk-02-inactivity",
+  "title": "CDC：身体活动不足是风险因素",
+  "content": "CDC 指出，规律身体活动有助于保持心脏和血管健康，也有助于维持健康体重，从而可能帮助降低血压；身体活动不足会增加高血压风险。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-12-13",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "2024-12-13",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "运动", "身体活动", "久坐", "风险因素", "CDC", "US"]
+}

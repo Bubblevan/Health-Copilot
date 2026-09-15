@@ -1,0 +1,15 @@
+{
+  "id": "cdc-high-blood-pressure-measuring-02-repeat",
+  "title": "CDC：家庭测量应固定时间并重复读数",
+  "content": "CDC 建议家庭自测血压时使用记录表，尽量每天在同一时间测量，并至少测量两次，每次间隔 1 到 2 分钟。具体频率应与医疗团队讨论。",
+  "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html",
+  "publisher": "Centers for Disease Control and Prevention",
+  "published_at": "2024-05-15",
+  "collected_at": "2026-09-15",
+  "reviewed_at": "2026-09-15",
+  "reviewer": "manual-source-check-2026-09-15",
+  "version": "updated-2026-09-04",
+  "expires_at": null,
+  "audience": ["adult_patient_education"],
+  "tags": ["高血压", "家庭血压", "同一时间", "重复测量", "记录表", "1到2分钟", "CDC", "US"]
+}
