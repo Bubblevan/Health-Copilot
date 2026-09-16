@@ -21,6 +21,33 @@ User question
 安全路由先于检索和模型调用。Generator 只接收本次检索到的 Evidence，模型不能选择任意
 URL 或伪造来源；Citation 的 metadata 从 Evidence 复制，不信任模型生成的 metadata。
 
+## M1 bounded recovery slice
+
+M1 保留上述安全门和初始检索，并只在初始证据非空后进入 Agent：
+
+```text
+question
+  -> input validation
+  -> deterministic safety gate
+       -> urgent care / human review (terminal, no Agent call)
+       -> retrieval-eligible question
+  -> initial BM25 retrieval
+       -> empty (terminal ABSTAIN, no Agent call)
+  -> AgentSession + initial Evidence
+  -> AgentLoop, max_model_turns=2, max_tool_calls=1
+       -> structured final turn
+            -> verify citations against initial + successful tool Evidence
+       -> search_knowledge(query)
+            -> ToolResult observation
+            -> second model turn
+       -> budget/model/tool failure (ABSTAIN)
+```
+
+`AgentSession` 只保存这一次运行的 typed transcript；`AgentState` 保存当前 turn/tool 计数、
+停止原因和去重后的 observed evidence。`ToolRegistry` 明确注册 `search_knowledge`，不做
+目录扫描、插件发现或 YAML 自动加载。工具失败是结构化 observation，允许第二个 model turn
+看到失败并 abstain；如果最终没有可靠的结构化 final turn，运行时 fail closed。
+
 ## Project structure
 
 | Directory | Responsibility |
@@ -29,8 +56,10 @@ URL 或伪造来源；Citation 的 metadata 从 Evidence 复制，不信任模�
 | `src/health_ai_copilot/knowledge/` | JSON knowledge-card 校验和确定性加载 |
 | `src/health_ai_copilot/retrieval/` | 中文分词和直接实现的 BM25 baseline |
 | `src/health_ai_copilot/generation/` | 最小 Generator Protocol 和 OpenAI-compatible provider |
+| `src/health_ai_copilot/agent/` | typed message、session/state、受限 AgentLoop、事件和模型协议 |
+| `src/health_ai_copilot/tools/` | M1 唯一的只读 `search_knowledge` 工具 |
 | `src/health_ai_copilot/verification/` | citation-ID 完整性校验 |
-| `src/health_ai_copilot/pipeline.py` | M0 组件编排，不实现组件内部逻辑 |
+| `src/health_ai_copilot/pipeline.py` | M0/M1 安全、检索、生成与 Agent 组件编排 |
 | `tests/` | 不联网的 synthetic 单元/集成测试 |
 | `evals/` | M0 评测 schema 和离线评测入口 |
 
@@ -43,14 +72,23 @@ URL 或伪造来源；Citation 的 metadata 从 Evidence 复制，不信任模�
 5. Source metadata is separate from model logic and is copied from stored objects.
 6. Tests do not require an API key, network or real patient data.
 
+## M1 invariants
+
+1. Safety routing happens before Agent model or tool calls.
+2. Initial lexical retrieval remains deterministic and empty evidence still abstains before Agent.
+3. Tool choice and arguments are structural provider tool calls, never prose parsing.
+4. Product limits are deterministic: at most two model turns and one retrieval tool call.
+5. Final citation verification receives the union of initial and successful recovery evidence,
+   deduplicated by `source_id`.
+6. Budget exhaustion and provider/tool failures never force a medical answer.
+
 M0 为保持现有 `AssistantResponse` contract，字段名仍是 `safety_reasons`；但 pipeline
 目前也会在其中记录 `insufficient_evidence`、`retrieval_error`、`generation_error` 和
-`invalid_citation` 等 status reason。后续 M1 应演进为 `reasons` 或 `status_reasons`，
-按 safety 与 runtime failure domain 分离，避免字段名产生误导。
+`invalid_citation` 等 status reason。M1 保持该兼容字段；后续里程碑再演进为 `reasons` 或
+`status_reasons`，按 safety 与 runtime failure domain 分离，避免字段名产生误导。
 
 ## Later milestones
 
-M1 可以增加 typed Agent Core，但不是本阶段的一部分；后续再考虑 policy/budget/timeout/
-recovery/trace/replay、可插拔 runtime、Agent Team、context/memory、dense/hybrid retrieval、
-multimodal evidence 和 post-training。每个里程碑都应先有 baseline、失败案例、ablation 和
-可复现评测，再增加复杂度。
+M2 再考虑 policy/budget/timeout 的更广泛 harness、持久化 trace/replay、可插拔 runtime、
+dense/hybrid retrieval、multimodal evidence 和 post-training。每个里程碑都应先有 baseline、
+失败案例、ablation 和可复现评测，再增加复杂度。

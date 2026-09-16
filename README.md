@@ -29,6 +29,25 @@ User question
 - 离线评测器只计算 `safety_route_accuracy` 和有标注来源时的 retrieval Hit@K；前者
   只评估 safety gate，不是 end-to-end route accuracy。
 
+## M1 已实现：受限 Agent Recovery
+
+M1 在冻结的 M0 安全边界之内增加一个小型、单 Agent 运行时：
+
+- `AgentState`、`AgentSession`、typed message 和 `StopReason`；
+- 显式 `ToolSpec`、参数校验、`ToolRegistry` 和结构化 `ToolResult`；
+- 最多 2 次模型 turn、最多 1 次工具调用的确定性 `AgentLoop`；
+- 唯一产品工具 `search_knowledge(query)`，只读包装现有 BM25；
+- 初始证据与恢复检索证据按 `source_id` 去重后统一做 citation verification；
+- `agent_start`、`turn_start`、`model_response`、`tool_start`、`tool_end`、`turn_end`、
+  `agent_end` 内存事件；事件只携带元数据，不携带问题、工具参数或回答内容。
+
+控制流是：安全门 → 初始 BM25 → 空证据则 `ABSTAIN` → 第一次 Agent turn → 可选的一次
+`search_knowledge` → 工具结果作为 observation → 第二次 Agent turn → 引用校验。任何预算
+耗尽、模型失败或未经观察的引用都会 fail closed；预算耗尽不会强行让模型回答。
+
+M1 Agent autonomy 只用于已观察到的词汇/表达不匹配恢复，不是自主医疗诊断 Agent，也不
+声称临床验证。`AgentSession` 只是一次运行的内存 transcript，不是长期记忆。
+
 ## 快速开始
 
 在仓库根目录建立并使用 uv 环境：
@@ -41,7 +60,7 @@ pytest -q
 ruff check .
 ```
 
-运行确定性离线评测（当前 `m0.jsonl` 仅包含 schema 示例）：
+运行确定性 M0 离线评测（`m0.jsonl` 包含 80 条 reviewed cases）：
 
 ```powershell
 python -m health_ai_copilot.eval.runner `
@@ -56,9 +75,13 @@ $env:HEALTH_COPILOT_API_KEY = "..."
 $env:HEALTH_COPILOT_BASE_URL = "https://your-openai-compatible-endpoint/v1"
 $env:HEALTH_COPILOT_MODEL = "your-model"
 python -m health_ai_copilot.cli `
+  --mode m0 `
   --knowledge-dir data/knowledge_cards `
   --question "你的患者教育问题"
 ```
+
+将 `--mode m0` 改为 `--mode m1` 可演示受限 Agent recovery；两种模式都使用同一份本地
+Knowledge Pack。M1 的离线 mechanics 测试不需要 API Key。
 
 没有 API 配置时，确定性测试仍可完整运行；live demo 会给出配置错误，不会伪装成离线成功。
 
@@ -80,8 +103,10 @@ python -m health_ai_copilot.cli `
 
 当前真正观察到的失败主要是 3 条 query-expression mismatch 和 4 条 OOD false
 retrieval；segmentation、overly generic、source overlap、source conflict 在这个小样本
-中暂未形成实际 miss。下一步应先扩大/复核数据和 failure table，再决定是否值得引入一次
-bounded query rewrite；本阶段不实现 query rewrite 或 Agent action。
+中暂未形成实际 miss。M1 的恢复回归集见
+[`m1_recovery.jsonl`](evals/m1_recovery.jsonl)；它保留了 3 条已观察到的 paraphrase miss、
+直接命中控制、4 条 OOD false-retrieval 控制以及 safety controls。恢复查询由模型的
+`search_knowledge(query=...)` 参数产生，生产代码不硬编码 case ID 或 rewrite 字符串。
 
 官方资料采集工具位于 `tools/fetch_m0_data.py`：`crawl` 按
 `data/source_catalog.json` 抓取短候选片段和 provenance，供人工改写成 atomic
@@ -94,19 +119,20 @@ KnowledgeCard；`benchmarks` 将 HealthBench 与 MIRAGE 下载到 Git 忽略的
 输出 Recall@K、MRR 和 nDCG@K。NFCorpus 的 qrels 保留在独立的 retrieval-eval adapter
 中，不会被伪装成产品 KnowledgeCard。
 
-## 尚未实现
+## 明确不在 M1 内
 
-M0 明确不包含 Agent Loop / ReAct、Agent Runtime、Multi-Agent、Memory、MCP、Sandbox、
-Milvus、Qdrant、dense retrieval、reranker、web search、VLM、SFT/DPO/RL 和任何临床验证。
-这些是后续里程碑，不能在简历或 README 中提前宣称已经具备。
+M1 明确不包含 Multi-Agent、Agent Swarm、Memory、MCP、Sandbox、Milvus、Qdrant、dense
+retrieval、reranker、web search、VLM、SFT/DPO/RL、流式 UI、并行工具、队列、持久化 trace
+或任何临床验证。这些能力不能被 M1 的 bounded single-agent runtime 暗示为已经具备。
 
 ## 设计限制
 
-M0 的 citation verifier 只验证模型返回的 ID 是否属于本次检索到的 Evidence，并从存储的
-Evidence 复制标题、摘要和 URL；它不证明每个自然语言 claim 与引用之间存在语义蕴含关系。
-claim-level grounding、trace/replay 和完整 Harness Runtime 留到后续阶段。
+M0/M1 的 citation verifier 只验证模型返回的 ID 是否属于本次实际观察到的 Evidence，并从
+存储的 Evidence 复制标题、摘要和 URL；它不证明每个自然语言 claim 与引用之间存在语义
+蕴含关系。claim-level grounding、持久化 trace/replay 和完整 Harness Runtime 留到后续
+阶段。
 
 为保持 M0 的兼容性，`AssistantResponse.safety_reasons` 当前同时承载 safety reason 和
 pipeline status reason（如 `retrieval_error`、`generation_error`、`invalid_citation`）。
-这是已知技术债，后续 M1 可演进为更准确的 `reasons` 或 `status_reasons`，再按 failure
-domain 分离。
+这是已知技术债；M1 保持该兼容字段，后续里程碑再演进为更准确的 `reasons` 或
+`status_reasons`，按 failure domain 分离。

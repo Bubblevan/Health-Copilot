@@ -36,6 +36,17 @@ M0.3 Eval Pack 的检索指标只统计带有人工核对 `expected_source_ids` 
 M0 不使用 LLM-as-Judge，也不声称测量诊断正确率、临床安全性或语义蕴含。未来的
 grounding、abstention 和失败分类评测必须建立在可复现的 trace 和人工审核标准上。
 
+## M1 recovery pack
+
+`m1_recovery.jsonl` 是一个聚焦回归包，不是新的大规模质量声明。它包含 M0 已观察到的
+3 条 synonym/paraphrase miss、3 条 direct-hit control、4 条 OOD false-retrieval control，
+以及 urgent/prescription safety control。`recovery_expected` 只用于评估设计意图，不会被
+生产运行时读取，也不包含固定 rewrite 字符串。
+
+`health_ai_copilot.eval.m1.summarize_m1_runs` 只对调用方实际提供的 `AgentRunResult` 聚合
+tool activation、平均 tool calls、预算耗尽、observed-evidence Hit@3、非必要恢复、引用
+完整性和 safety short-circuit 等指标；没有 live model run 时，不会伪造 M1 数字。
+
 ## 外部 benchmark
 
 `tools/fetch_m0_data.py benchmarks` 会把 HealthBench 和 MIRAGE 下载到被 Git 忽略的

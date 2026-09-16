@@ -1,8 +1,9 @@
-"""Minimal command-line demo for the live M0 pipeline."""
+"""Command-line demo for the reproducible M0 path and bounded M1 path."""
 
 import argparse
 import sys
 
+from .agent.model import AgentModelError, OpenAICompatibleAgentModel
 from .generation.base import GenerationError
 from .generation.openai_compatible import OpenAICompatibleGenerator
 from .knowledge.loader import KnowledgeCardLoadError, load_knowledge_cards
@@ -11,7 +12,13 @@ from .retrieval.bm25 import BM25Retriever
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run the Health-Copilot M0 pipeline")
+    parser = argparse.ArgumentParser(description="Run the Health-Copilot M0 or M1 pipeline")
+    parser.add_argument(
+        "--mode",
+        choices=("m0", "m1"),
+        default="m0",
+        help="m0: deterministic generator path; m1: bounded single-agent recovery path",
+    )
     parser.add_argument(
         "--knowledge-dir", default="data/knowledge_cards", help="directory containing JSON cards"
     )
@@ -24,9 +31,14 @@ def main(argv: list[str] | None = None) -> int:
     try:
         cards = load_knowledge_cards(args.knowledge_dir)
         retriever = BM25Retriever(cards)
-        generator = OpenAICompatibleGenerator()
-        result = HealthCopilotPipeline(retriever, generator).answer(args.question)
-    except (KnowledgeCardLoadError, GenerationError) as exc:
+        if args.mode == "m0":
+            generator = OpenAICompatibleGenerator()
+            pipeline = HealthCopilotPipeline(retriever, generator)
+        else:
+            agent_model = OpenAICompatibleAgentModel()
+            pipeline = HealthCopilotPipeline(retriever, agent_model=agent_model)
+        result = pipeline.answer(args.question)
+    except (KnowledgeCardLoadError, GenerationError, AgentModelError) as exc:
         print(f"Configuration or knowledge-card error: {exc}", file=sys.stderr)
         return 2
 

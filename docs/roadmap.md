@@ -1,6 +1,6 @@
 # Roadmap
 
-## M0 — Safety-Gated Evidence RAG
+## M0 — Safety-Gated Evidence RAG（implemented）
 
 当前里程碑，目标是稳定的、非自主的 vertical slice：
 
@@ -12,11 +12,19 @@
 - no-evidence / malformed generation / fabricated citation 的 abstention；
 - synthetic tests 和离线 route/retrieval eval。
 
-## M1 — Agent Core（planned）
+## M1 — Bounded Agent Core + One-Step Retrieval Recovery（implemented）
 
-只在 M0 的检索、证据和安全契约稳定后实现 `AgentState`、受限 `AgentLoop`、ToolRegistry
-和 Session。Agent Loop 应由失败模式驱动，例如只允许一次 query rewrite recovery，而
-不是为了“有 Agent”而添加 ReAct。
+M1 已在 M0 契约之上实现：
+
+- typed `AgentState`、typed messages、in-memory `AgentSession`；
+- 显式 `ToolSpec`、参数校验、`ToolRegistry` 和结构化 `ToolResult`；
+- `max_model_turns=2`、`max_tool_calls=1` 的顺序 `AgentLoop`；
+- 唯一只读 `search_knowledge(query)` 工具，以及初始/恢复 Evidence union citation 校验；
+- 生命周期事件与离线 FakeAgentModel 测试矩阵；
+- M0 path 仍可通过旧 Generator 重放，CLI 提供 `--mode m0` 和 `--mode m1`。
+
+M1 的 Agent action 只针对 M0 观察到的 lexical query-expression mismatch；它不解决 OOD
+false retrieval，也不声称解决 evidence sufficiency 或临床安全性。
 
 ## M2 — Harness Runtime（planned）
 

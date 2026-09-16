@@ -1,0 +1,262 @@
+"""Readable, deterministic model -> tool -> observation -> model loop."""
+
+from collections.abc import Callable, Sequence
+from dataclasses import dataclass
+
+from ..contracts import Evidence, GenerationDraft
+from .events import AgentEvent, AgentEventType
+from .messages import (
+    FinalTurn,
+    ToolCallTurn,
+    ToolResultMessage,
+    UserMessage,
+)
+from .model import AgentModel
+from .session import AgentSession
+from .state import AgentState, StopReason
+from .tools import ToolRegistry
+
+EventSink = Callable[[AgentEvent], None]
+
+
+@dataclass(frozen=True)
+class AgentLoopConfig:
+    max_model_turns: int = 2
+    max_tool_calls: int = 1
+
+    def __post_init__(self) -> None:
+        if self.max_model_turns <= 0:
+            raise ValueError("max_model_turns must be greater than zero")
+        if self.max_model_turns > 2:
+            raise ValueError("M1 max_model_turns cannot exceed two")
+        if self.max_tool_calls < 0:
+            raise ValueError("max_tool_calls must not be negative")
+        if self.max_tool_calls > 1:
+            raise ValueError("M1 max_tool_calls cannot exceed one")
+
+
+@dataclass(frozen=True)
+class AgentRunResult:
+    state: AgentState
+    events: tuple[AgentEvent, ...]
+
+    @property
+    def draft(self) -> GenerationDraft | None:
+        return self.state.final_draft
+
+    @property
+    def observed_evidence(self) -> list[Evidence]:
+        return list(self.state.observed_evidence)
+
+    @property
+    def stop_reason(self) -> StopReason | None:
+        return self.state.stop_reason
+
+
+class AgentLoop:
+    """M1's only runtime: bounded, sequential, one-agent execution."""
+
+    def __init__(
+        self,
+        model: AgentModel,
+        registry: ToolRegistry,
+        config: AgentLoopConfig | None = None,
+        event_sink: EventSink | None = None,
+    ) -> None:
+        self.model = model
+        self.registry = registry
+        self.config = config or AgentLoopConfig()
+        self.event_sink = event_sink
+
+    def run(
+        self,
+        question: str,
+        initial_evidence: Sequence[Evidence],
+        session: AgentSession | None = None,
+    ) -> AgentRunResult:
+        active_session = session or AgentSession()
+        state = AgentState(session=active_session)
+        state.add_evidence(list(initial_evidence))
+        events: list[AgentEvent] = []
+
+        def emit(event: AgentEvent) -> None:
+            events.append(event)
+            if self.event_sink is not None:
+                try:
+                    self.event_sink(event)
+                except Exception:  # noqa: BLE001 - observers cannot break safety flow
+                    return
+
+        emit(AgentEvent(AgentEventType.AGENT_START, active_session.session_id))
+        active_session.append(
+            UserMessage(content=question, evidence=tuple(state.observed_evidence))
+        )
+
+        while state.model_turns_used < self.config.max_model_turns:
+            turn = state.model_turns_used + 1
+            emit(AgentEvent(AgentEventType.TURN_START, active_session.session_id, turn=turn))
+            state.model_turns_used += 1
+
+            try:
+                response = self.model.respond(
+                    tuple(active_session.messages),
+                    tuple(self.registry.list_model_tool_specs()),
+                )
+            except Exception:  # noqa: BLE001 - model failures become controlled stops
+                emit(
+                    AgentEvent(
+                        AgentEventType.MODEL_RESPONSE,
+                        active_session.session_id,
+                        turn=turn,
+                        response_kind="error",
+                        success=False,
+                        error_code="model_error",
+                    )
+                )
+                emit(
+                    AgentEvent(
+                        AgentEventType.TURN_END,
+                        active_session.session_id,
+                        turn=turn,
+                        success=False,
+                    )
+                )
+                state.stop(StopReason.MODEL_ERROR)
+                break
+
+            if isinstance(response, FinalTurn):
+                final_message = response.as_message()
+                active_session.append(final_message)
+                state.final_draft = response.to_draft()
+                emit(
+                    AgentEvent(
+                        AgentEventType.MODEL_RESPONSE,
+                        active_session.session_id,
+                        turn=turn,
+                        response_kind="final",
+                        success=True,
+                    )
+                )
+                reason = StopReason.ABSTAIN if response.abstain else StopReason.FINAL
+                emit(
+                    AgentEvent(
+                        AgentEventType.TURN_END,
+                        active_session.session_id,
+                        turn=turn,
+                        success=True,
+                    )
+                )
+                state.stop(reason, response.to_draft())
+                break
+
+            if not isinstance(response, ToolCallTurn):
+                emit(
+                    AgentEvent(
+                        AgentEventType.MODEL_RESPONSE,
+                        active_session.session_id,
+                        turn=turn,
+                        response_kind="invalid",
+                        success=False,
+                        error_code="invalid_model_response",
+                    )
+                )
+                emit(
+                    AgentEvent(
+                        AgentEventType.TURN_END,
+                        active_session.session_id,
+                        turn=turn,
+                        success=False,
+                    )
+                )
+                state.stop(StopReason.MODEL_ERROR)
+                break
+
+            active_session.append(response.as_message())
+            emit(
+                AgentEvent(
+                    AgentEventType.MODEL_RESPONSE,
+                    active_session.session_id,
+                    turn=turn,
+                    response_kind="tool_call",
+                    success=True,
+                )
+            )
+
+            if not response.tool_calls:
+                # A provider should normally return either a final turn or a
+                # non-empty tool-call turn. Treat an empty action as a
+                # non-final observation so the hard model-turn budget still
+                # controls termination and fails closed.
+                emit(
+                    AgentEvent(
+                        AgentEventType.TURN_END,
+                        active_session.session_id,
+                        turn=turn,
+                        success=False,
+                    )
+                )
+                continue
+
+            if state.tool_calls_used + len(response.tool_calls) > self.config.max_tool_calls:
+                emit(
+                    AgentEvent(
+                        AgentEventType.TURN_END,
+                        active_session.session_id,
+                        turn=turn,
+                        success=False,
+                    )
+                )
+                state.stop(StopReason.MAX_TOOL_CALLS)
+                break
+
+            # M1 is sequential and configured for one call, even though the
+            # structural turn type can represent a list of provider calls.
+            call = response.tool_calls[0]
+            state.tool_calls_used += 1
+            emit(
+                AgentEvent(
+                    AgentEventType.TOOL_START,
+                    active_session.session_id,
+                    turn=turn,
+                    tool_call_id=call.id,
+                    tool_name=call.name,
+                )
+            )
+            result = self.registry.execute(call)
+            emit(
+                AgentEvent(
+                    AgentEventType.TOOL_END,
+                    active_session.session_id,
+                    turn=turn,
+                    tool_call_id=call.id,
+                    tool_name=call.name,
+                    success=result.ok,
+                    error_code=result.error.code if result.error else None,
+                )
+            )
+            if result.ok and result.observed_evidence:
+                state.add_evidence(list(result.observed_evidence))
+            active_session.append(
+                ToolResultMessage(tool_call_id=call.id, tool_name=call.name, result=result)
+            )
+            emit(
+                AgentEvent(
+                    AgentEventType.TURN_END,
+                    active_session.session_id,
+                    turn=turn,
+                    success=result.ok,
+                )
+            )
+
+        if state.status.value == "running":
+            state.stop(StopReason.MAX_MODEL_TURNS)
+
+        emit(
+            AgentEvent(
+                AgentEventType.AGENT_END,
+                active_session.session_id,
+                stop_reason=state.stop_reason.value if state.stop_reason else None,
+                success=state.stop_reason in {StopReason.FINAL, StopReason.ABSTAIN},
+            )
+        )
+        return AgentRunResult(state=state, events=tuple(events))

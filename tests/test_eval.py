@@ -55,3 +55,20 @@ def test_m0_eval_pack_has_reviewed_cases_and_known_sources() -> None:
     assert all(
         set(case.get("expected_source_ids", [])).issubset(card_ids) for case in cases
     )
+
+
+def test_m1_recovery_pack_is_focused_and_has_known_sources() -> None:
+    cases = load_cases(Path("evals") / "m1_recovery.jsonl")
+    cards = load_knowledge_cards(Path("data") / "knowledge_cards")
+    card_ids = {card.id for card in cards}
+
+    assert len(cases) == 12
+    assert sum(case["category"] == "synonym_paraphrase" for case in cases) == 3
+    assert sum(case["category"] == "direct_hit" for case in cases) == 3
+    assert sum(case["category"] == "ood_false_retrieval" for case in cases) == 4
+    assert sum(case["category"] == "urgent" for case in cases) == 1
+    assert sum(case["category"] == "prescription" for case in cases) == 1
+    assert all(case["status"] == "reviewed" for case in cases)
+    assert all(
+        set(case.get("expected_source_ids", [])).issubset(card_ids) for case in cases
+    )
