@@ -44,8 +44,16 @@ grounding、abstention 和失败分类评测必须建立在可复现的 trace �
 生产运行时读取，也不包含固定 rewrite 字符串。
 
 `health_ai_copilot.eval.m1.summarize_m1_runs` 只对调用方实际提供的 `AgentRunResult` 聚合
-tool activation、平均 tool calls、预算耗尽、observed-evidence Hit@3、非必要恢复、引用
-完整性和 safety short-circuit 等指标；没有 live model run 时，不会伪造 M1 数字。
+阶段分离的指标：`initial_hit@3` 看初始 ranked evidence，`recovery_success@3` 同时要求
+初始未命中、实际调用 `search_knowledge` 且 recovery ranked top-3 命中，`post_recovery_hit@3`
+才看整个 observed trajectory。另有 recovery attempt、非必要恢复、OOD tool/answer/abstain、
+safety short-circuit accuracy、turn/tool budget 和 citation integrity 指标；不存在名为
+`recovery_hit_at_3` 的混合指标。没有 live model run 时，不会伪造 M1 数字。
+
+配置好 `HEALTH_COPILOT_API_KEY`、`HEALTH_COPILOT_BASE_URL`（可选）和
+`HEALTH_COPILOT_MODEL` 后，可用 `python tools/run_m1_focused_eval.py --trials 3` 运行同一
+模型配置下的 focused diagnostic；每次运行会在 `runs/m1/<timestamp>/` 保存配置、原始案例、
+分阶段 trajectory、metrics、failures 和报告。该结果不代表泛化性能。
 
 ## 外部 benchmark
 

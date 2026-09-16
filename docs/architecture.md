@@ -44,7 +44,8 @@ question
 ```
 
 `AgentSession` 只保存这一次运行的 typed transcript；`AgentState` 保存当前 turn/tool 计数、
-停止原因和去重后的 observed evidence。`ToolRegistry` 明确注册 `search_knowledge`，不做
+停止原因、`initial_ranked_evidence`、`recovery_ranked_evidence` 和去重后的 observed evidence。
+`ToolRegistry` 明确注册 `search_knowledge`，不做
 目录扫描、插件发现或 YAML 自动加载。工具失败是结构化 observation，允许第二个 model turn
 看到失败并 abstain；如果最终没有可靠的结构化 final turn，运行时 fail closed。
 
@@ -81,6 +82,10 @@ question
 5. Final citation verification receives the union of initial and successful recovery evidence,
    deduplicated by `source_id`.
 6. Budget exhaustion and provider/tool failures never force a medical answer.
+
+`HealthCopilotPipeline` 要求 `generator` 与 `agent_model` 二选一；两者同时传入会抛出配置
+错误。Agent tool arguments 使用 M1 所需的有限 object/string schema 校验子集，不宣称支持
+完整 JSON Schema。
 
 M0 为保持现有 `AssistantResponse` contract，字段名仍是 `safety_reasons`；但 pipeline
 目前也会在其中记录 `insufficient_evidence`、`retrieval_error`、`generation_error` 和

@@ -38,6 +38,7 @@ M1 在冻结的 M0 安全边界之内增加一个小型、单 Agent 运行时：
 - 最多 2 次模型 turn、最多 1 次工具调用的确定性 `AgentLoop`；
 - 唯一产品工具 `search_knowledge(query)`，只读包装现有 BM25；
 - 初始证据与恢复检索证据按 `source_id` 去重后统一做 citation verification；
+- 运行结果同时保存初始 ranked evidence、恢复 ranked evidence 和最终 evidence union；
 - `agent_start`、`turn_start`、`model_response`、`tool_start`、`tool_end`、`turn_end`、
   `agent_end` 内存事件；事件只携带元数据，不携带问题、工具参数或回答内容。
 
