@@ -1,1 +1,1 @@
-"""Repository-local data acquisition utilities for M0."""
+"""Repository maintenance and evaluation helpers."""
