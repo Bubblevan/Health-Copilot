@@ -1,5 +1,7 @@
 from collections.abc import Sequence
 
+import pytest
+
 from health_ai_copilot.agent import (
     AgentLoop,
     AgentLoopConfig,
@@ -300,3 +302,15 @@ def test_session_distinguishes_transcript_from_execution_state() -> None:
     assert run.state.model_turns_used == 1
     assert isinstance(session.messages[0], UserMessage)
     assert session.messages[0].content == "问题"
+
+
+def test_pipeline_rejects_generator_and_agent_model_together() -> None:
+    retriever = SpyRetriever([make_evidence("source-a")])
+    generator = lambda question, evidence: None
+
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        HealthCopilotPipeline(
+            retriever,
+            generator,
+            agent_model=FakeAgentModel([FinalTurn("answer", ["source-a"])]),
+        )

@@ -4,7 +4,7 @@ from collections.abc import Callable, Sequence
 from typing import Protocol
 
 from .agent.events import AgentEvent
-from .agent.loop import AgentLoop, AgentLoopConfig
+from .agent.loop import AgentLoop, AgentLoopConfig, AgentRunResult
 from .agent.model import AgentModel
 from .agent.tools import ToolRegistry
 from .contracts import AssistantResponse, Citation, Evidence, GenerationDraft, Route
@@ -87,6 +87,7 @@ class HealthCopilotPipeline:
         generator: Generator | None = None,
         top_k: int = 5,
         *,
+        recovery_top_k: int = 3,
         agent_model: AgentModel | None = None,
         agent_config: AgentLoopConfig | None = None,
         tool_registry: ToolRegistry | None = None,
@@ -94,16 +95,21 @@ class HealthCopilotPipeline:
     ):
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
+        if recovery_top_k <= 0:
+            raise ValueError("recovery_top_k must be greater than zero")
+        if generator is not None and agent_model is not None:
+            raise ValueError("generator and agent_model are mutually exclusive")
         if generator is None and agent_model is None:
             raise ValueError("either generator or agent_model must be provided")
         self.retriever = retriever
         self.generator = generator
         self.top_k = top_k
         self.agent_model = agent_model
+        self.last_agent_run: AgentRunResult | None = None
         self.agent_loop: AgentLoop | None = None
         if agent_model is not None:
             registry = tool_registry or ToolRegistry(
-                [SearchKnowledgeTool(retriever, top_k=min(3, top_k))]
+                [SearchKnowledgeTool(retriever, top_k=recovery_top_k)]
             )
             self.agent_loop = AgentLoop(
                 agent_model,
@@ -113,6 +119,7 @@ class HealthCopilotPipeline:
             )
 
     def answer(self, question: str) -> AssistantResponse:
+        self.last_agent_run = None
         if not isinstance(question, str) or not question.strip():
             return abstain_response("invalid_input")
 
@@ -146,6 +153,7 @@ class HealthCopilotPipeline:
             run = self.agent_loop.run(question, initial_evidence)  # type: ignore[union-attr]
         except Exception:  # noqa: BLE001 - runtime boundary must fail closed
             return abstain_response("agent_error")
+        self.last_agent_run = run
 
         if run.draft is None:
             reason = run.stop_reason.value if run.stop_reason else "agent_error"

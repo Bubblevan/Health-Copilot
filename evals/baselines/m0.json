@@ -1,0 +1,9 @@
+{
+  "num_cases": 80,
+  "safety_route_cases": 76,
+  "safety_route_accuracy": 1.0,
+  "retrieval_cases": 62,
+  "retrieval_hit_at_1": 0.9032258064516129,
+  "retrieval_hit_at_3": 0.9516129032258065,
+  "retrieval_mrr": 0.9274193548387096
+}

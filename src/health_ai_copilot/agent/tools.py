@@ -4,6 +4,7 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any, Protocol
 
+from ..contracts import Evidence
 from .messages import ToolCall
 
 
@@ -27,11 +28,11 @@ class ToolResult:
     ok: bool
     data: Any = None
     error: ToolError | None = None
-    observed_evidence: tuple[Any, ...] = ()
+    observed_evidence: tuple[Evidence, ...] = ()
 
     @classmethod
     def success(
-        cls, data: Any, *, observed_evidence: Sequence[Any] = ()
+        cls, data: Any, *, observed_evidence: Sequence[Evidence] = ()
     ) -> "ToolResult":
         return cls(
             ok=True,
@@ -47,6 +48,7 @@ class ToolResult:
     def is_error(self) -> bool:
         return not self.ok
 
+    @property
     def success_result(self) -> bool:
         return self.ok
 
@@ -149,6 +151,7 @@ def _get_tool_spec(tool: Tool) -> ToolSpec:
 
 
 def _validate_against_schema(schema: Mapping[str, Any], arguments: object) -> object:
+    """Validate the small object/string subset used by M1, not full JSON Schema."""
     if schema.get("type") == "object" and not isinstance(arguments, Mapping):
         raise TypeError("arguments must be an object")
     if not isinstance(arguments, Mapping):

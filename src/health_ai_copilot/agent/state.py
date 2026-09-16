@@ -13,12 +13,13 @@ class AgentStatus(StrEnum):
 
 
 class StopReason(StrEnum):
+    """Terminal runtime outcomes; tool errors remain non-terminal observations."""
+
     FINAL = "final"
     ABSTAIN = "abstain"
     MAX_MODEL_TURNS = "max_model_turns"
     MAX_TOOL_CALLS = "max_tool_calls"
     MODEL_ERROR = "model_error"
-    TOOL_ERROR = "tool_error"
 
 
 @dataclass
@@ -31,6 +32,8 @@ class AgentState:
     status: AgentStatus = AgentStatus.RUNNING
     stop_reason: StopReason | None = None
     final_draft: GenerationDraft | None = None
+    initial_ranked_evidence: list[Evidence] = field(default_factory=list)
+    recovery_ranked_evidence: list[Evidence] = field(default_factory=list)
     observed_evidence: list[Evidence] = field(default_factory=list)
 
     def add_evidence(self, evidence: list[Evidence] | tuple[Evidence, ...]) -> None:
@@ -40,6 +43,11 @@ class AgentState:
             if item.source_id not in seen:
                 self.observed_evidence.append(item)
                 seen.add(item.source_id)
+
+    def add_recovery_evidence(self, evidence: list[Evidence] | tuple[Evidence, ...]) -> None:
+        """Keep recovery ranking separate from the evidence union."""
+        self.recovery_ranked_evidence.extend(evidence)
+        self.add_evidence(evidence)
 
     def stop(self, reason: StopReason, draft: GenerationDraft | None = None) -> None:
         self.status = AgentStatus.STOPPED

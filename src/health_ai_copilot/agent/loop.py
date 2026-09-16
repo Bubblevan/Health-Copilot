@@ -49,6 +49,14 @@ class AgentRunResult:
         return list(self.state.observed_evidence)
 
     @property
+    def initial_ranked_evidence(self) -> list[Evidence]:
+        return list(self.state.initial_ranked_evidence)
+
+    @property
+    def recovery_ranked_evidence(self) -> list[Evidence]:
+        return list(self.state.recovery_ranked_evidence)
+
+    @property
     def stop_reason(self) -> StopReason | None:
         return self.state.stop_reason
 
@@ -75,8 +83,12 @@ class AgentLoop:
         session: AgentSession | None = None,
     ) -> AgentRunResult:
         active_session = session or AgentSession()
-        state = AgentState(session=active_session)
-        state.add_evidence(list(initial_evidence))
+        ranked_initial_evidence = list(initial_evidence)
+        state = AgentState(
+            session=active_session,
+            initial_ranked_evidence=list(ranked_initial_evidence),
+        )
+        state.add_evidence(ranked_initial_evidence)
         events: list[AgentEvent] = []
 
         def emit(event: AgentEvent) -> None:
@@ -235,7 +247,7 @@ class AgentLoop:
                 )
             )
             if result.ok and result.observed_evidence:
-                state.add_evidence(list(result.observed_evidence))
+                state.add_recovery_evidence(list(result.observed_evidence))
             active_session.append(
                 ToolResultMessage(tool_call_id=call.id, tool_name=call.name, result=result)
             )
