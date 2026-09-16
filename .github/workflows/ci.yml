@@ -25,8 +25,9 @@ jobs:
       - name: Offline tests
         run: pytest -q
 
-      - name: Replay M0 deterministic evaluation
+      - name: Replay and assert M0 deterministic baseline
         run: >-
-          python -m health_ai_copilot.eval.runner
+          python tools/check_m0_baseline.py
           --knowledge-dir data/knowledge_cards
           --dataset evals/m0.jsonl
+          --baseline evals/baselines/m0.json

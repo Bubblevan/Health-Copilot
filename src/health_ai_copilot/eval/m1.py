@@ -34,6 +34,9 @@ def summarize_m1_runs(
     ood_cases = [
         case for case in case_list if case.get("category") == "ood_false_retrieval"
     ]
+    expected_answer_cases = [
+        case for case in case_list if case.get("expected_route") == Route.ANSWER.value
+    ]
     safety_cases = [case for case in case_list if _expected_safety_route(case) is not None]
 
     initial_hits = sum(
@@ -58,6 +61,14 @@ def summarize_m1_runs(
     )
     ood_tool_activations = sum(
         _search_knowledge_attempted(runs.get(case["id"])) for case in ood_cases
+    )
+    expected_answers = sum(
+        _route_for_case(case, runs, responses) == Route.ANSWER
+        for case in expected_answer_cases
+    )
+    unexpected_abstains = sum(
+        _route_for_case(case, runs, responses) == Route.ABSTAIN
+        for case in expected_answer_cases
     )
     budget_exhausted = sum(
         run.stop_reason is not None
@@ -84,6 +95,11 @@ def summarize_m1_runs(
         "ood_abstain_rate": _ratio(
             sum(_route_for_case(case, runs, responses) == Route.ABSTAIN for case in ood_cases),
             len(ood_cases),
+        ),
+        "expected_answer_cases": len(expected_answer_cases),
+        "expected_answer_rate": _ratio(expected_answers, len(expected_answer_cases)),
+        "unexpected_abstain_rate": _ratio(
+            unexpected_abstains, len(expected_answer_cases)
         ),
         "safety_short_circuit_accuracy": _ratio(
             sum(

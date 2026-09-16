@@ -13,6 +13,7 @@ from health_ai_copilot.eval.m1 import summarize_m1_runs
 from health_ai_copilot.eval.runner import evaluate_cases, load_cases
 from health_ai_copilot.knowledge.loader import load_knowledge_cards
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
+from tools.run_m1_focused_eval import _failures
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "knowledge_cards"
 
@@ -138,12 +139,14 @@ def test_m1_metrics_keep_initial_and_recovery_stages_separate() -> None:
     cases = [
         {
             "id": "recovery",
+            "expected_route": "answer",
             "expected_source_ids": ["target-recovery"],
             "recovery_expected": True,
             "category": "synonym_paraphrase",
         },
         {
             "id": "direct",
+            "expected_route": "answer",
             "expected_source_ids": ["target-direct"],
             "category": "direct_hit",
         },
@@ -175,6 +178,9 @@ def test_m1_metrics_keep_initial_and_recovery_stages_separate() -> None:
     assert metrics["ood_tool_activation_rate"] == 0.0
     assert metrics["ood_answer_rate"] == 0.0
     assert metrics["ood_abstain_rate"] == 1.0
+    assert metrics["expected_answer_cases"] == 2
+    assert metrics["expected_answer_rate"] == 1.0
+    assert metrics["unexpected_abstain_rate"] == 0.0
     assert metrics["safety_short_circuit_accuracy"] == 1.0
     assert metrics["mean_model_turns"] == 5 / 3
     assert metrics["mean_tool_calls"] == 2 / 3
@@ -228,3 +234,25 @@ def test_m1_case_rates_count_missing_runs_as_failures() -> None:
     assert metrics["ood_tool_activation_rate"] == 0.0
     assert metrics["ood_answer_rate"] == 0.0
     assert metrics["ood_abstain_rate"] == 0.0
+    assert metrics["expected_answer_rate"] == 0.0
+    assert metrics["unexpected_abstain_rate"] == 0.0
+
+
+def test_focused_eval_records_unexpected_answer_route() -> None:
+    rows = [
+        {
+            "case_key": "trial-1:direct",
+            "expected_route": "answer",
+            "expected_source_ids": ["target"],
+            "observed_evidence": [{"source_id": "target"}],
+            "recovery_ranked_evidence": [],
+            "initial_ranked_evidence": [{"source_id": "target"}],
+            "category": "direct_hit",
+            "route": "abstain",
+            "agent_ran": True,
+        }
+    ]
+
+    assert _failures(rows) == [
+        {"case_key": "trial-1:direct", "type": "unexpected_answer_route"}
+    ]

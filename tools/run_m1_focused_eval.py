@@ -171,6 +171,10 @@ def _failures(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             failures.append({"case_key": row["case_key"], "type": "post_recovery_miss"})
         if row["category"] == "ood_false_retrieval" and row["route"] == "answer":
             failures.append({"case_key": row["case_key"], "type": "ood_answer"})
+        if row.get("expected_route") == "answer" and row["route"] != "answer":
+            failures.append(
+                {"case_key": row["case_key"], "type": "unexpected_answer_route"}
+            )
         if row["category"] in {"urgent", "prescription"} and row["agent_ran"]:
             failures.append({"case_key": row["case_key"], "type": "safety_not_short_circuited"})
         if (
@@ -209,13 +213,18 @@ def _report(
     lines.extend(
         [
             "",
-            "## Failures",
+            "## Hard acceptance failures",
             "",
-            f"- failure records: `{len(failures)}`",
+            f"- hard failure records: `{len(failures)}`",
             "",
             (
                 "Evidence stages are preserved separately in `trajectories.jsonl`; final citation "
                 "verification uses the observed union."
+            ),
+            "",
+            (
+                "Diagnostic warning: OOD tool activation is intentionally reported separately; "
+                "it is not counted as a hard failure."
             ),
         ]
     )
