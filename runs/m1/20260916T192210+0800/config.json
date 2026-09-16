@@ -1,0 +1,14 @@
+{
+  "commit_sha": "285b4af4e26009aca03883a38607744761d84bc7",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "eval_pack_version": "m1_recovery.jsonl:sha256:b76ac092f9d203563ad9f9d997599a071e44fae6c60e056416b22a96d72ff0c3",
+  "model": "deepseek-flash",
+  "temperature": 0.1,
+  "base_url": "https://api.deepseek.com",
+  "trials": 3,
+  "max_model_turns": 2,
+  "max_tool_calls": 1,
+  "initial_top_k": 5,
+  "recovery_top_k": 3,
+  "live_api_key": "configured-but-not-recorded"
+}
