@@ -17,13 +17,14 @@ class OpenAIConfig:
 
 
 def load_openai_config(*, model_override: str | None = None) -> OpenAIConfig:
-    api_key = os.getenv("HEALTH_COPILOT_API_KEY", "").strip()
+    api_key = _env_value("HEALTH_COPILOT_API_KEY")
     model = (
         model_override
-        or os.getenv("HEALTH_COPILOT_MODEL", "")
-        or os.getenv("HEALTH_COPILOT_MODEL_ID", "")
-    ).strip()
-    base_url = os.getenv("HEALTH_COPILOT_BASE_URL", "").strip() or None
+        or _env_value("HEALTH_COPILOT_MODEL")
+        or _env_value("HEALTH_COPILOT_MODEL_ID")
+    )
+    model = _strip_quotes(model)
+    base_url = _env_value("HEALTH_COPILOT_BASE_URL") or None
 
     missing = []
     if not api_key:
@@ -37,3 +38,13 @@ def load_openai_config(*, model_override: str | None = None) -> OpenAIConfig:
         )
 
     return OpenAIConfig(api_key=api_key, model=model, base_url=base_url)
+
+
+def _env_value(name: str) -> str:
+    return _strip_quotes(os.getenv(name, "").strip())
+
+
+def _strip_quotes(value: str) -> str:
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        return value[1:-1].strip()
+    return value
