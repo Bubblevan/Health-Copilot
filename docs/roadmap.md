@@ -44,6 +44,10 @@ KnowledgeScope、scope-aware policy validation、claim-first final wire contract
 不包含 web search、memory、MCP、Agent Team、dense retrieval 或新的 plugin framework。M2 的 coverage
 path 保持可重放，M3 的用户可见事实只来自 verified claims。
 
+M3 empirical closeout 应按 `runs/m3/` 的 capability、claim-support 与 focused M2-vs-M3 artifacts
+解读：claim-first 是消除自由 answer/claim coverage mismatch 的结构性路径改动，不是独立 verifier 或
+完美 semantic claim support 的声明。
+
 ## M4+ — Later extensions（planned）
 
 后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；可考虑更广的 evaluation harness、

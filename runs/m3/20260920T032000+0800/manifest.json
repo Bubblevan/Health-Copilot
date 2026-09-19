@@ -1,0 +1,8 @@
+{
+  "source_implementation_commit": "b99f455",
+  "capability_standalone_run": "../20260920T031005+0800",
+  "claim_support_standalone_run": "../20260920T031131+0800",
+  "focused_m2_vs_m3_run": "../20260920T031217+0800",
+  "empirical_conclusion": "partially_supported",
+  "m4_started": false
+}
