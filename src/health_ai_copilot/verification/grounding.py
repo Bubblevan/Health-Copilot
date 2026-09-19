@@ -68,7 +68,7 @@ class OpenAICompatibleGroundingVerifier:
         kwargs: dict[str, Any] = {"api_key": config.api_key}
         if config.base_url:
             kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**kwargs)
+        self._client = OpenAI(**kwargs, timeout=30.0)
         self.model_name = config.model
 
     def verify(self, answer: str, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:

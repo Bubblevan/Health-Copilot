@@ -71,7 +71,7 @@ class OpenAICompatibleAgentModel:
         client_kwargs: dict[str, Any] = {"api_key": config.api_key}
         if config.base_url:
             client_kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**client_kwargs)
+        self._client = OpenAI(**client_kwargs, timeout=30.0)
         self._model = config.model
         self._temperature = config.temperature
         self._system_prompt = _M2_SYSTEM_PROMPT if require_claims else _M1_SYSTEM_PROMPT
