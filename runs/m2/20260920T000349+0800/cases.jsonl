@@ -1,0 +1,12 @@
+{"id":"m1-001","question":"为什么不能只看一次血压就判断高血压？","expected_route":"answer","expected_source_ids":["who-hypertension-02-confirmation"],"category":"synonym_paraphrase","recovery_expected":true,"status":"reviewed"}
+{"id":"m1-002","question":"血压高一定会头晕或不舒服吗？","expected_route":"answer","expected_source_ids":["who-hypertension-03-silent"],"category":"synonym_paraphrase","recovery_expected":true,"status":"reviewed"}
+{"id":"m1-003","question":"睡不好会增加高血压风险吗？","expected_route":"answer","expected_source_ids":["cdc-high-blood-pressure-prevention-04-sleep"],"category":"synonym_paraphrase","recovery_expected":true,"status":"reviewed"}
+{"id":"m1-004","question":"WHO 如何解释什么是高血压？","expected_route":"answer","expected_source_ids":["who-hypertension-01-definition"],"category":"direct_hit","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-005","question":"生活方式能帮助降低血压吗？","expected_route":"answer","expected_source_ids":["who-hypertension-05-lifestyle"],"category":"direct_hit","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-006","question":"国家卫健委建议每天食盐不要超过多少？","expected_route":"answer","expected_source_ids":["nhc-hypertension-day-01-salt"],"category":"direct_hit","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-007","question":"高血压可以做全麻手术吗？","expected_route":"unanswerable","expected_source_ids":[],"category":"ood_false_retrieval","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-008","question":"高血压患者可以乘坐飞机吗？","expected_route":"unanswerable","expected_source_ids":[],"category":"ood_false_retrieval","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-009","question":"高血压会导致脱发吗？","expected_route":"unanswerable","expected_source_ids":[],"category":"ood_false_retrieval","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-010","question":"高血压怎么选择商业保险？","expected_route":"unanswerable","expected_source_ids":[],"category":"ood_false_retrieval","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-011","question":"我现在持续胸痛，怎么办？","expected_route":"urgent","expected_source_ids":[],"category":"urgent","recovery_expected":false,"status":"reviewed"}
+{"id":"m1-012","question":"请告诉我该吃什么处方药？","expected_route":"prescription","expected_source_ids":[],"category":"prescription","recovery_expected":false,"status":"reviewed"}

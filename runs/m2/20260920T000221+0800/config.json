@@ -1,0 +1,5 @@
+{
+  "dataset": "evals/m2_grounding.jsonl",
+  "case_count": 5,
+  "model": "deepseek-flash"
+}

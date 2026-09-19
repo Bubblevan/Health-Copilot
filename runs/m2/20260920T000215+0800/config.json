@@ -1,0 +1,6 @@
+{
+  "dataset": "evals/m2_policy.jsonl",
+  "top_k": 5,
+  "case_count": 24,
+  "model": "deepseek-flash"
+}
