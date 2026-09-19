@@ -2,6 +2,7 @@
 
 import json
 from collections.abc import Mapping, Sequence
+from enum import StrEnum
 from typing import Any, Protocol
 
 from ..config import ConfigurationError, load_openai_config
@@ -51,11 +52,31 @@ _M2_SYSTEM_PROMPT = _M1_SYSTEM_PROMPT.replace(
     '- 最终回答只使用 JSON：{"answer":"...","citation_ids":["..."],"claims":[{"text":"...","citation_ids":["..."]}],"abstain":false}。',
 )
 
+_M3_SYSTEM_PROMPT = _M1_SYSTEM_PROMPT.replace(
+    '- 最终回答只使用 JSON：{"answer":"...","citation_ids":["..."],"abstain":false}。',
+    '- M3 final 必须是 claim-first：只输出原子 factual claims，不要输出自由 answer 字段。\n'
+    '- 最终回答只使用 JSON：{"claims":[{"text":"...","citation_ids":["..."]}],"abstain":false}。\n'
+    '- 非 abstain 时 claims 必须非空，每个 claim 都必须有 citation_ids。',
+)
+
+
+class AgentOutputMode(StrEnum):
+    """Explicit wire contracts that keep M1 and M2 replayable while adding M3."""
+
+    M1 = "m1"
+    M2_GROUNDED = "m2_grounded"
+    M3_CLAIM_FIRST = "m3_claim_first"
+
 
 class OpenAICompatibleAgentModel:
     """OpenAI-compatible tool-calling adapter; retries are intentionally absent."""
 
-    def __init__(self, *, require_claims: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        output_mode: AgentOutputMode | str | None = None,
+        require_claims: bool | None = None,
+    ) -> None:
         try:
             config = load_openai_config()
         except ConfigurationError as exc:
@@ -74,7 +95,21 @@ class OpenAICompatibleAgentModel:
         self._client = OpenAI(**client_kwargs, timeout=30.0, max_retries=0)
         self._model = config.model
         self._temperature = config.temperature
-        self._system_prompt = _M2_SYSTEM_PROMPT if require_claims else _M1_SYSTEM_PROMPT
+        if output_mode is None:
+            self.output_mode = (
+                AgentOutputMode.M2_GROUNDED if require_claims else AgentOutputMode.M1
+            )
+        else:
+            self.output_mode = AgentOutputMode(output_mode)
+            if require_claims is not None and require_claims != (
+                self.output_mode == AgentOutputMode.M2_GROUNDED
+            ):
+                raise ValueError("require_claims conflicts with output_mode")
+        self._system_prompt = {
+            AgentOutputMode.M1: _M1_SYSTEM_PROMPT,
+            AgentOutputMode.M2_GROUNDED: _M2_SYSTEM_PROMPT,
+            AgentOutputMode.M3_CLAIM_FIRST: _M3_SYSTEM_PROMPT,
+        }[self.output_mode]
 
     def respond(
         self, messages: Sequence[AgentMessage], tools: Sequence[ToolSpec]
@@ -121,8 +156,16 @@ class OpenAICompatibleAgentModel:
 
         content = getattr(message, "content", None)
         try:
-            draft = OpenAICompatibleGenerator._parse(content)
             claims = _parse_claims(content)
+            output_mode = getattr(self, "output_mode", AgentOutputMode.M1)
+            if output_mode == AgentOutputMode.M3_CLAIM_FIRST:
+                parsed = json.loads(content) if isinstance(content, str) else {}
+                abstain = parsed.get("abstain", False)
+                if not isinstance(abstain, bool):
+                    raise TypeError("invalid M3 abstain")
+                claim_ids = [source_id for claim in claims for source_id in claim.citation_ids]
+                return FinalTurn("", claim_ids, abstain, claims)
+            draft = OpenAICompatibleGenerator._parse(content)
         except Exception as exc:
             raise AgentModelError("agent model returned an invalid final response") from exc
         return FinalTurn(draft.answer, list(draft.citation_ids), draft.abstain, claims)

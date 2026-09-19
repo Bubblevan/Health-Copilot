@@ -36,10 +36,18 @@ M0/M1 的旧 final contract 保持可重放。
 更广泛的 time/token/cost budget、permission、sandbox、持久化 trace/replay 移到后续 Harness
 Runtime 里程碑；M2 不因此扩展 Agent action space。
 
-## M3+ — Evaluation and system extensions（planned）
+## M3 — Capability-Aware Harness & Claim-First Runtime Materialization（implemented）
 
-后续可按真实失败案例依次增加：evaluation harness、plugin/provider boundaries、复杂证据
-研究的 Agent Team、context/memory、dense/hybrid retrieval + reranker，以及视觉证据输入。
-任何 post-training 都必须建立在固定评测集、trajectory/failure 数据和合规数据许可之上。
+M3 基于 M2 观察到的 OOD false recovery 与 coverage-missing false accept，增加 reviewed closed-corpus
+KnowledgeScope、scope-aware policy validation、claim-first final wire contract、claim-support-only verifier
+和 deterministic materializer。它仍只有一个 `search_knowledge` tool、最多两次模型 turn 和一次工具调用；
+不包含 web search、memory、MCP、Agent Team、dense retrieval 或新的 plugin framework。M2 的 coverage
+path 保持可重放，M3 的用户可见事实只来自 verified claims。
+
+## M4+ — Later extensions（planned）
+
+后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；可考虑更广的 evaluation harness、
+provider boundaries、复杂证据研究、memory、dense/hybrid retrieval 或视觉输入。任何 post-training 都必须
+建立在固定评测集、trajectory/failure 数据和合规数据许可之上。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。

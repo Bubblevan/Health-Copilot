@@ -9,10 +9,22 @@ from .messages import ToolCall
 
 
 @dataclass(frozen=True)
+class ToolCapability:
+    """Narrow M3 association between the single search tool and reviewed scope."""
+
+    tool_name: str
+    scope_id: str
+    scope_version: str
+    domain: str
+    topic_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class ToolSpec:
     name: str
     description: str
     input_schema: Mapping[str, Any]
+    capability: ToolCapability | None = None
 
 
 @dataclass(frozen=True)

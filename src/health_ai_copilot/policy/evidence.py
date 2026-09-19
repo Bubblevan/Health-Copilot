@@ -20,6 +20,7 @@ from enum import StrEnum
 from typing import Protocol
 
 from ..contracts import Evidence
+from ..knowledge.scope import KnowledgeScope
 
 
 class EvidenceDecision(StrEnum):
@@ -37,6 +38,7 @@ class EvidenceAssessment:
     decision: EvidenceDecision
     supporting_source_ids: tuple[str, ...] = ()
     reason_codes: tuple[str, ...] = ()
+    matched_topic_ids: tuple[str, ...] = ()
 
 
 class EvidencePolicy(Protocol):
@@ -51,7 +53,11 @@ class EvidencePolicy(Protocol):
         ...
 
 
-def validate_assessment(assessment: EvidenceAssessment, evidence: Sequence[Evidence]) -> EvidenceAssessment:
+def validate_assessment(
+    assessment: EvidenceAssessment,
+    evidence: Sequence[Evidence],
+    knowledge_scope: KnowledgeScope | None = None,
+) -> EvidenceAssessment:
     if not isinstance(assessment, EvidenceAssessment):
         raise TypeError("policy returned an invalid assessment")
     if not set(assessment.supporting_source_ids).issubset({item.source_id for item in evidence}):
@@ -65,4 +71,10 @@ def validate_assessment(assessment: EvidenceAssessment, evidence: Sequence[Evide
         raise ValueError("sufficient policy cannot be out of scope")
     if assessment.decision == EvidenceDecision.CONFLICTING and "direct_support" in reason_codes:
         raise ValueError("conflicting policy cannot claim direct support")
+    if knowledge_scope is not None:
+        unknown_topics = set(assessment.matched_topic_ids) - knowledge_scope.topic_ids
+        if unknown_topics:
+            raise ValueError(f"policy referenced unknown capability topics: {sorted(unknown_topics)}")
+        if assessment.decision == EvidenceDecision.RECOVERABLE and not assessment.matched_topic_ids:
+            raise ValueError("recoverable policy needs a matched capability topic")
     return assessment

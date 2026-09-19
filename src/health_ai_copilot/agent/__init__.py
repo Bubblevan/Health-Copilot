@@ -13,10 +13,10 @@ from .messages import (
     ToolResultMessage,
     UserMessage,
 )
-from .model import AgentModel, AgentModelError, OpenAICompatibleAgentModel
+from .model import AgentModel, AgentModelError, AgentOutputMode, OpenAICompatibleAgentModel
 from .session import AgentSession
 from .state import AgentState, AgentStatus, StopReason
-from .tools import Tool, ToolError, ToolRegistry, ToolResult, ToolSpec
+from .tools import Tool, ToolCapability, ToolError, ToolRegistry, ToolResult, ToolSpec
 
 __all__ = [
     "AgentEvent",
@@ -26,6 +26,7 @@ __all__ = [
     "AgentMessage",
     "AgentModel",
     "AgentModelError",
+    "AgentOutputMode",
     "AgentRunResult",
     "AgentSession",
     "AgentState",
@@ -39,6 +40,7 @@ __all__ = [
     "Tool",
     "ToolCall",
     "ToolCallTurn",
+    "ToolCapability",
     "ToolError",
     "ToolRegistry",
     "ToolResult",

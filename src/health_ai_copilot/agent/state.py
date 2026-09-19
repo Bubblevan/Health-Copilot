@@ -41,6 +41,7 @@ class AgentState:
     policy_decision: str | None = None
     policy_reason_codes: tuple[str, ...] = ()
     policy_supporting_source_ids: tuple[str, ...] = ()
+    policy_matched_topic_ids: tuple[str, ...] = ()
     status: AgentStatus = AgentStatus.RUNNING
     stop_reason: StopReason | None = None
     final_draft: GenerationDraft | None = None

@@ -3,7 +3,8 @@
 from collections.abc import Mapping
 from typing import TYPE_CHECKING
 
-from ..agent.tools import ToolResult, ToolSpec
+from ..agent.tools import ToolCapability, ToolResult, ToolSpec
+from ..knowledge.scope import KnowledgeScope
 
 if TYPE_CHECKING:
     from ..pipeline import Retriever
@@ -12,17 +13,34 @@ if TYPE_CHECKING:
 class SearchKnowledgeTool:
     name = "search_knowledge"
 
-    def __init__(self, retriever: "Retriever", top_k: int = 3) -> None:
+    def __init__(
+        self,
+        retriever: "Retriever",
+        top_k: int = 3,
+        knowledge_scope: KnowledgeScope | None = None,
+    ) -> None:
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
         self._retriever = retriever
         self._top_k = top_k
+        self._knowledge_scope = knowledge_scope
 
     @property
     def spec(self) -> ToolSpec:
+        description = "使用审核知识卡检索一个更适合当前问题的只读查询。"
+        capability = None
+        if self._knowledge_scope is not None:
+            description = self._knowledge_scope.compact_summary()
+            capability = ToolCapability(
+                tool_name=self.name,
+                scope_id=self._knowledge_scope.scope_id,
+                scope_version=self._knowledge_scope.version,
+                domain=self._knowledge_scope.domain,
+                topic_ids=tuple(topic.id for topic in self._knowledge_scope.topics),
+            )
         return ToolSpec(
             name=self.name,
-            description="使用审核知识卡检索一个更适合当前问题的只读查询。",
+            description=description,
             input_schema={
                 "type": "object",
                 "properties": {
@@ -34,6 +52,7 @@ class SearchKnowledgeTool:
                 "required": ["query"],
                 "additionalProperties": False,
             },
+            capability=capability,
         )
 
     def validate_arguments(self, arguments: object) -> dict[str, str]:

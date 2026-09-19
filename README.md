@@ -85,6 +85,8 @@ python -m health_ai_copilot.cli `
 EvidencePolicy 与 claim grounding verifier。M2 的 policy/verifier 使用同一套 API key/base URL，
 模型可分别由 `HEALTH_COPILOT_POLICY_MODEL`、`HEALTH_COPILOT_VERIFIER_MODEL` 指定，缺省时
 回退到 `HEALTH_COPILOT_MODEL`；两者均为 temperature 0。M1/M2 离线 mechanics 测试不需要 API Key。
+`--mode m3` 加载人工审核的 `data/knowledge_scope.json`，让同一个 `search_knowledge`
+工具显式暴露 closed-corpus capability，并使用 claim-first final contract。
 
 没有 API 配置时，确定性测试仍可完整运行；live demo 会给出配置错误，不会伪装成离线成功。
 
@@ -138,6 +140,20 @@ insufficient/conflicting/policy failure 都直接 abstain。工具 proposal 和�
 deterministic citation integrity，再做 coverage/support verifier；任何 fabricated citation、coverage
 缺口、unsupported、contradicted 或 verifier failure 都 fail closed。该机制只校验给定 reviewed
 evidence 的关系，不声称 clinical validation 或 medical correctness。
+
+## M3 已实现：Capability-Aware Policy & Claim-First Materialization
+
+M3 不增加 Agent tool，`search_knowledge` 仍是唯一的只读 BM25 tool。M3 读取经过审核、版本化的
+`data/knowledge_scope.json`，它明确将每张产品 KnowledgeCard 映射到 closed corpus 的 capability
+topic。模型会看到简洁的 scope 描述；EvidencePolicy 同时判断问题、当前 evidence、提议查询和
+scope。只有 `RECOVERABLE` 且返回至少一个有效 `matched_topic_ids` 时，才会执行唯一一次 recovery
+search；无效或伪造 topic ID 会 fail closed 为 policy error。
+
+M3 final 是 claim-first：模型提交原子 claims 与 citation IDs，而不是可作为第二事实来源的自由答案。
+运行时顺序为 claim validation、deterministic citation integrity、claim support verification、deterministic
+materialization。用户可见的事实文本只来自已验证 claim 的原文；M3 critical path 不再调用语义
+`coverage_ok` 判断。这去除了自由 answer/claim coverage mismatch 的用户可见路径，但不声称消除
+hallucination、clinical validation、独立验证或完美 claim support。
 
 ## 设计限制
 

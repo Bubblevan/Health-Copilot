@@ -4,6 +4,7 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 
 from ..contracts import Evidence, GenerationDraft
+from ..knowledge.scope import KnowledgeScope
 from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
 from .events import AgentEvent, AgentEventType
 from .messages import (
@@ -76,12 +77,14 @@ class AgentLoop:
         config: AgentLoopConfig | None = None,
         event_sink: EventSink | None = None,
         evidence_policy: EvidencePolicy | None = None,
+        knowledge_scope: KnowledgeScope | None = None,
     ) -> None:
         self.model = model
         self.registry = registry
         self.config = config or AgentLoopConfig()
         self.event_sink = event_sink
         self.evidence_policy = evidence_policy
+        self.knowledge_scope = knowledge_scope
 
     def run(
         self,
@@ -248,6 +251,7 @@ class AgentLoop:
                     assessment = validate_assessment(
                         self.evidence_policy.assess(question, tuple(state.observed_evidence), proposed_query),
                         tuple(state.observed_evidence),
+                        self.knowledge_scope,
                     )
                 except Exception:  # noqa: BLE001 - a policy failure is terminal and closed
                     emit(AgentEvent(AgentEventType.POLICY_END, active_session.session_id, turn=turn, tool_call_id=call.id, tool_name=call.name, success=False, error_code="policy_error"))
@@ -258,6 +262,7 @@ class AgentLoop:
                 state.policy_decision = assessment.decision.value
                 state.policy_reason_codes = assessment.reason_codes
                 state.policy_supporting_source_ids = assessment.supporting_source_ids
+                state.policy_matched_topic_ids = assessment.matched_topic_ids
                 if assessment.decision == EvidenceDecision.SUFFICIENT:
                     active_session.append(ToolResultMessage(call.id, call.name, ToolResult.failure("policy_denied", "current evidence is sufficient; recovery search was not executed")))
                     emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False, error_code="policy_denied"))

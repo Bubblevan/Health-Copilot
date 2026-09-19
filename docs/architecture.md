@@ -115,3 +115,26 @@ coverage of substantive answer claims, and materializes citation metadata solely
 Unsupported, contradicted, uncovered, malformed, or verifier-error results fail closed. The generator
 and verifier may use the same configured model; that is recorded as same-model verification, not an
 independent judge.
+
+## M3 capability-aware, claim-first path
+
+```text
+initial evidence -> Agent proposal -> EvidencePolicy + reviewed KnowledgeScope
+  recoverable + valid topic -> same search_knowledge -> second Agent turn
+  all other decisions / invalid topic -> deny or abstain
+claim-first final -> citation integrity -> claim support verifier -> deterministic materializer -> response
+```
+
+`data/knowledge_scope.json` is the explicit reviewed source of truth for the closed corpus capability.
+It is not inferred from tags at runtime. `SearchKnowledgeTool` carries only narrow metadata tying its
+single name to scope ID/version/domain/topic IDs; this is not a plugin system or a second tool. M1 and
+M2 instantiate the tool without a scope and retain their existing tool description and semantics.
+
+M3 `EvidenceAssessment` adds optional `matched_topic_ids`. The runtime validates every ID against the
+active scope and requires a non-empty valid set for `RECOVERABLE`, including fake policies in tests.
+The Agent event stop reason remains `FINAL` after a final turn; a later claim-support/materialization
+failure is stored separately as the harness disposition.
+
+M3 has no semantic coverage verifier in its critical path. The model may internally carry an `answer`
+field for compatibility, but the pipeline ignores it: only verified, whitespace-normalized, exact-deduped
+claim text is rendered as ordered bullets, and citations are reconstructed from observed Evidence.

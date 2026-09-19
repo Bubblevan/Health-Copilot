@@ -1,0 +1,59 @@
+{
+  "scope_id": "hypertension-patient-education-v1",
+  "version": "1",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "domain": "reviewed closed hypertension patient-education corpus",
+  "audiences": ["adult_patient_education"],
+  "topics": [
+    {
+      "id": "definition_thresholds",
+      "description": "Hypertension definition and reviewed blood-pressure threshold context.",
+      "source_ids": ["cdc-high-blood-pressure-about-01-us-threshold", "who-hypertension-01-definition"]
+    },
+    {
+      "id": "diagnostic_confirmation",
+      "description": "Why repeated measurements or confirmation are needed in reviewed patient education.",
+      "source_ids": ["who-hypertension-02-confirmation"]
+    },
+    {
+      "id": "symptoms",
+      "description": "Lack of symptoms and symptom-related hypertension patient education.",
+      "source_ids": ["cdc-high-blood-pressure-about-02-symptoms", "who-hypertension-03-silent"]
+    },
+    {
+      "id": "measurement",
+      "description": "Blood-pressure measurement preparation, position, and white-coat effects.",
+      "source_ids": ["cdc-high-blood-pressure-measuring-03-before-reading", "cdc-high-blood-pressure-measuring-04-position", "cdc-high-blood-pressure-measuring-05-white-coat"]
+    },
+    {
+      "id": "home_monitoring",
+      "description": "Home monitoring, repeated readings, and reviewed measurement frequency.",
+      "source_ids": ["cdc-high-blood-pressure-measuring-01-home", "cdc-high-blood-pressure-measuring-02-repeat", "nhc-hypertension-day-03-home-monitoring", "nhc-hypertension-day-04-adult-screening"]
+    },
+    {
+      "id": "risk_factors",
+      "description": "Reviewed hypertension risk-factor education including sodium, inactivity, alcohol, tobacco, and weight.",
+      "source_ids": ["cdc-high-blood-pressure-risk-01-sodium", "cdc-high-blood-pressure-risk-02-inactivity", "cdc-high-blood-pressure-risk-03-alcohol", "cdc-high-blood-pressure-risk-04-tobacco", "cdc-high-blood-pressure-risk-05-overweight", "nhc-hypertension-day-02-weight", "who-hypertension-04-risk-factors"]
+    },
+    {
+      "id": "lifestyle_prevention",
+      "description": "Reviewed diet, DASH, activity, sleep, salt, and lifestyle-prevention education.",
+      "source_ids": ["cdc-high-blood-pressure-prevention-01-diet", "cdc-high-blood-pressure-prevention-02-dash", "cdc-high-blood-pressure-prevention-03-activity", "cdc-high-blood-pressure-prevention-04-sleep", "nhc-hypertension-day-01-salt", "who-hypertension-05-lifestyle"]
+    },
+    {
+      "id": "medication_safety",
+      "description": "General reviewed medication-safety education without prescribing.",
+      "source_ids": ["cdc-high-blood-pressure-managing-03-medicine-safety", "cdc-high-blood-pressure-managing-04-otc"]
+    },
+    {
+      "id": "complications",
+      "description": "Reviewed organ-risk and complication education.",
+      "source_ids": ["cdc-high-blood-pressure-about-03-organ-risks"]
+    },
+    {
+      "id": "care_management",
+      "description": "Reviewed routine monitoring and discussion with the care team.",
+      "source_ids": ["cdc-high-blood-pressure-managing-01-monitoring", "cdc-high-blood-pressure-managing-02-care-plan"]
+    }
+  ]
+}

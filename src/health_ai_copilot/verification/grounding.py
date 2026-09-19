@@ -36,8 +36,24 @@ class GroundingResult:
     claim_results: tuple[ClaimResult, ...]
 
 
+@dataclass(frozen=True)
+class ClaimSupportResult:
+    """M3 claim-only semantic verification result; intentionally no coverage field."""
+
+    claim_results: tuple[ClaimResult, ...]
+
+
 class GroundingVerifier(Protocol):
     def verify(self, answer: str, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:
+        ...
+
+
+class ClaimSupportVerifier(Protocol):
+    """Verify only each cited claim against observed evidence in the M3 path."""
+
+    def verify(
+        self, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]
+    ) -> ClaimSupportResult:
         ...
 
 
@@ -56,6 +72,35 @@ def validate_grounding_result(result: GroundingResult, claims: Sequence[Grounded
         if item.verdict == ClaimVerdict.SUPPORTED and not item.supporting_source_ids:
             raise ValueError("supported claim needs a supporting source")
     return result
+
+
+def validate_claim_support_result(
+    result: ClaimSupportResult,
+    claims: Sequence[GroundedClaim],
+    evidence: Sequence[Evidence],
+) -> ClaimSupportResult:
+    if not isinstance(result, ClaimSupportResult):
+        raise TypeError("claim support verifier returned an invalid result")
+    _validate_claim_results(result.claim_results, claims, evidence)
+    return result
+
+
+def _validate_claim_results(
+    claim_results: Sequence[ClaimResult],
+    claims: Sequence[GroundedClaim],
+    evidence: Sequence[Evidence],
+) -> None:
+    if {item.claim_index for item in claim_results} != set(range(len(claims))):
+        raise ValueError("verifier did not return one result per claim")
+    observed_ids = {item.source_id for item in evidence}
+    for item in claim_results:
+        claim_citations = set(claims[item.claim_index].citation_ids)
+        if not set(item.supporting_source_ids).issubset(observed_ids):
+            raise ValueError("verifier referenced an unobserved source")
+        if not set(item.supporting_source_ids).issubset(claim_citations):
+            raise ValueError("verifier used a source not cited by the claim")
+        if item.verdict == ClaimVerdict.SUPPORTED and not item.supporting_source_ids:
+            raise ValueError("supported claim needs a supporting source")
 
 
 class OpenAICompatibleGroundingVerifier:
@@ -84,3 +129,68 @@ class OpenAICompatibleGroundingVerifier:
         except Exception as exc:
             raise RuntimeError("grounding verifier failed") from exc
         return validate_grounding_result(result, claims, evidence)
+
+
+class OpenAICompatibleClaimSupportVerifier:
+    """OpenAI-compatible M3 verifier for claim support only, without coverage judging."""
+
+    def __init__(self) -> None:
+        try:
+            config = load_openai_config(model_override=os.getenv("HEALTH_COPILOT_VERIFIER_MODEL"))
+            from openai import OpenAI
+        except (ConfigurationError, ImportError) as exc:
+            raise RuntimeError("M3 claim support verifier is not configured") from exc
+        kwargs: dict[str, Any] = {"api_key": config.api_key}
+        if config.base_url:
+            kwargs["base_url"] = config.base_url
+        self._client = OpenAI(**kwargs, timeout=30.0, max_retries=0)
+        self.model_name = config.model
+        self.base_url = config.base_url
+        self.temperature = 0
+        self.timeout_seconds = 30.0
+        self.max_retries = 0
+
+    def verify(
+        self, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]
+    ) -> ClaimSupportResult:
+        payload = {
+            "claims": [
+                {"text": item.text, "citation_ids": list(item.citation_ids)}
+                for item in claims
+            ],
+            "evidence": [
+                {"source_id": item.source_id, "excerpt": item.excerpt}
+                for item in evidence
+            ],
+        }
+        prompt = (
+            "Verify only claim support. For each claim, judge support only against "
+            "the sources named by that claim's citation_ids. Return JSON claim_results "
+            "(claim_index, verdict supported|unsupported|contradicted, "
+            "supporting_source_ids). A supported verdict needs a non-empty subset of "
+            "that claim's citation_ids. Do not judge answer coverage or give advice."
+        )
+        try:
+            response = self._client.chat.completions.create(
+                model=self.model_name,
+                temperature=self.temperature,
+                response_format={"type": "json_object"},
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+                ],
+            )
+            parsed = json.loads(response.choices[0].message.content)
+            result = ClaimSupportResult(
+                tuple(
+                    ClaimResult(
+                        item["claim_index"],
+                        ClaimVerdict(item["verdict"]),
+                        tuple(item.get("supporting_source_ids", [])),
+                    )
+                    for item in parsed["claim_results"]
+                )
+            )
+        except Exception as exc:
+            raise RuntimeError("claim support verifier failed") from exc
+        return validate_claim_support_result(result, claims, evidence)

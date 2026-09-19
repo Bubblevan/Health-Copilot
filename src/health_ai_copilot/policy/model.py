@@ -7,9 +7,10 @@ from typing import Any
 
 from ..config import ConfigurationError, load_openai_config
 from ..contracts import Evidence
+from ..knowledge.scope import KnowledgeScope
 from .evidence import EvidenceAssessment, EvidenceDecision, validate_assessment
 
-SYSTEM_PROMPT = """You are the M2 EvidencePolicy. Assess the full tuple
+M2_SYSTEM_PROMPT = """You are the M2 EvidencePolicy. Assess the full tuple
 (question, current evidence, proposed_query), not the provided evidence alone.
 
 Choose exactly one decision:
@@ -31,9 +32,30 @@ IDs from current evidence only. Every reason_codes item must be exactly one of:
 direct_support, related_but_incomplete, out_of_scope, missing_required_evidence,
 conflicting_sources, policy_error. Do not add facts or other fields."""
 
+M3_SYSTEM_PROMPT = """You are the M3 capability-aware EvidencePolicy. Assess
+the full tuple (question, current evidence, proposed_query, knowledge scope).
+The query may be linguistically reasonable but is RECOVERABLE only when the
+reviewed closed corpus capability can actually retrieve the missing evidence.
+
+Choose exactly one decision:
+- sufficient: current observed evidence answers the original question; deny search.
+- recoverable: evidence is insufficient, proposed_query is aligned, and at least
+  one reviewed scope topic covers the recovery. Include that topic ID.
+- insufficient: current evidence is insufficient and no reviewed scope topic
+  covers what the query needs, including medically related but uncovered topics.
+  Deny search and abstain.
+- conflicting: current evidence materially conflicts on a needed fact; deny search.
+
+Return JSON with decision, supporting_source_ids, reason_codes, and
+matched_topic_ids. supporting_source_ids must be from current evidence.
+matched_topic_ids must be IDs from the supplied scope; recoverable requires at
+least one. reason_codes must use only: direct_support, related_but_incomplete,
+out_of_scope, missing_required_evidence, conflicting_sources, policy_error.
+Do not add facts or other fields."""
+
 
 class OpenAICompatibleEvidencePolicy:
-    def __init__(self) -> None:
+    def __init__(self, *, knowledge_scope: KnowledgeScope | None = None) -> None:
         try:
             config = load_openai_config(model_override=os.getenv("HEALTH_COPILOT_POLICY_MODEL"))
             from openai import OpenAI
@@ -48,13 +70,51 @@ class OpenAICompatibleEvidencePolicy:
         self.temperature = 0
         self.timeout_seconds = 30.0
         self.max_retries = 0
+        self.knowledge_scope = knowledge_scope
 
     def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
-        payload = {"question": question, "proposed_query": proposed_query, "evidence": [{"source_id": item.source_id, "excerpt": item.excerpt} for item in evidence]}
+        payload: dict[str, object] = {
+            "question": question,
+            "proposed_query": proposed_query,
+            "evidence": [
+                {"source_id": item.source_id, "excerpt": item.excerpt}
+                for item in evidence
+            ],
+        }
+        if self.knowledge_scope is not None:
+            payload["knowledge_scope"] = {
+                "scope_id": self.knowledge_scope.scope_id,
+                "version": self.knowledge_scope.version,
+                "domain": self.knowledge_scope.domain,
+                "topics": [
+                    {"id": topic.id, "description": topic.description}
+                    for topic in self.knowledge_scope.topics
+                ],
+            }
         try:
-            response = self._client.chat.completions.create(model=self.model_name, temperature=self.temperature, response_format={"type": "json_object"}, messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}])
+            response = self._client.chat.completions.create(
+                model=self.model_name,
+                temperature=self.temperature,
+                response_format={"type": "json_object"},
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            M3_SYSTEM_PROMPT
+                            if self.knowledge_scope is not None
+                            else M2_SYSTEM_PROMPT
+                        ),
+                    },
+                    {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+                ],
+            )
             parsed = json.loads(response.choices[0].message.content)
-            assessment = EvidenceAssessment(EvidenceDecision(parsed["decision"]), tuple(parsed.get("supporting_source_ids", [])), tuple(parsed.get("reason_codes", [])))
+            assessment = EvidenceAssessment(
+                EvidenceDecision(parsed["decision"]),
+                tuple(parsed.get("supporting_source_ids", [])),
+                tuple(parsed.get("reason_codes", [])),
+                tuple(parsed.get("matched_topic_ids", [])),
+            )
         except Exception as exc:
             raise RuntimeError("evidence policy failed") from exc
-        return validate_assessment(assessment, evidence)
+        return validate_assessment(assessment, evidence, self.knowledge_scope)

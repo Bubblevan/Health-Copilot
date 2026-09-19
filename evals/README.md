@@ -74,3 +74,12 @@ BEIR NFCorpus 是单独的标准检索轨道。运行
 `python -m health_ai_copilot.eval.nfcorpus --data-dir artifacts/benchmarks/nfcorpus`
 可在本地 corpus/queries/qrels 上测当前 BM25 的 Recall@K、MRR 和 nDCG@K。它与
 HealthBench 的 rubric 以及产品 policy regression set 保持不同数据模型。
+
+## M3 capability and claim-support packs
+
+`m3_capability.jsonl` freezes the exact Policy state: question, observed evidence IDs, proposed query,
+reviewed scope ID, expected decision, and manually reviewed expected topic IDs. Its evaluator materializes
+those IDs directly and never reruns BM25, so future retriever changes cannot mutate gold inputs.
+`m3_claim_support.jsonl` evaluates only claim support (including multi-claim, fabricated citation, and wrong
+citation binding). It intentionally has no `coverage_missing` category because M3 removes free-answer coverage
+classification from the output path by constructing visible text from verified claims.
