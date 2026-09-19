@@ -1,4 +1,8 @@
 
+import json
+from pathlib import Path
+from types import SimpleNamespace
+
 import pytest
 
 from health_ai_copilot.agent import FinalTurn, ToolCall, ToolCallTurn
@@ -18,6 +22,10 @@ from health_ai_copilot.verification.grounding import (
     ClaimSupportResult,
     ClaimVerdict,
     GroundedClaim,
+    GroundingResult,
+    OpenAICompatibleClaimSupportVerifier,
+    materialize_cited_evidence,
+    validate_grounding_result,
 )
 from health_ai_copilot.verification.materialize import materialize_verified_claims
 
@@ -33,6 +41,8 @@ def _scope():
             "scope_id": "fixture-scope",
             "version": "1",
             "knowledge_pack_version": "fixture",
+            "reviewed_at": "2026-09-20",
+            "reviewer": "fixture-reviewer",
             "domain": "fixture hypertension education",
             "audiences": ["adult_patient_education"],
             "topics": [
@@ -112,6 +122,8 @@ def test_reviewed_product_scope_loads_and_covers_every_card() -> None:
 
     assert scope.scope_id == "hypertension-patient-education-v1"
     assert len(scope.topics) == 10
+    assert scope.reviewed_at == "2026-09-20"
+    assert scope.reviewer == "manual-capability-mapping-review-2026-09-20"
     assert {source_id for topic in scope.topics for source_id in topic.source_ids} == {
         card.id for card in cards
     }
@@ -122,6 +134,8 @@ def test_reviewed_product_scope_loads_and_covers_every_card() -> None:
     [
         lambda data: {**data, "scope_id": ""},
         lambda data: {**data, "version": ""},
+        lambda data: {**data, "reviewed_at": ""},
+        lambda data: {**data, "reviewer": ""},
         lambda data: {**data, "topics": []},
         lambda data: {**data, "topics": [data["topics"][0], data["topics"][0]]},
         lambda data: {**data, "topics": [replace_topic(data["topics"][0], source_ids=["unknown"]) ]},
@@ -134,6 +148,8 @@ def test_scope_validation_rejects_invalid_manifest(mutator) -> None:
         "scope_id": "scope",
         "version": "1",
         "knowledge_pack_version": "fixture",
+        "reviewed_at": "2026-09-20",
+        "reviewer": "fixture-reviewer",
         "domain": "fixture",
         "audiences": ["adult_patient_education"],
         "topics": [{"id": "topic", "description": "reviewed", "source_ids": [card.id]}],
@@ -341,3 +357,104 @@ def test_m3_rejects_empty_claim_set_or_text_and_deduplicates_exact_claims() -> N
 
     duplicate = (_claim("  事实 A  "), _claim("事实 A"), _claim("事实 B"))
     assert materialize_verified_claims(duplicate) == "- 事实 A\n- 事实 B"
+
+
+@pytest.mark.parametrize(
+    ("claims", "result"),
+    [
+        ((_claim(),), ClaimSupportResult(())),
+        (
+            (_claim(), _claim("另一条事实。")),
+            ClaimSupportResult(
+                (
+                    ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),
+                    ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),
+                )
+            ),
+        ),
+    ],
+)
+def test_m3_rejects_missing_or_duplicate_claim_result_index(claims, result) -> None:
+    pipeline = _m3_pipeline(
+        _Model(FinalTurn("ignored", claims=claims)),
+        _Retriever([_evidence()]),
+        _Policy(EvidenceAssessment(EvidenceDecision.SUFFICIENT, ("source-a",))),
+        _SupportVerifier(result),
+    )
+
+    assert pipeline.answer("问题").safety_reasons == ["claim_support_verifier_error"]
+
+
+def test_m2_rejects_duplicate_claim_result_index_without_changing_normal_replay() -> None:
+    claims = (_claim(), _claim("另一条事实。"))
+    evidence = (_evidence(),)
+    duplicate = GroundingResult(
+        True,
+        (
+            ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),
+            ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),
+        ),
+    )
+
+    with pytest.raises(ValueError, match="duplicate claim indexes"):
+        validate_grounding_result(duplicate, claims, evidence)
+    assert validate_grounding_result(
+        GroundingResult(True, (ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),)),
+        (_claim(),),
+        evidence,
+    ).coverage_ok
+
+
+def test_claim_support_provider_receives_only_each_claims_cited_evidence() -> None:
+    captured = {}
+
+    class _Completions:
+        def create(self, **kwargs):
+            captured.update(kwargs)
+            body = {
+                "claim_results": [
+                    {
+                        "claim_index": 0,
+                        "verdict": "supported",
+                        "supporting_source_ids": ["source-a"],
+                    }
+                ]
+            }
+            return SimpleNamespace(
+                choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(body)))]
+            )
+
+    verifier = OpenAICompatibleClaimSupportVerifier.__new__(OpenAICompatibleClaimSupportVerifier)
+    verifier._client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions()))
+    verifier.model_name = "fixture-model"
+    verifier.temperature = 0
+    claims = (_claim(source_id="source-a"),)
+    cited = materialize_cited_evidence(claims, (_evidence("source-a"), _evidence("source-b")))
+
+    result = verifier.verify(claims, cited)
+    payload = json.loads(captured["messages"][1]["content"])
+
+    assert result.claim_results[0].verdict == ClaimVerdict.SUPPORTED
+    assert payload["claims"] == [
+        {
+            "claim_index": 0,
+            "text": "已验证事实。",
+            "cited_evidence": [{"source_id": "source-a", "excerpt": "excerpt source-a"}],
+        }
+    ]
+    assert "source-b" not in captured["messages"][1]["content"]
+
+
+def test_wrong_citation_binding_fixture_isolated_to_wrong_source() -> None:
+    rows = [
+        json.loads(line)
+        for line in Path("evals/m3_claim_support.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    fixture = next(row for row in rows if row["id"] == "m3s-007")
+
+    assert fixture["expected_verdicts"] == ["unsupported"]
+    assert fixture["claims"][0]["citation_ids"] == ["who-hypertension-03-silent"]
+    assert fixture["evidence_source_ids"] == [
+        "who-hypertension-03-silent",
+        "cdc-high-blood-pressure-measuring-02-repeat",
+    ]

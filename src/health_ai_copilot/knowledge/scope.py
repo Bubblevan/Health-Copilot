@@ -28,6 +28,8 @@ class KnowledgeScope:
     scope_id: str
     version: str
     knowledge_pack_version: str
+    reviewed_at: str
+    reviewer: str
     domain: str
     audiences: tuple[str, ...]
     topics: tuple[CapabilityTopic, ...]
@@ -68,7 +70,14 @@ def knowledge_scope_from_dict(
     data: dict[str, Any], cards: list[KnowledgeCard] | tuple[KnowledgeCard, ...]
 ) -> KnowledgeScope:
     """Validate a manifest payload; exposed for deterministic unit tests."""
-    required_text = ("scope_id", "version", "knowledge_pack_version", "domain")
+    required_text = (
+        "scope_id",
+        "version",
+        "knowledge_pack_version",
+        "reviewed_at",
+        "reviewer",
+        "domain",
+    )
     values: dict[str, str] = {}
     for field in required_text:
         value = data.get(field)
@@ -122,6 +131,8 @@ def knowledge_scope_from_dict(
         scope_id=values["scope_id"],
         version=values["version"],
         knowledge_pack_version=values["knowledge_pack_version"],
+        reviewed_at=values["reviewed_at"],
+        reviewer=values["reviewer"],
         domain=values["domain"],
         audiences=tuple(audience.strip() for audience in audiences),
         topics=tuple(topics),

@@ -52,7 +52,9 @@ class ClaimSupportVerifier(Protocol):
     """Verify only each cited claim against observed evidence in the M3 path."""
 
     def verify(
-        self, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]
+        self,
+        claims: Sequence[GroundedClaim],
+        cited_evidence: Sequence[Sequence[Evidence]],
     ) -> ClaimSupportResult:
         ...
 
@@ -60,10 +62,38 @@ class ClaimSupportVerifier(Protocol):
 def validate_grounding_result(result: GroundingResult, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:
     if not isinstance(result, GroundingResult):
         raise TypeError("verifier returned an invalid result")
-    if {item.claim_index for item in result.claim_results} != set(range(len(claims))):
+    _validate_claim_results(result.claim_results, claims, evidence)
+    return result
+
+
+def materialize_cited_evidence(
+    claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]
+) -> tuple[tuple[Evidence, ...], ...]:
+    """Bind each M3 claim to only its cited observed evidence, in citation order."""
+    evidence_by_id = {item.source_id: item for item in evidence}
+    bound: list[tuple[Evidence, ...]] = []
+    for claim in claims:
+        try:
+            bound.append(tuple(evidence_by_id[source_id] for source_id in claim.citation_ids))
+        except KeyError as exc:
+            raise ValueError("claim cites an unobserved source") from exc
+    return tuple(bound)
+
+
+def _validate_claim_results(
+    claim_results: Sequence[ClaimResult],
+    claims: Sequence[GroundedClaim],
+    evidence: Sequence[Evidence],
+) -> None:
+    if len(claim_results) != len(claims):
         raise ValueError("verifier did not return one result per claim")
+    indices = [item.claim_index for item in claim_results]
+    if len(set(indices)) != len(indices):
+        raise ValueError("verifier returned duplicate claim indexes")
+    if set(indices) != set(range(len(claims))):
+        raise ValueError("verifier did not return the expected claim indexes")
     observed_ids = {item.source_id for item in evidence}
-    for item in result.claim_results:
+    for item in claim_results:
         claim_citations = set(claims[item.claim_index].citation_ids)
         if not set(item.supporting_source_ids).issubset(observed_ids):
             raise ValueError("verifier referenced an unobserved source")
@@ -71,7 +101,6 @@ def validate_grounding_result(result: GroundingResult, claims: Sequence[Grounded
             raise ValueError("verifier used a source not cited by the claim")
         if item.verdict == ClaimVerdict.SUPPORTED and not item.supporting_source_ids:
             raise ValueError("supported claim needs a supporting source")
-    return result
 
 
 def validate_claim_support_result(
@@ -83,24 +112,6 @@ def validate_claim_support_result(
         raise TypeError("claim support verifier returned an invalid result")
     _validate_claim_results(result.claim_results, claims, evidence)
     return result
-
-
-def _validate_claim_results(
-    claim_results: Sequence[ClaimResult],
-    claims: Sequence[GroundedClaim],
-    evidence: Sequence[Evidence],
-) -> None:
-    if {item.claim_index for item in claim_results} != set(range(len(claims))):
-        raise ValueError("verifier did not return one result per claim")
-    observed_ids = {item.source_id for item in evidence}
-    for item in claim_results:
-        claim_citations = set(claims[item.claim_index].citation_ids)
-        if not set(item.supporting_source_ids).issubset(observed_ids):
-            raise ValueError("verifier referenced an unobserved source")
-        if not set(item.supporting_source_ids).issubset(claim_citations):
-            raise ValueError("verifier used a source not cited by the claim")
-        if item.verdict == ClaimVerdict.SUPPORTED and not item.supporting_source_ids:
-            raise ValueError("supported claim needs a supporting source")
 
 
 class OpenAICompatibleGroundingVerifier:
@@ -151,24 +162,34 @@ class OpenAICompatibleClaimSupportVerifier:
         self.max_retries = 0
 
     def verify(
-        self, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]
+        self,
+        claims: Sequence[GroundedClaim],
+        cited_evidence: Sequence[Sequence[Evidence]],
     ) -> ClaimSupportResult:
+        if len(cited_evidence) != len(claims):
+            raise ValueError("cited evidence must contain one entry per claim")
         payload = {
             "claims": [
-                {"text": item.text, "citation_ids": list(item.citation_ids)}
-                for item in claims
-            ],
-            "evidence": [
-                {"source_id": item.source_id, "excerpt": item.excerpt}
-                for item in evidence
+                {
+                    "claim_index": index,
+                    "text": claim.text,
+                    "cited_evidence": [
+                        {"source_id": item.source_id, "excerpt": item.excerpt}
+                        for item in evidence_for_claim
+                    ],
+                }
+                for index, (claim, evidence_for_claim) in enumerate(
+                    zip(claims, cited_evidence, strict=True)
+                )
             ],
         }
         prompt = (
-            "Verify only claim support. For each claim, judge support only against "
-            "the sources named by that claim's citation_ids. Return JSON claim_results "
+            "Verify only claim support. Each claim includes only its cited evidence; "
+            "do not infer support from any other source. Return JSON claim_results "
             "(claim_index, verdict supported|unsupported|contradicted, "
             "supporting_source_ids). A supported verdict needs a non-empty subset of "
-            "that claim's citation_ids. Do not judge answer coverage or give advice."
+            "the source_ids in that claim's cited_evidence. Do not judge answer coverage "
+            "or give advice."
         )
         try:
             response = self._client.chat.completions.create(
@@ -193,4 +214,7 @@ class OpenAICompatibleClaimSupportVerifier:
             )
         except Exception as exc:
             raise RuntimeError("claim support verifier failed") from exc
-        return validate_claim_support_result(result, claims, evidence)
+        flattened_evidence = tuple(
+            item for evidence_for_claim in cited_evidence for item in evidence_for_claim
+        )
+        return validate_claim_support_result(result, claims, flattened_evidence)

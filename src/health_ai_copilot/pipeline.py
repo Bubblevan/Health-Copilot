@@ -20,6 +20,7 @@ from .verification.grounding import (
     ClaimVerdict,
     GroundingResult,
     GroundingVerifier,
+    materialize_cited_evidence,
     validate_claim_support_result,
     validate_grounding_result,
 )
@@ -293,8 +294,9 @@ class HealthCopilotPipeline:
             return abstain_response(integrity.reasons[0])
         run.state.verifier_calls_used += 1
         try:
+            cited_evidence = materialize_cited_evidence(claims, run.observed_evidence)
             result = validate_claim_support_result(
-                self.claim_support_verifier.verify(claims, run.observed_evidence),  # type: ignore[union-attr]
+                self.claim_support_verifier.verify(claims, cited_evidence),  # type: ignore[union-attr]
                 claims,
                 run.observed_evidence,
             )

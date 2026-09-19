@@ -29,3 +29,5 @@ loader 会读取目录中的所有 `*.json`，遇到 malformed JSON、缺字段�
 KnowledgeCard 的 source ID 映射到人工审核 topic；runtime 不从自由文本 tags 推导 topic membership。
 scope loader 会拒绝空 scope/version、重复 topic、未知或重复 topic source ID、空 topic，以及未被任一
 topic 覆盖的产品 card。它描述的是当前 reviewed closed KnowledgeCard corpus，不是完整高血压知识库。
+`knowledge_scope.json` 的 `reviewed_at` 与 `reviewer` 记录 capability mapping review，
+不表示临床专家验证。

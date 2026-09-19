@@ -17,6 +17,7 @@ from health_ai_copilot.verification.grounding import (
     ClaimVerdict,
     GroundedClaim,
     OpenAICompatibleClaimSupportVerifier,
+    materialize_cited_evidence,
     validate_claim_support_result,
 )
 
@@ -48,7 +49,10 @@ def main(argv: list[str] | None = None) -> int:
         error = None
         if integrity.valid:
             try:
-                result = validate_claim_support_result(verifier.verify(claims, evidence), claims, evidence)
+                cited_evidence = materialize_cited_evidence(claims, evidence)
+                result = validate_claim_support_result(
+                    verifier.verify(claims, cited_evidence), claims, evidence
+                )
             except Exception as exc:  # noqa: BLE001 - evaluator records controlled failures
                 stage = "verifier_error"
                 error = type(exc).__name__

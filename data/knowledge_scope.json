@@ -2,6 +2,8 @@
   "scope_id": "hypertension-patient-education-v1",
   "version": "1",
   "knowledge_pack_version": "m0.2-2026-09-15",
+  "reviewed_at": "2026-09-20",
+  "reviewer": "manual-capability-mapping-review-2026-09-20",
   "domain": "reviewed closed hypertension patient-education corpus",
   "audiences": ["adult_patient_education"],
   "topics": [
