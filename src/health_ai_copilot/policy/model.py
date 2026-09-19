@@ -20,7 +20,7 @@ class OpenAICompatibleEvidencePolicy:
         kwargs: dict[str, Any] = {"api_key": config.api_key}
         if config.base_url:
             kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**kwargs, timeout=30.0)
+        self._client = OpenAI(**kwargs, timeout=30.0, max_retries=0)
         self.model_name = config.model
 
     def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
