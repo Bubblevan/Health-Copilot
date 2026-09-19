@@ -272,11 +272,23 @@ def test_m2_eval_packs_are_small_reviewed_and_grounded_in_known_sources() -> Non
     assert len(policy_cases) == 24
     assert {case["category"] for case in policy_cases} == {
         "sufficient_direct",
+        "sufficient_frozen_evidence",
         "recoverable_paraphrase",
+        "recoverable_targeted",
         "insufficient_ood",
     }
     assert all(case["status"] == "reviewed" for case in policy_cases + grounding_cases)
-    assert all(set(case.get("expected_source_ids", [])).issubset(card_ids) for case in policy_cases)
+    assert all(
+        {"question", "evidence_source_ids", "proposed_query", "expected_decision", "category", "status"}
+        <= case.keys()
+        for case in policy_cases
+    )
+    assert all(set(case["evidence_source_ids"]).issubset(card_ids) for case in policy_cases)
+    assert all(
+        case["proposed_query"] != case["question"]
+        for case in policy_cases
+        if case["expected_decision"] == "recoverable"
+    )
     assert all(set(case["evidence_source_ids"]).issubset(card_ids) for case in grounding_cases)
 
 

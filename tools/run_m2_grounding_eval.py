@@ -1,7 +1,9 @@
 """Standalone live grounding evaluation over reviewed evidence-relation fixtures."""
 
 import argparse
+import hashlib
 import json
+import subprocess
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
@@ -15,6 +17,8 @@ from health_ai_copilot.verification.grounding import (
     OpenAICompatibleGroundingVerifier,
     validate_grounding_result,
 )
+
+KNOWLEDGE_PACK_VERSION = "m0.2-2026-09-15"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -44,12 +48,26 @@ def main(argv: list[str] | None = None) -> int:
                 stage = "verifier_error"
                 error = type(exc).__name__
         accepted = bool(result and result.coverage_ok and all(item.verdict.value == "supported" for item in result.claim_results))
-        rows.append({"case_id": case["id"], "category": case["category"], "accepted": accepted, "rejection_stage": None if accepted else stage, "citation_integrity": integrity.valid, "coverage_ok": result.coverage_ok if result else None, "claim_results": [asdict(item) for item in result.claim_results] if result else [], "error": error})
+        rows.append({"case_id": case["id"], "category": case["category"], "expected_coverage_ok": case["expected_coverage_ok"], "expected_verdicts": case["expected_verdicts"], "accepted": accepted, "rejection_stage": None if accepted else stage, "citation_integrity": integrity.valid, "coverage_ok": result.coverage_ok if result else None, "claim_results": [asdict(item) for item in result.claim_results] if result else [], "error": error})
     metrics = grounding_metrics(rows)
     _write_jsonl(run_dir / "grounding_results.jsonl", rows)
-    (run_dir / "config.json").write_text(json.dumps({"dataset": args.dataset, "case_count": len(cases), "model": verifier.model_name}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    config = {
+        "commit_sha": _git_sha(),
+        "model": verifier.model_name,
+        "base_url": verifier.base_url,
+        "temperature": verifier.temperature,
+        "dataset_path": str(Path(args.dataset)),
+        "dataset_sha256": _sha256(Path(args.dataset)),
+        "knowledge_pack_version": KNOWLEDGE_PACK_VERSION,
+        "case_count": len(cases),
+        "timeout": verifier.timeout_seconds,
+        "retries": verifier.max_retries,
+    }
+    (run_dir / "config.json").write_text(
+        json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     (run_dir / "metrics.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (run_dir / "report.md").write_text("# M2 standalone grounding evaluation\n\n```json\n" + json.dumps(metrics, ensure_ascii=False, indent=2) + "\n```\n", encoding="utf-8")
+    (run_dir / "report.md").write_text(_report(metrics, rows), encoding="utf-8")
     print(run_dir)
     print(json.dumps(metrics, ensure_ascii=False, indent=2))
     return 0
@@ -68,6 +86,37 @@ def _evidence(card: Any) -> Evidence:
 
 def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+
+
+def _report(metrics: dict[str, Any], rows: list[dict[str, Any]]) -> str:
+    lines = [
+        "# M2 standalone grounding evaluation",
+        "",
+        "## Metrics",
+        "",
+        "```json",
+        json.dumps(metrics, ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## Fixture verdicts",
+        "",
+    ]
+    for row in rows:
+        verdicts = [item["verdict"] for item in row["claim_results"]]
+        lines.append(
+            f"- `{row['case_id']}` ({row['category']}): expected "
+            f"`{row['expected_verdicts']}`, observed `{verdicts}`, accepted="
+            f"`{row['accepted']}`, rejection_stage=`{row['rejection_stage']}`."
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _git_sha() -> str:
+    return subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 if __name__ == "__main__":

@@ -70,6 +70,10 @@ class OpenAICompatibleGroundingVerifier:
             kwargs["base_url"] = config.base_url
         self._client = OpenAI(**kwargs, timeout=30.0, max_retries=0)
         self.model_name = config.model
+        self.base_url = config.base_url
+        self.temperature = 0
+        self.timeout_seconds = 30.0
+        self.max_retries = 0
 
     def verify(self, answer: str, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:
         payload = {"answer": answer, "claims": [{"text": item.text, "citation_ids": list(item.citation_ids)} for item in claims], "evidence": [{"source_id": item.source_id, "excerpt": item.excerpt} for item in evidence]}

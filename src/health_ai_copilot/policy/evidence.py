@@ -1,4 +1,18 @@
-"""Typed, fail-closed contract for recovery-search authorization."""
+"""Typed, fail-closed contract for recovery-search authorization.
+
+An :class:`EvidencePolicy` judges the full ``(question, current evidence,
+proposed_query)`` tuple.  It is not a relevance scorer for the evidence alone:
+
+* ``SUFFICIENT``: the current observed evidence can answer the original
+  question, so the proposed search is unnecessary.
+* ``RECOVERABLE``: current evidence is insufficient, but the proposed query is
+  a semantically aligned, in-domain retrieval recovery; one search is allowed.
+* ``INSUFFICIENT``: current evidence is insufficient and the query cannot
+  reasonably recover the missing evidence within this knowledge domain (or the
+  question is out of domain); the tool is denied and the pipeline abstains.
+* ``CONFLICTING``: current evidence materially conflicts on a fact needed to
+  answer the question; the tool is denied and the pipeline abstains.
+"""
 
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -26,6 +40,13 @@ class EvidenceAssessment:
 
 
 class EvidencePolicy(Protocol):
+    """Authorize at most one recovery search from question, evidence, and query.
+
+    Implementations must apply the four-state operational semantics documented
+    in this module to all three inputs, rather than treating ``evidence`` as
+    the only object being classified.
+    """
+
     def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
         ...
 
@@ -38,6 +59,8 @@ def validate_assessment(assessment: EvidenceAssessment, evidence: Sequence[Evide
     if not set(assessment.reason_codes).issubset(KNOWN_REASON_CODES):
         raise ValueError("policy returned an unknown reason code")
     reason_codes = set(assessment.reason_codes)
+    if assessment.decision == EvidenceDecision.SUFFICIENT and not assessment.supporting_source_ids:
+        raise ValueError("sufficient policy needs a supporting source")
     if assessment.decision == EvidenceDecision.SUFFICIENT and "out_of_scope" in reason_codes:
         raise ValueError("sufficient policy cannot be out of scope")
     if assessment.decision == EvidenceDecision.CONFLICTING and "direct_support" in reason_codes:

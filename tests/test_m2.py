@@ -41,9 +41,11 @@ class _Policy:
     def __init__(self, assessment: EvidenceAssessment):
         self.assessment = assessment
         self.calls = 0
+        self.inputs = []
 
     def assess(self, question, evidence, proposed_query):
         self.calls += 1
+        self.inputs.append((question, tuple(evidence), proposed_query))
         return self.assessment
 
 
@@ -74,7 +76,7 @@ def _pipeline(model, retriever, policy, verifier):
     )
 
 
-def test_recoverable_executes_search_and_keeps_proposals_distinct() -> None:
+def test_policy_contract_missing_evidence_allows_plausible_in_domain_rewrite() -> None:
     model = _Model(
         ToolCallTurn([ToolCall("recover", "search_knowledge", {"query": "rewrite"})]),
         FinalTurn("answer", claims=(_claim(),)),
@@ -83,15 +85,18 @@ def test_recoverable_executes_search_and_keeps_proposals_distinct() -> None:
     policy = _Policy(EvidenceAssessment(EvidenceDecision.RECOVERABLE))
     verifier = _Verifier(_supported())
 
-    result = _pipeline(model, retriever, policy, verifier).answer("question")
+    result = _pipeline(model, retriever, policy, verifier).answer("高血压通常有症状吗？")
 
     assert result.route == Route.ANSWER
-    assert retriever.calls == ["question", "rewrite"]
+    assert retriever.calls[1:] == ["rewrite"]
+    assert len(retriever.calls) == 2
     assert policy.calls == 1
+    assert policy.inputs[0][0] == "高血压通常有症状吗？"
+    assert policy.inputs[0][2] == "rewrite"
     assert verifier.calls == 1
 
 
-def test_sufficient_veto_appends_observation_then_allows_final_turn() -> None:
+def test_policy_contract_sufficient_evidence_vetoes_unnecessary_search() -> None:
     model = _Model(
         ToolCallTurn([ToolCall("veto", "search_knowledge", {"query": "unneeded"})]),
         FinalTurn("answer", claims=(_claim(),)),
@@ -101,13 +106,15 @@ def test_sufficient_veto_appends_observation_then_allows_final_turn() -> None:
     verifier = _Verifier(_supported())
     pipeline = _pipeline(model, retriever, policy, verifier)
 
-    result = pipeline.answer("question")
+    result = pipeline.answer("已有资料能直接回答的问题")
 
     assert result.route == Route.ANSWER
-    assert retriever.calls == ["question"]
+    assert len(retriever.calls) == 1
     assert pipeline.last_agent_run is not None
     assert pipeline.last_agent_run.state.tool_proposals_used == 1
     assert pipeline.last_agent_run.state.tool_calls_used == 0
+    assert policy.inputs[0][0] == "已有资料能直接回答的问题"
+    assert policy.inputs[0][2] == "unneeded"
     observations = [item for item in pipeline.last_agent_run.state.session.messages if isinstance(item, ToolResultMessage)]
     assert observations[0].result.error is not None
     assert observations[0].result.error.code == "policy_denied"
@@ -129,6 +136,25 @@ def test_insufficient_and_conflicting_policy_fail_closed_without_tool_or_verifie
         assert verifier.calls == 0
         assert pipeline.last_agent_run is not None
         assert pipeline.last_agent_run.stop_reason == reason
+
+
+def test_policy_contract_ood_question_and_query_abstain() -> None:
+    retriever = _Retriever([_evidence()])
+    policy = _Policy(
+        EvidenceAssessment(EvidenceDecision.INSUFFICIENT, reason_codes=("out_of_scope",))
+    )
+    pipeline = _pipeline(
+        _Model(ToolCallTurn([ToolCall("ood", "search_knowledge", {"query": "车险保费"})])),
+        retriever,
+        policy,
+        _Verifier(_supported()),
+    )
+
+    result = pipeline.answer("高血压患者的车险会更贵吗？")
+
+    assert result.route == Route.ABSTAIN
+    assert retriever.calls == ["高血压患者的车险会更贵吗？"]
+    assert policy.inputs[0][2] == "车险保费"
 
 
 def test_policy_failure_and_unobserved_policy_source_fail_closed() -> None:
@@ -221,6 +247,7 @@ def test_supported_verdict_requires_a_supporting_source() -> None:
 
 def test_policy_rejects_obviously_inconsistent_decision_reason_pairs() -> None:
     for assessment in (
+        EvidenceAssessment(EvidenceDecision.SUFFICIENT),
         EvidenceAssessment(EvidenceDecision.SUFFICIENT, reason_codes=("out_of_scope",)),
         EvidenceAssessment(EvidenceDecision.CONFLICTING, reason_codes=("direct_support",)),
     ):
