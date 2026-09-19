@@ -26,7 +26,7 @@ class OpenAICompatibleEvidencePolicy:
     def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
         payload = {"question": question, "proposed_query": proposed_query, "evidence": [{"source_id": item.source_id, "excerpt": item.excerpt} for item in evidence]}
         try:
-            response = self._client.chat.completions.create(model=self.model_name, temperature=0, response_format={"type": "json_object"}, messages=[{"role": "system", "content": "Classify provided evidence only. Return JSON decision (sufficient, recoverable, insufficient, conflicting), supporting_source_ids, reason_codes. Do not add facts."}, {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}])
+            response = self._client.chat.completions.create(model=self.model_name, temperature=0, response_format={"type": "json_object"}, messages=[{"role": "system", "content": "Classify provided evidence only. Return JSON with decision (sufficient, recoverable, insufficient, conflicting), supporting_source_ids, and reason_codes. Every reason_codes item must be exactly one of: direct_support, related_but_incomplete, out_of_scope, missing_required_evidence, conflicting_sources, policy_error. Do not add facts or other fields."}, {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}])
             parsed = json.loads(response.choices[0].message.content)
             assessment = EvidenceAssessment(EvidenceDecision(parsed["decision"]), tuple(parsed.get("supporting_source_ids", [])), tuple(parsed.get("reason_codes", [])))
         except Exception as exc:
