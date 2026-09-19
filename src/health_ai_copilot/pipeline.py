@@ -6,7 +6,6 @@ from typing import Protocol
 from .agent.events import AgentEvent
 from .agent.loop import AgentLoop, AgentLoopConfig, AgentRunResult
 from .agent.model import AgentModel
-from .agent.state import StopReason
 from .agent.tools import ToolRegistry
 from .contracts import AssistantResponse, Citation, Evidence, GenerationDraft, Route
 from .generation.base import Generator
@@ -131,6 +130,7 @@ class HealthCopilotPipeline:
         self.evidence_policy = evidence_policy
         self.grounding_verifier = grounding_verifier
         self.last_grounding_result: GroundingResult | None = None
+        self.last_harness_disposition: str | None = None
         self.last_agent_run: AgentRunResult | None = None
         self.agent_loop: AgentLoop | None = None
         if agent_model is not None:
@@ -148,6 +148,7 @@ class HealthCopilotPipeline:
     def answer(self, question: str) -> AssistantResponse:
         self.last_agent_run = None
         self.last_grounding_result = None
+        self.last_harness_disposition = None
         if not isinstance(question, str) or not question.strip():
             return abstain_response("invalid_input")
 
@@ -196,18 +197,18 @@ class HealthCopilotPipeline:
         """M2 order: claim citation integrity, coverage/support, trusted citations."""
         draft = run.draft
         if draft is None or not run.claims:
-            run.state.stop_reason = StopReason.GROUNDING_FAILED
+            self.last_harness_disposition = "grounding_failed"
             return abstain_response("grounding_failed")
         claims = run.claims
         claim_ids = [source_id for claim in claims for source_id in claim.citation_ids]
         if not claim_ids or any(not claim.text.strip() or not claim.citation_ids for claim in claims):
-            run.state.stop_reason = StopReason.GROUNDING_FAILED
+            self.last_harness_disposition = "grounding_failed"
             return abstain_response("grounding_failed")
         integrity = verify_citations(
             GenerationDraft(draft.answer, claim_ids, abstain=False), run.observed_evidence
         )
         if not integrity.valid:
-            run.state.stop_reason = StopReason.GROUNDING_FAILED
+            self.last_harness_disposition = "invalid_citation"
             return abstain_response(integrity.reasons[0])
         run.state.verifier_calls_used += 1
         try:
@@ -217,14 +218,15 @@ class HealthCopilotPipeline:
                 run.observed_evidence,
             )
         except Exception:  # noqa: BLE001 - semantic verification fails closed
-            run.state.stop_reason = StopReason.VERIFIER_ERROR
+            self.last_harness_disposition = "verifier_error"
             return abstain_response("verifier_error")
         self.last_grounding_result = result
         if not result.coverage_ok or any(
             item.verdict != ClaimVerdict.SUPPORTED for item in result.claim_results
         ):
-            run.state.stop_reason = StopReason.GROUNDING_FAILED
+            self.last_harness_disposition = "grounding_failed"
             return abstain_response("grounding_failed")
+        self.last_harness_disposition = "answer"
         evidence_by_id = {item.source_id: item for item in run.observed_evidence}
         return AssistantResponse(
             route=Route.ANSWER,

@@ -37,4 +37,9 @@ def validate_assessment(assessment: EvidenceAssessment, evidence: Sequence[Evide
         raise ValueError("policy referenced an unobserved source")
     if not set(assessment.reason_codes).issubset(KNOWN_REASON_CODES):
         raise ValueError("policy returned an unknown reason code")
+    reason_codes = set(assessment.reason_codes)
+    if assessment.decision == EvidenceDecision.SUFFICIENT and "out_of_scope" in reason_codes:
+        raise ValueError("sufficient policy cannot be out of scope")
+    if assessment.decision == EvidenceDecision.CONFLICTING and "direct_support" in reason_codes:
+        raise ValueError("conflicting policy cannot claim direct support")
     return assessment

@@ -68,21 +68,27 @@ def main(argv: list[str] | None = None) -> int:
             key = f"trial-{trial}:{case['id']}"
             expanded_case = {**case, "id": key}
             expanded.append(expanded_case)
-            m1 = HealthCopilotPipeline(retriever, top_k=args.initial_top_k, recovery_top_k=args.recovery_top_k, agent_model=OpenAICompatibleAgentModel())
+            m1 = HealthCopilotPipeline(retriever, top_k=args.initial_top_k, recovery_top_k=args.recovery_top_k, agent_model=OpenAICompatibleAgentModel(require_claims=False))
             m1_responses[key] = m1.answer(case["question"])
             if m1.last_agent_run:
                 m1_runs[key] = m1.last_agent_run
-            m2 = HealthCopilotPipeline(retriever, top_k=args.initial_top_k, recovery_top_k=args.recovery_top_k, agent_model=OpenAICompatibleAgentModel(), evidence_policy=OpenAICompatibleEvidencePolicy(), grounding_verifier=OpenAICompatibleGroundingVerifier())
+            m2 = HealthCopilotPipeline(retriever, top_k=args.initial_top_k, recovery_top_k=args.recovery_top_k, agent_model=OpenAICompatibleAgentModel(require_claims=True), evidence_policy=OpenAICompatibleEvidencePolicy(), grounding_verifier=OpenAICompatibleGroundingVerifier())
             m2_responses[key] = m2.answer(case["question"])
             run = m2.last_agent_run
             if run:
                 m2_runs[key] = run
-            trajectories.append(_trajectory(key, trial, case, m2_responses[key], run, m2.last_grounding_result))
+            trajectories.append(_trajectory(key, trial, case, m2_responses[key], run, m2.last_grounding_result, m2.last_harness_disposition))
             if run and run.state.policy_decision:
                 policy_rows.append({"case_key": key, "decision": run.state.policy_decision, "reason_codes": list(run.state.policy_reason_codes), "supporting_source_ids": list(run.state.policy_supporting_source_ids)})
             if m2.last_grounding_result:
                 grounding_rows.append({"case_key": key, "coverage_ok": m2.last_grounding_result.coverage_ok, "claim_results": [asdict(item) for item in m2.last_grounding_result.claim_results]})
-    m1_metrics = summarize_m1_runs(expanded, m1_runs, m1_responses)
+    safety_ids = {
+        case["id"]
+        for case in expanded
+        if case["id"] not in m1_runs
+        and m1_responses[case["id"]].route.value in {"urgent_care", "human_review"}
+    }
+    m1_metrics = summarize_m1_runs(expanded, m1_runs, m1_responses, safety_short_circuit_ids=safety_ids)
     metrics = {"m1": m1_metrics, "m2": summarize_m2_runs(expanded, m2_runs, m2_responses), "trial_count": args.trials, "pack_case_count": len(cases), "trajectory_count": len(trajectories)}
     failures = [row for row in trajectories if row["category"] == "ood_false_retrieval" and row["route"] == "answer"]
     _write_jsonl(run_dir / "trajectories.jsonl", trajectories)
@@ -96,9 +102,16 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-def _trajectory(key: str, trial: int, case: dict[str, Any], response: Any, run: Any, grounding: Any) -> dict[str, Any]:
+def _trajectory(key: str, trial: int, case: dict[str, Any], response: Any, run: Any, grounding: Any, harness_disposition: str | None) -> dict[str, Any]:
     state = run.state if run else None
-    return {"case_id": case["id"], "case_key": key, "trial": trial, "question": case["question"], "category": case.get("category"), "initial_ranked_evidence": [asdict(item) for item in run.initial_ranked_evidence] if run else [], "tool_proposed": bool(state and state.tool_proposals_used), "policy_decision": state.policy_decision if state else None, "policy_reason_codes": list(state.policy_reason_codes) if state else [], "tool_executed": bool(state and state.tool_calls_used), "recovery_ranked_evidence": [asdict(item) for item in run.recovery_ranked_evidence] if run else [], "observed_evidence": [asdict(item) for item in run.observed_evidence] if run else [], "final_answer": run.draft.answer if run and run.draft else None, "final_claims": [asdict(item) for item in run.claims] if run else [], "citation_integrity_result": response.route.value == "answer" or "invalid_citation" not in response.safety_reasons, "grounding_coverage_ok": grounding.coverage_ok if grounding else None, "claim_verdicts": [item.verdict.value for item in grounding.claim_results] if grounding else [], "route": response.route.value, "stop_reason": run.stop_reason.value if run and run.stop_reason else None, "model_turns_used": state.model_turns_used if state else 0, "tool_proposals_used": state.tool_proposals_used if state else 0, "tool_calls_used": state.tool_calls_used if state else 0}
+    proposed_query = None
+    if run:
+        for message in run.state.session.messages:
+            tool_calls = getattr(message, "tool_calls", ())
+            if tool_calls and isinstance(tool_calls[0].arguments, dict):
+                proposed_query = tool_calls[0].arguments.get("query")
+                break
+    return {"case_id": case["id"], "case_key": key, "trial": trial, "question": case["question"], "category": case.get("category"), "initial_ranked_evidence": [asdict(item) for item in run.initial_ranked_evidence] if run else [], "tool_proposed": bool(state and state.tool_proposals_used), "proposed_search_query": proposed_query, "policy_decision": state.policy_decision if state else None, "policy_reason_codes": list(state.policy_reason_codes) if state else [], "tool_executed": bool(state and state.tool_calls_used), "recovery_ranked_evidence": [asdict(item) for item in run.recovery_ranked_evidence] if run else [], "observed_evidence": [asdict(item) for item in run.observed_evidence] if run else [], "final_answer": run.draft.answer if run and run.draft else None, "final_claims": [asdict(item) for item in run.claims] if run else [], "citation_integrity_result": response.route.value == "answer" or "invalid_citation" not in response.safety_reasons, "grounding_coverage_ok": grounding.coverage_ok if grounding else None, "claim_verdicts": [item.verdict.value for item in grounding.claim_results] if grounding else [], "route": response.route.value, "agent_stop_reason": run.stop_reason.value if run and run.stop_reason else None, "harness_disposition": harness_disposition, "model_turns_used": state.model_turns_used if state else 0, "tool_proposals_used": state.tool_proposals_used if state else 0, "tool_calls_used": state.tool_calls_used if state else 0}
 
 
 def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:

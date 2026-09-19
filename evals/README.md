@@ -33,8 +33,8 @@ M0.3 Eval Pack 的检索指标只统计带有人工核对 `expected_source_ids` 
 
 只有在实际运行 BM25 并检查 ranked evidence 后，才把案例归入最终 failure table。
 
-M0 不使用 LLM-as-Judge，也不声称测量诊断正确率、临床安全性或语义蕴含。未来的
-grounding、abstention 和失败分类评测必须建立在可复现的 trace 和人工审核标准上。
+M0 不使用 LLM-as-Judge，也不声称测量诊断正确率、临床安全性或语义蕴含。M2 的 grounding
+评测已建立在可复现的 standalone trace 和人工审核证据关系标准上；它仍不是医疗正确性评测。
 
 ## M1 recovery pack
 

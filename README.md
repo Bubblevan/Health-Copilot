@@ -143,8 +143,8 @@ evidence 的关系，不声称 clinical validation 或 medical correctness。
 
 M0/M1 的 citation verifier 只验证模型返回的 ID 是否属于本次实际观察到的 Evidence，并从
 存储的 Evidence 复制标题、摘要和 URL；它不证明每个自然语言 claim 与引用之间存在语义
-蕴含关系。claim-level grounding、持久化 trace/replay 和完整 Harness Runtime 留到后续
-阶段。
+蕴含关系。M2 已补充 claim-level grounding；持久化 trace/replay 和完整 Harness Runtime
+仍留到后续阶段。
 
 为保持 M0 的兼容性，`AssistantResponse.safety_reasons` 当前同时承载 safety reason 和
 pipeline status reason（如 `retrieval_error`、`generation_error`、`invalid_citation`）。

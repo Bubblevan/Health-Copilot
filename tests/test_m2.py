@@ -154,7 +154,7 @@ def test_grounding_rejects_unsupported_contradicted_and_missing_coverage() -> No
     for result in (
         GroundingResult(True, (ClaimResult(0, ClaimVerdict.UNSUPPORTED),)),
         GroundingResult(True, (ClaimResult(0, ClaimVerdict.CONTRADICTED),)),
-        GroundingResult(False, (ClaimResult(0, ClaimVerdict.SUPPORTED),)),
+        GroundingResult(False, (ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-a",)),)),
     ):
         verifier = _Verifier(result)
         pipeline = _pipeline(
@@ -183,6 +183,56 @@ def test_fabricated_claim_citation_is_rejected_before_verifier() -> None:
     assert response.route == Route.ABSTAIN
     assert response.safety_reasons == ["invalid_citation"]
     assert verifier.calls == 0
+
+
+def test_verifier_cannot_support_claim_from_a_different_observed_source() -> None:
+    claim = _claim("source-a")
+    verifier = _Verifier(
+        GroundingResult(True, (ClaimResult(0, ClaimVerdict.SUPPORTED, ("source-b",)),))
+    )
+    pipeline = _pipeline(
+        _Model(FinalTurn("answer", claims=(claim,))),
+        _Retriever([_evidence("source-a"), _evidence("source-b")]),
+        _Policy(EvidenceAssessment(EvidenceDecision.SUFFICIENT)),
+        verifier,
+    )
+
+    response = pipeline.answer("question")
+
+    assert response.route == Route.ABSTAIN
+    assert response.safety_reasons == ["verifier_error"]
+    assert pipeline.last_agent_run is not None
+    assert pipeline.last_agent_run.stop_reason == StopReason.FINAL
+    assert pipeline.last_harness_disposition == "verifier_error"
+
+
+def test_supported_verdict_requires_a_supporting_source() -> None:
+    verifier = _Verifier(GroundingResult(True, (ClaimResult(0, ClaimVerdict.SUPPORTED),)))
+    pipeline = _pipeline(
+        _Model(FinalTurn("answer", claims=(_claim(),))),
+        _Retriever([_evidence()]),
+        _Policy(EvidenceAssessment(EvidenceDecision.SUFFICIENT)),
+        verifier,
+    )
+
+    assert pipeline.answer("question").route == Route.ABSTAIN
+    assert pipeline.last_harness_disposition == "verifier_error"
+
+
+def test_policy_rejects_obviously_inconsistent_decision_reason_pairs() -> None:
+    for assessment in (
+        EvidenceAssessment(EvidenceDecision.SUFFICIENT, reason_codes=("out_of_scope",)),
+        EvidenceAssessment(EvidenceDecision.CONFLICTING, reason_codes=("direct_support",)),
+    ):
+        pipeline = _pipeline(
+            _Model(ToolCallTurn([ToolCall("policy", "search_knowledge", {"query": "q"})])),
+            _Retriever([_evidence()]),
+            _Policy(assessment),
+            _Verifier(_supported()),
+        )
+        assert pipeline.answer("question").route == Route.ABSTAIN
+        assert pipeline.last_agent_run is not None
+        assert pipeline.last_agent_run.stop_reason == StopReason.POLICY_ERROR
 
 
 def test_policy_is_not_called_for_direct_final_safety_or_empty_evidence() -> None:
