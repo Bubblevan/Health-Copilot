@@ -1,0 +1,7 @@
+{
+  "source_commit": "9043d316772d331df49420f3c5889d91d256cc05",
+  "policy_standalone_run": "../20260920T022022+0800",
+  "grounding_standalone_run": "../20260920T022231+0800",
+  "focused_ab_run": "../20260920T022248+0800",
+  "conclusion": "partially_supported"
+}

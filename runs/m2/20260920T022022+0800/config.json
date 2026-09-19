@@ -1,0 +1,12 @@
+{
+  "commit_sha": "9043d316772d331df49420f3c5889d91d256cc05",
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "temperature": 0,
+  "dataset_path": "evals\\m2_policy.jsonl",
+  "dataset_sha256": "6b95736e91c42134ffcb8f89adac3f4f87c62b4159f93d0f854c67321df6f805",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "case_count": 24,
+  "timeout": 30.0,
+  "retries": 0
+}
