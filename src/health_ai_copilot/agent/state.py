@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 
 from ..contracts import Evidence, GenerationDraft
+from ..verification.grounding import GroundedClaim
 from .session import AgentSession
 
 
@@ -20,6 +21,11 @@ class StopReason(StrEnum):
     MAX_MODEL_TURNS = "max_model_turns"
     MAX_TOOL_CALLS = "max_tool_calls"
     MODEL_ERROR = "model_error"
+    EVIDENCE_INSUFFICIENT = "evidence_insufficient"
+    EVIDENCE_CONFLICTING = "evidence_conflicting"
+    POLICY_ERROR = "policy_error"
+    GROUNDING_FAILED = "grounding_failed"
+    VERIFIER_ERROR = "verifier_error"
 
 
 @dataclass
@@ -29,9 +35,16 @@ class AgentState:
     session: AgentSession
     model_turns_used: int = 0
     tool_calls_used: int = 0
+    tool_proposals_used: int = 0
+    policy_calls_used: int = 0
+    verifier_calls_used: int = 0
+    policy_decision: str | None = None
+    policy_reason_codes: tuple[str, ...] = ()
+    policy_supporting_source_ids: tuple[str, ...] = ()
     status: AgentStatus = AgentStatus.RUNNING
     stop_reason: StopReason | None = None
     final_draft: GenerationDraft | None = None
+    final_claims: tuple[GroundedClaim, ...] = ()
     initial_ranked_evidence: list[Evidence] = field(default_factory=list)
     recovery_ranked_evidence: list[Evidence] = field(default_factory=list)
     observed_evidence: list[Evidence] = field(default_factory=list)

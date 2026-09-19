@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 from pathlib import Path
 
@@ -10,6 +11,7 @@ from health_ai_copilot.agent import (
 )
 from health_ai_copilot.contracts import AssistantResponse, Evidence, Route
 from health_ai_copilot.eval.m1 import summarize_m1_runs
+from health_ai_copilot.eval.m2 import summarize_m2_runs
 from health_ai_copilot.eval.runner import evaluate_cases, load_cases
 from health_ai_copilot.knowledge.loader import load_knowledge_cards
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
@@ -256,3 +258,46 @@ def test_focused_eval_records_unexpected_answer_route() -> None:
     assert _failures(rows) == [
         {"case_key": "trial-1:direct", "type": "unexpected_answer_route"}
     ]
+
+
+def test_m2_eval_packs_are_small_reviewed_and_grounded_in_known_sources() -> None:
+    policy_cases = load_cases(Path("evals") / "m2_policy.jsonl")
+    grounding_cases = [
+        json.loads(line)
+        for line in (Path("evals") / "m2_grounding.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    card_ids = {card.id for card in load_knowledge_cards(Path("data") / "knowledge_cards")}
+
+    assert len(policy_cases) == 24
+    assert {case["category"] for case in policy_cases} == {
+        "sufficient_direct",
+        "recoverable_paraphrase",
+        "insufficient_ood",
+    }
+    assert all(case["status"] == "reviewed" for case in policy_cases + grounding_cases)
+    assert all(set(case.get("expected_source_ids", [])).issubset(card_ids) for case in policy_cases)
+    assert all(set(case["evidence_source_ids"]).issubset(card_ids) for case in grounding_cases)
+
+
+def test_m2_metrics_keep_policy_proposals_separate_from_executions() -> None:
+    run = _run_model(
+        [_evidence("source-a")],
+        ToolCallTurn([ToolCall("call", "search_knowledge", {"query": "q"})]),
+        FinalTurn("answer", ["source-a"]),
+        recovery=[_evidence("source-b")],
+    )
+    run.state.tool_proposals_used = 1
+    run.state.tool_calls_used = 0
+    run.state.policy_decision = "sufficient"
+    metrics = summarize_m2_runs(
+        [{"id": "ood", "category": "ood_false_retrieval", "expected_decision": "sufficient"}],
+        {"ood": run},
+        {"ood": AssistantResponse(Route.ABSTAIN, "abstain")},
+    )
+
+    assert metrics["tool_proposal_rate"] == 1.0
+    assert metrics["tool_execution_rate"] == 0.0
+    assert metrics["policy_veto_rate"] == 1.0
+    assert metrics["ood_tool_proposal_rate"] == 1.0
+    assert metrics["ood_tool_execution_rate"] == 0.0

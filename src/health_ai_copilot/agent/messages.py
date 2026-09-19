@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, TypeAlias
 
 from ..contracts import Evidence, GenerationDraft
+from ..verification.grounding import GroundedClaim
 
 if TYPE_CHECKING:
     from .tools import ToolResult
@@ -33,6 +34,7 @@ class AssistantFinalMessage:
     answer: str
     citation_ids: list[str] = field(default_factory=list)
     abstain: bool = False
+    claims: tuple[GroundedClaim, ...] = ()
 
     def to_draft(self) -> GenerationDraft:
         return GenerationDraft(
@@ -70,6 +72,7 @@ class FinalTurn:
     answer: str
     citation_ids: list[str] = field(default_factory=list)
     abstain: bool = False
+    claims: tuple[GroundedClaim, ...] = ()
 
     @classmethod
     def from_draft(cls, draft: GenerationDraft) -> "FinalTurn":
@@ -80,6 +83,7 @@ class FinalTurn:
             answer=self.answer,
             citation_ids=list(self.citation_ids),
             abstain=self.abstain,
+            claims=self.claims,
         )
 
     def to_draft(self) -> GenerationDraft:

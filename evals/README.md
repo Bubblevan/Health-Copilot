@@ -62,6 +62,14 @@ safety short-circuit accuracy、turn/tool budget 和 citation integrity 指标�
 更适合后续回答质量、安全与沟通评测；MIRAGE 更适合比较医学 RAG 的检索/语料组合。
 在使用或再分发前，先阅读各自上游的数据和代码许可。
 
+## M2 focused packs
+
+`m2_policy.jsonl` contains 24 reviewed, current-KnowledgeCard policy fixtures: direct sufficient,
+recoverable paraphrase, and OOD insufficient. No conflict fixture is included because this knowledge
+pack has no defensible reviewed source conflict. `m2_grounding.jsonl` is a small evidence-relation pack
+for supported, unsupported, contradicted, coverage-missing, and fabricated-citation outcomes. It does
+not represent clinical truth or medical accuracy.
+
 BEIR NFCorpus 是单独的标准检索轨道。运行
 `python -m health_ai_copilot.eval.nfcorpus --data-dir artifacts/benchmarks/nfcorpus`
 可在本地 corpus/queries/qrels 上测当前 BM25 的 Recall@K、MRR 和 nDCG@K。它与

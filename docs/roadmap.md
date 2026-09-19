@@ -26,11 +26,15 @@ M1 已在 M0 契约之上实现：
 M1 的 Agent action 只针对 M0 观察到的 lexical query-expression mismatch；它不解决 OOD
 false retrieval，也不声称解决 evidence sufficiency 或临床安全性。
 
-## M2 — Harness Runtime（planned）
+## M2 — Evidence Policy & Grounding Harness（implemented）
 
-把 policy、capability/permission、step/token/time/tool budget、timeout、fallback、
-trace/replay 做成可测试的运行时约束。YAML 可以是配置格式，但不应替代代码级 invariant、
-测试和反馈闭环。
+M2 在 M1 的单步 recovery 前设置 EvidencePolicy runtime veto，并在最终回答前做 claim
+coverage 与 claim-level grounding。policy 和 verifier 都是 runtime authority，不是 Agent tool；
+提案次数与真实工具执行次数分别计数，所有 policy/verifier/provider 失败都会 fail closed。
+M0/M1 的旧 final contract 保持可重放。
+
+更广泛的 time/token/cost budget、permission、sandbox、持久化 trace/replay 移到后续 Harness
+Runtime 里程碑；M2 不因此扩展 Agent action space。
 
 ## M3+ — Evaluation and system extensions（planned）
 

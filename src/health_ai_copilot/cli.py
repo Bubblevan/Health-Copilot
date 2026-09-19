@@ -8,16 +8,18 @@ from .generation.base import GenerationError
 from .generation.openai_compatible import OpenAICompatibleGenerator
 from .knowledge.loader import KnowledgeCardLoadError, load_knowledge_cards
 from .pipeline import HealthCopilotPipeline
+from .policy.model import OpenAICompatibleEvidencePolicy
 from .retrieval.bm25 import BM25Retriever
+from .verification.grounding import OpenAICompatibleGroundingVerifier
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Run the Health-Copilot M0 or M1 pipeline")
+    parser = argparse.ArgumentParser(description="Run the Health-Copilot M0, M1, or M2 pipeline")
     parser.add_argument(
         "--mode",
-        choices=("m0", "m1"),
+        choices=("m0", "m1", "m2"),
         default="m0",
-        help="m0: deterministic generator path; m1: bounded single-agent recovery path",
+        help="m0: generator; m1: bounded recovery; m2: policy plus grounding",
     )
     parser.add_argument(
         "--knowledge-dir", default="data/knowledge_cards", help="directory containing JSON cards"
@@ -34,9 +36,16 @@ def main(argv: list[str] | None = None) -> int:
         if args.mode == "m0":
             generator = OpenAICompatibleGenerator()
             pipeline = HealthCopilotPipeline(retriever, generator)
-        else:
+        elif args.mode == "m1":
             agent_model = OpenAICompatibleAgentModel()
             pipeline = HealthCopilotPipeline(retriever, agent_model=agent_model)
+        else:
+            pipeline = HealthCopilotPipeline(
+                retriever,
+                agent_model=OpenAICompatibleAgentModel(),
+                evidence_policy=OpenAICompatibleEvidencePolicy(),
+                grounding_verifier=OpenAICompatibleGroundingVerifier(),
+            )
         result = pipeline.answer(args.question)
     except (KnowledgeCardLoadError, GenerationError, AgentModelError) as exc:
         print(f"Configuration or knowledge-card error: {exc}", file=sys.stderr)

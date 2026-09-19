@@ -94,6 +94,24 @@ M0 为保持现有 `AssistantResponse` contract，字段名仍是 `safety_reason
 
 ## Later milestones
 
-M2 再考虑 policy/budget/timeout 的更广泛 harness、持久化 trace/replay、可插拔 runtime、
-dense/hybrid retrieval、multimodal evidence 和 post-training。每个里程碑都应先有 baseline、
+后续 Harness Runtime 再考虑更广泛的 policy/budget/timeout、持久化 trace/replay 与可插拔
+runtime；dense/hybrid retrieval、multimodal evidence 和 post-training 也都必须先有 baseline、
 失败案例、ablation 和可复现评测，再增加复杂度。
+
+## M2 evidence policy and grounding
+
+```text
+M1 tool proposal -> EvidencePolicy
+  recoverable -> execute search_knowledge -> second model turn
+  sufficient  -> policy_denied observation -> second model turn
+  insufficient/conflicting/error -> ABSTAIN
+grounded final -> claim citation integrity -> coverage + grounding verifier -> response / ABSTAIN
+```
+
+The policy is called only for a proposed `search_knowledge`, never for direct finals, safety routes,
+or empty retrieval. M2 non-abstaining finals contain `GroundedClaim(text, citation_ids)` entries. The
+runtime verifies every claim citation against observed evidence before the semantic verifier, requires
+coverage of substantive answer claims, and materializes citation metadata solely from observed Evidence.
+Unsupported, contradicted, uncovered, malformed, or verifier-error results fail closed. The generator
+and verifier may use the same configured model; that is recorded as same-model verification, not an
+independent judge.

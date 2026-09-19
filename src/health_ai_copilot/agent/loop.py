@@ -4,6 +4,7 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 
 from ..contracts import Evidence, GenerationDraft
+from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
 from .events import AgentEvent, AgentEventType
 from .messages import (
     FinalTurn,
@@ -14,7 +15,7 @@ from .messages import (
 from .model import AgentModel
 from .session import AgentSession
 from .state import AgentState, StopReason
-from .tools import ToolRegistry
+from .tools import ToolRegistry, ToolResult
 
 EventSink = Callable[[AgentEvent], None]
 
@@ -60,6 +61,10 @@ class AgentRunResult:
     def stop_reason(self) -> StopReason | None:
         return self.state.stop_reason
 
+    @property
+    def claims(self):
+        return self.state.final_claims
+
 
 class AgentLoop:
     """M1's only runtime: bounded, sequential, one-agent execution."""
@@ -70,11 +75,13 @@ class AgentLoop:
         registry: ToolRegistry,
         config: AgentLoopConfig | None = None,
         event_sink: EventSink | None = None,
+        evidence_policy: EvidencePolicy | None = None,
     ) -> None:
         self.model = model
         self.registry = registry
         self.config = config or AgentLoopConfig()
         self.event_sink = event_sink
+        self.evidence_policy = evidence_policy
 
     def run(
         self,
@@ -140,6 +147,7 @@ class AgentLoop:
                 final_message = response.as_message()
                 active_session.append(final_message)
                 state.final_draft = response.to_draft()
+                state.final_claims = response.claims
                 emit(
                     AgentEvent(
                         AgentEventType.MODEL_RESPONSE,
@@ -209,7 +217,10 @@ class AgentLoop:
                 )
                 continue
 
-            if state.tool_calls_used + len(response.tool_calls) > self.config.max_tool_calls:
+            # A policy-vetoed proposal does not execute a tool, but it still consumes
+            # the single M1 action opportunity. This prevents a second proposal from
+            # bypassing the original one-step interaction boundary.
+            if state.tool_proposals_used + len(response.tool_calls) > self.config.max_tool_calls:
                 emit(
                     AgentEvent(
                         AgentEventType.TURN_END,
@@ -224,6 +235,41 @@ class AgentLoop:
             # M1 is sequential and configured for one call, even though the
             # structural turn type can represent a list of provider calls.
             call = response.tool_calls[0]
+            state.tool_proposals_used += 1
+            if self.evidence_policy is not None and call.name == "search_knowledge":
+                proposed_query = (
+                    call.arguments.get("query", "")
+                    if isinstance(call.arguments, dict)
+                    else ""
+                )
+                state.policy_calls_used += 1
+                emit(AgentEvent(AgentEventType.POLICY_START, active_session.session_id, turn=turn, tool_call_id=call.id, tool_name=call.name))
+                try:
+                    assessment = validate_assessment(
+                        self.evidence_policy.assess(question, tuple(state.observed_evidence), proposed_query),
+                        tuple(state.observed_evidence),
+                    )
+                except Exception:  # noqa: BLE001 - a policy failure is terminal and closed
+                    emit(AgentEvent(AgentEventType.POLICY_END, active_session.session_id, turn=turn, tool_call_id=call.id, tool_name=call.name, success=False, error_code="policy_error"))
+                    emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False))
+                    state.stop(StopReason.POLICY_ERROR)
+                    break
+                emit(AgentEvent(AgentEventType.POLICY_END, active_session.session_id, turn=turn, tool_call_id=call.id, tool_name=call.name, success=True))
+                state.policy_decision = assessment.decision.value
+                state.policy_reason_codes = assessment.reason_codes
+                state.policy_supporting_source_ids = assessment.supporting_source_ids
+                if assessment.decision == EvidenceDecision.SUFFICIENT:
+                    active_session.append(ToolResultMessage(call.id, call.name, ToolResult.failure("policy_denied", "current evidence is sufficient; recovery search was not executed")))
+                    emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False, error_code="policy_denied"))
+                    continue
+                if assessment.decision == EvidenceDecision.INSUFFICIENT:
+                    emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False))
+                    state.stop(StopReason.EVIDENCE_INSUFFICIENT)
+                    break
+                if assessment.decision == EvidenceDecision.CONFLICTING:
+                    emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False))
+                    state.stop(StopReason.EVIDENCE_CONFLICTING)
+                    break
             state.tool_calls_used += 1
             emit(
                 AgentEvent(

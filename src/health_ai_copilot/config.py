@@ -16,9 +16,9 @@ class OpenAIConfig:
     temperature: float = 0.1
 
 
-def load_openai_config() -> OpenAIConfig:
+def load_openai_config(*, model_override: str | None = None) -> OpenAIConfig:
     api_key = os.getenv("HEALTH_COPILOT_API_KEY", "").strip()
-    model = os.getenv("HEALTH_COPILOT_MODEL", "").strip()
+    model = (model_override or os.getenv("HEALTH_COPILOT_MODEL", "")).strip()
     base_url = os.getenv("HEALTH_COPILOT_BASE_URL", "").strip() or None
 
     missing = []

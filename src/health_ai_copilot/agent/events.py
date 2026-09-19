@@ -10,6 +10,10 @@ class AgentEventType(StrEnum):
     MODEL_RESPONSE = "model_response"
     TOOL_START = "tool_start"
     TOOL_END = "tool_end"
+    POLICY_START = "policy_start"
+    POLICY_END = "policy_end"
+    GROUNDING_START = "grounding_start"
+    GROUNDING_END = "grounding_end"
     TURN_END = "turn_end"
     AGENT_END = "agent_end"
 

@@ -81,8 +81,10 @@ python -m health_ai_copilot.cli `
   --question "你的患者教育问题"
 ```
 
-将 `--mode m0` 改为 `--mode m1` 可演示受限 Agent recovery；两种模式都使用同一份本地
-Knowledge Pack。M1 的离线 mechanics 测试不需要 API Key。
+将 `--mode m0` 改为 `--mode m1` 可演示受限 Agent recovery；`--mode m2` 额外启用
+EvidencePolicy 与 claim grounding verifier。M2 的 policy/verifier 使用同一套 API key/base URL，
+模型可分别由 `HEALTH_COPILOT_POLICY_MODEL`、`HEALTH_COPILOT_VERIFIER_MODEL` 指定，缺省时
+回退到 `HEALTH_COPILOT_MODEL`；两者均为 temperature 0。M1/M2 离线 mechanics 测试不需要 API Key。
 
 没有 API 配置时，确定性测试仍可完整运行；live demo 会给出配置错误，不会伪装成离线成功。
 
@@ -125,6 +127,17 @@ KnowledgeCard；`benchmarks` 将 HealthBench 与 MIRAGE 下载到 Git 忽略的
 M1 明确不包含 Multi-Agent、Agent Swarm、Memory、MCP、Sandbox、Milvus、Qdrant、dense
 retrieval、reranker、web search、VLM、SFT/DPO/RL、流式 UI、并行工具、队列、持久化 trace
 或任何临床验证。这些能力不能被 M1 的 bounded single-agent runtime 暗示为已经具备。
+
+## M2 已实现：Evidence Policy & Grounding Harness
+
+M2 的 `search_knowledge` 仍是唯一 Agent tool。模型提出 tool call 后，外部 EvidencePolicy
+只会允许 recoverable recovery，或以 structured `policy_denied` observation 拒绝已经足够的证据；
+insufficient/conflicting/policy failure 都直接 abstain。工具 proposal 和真实 execution 分别记录。
+
+非 abstain 的 M2 final 必须提交覆盖回答中实质事实的逐项 claims 及 citation IDs。运行时先做
+deterministic citation integrity，再做 coverage/support verifier；任何 fabricated citation、coverage
+缺口、unsupported、contradicted 或 verifier failure 都 fail closed。该机制只校验给定 reviewed
+evidence 的关系，不声称 clinical validation 或 medical correctness。
 
 ## 设计限制
 
