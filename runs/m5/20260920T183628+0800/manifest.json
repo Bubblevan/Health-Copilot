@@ -1,0 +1,9 @@
+{
+  "artifact_type": "m5_retrieval_only_ablation",
+  "status": "interim_diagnostic",
+  "commit_sha": "cdc6f30a95dd248ffccb90a6f96de5603fe1ea68",
+  "result_scope": "frozen M0 source-labelled product retrieval cases only",
+  "not_a_m5_closeout": true,
+  "expanded_m5_retrieval_release_included": false,
+  "production_default_changed": false
+}

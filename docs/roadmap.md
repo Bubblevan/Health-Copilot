@@ -67,9 +67,9 @@ M4 FINAL FROZEN：`main@51f0ee5a9352c5cabd360d302a2cef1eb9b5da25`。M4.1 明确�
 ## M5 — Hybrid Retrieval & Evaluation Scale（in progress; not frozen）
 
 M5 has introduced a generic `RetrievalDocument`, frozen BM25 baseline, optional dense retrieval, RRF hybrid fusion,
-optional reranking, index provenance and retrieval-only ablation tooling. Product default remains BM25 while the new
-retrieval expansion pack awaits human review and the required live end-to-end ablation remains incomplete. See
-`docs/m5_retrieval.md`; no M6 work has started.
+optional reranking, index provenance, retrieval-only ablation tooling, and a four-arm M3/M4 focused end-to-end
+diagnostic. Product default remains BM25 while the category-balanced new retrieval expansion pack awaits review and
+release. See `docs/m5_retrieval.md`; no M6 work has started.
 
 ## M6+ — Later extensions（planned）
 

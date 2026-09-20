@@ -1,0 +1,5 @@
+{"event_type": "run_start", "fields": {"run_id": "run-faa3012821bf4a6abdc93dd076cdd133", "runtime_mode": "m5_live_e2e"}, "sequence": 1}
+{"event_type": "provider_start", "fields": {"call_id": "provider-e531938c0d3540f1984a978c830956f9", "kind": "agent", "model": "deepseek-flash", "request_fingerprint": "b7ee36856d5736ac6eac92b47a4cefcd2abdb9fcdc1b73496f92591e495c1843", "response_format": true, "temperature": 0.1, "tool_count": 1}, "sequence": 2}
+{"event_type": "provider_end", "fields": {"call_id": "provider-e531938c0d3540f1984a978c830956f9", "finish_reason": "stop", "kind": "agent", "latency_ms": 843.9999999991414, "model": "deepseek-flash", "request_fingerprint": "b7ee36856d5736ac6eac92b47a4cefcd2abdb9fcdc1b73496f92591e495c1843", "tool_call_count": 0, "usage_total": 1195}, "sequence": 3}
+{"event_type": "harness_disposition", "fields": {"disposition": "claim_materialization_error", "route": "abstain", "safety_reason_count": 1}, "sequence": 4}
+{"event_type": "run_end", "fields": {"event_count": 4, "status": "complete"}, "sequence": 5}

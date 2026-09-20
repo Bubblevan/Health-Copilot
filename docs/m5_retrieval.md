@@ -25,15 +25,23 @@ baseline, not a learned semantic embedding. Optional `.[retrieval]` adds sentenc
 and cross-encoder implementations; model weights remain outside Git and the runtime defaults to local-files-only to
 avoid implicit network access during an experiment.
 
-The current M5 product artifact is [`runs/m5/20260920T181225+0800`](../runs/m5/20260920T181225+0800). On the frozen
+The current M5 product retrieval-only artifact is [`runs/m5/20260920T183628+0800`](../runs/m5/20260920T183628+0800). On the frozen
 M0 pack's 62 source-labelled cases, learned Hybrid+CrossEncoder has Hit@1 0.9355 and MRR 0.9651, versus BM25 0.9032 and
-0.9315; its mean retrieval latency is about 181 ms versus BM25 about 0.30 ms. This is a reviewed-existing-pack
+0.9315; its mean retrieval latency is about 141 ms versus BM25 about 0.08 ms in that local run. This is a reviewed-existing-pack
 retrieval diagnostic, not clinical correctness, a generalization claim, or an automatic production-default decision.
+
+The same stack has a six-case, reviewed M3/M4 focused end-to-end diagnostic in
+[`runs/m5/20260920T182649+0800`](../runs/m5/20260920T182649+0800). All four arms returned the four expected answers,
+had no unexpected abstain, no OOD answer, and no OOD tool execution in that one run. The four answerable cases and two
+OOD controls are too small to call those stable rates or to select a product default; the artifact records runtime call,
+token, and latency observations for that reason.
 
 The external NFCorpus hashing-baseline artifact is distinct: BM25 MRR 0.5182/nDCG@10 0.3110; hashing dense and hybrid
 are lower. External benchmark figures must not be presented as Health-Copilot product performance.
 
 ## Status
 
-M5 is **not frozen**. The required new 60–100-case product retrieval expansion has not received human review, and the
-four-arm live end-to-end ablation has not been run. Therefore BM25 remains the product default and M6 is not started.
+M5 is **not frozen**. The existing 40-case approved M0 expansion is useful evidence but does not by itself satisfy the
+new, category-balanced 60–100-case M5 retrieval release requirement. The four-arm focused end-to-end ablation is now
+complete, but the required expanded product retrieval release and its failure review remain outstanding. Therefore BM25
+remains the product default and M6 is not started.

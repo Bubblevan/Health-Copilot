@@ -1,0 +1,46 @@
+{
+  "bm25": {
+    "case_count": 6,
+    "expected_answer_rate": 1.0,
+    "unexpected_abstain_rate": 0.0,
+    "ood_answer_rate": 0.0,
+    "ood_tool_execution_rate": 0.0,
+    "mean_tool_calls": 0.3333333333333333,
+    "mean_provider_calls": 2.6666666666666665,
+    "mean_latency_ms": 5911.50000000016,
+    "mean_total_tokens": 3839.5
+  },
+  "dense": {
+    "case_count": 6,
+    "expected_answer_rate": 1.0,
+    "unexpected_abstain_rate": 0.0,
+    "ood_answer_rate": 0.0,
+    "ood_tool_execution_rate": 0.0,
+    "mean_tool_calls": 0.0,
+    "mean_provider_calls": 2.0,
+    "mean_latency_ms": 4080.6666666667297,
+    "mean_total_tokens": 2784.6666666666665
+  },
+  "hybrid": {
+    "case_count": 6,
+    "expected_answer_rate": 1.0,
+    "unexpected_abstain_rate": 0.0,
+    "ood_answer_rate": 0.0,
+    "ood_tool_execution_rate": 0.0,
+    "mean_tool_calls": 0.16666666666666666,
+    "mean_provider_calls": 2.1666666666666665,
+    "mean_latency_ms": 4710.999999999937,
+    "mean_total_tokens": 3144.8333333333335
+  },
+  "hybrid_rerank": {
+    "case_count": 6,
+    "expected_answer_rate": 1.0,
+    "unexpected_abstain_rate": 0.0,
+    "ood_answer_rate": 0.0,
+    "ood_tool_execution_rate": 0.0,
+    "mean_tool_calls": 0.0,
+    "mean_provider_calls": 1.8333333333333333,
+    "mean_latency_ms": 3609.3333333334763,
+    "mean_total_tokens": 2484.3333333333335
+  }
+}

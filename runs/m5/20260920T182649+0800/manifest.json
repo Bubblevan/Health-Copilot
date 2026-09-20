@@ -1,0 +1,9 @@
+{
+  "artifact_type": "m5_m3_m4_focused_end_to_end_ablation",
+  "status": "interim_focused_diagnostic",
+  "commit_sha": "4e94a54a3d82147e1c9347a9ff2bf70684036043",
+  "result_scope": "six reviewed M4 replay-derived cases; four answerable and two OOD controls",
+  "m4_runtime_context": true,
+  "not_a_m5_closeout": true,
+  "production_default_changed": false
+}

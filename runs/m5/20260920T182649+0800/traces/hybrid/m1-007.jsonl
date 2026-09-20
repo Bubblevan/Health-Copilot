@@ -1,0 +1,5 @@
+{"event_type": "run_start", "fields": {"run_id": "run-a5a7e1bd04db4f42b3c068b4a0949cd1", "runtime_mode": "m5_live_e2e"}, "sequence": 1}
+{"event_type": "provider_start", "fields": {"call_id": "provider-8be89523316b43e29c3325f7e4372135", "kind": "agent", "model": "deepseek-flash", "request_fingerprint": "53df2805d1e97a5bbfeb0764fa07110983e61dc9808e5e1fbd54593fac74ead0", "response_format": true, "temperature": 0.1, "tool_count": 1}, "sequence": 2}
+{"event_type": "provider_end", "fields": {"call_id": "provider-8be89523316b43e29c3325f7e4372135", "finish_reason": "stop", "kind": "agent", "latency_ms": 2156.0000000008586, "model": "deepseek-flash", "request_fingerprint": "53df2805d1e97a5bbfeb0764fa07110983e61dc9808e5e1fbd54593fac74ead0", "tool_call_count": 0, "usage_total": 1647}, "sequence": 3}
+{"event_type": "harness_disposition", "fields": {"disposition": "abstain", "route": "abstain", "safety_reason_count": 1}, "sequence": 4}
+{"event_type": "run_end", "fields": {"event_count": 4, "status": "complete"}, "sequence": 5}
