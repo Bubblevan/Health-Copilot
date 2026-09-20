@@ -25,7 +25,7 @@ from ..runtime import (
 from ..runtime.builder import RuntimeBuilder
 from ..runtime.trace import TraceContentPolicy
 from ..safety import route_question
-from ..team import worker_evidence_diversity
+from ..team import worker_evidence_diversity, worker_recovery_evidence_diversity
 from ..verification.citations import verify_citations
 from ..verification.grounding import (
     ClaimVerdict,
@@ -116,12 +116,8 @@ class EvaluationRunner:
         suite = self.registry.get(suite_id)
         mode = EvalExecutionMode(execution_mode)
         self.registry.validate_mode(suite, mode)
-        if suite_id == "m8-agent-team-focused-v1" and profile_id is not None:
-            allowed = set(suite.provenance.get("allowed_profiles", ()))
-            if profile_id not in allowed:
-                raise EvalConfigurationError(
-                    f"M8 core comparison rejects profile {profile_id}; allowed: {sorted(allowed)}"
-                )
+        selected_profile = profile_id or suite.default_profile_id
+        self._validate_suite_profile(suite, selected_profile)
         dataset = Path(dataset_path or suite.dataset_path)
         if not dataset.exists():
             raise EvalConfigurationError(f"evaluation dataset does not exist: {dataset}")
@@ -159,6 +155,7 @@ class EvaluationRunner:
     ) -> Path:
         suite = self.registry.get(spec.suite_id)
         self.registry.validate_mode(suite, spec.execution_mode)
+        self._validate_suite_profile(suite, spec.profile_id or suite.default_profile_id)
         self._validate_content_policy(suite, spec, public_eval_content)
         if public_eval_content:
             spec = replace(spec, trace_content_policy="public_eval_content")
@@ -269,6 +266,14 @@ class EvaluationRunner:
             knowledge_scope=scope,
             run_context_config=effective_budget_config(spec.budget_overrides),
         )
+
+    @staticmethod
+    def _validate_suite_profile(suite, profile_id: str | None) -> None:
+        if suite.allowed_profiles and profile_id not in suite.allowed_profiles:
+            raise EvalConfigurationError(
+                f"suite {suite.suite_id} rejects profile {profile_id}; "
+                f"allowed: {sorted(suite.allowed_profiles)}"
+            )
 
     def _build_live_components(self, spec, cards, scope):
         from ..runtime.builder import default_runtime_profiles
@@ -735,6 +740,7 @@ class EvaluationRunner:
         ]
         team_reports = list(team.reports) if team else []
         worker_overlap, worker_unique = worker_evidence_diversity(team_reports)
+        recovery_overlap, recovery_unique = worker_recovery_evidence_diversity(team_reports)
         initial_team_evidence = (
             [item.evidence.source_id for item in team.state.evidence_ledger.list_items() if item.origin.value == "initial"]
             if team else []
@@ -775,6 +781,9 @@ class EvaluationRunner:
             "team_tasks_created": team.state.tasks_created if team else None,
             "team_workers_started": team.state.workers_started if team else None,
             "team_worker_successes": sum(item.status.value == "succeeded" for item in team_reports) if team else None,
+            "team_worker_report_count": len(team_reports),
+            "team_worker_completions": sum(item.completed for item in team_reports) if team else None,
+            "team_worker_productive_reports": sum(item.productive for item in team_reports) if team else None,
             "team_delegated": bool(team and team.state.tasks_created),
             "team_stop_reason": team.stop_reason.value if team and team.stop_reason else None,
             "team_topology": team.state.topology if team else None,
@@ -783,6 +792,8 @@ class EvaluationRunner:
             "team_role_records": [item.to_metadata() for item in team_reports],
             "worker_evidence_overlap": worker_overlap,
             "worker_unique_evidence_contribution": worker_unique,
+            "worker_recovery_evidence_overlap": recovery_overlap,
+            "worker_unique_recovery_contribution": recovery_unique,
         }
         observed.update(observed_extra or {})
         return self._record(
@@ -1128,6 +1139,28 @@ class EvaluationRunner:
                 "m8.worker_unique_evidence_contribution",
                 [row.observed.get("worker_unique_evidence_contribution") for row in complete],
             ),
+            "m8.worker_recovery_evidence_overlap": average(
+                "m8.worker_recovery_evidence_overlap",
+                [row.observed.get("worker_recovery_evidence_overlap") for row in complete],
+            ),
+            "m8.worker_unique_recovery_contribution": average(
+                "m8.worker_unique_recovery_contribution",
+                [row.observed.get("worker_unique_recovery_contribution") for row in complete],
+            ),
+            "m8.worker_completion_rate": _worker_ratio_metric(
+                "m8.worker_completion_rate",
+                complete,
+                "team_worker_completions",
+                "team_worker_report_count",
+                version,
+            ),
+            "m8.worker_productive_report_rate": _worker_ratio_metric(
+                "m8.worker_productive_report_rate",
+                complete,
+                "team_worker_productive_reports",
+                "team_worker_completions",
+                version,
+            ),
             "m8.budget_exhaustion_rate": MetricResult.ratio(
                 "m8.budget_exhaustion_rate",
                 version,
@@ -1288,6 +1321,24 @@ def _average_metric(metric_id, numerator, denominator, version):
     return MetricResult(
         metric_id, version, numerator / denominator if denominator else None,
         numerator, denominator, "score", "scored_cases", "sum/denominator",
+    )
+
+
+def _worker_ratio_metric(metric_id, records, numerator_key, denominator_key, version):
+    numerator = sum(
+        int(record.observed.get(numerator_key) or 0)
+        for record in records
+    )
+    denominator = sum(
+        int(record.observed.get(denominator_key) or 0)
+        for record in records
+    )
+    return MetricResult.ratio(
+        metric_id,
+        version,
+        numerator,
+        denominator,
+        scope="worker_reports",
     )
 
 

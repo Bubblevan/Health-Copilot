@@ -33,6 +33,7 @@ from health_ai_copilot.team import (
     TeamStopReason,
     WorkerReport,
     worker_evidence_diversity,
+    worker_recovery_evidence_diversity,
 )
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
 from health_ai_copilot.verification.grounding import GroundedClaim
@@ -219,6 +220,7 @@ def test_worker_evidence_overlap_and_unique_contribution_are_deterministic():
             "succeeded",
             citation_ids=("evidence-only",),
             observed_source_ids=("shared", "evidence-only"),
+            recovery_source_ids=("evidence-only",),
             provider_calls=1,
         ),
         WorkerReport(
@@ -228,14 +230,19 @@ def test_worker_evidence_overlap_and_unique_contribution_are_deterministic():
             "succeeded",
             citation_ids=("guideline-only",),
             observed_source_ids=("shared", "guideline-only"),
+            recovery_source_ids=("guideline-only",),
             provider_calls=1,
         ),
     )
     overlap, unique = worker_evidence_diversity(reports)
     assert overlap == pytest.approx(1 / 3)
     assert unique == pytest.approx(2 / 3)
+    recovery_overlap, recovery_unique = worker_recovery_evidence_diversity(reports)
+    assert recovery_overlap == pytest.approx(0.0)
+    assert recovery_unique == pytest.approx(1.0)
     assert reports[0].to_metadata()["provider_calls"] == 1
     assert reports[0].to_metadata()["final_cited_source_ids"] == ["evidence-only"]
+    assert reports[0].to_metadata()["recovery_source_ids"] == ["evidence-only"]
 
 
 def test_m8_eval_aggregates_worker_diversity_metrics():
@@ -256,6 +263,11 @@ def test_m8_eval_aggregates_worker_diversity_metrics():
             "team_lead_calls": 2,
             "worker_evidence_overlap": 1 / 3,
             "worker_unique_evidence_contribution": 2 / 3,
+            "worker_recovery_evidence_overlap": 0.0,
+            "worker_unique_recovery_contribution": 1.0,
+            "team_worker_report_count": 2,
+            "team_worker_completions": 2,
+            "team_worker_productive_reports": 2,
         },
     )
     case = SimpleNamespace(
@@ -265,6 +277,30 @@ def test_m8_eval_aggregates_worker_diversity_metrics():
     metrics = EvaluationRunner()._m8_metrics([record], [case], "m8-test-v1")
     assert metrics["m8.worker_evidence_overlap"].value == pytest.approx(1 / 3)
     assert metrics["m8.worker_unique_evidence_contribution"].value == pytest.approx(2 / 3)
+    assert metrics["m8.worker_recovery_evidence_overlap"].value == pytest.approx(0.0)
+    assert metrics["m8.worker_unique_recovery_contribution"].value == pytest.approx(1.0)
+    assert metrics["m8.worker_completion_rate"].value == pytest.approx(1.0)
+    assert metrics["m8.worker_productive_report_rate"].value == pytest.approx(1.0)
+
+
+def test_worker_completion_and_productivity_are_distinct():
+    abstaining = WorkerReport(
+        "task-e",
+        "worker-evidence",
+        TeamRole.EVIDENCE,
+        "succeeded",
+    )
+    productive = WorkerReport(
+        "task-g",
+        "worker-guideline",
+        TeamRole.GUIDELINE,
+        "succeeded",
+        recovery_source_ids=("guideline-source",),
+    )
+    assert abstaining.completed is True
+    assert abstaining.productive is False
+    assert productive.completed is True
+    assert productive.productive is True
 
 
 def test_worker_fabricated_citation_fails_task_and_is_not_added_to_ledger():

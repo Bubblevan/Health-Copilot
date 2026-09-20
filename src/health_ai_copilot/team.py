@@ -374,6 +374,7 @@ class WorkerReport:
     claims: tuple[GroundedClaim, ...] = ()
     citation_ids: tuple[str, ...] = ()
     observed_source_ids: tuple[str, ...] = ()
+    recovery_source_ids: tuple[str, ...] = ()
     provider_calls: int = 0
     tool_proposals: int = 0
     tool_executions: int = 0
@@ -386,6 +387,7 @@ class WorkerReport:
         object.__setattr__(self, "claims", tuple(self.claims))
         object.__setattr__(self, "citation_ids", tuple(self.citation_ids))
         object.__setattr__(self, "observed_source_ids", tuple(self.observed_source_ids))
+        object.__setattr__(self, "recovery_source_ids", tuple(self.recovery_source_ids))
         if self.provider_calls < 0 or self.tool_proposals < 0 or self.tool_executions < 0:
             raise ValueError("worker side-effect counts must not be negative")
 
@@ -399,18 +401,33 @@ class WorkerReport:
 
         return tuple(dict.fromkeys(self.citation_ids))
 
+    @property
+    def completed(self) -> bool:
+        """Whether the worker execution reached the normal completion state."""
+
+        return self.status == TeamTaskStatus.SUCCEEDED
+
+    @property
+    def productive(self) -> bool:
+        """Whether a completed worker returned claims or recovery evidence."""
+
+        return self.completed and bool(self.claims or self.recovery_source_ids)
+
     def to_model_dict(self) -> dict[str, Any]:
         return {
             "task_id": self.task_id,
             "worker_id": self.worker_id,
             "role": self.role.value,
             "status": self.status.value,
+            "completed": self.completed,
+            "productive": self.productive,
             "claims": [
                 {"text": claim.text, "citation_ids": list(claim.citation_ids)}
                 for claim in self.claims
             ],
             "citation_ids": list(self.citation_ids),
             "observed_source_ids": list(self.observed_source_ids),
+            "recovery_source_ids": list(self.recovery_source_ids),
             "final_cited_source_ids": list(self.final_cited_source_ids),
             "provider_calls": self.provider_calls,
             "tool_proposals": self.tool_proposals,
@@ -425,10 +442,14 @@ class WorkerReport:
             "worker_id": self.worker_id,
             "role": self.role.value,
             "status": self.status.value,
+            "completed": self.completed,
+            "productive": self.productive,
             "claim_count": len(self.claims),
             "claim_text_sha256": list(self.claim_text_hashes),
             "citation_count": len(self.citation_ids),
             "observed_source_count": len(self.observed_source_ids),
+            "recovery_source_ids": list(self.recovery_source_ids),
+            "recovery_source_count": len(self.recovery_source_ids),
             "final_cited_source_ids": list(self.final_cited_source_ids),
             "provider_calls": self.provider_calls,
             "tool_proposals": self.tool_proposals,
@@ -438,10 +459,11 @@ class WorkerReport:
         }
 
 
-def worker_evidence_diversity(
+def _worker_evidence_diversity(
     reports: Sequence[WorkerReport],
+    field_name: str,
 ) -> tuple[float | None, float | None]:
-    """Return deterministic overlap and unique-contribution ratios.
+    """Return deterministic overlap and unique-contribution ratios for one field.
 
     The ratios are computed over role-level observed source IDs.  With fewer
     than two worker roles there is no cross-role comparison, so both values
@@ -450,7 +472,7 @@ def worker_evidence_diversity(
 
     by_role: dict[TeamRole, set[str]] = {}
     for report in reports:
-        by_role.setdefault(report.role, set()).update(report.observed_source_ids)
+        by_role.setdefault(report.role, set()).update(getattr(report, field_name))
     role_sets = tuple(by_role.values())
     if len(role_sets) < 2:
         return None, None
@@ -471,6 +493,22 @@ def worker_evidence_diversity(
             occurrence_count[source_id] = occurrence_count.get(source_id, 0) + 1
     unique = sum(count == 1 for count in occurrence_count.values()) / len(union)
     return overlap, unique
+
+
+def worker_evidence_diversity(
+    reports: Sequence[WorkerReport],
+) -> tuple[float | None, float | None]:
+    """Return full worker-context overlap and unique-contribution ratios."""
+
+    return _worker_evidence_diversity(reports, "observed_source_ids")
+
+
+def worker_recovery_evidence_diversity(
+    reports: Sequence[WorkerReport],
+) -> tuple[float | None, float | None]:
+    """Return recovery-only worker overlap and unique-contribution ratios."""
+
+    return _worker_evidence_diversity(reports, "recovery_source_ids")
 
 
 @dataclass(frozen=True)
@@ -812,6 +850,7 @@ class AgentTeamOrchestrator:
                     claims=report.claims,
                     citation_ids=report.citation_ids,
                     observed_source_ids=report.observed_source_ids,
+                    recovery_source_ids=report.recovery_source_ids,
                     provider_calls=report.provider_calls,
                     tool_proposals=report.tool_proposals,
                     tool_executions=report.tool_executions,
@@ -872,6 +911,7 @@ class AgentTeamOrchestrator:
         provider_calls: int = 0,
     ) -> WorkerReport:
         observed_ids = tuple(item.source_id for item in result.observed_evidence)
+        recovery_ids = tuple(item.source_id for item in result.recovery_ranked_evidence)
         citation_ids = tuple(source_id for claim in result.claims for source_id in claim.citation_ids)
         error_code = None
         status = TeamTaskStatus.SUCCEEDED
@@ -889,6 +929,7 @@ class AgentTeamOrchestrator:
             claims=tuple(result.claims),
             citation_ids=citation_ids,
             observed_source_ids=observed_ids,
+            recovery_source_ids=recovery_ids,
             provider_calls=provider_calls,
             tool_proposals=result.state.tool_proposals_used,
             tool_executions=result.state.tool_calls_used,
@@ -1104,4 +1145,5 @@ __all__ = [
     "TeamTaskStatus",
     "WorkerReport",
     "worker_evidence_diversity",
+    "worker_recovery_evidence_diversity",
 ]

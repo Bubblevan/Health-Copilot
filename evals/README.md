@@ -147,4 +147,12 @@ and final cited source contribution. The M8 aggregate metrics also expose
 `m8.worker_evidence_overlap` (pairwise observed-source Jaccard overlap) and
 `m8.worker_unique_evidence_contribution` (the fraction of union sources seen by
 exactly one role). These are deterministic diagnostics for redundancy and
-coverage; they are not training signals and do not imply a validated benchmark.
+coverage. Recovery-only counterparts use only worker recovery evidence and are
+reported as `m8.worker_recovery_evidence_overlap` and
+`m8.worker_unique_recovery_contribution`. Completion and productivity remain
+separate: `m8.worker_completion_rate` counts normal worker task completion,
+while `m8.worker_productive_report_rate` requires claims or recovery evidence.
+These metrics are part of metric definition `m8-metrics-v2`; they are not
+training signals and do not imply a validated benchmark. The
+suite's `allowed_profiles` is enforced during both run-spec preparation and
+runtime construction to prevent retrieval-confounded M8 artifacts.

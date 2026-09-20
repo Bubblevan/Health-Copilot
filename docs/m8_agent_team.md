@@ -110,6 +110,19 @@ exhaustion) are reported separately from route, evidence-group coverage,
 citation integrity, claim support, OOD behavior, and per-category metrics.
 No weighted overall score or production-default switch is implied.
 
+M8 records two evidence views. `worker_evidence_overlap` and
+`worker_unique_evidence_contribution` use each worker's full observed context,
+which includes the shared initial evidence. The separate
+`worker_recovery_evidence_overlap` and
+`worker_unique_recovery_contribution` metrics use only
+`recovery_ranked_evidence`, so they measure incremental worker contribution
+without redefining the full-context indicators. Worker completion remains a
+task-state fact: an `ABSTAIN` response may complete execution but is not a
+productive report. `m8.worker_completion_rate` therefore measures completed
+worker executions over worker reports, while
+`m8.worker_productive_report_rate` measures completed reports containing claims
+or recovery evidence over completed worker executions.
+
 ## Source Alignment
 
 M8 is aligned with the centralized hierarchical family of agent-team designs,

@@ -152,6 +152,7 @@ class EvalSuite:
     public_content_allowed: bool = False
     expected_dataset_sha256: str | None = None
     provenance: Mapping[str, Any] = field(default_factory=dict)
+    allowed_profiles: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.suite_id.strip() or not self.version.strip():
@@ -167,6 +168,12 @@ class EvalSuite:
         if not isinstance(self.public_content_allowed, bool):
             raise TypeError("public_content_allowed must be boolean")
         object.__setattr__(self, "provenance", _mapping(self.provenance))
+        allowed_profiles = tuple(self.allowed_profiles)
+        if any(not isinstance(item, str) or not item.strip() for item in allowed_profiles):
+            raise ValueError("allowed_profiles must contain non-empty strings")
+        if len(set(allowed_profiles)) != len(allowed_profiles):
+            raise ValueError("allowed_profiles must not contain duplicates")
+        object.__setattr__(self, "allowed_profiles", allowed_profiles)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -182,6 +189,7 @@ class EvalSuite:
             "public_content_allowed": self.public_content_allowed,
             "expected_dataset_sha256": self.expected_dataset_sha256,
             "provenance": dict(self.provenance),
+            "allowed_profiles": list(self.allowed_profiles),
         }
 
 

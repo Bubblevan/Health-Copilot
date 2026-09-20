@@ -355,6 +355,16 @@ class TeamMetricsGrader(BaseGrader):
                 "worker_unique_evidence_contribution": record.observed.get(
                     "worker_unique_evidence_contribution"
                 ),
+                "worker_recovery_evidence_overlap": record.observed.get(
+                    "worker_recovery_evidence_overlap"
+                ),
+                "worker_unique_recovery_contribution": record.observed.get(
+                    "worker_unique_recovery_contribution"
+                ),
+                "worker_completions": record.observed.get("team_worker_completions"),
+                "worker_productive_reports": record.observed.get(
+                    "team_worker_productive_reports"
+                ),
             },
             reason_codes=() if present else ("team_not_observed",),
         )

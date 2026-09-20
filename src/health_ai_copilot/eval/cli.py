@@ -61,6 +61,7 @@ def _list() -> int:
                 "dataset_path": suite.dataset_path,
                 "execution_modes": [item.value for item in suite.supported_execution_modes],
                 "default_profile_id": suite.default_profile_id,
+                "allowed_profiles": list(suite.allowed_profiles),
                 "grader_ids": list(suite.grader_ids),
                 "metric_definition_version": suite.metric_definition_version,
             }
@@ -97,11 +98,7 @@ def _compare(args) -> int:
         if left.get(key) != right.get(key):
             raise EvalConfigurationError(f"incompatible bundles: {key} differs")
     if left.get("suite_id") == "m8-agent-team-focused-v1":
-        allowed = set(
-            default_eval_suite_registry()
-            .get("m8-agent-team-focused-v1")
-            .provenance.get("allowed_profiles", ())
-        )
+        allowed = set(default_eval_suite_registry().get("m8-agent-team-focused-v1").allowed_profiles)
         if left.get("profile_id") not in allowed or right.get("profile_id") not in allowed:
             raise EvalConfigurationError(
                 "M8 comparison only permits the workflow, single-agent, and team profiles"

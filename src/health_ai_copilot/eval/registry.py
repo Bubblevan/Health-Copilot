@@ -239,18 +239,18 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
                 "team_metrics",
                 "ood_answer",
             ),
-            "m8-metrics-v1",
+            "m8-metrics-v2",
             public_content_allowed=True,
             provenance={
                 "gold_semantics": "focused candidate diagnostic for L0 workflow, L1 single agent, and L2 bounded Agent Team",
                 "annotation_manifest": "evals/m8_agent_team_focused_v1.annotation_manifest.json",
                 "review_status": "pending_human_review",
-                "allowed_profiles": [
-                    "m8-workflow-bm25-v1",
-                    "m3-bm25-default",
-                    "m8-team-bm25-v1",
-                ],
             },
+            allowed_profiles=(
+                "m8-workflow-bm25-v1",
+                "m3-bm25-default",
+                "m8-team-bm25-v1",
+            ),
             expected_dataset_sha256="78a417bef691892fb0b248911044f0325849ae4a4ae1065ec7ad009968180549",
         ),
     )

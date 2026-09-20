@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -170,6 +171,27 @@ def test_live_provider_requires_explicit_opt_in_before_construction() -> None:
     )
     with pytest.raises(EvalConfigurationError, match="allow-live-provider"):
         runner.run(spec)
+
+
+def test_m8_profile_allowlist_rejects_confounded_profiles_before_run() -> None:
+    runner = EvaluationRunner()
+    with pytest.raises(EvalConfigurationError, match="allowed"):
+        runner.prepare_run_spec(
+            "m8-agent-team-focused-v1",
+            execution_mode=EvalExecutionMode.LIVE,
+            profile_id="m3-hybrid-rerank-local",
+            output_root=".pytest-tmp-m8-invalid-profile",
+        )
+
+    valid = runner.prepare_run_spec(
+        "m8-agent-team-focused-v1",
+        execution_mode=EvalExecutionMode.LIVE,
+        profile_id="m8-team-bm25-v1",
+        output_root=".pytest-tmp-m8-valid-profile",
+    )
+    invalid = replace(valid, profile_id="m3-hybrid-rerank-local")
+    with pytest.raises(EvalConfigurationError, match="allowed"):
+        runner.run(invalid)
 
 
 def test_metric_zero_denominator_is_null_and_infrastructure_is_not_quality() -> None:
