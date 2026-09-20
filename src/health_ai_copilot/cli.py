@@ -11,6 +11,8 @@ from .knowledge.scope import KnowledgeScopeLoadError, load_knowledge_scope
 from .pipeline import HealthCopilotPipeline
 from .policy.model import OpenAICompatibleEvidencePolicy
 from .retrieval.bm25 import BM25Retriever
+from .retrieval.dense import DenseRetriever, HashingEmbeddingBackend
+from .retrieval.hybrid import HybridRetriever, RerankedRetriever, TokenOverlapReranker
 from .verification.grounding import (
     OpenAICompatibleClaimSupportVerifier,
     OpenAICompatibleGroundingVerifier,
@@ -34,6 +36,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="reviewed M3 closed-corpus capability manifest",
     )
     parser.add_argument("--question", required=True, help="patient-education question")
+    parser.add_argument(
+        "--retriever",
+        choices=("bm25", "dense", "hybrid", "hybrid_rerank"),
+        default="bm25",
+        help="explicit M5 retrieval experiment mode; default preserves frozen BM25",
+    )
     return parser
 
 
@@ -41,7 +49,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         cards = load_knowledge_cards(args.knowledge_dir)
-        retriever = BM25Retriever(cards)
+        retriever = _build_retriever(args.retriever, cards)
         if args.mode == "m0":
             generator = OpenAICompatibleGenerator()
             pipeline = HealthCopilotPipeline(retriever, generator)
@@ -82,6 +90,25 @@ def main(argv: list[str] | None = None) -> int:
         for citation in result.citations:
             print(f"- {citation.source_id}: {citation.title} ({citation.source_url})")
     return 0
+
+
+def _build_retriever(mode: str, cards):
+    bm25 = BM25Retriever(cards)
+    if mode == "bm25":
+        return bm25
+    backend = HashingEmbeddingBackend()
+    dense = DenseRetriever.from_knowledge_cards(
+        cards,
+        backend,
+        knowledge_pack_version="m0.2-2026-09-15",
+        build_commit="cli-local",
+    )
+    if mode == "dense":
+        return dense
+    hybrid = HybridRetriever(bm25, dense)
+    if mode == "hybrid":
+        return hybrid
+    return RerankedRetriever(hybrid, TokenOverlapReranker())
 
 
 if __name__ == "__main__":

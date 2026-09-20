@@ -49,6 +49,36 @@ class FakeEmbeddingBackend:
             raise ValueError(f"fake embedding is missing text: {text}") from exc
 
 
+class HashingEmbeddingBackend:
+    """Runnable local character n-gram vector backend with no model download.
+
+    This is an auditable dense-vector baseline, not a learned semantic model.
+    """
+
+    def __init__(self, dimension: int = 256) -> None:
+        if dimension <= 0:
+            raise ValueError("hashing embedding dimension must be positive")
+        self.dimension = dimension
+        self.identity = f"hashing-char-ngram-v1:{dimension}"
+
+    def embed_documents(self, texts: Sequence[str]) -> Sequence[Sequence[float]]:
+        return [self._embed(text) for text in texts]
+
+    def embed_query(self, query: str) -> Sequence[float]:
+        return self._embed(query)
+
+    def _embed(self, text: str) -> tuple[float, ...]:
+        vector = [0.0] * self.dimension
+        padded = f" {text.strip().lower()} "
+        grams = [padded[index : index + 2] for index in range(max(0, len(padded) - 1))]
+        if not grams:
+            raise ValueError("cannot embed empty text")
+        for gram in grams:
+            slot = int.from_bytes(hashlib.sha256(gram.encode("utf-8")).digest()[:8], "big") % self.dimension
+            vector[slot] += 1.0
+        return tuple(vector)
+
+
 class SentenceTransformerEmbeddingBackend:
     """Optional local dense backend; CI never imports or downloads it by default."""
 

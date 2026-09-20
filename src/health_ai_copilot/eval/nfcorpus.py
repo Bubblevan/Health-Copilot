@@ -123,11 +123,13 @@ def _ndcg_at_k(retrieved_ids: list[str], relevance: dict[str, int], k: int) -> f
     return dcg / ideal_dcg if ideal_dcg else 0.0
 
 
-def evaluate_nfcorpus(dataset: NFCorpusDataset, top_k: int = 10) -> dict[str, float | int]:
-    """Run the current BM25 implementation and report standard IR metrics."""
+def evaluate_nfcorpus(
+    dataset: NFCorpusDataset, top_k: int = 10, retriever=None
+) -> dict[str, float | int]:
+    """Run any retrieval-contract implementation against external graded qrels."""
     if top_k <= 0:
         raise ValueError("top_k must be positive")
-    retriever = BM25Retriever(dataset.documents)
+    retriever = retriever or BM25Retriever(dataset.documents)
     recall_sum = 0.0
     mrr_sum = 0.0
     ndcg_sum = 0.0

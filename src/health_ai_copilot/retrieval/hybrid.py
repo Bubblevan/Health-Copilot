@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from dataclasses import replace
 
 from ..contracts import Evidence
+from .tokenizer import tokenize
 
 
 class HybridRetriever:
@@ -51,6 +52,23 @@ class FakeReranker(Reranker):
         return [
             replace(item, score=self.scores.get(item.source_id, 0.0))
             for item in sorted(candidates, key=lambda item: (-self.scores.get(item.source_id, 0.0), item.source_id))[:top_k]
+        ]
+
+
+class TokenOverlapReranker(Reranker):
+    """Runnable local token-overlap reranker; it is not a learned cross-encoder."""
+
+    identity = "token-overlap-reranker-v1"
+
+    def rerank(self, query: str, candidates: Sequence[Evidence], top_k: int) -> list[Evidence]:
+        query_tokens = set(tokenize(query))
+
+        def score(item: Evidence) -> float:
+            return float(len(query_tokens.intersection(tokenize(f"{item.title} {item.excerpt}"))))
+
+        return [
+            replace(item, score=score(item))
+            for item in sorted(candidates, key=lambda item: (-score(item), item.source_id))[:top_k]
         ]
 
 
