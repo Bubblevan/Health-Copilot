@@ -174,6 +174,11 @@ response SHA-256, and response length. Raw model output is permitted only in
 the explicitly scoped public three-case diagnostic and is never written to the
 normal metadata-only evaluation artifacts.
 
+The targeted public diagnostic found a finite provider wire mismatch: responses
+used `type` for the action, `task` for a single delegation, and `claim` for
+claim text. M8.3 normalizes only these documented aliases into the canonical
+`action` / `tasks` / `text` schema and continues to reject all other fields.
+
 All malformed Lead outputs remain fail-closed: they create no tasks, start no
 workers, and cannot become an answer. M7 failure records now expose these
 orchestration failures even when the case status is `COMPLETE` with an

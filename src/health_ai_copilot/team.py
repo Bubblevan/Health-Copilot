@@ -1187,10 +1187,12 @@ class OpenAICompatibleTeamLeadModel:
                     "role": "system",
                     "content": (
                         "You are the bounded Health-Copilot Team Lead. Return JSON only. "
-                        "Choose exactly one action: final, delegate, or abstain. "
-                        "A delegate task contains only role evidence|guideline and objective. "
-                        "Do not create IDs. A final contains claim-first factual claims and "
-                        "citation_ids. The runtime validates all citations and support."
+                        "Use this exact canonical JSON schema: action is one of final, "
+                        "delegate, or abstain; delegate uses tasks, and final uses claims "
+                        "with text and citation_ids. A task contains only role "
+                        "evidence|guideline and objective. Do not create IDs. The runtime "
+                        "validates all citations and support. Do not use type, task, or claim "
+                        "in place of the canonical keys."
                     ),
                 },
                 {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
@@ -1232,7 +1234,7 @@ class OpenAICompatibleTeamLeadModel:
                 response_length=response_length,
             ) from exc
         try:
-            return LeadDecision.from_value(payload)
+            return LeadDecision.from_value(_normalize_team_lead_payload(payload))
         except Exception as exc:
             raise TeamLeadModelError(
                 TeamLeadFailureKind.CONTRACT_VALIDATION,
@@ -1252,6 +1254,52 @@ def _claim_from_value(value: object) -> GroundedClaim:
     if not isinstance(citation_ids, list) or not all(isinstance(item, str) for item in citation_ids):
         raise ValueError("claim citation_ids must be a string list")
     return GroundedClaim(text, tuple(citation_ids))
+
+
+def _normalize_team_lead_payload(value: object) -> Mapping[str, Any]:
+    """Normalize the observed provider wire aliases into the strict lead schema.
+
+    The aliases are deliberately finite and explicit: they cover the provider
+    shapes observed by the M8.3 public diagnostic (`type`, singular `task`, and
+    `claim`) without accepting arbitrary fields or changing LeadDecision's
+    validation semantics.
+    """
+
+    if not isinstance(value, Mapping):
+        raise TypeError("lead decision must be an object")
+    allowed = {"action", "type", "claims", "tasks", "task"}
+    if set(value) - allowed:
+        raise ValueError("lead decision contains unsupported fields")
+    if "action" in value and "type" in value and value["action"] != value["type"]:
+        raise ValueError("action and type disagree")
+    action = value.get("action", value.get("type"))
+    normalized: dict[str, Any] = {"action": action}
+    if "claims" in value:
+        raw_claims = value["claims"]
+        if not isinstance(raw_claims, list):
+            raise ValueError("claims must be a list")
+        normalized_claims: list[dict[str, Any]] = []
+        for raw_claim in raw_claims:
+            if not isinstance(raw_claim, Mapping):
+                raise TypeError("claim must be an object")
+            if set(raw_claim) - {"text", "claim", "citation_ids"}:
+                raise ValueError("claim contains unsupported fields")
+            if "text" in raw_claim and "claim" in raw_claim and raw_claim["text"] != raw_claim["claim"]:
+                raise ValueError("text and claim disagree")
+            normalized_claims.append(
+                {
+                    "text": raw_claim.get("text", raw_claim.get("claim")),
+                    "citation_ids": raw_claim.get("citation_ids"),
+                }
+            )
+        normalized["claims"] = normalized_claims
+    if "tasks" in value and "task" in value:
+        raise ValueError("tasks and task cannot both be present")
+    if "tasks" in value:
+        normalized["tasks"] = value["tasks"]
+    elif "task" in value:
+        normalized["tasks"] = [value["task"]]
+    return normalized
 
 
 def _evidence_dict(item: Evidence) -> dict[str, Any]:

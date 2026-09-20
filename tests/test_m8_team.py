@@ -230,6 +230,7 @@ def test_allowed_roles_are_enforced_at_runtime():
             TeamLeadFailureKind.CONTRACT_VALIDATION,
         ),
         ('{"action":"delegate","tasks":[]}', TeamLeadFailureKind.CONTRACT_VALIDATION),
+        ('{"type":"abstain","extra":"not-authoritative"}', TeamLeadFailureKind.CONTRACT_VALIDATION),
         (
             '{"action":"delegate","tasks":[{"role":"unknown","objective":"x"}]}',
             TeamLeadFailureKind.CONTRACT_VALIDATION,
@@ -272,6 +273,23 @@ def test_team_lead_wire_contract_accepts_valid_actions(content, action):
     model = OpenAICompatibleTeamLeadModel(executor, "lead")
     decision = model.decide("question", [_evidence("initial")], [], {}, runtime=RunContext.create("m8"))
     assert decision.action == action
+
+
+@pytest.mark.parametrize(
+    "content",
+    [
+        '{"type":"delegate","task":{"role":"evidence","objective":"facts"}}',
+        '{"type":"delegate","tasks":[{"role":"evidence","objective":"facts"}]}',
+        '{"type":"final","claims":[{"claim":"x","citation_ids":["initial"]}]}',
+    ],
+)
+def test_team_lead_accepts_only_documented_provider_wire_aliases(content):
+    executor = FakeProviderExecutor(
+        [ProviderResponse("", ProviderCallKind.TEAM_LEAD, "lead", content)]
+    )
+    model = OpenAICompatibleTeamLeadModel(executor, "lead")
+    decision = model.decide("question", [_evidence("initial")], [], {}, runtime=RunContext.create("m8"))
+    assert decision.action in {LeadDecisionKind.DELEGATE, LeadDecisionKind.FINAL}
 
 
 @pytest.mark.parametrize("failure_kind", list(ProviderFailureKind))
