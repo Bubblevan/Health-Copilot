@@ -3,11 +3,18 @@
 import json
 import os
 from collections.abc import Sequence
-from typing import Any
 
 from ..config import ConfigurationError, load_openai_config
 from ..contracts import Evidence
 from ..knowledge.scope import KnowledgeScope
+from ..runtime import (
+    OpenAICompatibleProviderExecutor,
+    ProviderCallKind,
+    ProviderExecutor,
+    ProviderFailure,
+    ProviderRequest,
+    RunContext,
+)
 from .evidence import EvidenceAssessment, EvidenceDecision, validate_assessment
 
 M2_SYSTEM_PROMPT = """You are the M2 EvidencePolicy. Assess the full tuple
@@ -55,18 +62,27 @@ Do not add facts or other fields."""
 
 
 class OpenAICompatibleEvidencePolicy:
-    def __init__(self, *, knowledge_scope: KnowledgeScope | None = None) -> None:
-        try:
-            config = load_openai_config(model_override=os.getenv("HEALTH_COPILOT_POLICY_MODEL"))
-            from openai import OpenAI
-        except (ConfigurationError, ImportError) as exc:
-            raise RuntimeError("M2 evidence policy is not configured") from exc
-        kwargs: dict[str, Any] = {"api_key": config.api_key}
-        if config.base_url:
-            kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**kwargs, timeout=30.0, max_retries=0)
-        self.model_name = config.model
-        self.base_url = config.base_url
+    def __init__(
+        self,
+        *,
+        knowledge_scope: KnowledgeScope | None = None,
+        provider_executor: ProviderExecutor | None = None,
+        model: str | None = None,
+        runtime: RunContext | None = None,
+    ) -> None:
+        if provider_executor is None:
+            try:
+                config = load_openai_config(model_override=os.getenv("HEALTH_COPILOT_POLICY_MODEL"))
+                provider_executor = OpenAICompatibleProviderExecutor(config)
+            except (ConfigurationError, ProviderFailure) as exc:
+                raise RuntimeError("M2 evidence policy is not configured") from exc
+            model = config.model
+            self.base_url = config.base_url
+        else:
+            self.base_url = None
+        self._provider_executor = provider_executor
+        self.model_name = model or "injected-provider-model"
+        self._runtime = runtime
         self.temperature = 0
         self.timeout_seconds = 30.0
         self.max_retries = 0
@@ -92,11 +108,14 @@ class OpenAICompatibleEvidencePolicy:
                 ],
             }
         try:
-            response = self._client.chat.completions.create(
-                model=self.model_name,
-                temperature=self.temperature,
-                response_format={"type": "json_object"},
-                messages=[
+            response = self._provider_executor.execute(
+                ProviderRequest.create(
+                    kind=ProviderCallKind.POLICY,
+                    model=self.model_name,
+                    temperature=self.temperature,
+                    response_format={"type": "json_object"},
+                    timeout_seconds=self.timeout_seconds,
+                    messages=(
                     {
                         "role": "system",
                         "content": (
@@ -106,9 +125,11 @@ class OpenAICompatibleEvidencePolicy:
                         ),
                     },
                     {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
-                ],
+                    ),
+                ),
+                self._runtime or RunContext.create("policy"),
             )
-            parsed = json.loads(response.choices[0].message.content)
+            parsed = json.loads(response.content)
             assessment = EvidenceAssessment(
                 EvidenceDecision(parsed["decision"]),
                 tuple(parsed.get("supporting_source_ids", [])),
