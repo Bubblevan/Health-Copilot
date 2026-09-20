@@ -66,7 +66,7 @@ def main(argv: list[str] | None = None) -> int:
     _write_text(run_dir / "dataset.jsonl", Path(args.dataset).read_text(encoding="utf-8"))
     _write_json(run_dir / "retrieval_metrics.json", metrics)
     _write_jsonl(run_dir / "retrieval_results.jsonl", all_rows)
-    _write_jsonl(run_dir / "failure_table.jsonl", [row for row in all_rows if row.get("first_expected_rank") is None])
+    _write_jsonl(run_dir / "failure_table.jsonl", _failure_table(cases, all_rows))
     _write_text(run_dir / "ablation.md", _ablation(metrics))
     print(run_dir)
     print(json.dumps(metrics, ensure_ascii=False, indent=2))
@@ -96,6 +96,31 @@ def _ablation(metrics):
     for name, metric in metrics.items():
         rows.append(f"| {name} | {metric['hit_at_1']:.4f} | {metric['hit_at_3']:.4f} | {metric['recall_at_5']:.4f} | {metric['mrr']:.4f} | {metric['ndcg_at_5']:.4f} | {metric['mean_latency_ms']:.3f} |")
     return "\n".join(rows) + "\n"
+
+
+def _failure_table(cases, rows):
+    """Emit one deterministic comparison row per case, rather than one per arm."""
+
+    by_case = {}
+    for row in rows:
+        by_case.setdefault(row["case_id"], {})[row["arm"]] = row
+    return [
+        {
+            "case_id": case["id"],
+            "category": case.get("category"),
+            "challenge_type": case.get("challenge_type"),
+            "expected_source_ids": list(case.get("expected_source_ids", ())),
+            "arms": {
+                arm: {
+                    "retrieved_source_ids": row["retrieved_source_ids"],
+                    "first_expected_rank": row.get("first_expected_rank"),
+                    "failure_type": row["failure_type"],
+                }
+                for arm, row in by_case[case["id"]].items()
+            },
+        }
+        for case in cases
+    ]
 
 
 def _write_json(path, value):

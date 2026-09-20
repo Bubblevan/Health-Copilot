@@ -1,4 +1,5 @@
 from health_ai_copilot.contracts import Evidence
+from health_ai_copilot.eval.retrieval import evaluate_retriever
 from health_ai_copilot.retrieval.dense import DenseIndex, DenseRetriever, FakeEmbeddingBackend
 from health_ai_copilot.retrieval.documents import RetrievalDocument
 from health_ai_copilot.retrieval.hybrid import FakeReranker, HybridRetriever, RerankedRetriever
@@ -60,3 +61,19 @@ def test_reranked_retriever_uses_candidate_pool_and_final_top_k() -> None:
 
     assert [item.source_id for item in results] == ["c", "b"]
     assert reranker.calls == [("query", ("a", "b", "c"), 2)]
+
+
+def test_retrieval_failure_taxonomy_is_deterministic_and_not_model_generated() -> None:
+    cases = [
+        {
+            "id": "semantic",
+            "question": "q",
+            "expected_source_ids": ["expected"],
+            "challenge_type": "synonym_paraphrase",
+        },
+        {"id": "uncovered", "question": "q", "expected_source_ids": []},
+    ]
+
+    _, rows = evaluate_retriever(cases, StaticRetriever([_evidence("other")]))
+
+    assert [row["failure_type"] for row in rows] == ["semantic_miss", "corpus_uncovered"]

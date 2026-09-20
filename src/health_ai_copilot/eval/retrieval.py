@@ -49,6 +49,7 @@ def evaluate_retriever(
             row["ndcg_at_5"] = _binary_ndcg(ids, expected_set, 5)
             row["ndcg_at_10"] = _binary_ndcg(ids, expected_set, 10)
             scored.append(row)
+        row["failure_type"] = _failure_type(row)
         rows.append(row)
     metrics: dict[str, float | int | None] = {
         "case_count": len(cases),
@@ -68,6 +69,27 @@ def evaluate_retriever(
         "mean_candidate_count": _mean(rows, "candidate_count"),
     }
     return metrics, rows
+
+
+def _failure_type(row: Mapping[str, Any]) -> str | None:
+    """Apply a transparent, non-LLM retrieval failure taxonomy."""
+
+    expected = row["expected_source_ids"]
+    if not expected:
+        return "corpus_uncovered"
+    rank = row.get("first_expected_rank")
+    if rank == 1 and row.get("recall_at_5") == 1:
+        return None
+    if len(expected) > 1 and row.get("recall_at_5", 0.0) < 1:
+        return "multi_source_partial"
+    challenge = row.get("challenge_type")
+    if challenge == "source_overlap":
+        return "source_overlap"
+    if challenge == "jurisdiction_context":
+        return "jurisdiction_confusion"
+    if challenge in {"synonym_paraphrase", "contextual_paraphrase", "mechanism_paraphrase"}:
+        return "semantic_miss" if rank is None else "ranking_error"
+    return "lexical_miss" if rank is None else "ranking_error"
 
 
 def _binary_ndcg(ids: Sequence[str], expected: set[str], k: int) -> float:
