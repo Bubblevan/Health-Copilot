@@ -17,7 +17,7 @@
 | H8 | Post-training | M11 |
 | H9 | Multimodal | M12（可选） |
 
-M7 之后的条目仍是 future work；本次只完成 H3/M6。
+M7 已完成 H4；M8 之后的条目仍是 future work。本次不启动 M8。
 
 ## M0 — Safety-Gated Evidence RAG（implemented）
 
@@ -95,7 +95,7 @@ frozen alternatives as explicit runtime profiles.
 
 H3 Extensible / Plugin Runtime — COMPLETE
 
-Final freeze checkpoint: the new `main` SHA published with this closeout.
+Final freeze checkpoint: `main@3872dd94fa048de3007677fc9e63373488e99955`.
 
 M6 是 H3 的第二阶段，也是 M5 之后的第一个通用 subsystem replacement runtime：
 
@@ -116,11 +116,18 @@ latency 差异因果归因给 retrieval。M5 metrics 与 BM25 default 决策保�
 
 组件生命周期、单次 RunContext 生命周期和未来的 Session/Memory 生命周期明确分离；Memory 尚未实现。
 
-## M7 — Agent Eval System（planned）
+## M7 — Unified Agent Eval System（implemented / frozen）
 
-M6 之后的下一阶段是 H4/M7 Agent Eval System；M7 不在本次任务中启动。
+H4 Agent Eval System 已完成。M7 在 M6 运行时之外建立统一、显式注册的评测平面：
 
-后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；任何 post-training 都必须建立在固定评测集、
-trajectory/failure 数据和合规数据许可之上。
+- `EvalSuiteRegistry`、`EvalRunSpec`、`EvalCase` 和 offline/live/replay 执行模式；
+- 无 LLM judge 的确定性 graders、可检查 numerator/denominator 的 `MetricResult`；
+- `trajectory_v1`、分阶段 FailureRecord、metadata-only 默认隐私策略；
+- M0 parity、M5 retrieval parity 与 M4 recorded-exchange replay 的统一 artifact bundle；
+- `health-eval list/run/compare`，不扫描、不动态导入、不安装 eval plugin。
+
+M7 不改变 M0–M6 运行时、gold、检索配置、policy 或 replay 语义；M5 metrics 仍冻结。
+M0–M5 的历史 evaluator 和 artifact path 保留。M7 closeout 后续仅更新本节的最终
+main SHA；M8 / H5 Agent Team 不在本次启动。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。

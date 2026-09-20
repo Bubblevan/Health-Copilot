@@ -103,3 +103,22 @@ not assert a new annotation or new user approval; retrieval-only metrics for it 
 provenance per row. It exercises public recording and semantic replay only; it does not change M1/M2/M3 gold and
 is not a new answer-quality or generalization benchmark. `runs/m4/` public artifacts contain reviewed fixture
 content by explicit design; production `metadata_only` traces must not.
+
+## M7 unified evaluation entry point
+
+M7 adds an explicit source-registered suite layer without replacing the historical
+evaluators above. List suites with:
+
+```powershell
+python -m health_ai_copilot.eval.cli list
+```
+
+Run deterministic M0/M5 parity or the fixed M4 replay with `health-eval run`; live
+execution requires `--allow-live-provider`, and public content additionally requires
+`--public-eval-content`. Dataset SHA-256 values are checked before runtime construction.
+Unified artifacts live under `runs/m7/<timestamp>/` and include run spec, component
+manifest, case records, `trajectory_v1`, deterministic grader results, inspectable
+metrics, failure records, traces, and a hashed run manifest. M7 keeps M3 capability
+payloads intact, separates claim-level verdicts from final disposition, excludes
+UNGRADED/infrastructure errors from quality denominators, and adds no LLM judge. See
+[`docs/m7_eval.md`](../docs/m7_eval.md).

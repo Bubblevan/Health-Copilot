@@ -194,3 +194,27 @@ Claim support uses **single-call batched cited-evidence binding**. The payload e
 verifier's evidence set without claiming cryptographic or physical per-claim isolation: a shared verifier
 context can still contain another claim's cited evidence. A physically isolated design would require one
 verifier call per claim and therefore additional model round trips; M3 keeps one bounded verifier call.
+
+## M7 evaluation plane
+
+M7 is outside the execution graph:
+
+```text
+EvalSuiteRegistry -> EvalRunSpec -> EvaluationRunner
+                         |                 |
+                         +-- offline / live(opt-in) / replay
+                                           v
+                    CaseRunRecord + trajectory_v1 + deterministic Graders
+                                           |
+                              MetricResult + FailureRecord
+                                           v
+                            runs/m7/<timestamp>/ artifact bundle
+```
+
+The evaluation registry is explicit source code and separate from the M6
+`ComponentRegistry`. The former selects trusted historical suites and graders; the
+latter constructs long-lived runtime components. `ToolRegistry` remains the runtime
+dispatcher for the single product `search_knowledge` tool. M7 adds no tool or generic
+middleware/plugin loader. Live provider execution requires explicit CLI opt-in; offline
+suites inject a provider sentinel that raises if accidentally called. Replay consumes
+recorded provider/tool exchanges and reports remaining exchanges plus live-call status.
