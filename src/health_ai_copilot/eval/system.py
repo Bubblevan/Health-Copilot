@@ -10,9 +10,11 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any
 
-from ..contracts import Route
+from ..agent.messages import AssistantToolCallMessage, ToolResultMessage
+from ..contracts import Evidence, GenerationDraft, Route
 from ..knowledge.loader import load_knowledge_cards
 from ..knowledge.scope import load_knowledge_scope
+from ..policy.evidence import validate_assessment
 from ..runtime import (
     ReplayProviderExecutor,
     ReplayToolRunner,
@@ -21,8 +23,16 @@ from ..runtime import (
     read_tool_exchanges,
 )
 from ..runtime.builder import RuntimeBuilder
-from ..runtime.trace import TraceContentPolicy, TraceEventType
+from ..runtime.trace import TraceContentPolicy
 from ..safety import route_question
+from ..verification.citations import verify_citations
+from ..verification.grounding import (
+    ClaimVerdict,
+    GroundedClaim,
+    materialize_cited_evidence,
+    validate_claim_support_result,
+    validate_grounding_result,
+)
 from .failures import FailureMapper
 from .graders import default_graders
 from .metrics import metrics_to_dict, trial_metrics
@@ -34,6 +44,7 @@ from .schema import (
     EvalConfigurationError,
     EvalExecutionMode,
     EvalRunSpec,
+    EvalTargetKind,
     GraderResult,
     GraderStatus,
     TrajectoryRecord,
@@ -170,9 +181,22 @@ class EvaluationRunner:
             )
         elif spec.execution_mode == EvalExecutionMode.LIVE:
             components = self._build_live_components(spec, cards, scope)
-            records, trajectories = self._run_pipeline(
-                bundle, suite, spec, cases, components, public_eval_content
-            )
+            if suite.target_kind == EvalTargetKind.PIPELINE:
+                records, trajectories = self._run_pipeline(
+                    bundle, suite, spec, cases, components, public_eval_content
+                )
+            elif suite.target_kind == EvalTargetKind.POLICY:
+                records, trajectories = self._run_policy(
+                    bundle, suite, spec, cases, components, cards, public_eval_content
+                )
+            elif suite.target_kind == EvalTargetKind.VERIFIER:
+                records, trajectories = self._run_verifier(
+                    bundle, suite, spec, cases, components, cards, public_eval_content
+                )
+            else:
+                raise EvalConfigurationError(
+                    f"live execution is not defined for target {suite.target_kind.value}"
+                )
         else:
             raise EvalConfigurationError(
                 f"offline execution is not defined for target {suite.target_kind.value}"
@@ -183,12 +207,17 @@ class EvaluationRunner:
             records = [
                 replace(
                     record,
-                    run_id=spec.spec_hash,
+                    eval_run_id=spec.spec_hash,
+                    eval_spec_hash=spec.spec_hash,
                     profile_id=spec.profile_id,
                     component_manifest_hash=spec.component_manifest_hash,
                     code_commit=spec.code_commit,
                 )
                 for record in records
+            ]
+            trajectories = [
+                _bind_trajectory_eval_identity(trajectory, spec.spec_hash)
+                for trajectory in trajectories
             ]
 
         grader_results = self._grade(suite, cases, records)
@@ -241,15 +270,10 @@ class EvaluationRunner:
         for trial in range(1, spec.trials + 1):
             for case in cases:
                 trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
-                trace = components.trace_factory.create(trace_path)
-                trace.emit(
-                    TraceEventType.RUN_START,
-                    profile_id=components.profile.profile_id,
-                    component_manifest_hash=components.manifest_hash,
-                )
+                runtime = components.create_run_context(trace_path=trace_path)
                 route = _route(case.question)
                 evidence = components.retriever.search(case.question, top_k=3)
-                trace.close(status="complete")
+                runtime.trace.close(status="complete")
                 records.append(
                     self._record(
                         suite,
@@ -261,11 +285,14 @@ class EvaluationRunner:
                         observed={
                             "agent_called": False,
                             "retrieved_source_ids": [item.source_id for item in evidence],
+                            "initial_evidence_source_ids": [item.source_id for item in evidence],
+                            "initial_evidence_ranks": _ranked_evidence(evidence),
                         },
+                        runtime=runtime,
                         trace_path=trace_path,
                     )
                 )
-                trajectories.append(self._trajectory(suite, case, trial, spec, route))
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
         return records, trajectories
 
     def _run_m5(self, bundle, suite, spec, cases, components):
@@ -274,14 +301,9 @@ class EvaluationRunner:
         for trial in range(1, spec.trials + 1):
             for case in cases:
                 trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
-                trace = components.trace_factory.create(trace_path)
-                trace.emit(
-                    TraceEventType.RUN_START,
-                    profile_id=components.profile.profile_id,
-                    component_manifest_hash=components.manifest_hash,
-                )
+                runtime = components.create_run_context(trace_path=trace_path)
                 evidence = components.retriever.search(case.question, top_k=5)
-                trace.close(status="complete")
+                runtime.trace.close(status="complete")
                 records.append(
                     self._record(
                         suite,
@@ -293,11 +315,14 @@ class EvaluationRunner:
                             "retrieved_source_ids": [item.source_id for item in evidence],
                             "candidate_count": len(evidence),
                             "expected_source_ids": list(case.payload.get("expected_source_ids", ())),
+                            "initial_evidence_source_ids": [item.source_id for item in evidence],
+                            "initial_evidence_ranks": _ranked_evidence(evidence),
                         },
+                        runtime=runtime,
                         trace_path=trace_path,
                     )
                 )
-                trajectories.append(self._trajectory(suite, case, trial, spec, None))
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
         return records, trajectories
 
     def _run_pipeline(self, bundle, suite, spec, cases, components, public):
@@ -312,6 +337,7 @@ class EvaluationRunner:
             for case in cases:
                 trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
                 started = perf_counter()
+                runtime = None
                 try:
                     runtime = components.create_run_context(
                         trace_path=trace_path, content_policy=content_policy
@@ -335,11 +361,257 @@ class EvaluationRunner:
                             status=CaseRunStatus.ERROR,
                             error_code="execution_error",
                             error_message=str(exc)[:300],
+                            runtime=runtime,
                             trace_path=trace_path,
                             elapsed_ms=(perf_counter() - started) * 1000,
                         )
                     )
-                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1].route))
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
+        return records, trajectories
+
+    def _run_policy(self, bundle, suite, spec, cases, components, cards, public):
+        """Evaluate the policy contract directly over frozen evidence.
+
+        A policy suite is not a pipeline suite: retrieval and agent execution
+        would change the fixture being evaluated and erase the policy veto
+        boundary that M2/M3 are intended to measure.
+        """
+
+        records: list[CaseRunRecord] = []
+        trajectories: list[TrajectoryRecord] = []
+        content_policy = (
+            TraceContentPolicy.PUBLIC_EVAL_CONTENT
+            if public
+            else TraceContentPolicy.METADATA_ONLY
+        )
+        for trial in range(1, spec.trials + 1):
+            for case in cases:
+                trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
+                started = perf_counter()
+                runtime = components.create_run_context(
+                    trace_path=trace_path, content_policy=content_policy
+                )
+                try:
+                    evidence = _frozen_evidence(case, cards)
+                    proposed_query = str(case.payload.get("proposed_query", ""))
+                    assessment = components.evidence_policy.assess(
+                        str(case.payload.get("question", "")),
+                        evidence,
+                        proposed_query,
+                        runtime=runtime,
+                    )
+                    validate_assessment(assessment, evidence, components.knowledge_scope)
+                    observed = {
+                        "agent_called": False,
+                        "tool_proposed": False,
+                        "tool_executed": False,
+                        "initial_evidence_source_ids": [item.source_id for item in evidence],
+                        "initial_evidence_ranks": _ranked_evidence(evidence),
+                        "retrieved_source_ids": [item.source_id for item in evidence],
+                        "proposed_query": proposed_query if public else None,
+                        "proposed_query_sha256": canonical_hash(proposed_query),
+                        "policy_decision": assessment.decision.value,
+                        "policy_supporting_source_ids": list(assessment.supporting_source_ids),
+                        "policy_reason_codes": list(assessment.reason_codes),
+                        "matched_topic_ids": list(assessment.matched_topic_ids),
+                    }
+                    runtime.trace.close(status="complete")
+                    records.append(
+                        self._record(
+                            suite,
+                            spec,
+                            components,
+                            case,
+                            trial,
+                            harness_disposition=assessment.decision.value,
+                            provider_calls_used=runtime.budget.provider_calls_used,
+                            input_tokens_used=runtime.budget.input_tokens_used,
+                            output_tokens_used=runtime.budget.output_tokens_used,
+                            total_tokens_used=runtime.budget.total_tokens_used,
+                            elapsed_ms=(perf_counter() - started) * 1000,
+                            observed=observed,
+                            runtime=runtime,
+                            trace_path=trace_path,
+                        )
+                    )
+                except Exception as exc:  # noqa: BLE001 - record construction failure
+                    _close_runtime(runtime, "error")
+                    records.append(
+                        self._record(
+                            suite,
+                            spec,
+                            components,
+                            case,
+                            trial,
+                            status=CaseRunStatus.ERROR,
+                            error_code="policy_execution_error",
+                            error_message=str(exc)[:300],
+                            elapsed_ms=(perf_counter() - started) * 1000,
+                            runtime=runtime,
+                            trace_path=trace_path,
+                        )
+                    )
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
+        return records, trajectories
+
+    def _run_verifier(self, bundle, suite, spec, cases, components, cards, public):
+        """Evaluate grounding/claim support without constructing an agent run."""
+
+        records: list[CaseRunRecord] = []
+        trajectories: list[TrajectoryRecord] = []
+        content_policy = (
+            TraceContentPolicy.PUBLIC_EVAL_CONTENT
+            if public
+            else TraceContentPolicy.METADATA_ONLY
+        )
+        for trial in range(1, spec.trials + 1):
+            for case in cases:
+                trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
+                started = perf_counter()
+                runtime = components.create_run_context(
+                    trace_path=trace_path, content_policy=content_policy
+                )
+                try:
+                    evidence = _frozen_evidence(case, cards)
+                    claims = tuple(
+                        GroundedClaim(
+                            str(item["text"]), tuple(item.get("citation_ids", ()))
+                        )
+                        for item in case.payload.get("claims", ())
+                    )
+                    citation_check = verify_citations(
+                        GenerationDraft(
+                            str(case.payload.get("answer", "")),
+                            [source_id for claim in claims for source_id in claim.citation_ids],
+                        ),
+                        evidence,
+                    )
+                    observed = {
+                        "agent_called": False,
+                        "tool_proposed": False,
+                        "tool_executed": False,
+                        "initial_evidence_source_ids": [item.source_id for item in evidence],
+                        "initial_evidence_ranks": _ranked_evidence(evidence),
+                        "retrieved_source_ids": [item.source_id for item in evidence],
+                        "final_claim_ids": [
+                            f"claim-{index}" for index, _claim in enumerate(claims)
+                        ],
+                        "final_citation_ids": [
+                            list(claim.citation_ids) for claim in claims
+                        ],
+                        "citation_integrity_valid": citation_check.valid,
+                    }
+                    if not citation_check.valid:
+                        observed["claim_verdicts"] = []
+                        observed["harness_disposition"] = "invalid_citation"
+                        runtime.trace.close(status="complete")
+                        records.append(
+                            self._record(
+                                suite,
+                                spec,
+                                components,
+                                case,
+                                trial,
+                                route=Route.ABSTAIN.value,
+                                harness_disposition="invalid_citation",
+                                provider_calls_used=runtime.budget.provider_calls_used,
+                                input_tokens_used=runtime.budget.input_tokens_used,
+                                output_tokens_used=runtime.budget.output_tokens_used,
+                                total_tokens_used=runtime.budget.total_tokens_used,
+                                elapsed_ms=(perf_counter() - started) * 1000,
+                                observed=observed,
+                                runtime=runtime,
+                                trace_path=trace_path,
+                            )
+                        )
+                    elif components.claim_support_verifier is not None:
+                        cited_evidence = materialize_cited_evidence(claims, evidence)
+                        result = components.claim_support_verifier.verify(
+                            claims, cited_evidence, runtime=runtime
+                        )
+                        validate_claim_support_result(result, claims, evidence)
+                        verdicts = [item.verdict.value for item in result.claim_results]
+                        observed["claim_verdicts"] = verdicts
+                        observed["claim_supporting_source_ids"] = [
+                            list(item.supporting_source_ids) for item in result.claim_results
+                        ]
+                        disposition = (
+                            "answer"
+                            if all(item.verdict == ClaimVerdict.SUPPORTED for item in result.claim_results)
+                            else "claim_support_failed"
+                        )
+                        observed["harness_disposition"] = disposition
+                        runtime.trace.close(status="complete")
+                        records.append(
+                            self._record(
+                                suite,
+                                spec,
+                                components,
+                                case,
+                                trial,
+                                route=Route.ANSWER.value if disposition == "answer" else Route.ABSTAIN.value,
+                                harness_disposition=disposition,
+                                provider_calls_used=runtime.budget.provider_calls_used,
+                                input_tokens_used=runtime.budget.input_tokens_used,
+                                output_tokens_used=runtime.budget.output_tokens_used,
+                                total_tokens_used=runtime.budget.total_tokens_used,
+                                elapsed_ms=(perf_counter() - started) * 1000,
+                                observed=observed,
+                                runtime=runtime,
+                                trace_path=trace_path,
+                            )
+                        )
+                    else:
+                        result = components.grounding_verifier.verify(
+                            str(case.payload.get("answer", "")), claims, evidence, runtime=runtime
+                        )
+                        validate_grounding_result(result, claims, evidence)
+                        verdicts = [item.verdict.value for item in result.claim_results]
+                        observed["claim_verdicts"] = verdicts
+                        observed["coverage_ok"] = result.coverage_ok
+                        observed["claim_supporting_source_ids"] = [
+                            list(item.supporting_source_ids) for item in result.claim_results
+                        ]
+                        disposition = "answer" if result.coverage_ok else "grounding_failed"
+                        observed["harness_disposition"] = disposition
+                        runtime.trace.close(status="complete")
+                        records.append(
+                            self._record(
+                                suite,
+                                spec,
+                                components,
+                                case,
+                                trial,
+                                route=Route.ANSWER.value if result.coverage_ok else Route.ABSTAIN.value,
+                                harness_disposition=disposition,
+                                provider_calls_used=runtime.budget.provider_calls_used,
+                                input_tokens_used=runtime.budget.input_tokens_used,
+                                output_tokens_used=runtime.budget.output_tokens_used,
+                                total_tokens_used=runtime.budget.total_tokens_used,
+                                elapsed_ms=(perf_counter() - started) * 1000,
+                                observed=observed,
+                                runtime=runtime,
+                                trace_path=trace_path,
+                            )
+                        )
+                except Exception as exc:  # noqa: BLE001 - record verifier failure
+                    _close_runtime(runtime, "error")
+                    records.append(
+                        self._record(
+                            suite,
+                            spec,
+                            components,
+                            case,
+                            trial,
+                            status=CaseRunStatus.ERROR,
+                            error_code="verifier_execution_error",
+                            error_message=str(exc)[:300],
+                            elapsed_ms=(perf_counter() - started) * 1000,
+                            runtime=runtime,
+                            trace_path=trace_path,
+                        )
+                    )
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
         return records, trajectories
 
     def _run_replay(self, bundle, suite, spec, cases, cards, scope):
@@ -400,10 +672,11 @@ class EvaluationRunner:
                             status=CaseRunStatus.ERROR,
                             error_code="replay_execution_error",
                             error_message=str(exc)[:300],
+                            runtime=runtime,
                             trace_path=trace_path,
                         )
                     )
-                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1].route))
+                trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
         if components is None:
             raise EvalConfigurationError("replay dataset has no cases")
         return records, trajectories, components
@@ -414,13 +687,36 @@ class EvaluationRunner:
     ):
         run = pipeline.last_agent_run
         state = run.state if run else None
+        proposed_query = _proposed_query(state)
+        final_claims = list(run.claims) if run else []
+        final_citation_ids = list(run.draft.citation_ids) if run and run.draft else [
+            source_id for claim in final_claims for source_id in claim.citation_ids
+        ]
         observed = {
             "agent_called": run is not None,
-            "tool_proposed": bool(state and state.tool_calls_used),
+            "tool_proposed": bool(state and state.tool_proposals_used),
             "tool_executed": bool(state and state.tool_calls_used),
+            "tool_proposal_count": state.tool_proposals_used if state else 0,
+            "tool_execution_count": state.tool_calls_used if state else 0,
+            "proposed_query": (
+                proposed_query if spec.trace_content_policy == "public_eval_content" else None
+            ),
+            "proposed_query_sha256": canonical_hash(proposed_query) if proposed_query else None,
             "policy_decision": state.policy_decision if state else None,
+            "policy_reason_codes": list(state.policy_reason_codes) if state else [],
+            "policy_supporting_source_ids": list(state.policy_supporting_source_ids) if state else [],
             "matched_topic_ids": list(state.policy_matched_topic_ids) if state else [],
+            "initial_evidence_source_ids": [
+                item.source_id for item in run.initial_ranked_evidence
+            ] if run else [],
+            "initial_evidence_ranks": _ranked_evidence(run.initial_ranked_evidence) if run else [],
+            "recovery_evidence_source_ids": [
+                item.source_id for item in run.recovery_ranked_evidence
+            ] if run else [],
             "retrieved_source_ids": [item.source_id for item in run.observed_evidence] if run else [],
+            "tool_observation_source_ids": _tool_observation_source_ids(state),
+            "final_claim_ids": [f"claim-{index}" for index, _claim in enumerate(final_claims)],
+            "final_citation_ids": final_citation_ids,
             "citation_integrity_valid": pipeline.last_harness_disposition != "invalid_citation",
             "claim_verdicts": [item.verdict.value for item in getattr(pipeline.last_claim_support_result, "claim_results", ())],
         }
@@ -441,6 +737,7 @@ class EvaluationRunner:
             total_tokens_used=runtime.budget.total_tokens_used,
             elapsed_ms=elapsed_ms,
             observed=observed,
+            runtime=runtime,
             trace_path=trace_path,
         )
 
@@ -449,13 +746,13 @@ class EvaluationRunner:
         route=None, agent_stop_reason=None, harness_disposition=None, provider_calls_used=None,
         tool_executions_used=None, input_tokens_used=None, output_tokens_used=None,
         total_tokens_used=None, elapsed_ms=None, observed=None, error_code=None,
-        error_message=None, trace_path=None,
+        error_message=None, runtime=None, trace_path=None,
     ):
         return CaseRunRecord(
             suite_id=suite.suite_id,
             case_id=case.case_id,
             trial=trial,
-            run_id=spec.spec_hash,
+            run_id=runtime.identity.run_id if runtime is not None else None,
             execution_mode=spec.execution_mode,
             profile_id=components.profile.profile_id if components else spec.profile_id,
             component_manifest_hash=components.manifest_hash if components else None,
@@ -474,15 +771,102 @@ class EvaluationRunner:
             observed=observed or {},
             error_code=error_code,
             error_message=error_message,
+            eval_run_id=spec.spec_hash,
+            eval_spec_hash=spec.spec_hash,
         )
 
-    def _trajectory(self, suite, case, trial, spec, route):
+    def _trajectory(self, suite, case, trial, spec, record):
+        observed = record.observed
+        events: list[Mapping[str, Any]] = [
+            {
+                "event": "run_start",
+                "execution_run_id": record.run_id,
+                "eval_run_id": record.eval_run_id,
+                "profile_id": record.profile_id,
+                "component_manifest_hash": record.component_manifest_hash,
+            }
+        ]
+        if observed.get("initial_evidence_source_ids") is not None:
+            events.append(
+                {
+                    "event": "initial_evidence",
+                    "source_ids": list(observed.get("initial_evidence_source_ids", ())),
+                    "ranks": list(observed.get("initial_evidence_ranks", ())),
+                }
+            )
+        if observed.get("tool_proposed") is not None:
+            events.append(
+                {
+                    "event": "tool_proposal",
+                    "proposed": bool(observed.get("tool_proposed")),
+                    "count": observed.get("tool_proposal_count", 0),
+                    "proposed_query": observed.get("proposed_query"),
+                    "proposed_query_sha256": observed.get("proposed_query_sha256"),
+                }
+            )
+        if observed.get("policy_decision") is not None:
+            events.append(
+                {
+                    "event": "policy_decision",
+                    "decision": observed.get("policy_decision"),
+                    "reason_codes": list(observed.get("policy_reason_codes", ())),
+                    "matched_topic_ids": list(observed.get("matched_topic_ids", ())),
+                    "supporting_source_ids": list(
+                        observed.get("policy_supporting_source_ids", ())
+                    ),
+                }
+            )
+        if observed.get("tool_executed") is not None:
+            events.append(
+                {
+                    "event": "tool_execution",
+                    "executed": bool(observed.get("tool_executed")),
+                    "count": observed.get("tool_execution_count", record.tool_executions_used or 0),
+                }
+            )
+        if observed.get("tool_observation_source_ids") is not None:
+            events.append(
+                {
+                    "event": "tool_observation",
+                    "source_ids": list(observed.get("tool_observation_source_ids", ())),
+                }
+            )
+        if observed.get("final_claim_ids") is not None or observed.get("final_citation_ids") is not None:
+            events.append(
+                {
+                    "event": "final_claims",
+                    "claim_ids": list(observed.get("final_claim_ids", ())),
+                    "citation_ids": list(observed.get("final_citation_ids", ())),
+                    "claim_verdicts": list(observed.get("claim_verdicts", ())),
+                }
+            )
+        events.extend(
+            (
+                {"event": "agent_stop", "reason": record.agent_stop_reason},
+                {"event": "harness_disposition", "disposition": record.harness_disposition},
+                {
+                    "event": "budget",
+                    "provider_calls_used": record.provider_calls_used,
+                    "tool_executions_used": record.tool_executions_used,
+                    "input_tokens_used": record.input_tokens_used,
+                    "output_tokens_used": record.output_tokens_used,
+                    "total_tokens_used": record.total_tokens_used,
+                },
+                {
+                    "event": "case_complete",
+                    "status": record.status.value,
+                    "route": record.route,
+                },
+            )
+        )
         return TrajectoryRecord(
             suite.suite_id,
             case.case_id,
             trial,
             content_policy=spec.trace_content_policy,
-            events=({"event": "case_complete", "route": route},),
+            events=tuple(events),
+            eval_run_id=record.eval_run_id,
+            execution_run_id=record.run_id,
         )
 
     def _grade(self, suite, cases, records):
@@ -631,6 +1015,68 @@ class EvaluationRunner:
             raise EvalConfigurationError(
                 "public_eval_content requires the explicit --public-eval-content opt-in"
             )
+
+
+def _frozen_evidence(case: EvalCase, cards) -> tuple[Evidence, ...]:
+    """Materialize fixture evidence by ID; never rerun retrieval for target evals."""
+
+    cards_by_id = {card.id: card for card in cards}
+    source_ids = tuple(case.payload.get("evidence_source_ids", ()))
+    missing = [source_id for source_id in source_ids if source_id not in cards_by_id]
+    if missing:
+        raise EvalConfigurationError(
+            f"case {case.case_id} references unknown evidence source(s): {missing}"
+        )
+    return tuple(
+        Evidence(card.id, card.title, card.content, card.source_url, 0.0)
+        for card in (cards_by_id[source_id] for source_id in source_ids)
+    )
+
+
+def _ranked_evidence(evidence) -> list[dict[str, Any]]:
+    return [
+        {"rank": rank, "source_id": item.source_id}
+        for rank, item in enumerate(evidence, 1)
+    ]
+
+
+def _proposed_query(state) -> str | None:
+    if state is None:
+        return None
+    for message in reversed(tuple(state.session.messages)):
+        if not isinstance(message, AssistantToolCallMessage):
+            continue
+        for call in reversed(tuple(message.tool_calls)):
+            arguments = call.arguments
+            if isinstance(arguments, Mapping) and isinstance(arguments.get("query"), str):
+                return arguments["query"]
+    return None
+
+
+def _tool_observation_source_ids(state) -> list[str]:
+    if state is None:
+        return []
+    source_ids: list[str] = []
+    for message in state.session.messages:
+        if not isinstance(message, ToolResultMessage):
+            continue
+        source_ids.extend(item.source_id for item in message.result.observed_evidence)
+    return list(dict.fromkeys(source_ids))
+
+
+def _close_runtime(runtime, status: str) -> None:
+    if runtime is not None and runtime.trace is not None:
+        runtime.trace.close(status=status)
+
+
+def _bind_trajectory_eval_identity(trajectory: TrajectoryRecord, eval_run_id: str) -> TrajectoryRecord:
+    events = tuple(
+        {**event, "eval_run_id": eval_run_id}
+        if event.get("event") == "run_start"
+        else event
+        for event in trajectory.events
+    )
+    return replace(trajectory, eval_run_id=eval_run_id, events=events)
 
 
 def _route(question: str | None) -> str:

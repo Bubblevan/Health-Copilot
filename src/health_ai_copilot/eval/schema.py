@@ -246,6 +246,10 @@ class CaseRunRecord:
     observed: Mapping[str, Any] = field(default_factory=dict)
     error_code: str | None = None
     error_message: str | None = None
+    # Evaluation identity covers the whole eval specification.  ``run_id`` is
+    # deliberately reserved for the execution-local RunContext identity.
+    eval_run_id: str | None = None
+    eval_spec_hash: str | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "execution_mode", EvalExecutionMode(self.execution_mode))
@@ -258,6 +262,9 @@ class CaseRunRecord:
             "case_id": self.case_id,
             "trial": self.trial,
             "run_id": self.run_id,
+            "execution_run_id": self.run_id,
+            "eval_run_id": self.eval_run_id,
+            "eval_spec_hash": self.eval_spec_hash,
             "execution_mode": self.execution_mode.value,
             "profile_id": self.profile_id,
             "component_manifest_hash": self.component_manifest_hash,
@@ -287,6 +294,8 @@ class TrajectoryRecord:
     schema_version: str = "trajectory_v1"
     content_policy: str = "metadata_only"
     events: tuple[Mapping[str, Any], ...] = ()
+    eval_run_id: str | None = None
+    execution_run_id: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -295,6 +304,8 @@ class TrajectoryRecord:
             "case_id": self.case_id,
             "trial": self.trial,
             "content_policy": self.content_policy,
+            "eval_run_id": self.eval_run_id,
+            "execution_run_id": self.execution_run_id,
             "events": [dict(event) for event in self.events],
         }
 

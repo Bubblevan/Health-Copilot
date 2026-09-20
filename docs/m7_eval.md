@@ -20,7 +20,9 @@ The runner produces `CaseRunRecord` (one case/trial), `trajectory_v1`, determini
 LLM. Quality denominators contain only scored PASS/FAIL results; UNGRADED and
 infrastructure ERROR remain visible and are not silently treated as quality failures.
 A zero denominator is represented by `value: null`. Fine-grained claim verdicts and
-final disposition are separate fields.
+final disposition are separate fields. `eval_run_id`/`eval_spec_hash` identify the
+whole evaluation specification; `execution_run_id` is the fresh `RunContext` ID for
+one case/trial and matches the trace `RUN_START.run_id`.
 
 Execution modes are explicit:
 
@@ -30,6 +32,15 @@ Execution modes are explicit:
   provider; replay reports remaining exchanges and live-call status;
 - `live`: disabled unless `--allow-live-provider` is present, and the check happens
   before runtime/provider construction.
+
+Live dispatch follows the registered suite target. `PIPELINE` suites execute the
+pipeline, `POLICY` suites materialize their frozen `evidence_source_ids` and call
+`EvidencePolicy.assess(question, evidence, proposed_query)`, and `VERIFIER` suites
+materialize frozen evidence and call the configured grounding or claim-support
+verifier directly. Policy/verifier suites never rerun retrieval or route through an
+AgentLoop. In pipeline artifacts, `tool_proposed` is the agent proposal count while
+`tool_executed` is the tool execution count; a policy veto can therefore be recorded
+as proposal `true`, execution `false`.
 
 Public case/trajectory content requires both suite permission and
 `--public-eval-content`. Metadata-only traces contain hashes, IDs, counts and statuses;
@@ -72,6 +83,13 @@ cases.jsonl                    # public suites only, with explicit opt-in
 manifest hash, metric definition version, content policy and hashes of bundle files.
 The manifest itself has a canonical hash. `component_manifest.json` is the M6
 provenance manifest.
+
+`trajectory_v1` contains only observable control flow: initial evidence IDs/ranks,
+tool proposal and query presence/hash, policy decision/reasons/topics, execution and
+observation IDs, final claim/citation IDs, stop reason, harness disposition, budget
+usage and case completion. It never records hidden chain-of-thought. Metadata-only
+artifacts hash proposed medical queries; public evaluation artifacts may include the
+reviewed query text.
 
 ## CLI
 

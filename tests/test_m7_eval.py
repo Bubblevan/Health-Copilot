@@ -4,9 +4,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
+from health_ai_copilot.agent.messages import AssistantToolCallMessage, ToolCall
+from health_ai_copilot.contracts import Route
 from health_ai_copilot.eval.failures import FailureMapper
 from health_ai_copilot.eval.graders import RouteGrader
 from health_ai_copilot.eval.metrics import trial_metrics
@@ -119,6 +122,87 @@ def test_m0_and_m5_offline_parity_and_metadata_privacy(tmp_path: Path) -> None:
     m5_bundle = runner.run(m5_spec)
     m5_metrics = json.loads((m5_bundle / "metrics.json").read_text(encoding="utf-8"))
     assert m5_metrics["m5.hit_at_1"]["value"] == pytest.approx(0.8783783783783784)
+    rows = [
+        json.loads(line)
+        for line in (m0_bundle / "case_results.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    assert len({row["execution_run_id"] for row in rows}) == len(rows)
+    first_trace = m0_bundle / rows[0]["trace_reference"]
+    first_event = json.loads(first_trace.read_text(encoding="utf-8").splitlines()[0])
+    assert rows[0]["execution_run_id"] == first_event["fields"]["run_id"]
+    assert rows[0]["eval_run_id"] == rows[0]["eval_spec_hash"]
+
+
+def test_pipeline_record_separates_tool_proposal_from_execution() -> None:
+    runner = EvaluationRunner()
+    state = SimpleNamespace(
+        tool_proposals_used=1,
+        tool_calls_used=0,
+        policy_decision="sufficient",
+        policy_reason_codes=("direct_support",),
+        policy_supporting_source_ids=("source-1",),
+        policy_matched_topic_ids=(),
+        session=SimpleNamespace(
+            messages=(
+                AssistantToolCallMessage(
+                    [ToolCall("call-1", "search_knowledge", {"query": "query"})]
+                ),
+            )
+        ),
+    )
+    run = SimpleNamespace(
+        state=state,
+        stop_reason=SimpleNamespace(value="final"),
+        observed_evidence=[],
+        initial_ranked_evidence=[],
+        recovery_ranked_evidence=[],
+        draft=None,
+        claims=[],
+    )
+    pipeline = SimpleNamespace(
+        last_agent_run=run,
+        last_harness_disposition="answer",
+        last_claim_support_result=None,
+    )
+    runtime = SimpleNamespace(
+        identity=SimpleNamespace(run_id="run-test"),
+        budget=SimpleNamespace(
+            provider_calls_used=1,
+            tool_executions_used=0,
+            input_tokens_used=0,
+            output_tokens_used=0,
+            total_tokens_used=0,
+        ),
+    )
+    components = SimpleNamespace(
+        profile=SimpleNamespace(profile_id="profile"),
+        manifest_hash="manifest",
+        component_manifest=SimpleNamespace(code_commit="commit"),
+    )
+    response = SimpleNamespace(route=Route.ANSWER)
+    case = EvalCase("case-1", {"question": "question"})
+    spec = runner.prepare_run_spec("m0-regression-v1")
+
+    record = runner._pipeline_record(
+        runner.registry.get("m0-regression-v1"),
+        spec,
+        components,
+        case,
+        1,
+        response,
+        pipeline,
+        runtime,
+        None,
+        1.0,
+    )
+
+    assert record.observed["tool_proposed"] is True
+    assert record.observed["tool_executed"] is False
+    trajectory = runner._trajectory(
+        runner.registry.get("m0-regression-v1"), case, 1, spec, record
+    )
+    events = {event["event"] for event in trajectory.events}
+    assert {"initial_evidence", "tool_proposal", "tool_execution", "budget", "case_complete"} <= events
 
 
 def test_m3_case_payload_is_preserved_without_rewriting_gold() -> None:
