@@ -16,6 +16,8 @@ from health_ai_copilot.retrieval import (
     HashingEmbeddingBackend,
     HybridRetriever,
     RerankedRetriever,
+    SentenceTransformerEmbeddingBackend,
+    SentenceTransformerReranker,
     TokenOverlapReranker,
 )
 
@@ -28,27 +30,39 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--rrf-k", type=int, default=60)
     parser.add_argument("--candidate-top-k", type=int, default=10)
+    parser.add_argument("--embedding-backend", choices=("hashing", "sentence_transformers"), default="hashing")
+    parser.add_argument("--embedding-model", default="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+    parser.add_argument("--reranker-backend", choices=("token_overlap", "cross_encoder"), default="token_overlap")
+    parser.add_argument("--reranker-model", default="cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
     args = parser.parse_args(argv)
     cards = load_knowledge_cards(args.knowledge_dir)
     cases = load_cases(args.dataset)
-    backend = HashingEmbeddingBackend()
+    backend = (
+        HashingEmbeddingBackend()
+        if args.embedding_backend == "hashing"
+        else SentenceTransformerEmbeddingBackend(args.embedding_model)
+    )
     bm25 = BM25Retriever(cards)
     dense = DenseRetriever.from_knowledge_cards(
         cards, backend, knowledge_pack_version="m0.2-2026-09-15", build_commit=_git_sha()
     )
     hybrid = HybridRetriever(bm25, dense, rrf_k=args.rrf_k)
-    reranked = RerankedRetriever(
-        hybrid, TokenOverlapReranker(), candidate_top_k=args.candidate_top_k
+    reranker = (
+        TokenOverlapReranker()
+        if args.reranker_backend == "token_overlap"
+        else SentenceTransformerReranker(args.reranker_model)
     )
+    reranked = RerankedRetriever(hybrid, reranker, candidate_top_k=args.candidate_top_k)
     arms = {"bm25": bm25, "dense": dense, "hybrid": hybrid, "hybrid_rerank": reranked}
     run_dir = Path(args.output_root) / datetime.now().astimezone().strftime("%Y%m%dT%H%M%S%z")
     run_dir.mkdir(parents=True, exist_ok=False)
+    dense.index.save(run_dir / "dense_index")
     metrics, all_rows = {}, []
     for name, retriever in arms.items():
         arm_metrics, rows = evaluate_retriever(cases, retriever, top_k=args.top_k)
         metrics[name] = arm_metrics
         all_rows.extend({"arm": name, **row} for row in rows)
-    _write_json(run_dir / "config.json", _config(args, backend, len(cases)))
+    _write_json(run_dir / "config.json", _config(args, backend, reranker, len(cases)))
     _write_text(run_dir / "dataset.jsonl", Path(args.dataset).read_text(encoding="utf-8"))
     _write_json(run_dir / "retrieval_metrics.json", metrics)
     _write_jsonl(run_dir / "retrieval_results.jsonl", all_rows)
@@ -59,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-def _config(args, backend, case_count):
+def _config(args, backend, reranker, case_count):
     return {
         "commit_sha": _git_sha(),
         "dataset_path": args.dataset,
@@ -67,10 +81,10 @@ def _config(args, backend, case_count):
         "knowledge_pack_version": "m0.2-2026-09-15",
         "bm25": {"k1": 1.5, "b": 0.75},
         "embedding_backend": backend.identity,
-        "embedding_dimension": backend.dimension,
+        "embedding_dimension": _embedding_dimension(backend),
         "normalization": "l2",
         "rrf_k": args.rrf_k,
-        "reranker_backend": "token-overlap-reranker-v1",
+        "reranker_backend": getattr(reranker, "identity", type(reranker).__name__),
         "candidate_top_k": args.candidate_top_k,
         "final_top_k": args.top_k,
         "case_count": case_count,
@@ -98,6 +112,10 @@ def _write_text(path, value):
 
 def _git_sha():
     return subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+
+
+def _embedding_dimension(backend):
+    return getattr(backend, "dimension", None)
 
 
 if __name__ == "__main__":
