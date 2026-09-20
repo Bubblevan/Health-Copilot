@@ -584,6 +584,7 @@ class EvaluationRunner:
         _write_json(bundle / "metrics.json", metrics_to_dict(metrics))
         if public:
             _write_jsonl(bundle / "cases.jsonl", (case.to_dict() for case in cases))
+        _write_text(bundle / "report.md", _report(suite, spec, metrics, failures))
         file_hashes = {
             str(path.relative_to(bundle)).replace("\\", "/"): sha256_file(path)
             for path in sorted(bundle.rglob("*"))
@@ -606,7 +607,6 @@ class EvaluationRunner:
             "manifest_hash": canonical_hash(file_hashes | {"suite_id": suite.suite_id, "run_spec_hash": spec.spec_hash}),
         }
         _write_json(bundle / "run_manifest.json", manifest)
-        _write_text(bundle / "report.md", _report(suite, spec, metrics, failures))
 
     @staticmethod
     def _validate_content_policy(suite, spec, public):
