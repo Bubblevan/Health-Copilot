@@ -1,0 +1,3 @@
+{"event_type": "run_start", "fields": {"code_commit": null, "component_manifest_hash": null, "profile_id": null, "run_id": "run-6062969d91d144f6a1e0294beec74842", "runtime_mode": "m7_replay"}, "sequence": 1}
+{"event_type": "harness_disposition", "fields": {"disposition": "answer", "route": "answer", "safety_reason_count": 0}, "sequence": 2}
+{"event_type": "run_end", "fields": {"event_count": 2, "status": "complete"}, "sequence": 3}

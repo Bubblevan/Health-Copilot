@@ -1,0 +1,6 @@
+{"case_id": "m1-001", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "answer"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
+{"case_id": "m1-002", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "answer"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
+{"case_id": "m1-004", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "answer"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
+{"case_id": "m1-005", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "answer"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
+{"case_id": "m1-007", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "abstain"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
+{"case_id": "m1-008", "content_policy": "public_eval_content", "events": [{"event": "case_complete", "route": "abstain"}], "schema_version": "trajectory_v1", "suite_id": "m4-replay-v1", "trial": 1}
