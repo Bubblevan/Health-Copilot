@@ -1,7 +1,7 @@
 {
-  "release_id": "m3-capability-expansion-v1",
+  "release_id": "m3-capability-expansion-v1.1",
   "dataset_path": "evals/expansion/m3_capability_candidates_batch_a.jsonl",
-  "dataset_sha256": "fc9806be39d13e9d3d7db86d344e990925298b90bdc3be666c0bca2b6e5bbccc",
+  "dataset_sha256": "b964d9c8e1dcfec03c907ed69a6437e0c9202fc50c1e9d15511cade259acd273",
   "case_count": 30,
   "sufficient_in_scope_case_count": 10,
   "recoverable_in_scope_case_count": 10,
@@ -10,6 +10,14 @@
   "reviewed_at": "2026-09-20",
   "reviewer": "user-approved-evaluation-review",
   "review_scope": "question wording, frozen evidence, proposed query, expected decision, expected topic mapping, scope boundary, and data-release readiness",
+  "annotation_repair": {
+    "repaired_at": "2026-09-20",
+    "authority": "M4 technical requirements precondition",
+    "prior_dataset_sha256": "fc9806be39d13e9d3d7db86d344e990925298b90bdc3be666c0bca2b6e5bbccc",
+    "changed_case_ids": ["m3cx-005", "m3cx-019"],
+    "change": "narrowed question wording to the reviewed evidence-supported observation; expected decisions and capability topics unchanged",
+    "audit_path": "evals/expansion/m3_expansion_annotation_audit.md"
+  },
   "clinical_expert_validation": false,
   "frozen_m0_m3_modified": false
 }

@@ -8,28 +8,28 @@ their metrics or altering their frozen inputs:
 - capability run: `runs/m3/20260920T122325+0800/` (30 cases);
 - claim-support run: `runs/m3/20260920T122507+0800/` (21 fixtures).
 
-The approved release manifests bind the exact input SHA256 files. This audit
-does **not** assert a new human approval, change a gold label, or retune M3
-runtime/policy behavior. The two capability cases below remain an explicit
-human-review decision point.
+The release manifest binds the exact input SHA256 file. This audit does not
+retune M3 runtime/policy behavior. The M4.0 precondition below narrows only
+the two question wordings; it does not change their expected decisions or
+KnowledgeScope.
 
 ## Capability expansion annotation review
 
-The preserved run reports 28/30 decision agreement (93.3% accuracy) and
-macro-F1 0.9327. These remain the historical artifact values; they must not be
-presented as a clean model-error count until the following two question/evidence
-semantics are resolved.
+The superseded pre-repair run reports 28/30 decision agreement (93.3% accuracy)
+and macro-F1 0.9327. It remains a historical artifact for its original input
+hash, but it is not a clean model-error count for the repaired release.
 
 | case | frozen input and observed output | audit finding | QA treatment |
 | --- | --- | --- | --- |
-| `m3cx-005` | Question asks why high blood pressure may have no warning symptoms. The cited CDC card says it usually has no warning signs/symptoms and that measurement is how to learn whether pressure is high. Gold `SUFFICIENT`; observed `RECOVERABLE`. | The card supports the observation, not a causal/mechanistic explanation of **why** it occurs. The proposed query requests that missing rationale. | Ambiguous fixture; do not count its observed `RECOVERABLE` as a confirmed model error. A future annotation decision must either narrow the question to the supported observation or add evidence supporting the requested rationale. |
-| `m3cx-019` | Question asks why a care plan should be discussed with a medical team. The cited CDC card recommends co-producing and discussing a care plan. Gold `SUFFICIENT`; observed `RECOVERABLE`. | Recommendation existence does not establish the causal rationale for the recommendation. | Ambiguous fixture; do not count its observed `RECOVERABLE` as a confirmed model error. A future annotation decision must either ask whether this recommendation exists or supply evidence for its rationale. |
+| `m3cx-005` | Original question asked why high blood pressure may have no warning symptoms. The cited CDC card says it usually has no warning signs/symptoms and that measurement is how to learn whether pressure is high. Gold `SUFFICIENT`; observed `RECOVERABLE`. | The card supports the observation, not a causal/mechanistic explanation of **why** it occurs. | M4.0 annotation repair narrows the question to `高血压是否可能没有明显的预警症状？`; expected decision remains `SUFFICIENT`. |
+| `m3cx-019` | Original question asked why a care plan should be discussed with a medical team. The cited CDC card recommends co-producing and discussing a care plan. Gold `SUFFICIENT`; observed `RECOVERABLE`. | Recommendation existence does not establish the causal rationale for the recommendation. | M4.0 annotation repair narrows the question to `现有 CDC 资料是否建议与医疗团队共同制定并讨论高血压管理计划？`; expected decision remains `SUFFICIENT`. |
 
-This ambiguity does not change the core capability-boundary observation: all
+The old ambiguity did not change the core capability-boundary observation: all
 10 reviewed insufficient boundary cases were denied recovery (`INSUFFICIENT`),
 including the 4 `insufficient_out_of_scope` cases that define the reported
 out-of-scope false-recovery metric (`0/4`). No reviewed boundary case was
-released as `RECOVERABLE` in this run.
+released as `RECOVERABLE` in the superseded run. A clean artifact will bind the
+repaired input hash before final M3 freeze.
 
 ## Claim-support metric QA
 
