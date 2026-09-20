@@ -1,7 +1,7 @@
 """Run M5 retrieval arms on external NFCorpus without product provenance fabrication."""
 
-import json
 import argparse
+import json
 from pathlib import Path
 
 from health_ai_copilot.eval.nfcorpus import evaluate_nfcorpus, load_nfcorpus

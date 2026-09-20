@@ -93,7 +93,9 @@ class SentenceTransformerEmbeddingBackend:
         self._model = SentenceTransformer(
             model_name, device=device, local_files_only=local_files_only
         )
-        self.dimension = int(self._model.get_sentence_embedding_dimension())
+        # sentence-transformers exposes the same dimension through this stable
+        # public method; the older get_sentence_embedding_dimension is deprecated.
+        self.dimension = int(self._model.get_embedding_dimension())
 
     def embed_documents(self, texts: Sequence[str]) -> Sequence[Sequence[float]]:
         return self._model.encode(list(texts), normalize_embeddings=True).tolist()

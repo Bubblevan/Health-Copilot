@@ -7,6 +7,7 @@ from .dense import (
     DenseRetriever,
     FakeEmbeddingBackend,
     HashingEmbeddingBackend,
+    SentenceTransformerEmbeddingBackend,
 )
 from .documents import RetrievalDocument, document_from_knowledge_card
 from .hybrid import (
@@ -29,6 +30,7 @@ __all__ = [
     "HybridRetriever",
     "RerankedRetriever",
     "RetrievalDocument",
+    "SentenceTransformerEmbeddingBackend",
     "SentenceTransformerReranker",
     "TokenOverlapReranker",
     "document_from_knowledge_card",
