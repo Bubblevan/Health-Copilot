@@ -52,7 +52,14 @@ class ClaimSupportResult:
 
 
 class GroundingVerifier(Protocol):
-    def verify(self, answer: str, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:
+    def verify(
+        self,
+        answer: str,
+        claims: Sequence[GroundedClaim],
+        evidence: Sequence[Evidence],
+        *,
+        runtime: RunContext | None = None,
+    ) -> GroundingResult:
         ...
 
 
@@ -63,6 +70,8 @@ class ClaimSupportVerifier(Protocol):
         self,
         claims: Sequence[GroundedClaim],
         cited_evidence: Sequence[Sequence[Evidence]],
+        *,
+        runtime: RunContext | None = None,
     ) -> ClaimSupportResult:
         ...
 
@@ -133,15 +142,41 @@ class OpenAICompatibleGroundingVerifier:
             model, self.base_url = config.model, config.base_url
         else:
             self.base_url = None
-        self._provider_executor, self.model_name, self._runtime = provider_executor, model or "injected-provider-model", runtime
+        self._provider_executor, self.model_name = (
+            provider_executor,
+            model or "injected-provider-model",
+        )
         self.temperature = 0
         self.timeout_seconds = 30.0
         self.max_retries = 0
 
-    def verify(self, answer: str, claims: Sequence[GroundedClaim], evidence: Sequence[Evidence]) -> GroundingResult:
+    def verify(
+        self,
+        answer: str,
+        claims: Sequence[GroundedClaim],
+        evidence: Sequence[Evidence],
+        *,
+        runtime: RunContext | None = None,
+    ) -> GroundingResult:
         payload = {"answer": answer, "claims": [{"text": item.text, "citation_ids": list(item.citation_ids)} for item in claims], "evidence": [{"source_id": item.source_id, "excerpt": item.excerpt} for item in evidence]}
         try:
-            response = self._provider_executor.execute(ProviderRequest.create(kind=ProviderCallKind.GROUNDING_VERIFIER, model=self.model_name, temperature=0, response_format={"type": "json_object"}, timeout_seconds=self.timeout_seconds, messages=({"role": "system", "content": "Verify claim coverage and evidence relation only. For each claim, judge support only against the sources listed in that claim's citation_ids; supporting_source_ids must be a non-empty subset of that claim's citation_ids for a supported verdict. Return JSON coverage_ok and claim_results (claim_index, verdict, supporting_source_ids). Do not give advice."}, {"role": "user", "content": json.dumps(payload, ensure_ascii=False)})), self._runtime or RunContext.create("grounding_verifier"))
+            response = self._provider_executor.execute(
+                ProviderRequest.create(
+                    kind=ProviderCallKind.GROUNDING_VERIFIER,
+                    model=self.model_name,
+                    temperature=0,
+                    response_format={"type": "json_object"},
+                    timeout_seconds=self.timeout_seconds,
+                    messages=(
+                        {
+                            "role": "system",
+                            "content": "Verify claim coverage and evidence relation only. For each claim, judge support only against the sources listed in that claim's citation_ids; supporting_source_ids must be a non-empty subset of that claim's citation_ids for a supported verdict. Return JSON coverage_ok and claim_results (claim_index, verdict, supporting_source_ids). Do not give advice.",
+                        },
+                        {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+                    ),
+                ),
+                runtime or RunContext.create("grounding_verifier"),
+            )
             parsed = json.loads(response.content)
             result = GroundingResult(bool(parsed["coverage_ok"]), tuple(ClaimResult(item["claim_index"], ClaimVerdict(item["verdict"]), tuple(item.get("supporting_source_ids", []))) for item in parsed["claim_results"]))
         except Exception as exc:
@@ -162,7 +197,10 @@ class OpenAICompatibleClaimSupportVerifier:
             model, self.base_url = config.model, config.base_url
         else:
             self.base_url = None
-        self._provider_executor, self.model_name, self._runtime = provider_executor, model or "injected-provider-model", runtime
+        self._provider_executor, self.model_name = (
+            provider_executor,
+            model or "injected-provider-model",
+        )
         self.temperature = 0
         self.timeout_seconds = 30.0
         self.max_retries = 0
@@ -171,6 +209,8 @@ class OpenAICompatibleClaimSupportVerifier:
         self,
         claims: Sequence[GroundedClaim],
         cited_evidence: Sequence[Sequence[Evidence]],
+        *,
+        runtime: RunContext | None = None,
     ) -> ClaimSupportResult:
         if len(cited_evidence) != len(claims):
             raise ValueError("cited evidence must contain one entry per claim")
@@ -198,7 +238,20 @@ class OpenAICompatibleClaimSupportVerifier:
             "or give advice."
         )
         try:
-            response = self._provider_executor.execute(ProviderRequest.create(kind=ProviderCallKind.CLAIM_SUPPORT_VERIFIER, model=self.model_name, temperature=self.temperature, response_format={"type": "json_object"}, timeout_seconds=self.timeout_seconds, messages=({"role": "system", "content": prompt}, {"role": "user", "content": json.dumps(payload, ensure_ascii=False)})), self._runtime or RunContext.create("claim_support_verifier"))
+            response = self._provider_executor.execute(
+                ProviderRequest.create(
+                    kind=ProviderCallKind.CLAIM_SUPPORT_VERIFIER,
+                    model=self.model_name,
+                    temperature=self.temperature,
+                    response_format={"type": "json_object"},
+                    timeout_seconds=self.timeout_seconds,
+                    messages=(
+                        {"role": "system", "content": prompt},
+                        {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+                    ),
+                ),
+                runtime or RunContext.create("claim_support_verifier"),
+            )
             parsed = json.loads(response.content)
             result = ClaimSupportResult(
                 tuple(

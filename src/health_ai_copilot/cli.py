@@ -50,7 +50,7 @@ def main(argv: list[str] | None = None) -> int:
             load_knowledge_scope(args.knowledge_scope, cards) if profile.mode == "m3" else None
         )
         components = RuntimeBuilder().build(profile, cards=cards, knowledge_scope=scope)
-        result = components.pipeline().answer(args.question)
+        result = components.answer(args.question)
     except (
         KnowledgeCardLoadError,
         KnowledgeScopeLoadError,

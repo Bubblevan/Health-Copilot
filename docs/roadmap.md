@@ -100,7 +100,10 @@ M6 是 H3 的第二阶段，也是 M5 之后的第一个通用 subsystem replace
 - `RuntimeBuilder` 一次构造 provider、retriever、policy、verifier、tool、trace 组件；
 - `ComponentIdentity`、`LearnedArtifactIdentity` 与 canonical `ComponentManifest` 提供 profile/component provenance；
 - manifest hash 进入 `RunIdentity.config_hash`、`RUN_START` metadata 与 replay compatibility；
-- `--profile` 区分 hashing/token-overlap demo 与 SentenceTransformer/CrossEncoder learned profile；缺失依赖、模型、revision 或 index 只会 fail closed；
+- role-aware model routing 通过同一个 `ProviderExecutor` 明确区分 Agent/Generator、Policy 与 Verifier；
+- `RuntimeComponents.answer()` 为每次请求创建新 `RunContext`，组件不保存可变的 per-run runtime；
+- code commit 与 replay 初始 Evidence 内容哈希纳入 provenance，profile/manifest/code commit 不匹配时 replay fail closed；
+- `--profile` 区分 hashing/token-overlap demo 与 SentenceTransformer/CrossEncoder learned profile；缺失依赖/模型、显式 revision 或 index 不匹配只会 fail closed，未解析 revision 明确标记为 non-frozen；
 - `search_knowledge` 仍是唯一 product Agent tool，`ToolRegistry` 仍负责运行期 dispatch，未被 ComponentRegistry 替换。
 
 M5 的 80-case suite 仍是 component-derived regression/evaluation suite，不是独立 external generalization test；

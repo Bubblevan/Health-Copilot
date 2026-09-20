@@ -52,7 +52,8 @@ class OpenAICompatibleGenerator:
         self._provider_executor = provider_executor
         self._model = model or "injected-provider-model"
         self._temperature = 0.1 if temperature is None else temperature
-        self._runtime = runtime
+        # ``runtime`` is retained as a source-compatible constructor argument.
+        # Per-run execution must use the explicit keyword on generate().
 
     def _prompt(self, question: str, evidence: Sequence[Evidence]) -> str:
         evidence_json = json.dumps(
@@ -98,7 +99,13 @@ class OpenAICompatibleGenerator:
             abstain=abstain,
         )
 
-    def generate(self, question: str, evidence: Sequence[Evidence]) -> GenerationDraft:
+    def generate(
+        self,
+        question: str,
+        evidence: Sequence[Evidence],
+        *,
+        runtime: RunContext | None = None,
+    ) -> GenerationDraft:
         try:
             response = self._provider_executor.execute(
                 ProviderRequest.create(
@@ -112,7 +119,7 @@ class OpenAICompatibleGenerator:
                     response_format={"type": "json_object"},
                     timeout_seconds=30.0,
                 ),
-                self._runtime or RunContext.create("m0"),
+                runtime or RunContext.create("m0"),
             )
             content = response.content
         except GenerationError:

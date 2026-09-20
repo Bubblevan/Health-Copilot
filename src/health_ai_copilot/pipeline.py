@@ -11,7 +11,7 @@ from .contracts import AssistantResponse, Citation, Evidence, GenerationDraft, R
 from .generation.base import Generator
 from .knowledge.scope import KnowledgeScope
 from .policy.evidence import EvidencePolicy
-from .runtime.context import RunContext
+from .runtime.context import RunContext, call_with_optional_runtime
 from .runtime.tools import ToolRunner
 from .runtime.trace import TraceEventType
 from .safety import route_question
@@ -189,7 +189,6 @@ class HealthCopilotPipeline:
 
     def answer(self, question: str) -> AssistantResponse:
         active_runtime = self.runtime or RunContext.create("pipeline")
-        self._bind_runtime(active_runtime)
         self.last_agent_run = None
         self.last_grounding_result = None
         self.last_claim_support_result = None
@@ -213,7 +212,12 @@ class HealthCopilotPipeline:
 
         try:
             # The M0 path remains intentionally replayable when no AgentModel is supplied.
-            draft = self.generator.generate(question, evidence)  # type: ignore[union-attr]
+            draft = call_with_optional_runtime(
+                self.generator.generate,  # type: ignore[union-attr]
+                question,
+                evidence,
+                runtime=active_runtime,
+            )
             if not isinstance(draft, GenerationDraft):
                 raise TypeError("generator returned an invalid draft")
         except Exception:  # noqa: BLE001 - pipeline must fail closed at component boundaries
@@ -238,23 +242,10 @@ class HealthCopilotPipeline:
         if run.draft.abstain:
             return abstain_response("abstain")
         if self.claim_support_verifier is not None:
-            return self._response_from_claim_first_final(run)
+            return self._response_from_claim_first_final(run, runtime)
         if self.grounding_verifier is not None:
-            return self._response_from_grounded_final(run)
+            return self._response_from_grounded_final(run, runtime)
         return self._response_from_draft(run.draft, run.observed_evidence)
-
-    def _bind_runtime(self, runtime: RunContext) -> None:
-        """Inject one control-plane context without changing frozen adapter APIs."""
-
-        for component in (
-            self.generator,
-            self.agent_model,
-            self.evidence_policy,
-            self.grounding_verifier,
-            self.claim_support_verifier,
-        ):
-            if component is not None and hasattr(component, "_runtime"):
-                component._runtime = runtime  # type: ignore[attr-defined]
 
     def _finalize(self, response: AssistantResponse, runtime: RunContext) -> AssistantResponse:
         if runtime.trace is not None:
@@ -268,7 +259,9 @@ class HealthCopilotPipeline:
             runtime.trace.close(status="complete")
         return response
 
-    def _response_from_grounded_final(self, run: AgentRunResult) -> AssistantResponse:
+    def _response_from_grounded_final(
+        self, run: AgentRunResult, runtime: RunContext
+    ) -> AssistantResponse:
         """M2 order: claim citation integrity, coverage/support, trusted citations."""
         draft = run.draft
         if draft is None or not run.claims:
@@ -288,7 +281,13 @@ class HealthCopilotPipeline:
         run.state.verifier_calls_used += 1
         try:
             result = validate_grounding_result(
-                self.grounding_verifier.verify(draft.answer, claims, run.observed_evidence),
+                call_with_optional_runtime(
+                    self.grounding_verifier.verify,
+                    draft.answer,
+                    claims,
+                    run.observed_evidence,
+                    runtime=runtime,
+                ),
                 claims,
                 run.observed_evidence,
             )
@@ -312,7 +311,9 @@ class HealthCopilotPipeline:
             ],
         )
 
-    def _response_from_claim_first_final(self, run: AgentRunResult) -> AssistantResponse:
+    def _response_from_claim_first_final(
+        self, run: AgentRunResult, runtime: RunContext
+    ) -> AssistantResponse:
         """M3 path: claims -> citation integrity -> support -> materialized response."""
         if not run.claims:
             self.last_harness_disposition = "claim_materialization_error"
@@ -334,7 +335,12 @@ class HealthCopilotPipeline:
         try:
             cited_evidence = materialize_cited_evidence(claims, run.observed_evidence)
             result = validate_claim_support_result(
-                self.claim_support_verifier.verify(claims, cited_evidence),  # type: ignore[union-attr]
+                call_with_optional_runtime(
+                    self.claim_support_verifier.verify,  # type: ignore[union-attr]
+                    claims,
+                    cited_evidence,
+                    runtime=runtime,
+                ),
                 claims,
                 run.observed_evidence,
             )

@@ -39,6 +39,7 @@ class ReplayMetadata:
 
     profile_id: str | None = None
     component_manifest_hash: str | None = None
+    code_commit: str | None = None
 
 
 class RecordingProviderExecutor:
@@ -66,12 +67,14 @@ class ReplayProviderExecutor:
         recorded_metadata: ReplayMetadata | None = None,
         expected_profile_id: str | None = None,
         expected_component_manifest_hash: str | None = None,
+        expected_code_commit: str | None = None,
     ) -> None:
         self._exchanges = list(exchanges)
         self.requests: list[ProviderRequest] = []
         self.recorded_metadata = recorded_metadata
         self.expected_profile_id = expected_profile_id
         self.expected_component_manifest_hash = expected_component_manifest_hash
+        self.expected_code_commit = expected_code_commit
         self._metadata_checked = False
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
@@ -120,6 +123,12 @@ class ReplayProviderExecutor:
             or self.recorded_metadata.component_manifest_hash != expected_manifest
         ):
             return False
+        expected_commit = self.expected_code_commit or runtime.identity.code_commit
+        if expected_commit is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.code_commit != expected_commit
+        ):
+            return False
         self._metadata_checked = True
         return True
 
@@ -158,12 +167,14 @@ class ReplayToolRunner:
         recorded_metadata: ReplayMetadata | None = None,
         expected_profile_id: str | None = None,
         expected_component_manifest_hash: str | None = None,
+        expected_code_commit: str | None = None,
     ) -> None:
         self._exchanges = list(exchanges)
         self.calls: list[ToolCall] = []
         self.recorded_metadata = recorded_metadata
         self.expected_profile_id = expected_profile_id
         self.expected_component_manifest_hash = expected_component_manifest_hash
+        self.expected_code_commit = expected_code_commit
         self._metadata_checked = False
 
     def execute(self, call: ToolCall, runtime: RunContext) -> ToolResult:
@@ -203,6 +214,12 @@ class ReplayToolRunner:
         if expected_manifest is not None and (
             self.recorded_metadata is None
             or self.recorded_metadata.component_manifest_hash != expected_manifest
+        ):
+            return False
+        expected_commit = self.expected_code_commit or runtime.identity.code_commit
+        if expected_commit is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.code_commit != expected_commit
         ):
             return False
         self._metadata_checked = True

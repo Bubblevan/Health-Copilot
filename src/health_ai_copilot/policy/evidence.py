@@ -21,6 +21,7 @@ from typing import Protocol
 
 from ..contracts import Evidence
 from ..knowledge.scope import KnowledgeScope
+from ..runtime.context import RunContext
 
 
 class EvidenceDecision(StrEnum):
@@ -49,7 +50,14 @@ class EvidencePolicy(Protocol):
     the only object being classified.
     """
 
-    def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
+    def assess(
+        self,
+        question: str,
+        evidence: Sequence[Evidence],
+        proposed_query: str,
+        *,
+        runtime: RunContext | None = None,
+    ) -> EvidenceAssessment:
         ...
 
 

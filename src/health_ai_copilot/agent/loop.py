@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ..contracts import Evidence, GenerationDraft
 from ..knowledge.scope import KnowledgeScope
 from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
-from ..runtime.context import RunContext
+from ..runtime.context import RunContext, call_with_optional_runtime
 from ..runtime.tools import LiveToolRunner, ToolRunner
 from ..runtime.trace import TraceEventType
 from .events import AgentEvent, AgentEventType
@@ -129,9 +129,11 @@ class AgentLoop:
             state.model_turns_used += 1
 
             try:
-                response = self.model.respond(
+                response = call_with_optional_runtime(
+                    self.model.respond,
                     tuple(active_session.messages),
                     tuple(self.registry.list_model_tool_specs()),
+                    runtime=active_runtime,
                 )
             except Exception:  # noqa: BLE001 - model failures become controlled stops
                 emit(
@@ -258,7 +260,13 @@ class AgentLoop:
                 emit(AgentEvent(AgentEventType.POLICY_START, active_session.session_id, turn=turn, tool_call_id=call.id, tool_name=call.name))
                 try:
                     assessment = validate_assessment(
-                        self.evidence_policy.assess(question, tuple(state.observed_evidence), proposed_query),
+                        call_with_optional_runtime(
+                            self.evidence_policy.assess,
+                            question,
+                            tuple(state.observed_evidence),
+                            proposed_query,
+                            runtime=active_runtime,
+                        ),
                         tuple(state.observed_evidence),
                         self.knowledge_scope,
                     )

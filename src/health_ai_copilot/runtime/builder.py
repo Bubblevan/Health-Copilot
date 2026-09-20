@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import os
+import subprocess
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
@@ -47,7 +49,7 @@ from .context import RunContext
 from .profile import RuntimeProfile
 from .provider import OpenAICompatibleProviderExecutor, ProviderExecutor
 from .registry import ComponentBuildContext, ComponentRegistry
-from .trace import RunTrace, TraceContentPolicy
+from .trace import RunTrace, TraceContentPolicy, canonical_json_sha256
 
 
 class RuntimeBuildError(RuntimeError):
@@ -63,7 +65,7 @@ class RuntimeBuildConfig:
     provider_base_url: str | None = None
     artifact_revisions: Mapping[str, str] = field(default_factory=dict)
     knowledge_pack_version: str = "m0.2-2026-09-15"
-    build_commit: str = "m6-runtime"
+    build_commit: str | None = None
     local_files_only: bool = True
     run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
 
@@ -129,7 +131,25 @@ class RuntimeComponents:
             profile_id=self.profile.profile_id,
             component_manifest_hash=self.manifest_hash,
             config_hash=self.manifest_hash,
+            code_commit=self.component_manifest.code_commit,
         )
+
+    def answer(
+        self,
+        question: str,
+        *,
+        budget: RunBudgetConfig | None = None,
+        trace_path: Path | None = None,
+        content_policy: TraceContentPolicy = TraceContentPolicy.METADATA_ONLY,
+    ):
+        """Primary profile-aware execution entry point with a fresh RunContext."""
+
+        runtime = self.create_run_context(
+            budget=budget,
+            trace_path=trace_path,
+            content_policy=content_policy,
+        )
+        return self.pipeline(runtime=runtime).answer(question)
 
     def pipeline(self, *, runtime: RunContext | None = None, tool_runner=None) -> HealthCopilotPipeline:
         """Create an execution facade over the already-built long-lived graph."""
@@ -288,6 +308,11 @@ class RuntimeBuilder:
             self.environment = environment
         else:
             self.environment = RuntimeBuildConfig(**dict(environment))
+        if self.environment.build_commit is None:
+            self.environment = replace(
+                self.environment,
+                build_commit=_discover_build_commit(),
+            )
 
     def build(
         self,
@@ -302,12 +327,20 @@ class RuntimeBuilder:
         instances: dict[tuple[ComponentKind, str], Any] = {}
         identities: list[ComponentIdentity] = []
 
+        provider_default_model = self._provider_default_model(profile)
+        agent_model_name = self._role_model(profile, "agent", provider_default_model)
+        generator_model_name = self._role_model(profile, "generator", provider_default_model)
+        build_environment = {
+            **self._environment_dict(),
+            "resolved_provider_model": provider_default_model,
+        }
+
         def construct(kind: ComponentKind, component_id: str) -> Any:
             context = ComponentBuildContext(
                 profile=profile,
                 cards=tuple(cards),
                 knowledge_scope=knowledge_scope,
-                environment=self._environment_dict(),
+                environment=build_environment,
                 instances=instances,
             )
             binding = self.registry.build(kind, component_id, context)
@@ -316,7 +349,6 @@ class RuntimeBuilder:
             return binding.instance
 
         provider = construct(ComponentKind.PROVIDER, profile.provider)
-        model_name = self._model_name(profile)
         if replay_initial_evidence is not None:
             retriever = _RecordedEvidenceRetriever(replay_initial_evidence)
             instances[(ComponentKind.RETRIEVER, profile.retriever)] = retriever
@@ -325,7 +357,13 @@ class RuntimeBuilder:
                 profile.retriever,
                 "health_ai_copilot.runtime.builder.RecordedEvidenceRetriever",
                 "1",
-                config_hash=config_hash({"replay_initial_evidence": sorted(replay_initial_evidence)}),
+                config_hash=config_hash(
+                    {
+                        "replay_initial_evidence_sha256": _replay_evidence_hash(
+                            replay_initial_evidence
+                        )
+                    }
+                ),
             )
             identities.append(retriever_identity)
         else:
@@ -341,7 +379,10 @@ class RuntimeBuilder:
         generator = None
         agent_model = None
         if profile.mode == "m0":
-            generator = OpenAICompatibleGenerator(provider_executor=provider, model=model_name)
+            generator = OpenAICompatibleGenerator(
+                provider_executor=provider,
+                model=generator_model_name,
+            )
         elif profile.mode in {"m1", "m2", "m3"}:
             output_mode = {
                 "m1": AgentOutputMode.M1,
@@ -350,7 +391,7 @@ class RuntimeBuilder:
             }[profile.mode]
             agent_model = OpenAICompatibleAgentModel(
                 provider_executor=provider,
-                model=model_name,
+                model=agent_model_name,
                 output_mode=output_mode,
             )
         else:
@@ -362,6 +403,7 @@ class RuntimeBuilder:
             knowledge_pack_version=self.environment.knowledge_pack_version,
             knowledge_scope_version=knowledge_scope.version if knowledge_scope else None,
             profile_config_hash=profile.config_hash,
+            code_commit=self.environment.build_commit,
         )
         return RuntimeComponents(
             profile,
@@ -375,7 +417,7 @@ class RuntimeBuilder:
             tool_registry,
             trace_factory,
             manifest,
-            model_name,
+            agent_model_name,
             knowledge_scope,
             run_context_config or self.environment.run_budget,
         )
@@ -391,14 +433,27 @@ class RuntimeBuilder:
             "local_files_only": self.environment.local_files_only,
         }
 
-    def _model_name(self, profile: RuntimeProfile) -> str:
+    def _provider_default_model(self, profile: RuntimeProfile) -> str:
         config = _component_config(profile, ComponentKind.PROVIDER)
         explicit = self.environment.provider_model or config.get("model")
         if explicit:
             return str(explicit)
         if self.environment.provider_executor is not None:
-            return "injected-provider-model"
+            return "fixture-provider-model"
         return load_openai_config().model
+
+    def _role_model(self, profile: RuntimeProfile, role: str, provider_default: str) -> str:
+        role_config = profile.config.get(role, {})
+        if not isinstance(role_config, Mapping):
+            raise TypeError(f"profile {role} config must be an object")
+        model = role_config.get("model")
+        if model is None and role in {"agent", "generator"}:
+            alternate = "generator" if role == "agent" else "agent"
+            alternate_config = profile.config.get(alternate, {})
+            if not isinstance(alternate_config, Mapping):
+                raise TypeError(f"profile {alternate} config must be an object")
+            model = alternate_config.get("model")
+        return str(model or provider_default)
 
     def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
         if profile.mode not in {"m0", "m1", "m2", "m3"}:
@@ -453,7 +508,9 @@ def _identity(
 def _build_provider(context: ComponentBuildContext) -> BuiltComponent:
     cfg = _component_config(context.profile, ComponentKind.PROVIDER)
     executor = context.environment.get("provider_executor")
-    model = context.environment.get("provider_model") or cfg.get("model")
+    model = context.environment.get("resolved_provider_model") or context.environment.get(
+        "provider_model"
+    ) or cfg.get("model")
     base_url = context.environment.get("provider_base_url") or cfg.get("base_url")
     if executor is None:
         config = load_openai_config(model_override=str(model) if model else None)
@@ -467,7 +524,16 @@ def _build_provider(context: ComponentBuildContext) -> BuiltComponent:
             ComponentKind.PROVIDER,
             context.profile.provider,
             "health_ai_copilot.runtime.provider.OpenAICompatibleProviderExecutor",
-            {"model": model or "injected-provider-model", "base_url": base_url},
+            {
+                "model": model,
+                "base_url": base_url,
+                "roles": {
+                    "agent": _role_model(context, "agent"),
+                    "generator": _role_model(context, "generator"),
+                    "policy": _role_model(context, "policy"),
+                    "verifier": _role_model(context, "verifier"),
+                },
+            },
         ),
     )
 
@@ -487,7 +553,7 @@ def _hashing_dense(context: ComponentBuildContext):
         context.cards,
         backend,
         knowledge_pack_version=context.environment["knowledge_pack_version"],
-        build_commit=context.environment["build_commit"],
+        build_commit=context.environment["build_commit"] or "unknown",
     )
     return retriever, {"dimension": dimension, "backend": backend.identity}
 
@@ -553,7 +619,7 @@ def _learned_dense(context: ComponentBuildContext):
         [document_from_knowledge_card(card) for card in context.cards],
         backend,
         knowledge_pack_version=context.environment["knowledge_pack_version"],
-        build_commit=context.environment["build_commit"],
+        build_commit=context.environment["build_commit"] or "unknown",
     )
     index_dir = cfg.get("index_dir")
     if index_dir is not None:
@@ -596,26 +662,109 @@ def _provider_from(context: ComponentBuildContext):
     return context.instances[(ComponentKind.PROVIDER, context.profile.provider)]
 
 
+def _role_model(context: ComponentBuildContext, role: str) -> str:
+    role_config = context.profile.config.get(role, {})
+    if not isinstance(role_config, Mapping):
+        raise TypeError(f"profile {role} config must be an object")
+    model = role_config.get("model")
+    if model is None and role in {"agent", "generator"}:
+        alternate = "generator" if role == "agent" else "agent"
+        alternate_config = context.profile.config.get(alternate, {})
+        if not isinstance(alternate_config, Mapping):
+            raise TypeError(f"profile {alternate} config must be an object")
+        model = alternate_config.get("model")
+    return str(model or context.environment.get("resolved_provider_model") or "fixture-provider-model")
+
+
 def _build_policy_m2(context: ComponentBuildContext) -> BuiltComponent:
-    policy = OpenAICompatibleEvidencePolicy(provider_executor=_provider_from(context), knowledge_scope=None)
-    return BuiltComponent(policy, _identity(ComponentKind.POLICY, context.profile.policy or "evidence-policy-m2-v1", implementation_name(policy), {"scope": "m2"}))
+    policy = OpenAICompatibleEvidencePolicy(
+        provider_executor=_provider_from(context),
+        model=_role_model(context, "policy"),
+        knowledge_scope=None,
+    )
+    return BuiltComponent(
+        policy,
+        _identity(
+            ComponentKind.POLICY,
+            context.profile.policy or "evidence-policy-m2-v1",
+            implementation_name(policy),
+            {
+                "model": policy.model_name,
+                "temperature": policy.temperature,
+                "contract": "evidence-policy-m2-v1",
+                "scope_semantics": "none",
+            },
+        ),
+    )
 
 
 def _build_policy_m3(context: ComponentBuildContext) -> BuiltComponent:
     if context.knowledge_scope is None:
         raise ValueError("M3 evidence policy requires a knowledge scope")
-    policy = OpenAICompatibleEvidencePolicy(provider_executor=_provider_from(context), knowledge_scope=context.knowledge_scope)
-    return BuiltComponent(policy, _identity(ComponentKind.POLICY, context.profile.policy or "evidence-policy-m3-v1", implementation_name(policy), {"scope_id": context.knowledge_scope.scope_id, "scope_version": context.knowledge_scope.version}))
+    policy = OpenAICompatibleEvidencePolicy(
+        provider_executor=_provider_from(context),
+        model=_role_model(context, "policy"),
+        knowledge_scope=context.knowledge_scope,
+    )
+    return BuiltComponent(
+        policy,
+        _identity(
+            ComponentKind.POLICY,
+            context.profile.policy or "evidence-policy-m3-v1",
+            implementation_name(policy),
+            {
+                "model": policy.model_name,
+                "temperature": policy.temperature,
+                "contract": "evidence-policy-m3-v1",
+                "scope_semantics": {
+                    "scope_id": context.knowledge_scope.scope_id,
+                    "scope_version": context.knowledge_scope.version,
+                },
+            },
+        ),
+    )
 
 
 def _build_grounding(context: ComponentBuildContext) -> BuiltComponent:
-    verifier = OpenAICompatibleGroundingVerifier(provider_executor=_provider_from(context))
-    return BuiltComponent(verifier, _identity(ComponentKind.VERIFIER, context.profile.verifier or "grounding-v1", implementation_name(verifier), {"kind": "grounding"}))
+    verifier = OpenAICompatibleGroundingVerifier(
+        provider_executor=_provider_from(context),
+        model=_role_model(context, "verifier"),
+    )
+    return BuiltComponent(
+        verifier,
+        _identity(
+            ComponentKind.VERIFIER,
+            context.profile.verifier or "grounding-v1",
+            implementation_name(verifier),
+            {
+                "model": verifier.model_name,
+                "temperature": verifier.temperature,
+                "verifier_type": "grounding",
+                "contract": "grounding-v1",
+            },
+        ),
+    )
 
 
 def _build_claim_support(context: ComponentBuildContext) -> BuiltComponent:
-    verifier = OpenAICompatibleClaimSupportVerifier(provider_executor=_provider_from(context))
-    return BuiltComponent(verifier, _identity(ComponentKind.VERIFIER, context.profile.verifier or "claim-support-v1", implementation_name(verifier), {"kind": "claim_support"}))
+    verifier = OpenAICompatibleClaimSupportVerifier(
+        provider_executor=_provider_from(context),
+        model=_role_model(context, "verifier"),
+    )
+    return BuiltComponent(
+        verifier,
+        _identity(
+            ComponentKind.VERIFIER,
+            context.profile.verifier or "claim-support-v1",
+            implementation_name(verifier),
+            {
+                "model": verifier.model_name,
+                "temperature": verifier.temperature,
+                "verifier_type": "claim_support",
+                "contract": "claim-support-v1",
+            },
+        ),
+    )
 
 
 def _build_search_tool(context: ComponentBuildContext) -> BuiltComponent:
@@ -630,3 +779,48 @@ def _build_metadata_trace(context: ComponentBuildContext) -> BuiltComponent:
 
 def _build_public_trace(context: ComponentBuildContext) -> BuiltComponent:
     return BuiltComponent(RuntimeTraceFactory(TraceContentPolicy.PUBLIC_EVAL_CONTENT), _identity(ComponentKind.TRACE, context.profile.trace, "health_ai_copilot.runtime.trace.RunTrace", {"content_policy": "public_eval_content"}))
+
+
+def _discover_build_commit() -> str | None:
+    """Discover the local source revision without network access or shell code."""
+
+    explicit = os.getenv("HEALTH_COPILOT_BUILD_COMMIT", "").strip()
+    if explicit:
+        return explicit
+    repo_root = Path(__file__).resolve().parents[3]
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo_root,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    revision = result.stdout.strip()
+    return revision or None
+
+
+def _replay_evidence_hash(rows: Mapping[str, Sequence[Any]]) -> str:
+    """Hash replay evidence content, not only its question keys."""
+
+    payload = []
+    for question, evidence_items in sorted(rows.items(), key=lambda item: item[0]):
+        payload.append(
+            {
+                "question": question,
+                "evidence": [
+                    {
+                        "source_id": item.source_id,
+                        "title": item.title,
+                        "excerpt": item.excerpt,
+                        "source_url": item.source_url,
+                        "score": item.score,
+                    }
+                    for item in evidence_items
+                ],
+            }
+        )
+    return canonical_json_sha256(payload)

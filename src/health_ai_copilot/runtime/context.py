@@ -1,6 +1,9 @@
 """Narrow execution identity/context; this is not conversation memory."""
 
+import inspect
+from collections.abc import Callable
 from dataclasses import dataclass, field
+from typing import Any
 from uuid import uuid4
 
 from .budget import RunBudgetConfig, RunBudgetState
@@ -36,6 +39,24 @@ class RunIdentity:
             profile_id=profile_id,
             component_manifest_hash=component_manifest_hash,
         )
+
+
+def call_with_optional_runtime(
+    operation: Callable[..., Any], *args: Any, runtime: "RunContext"
+) -> Any:
+    """Call old test fakes and new adapters without storing run state on either."""
+
+    try:
+        parameters = inspect.signature(operation).parameters.values()
+        supports_runtime = any(
+            parameter.name == "runtime" or parameter.kind == inspect.Parameter.VAR_KEYWORD
+            for parameter in parameters
+        )
+    except (TypeError, ValueError):
+        supports_runtime = True
+    if supports_runtime:
+        return operation(*args, runtime=runtime)
+    return operation(*args)
 
 
 @dataclass
@@ -76,5 +97,6 @@ class RunContext:
                 runtime_mode=runtime_mode,
                 profile_id=profile_id,
                 component_manifest_hash=component_manifest_hash,
+                code_commit=code_commit,
             )
         return context

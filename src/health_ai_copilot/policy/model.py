@@ -82,13 +82,21 @@ class OpenAICompatibleEvidencePolicy:
             self.base_url = None
         self._provider_executor = provider_executor
         self.model_name = model or "injected-provider-model"
-        self._runtime = runtime
+        # ``runtime`` is retained for constructor compatibility only. Per-run
+        # state arrives on assess(runtime=...) and is never stored.
         self.temperature = 0
         self.timeout_seconds = 30.0
         self.max_retries = 0
         self.knowledge_scope = knowledge_scope
 
-    def assess(self, question: str, evidence: Sequence[Evidence], proposed_query: str) -> EvidenceAssessment:
+    def assess(
+        self,
+        question: str,
+        evidence: Sequence[Evidence],
+        proposed_query: str,
+        *,
+        runtime: RunContext | None = None,
+    ) -> EvidenceAssessment:
         payload: dict[str, object] = {
             "question": question,
             "proposed_query": proposed_query,
@@ -127,7 +135,7 @@ class OpenAICompatibleEvidencePolicy:
                     {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
                     ),
                 ),
-                self._runtime or RunContext.create("policy"),
+                runtime or RunContext.create("policy"),
             )
             parsed = json.loads(response.content)
             assessment = EvidenceAssessment(

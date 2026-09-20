@@ -37,7 +37,11 @@ class AgentModelError(RuntimeError):
 
 class AgentModel(Protocol):
     def respond(
-        self, messages: Sequence[AgentMessage], tools: Sequence[ToolSpec]
+        self,
+        messages: Sequence[AgentMessage],
+        tools: Sequence[ToolSpec],
+        *,
+        runtime: RunContext | None = None,
     ) -> AssistantTurn:
         ...
 
@@ -100,7 +104,7 @@ class OpenAICompatibleAgentModel:
         self._provider_executor = provider_executor
         self._model = model or "injected-provider-model"
         self._temperature = 0.1 if temperature is None else temperature
-        self._runtime = runtime
+        # ``runtime`` remains accepted for old callers, but is never stored.
         if output_mode is None:
             self.output_mode = (
                 AgentOutputMode.M2_GROUNDED if require_claims else AgentOutputMode.M1
@@ -118,7 +122,11 @@ class OpenAICompatibleAgentModel:
         }[self.output_mode]
 
     def respond(
-        self, messages: Sequence[AgentMessage], tools: Sequence[ToolSpec]
+        self,
+        messages: Sequence[AgentMessage],
+        tools: Sequence[ToolSpec],
+        *,
+        runtime: RunContext | None = None,
     ) -> AssistantTurn:
         try:
             response = self._provider_executor.execute(
@@ -133,7 +141,7 @@ class OpenAICompatibleAgentModel:
                     response_format={"type": "json_object"},
                     timeout_seconds=30.0,
                 ),
-                self._runtime or RunContext.create("agent"),
+                runtime or RunContext.create("agent"),
             )
         except Exception as exc:
             raise AgentModelError("agent model request failed") from exc

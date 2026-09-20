@@ -109,6 +109,7 @@ class ComponentManifest:
     knowledge_pack_version: str | None = None
     knowledge_scope_version: str | None = None
     profile_config_hash: str | None = None
+    code_commit: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.profile_id, str) or not self.profile_id.strip():
@@ -117,6 +118,10 @@ class ComponentManifest:
             not isinstance(self.profile_config_hash, str) or len(self.profile_config_hash) != 64
         ):
             raise ValueError("profile_config_hash must be a SHA-256 hex digest or null")
+        if self.code_commit is not None and (
+            not isinstance(self.code_commit, str) or not self.code_commit.strip()
+        ):
+            raise ValueError("code_commit must be a non-empty string or null")
         ordered = tuple(sorted(self.components, key=lambda item: item.identity_key))
         if len({item.identity_key for item in ordered}) != len(ordered):
             raise ValueError("manifest contains duplicate component identities")
@@ -129,7 +134,14 @@ class ComponentManifest:
             "knowledge_pack_version": self.knowledge_pack_version,
             "knowledge_scope_version": self.knowledge_scope_version,
             "profile_config_hash": self.profile_config_hash,
+            "code_commit": self.code_commit,
         }
+
+    @property
+    def build_commit(self) -> str | None:
+        """Compatibility alias for callers that call the field build_commit."""
+
+        return self.code_commit
 
     @property
     def canonical_json(self) -> str:

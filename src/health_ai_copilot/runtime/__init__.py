@@ -7,7 +7,7 @@ from .components import (
     ComponentManifest,
     LearnedArtifactIdentity,
 )
-from .context import RunContext, RunIdentity
+from .context import RunContext, RunIdentity, call_with_optional_runtime
 from .failure_injection import (
     FailureInjectingProviderExecutor,
     FailureInjectingToolRunner,
@@ -80,6 +80,7 @@ __all__ = [
     "RunContext",
     "RunIdentity",
     "UnknownComponentError",
+    "call_with_optional_runtime",
     "provider_request_fingerprint",
     "read_provider_exchanges",
     "read_tool_exchanges",

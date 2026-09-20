@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from typing import Protocol
 
 from ..contracts import Evidence, GenerationDraft
+from ..runtime.context import RunContext
 
 
 class GenerationError(RuntimeError):
@@ -13,5 +14,11 @@ class GenerationError(RuntimeError):
 class Generator(Protocol):
     """Generate only from the evidence supplied by the pipeline."""
 
-    def generate(self, question: str, evidence: Sequence[Evidence]) -> GenerationDraft:
+    def generate(
+        self,
+        question: str,
+        evidence: Sequence[Evidence],
+        *,
+        runtime: RunContext | None = None,
+    ) -> GenerationDraft:
         ...

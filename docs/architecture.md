@@ -134,6 +134,14 @@ run `config_hash`; metadata-only traces still reject medical content. Replay
 can require the recorded profile and manifest to match, while recorded tool
 exchanges can be replayed without constructing a live learned retriever.
 
+Role routing is declarative: the profile may name separate `agent`/`generator`,
+`policy`, and `verifier` model settings. The shared `ProviderExecutor` owns
+transport side effects, while the domain adapters retain their separate
+contracts. The built adapters receive the active `RunContext` explicitly;
+there is no shared mutable per-run runtime binding. A provider/retriever/
+policy/verifier/tool/trace graph is a component lifetime, whereas budget,
+trace, AgentState and session state are run lifetime.
+
 ## Later milestones
 
 后续再考虑 permission、production persistence、dense/hybrid retrieval、multimodal evidence 与 post-training；
