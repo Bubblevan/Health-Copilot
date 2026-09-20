@@ -75,7 +75,13 @@ profile. They all share the same `ProviderExecutor` transport boundary, while
 `AgentModel`, `EvidencePolicy`, and claim/grounding verifiers remain separate
 adapters. If a role is omitted, it uses the explicit provider default; an
 injected test executor receives the deterministic `fixture-provider-model`
-default. It never silently changes to another model or retrieval component.
+default. Resolution is strictly per role: `agent` reads only
+`profile.config.agent.model`, `generator` reads only
+`profile.config.generator.model`, `policy` reads only
+`profile.config.policy.model`, and `verifier` reads only
+`profile.config.verifier.model`. A missing role-specific override falls back
+directly to the provider default; no role inherits another role's override.
+It never silently changes to another model or retrieval component.
 
 ## Registered retrieval IDs
 

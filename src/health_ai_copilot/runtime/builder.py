@@ -446,14 +446,7 @@ class RuntimeBuilder:
         role_config = profile.config.get(role, {})
         if not isinstance(role_config, Mapping):
             raise TypeError(f"profile {role} config must be an object")
-        model = role_config.get("model")
-        if model is None and role in {"agent", "generator"}:
-            alternate = "generator" if role == "agent" else "agent"
-            alternate_config = profile.config.get(alternate, {})
-            if not isinstance(alternate_config, Mapping):
-                raise TypeError(f"profile {alternate} config must be an object")
-            model = alternate_config.get("model")
-        return str(model or provider_default)
+        return str(role_config.get("model") or provider_default)
 
     def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
         if profile.mode not in {"m0", "m1", "m2", "m3"}:
@@ -666,14 +659,11 @@ def _role_model(context: ComponentBuildContext, role: str) -> str:
     role_config = context.profile.config.get(role, {})
     if not isinstance(role_config, Mapping):
         raise TypeError(f"profile {role} config must be an object")
-    model = role_config.get("model")
-    if model is None and role in {"agent", "generator"}:
-        alternate = "generator" if role == "agent" else "agent"
-        alternate_config = context.profile.config.get(alternate, {})
-        if not isinstance(alternate_config, Mapping):
-            raise TypeError(f"profile {alternate} config must be an object")
-        model = alternate_config.get("model")
-    return str(model or context.environment.get("resolved_provider_model") or "fixture-provider-model")
+    return str(
+        role_config.get("model")
+        or context.environment.get("resolved_provider_model")
+        or "fixture-provider-model"
+    )
 
 
 def _build_policy_m2(context: ComponentBuildContext) -> BuiltComponent:

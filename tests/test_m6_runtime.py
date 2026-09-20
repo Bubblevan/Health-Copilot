@@ -121,6 +121,78 @@ def test_same_pipeline_class_accepts_bm25_and_hybrid_profiles() -> None:
     assert hybrid.pipeline().answer("高血压患者低盐饮食").route.value == "answer"
 
 
+@pytest.mark.parametrize(
+    ("role_config", "expected_agent", "expected_generator"),
+    [
+        ({"agent": {"model": "agent-model"}}, "agent-model", "base-model"),
+        ({"generator": {"model": "generator-model"}}, "base-model", "generator-model"),
+    ],
+)
+def test_agent_and_generator_role_overrides_never_cross_inherit(
+    role_config, expected_agent, expected_generator
+) -> None:
+    cards = load_knowledge_cards(FIXTURE_DIR)
+    evidence = Evidence(
+        "fixture-hypertension",
+        "title",
+        "excerpt",
+        "https://example.org",
+        1.0,
+    )
+
+    generator_executor = FakeProviderExecutor(
+        [
+            ProviderResponse(
+                "",
+                ProviderCallKind.GENERATOR,
+                "ignored",
+                '{"answer":"ok","citation_ids":["fixture-hypertension"],"abstain":false}',
+            )
+        ]
+    )
+    generator_profile = RuntimeProfile(
+        "m0-role-resolution",
+        "openai-compatible-v1",
+        "bm25-v1",
+        mode="m0",
+        config={"provider": {"model": "base-model"}, **role_config},
+    )
+    generator_components = RuntimeBuilder(
+        environment={"provider_executor": generator_executor}
+    ).build(generator_profile, cards=cards)
+    generator_components.generator.generate(
+        "问题", (evidence,), runtime=generator_components.create_run_context()
+    )
+
+    agent_executor = FakeProviderExecutor(
+        [
+            ProviderResponse(
+                "",
+                ProviderCallKind.AGENT,
+                "ignored",
+                '{"answer":"","citation_ids":[],"abstain":true}',
+            )
+        ]
+    )
+    agent_profile = RuntimeProfile(
+        "m1-role-resolution",
+        "openai-compatible-v1",
+        "bm25-v1",
+        tool_set=("search-knowledge-v1",),
+        mode="m1",
+        config={"provider": {"model": "base-model"}, **role_config},
+    )
+    agent_components = RuntimeBuilder(
+        environment={"provider_executor": agent_executor}
+    ).build(agent_profile, cards=cards)
+    agent_components.agent_model.respond(
+        (), (), runtime=agent_components.create_run_context()
+    )
+
+    assert generator_executor.requests[0].model == expected_generator
+    assert agent_executor.requests[0].model == expected_agent
+
+
 def test_same_pipeline_handles_bm25_and_m5_learned_profile_replay_component() -> None:
     """Exercise replacement mechanics without downloading learned weights in CI."""
 

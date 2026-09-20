@@ -91,7 +91,11 @@ tooling, and a four-arm M3/M4 focused end-to-end diagnostic. Hybrid+CrossEncoder
 BM25 remains the default because of latency and focused-pack limits. See `docs/m5_retrieval.md`; M6 now formalizes these
 frozen alternatives as explicit runtime profiles.
 
-## M6 — Composable Runtime Profiles & Component Registry（implemented）
+## M6 — FROZEN
+
+H3 Extensible / Plugin Runtime — COMPLETE
+
+Final freeze checkpoint: the new `main` SHA published with this closeout.
 
 M6 是 H3 的第二阶段，也是 M5 之后的第一个通用 subsystem replacement runtime：
 
@@ -114,7 +118,7 @@ latency 差异因果归因给 retrieval。M5 metrics 与 BM25 default 决策保�
 
 ## M7 — Agent Eval System（planned）
 
-M6 之后的下一阶段是 H4/M7 Agent Eval System。它不在本次任务中启动。
+M6 之后的下一阶段是 H4/M7 Agent Eval System；M7 不在本次任务中启动。
 
 后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；任何 post-training 都必须建立在固定评测集、
 trajectory/failure 数据和合规数据许可之上。
