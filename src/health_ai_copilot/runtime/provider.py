@@ -10,6 +10,7 @@ from uuid import uuid4
 from ..config import OpenAIConfig
 from .budget import BudgetDenied
 from .context import RunContext
+from .trace import TraceEventType, canonical_json_sha256
 
 
 class ProviderCallKind(StrEnum):
@@ -97,6 +98,22 @@ class ProviderExecutor(Protocol):
         ...
 
 
+def provider_request_fingerprint(request: ProviderRequest) -> str:
+    """Hash all behaviorally relevant request fields for deterministic replay matching."""
+
+    return canonical_json_sha256(
+        {
+            "kind": request.kind.value,
+            "model": request.model,
+            "messages": request.messages,
+            "tools": request.tools,
+            "response_format": request.response_format,
+            "temperature": request.temperature,
+            "max_output_tokens": request.max_output_tokens,
+        }
+    )
+
+
 class OpenAICompatibleProviderExecutor:
     """The only M4.1 location that creates an OpenAI-compatible live client."""
 
@@ -111,10 +128,13 @@ class OpenAICompatibleProviderExecutor:
         self._client = OpenAI(**kwargs)
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
+        fingerprint = provider_request_fingerprint(request)
         try:
             remaining_seconds = runtime.budget.guard_provider()
         except BudgetDenied as exc:
+            _trace_budget_denied(runtime, "provider", str(exc))
             raise ProviderFailure(ProviderFailureKind.BUDGET_DENIED) from exc
+        _trace_provider_start(runtime, request, fingerprint)
         kwargs: dict[str, Any] = {
             "model": request.model,
             "messages": list(request.messages),
@@ -138,7 +158,9 @@ class OpenAICompatibleProviderExecutor:
             raw = self._client.chat.completions.create(**kwargs)
             message = raw.choices[0].message
         except Exception as exc:  # SDK exception classes remain vendor-specific here.
-            raise ProviderFailure(_failure_kind(exc)) from exc
+            failure = ProviderFailure(_failure_kind(exc))
+            _trace_provider_error(runtime, request, fingerprint, failure.kind)
+            raise failure from exc
         response = ProviderResponse(
             call_id=request.call_id,
             kind=request.kind,
@@ -151,6 +173,7 @@ class OpenAICompatibleProviderExecutor:
             provider_request_id=getattr(raw, "_request_id", None),
         )
         runtime.budget.record_usage(response.usage)
+        _trace_provider_end(runtime, response, fingerprint)
         return response
 
 
@@ -163,15 +186,21 @@ class FakeProviderExecutor:
         self.requests: list[ProviderRequest] = []
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
+        fingerprint = provider_request_fingerprint(request)
         try:
             runtime.budget.guard_provider()
         except BudgetDenied as exc:
+            _trace_budget_denied(runtime, "provider", str(exc))
             raise ProviderFailure(ProviderFailureKind.BUDGET_DENIED) from exc
         self.requests.append(request)
+        _trace_provider_start(runtime, request, fingerprint)
         if self._failure is not None:
+            _trace_provider_error(runtime, request, fingerprint, self._failure.kind)
             raise self._failure
         if not self._responses:
-            raise ProviderFailure(ProviderFailureKind.MALFORMED_RESPONSE)
+            failure = ProviderFailure(ProviderFailureKind.MALFORMED_RESPONSE)
+            _trace_provider_error(runtime, request, fingerprint, failure.kind)
+            raise failure
         response = self._responses.pop(0)
         normalized = ProviderResponse(
             call_id=request.call_id,
@@ -185,6 +214,7 @@ class FakeProviderExecutor:
             provider_request_id=response.provider_request_id,
         )
         runtime.budget.record_usage(normalized.usage)
+        _trace_provider_end(runtime, normalized, fingerprint)
         return normalized
 
 
@@ -221,3 +251,65 @@ def _failure_kind(exc: Exception) -> ProviderFailureKind:
     if "connection" in name or "connect" in name:
         return ProviderFailureKind.CONNECTION
     return ProviderFailureKind.PROVIDER_ERROR
+
+
+def _trace_provider_start(
+    runtime: RunContext, request: ProviderRequest, fingerprint: str
+) -> None:
+    if runtime.trace is None:
+        return
+    runtime.trace.emit(
+        TraceEventType.PROVIDER_START,
+        call_id=request.call_id,
+        kind=request.kind.value,
+        model=request.model,
+        request_fingerprint=fingerprint,
+        tool_count=len(request.tools),
+        response_format=bool(request.response_format),
+        temperature=request.temperature,
+    )
+
+
+def _trace_provider_end(
+    runtime: RunContext, response: ProviderResponse, fingerprint: str
+) -> None:
+    if runtime.trace is None:
+        return
+    runtime.trace.emit(
+        TraceEventType.PROVIDER_END,
+        call_id=response.call_id,
+        kind=response.kind.value,
+        model=response.model,
+        request_fingerprint=fingerprint,
+        finish_reason=response.finish_reason,
+        tool_call_count=len(response.tool_calls),
+        usage_total=response.usage.total_tokens if response.usage else None,
+        latency_ms=response.latency_ms,
+    )
+
+
+def _trace_provider_error(
+    runtime: RunContext,
+    request: ProviderRequest,
+    fingerprint: str,
+    failure_kind: ProviderFailureKind,
+) -> None:
+    if runtime.trace is None:
+        return
+    runtime.trace.emit(
+        TraceEventType.PROVIDER_ERROR,
+        call_id=request.call_id,
+        kind=request.kind.value,
+        model=request.model,
+        request_fingerprint=fingerprint,
+        failure_kind=failure_kind.value,
+    )
+
+
+def _trace_budget_denied(runtime: RunContext, side_effect: str, reason: str) -> None:
+    if runtime.trace is not None:
+        runtime.trace.emit(
+            TraceEventType.BUDGET_DENIED,
+            side_effect=side_effect,
+            reason=reason,
+        )

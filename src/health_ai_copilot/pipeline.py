@@ -11,6 +11,8 @@ from .contracts import AssistantResponse, Citation, Evidence, GenerationDraft, R
 from .generation.base import Generator
 from .knowledge.scope import KnowledgeScope
 from .policy.evidence import EvidencePolicy
+from .runtime.context import RunContext
+from .runtime.trace import TraceEventType
 from .safety import route_question
 from .tools.search_knowledge import SearchKnowledgeTool
 from .verification.citations import verify_citations
@@ -121,6 +123,7 @@ class HealthCopilotPipeline:
         grounding_verifier: GroundingVerifier | None = None,
         knowledge_scope: KnowledgeScope | None = None,
         claim_support_verifier: ClaimSupportVerifier | None = None,
+        runtime: RunContext | None = None,
     ):
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
@@ -155,6 +158,7 @@ class HealthCopilotPipeline:
         self.grounding_verifier = grounding_verifier
         self.knowledge_scope = knowledge_scope
         self.claim_support_verifier = claim_support_verifier
+        self.runtime = runtime
         self.last_grounding_result: GroundingResult | None = None
         self.last_claim_support_result: ClaimSupportResult | None = None
         self.last_harness_disposition: str | None = None
@@ -177,29 +181,32 @@ class HealthCopilotPipeline:
                 event_sink=event_sink,
                 evidence_policy=evidence_policy,
                 knowledge_scope=knowledge_scope,
+                runtime=runtime,
             )
 
     def answer(self, question: str) -> AssistantResponse:
+        active_runtime = self.runtime or RunContext.create("pipeline")
+        self._bind_runtime(active_runtime)
         self.last_agent_run = None
         self.last_grounding_result = None
         self.last_claim_support_result = None
         self.last_harness_disposition = None
         if not isinstance(question, str) or not question.strip():
-            return abstain_response("invalid_input")
+            return self._finalize(abstain_response("invalid_input"), active_runtime)
 
         terminal_response = route_question(question)
         if terminal_response is not None:
-            return terminal_response
+            return self._finalize(terminal_response, active_runtime)
 
         try:
             evidence = self.retriever.search(question, top_k=self.top_k)
         except Exception:  # noqa: BLE001 - pipeline must fail closed at component boundaries
-            return abstain_response("retrieval_error")
+            return self._finalize(abstain_response("retrieval_error"), active_runtime)
         if not evidence:
-            return abstain_response("insufficient_evidence")
+            return self._finalize(abstain_response("insufficient_evidence"), active_runtime)
 
         if self.agent_loop is not None:
-            return self._answer_with_agent(question, evidence)
+            return self._finalize(self._answer_with_agent(question, evidence, active_runtime), active_runtime)
 
         try:
             # The M0 path remains intentionally replayable when no AgentModel is supplied.
@@ -207,14 +214,17 @@ class HealthCopilotPipeline:
             if not isinstance(draft, GenerationDraft):
                 raise TypeError("generator returned an invalid draft")
         except Exception:  # noqa: BLE001 - pipeline must fail closed at component boundaries
-            return abstain_response("generation_error")
-        return self._response_from_draft(draft, evidence)
+            return self._finalize(abstain_response("generation_error"), active_runtime)
+        return self._finalize(self._response_from_draft(draft, evidence), active_runtime)
 
     def _answer_with_agent(
-        self, question: str, initial_evidence: Sequence[Evidence]
+        self,
+        question: str,
+        initial_evidence: Sequence[Evidence],
+        runtime: RunContext,
     ) -> AssistantResponse:
         try:
-            run = self.agent_loop.run(question, initial_evidence)  # type: ignore[union-attr]
+            run = self.agent_loop.run(question, initial_evidence, runtime=runtime)  # type: ignore[union-attr]
         except Exception:  # noqa: BLE001 - runtime boundary must fail closed
             return abstain_response("agent_error")
         self.last_agent_run = run
@@ -229,6 +239,31 @@ class HealthCopilotPipeline:
         if self.grounding_verifier is not None:
             return self._response_from_grounded_final(run)
         return self._response_from_draft(run.draft, run.observed_evidence)
+
+    def _bind_runtime(self, runtime: RunContext) -> None:
+        """Inject one control-plane context without changing frozen adapter APIs."""
+
+        for component in (
+            self.generator,
+            self.agent_model,
+            self.evidence_policy,
+            self.grounding_verifier,
+            self.claim_support_verifier,
+        ):
+            if component is not None and hasattr(component, "_runtime"):
+                component._runtime = runtime  # type: ignore[attr-defined]
+
+    def _finalize(self, response: AssistantResponse, runtime: RunContext) -> AssistantResponse:
+        if runtime.trace is not None:
+            disposition = self.last_harness_disposition or response.route.value
+            runtime.trace.emit(
+                TraceEventType.HARNESS_DISPOSITION,
+                route=response.route.value,
+                disposition=disposition,
+                safety_reason_count=len(response.safety_reasons),
+            )
+            runtime.trace.close(status="complete")
+        return response
 
     def _response_from_grounded_final(self, run: AgentRunResult) -> AssistantResponse:
         """M2 order: claim citation integrity, coverage/support, trusted citations."""

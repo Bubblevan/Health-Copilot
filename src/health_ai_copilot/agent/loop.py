@@ -8,6 +8,7 @@ from ..knowledge.scope import KnowledgeScope
 from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
 from ..runtime.context import RunContext
 from ..runtime.tools import LiveToolRunner, ToolRunner
+from ..runtime.trace import TraceEventType
 from .events import AgentEvent, AgentEventType
 from .messages import (
     FinalTurn,
@@ -271,6 +272,14 @@ class AgentLoop:
                 state.policy_reason_codes = assessment.reason_codes
                 state.policy_supporting_source_ids = assessment.supporting_source_ids
                 state.policy_matched_topic_ids = assessment.matched_topic_ids
+                if active_runtime.trace is not None:
+                    active_runtime.trace.emit(
+                        TraceEventType.POLICY_DECISION,
+                        decision=assessment.decision.value,
+                        reason_codes=list(assessment.reason_codes),
+                        matched_topic_ids=list(assessment.matched_topic_ids),
+                        supporting_source_count=len(assessment.supporting_source_ids),
+                    )
                 if assessment.decision == EvidenceDecision.SUFFICIENT:
                     active_session.append(ToolResultMessage(call.id, call.name, ToolResult.failure("policy_denied", "current evidence is sufficient; recovery search was not executed")))
                     emit(AgentEvent(AgentEventType.TURN_END, active_session.session_id, turn=turn, success=False, error_code="policy_denied"))

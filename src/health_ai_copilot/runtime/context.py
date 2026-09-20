@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from uuid import uuid4
 
 from .budget import RunBudgetConfig, RunBudgetState
+from .trace import RunTrace, TraceEventType
 
 
 @dataclass(frozen=True)
@@ -27,7 +28,20 @@ class RunContext:
     identity: RunIdentity
     budget: RunBudgetState = field(default_factory=lambda: RunBudgetState(RunBudgetConfig()))
     metadata: dict[str, str] = field(default_factory=dict)
+    trace: RunTrace | None = None
 
     @classmethod
-    def create(cls, runtime_mode: str, budget: RunBudgetConfig | None = None) -> "RunContext":
-        return cls(identity=RunIdentity.create(runtime_mode), budget=RunBudgetState(budget or RunBudgetConfig()))
+    def create(
+        cls,
+        runtime_mode: str,
+        budget: RunBudgetConfig | None = None,
+        trace: RunTrace | None = None,
+    ) -> "RunContext":
+        context = cls(
+            identity=RunIdentity.create(runtime_mode),
+            budget=RunBudgetState(budget or RunBudgetConfig()),
+            trace=trace,
+        )
+        if trace is not None:
+            trace.emit(TraceEventType.RUN_START, run_id=context.identity.run_id, runtime_mode=runtime_mode)
+        return context
