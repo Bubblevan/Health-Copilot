@@ -110,6 +110,15 @@ def trial_metrics(
         definition_version=definition_version,
         scope="case",
     )
+    harness_groups: dict[str, list[str | None]] = defaultdict(list)
+    for record in records:
+        harness_groups[record.case_id].append(record.harness_disposition)
+    metrics["case.harness_disposition_consistency"] = metric_from_binary(
+        "case.harness_disposition_consistency",
+        [len(set(dispositions)) <= 1 for dispositions in harness_groups.values()],
+        definition_version=definition_version,
+        scope="case",
+    )
     metrics["run.case_count"] = MetricResult(
         "run.case_count",
         definition_version,

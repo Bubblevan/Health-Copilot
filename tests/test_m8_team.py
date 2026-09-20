@@ -6,6 +6,7 @@ import pytest
 from health_ai_copilot.agent.messages import FinalTurn, ToolCall, ToolCallTurn
 from health_ai_copilot.agent.tools import ToolRegistry
 from health_ai_copilot.contracts import Evidence
+from health_ai_copilot.eval.failures import FailureMapper
 from health_ai_copilot.eval.schema import CaseRunStatus
 from health_ai_copilot.eval.system import EvaluationRunner
 from health_ai_copilot.knowledge.loader import load_knowledge_cards
@@ -15,20 +16,26 @@ from health_ai_copilot.policy.evidence import EvidenceAssessment, EvidenceDecisi
 from health_ai_copilot.runtime import (
     FakeProviderExecutor,
     ProviderCallKind,
+    ProviderFailure,
+    ProviderFailureKind,
     ProviderResponse,
     RunContext,
     RuntimeBuilder,
     default_runtime_profiles,
 )
 from health_ai_copilot.runtime.budget import RunBudgetConfig
+from health_ai_copilot.runtime.trace import RunTrace, TraceEventType
 from health_ai_copilot.team import (
     AgentTeamOrchestrator,
     LeadDecision,
     LeadDecisionKind,
     LeadTaskProposal,
     Mailbox,
+    OpenAICompatibleTeamLeadModel,
     TaskStore,
     TeamBudgetConfig,
+    TeamLeadFailureKind,
+    TeamLeadModelError,
     TeamRole,
     TeamStopReason,
     WorkerReport,
@@ -209,6 +216,134 @@ def test_allowed_roles_are_enforced_at_runtime():
     assert result.stop_reason == TeamStopReason.INVALID_DELEGATION
     assert result.state.tasks_created == 0
     assert result.state.allowed_roles == ("evidence",)
+
+
+@pytest.mark.parametrize(
+    ("content", "failure_kind"),
+    [
+        ("", TeamLeadFailureKind.EMPTY_RESPONSE),
+        ("not-json", TeamLeadFailureKind.JSON_DECODE),
+        ('{"action":"unknown"}', TeamLeadFailureKind.CONTRACT_VALIDATION),
+        ('{"action":"final","claims":[]}', TeamLeadFailureKind.CONTRACT_VALIDATION),
+        (
+            '{"action":"final","claims":[{"text":"x","citation_ids":[1]}]}',
+            TeamLeadFailureKind.CONTRACT_VALIDATION,
+        ),
+        ('{"action":"delegate","tasks":[]}', TeamLeadFailureKind.CONTRACT_VALIDATION),
+        (
+            '{"action":"delegate","tasks":[{"role":"unknown","objective":"x"}]}',
+            TeamLeadFailureKind.CONTRACT_VALIDATION,
+        ),
+        (
+            '{"action":"delegate","tasks":[{"role":"evidence","objective":"x","task_id":"runtime"}]}',
+            TeamLeadFailureKind.CONTRACT_VALIDATION,
+        ),
+    ],
+)
+def test_team_lead_wire_contract_failure_taxonomy(content, failure_kind):
+    executor = FakeProviderExecutor(
+        [ProviderResponse("", ProviderCallKind.TEAM_LEAD, "lead", content)]
+    )
+    model = OpenAICompatibleTeamLeadModel(executor, "lead")
+    with pytest.raises(TeamLeadModelError) as raised:
+        model.decide("question", [_evidence("initial")], [], {}, runtime=RunContext.create("m8"))
+    error = raised.value
+    assert error.kind == failure_kind
+    assert error.contract_version == "team-lead-v2"
+    assert error.response_length == len(content)
+    assert error.response_content_sha256 is not None
+
+
+@pytest.mark.parametrize(
+    ("content", "action"),
+    [
+        ('{"action":"final","claims":[{"text":"x","citation_ids":["initial"]}]}', LeadDecisionKind.FINAL),
+        ('{"action":"abstain"}', LeadDecisionKind.ABSTAIN),
+        (
+            '{"action":"delegate","tasks":[{"role":"evidence","objective":"facts"}]}',
+            LeadDecisionKind.DELEGATE,
+        ),
+    ],
+)
+def test_team_lead_wire_contract_accepts_valid_actions(content, action):
+    executor = FakeProviderExecutor(
+        [ProviderResponse("", ProviderCallKind.TEAM_LEAD, "lead", content)]
+    )
+    model = OpenAICompatibleTeamLeadModel(executor, "lead")
+    decision = model.decide("question", [_evidence("initial")], [], {}, runtime=RunContext.create("m8"))
+    assert decision.action == action
+
+
+@pytest.mark.parametrize("failure_kind", list(ProviderFailureKind))
+def test_team_lead_preserves_provider_failure_kind(failure_kind):
+    executor = FakeProviderExecutor(failure=ProviderFailure(failure_kind))
+    model = OpenAICompatibleTeamLeadModel(executor, "lead")
+    with pytest.raises(TeamLeadModelError) as raised:
+        model.decide("question", [_evidence("initial")], [], {}, runtime=RunContext.create("m8"))
+    assert raised.value.kind == TeamLeadFailureKind.PROVIDER
+    assert raised.value.provider_failure_kind == failure_kind
+
+
+def test_invalid_lead_output_fails_closed_without_worker_side_effect_and_traces_metadata():
+    executor = FakeProviderExecutor(
+        [ProviderResponse("", ProviderCallKind.TEAM_LEAD, "lead", '{"action":"final","claims":[]}')]
+    )
+    worker = ScriptedWorker("worker-source")
+    orchestrator = _orchestrator(OpenAICompatibleTeamLeadModel(executor, "lead"), worker)
+    trace = RunTrace(content_policy="metadata_only")
+    runtime = RunContext.create("m8", trace=trace)
+    result = orchestrator.run("question", [_evidence("initial")], runtime=runtime)
+    assert result.stop_reason == TeamStopReason.LEAD_CONTRACT_VALIDATION
+    assert result.state.tasks_created == 0
+    assert result.state.workers_started == 0
+    assert result.state.lead_failure_kind == "contract_validation"
+    assert result.state.provider_failure_kind is None
+    failure_events = [
+        event for event in trace.events if event.event_type == TraceEventType.TEAM_LEAD_FAILURE
+    ]
+    assert len(failure_events) == 1
+    assert failure_events[0].fields["response_length"] > 0
+    assert "response_content" not in failure_events[0].fields
+
+
+def test_team_lead_provider_budget_failure_maps_to_budget_stop_without_workers():
+    executor = FakeProviderExecutor(
+        [ProviderResponse("", ProviderCallKind.TEAM_LEAD, "lead", '{"action":"abstain"}')]
+    )
+    orchestrator = _orchestrator(OpenAICompatibleTeamLeadModel(executor, "lead"), ScriptedWorker("worker"))
+    result = orchestrator.run(
+        "question",
+        [_evidence("initial")],
+        runtime=RunContext.create("m8", budget=RunBudgetConfig(max_provider_calls=0)),
+    )
+    assert result.stop_reason == TeamStopReason.BUDGET_EXHAUSTED
+    assert result.state.lead_failure_kind == "provider"
+    assert result.state.provider_failure_kind == "budget_denied"
+    assert result.state.workers_started == 0
+
+
+def test_failure_mapper_promotes_complete_team_failures_but_not_valid_abstain():
+    failed = SimpleNamespace(
+        status=CaseRunStatus.COMPLETE,
+        suite_id="m8",
+        case_id="case-1",
+        trial=1,
+        observed={
+            "team_stop_reason": "lead_contract_validation",
+            "lead_failure_kind": "contract_validation",
+            "lead_contract_version": "team-lead-v2",
+        },
+    )
+    valid_abstain = SimpleNamespace(
+        status=CaseRunStatus.COMPLETE,
+        suite_id="m8",
+        case_id="case-2",
+        trial=1,
+        observed={"team_stop_reason": "abstain"},
+    )
+    failures = FailureMapper().from_orchestration(failed)
+    assert [item.failure_code for item in failures] == ["lead_contract_validation"]
+    assert FailureMapper().from_orchestration(valid_abstain) == []
 
 
 def test_worker_evidence_overlap_and_unique_contribution_are_deterministic():

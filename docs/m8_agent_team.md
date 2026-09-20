@@ -156,3 +156,25 @@ M8 does not start MCP, sandbox, permissions, web search, memory, persistent
 conversation state, multimodal work, post-training, dynamic topology,
 decentralized MAS, A2A, dynamic role creation, recursive delegation, worker
 parallelism, or diagnostic/doctor agents.
+
+## M8.3 Team-Lead contract diagnosis
+
+M8.3 keeps the Team Lead wire contract at the provider-compatible
+`response_format={"type":"json_object"}` boundary. The original v1 traces
+show that this mode reached provider responses, but they do not establish that
+the configured OpenAI-compatible endpoint supports JSON Schema structured
+outputs. M8 therefore does not switch to JSON Schema by assumption; provider
+compatibility must be demonstrated separately before any such change.
+
+The repaired contract boundary classifies failures as `provider`,
+`empty_response`, `json_decode`, `contract_validation`, or `internal`, while
+retaining the normalized provider failure kind when one exists. Metadata-only
+traces record only the failure kind, provider failure kind, contract version,
+response SHA-256, and response length. Raw model output is permitted only in
+the explicitly scoped public three-case diagnostic and is never written to the
+normal metadata-only evaluation artifacts.
+
+All malformed Lead outputs remain fail-closed: they create no tasks, start no
+workers, and cannot become an answer. M7 failure records now expose these
+orchestration failures even when the case status is `COMPLETE` with an
+`ABSTAIN` route.

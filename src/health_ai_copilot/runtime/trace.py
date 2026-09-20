@@ -31,6 +31,8 @@ class TraceEventType(StrEnum):
     HARNESS_DISPOSITION = "harness_disposition"
     TEAM_STARTED = "team_start"
     LEAD_DECISION = "lead_decision"
+    LEAD_DECISION_RESULT = "lead_decision_result"
+    TEAM_LEAD_FAILURE = "team_lead_failure"
     TASK_CREATED = "task_created"
     TASK_ASSIGNED = "task_assigned"
     TASK_STARTED = "task_started"

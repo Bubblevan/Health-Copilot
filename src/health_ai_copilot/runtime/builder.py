@@ -244,7 +244,7 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
                     "max_delegation_rounds": 1,
                     "max_worker_model_turns": 2,
                     "max_worker_tool_calls": 1,
-                    "lead_contract": "team-lead-v1",
+                    "lead_contract": "team-lead-v2",
                     "worker_contract": "m3-claim-first-v1",
                     "allowed_roles": ["evidence", "guideline"],
                 },
@@ -883,10 +883,14 @@ def _build_orchestrator(context: ComponentBuildContext) -> BuiltComponent:
         )
         for role in TeamRole
     }
-    lead_model = OpenAICompatibleTeamLeadModel(provider, lead_model_name)
     cfg = _component_config(context.profile, ComponentKind.ORCHESTRATION)
-    lead_contract = str(cfg.get("lead_contract", "team-lead-v1"))
+    lead_contract = str(cfg.get("lead_contract", "team-lead-v2"))
     worker_contract = str(cfg.get("worker_contract", "m3-claim-first-v1"))
+    lead_model = OpenAICompatibleTeamLeadModel(
+        provider,
+        lead_model_name,
+        contract_version=lead_contract,
+    )
     allowed_roles = tuple(
         TeamRole(role) for role in cfg.get("allowed_roles", [role.value for role in TeamRole])
     )

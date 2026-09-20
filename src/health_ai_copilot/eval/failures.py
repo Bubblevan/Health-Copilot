@@ -44,6 +44,13 @@ class FailureMapper:
         "invalid_delegation": (FailureStage.ORCHESTRATION, "invalid_delegation"),
         "lead_second_delegation": (FailureStage.ORCHESTRATION, "lead_second_delegation"),
     }
+    _TEAM_LEAD_MAP: ClassVar = {
+        "provider": "lead_provider_failure",
+        "empty_response": "lead_empty_response",
+        "json_decode": "lead_json_decode",
+        "contract_validation": "lead_contract_validation",
+        "internal": "lead_internal",
+    }
 
     def from_grader(
         self, case: EvalCase, record: CaseRunRecord, result: GraderResult
@@ -83,6 +90,86 @@ class FailureMapper:
             )
         ]
 
+    def from_orchestration(self, record: CaseRunRecord) -> list[FailureRecord]:
+        """Map fail-closed team failures even when the case is COMPLETE."""
+
+        if record.status != CaseRunStatus.COMPLETE:
+            return []
+        observed = record.observed
+        summary = {
+            key: observed.get(key)
+            for key in (
+                "team_stop_reason",
+                "lead_failure_kind",
+                "provider_failure_kind",
+                "lead_contract_version",
+                "response_content_sha256",
+                "response_length",
+            )
+            if observed.get(key) is not None
+        }
+        failures: list[FailureRecord] = []
+
+        lead_kind = observed.get("lead_failure_kind")
+        if lead_kind in self._TEAM_LEAD_MAP:
+            failures.append(
+                FailureRecord(
+                    suite_id=record.suite_id,
+                    case_id=record.case_id,
+                    trial=record.trial,
+                    stage=FailureStage.ORCHESTRATION,
+                    failure_code=self._TEAM_LEAD_MAP[lead_kind],
+                    source="orchestrator:team_lead",
+                    observed=summary,
+                )
+            )
+
+        stop_reason = observed.get("team_stop_reason")
+        stop_map = {
+            "invalid_delegation": "invalid_delegation",
+            "lead_second_delegation": "lead_second_delegation",
+            "budget_exhausted": "team_budget_exhausted",
+            "worker_error": "worker_failure",
+            "final_verification_failed": "final_verification_failed",
+        }
+        if stop_reason in stop_map:
+            failures.append(
+                FailureRecord(
+                    suite_id=record.suite_id,
+                    case_id=record.case_id,
+                    trial=record.trial,
+                    stage=FailureStage.ORCHESTRATION,
+                    failure_code=stop_map[stop_reason],
+                    source="orchestrator:team_stop",
+                    observed=summary,
+                )
+            )
+
+        seen_worker_codes: set[str] = set()
+        for role_record in observed.get("team_role_records", ()):
+            error_code = role_record.get("error_code")
+            if not error_code or error_code in seen_worker_codes:
+                continue
+            seen_worker_codes.add(error_code)
+            if error_code == "team_budget_exhausted":
+                failure_code = "team_budget_exhausted"
+            elif error_code == "worker_citation_provenance_violation":
+                failure_code = error_code
+            else:
+                failure_code = "worker_failure"
+            failures.append(
+                FailureRecord(
+                    suite_id=record.suite_id,
+                    case_id=record.case_id,
+                    trial=record.trial,
+                    stage=FailureStage.ORCHESTRATION,
+                    failure_code=failure_code,
+                    source="orchestrator:worker",
+                    observed={**summary, "worker_error_code": error_code},
+                )
+            )
+        return failures
+
     def collect(
         self,
         cases: Sequence[EvalCase],
@@ -94,6 +181,7 @@ class FailureMapper:
         failures: list[FailureRecord] = []
         for row in records:
             failures.extend(self.from_record(row))
+            failures.extend(self.from_orchestration(row))
         for result in grader_results:
             record = records_by_key.get((result.case_id, result.trial))
             case = case_by_id.get(result.case_id)

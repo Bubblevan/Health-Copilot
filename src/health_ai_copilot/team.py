@@ -42,6 +42,7 @@ class TeamRole(StrEnum):
 
 TEAM_TOPOLOGY = "star-supervisor-v1"
 TEAM_SCHEDULER = "sequential-v1"
+TEAM_LEAD_CONTRACT_VERSION = "team-lead-v2"
 
 # These contracts are intentionally role-specific even when the builder uses
 # the same checkpoint, provider executor, and tool set for both workers.
@@ -75,6 +76,38 @@ class LeadDecisionKind(StrEnum):
     ABSTAIN = "abstain"
 
 
+class TeamLeadFailureKind(StrEnum):
+    PROVIDER = "provider"
+    EMPTY_RESPONSE = "empty_response"
+    JSON_DECODE = "json_decode"
+    CONTRACT_VALIDATION = "contract_validation"
+    INTERNAL = "internal"
+
+
+class TeamLeadModelError(RuntimeError):
+    """Safe, typed failure from the Team Lead provider/contract boundary."""
+
+    def __init__(
+        self,
+        kind: TeamLeadFailureKind | str,
+        *,
+        provider_failure_kind: ProviderFailureKind | str | None = None,
+        contract_version: str = "team-lead-v1",
+        response_content_sha256: str | None = None,
+        response_length: int | None = None,
+    ) -> None:
+        self.kind = TeamLeadFailureKind(kind)
+        self.provider_failure_kind = (
+            ProviderFailureKind(provider_failure_kind)
+            if provider_failure_kind is not None
+            else None
+        )
+        self.contract_version = contract_version
+        self.response_content_sha256 = response_content_sha256
+        self.response_length = response_length
+        super().__init__(self.kind.value)
+
+
 class TeamTaskStatus(StrEnum):
     PENDING = "pending"
     RUNNING = "running"
@@ -95,6 +128,11 @@ class TeamStopReason(StrEnum):
     INVALID_DELEGATION = "invalid_delegation"
     LEAD_SECOND_DELEGATION = "lead_second_delegation"
     FINAL_VERIFICATION_FAILED = "final_verification_failed"
+    LEAD_PROVIDER_FAILURE = "lead_provider_failure"
+    LEAD_EMPTY_RESPONSE = "lead_empty_response"
+    LEAD_JSON_DECODE = "lead_json_decode"
+    LEAD_CONTRACT_VALIDATION = "lead_contract_validation"
+    LEAD_INTERNAL = "lead_internal"
 
 
 class TeamMessageKind(StrEnum):
@@ -560,6 +598,12 @@ class TeamRunState:
     worker_runs: dict[str, AgentRunResult] = field(default_factory=dict)
     worker_reports: list[WorkerReport] = field(default_factory=list)
     stop_reason: TeamStopReason | None = None
+    lead_actions: list[str] = field(default_factory=list)
+    lead_failure_kind: str | None = None
+    provider_failure_kind: str | None = None
+    lead_contract_version: str | None = None
+    response_content_sha256: str | None = None
+    response_length: int | None = None
 
     def to_metadata(self) -> dict[str, Any]:
         return {
@@ -567,6 +611,12 @@ class TeamRunState:
             "topology": self.topology,
             "scheduler": self.scheduler,
             "allowed_roles": list(self.allowed_roles),
+            "lead_actions": list(self.lead_actions),
+            "lead_failure_kind": self.lead_failure_kind,
+            "provider_failure_kind": self.provider_failure_kind,
+            "lead_contract_version": self.lead_contract_version,
+            "response_content_sha256": self.response_content_sha256,
+            "response_length": self.response_length,
             "worker_roles": [report.to_metadata() for report in self.worker_reports],
         }
 
@@ -636,6 +686,7 @@ class AgentTeamOrchestrator:
             raise ValueError("scheduler must be a non-empty string")
         self.topology = topology
         self.scheduler = scheduler
+        self.lead_contract_version = getattr(lead_model, "contract_version", TEAM_LEAD_CONTRACT_VERSION)
 
     def run(
         self,
@@ -648,6 +699,7 @@ class AgentTeamOrchestrator:
             topology=self.topology,
             scheduler=self.scheduler,
             allowed_roles=tuple(role.value for role in self.allowed_roles),
+            lead_contract_version=self.lead_contract_version,
         )
         state.evidence_ledger.add_initial(initial_evidence)
         self._trace(runtime, TraceEventType.TEAM_STARTED, state, initial_source_count=len(initial_evidence))
@@ -763,7 +815,7 @@ class AgentTeamOrchestrator:
             worker_report_count=len(reports),
         )
         try:
-            decision = call_with_optional_runtime(
+            raw_decision = call_with_optional_runtime(
                 self.lead_model.decide,
                 question,
                 tuple(initial_evidence),
@@ -771,13 +823,70 @@ class AgentTeamOrchestrator:
                 self._summary(state),
                 runtime=runtime,
             )
+            try:
+                decision = LeadDecision.from_value(raw_decision)
+            except Exception as exc:
+                raise TeamLeadModelError(
+                    TeamLeadFailureKind.CONTRACT_VALIDATION,
+                    contract_version=self.lead_contract_version,
+                ) from exc
+            state.lead_actions.append(decision.action.value)
+            self._trace(
+                runtime,
+                TraceEventType.LEAD_DECISION_RESULT,
+                state,
+                lead_call=state.lead_calls_used,
+                action=decision.action.value,
+            )
             return LeadDecision.from_value(decision)
-        except Exception as exc:  # noqa: BLE001 - lead boundary fails closed
+        except TeamLeadModelError as exc:
+            self._record_lead_failure(state, exc, runtime)
             if _is_budget_failure(exc, runtime):
                 self._stop(state, TeamStopReason.BUDGET_EXHAUSTED, runtime)
             else:
-                self._stop(state, TeamStopReason.LEAD_ERROR, runtime)
+                self._stop(state, _lead_failure_stop_reason(exc.kind), runtime)
             return None
+        except ProviderFailure as exc:
+            failure = TeamLeadModelError(
+                TeamLeadFailureKind.PROVIDER,
+                provider_failure_kind=exc.kind,
+                contract_version=self.lead_contract_version,
+            )
+            self._record_lead_failure(state, failure, runtime)
+            if _is_budget_failure(failure, runtime):
+                self._stop(state, TeamStopReason.BUDGET_EXHAUSTED, runtime)
+            else:
+                self._stop(state, TeamStopReason.LEAD_PROVIDER_FAILURE, runtime)
+            return None
+        except Exception:  # noqa: BLE001 - lead boundary fails closed
+            failure = TeamLeadModelError(
+                TeamLeadFailureKind.INTERNAL,
+                contract_version=self.lead_contract_version,
+            )
+            self._record_lead_failure(state, failure, runtime)
+            self._stop(state, TeamStopReason.LEAD_INTERNAL, runtime)
+            return None
+
+    def _record_lead_failure(
+        self, state: TeamRunState, failure: TeamLeadModelError, runtime: RunContext
+    ) -> None:
+        state.lead_failure_kind = failure.kind.value
+        state.provider_failure_kind = (
+            failure.provider_failure_kind.value if failure.provider_failure_kind else None
+        )
+        state.lead_contract_version = failure.contract_version
+        state.response_content_sha256 = failure.response_content_sha256
+        state.response_length = failure.response_length
+        self._trace(
+            runtime,
+            TraceEventType.TEAM_LEAD_FAILURE,
+            state,
+            lead_failure_kind=state.lead_failure_kind,
+            provider_failure_kind=state.provider_failure_kind,
+            lead_contract_version=state.lead_contract_version,
+            response_content_sha256=state.response_content_sha256,
+            response_length=state.response_length,
+        )
 
     def _run_worker(
         self,
@@ -1044,10 +1153,16 @@ class AgentTeamOrchestrator:
 class OpenAICompatibleTeamLeadModel:
     """Provider adapter for the lead's narrow JSON decision contract."""
 
-    def __init__(self, provider_executor: ProviderExecutor, model: str) -> None:
+    def __init__(
+        self,
+        provider_executor: ProviderExecutor,
+        model: str,
+        *,
+        contract_version: str = TEAM_LEAD_CONTRACT_VERSION,
+    ) -> None:
         self.provider_executor = provider_executor
         self.model = model
-        self.contract_version = "team-lead-v1"
+        self.contract_version = contract_version
 
     def decide(
         self,
@@ -1086,9 +1201,45 @@ class OpenAICompatibleTeamLeadModel:
         )
         try:
             response = self.provider_executor.execute(request, runtime or RunContext.create("team_lead"))
-            return LeadDecision.from_value(json.loads(response.content or "{}"))
+        except ProviderFailure as exc:
+            raise TeamLeadModelError(
+                TeamLeadFailureKind.PROVIDER,
+                provider_failure_kind=exc.kind,
+                contract_version=self.contract_version,
+            ) from exc
         except Exception as exc:
-            raise RuntimeError("team lead model request failed") from exc
+            raise TeamLeadModelError(
+                TeamLeadFailureKind.INTERNAL,
+                contract_version=self.contract_version,
+            ) from exc
+        content = response.content
+        response_sha256 = sha256(content.encode("utf-8")).hexdigest() if isinstance(content, str) else None
+        response_length = len(content) if isinstance(content, str) else None
+        if content is None or not content.strip():
+            raise TeamLeadModelError(
+                TeamLeadFailureKind.EMPTY_RESPONSE,
+                contract_version=self.contract_version,
+                response_content_sha256=response_sha256,
+                response_length=response_length,
+            )
+        try:
+            payload = json.loads(content)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise TeamLeadModelError(
+                TeamLeadFailureKind.JSON_DECODE,
+                contract_version=self.contract_version,
+                response_content_sha256=response_sha256,
+                response_length=response_length,
+            ) from exc
+        try:
+            return LeadDecision.from_value(payload)
+        except Exception as exc:
+            raise TeamLeadModelError(
+                TeamLeadFailureKind.CONTRACT_VALIDATION,
+                contract_version=self.contract_version,
+                response_content_sha256=response_sha256,
+                response_length=response_length,
+            ) from exc
 
 
 def _claim_from_value(value: object) -> GroundedClaim:
@@ -1115,10 +1266,23 @@ def _evidence_dict(item: Evidence) -> dict[str, Any]:
 def _is_budget_failure(exc: Exception, runtime: RunContext) -> bool:
     if isinstance(exc, ProviderFailure) and exc.kind == ProviderFailureKind.BUDGET_DENIED:
         return True
+    if isinstance(exc, TeamLeadModelError) and exc.provider_failure_kind == ProviderFailureKind.BUDGET_DENIED:
+        return True
     return AgentTeamOrchestrator._global_budget_exhausted(runtime)
 
 
+def _lead_failure_stop_reason(kind: TeamLeadFailureKind) -> TeamStopReason:
+    return {
+        TeamLeadFailureKind.PROVIDER: TeamStopReason.LEAD_PROVIDER_FAILURE,
+        TeamLeadFailureKind.EMPTY_RESPONSE: TeamStopReason.LEAD_EMPTY_RESPONSE,
+        TeamLeadFailureKind.JSON_DECODE: TeamStopReason.LEAD_JSON_DECODE,
+        TeamLeadFailureKind.CONTRACT_VALIDATION: TeamStopReason.LEAD_CONTRACT_VALIDATION,
+        TeamLeadFailureKind.INTERNAL: TeamStopReason.LEAD_INTERNAL,
+    }[kind]
+
+
 __all__ = [
+    "TEAM_LEAD_CONTRACT_VERSION",
     "TEAM_ROLE_CONTRACT_IDS",
     "TEAM_ROLE_SYSTEM_CONTRACTS",
     "TEAM_SCHEDULER",
@@ -1134,7 +1298,9 @@ __all__ = [
     "TaskStore",
     "TeamBudgetConfig",
     "TeamEvidenceLedger",
+    "TeamLeadFailureKind",
     "TeamLeadModel",
+    "TeamLeadModelError",
     "TeamMessage",
     "TeamMessageKind",
     "TeamRole",

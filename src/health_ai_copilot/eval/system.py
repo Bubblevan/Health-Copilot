@@ -25,7 +25,11 @@ from ..runtime import (
 from ..runtime.builder import RuntimeBuilder
 from ..runtime.trace import TraceContentPolicy
 from ..safety import route_question
-from ..team import worker_evidence_diversity, worker_recovery_evidence_diversity
+from ..team import (
+    TeamLeadFailureKind,
+    worker_evidence_diversity,
+    worker_recovery_evidence_diversity,
+)
 from ..verification.citations import verify_citations
 from ..verification.grounding import (
     ClaimVerdict,
@@ -785,6 +789,12 @@ class EvaluationRunner:
             "team_worker_completions": sum(item.completed for item in team_reports) if team else None,
             "team_worker_productive_reports": sum(item.productive for item in team_reports) if team else None,
             "team_delegated": bool(team and team.state.tasks_created),
+            "team_lead_actions": list(team.state.lead_actions) if team else [],
+            "lead_failure_kind": team.state.lead_failure_kind if team else None,
+            "provider_failure_kind": team.state.provider_failure_kind if team else None,
+            "lead_contract_version": team.state.lead_contract_version if team else None,
+            "response_content_sha256": team.state.response_content_sha256 if team else None,
+            "response_length": team.state.response_length if team else None,
             "team_stop_reason": team.stop_reason.value if team and team.stop_reason else None,
             "team_topology": team.state.topology if team else None,
             "team_scheduler": team.state.scheduler if team else None,
@@ -906,6 +916,18 @@ class EvaluationRunner:
             )
             for role_record in observed.get("team_role_records", ()):
                 events.append({"event": "worker_role", **dict(role_record)})
+            if observed.get("team_lead_actions") or observed.get("lead_failure_kind"):
+                events.append(
+                    {
+                        "event": "team_lead_diagnostics",
+                        "actions": list(observed.get("team_lead_actions", ())),
+                        "lead_failure_kind": observed.get("lead_failure_kind"),
+                        "provider_failure_kind": observed.get("provider_failure_kind"),
+                        "lead_contract_version": observed.get("lead_contract_version"),
+                        "response_content_sha256": observed.get("response_content_sha256"),
+                        "response_length": observed.get("response_length"),
+                    }
+                )
         if observed.get("tool_proposed") is not None:
             events.append(
                 {
@@ -1168,6 +1190,14 @@ class EvaluationRunner:
                 len(complete),
             ),
         }
+        for kind in TeamLeadFailureKind:
+            metric_id = f"m8.lead_failure_rate.{kind.value}"
+            metrics[metric_id] = MetricResult.ratio(
+                metric_id,
+                version,
+                sum(row.observed.get("lead_failure_kind") == kind.value for row in complete),
+                len(complete),
+            )
         case_by_id = {case.case_id: case for case in cases}
         for category in sorted({case.payload.get("category") for case in cases if case.payload.get("category")}):
             rows = [row for row in complete if case_by_id[row.case_id].payload.get("category") == category]
