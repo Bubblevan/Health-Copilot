@@ -8,6 +8,7 @@ from typing import Any, Protocol
 from uuid import uuid4
 
 from ..config import OpenAIConfig
+from .budget import BudgetDenied
 from .context import RunContext
 
 
@@ -110,6 +111,10 @@ class OpenAICompatibleProviderExecutor:
         self._client = OpenAI(**kwargs)
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
+        try:
+            remaining_seconds = runtime.budget.guard_provider()
+        except BudgetDenied as exc:
+            raise ProviderFailure(ProviderFailureKind.BUDGET_DENIED) from exc
         kwargs: dict[str, Any] = {
             "model": request.model,
             "messages": list(request.messages),
@@ -123,15 +128,18 @@ class OpenAICompatibleProviderExecutor:
             kwargs["temperature"] = request.temperature
         if request.max_output_tokens is not None:
             kwargs["max_tokens"] = request.max_output_tokens
-        if request.timeout_seconds is not None:
-            kwargs["timeout"] = request.timeout_seconds
+        timeout = request.timeout_seconds
+        if remaining_seconds is not None:
+            timeout = min(timeout, remaining_seconds) if timeout is not None else remaining_seconds
+        if timeout is not None:
+            kwargs["timeout"] = timeout
         started = monotonic()
         try:
             raw = self._client.chat.completions.create(**kwargs)
             message = raw.choices[0].message
         except Exception as exc:  # SDK exception classes remain vendor-specific here.
             raise ProviderFailure(_failure_kind(exc)) from exc
-        return ProviderResponse(
+        response = ProviderResponse(
             call_id=request.call_id,
             kind=request.kind,
             model=request.model,
@@ -142,6 +150,8 @@ class OpenAICompatibleProviderExecutor:
             latency_ms=(monotonic() - started) * 1000,
             provider_request_id=getattr(raw, "_request_id", None),
         )
+        runtime.budget.record_usage(response.usage)
+        return response
 
 
 class FakeProviderExecutor:
@@ -153,13 +163,17 @@ class FakeProviderExecutor:
         self.requests: list[ProviderRequest] = []
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
+        try:
+            runtime.budget.guard_provider()
+        except BudgetDenied as exc:
+            raise ProviderFailure(ProviderFailureKind.BUDGET_DENIED) from exc
         self.requests.append(request)
         if self._failure is not None:
             raise self._failure
         if not self._responses:
             raise ProviderFailure(ProviderFailureKind.MALFORMED_RESPONSE)
         response = self._responses.pop(0)
-        return ProviderResponse(
+        normalized = ProviderResponse(
             call_id=request.call_id,
             kind=request.kind,
             model=request.model,
@@ -170,6 +184,8 @@ class FakeProviderExecutor:
             latency_ms=response.latency_ms,
             provider_request_id=response.provider_request_id,
         )
+        runtime.budget.record_usage(normalized.usage)
+        return normalized
 
 
 def _usage(raw: object) -> ProviderUsage | None:

@@ -3,6 +3,8 @@
 from dataclasses import dataclass, field
 from uuid import uuid4
 
+from .budget import RunBudgetConfig, RunBudgetState
+
 
 @dataclass(frozen=True)
 class RunIdentity:
@@ -23,8 +25,9 @@ class RunContext:
     """Execution control-plane state, extended with budgets/traces in later M4 phases."""
 
     identity: RunIdentity
+    budget: RunBudgetState = field(default_factory=lambda: RunBudgetState(RunBudgetConfig()))
     metadata: dict[str, str] = field(default_factory=dict)
 
     @classmethod
-    def create(cls, runtime_mode: str) -> "RunContext":
-        return cls(identity=RunIdentity.create(runtime_mode))
+    def create(cls, runtime_mode: str, budget: RunBudgetConfig | None = None) -> "RunContext":
+        return cls(identity=RunIdentity.create(runtime_mode), budget=RunBudgetState(budget or RunBudgetConfig()))

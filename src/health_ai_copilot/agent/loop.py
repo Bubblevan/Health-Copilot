@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from ..contracts import Evidence, GenerationDraft
 from ..knowledge.scope import KnowledgeScope
 from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
+from ..runtime.context import RunContext
+from ..runtime.tools import LiveToolRunner, ToolRunner
 from .events import AgentEvent, AgentEventType
 from .messages import (
     FinalTurn,
@@ -78,6 +80,8 @@ class AgentLoop:
         event_sink: EventSink | None = None,
         evidence_policy: EvidencePolicy | None = None,
         knowledge_scope: KnowledgeScope | None = None,
+        tool_runner: ToolRunner | None = None,
+        runtime: RunContext | None = None,
     ) -> None:
         self.model = model
         self.registry = registry
@@ -85,14 +89,18 @@ class AgentLoop:
         self.event_sink = event_sink
         self.evidence_policy = evidence_policy
         self.knowledge_scope = knowledge_scope
+        self.tool_runner = tool_runner or LiveToolRunner(registry)
+        self.runtime = runtime
 
     def run(
         self,
         question: str,
         initial_evidence: Sequence[Evidence],
         session: AgentSession | None = None,
+        runtime: RunContext | None = None,
     ) -> AgentRunResult:
         active_session = session or AgentSession()
+        active_runtime = runtime or self.runtime or RunContext.create("agent")
         ranked_initial_evidence = list(initial_evidence)
         state = AgentState(
             session=active_session,
@@ -285,7 +293,7 @@ class AgentLoop:
                     tool_name=call.name,
                 )
             )
-            result = self.registry.execute(call)
+            result = self.tool_runner.execute(call, active_runtime)
             emit(
                 AgentEvent(
                     AgentEventType.TOOL_END,
