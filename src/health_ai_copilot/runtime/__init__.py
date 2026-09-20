@@ -11,6 +11,19 @@ from .provider import (
     ProviderRequest,
     ProviderResponse,
     ProviderUsage,
+    provider_request_fingerprint,
+)
+from .replay import (
+    RecordedProviderExchange,
+    RecordedToolExchange,
+    RecordingProviderExecutor,
+    RecordingToolRunner,
+    ReplayProviderExecutor,
+    ReplayToolRunner,
+    read_provider_exchanges,
+    read_tool_exchanges,
+    write_provider_exchanges,
+    write_tool_exchanges,
 )
 
 __all__ = [
@@ -23,6 +36,17 @@ __all__ = [
     "ProviderRequest",
     "ProviderResponse",
     "ProviderUsage",
+    "RecordedProviderExchange",
+    "RecordedToolExchange",
+    "RecordingProviderExecutor",
+    "RecordingToolRunner",
+    "ReplayProviderExecutor",
+    "ReplayToolRunner",
     "RunContext",
     "RunIdentity",
+    "provider_request_fingerprint",
+    "read_provider_exchanges",
+    "read_tool_exchanges",
+    "write_provider_exchanges",
+    "write_tool_exchanges",
 ]
