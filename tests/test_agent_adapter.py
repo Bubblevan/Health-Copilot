@@ -1,5 +1,4 @@
 import json
-from types import SimpleNamespace
 
 import pytest
 
@@ -17,6 +16,11 @@ from health_ai_copilot.agent.model import (
 )
 from health_ai_copilot.agent.tools import ToolRegistry, ToolResult, ToolSpec
 from health_ai_copilot.contracts import Evidence
+from health_ai_copilot.runtime import (
+    FakeProviderExecutor,
+    ProviderCallKind,
+    ProviderResponse,
+)
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
 
 
@@ -33,32 +37,19 @@ def _tool_spec() -> ToolSpec:
     )
 
 
-class _FakeCompletions:
-    def __init__(self, response):
-        self.response = response
-        self.kwargs = None
-
-    def create(self, **kwargs):
-        self.kwargs = kwargs
-        return self.response
-
-
-class _FakeClient:
-    def __init__(self, response):
-        self.chat = SimpleNamespace(completions=_FakeCompletions(response))
-
-
-def _adapter(response):
-    adapter = OpenAICompatibleAgentModel.__new__(OpenAICompatibleAgentModel)
-    client = _FakeClient(response)
-    adapter._client = client
-    adapter._model = "fake-model"
-    adapter._temperature = 0.1
-    return adapter, client
-
-
-def _response(message):
-    return SimpleNamespace(choices=[SimpleNamespace(message=message)])
+def _adapter(*, content=None, tool_calls=()):
+    executor = FakeProviderExecutor(
+        [
+            ProviderResponse(
+                call_id="recorded",
+                kind=ProviderCallKind.AGENT,
+                model="fake-model",
+                content=content,
+                tool_calls=tool_calls,
+            )
+        ]
+    )
+    return OpenAICompatibleAgentModel(provider_executor=executor, model="fake-model"), executor
 
 
 def _evidence() -> Evidence:
@@ -72,19 +63,11 @@ def _evidence() -> Evidence:
 
 
 def test_openai_adapter_maps_native_tool_call_to_tool_call_turn() -> None:
-    message = SimpleNamespace(
-        content=None,
-        tool_calls=[
-            SimpleNamespace(
-                id="call-1",
-                function=SimpleNamespace(
-                    name="search_knowledge",
-                    arguments='{"query":"low sodium"}',
-                ),
-            )
-        ],
+    adapter, executor = _adapter(
+        tool_calls=(
+            {"id": "call-1", "function": {"name": "search_knowledge", "arguments": '{"query":"low sodium"}'}},
+        )
     )
-    adapter, client = _adapter(_response(message))
 
     turn = adapter.respond([UserMessage("question")], [_tool_spec()])
 
@@ -92,8 +75,7 @@ def test_openai_adapter_maps_native_tool_call_to_tool_call_turn() -> None:
     assert turn.tool_calls[0] == ToolCall(
         "call-1", "search_knowledge", {"query": "low sodium"}
     )
-    assert client.chat.completions.kwargs["tool_choice"] == "auto"
-    assert client.chat.completions.kwargs["tools"][0]["function"]["name"] == (
+    assert executor.requests[0].tools[0]["function"]["name"] == (
         "search_knowledge"
     )
 
@@ -129,11 +111,7 @@ def test_openai_adapter_maps_tool_result_transcript_to_provider_messages() -> No
 
 
 def test_openai_adapter_parses_structured_final_json() -> None:
-    message = SimpleNamespace(
-        content='{"answer":"grounded","citation_ids":["source-a"],"abstain":false}',
-        tool_calls=None,
-    )
-    adapter, _ = _adapter(_response(message))
+    adapter, _ = _adapter(content='{"answer":"grounded","citation_ids":["source-a"],"abstain":false}')
 
     turn = adapter.respond([UserMessage("question")], [_tool_spec()])
 
@@ -144,19 +122,7 @@ def test_openai_adapter_parses_structured_final_json() -> None:
 
 
 def test_openai_adapter_preserves_malformed_tool_arguments_for_structured_validation() -> None:
-    message = SimpleNamespace(
-        content=None,
-        tool_calls=[
-            SimpleNamespace(
-                id="call-bad",
-                function=SimpleNamespace(
-                    name="search_knowledge",
-                    arguments="{not-json",
-                ),
-            )
-        ],
-    )
-    adapter, _ = _adapter(_response(message))
+    adapter, _ = _adapter(tool_calls=({"id": "call-bad", "function": {"name": "search_knowledge", "arguments": "{not-json"}},))
     turn = adapter.respond([UserMessage("question")], [_tool_spec()])
 
     assert isinstance(turn, ToolCallTurn)
@@ -169,8 +135,7 @@ def test_openai_adapter_preserves_malformed_tool_arguments_for_structured_valida
 
 
 def test_openai_adapter_rejects_malformed_final_json() -> None:
-    message = SimpleNamespace(content="not-json", tool_calls=None)
-    adapter, _ = _adapter(_response(message))
+    adapter, _ = _adapter(content="not-json")
 
     with pytest.raises(AgentModelError, match="invalid final response"):
         adapter.respond([UserMessage("question")], [_tool_spec()])

@@ -8,6 +8,14 @@ from typing import Any, Protocol
 from ..config import ConfigurationError, load_openai_config
 from ..contracts import Evidence
 from ..generation.openai_compatible import OpenAICompatibleGenerator
+from ..runtime import (
+    OpenAICompatibleProviderExecutor,
+    ProviderCallKind,
+    ProviderExecutor,
+    ProviderFailure,
+    ProviderRequest,
+    RunContext,
+)
 from ..verification.grounding import GroundedClaim
 from .messages import (
     AgentMessage,
@@ -76,25 +84,23 @@ class OpenAICompatibleAgentModel:
         *,
         output_mode: AgentOutputMode | str | None = None,
         require_claims: bool | None = None,
+        provider_executor: ProviderExecutor | None = None,
+        model: str | None = None,
+        temperature: float | None = None,
+        runtime: RunContext | None = None,
     ) -> None:
-        try:
-            config = load_openai_config()
-        except ConfigurationError as exc:
-            raise AgentModelError(str(exc)) from exc
-
-        try:
-            from openai import OpenAI
-        except ImportError as exc:
-            raise AgentModelError(
-                "The M1 live agent requires the 'openai' package; install project extras."
-            ) from exc
-
-        client_kwargs: dict[str, Any] = {"api_key": config.api_key}
-        if config.base_url:
-            client_kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**client_kwargs, timeout=30.0, max_retries=0)
-        self._model = config.model
-        self._temperature = config.temperature
+        if provider_executor is None:
+            try:
+                config = load_openai_config()
+                provider_executor = OpenAICompatibleProviderExecutor(config)
+            except (ConfigurationError, ProviderFailure) as exc:
+                raise AgentModelError(str(exc)) from exc
+            model = config.model
+            temperature = config.temperature
+        self._provider_executor = provider_executor
+        self._model = model or "injected-provider-model"
+        self._temperature = 0.1 if temperature is None else temperature
+        self._runtime = runtime
         if output_mode is None:
             self.output_mode = (
                 AgentOutputMode.M2_GROUNDED if require_claims else AgentOutputMode.M1
@@ -115,29 +121,32 @@ class OpenAICompatibleAgentModel:
         self, messages: Sequence[AgentMessage], tools: Sequence[ToolSpec]
     ) -> AssistantTurn:
         try:
-            response = self._client.chat.completions.create(
-                model=self._model,
-                messages=self._provider_messages(
-                    messages, getattr(self, "_system_prompt", _M1_SYSTEM_PROMPT)
+            response = self._provider_executor.execute(
+                ProviderRequest.create(
+                    kind=ProviderCallKind.AGENT,
+                    model=self._model,
+                    messages=self._provider_messages(
+                        messages, getattr(self, "_system_prompt", _M1_SYSTEM_PROMPT)
+                    ),
+                    tools=[self._provider_tool(spec) for spec in tools],
+                    temperature=self._temperature,
+                    response_format={"type": "json_object"},
+                    timeout_seconds=30.0,
                 ),
-                tools=[self._provider_tool(spec) for spec in tools],
-                tool_choice="auto",
-                temperature=self._temperature,
-                response_format={"type": "json_object"},
+                self._runtime or RunContext.create("agent"),
             )
         except Exception as exc:
             raise AgentModelError("agent model request failed") from exc
 
         try:
-            message = response.choices[0].message
+            tool_calls = response.tool_calls
         except (AttributeError, IndexError, TypeError) as exc:
             raise AgentModelError("agent model returned no message") from exc
 
-        tool_calls = getattr(message, "tool_calls", None) or []
         if tool_calls:
             parsed_calls: list[ToolCall] = []
             for index, call in enumerate(tool_calls):
-                function = getattr(call, "function", None)
+                function = _get_value(call, "function", None)
                 name = _get_value(function, "name", "")
                 raw_arguments = _get_value(function, "arguments", "")
                 parsed_arguments: object
@@ -154,7 +163,7 @@ class OpenAICompatibleAgentModel:
                 )
             return ToolCallTurn(parsed_calls)
 
-        content = getattr(message, "content", None)
+        content = response.content
         try:
             claims = _parse_claims(content)
             output_mode = getattr(self, "output_mode", AgentOutputMode.M1)
