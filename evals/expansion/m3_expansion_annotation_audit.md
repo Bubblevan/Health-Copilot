@@ -31,6 +31,20 @@ out-of-scope false-recovery metric (`0/4`). No reviewed boundary case was
 released as `RECOVERABLE` in the superseded run. A clean artifact will bind the
 repaired input hash before final M3 freeze.
 
+## M4.0 resolution and clean artifact
+
+The M4.0 precondition narrowed `m3cx-005` and `m3cx-019` exactly as recorded
+above, retained their `SUFFICIENT` decisions and topic mappings, and produced
+release hash `b964d9c8e1dcfec03c907ed69a6437e0c9202fc50c1e9d15511cade259acd273`.
+The clean live artifact is `runs/m3/20260920T125210+0800/`, recorded from
+implementation/data commit `7e0c945964e040ca02def56218af4d3cd473caa0`.
+
+It observed 30/30 decision agreement, macro-F1 `1.0`, no out-of-scope false
+recovery, and topic exact-set accuracy `0.9`. This run has a different frozen
+input hash and remains stochastic provider output; it is a clean artifact for
+the repaired fixture semantics, **not** evidence of a model-performance
+increase over the superseded 28/30 artifact.
+
 ## Claim-support metric QA
 
 The existing category metrics are **disposition-level** metrics. For example,

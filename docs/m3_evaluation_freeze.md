@@ -15,7 +15,7 @@ implementation.
 | M3 result validator | frozen |
 | M3.1 focused run | completed |
 | M3 expansion eval | completed |
-| Expansion annotation | pending human review for `m3cx-005` and `m3cx-019` |
+| Expansion annotation | finalized by M4.0 question-narrowing repair; decisions/topics unchanged |
 | Fine-grained verifier | `UNSUPPORTED`/`CONTRADICTED` confusions remain |
 | M4 | not started |
 
@@ -24,13 +24,18 @@ implementation.
 - Runtime implementation checkpoint:
   `4ecf06b38dc22bfe58624352d07275f27aa2cf15`
   (`fix: isolate M3 claim support evidence`).
-- Evaluation-QA starting checkpoint / M3 final-freeze candidate:
+- Superseded expansion artifact checkpoint:
   `1a1d97f191b6dc972d682319e892e2b4d1f37320`
-  (`eval: add approved M3 expansion live results`).
+  (`eval: add approved M3 expansion live results`), retained for its original
+  data hash only.
+- Final M3 data/runtime freeze checkpoint:
+  `7e0c945964e040ca02def56218af4d3cd473caa0`
+  (`eval: finalize M3 capability annotation repair`).
 
-The runtime checkpoint is frozen. Final confirmation of the candidate checkpoint
-remains conditional on human disposition of the two documented capability
-annotation ambiguities. No M3.2 or M4 work is authorized by this record.
+The runtime and repaired M3 expansion inputs are frozen at the final checkpoint.
+The clean 30-case artifact at `runs/m3/20260920T125210+0800/` is bound to that
+input hash. M4 implementation begins only after this freeze record; no M3.2
+work is authorized by this document.
 
 ## Focused-run reporting boundary
 
