@@ -64,12 +64,12 @@ M4 FINAL FROZEN：`main@51f0ee5a9352c5cabd360d302a2cef1eb9b5da25`。M4.1 明确�
 `max_retries=0` 与所有 adapter 的 30-second provider timeout；任何未来 retry 都必须由 Harness
 显式实现并计入 trace/budget，不能依赖 SDK hidden retry。
 
-## M5 — Hybrid Retrieval & Evaluation Scale（in progress; not frozen）
+## M5 — Hybrid Retrieval & Evaluation Scale（frozen）
 
 M5 has introduced a generic `RetrievalDocument`, frozen BM25 baseline, optional dense retrieval, RRF hybrid fusion,
-optional reranking, index provenance, retrieval-only ablation tooling, and a four-arm M3/M4 focused end-to-end
-diagnostic. Product default remains BM25 while the category-balanced new retrieval expansion pack awaits review and
-release. See `docs/m5_retrieval.md`; no M6 work has started.
+optional reranking, index provenance, an 80-case component-derived reviewed retrieval suite, retrieval-only ablation
+tooling, and a four-arm M3/M4 focused end-to-end diagnostic. Hybrid+CrossEncoder wins these retrieval diagnostics, but
+BM25 remains the default because of latency and focused-pack limits. See `docs/m5_retrieval.md`; no M6 work has started.
 
 ## M6+ — Later extensions（planned）
 

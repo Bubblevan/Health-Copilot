@@ -1,0 +1,18 @@
+{
+  "commit_sha": "a69801bde6826daaf02aa933c2cdf2a05697d42a",
+  "dataset_path": "evals/retrieval/m5_product_retrieval_v1.jsonl",
+  "dataset_sha256": "f6d580971aefbf3764da9ad1edb56c922b13da1e78093f535f79505cf6a06d33",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "bm25": {
+    "k1": 1.5,
+    "b": 0.75
+  },
+  "embedding_backend": "sentence-transformers:sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "embedding_dimension": 384,
+  "normalization": "l2",
+  "rrf_k": 60,
+  "reranker_backend": "sentence-transformers-cross-encoder:cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "candidate_top_k": 10,
+  "final_top_k": 5,
+  "case_count": 80
+}

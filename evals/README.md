@@ -93,6 +93,10 @@ Approved M3 expansion releases live in `evals/expansion/` with review manifests 
 Their results are separate from frozen M3 packs. See `evals/expansion/m3_expansion_annotation_audit.md` for the
 two capability cases under annotation review and the expansion fine-grained verdict analysis.
 
+`evals/retrieval/m5_product_retrieval_v1.jsonl` is an 80-case M5 retrieval suite mechanically assembled from frozen M0
+rows and the already review-manifest-approved M0 expansion. Its manifest binds every component hash and explicitly does
+not assert a new annotation or new user approval; retrieval-only metrics for it are separate from M0 frozen baselines.
+
 ## M4 public record/replay diagnostic
 
 `m4_replay.jsonl` is a fixed six-case subset of previously reviewed `m1_recovery.jsonl`, with source-dataset

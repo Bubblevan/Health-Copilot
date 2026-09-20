@@ -1,0 +1,9 @@
+{
+  "artifact_type": "m5_product_retrieval_ablation",
+  "status": "frozen_m5_evaluation_checkpoint",
+  "commit_sha": "a69801bde6826daaf02aa933c2cdf2a05697d42a",
+  "dataset_path": "evals/retrieval/m5_product_retrieval_v1.jsonl",
+  "dataset_assembly": "mechanical reuse of frozen/reviewed component rows; no new annotations",
+  "production_default": "bm25",
+  "m6_started": false
+}
