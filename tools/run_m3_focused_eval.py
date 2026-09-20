@@ -60,6 +60,7 @@ def main(argv: list[str] | None = None) -> int:
         for case in cases:
             key = f"trial-{trial}:{case['id']}"
             expanded.append({**case, "id": key})
+            _write_progress(run_dir, trial, key, "m2", "started")
             m2 = HealthCopilotPipeline(
                 retriever,
                 top_k=args.initial_top_k,
@@ -86,7 +87,9 @@ def main(argv: list[str] | None = None) -> int:
                         "claim_results": [asdict(item) for item in m2.last_grounding_result.claim_results],
                     }
                 )
+            _write_progress(run_dir, trial, key, "m2", "completed")
 
+            _write_progress(run_dir, trial, key, "m3", "started")
             m3 = HealthCopilotPipeline(
                 retriever,
                 top_k=args.initial_top_k,
@@ -114,6 +117,7 @@ def main(argv: list[str] | None = None) -> int:
                         "claim_results": [asdict(item) for item in m3.last_claim_support_result.claim_results],
                     }
                 )
+            _write_progress(run_dir, trial, key, "m3", "completed")
 
     m2_metrics = summarize_m2_runs(expanded, m2_runs, m2_responses)
     m3_metrics = summarize_m2_runs(expanded, m3_runs, m3_responses)
@@ -282,6 +286,19 @@ def _write_json(path, value):
 
 def _write_jsonl(path, rows):
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+
+
+def _write_progress(run_dir, trial, case_key, arm, status):
+    record = {
+        "trial": trial,
+        "case_key": case_key,
+        "arm": arm,
+        "status": status,
+        "timestamp": datetime.now().astimezone().isoformat(),
+    }
+    with (run_dir / "progress.jsonl").open("a", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+        handle.flush()
 
 
 def _git_sha():
