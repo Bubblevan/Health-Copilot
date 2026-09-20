@@ -116,9 +116,9 @@ latency 差异因果归因给 retrieval。M5 metrics 与 BM25 default 决策保�
 
 组件生命周期、单次 RunContext 生命周期和未来的 Session/Memory 生命周期明确分离；Memory 尚未实现。
 
-## M7 — Unified Agent Eval System（implemented / frozen）
+## M7 — FROZEN
 
-H4 Agent Eval System 已完成。M7 在 M6 运行时之外建立统一、显式注册的评测平面：
+H4 Agent Eval System — COMPLETE。M7 在 M6 运行时之外建立统一、显式注册的评测平面：
 
 - `EvalSuiteRegistry`、`EvalRunSpec`、`EvalCase` 和 offline/live/replay 执行模式；
 - 无 LLM judge 的确定性 graders、可检查 numerator/denominator 的 `MetricResult`；
@@ -128,8 +128,9 @@ H4 Agent Eval System 已完成。M7 在 M6 运行时之外建立统一、显式�
 
 M7 不改变 M0–M6 运行时、gold、检索配置、policy 或 replay 语义；M5 metrics 仍冻结。
 M0–M5 的历史 evaluator 和 artifact path 保留。M7.1 已完成 target-specific dispatch、
-proposal/execution provenance、trajectory_v1 和 eval-run/execution-run identity closeout；
-最终 freeze checkpoint 为 `main@ec37e8691345a8c2fd69a8ed446ffa4d6b2a7170`。
+proposal/execution provenance、trajectory_v1、eval-run/execution-run identity、
+standalone grounding parity 与 executable budget closeout；功能冻结 checkpoint 为
+`main@0d4656c9fc920f1a1c8639bac33c49d5d27f44aa`。
 M8 / H5 Agent Team 不在本次启动。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。
