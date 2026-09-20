@@ -1,0 +1,25 @@
+{
+  "release_id": "m5-product-retrieval-v1",
+  "dataset_path": "evals/retrieval/m5_product_retrieval_v1.jsonl",
+  "dataset_sha256": "f6d580971aefbf3764da9ad1edb56c922b13da1e78093f535f79505cf6a06d33",
+  "case_count": 80,
+  "source_anchored_case_count": 74,
+  "corpus_uncovered_control_count": 6,
+  "assembly": "mechanical reuse of frozen/reviewed component rows; no new annotations",
+  "component_datasets": [
+    {
+      "path": "evals/m0.jsonl",
+      "sha256": "b40ec6f88ae5900a9708dd75fe78eb35436799443cf6e45c818cc19573c53a46",
+      "state": "frozen"
+    },
+    {
+      "path": "evals/expansion/m0_hypertension_candidates_v1.jsonl",
+      "sha256": "45a192d7442091188dce4cdbd1aefe41e1262b2dd0586a7f7b1dd6f710f570e3",
+      "state": "review-manifest-approved",
+      "review_manifest_path": "evals/expansion/m0_hypertension_expansion_v1.review.json",
+      "review_manifest_sha256": "f22ac295dfb0ea9f9436631c5ad9b4d1e1387e89e063c8a37ec6ae00b7322a93",
+      "component_release_id": "m0-hypertension-expansion-v1"
+    }
+  ],
+  "new_annotation_or_user_approval_asserted": false
+}
