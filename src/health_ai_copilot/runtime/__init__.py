@@ -1,6 +1,11 @@
 """Execution-control primitives shared by live and replayable harnesses."""
 
 from .context import RunContext, RunIdentity
+from .failure_injection import (
+    FailureInjectingProviderExecutor,
+    FailureInjectingToolRunner,
+    FailureInjectionPlan,
+)
 from .provider import (
     FakeProviderExecutor,
     OpenAICompatibleProviderExecutor,
@@ -27,6 +32,9 @@ from .replay import (
 )
 
 __all__ = [
+    "FailureInjectingProviderExecutor",
+    "FailureInjectingToolRunner",
+    "FailureInjectionPlan",
     "FakeProviderExecutor",
     "OpenAICompatibleProviderExecutor",
     "ProviderCallKind",
