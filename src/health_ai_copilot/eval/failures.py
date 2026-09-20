@@ -37,6 +37,12 @@ class FailureMapper:
         "model_error": (FailureStage.PROVIDER, "model_error"),
         "provider_error": (FailureStage.PROVIDER, "provider_error"),
         "tool_error": (FailureStage.TOOL_EXECUTION, "tool_error"),
+        "evidence_group_missing": (FailureStage.ORCHESTRATION, "evidence_group_missing"),
+        "team_not_observed": (FailureStage.ORCHESTRATION, "team_not_observed"),
+        "ood_route_mismatch": (FailureStage.ORCHESTRATION, "ood_route_mismatch"),
+        "team_budget_exhausted": (FailureStage.ORCHESTRATION, "team_budget_exhausted"),
+        "invalid_delegation": (FailureStage.ORCHESTRATION, "invalid_delegation"),
+        "lead_second_delegation": (FailureStage.ORCHESTRATION, "lead_second_delegation"),
     }
 
     def from_grader(

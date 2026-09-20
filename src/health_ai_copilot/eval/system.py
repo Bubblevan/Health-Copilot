@@ -47,6 +47,7 @@ from .schema import (
     EvalTargetKind,
     GraderResult,
     GraderStatus,
+    MetricResult,
     TrajectoryRecord,
     canonical_hash,
     effective_budget_config,
@@ -114,6 +115,12 @@ class EvaluationRunner:
         suite = self.registry.get(suite_id)
         mode = EvalExecutionMode(execution_mode)
         self.registry.validate_mode(suite, mode)
+        if suite_id == "m8-agent-team-focused-v1" and profile_id is not None:
+            allowed = set(suite.provenance.get("allowed_profiles", ()))
+            if profile_id not in allowed:
+                raise EvalConfigurationError(
+                    f"M8 core comparison rejects profile {profile_id}; allowed: {sorted(allowed)}"
+                )
         dataset = Path(dataset_path or suite.dataset_path)
         if not dataset.exists():
             raise EvalConfigurationError(f"evaluation dataset does not exist: {dataset}")
@@ -165,8 +172,8 @@ class EvaluationRunner:
         bundle = self._new_bundle(spec)
         cards = load_knowledge_cards(knowledge_dir)
         scope = None
-        if (suite.default_profile_id and suite.default_profile_id.startswith("m3-")) or (
-            spec.profile_id and spec.profile_id.startswith("m3-")
+        if (suite.default_profile_id and (suite.default_profile_id.startswith("m3-") or suite.default_profile_id.startswith("m8-"))) or (
+            spec.profile_id and (spec.profile_id.startswith("m3-") or spec.profile_id.startswith("m8-"))
         ):
             scope = load_knowledge_scope(knowledge_scope, cards)
 
@@ -182,7 +189,7 @@ class EvaluationRunner:
             )
         elif spec.execution_mode == EvalExecutionMode.LIVE:
             components = self._build_live_components(spec, cards, scope)
-            if suite.target_kind == EvalTargetKind.PIPELINE:
+            if suite.target_kind in {EvalTargetKind.PIPELINE, EvalTargetKind.ORCHESTRATION}:
                 records, trajectories = self._run_pipeline(
                     bundle, suite, spec, cases, components, public_eval_content
                 )
@@ -232,6 +239,8 @@ class EvaluationRunner:
             self._add_m0_parity_metrics(metrics, records, cases, suite.metric_definition_version)
         elif suite.suite_id == "m5-product-retrieval-v1":
             metrics.update(self._m5_metrics(records, suite.metric_definition_version))
+        elif suite.suite_id == "m8-agent-team-focused-v1":
+            metrics.update(self._m8_metrics(records, cases, suite.metric_definition_version))
         self._write_bundle(
             bundle,
             spec,
@@ -670,10 +679,13 @@ class EvaluationRunner:
                     trace=components.trace_factory.create(trace_path),
                 )
                 pipeline = components.pipeline(runtime=runtime)
-                if pipeline.agent_loop is None:
-                    raise EvalConfigurationError("replay profile did not construct an agent loop")
                 tool_runner = ReplayToolRunner(read_tool_exchanges(tool_path))
-                pipeline.agent_loop.tool_runner = tool_runner
+                if pipeline.agent_loop is not None:
+                    pipeline.agent_loop.tool_runner = tool_runner
+                elif pipeline.orchestrator is not None:
+                    pipeline.orchestrator.tool_runner = tool_runner
+                else:
+                    raise EvalConfigurationError("replay profile did not construct an executable runtime")
                 started = perf_counter()
                 try:
                     response = pipeline.answer(case.question)
@@ -713,18 +725,25 @@ class EvaluationRunner:
         elapsed_ms, observed_extra=None,
     ):
         run = pipeline.last_agent_run
+        team = getattr(pipeline, "last_team_run", None)
         state = run.state if run else None
         proposed_query = _proposed_query(state)
-        final_claims = list(run.claims) if run else []
+        final_claims = list(run.claims) if run else list(team.claims) if team else []
         final_citation_ids = list(run.draft.citation_ids) if run and run.draft else [
             source_id for claim in final_claims for source_id in claim.citation_ids
         ]
+        team_reports = list(team.reports) if team else []
+        initial_team_evidence = (
+            [item.evidence.source_id for item in team.state.evidence_ledger.list_items() if item.origin.value == "initial"]
+            if team else []
+        )
         observed = {
             "agent_called": run is not None,
-            "tool_proposed": bool(state and state.tool_proposals_used),
-            "tool_executed": bool(state and state.tool_calls_used),
-            "tool_proposal_count": state.tool_proposals_used if state else 0,
-            "tool_execution_count": state.tool_calls_used if state else 0,
+            "team_called": team is not None,
+            "tool_proposed": bool(state and state.tool_proposals_used) or any(item.tool_proposals for item in team_reports),
+            "tool_executed": bool(state and state.tool_calls_used) or any(item.tool_executions for item in team_reports),
+            "tool_proposal_count": state.tool_proposals_used if state else sum(item.tool_proposals for item in team_reports),
+            "tool_execution_count": state.tool_calls_used if state else sum(item.tool_executions for item in team_reports),
             "proposed_query": (
                 proposed_query if spec.trace_content_policy == "public_eval_content" else None
             ),
@@ -735,17 +754,27 @@ class EvaluationRunner:
             "matched_topic_ids": list(state.policy_matched_topic_ids) if state else [],
             "initial_evidence_source_ids": [
                 item.source_id for item in run.initial_ranked_evidence
-            ] if run else [],
-            "initial_evidence_ranks": _ranked_evidence(run.initial_ranked_evidence) if run else [],
+            ] if run else initial_team_evidence,
+            "initial_evidence_ranks": _ranked_evidence(run.initial_ranked_evidence) if run else [
+                {"rank": rank, "source_id": source_id} for rank, source_id in enumerate(initial_team_evidence, 1)
+            ],
             "recovery_evidence_source_ids": [
                 item.source_id for item in run.recovery_ranked_evidence
             ] if run else [],
-            "retrieved_source_ids": [item.source_id for item in run.observed_evidence] if run else [],
+            "retrieved_source_ids": [item.source_id for item in run.observed_evidence]
+            if run
+            else [item.source_id for item in team.observed_evidence] if team else [],
             "tool_observation_source_ids": _tool_observation_source_ids(state),
             "final_claim_ids": [f"claim-{index}" for index, _claim in enumerate(final_claims)],
             "final_citation_ids": final_citation_ids,
             "citation_integrity_valid": pipeline.last_harness_disposition != "invalid_citation",
             "claim_verdicts": [item.verdict.value for item in getattr(pipeline.last_claim_support_result, "claim_results", ())],
+            "team_lead_calls": team.state.lead_calls_used if team else None,
+            "team_tasks_created": team.state.tasks_created if team else None,
+            "team_workers_started": team.state.workers_started if team else None,
+            "team_worker_successes": sum(item.status.value == "succeeded" for item in team_reports) if team else None,
+            "team_delegated": bool(team and team.state.tasks_created),
+            "team_stop_reason": team.stop_reason.value if team and team.stop_reason else None,
         }
         observed.update(observed_extra or {})
         return self._record(
@@ -755,7 +784,7 @@ class EvaluationRunner:
             case,
             trial,
             route=response.route.value,
-            agent_stop_reason=run.stop_reason.value if run and run.stop_reason else None,
+            agent_stop_reason=(run.stop_reason.value if run and run.stop_reason else team.stop_reason.value if team and team.stop_reason else None),
             harness_disposition=pipeline.last_harness_disposition,
             provider_calls_used=runtime.budget.provider_calls_used,
             tool_executions_used=runtime.budget.tool_executions_used,
@@ -916,6 +945,11 @@ class EvaluationRunner:
             suite.suite_id,
             case.case_id,
             trial,
+            schema_version=(
+                "team_trajectory_v1"
+                if record.profile_id == "m8-team-bm25-v1"
+                else "trajectory_v1"
+            ),
             content_policy=spec.trace_content_policy,
             events=tuple(events),
             eval_run_id=record.eval_run_id,
@@ -1014,6 +1048,76 @@ class EvaluationRunner:
             f"m5.{key}": _average_metric(f"m5.{key}", sum(items), len(items), version)
             for key, items in values.items()
         }
+
+    @staticmethod
+    def _m8_metrics(records, cases, version):
+        """First-class M8 cost, topology, and per-category metrics."""
+
+        complete = [record for record in records if record.status == CaseRunStatus.COMPLETE]
+
+        def average(metric_id, values, unit="per_case"):
+            values = [value for value in values if value is not None]
+            return MetricResult(
+                metric_id,
+                version,
+                sum(values) / len(values) if values else None,
+                sum(values) if values else None,
+                len(values),
+                unit,
+                "complete_cases",
+                "sum/denominator",
+            )
+
+        metrics = {
+            "m8.provider_calls_per_case": average(
+                "m8.provider_calls_per_case", [row.provider_calls_used for row in complete]
+            ),
+            "m8.tool_executions_per_case": average(
+                "m8.tool_executions_per_case", [row.tool_executions_used for row in complete]
+            ),
+            "m8.input_tokens_per_case": average(
+                "m8.input_tokens_per_case", [row.input_tokens_used for row in complete]
+            ),
+            "m8.output_tokens_per_case": average(
+                "m8.output_tokens_per_case", [row.output_tokens_used for row in complete]
+            ),
+            "m8.total_tokens_per_case": average(
+                "m8.total_tokens_per_case", [row.total_tokens_used for row in complete]
+            ),
+            "m8.elapsed_ms_per_case": average(
+                "m8.elapsed_ms_per_case", [row.elapsed_ms for row in complete], "ms"
+            ),
+            "m8.delegation_rate": MetricResult.ratio(
+                "m8.delegation_rate",
+                version,
+                sum(bool(row.observed.get("team_delegated")) for row in complete),
+                len(complete),
+            ),
+            "m8.workers_started_per_case": average(
+                "m8.workers_started_per_case",
+                [row.observed.get("team_workers_started") for row in complete],
+            ),
+            "m8.lead_calls_per_case": average(
+                "m8.lead_calls_per_case",
+                [row.observed.get("team_lead_calls") for row in complete],
+            ),
+            "m8.budget_exhaustion_rate": MetricResult.ratio(
+                "m8.budget_exhaustion_rate",
+                version,
+                sum(row.harness_disposition == "team_budget_exhausted" for row in complete),
+                len(complete),
+            ),
+        }
+        case_by_id = {case.case_id: case for case in cases}
+        for category in sorted({case.payload.get("category") for case in cases if case.payload.get("category")}):
+            rows = [row for row in complete if case_by_id[row.case_id].payload.get("category") == category]
+            expected = sum(
+                _normalize_expected_route(case_by_id[row.case_id].payload.get("expected_route")) == row.route
+                for row in rows
+            )
+            key = f"m8.category.{category}.route_accuracy"
+            metrics[key] = MetricResult.ratio(key, version, expected, len(rows), scope=category)
+        return metrics
 
     def _new_bundle(self, spec):
         root = Path(spec.output_root)

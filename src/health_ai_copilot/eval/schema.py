@@ -31,6 +31,7 @@ class EvalTargetKind(StrEnum):
     VERIFIER = "verifier"
     REPLAY = "replay"
     DETERMINISTIC_GATE = "deterministic_gate"
+    ORCHESTRATION = "orchestration"
 
 
 class EvalExecutionMode(StrEnum):
@@ -65,6 +66,7 @@ class FailureStage(StrEnum):
     PROVIDER = "provider"
     REPLAY = "replay"
     EVAL_INFRA = "eval_infra"
+    ORCHESTRATION = "orchestration"
 
 
 def canonical_json(value: object) -> str:

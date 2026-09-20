@@ -91,6 +91,8 @@ class OpenAICompatibleAgentModel:
         provider_executor: ProviderExecutor | None = None,
         model: str | None = None,
         temperature: float | None = None,
+        provider_call_kind: ProviderCallKind = ProviderCallKind.AGENT,
+        system_prompt: str | None = None,
         runtime: RunContext | None = None,
     ) -> None:
         if provider_executor is None:
@@ -104,6 +106,7 @@ class OpenAICompatibleAgentModel:
         self._provider_executor = provider_executor
         self._model = model or "injected-provider-model"
         self._temperature = 0.1 if temperature is None else temperature
+        self._provider_call_kind = ProviderCallKind(provider_call_kind)
         # ``runtime`` remains accepted for old callers, but is never stored.
         if output_mode is None:
             self.output_mode = (
@@ -115,11 +118,12 @@ class OpenAICompatibleAgentModel:
                 self.output_mode == AgentOutputMode.M2_GROUNDED
             ):
                 raise ValueError("require_claims conflicts with output_mode")
-        self._system_prompt = {
+        default_system_prompt = {
             AgentOutputMode.M1: _M1_SYSTEM_PROMPT,
             AgentOutputMode.M2_GROUNDED: _M2_SYSTEM_PROMPT,
             AgentOutputMode.M3_CLAIM_FIRST: _M3_SYSTEM_PROMPT,
         }[self.output_mode]
+        self._system_prompt = system_prompt or default_system_prompt
 
     def respond(
         self,
@@ -131,7 +135,7 @@ class OpenAICompatibleAgentModel:
         try:
             response = self._provider_executor.execute(
                 ProviderRequest.create(
-                    kind=ProviderCallKind.AGENT,
+                    kind=self._provider_call_kind,
                     model=self._model,
                     messages=self._provider_messages(
                         messages, getattr(self, "_system_prompt", _M1_SYSTEM_PROMPT)

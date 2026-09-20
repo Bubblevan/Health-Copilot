@@ -18,6 +18,7 @@ class ComponentKind(StrEnum):
     VERIFIER = "verifier"
     TOOL = "tool"
     TRACE = "trace"
+    ORCHESTRATION = "orchestration"
 
 
 @dataclass(frozen=True)

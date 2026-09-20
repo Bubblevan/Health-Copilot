@@ -15,6 +15,7 @@ from .runtime.context import RunContext, call_with_optional_runtime
 from .runtime.tools import ToolRunner
 from .runtime.trace import TraceEventType
 from .safety import route_question
+from .team import AgentTeamOrchestrator, LeadDecisionKind
 from .tools.search_knowledge import SearchKnowledgeTool
 from .verification.citations import verify_citations
 from .verification.grounding import (
@@ -126,6 +127,7 @@ class HealthCopilotPipeline:
         claim_support_verifier: ClaimSupportVerifier | None = None,
         runtime: RunContext | None = None,
         tool_runner: ToolRunner | None = None,
+        orchestrator: AgentTeamOrchestrator | None = None,
     ):
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
@@ -133,14 +135,14 @@ class HealthCopilotPipeline:
             raise ValueError("recovery_top_k must be greater than zero")
         if generator is not None and agent_model is not None:
             raise ValueError("generator and agent_model are mutually exclusive")
-        if generator is None and agent_model is None:
-            raise ValueError("either generator or agent_model must be provided")
+        if generator is None and agent_model is None and orchestrator is None:
+            raise ValueError("either generator, agent_model, or orchestrator must be provided")
         if knowledge_scope is None and (evidence_policy is None) != (grounding_verifier is None):
             raise ValueError("M2 requires both evidence_policy and grounding_verifier")
         if (
             evidence_policy is not None or grounding_verifier is not None
-        ) and agent_model is None:
-            raise ValueError("M2 requires an agent_model")
+        ) and agent_model is None and orchestrator is None:
+            raise ValueError("M2 requires an agent_model or orchestrator")
         m3_values = (knowledge_scope, claim_support_verifier)
         if any(value is not None for value in m3_values) and not all(
             value is not None for value in m3_values
@@ -150,8 +152,8 @@ class HealthCopilotPipeline:
             raise ValueError("M3 requires an evidence_policy")
         if knowledge_scope is not None and grounding_verifier is not None:
             raise ValueError("M3 uses claim support instead of the M2 grounding verifier")
-        if knowledge_scope is not None and agent_model is None:
-            raise ValueError("M3 requires an agent_model")
+        if knowledge_scope is not None and agent_model is None and orchestrator is None:
+            raise ValueError("M3 requires an agent_model or orchestrator")
         self.retriever = retriever
         self.generator = generator
         self.top_k = top_k
@@ -161,10 +163,14 @@ class HealthCopilotPipeline:
         self.knowledge_scope = knowledge_scope
         self.claim_support_verifier = claim_support_verifier
         self.runtime = runtime
+        self.orchestrator = orchestrator
+        if self.orchestrator is not None and tool_runner is not None:
+            self.orchestrator.tool_runner = tool_runner
         self.last_grounding_result: GroundingResult | None = None
         self.last_claim_support_result: ClaimSupportResult | None = None
         self.last_harness_disposition: str | None = None
         self.last_agent_run: AgentRunResult | None = None
+        self.last_team_run = None
         self.agent_loop: AgentLoop | None = None
         if agent_model is not None:
             registry = tool_registry or ToolRegistry(
@@ -190,6 +196,7 @@ class HealthCopilotPipeline:
     def answer(self, question: str) -> AssistantResponse:
         active_runtime = self.runtime or RunContext.create("pipeline")
         self.last_agent_run = None
+        self.last_team_run = None
         self.last_grounding_result = None
         self.last_claim_support_result = None
         self.last_harness_disposition = None
@@ -207,6 +214,11 @@ class HealthCopilotPipeline:
         if not evidence:
             return self._finalize(abstain_response("insufficient_evidence"), active_runtime)
 
+        if self.orchestrator is not None:
+            return self._finalize(
+                self._answer_with_team(question, evidence, active_runtime), active_runtime
+            )
+
         if self.agent_loop is not None:
             return self._finalize(self._answer_with_agent(question, evidence, active_runtime), active_runtime)
 
@@ -223,6 +235,31 @@ class HealthCopilotPipeline:
         except Exception:  # noqa: BLE001 - pipeline must fail closed at component boundaries
             return self._finalize(abstain_response("generation_error"), active_runtime)
         return self._finalize(self._response_from_draft(draft, evidence), active_runtime)
+
+    def _answer_with_team(
+        self,
+        question: str,
+        initial_evidence: Sequence[Evidence],
+        runtime: RunContext,
+    ) -> AssistantResponse:
+        try:
+            result = self.orchestrator.run(question, initial_evidence, runtime=runtime)
+        except Exception:  # noqa: BLE001 - team runtime is a fail-closed boundary
+            self.last_harness_disposition = "orchestration_error"
+            return abstain_response("agent_error")
+        self.last_team_run = result
+        if result.stop_reason is not None and result.stop_reason.value == "budget_exhausted":
+            self.last_harness_disposition = "team_budget_exhausted"
+        if result.decision is None or result.decision.action != LeadDecisionKind.FINAL:
+            self.last_harness_disposition = self.last_harness_disposition or (
+                result.stop_reason.value if result.stop_reason else "abstain"
+            )
+            return abstain_response("abstain")
+        return self._response_from_claims(
+            result.claims,
+            result.observed_evidence,
+            runtime,
+        )
 
     def _answer_with_agent(
         self,
@@ -315,25 +352,33 @@ class HealthCopilotPipeline:
         self, run: AgentRunResult, runtime: RunContext
     ) -> AssistantResponse:
         """M3 path: claims -> citation integrity -> support -> materialized response."""
-        if not run.claims:
+        run.state.verifier_calls_used += 1
+        return self._response_from_claims(run.claims, run.observed_evidence, runtime)
+
+    def _response_from_claims(
+        self,
+        claims: Sequence,
+        observed_evidence: Sequence[Evidence],
+        runtime: RunContext,
+    ) -> AssistantResponse:
+        if not claims:
             self.last_harness_disposition = "claim_materialization_error"
             return abstain_response("claim_materialization_error")
         try:
-            claims = normalize_claims(run.claims)
+            claims = normalize_claims(claims)
         except ValueError:
             self.last_harness_disposition = "claim_materialization_error"
             return abstain_response("claim_materialization_error")
         claim_ids = [source_id for claim in claims for source_id in claim.citation_ids]
         integrity = verify_citations(
             GenerationDraft(answer="", citation_ids=claim_ids, abstain=False),
-            run.observed_evidence,
+            observed_evidence,
         )
         if not integrity.valid:
             self.last_harness_disposition = "invalid_citation"
             return abstain_response(integrity.reasons[0])
-        run.state.verifier_calls_used += 1
         try:
-            cited_evidence = materialize_cited_evidence(claims, run.observed_evidence)
+            cited_evidence = materialize_cited_evidence(claims, observed_evidence)
             result = validate_claim_support_result(
                 call_with_optional_runtime(
                     self.claim_support_verifier.verify,  # type: ignore[union-attr]
@@ -342,7 +387,7 @@ class HealthCopilotPipeline:
                     runtime=runtime,
                 ),
                 claims,
-                run.observed_evidence,
+                observed_evidence,
             )
         except Exception:  # noqa: BLE001 - semantic verification fails closed
             self.last_harness_disposition = "claim_support_verifier_error"
@@ -356,7 +401,7 @@ class HealthCopilotPipeline:
         except ValueError:
             self.last_harness_disposition = "claim_materialization_error"
             return abstain_response("claim_materialization_error")
-        evidence_by_id = {item.source_id: item for item in run.observed_evidence}
+        evidence_by_id = {item.source_id: item for item in observed_evidence}
         self.last_harness_disposition = "answer"
         return AssistantResponse(
             route=Route.ANSWER,

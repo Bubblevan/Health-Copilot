@@ -122,3 +122,20 @@ metrics, failure records, traces, and a hashed run manifest. M7 keeps M3 capabil
 payloads intact, separates claim-level verdicts from final disposition, excludes
 UNGRADED/infrastructure errors from quality denominators, and adds no LLM judge. See
 [`docs/m7_eval.md`](../docs/m7_eval.md).
+
+## M8 Agent Team candidate diagnostic
+
+`m8_agent_team_focused_v1.jsonl` is a 12-case focused candidate diagnostic:
+four direct education cases, four decomposable multi-evidence cases, two
+cross-source comparison cases, and two OOD/safety cases. The composed-question
+annotations and required evidence groups are recorded in
+`m8_agent_team_focused_v1.annotation_manifest.json` with
+`review_status=pending_human_review`; they are not a validated benchmark.
+
+The unified suite `m8-agent-team-focused-v1` permits only these compatible
+arms: `m8-workflow-bm25-v1` (L0 deterministic workflow), `m3-bm25-default`
+(L1 frozen single Agent), and `m8-team-bm25-v1` (L2 bounded Team). All arms
+share the same dataset SHA, BM25 retriever, KnowledgeScope, provider model,
+and claim-support verifier. Team-only rates are null/not applicable for L0
+and L1. Cost dimensions remain first-class; no weighted overall score is
+reported.

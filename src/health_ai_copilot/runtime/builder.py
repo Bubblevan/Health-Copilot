@@ -9,6 +9,7 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
+from ..agent.loop import AgentLoopConfig
 from ..agent.model import AgentOutputMode, OpenAICompatibleAgentModel
 from ..agent.tools import ToolRegistry
 from ..config import load_openai_config
@@ -30,6 +31,12 @@ from ..retrieval.hybrid import (
     SentenceTransformerReranker,
     TokenOverlapReranker,
 )
+from ..team import (
+    AgentTeamOrchestrator,
+    OpenAICompatibleTeamLeadModel,
+    TeamBudgetConfig,
+    TeamRole,
+)
 from ..tools.search_knowledge import SearchKnowledgeTool
 from ..verification.grounding import (
     OpenAICompatibleClaimSupportVerifier,
@@ -47,7 +54,7 @@ from .components import (
 )
 from .context import RunContext
 from .profile import RuntimeProfile
-from .provider import OpenAICompatibleProviderExecutor, ProviderExecutor
+from .provider import OpenAICompatibleProviderExecutor, ProviderCallKind, ProviderExecutor
 from .registry import ComponentBuildContext, ComponentRegistry
 from .trace import RunTrace, TraceContentPolicy, canonical_json_sha256
 
@@ -103,6 +110,8 @@ class RuntimeComponents:
     model_name: str
     knowledge_scope: KnowledgeScope | None = None
     run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
+    orchestrator: AgentTeamOrchestrator | None = None
+    agent_config: AgentLoopConfig | None = None
 
     @property
     def manifest_hash(self) -> str:
@@ -162,6 +171,8 @@ class RuntimeComponents:
             evidence_policy=self.evidence_policy,
             grounding_verifier=self.grounding_verifier,
             claim_support_verifier=self.claim_support_verifier,
+            orchestrator=self.orchestrator,
+            agent_config=self.agent_config,
             knowledge_scope=self.knowledge_scope,
             runtime=runtime,
             tool_runner=tool_runner,
@@ -197,6 +208,42 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
             verifier="claim-support-v1",
             tool_set=search,
             mode="m3",
+        ),
+        "m8-workflow-bm25-v1": RuntimeProfile(
+            "m8-workflow-bm25-v1",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=(),
+            mode="m8_workflow",
+            config={"generator": {"model": None}},
+        ),
+        "m8-team-bm25-v1": RuntimeProfile(
+            "m8-team-bm25-v1",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m8_team",
+            orchestration="agent-team-v1",
+            config={
+                "team_lead": {"model": None},
+                "team_worker": {"model": None},
+                "orchestration": {
+                    "scheduler": "sequential-v1",
+                    "max_lead_calls": 2,
+                    "max_workers_started": 2,
+                    "max_tasks_created": 2,
+                    "max_delegation_rounds": 1,
+                    "max_worker_model_turns": 2,
+                    "max_worker_tool_calls": 1,
+                    "lead_contract": "team-lead-v1",
+                    "worker_contract": "m3-claim-first-v1",
+                    "allowed_roles": ["evidence", "guideline"],
+                },
+            },
         ),
         "m3-dense-hashing-demo": RuntimeProfile(
             "m3-dense-hashing-demo",
@@ -289,6 +336,7 @@ def default_component_registry() -> ComponentRegistry:
     registry.register(ComponentKind.TOOL, "search-knowledge-v1", _build_search_tool, implementation="health_ai_copilot.tools.search_knowledge.SearchKnowledgeTool")
     registry.register(ComponentKind.TRACE, "metadata-jsonl-v1", _build_metadata_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
     registry.register(ComponentKind.TRACE, "public-eval-jsonl-v1", _build_public_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
+    registry.register(ComponentKind.ORCHESTRATION, "agent-team-v1", _build_orchestrator, implementation="health_ai_copilot.team.AgentTeamOrchestrator")
     return registry
 
 
@@ -330,9 +378,13 @@ class RuntimeBuilder:
         provider_default_model = self._provider_default_model(profile)
         agent_model_name = self._role_model(profile, "agent", provider_default_model)
         generator_model_name = self._role_model(profile, "generator", provider_default_model)
+        team_lead_model_name = self._role_model(profile, "team_lead", provider_default_model)
+        team_worker_model_name = self._role_model(profile, "team_worker", provider_default_model)
         build_environment = {
             **self._environment_dict(),
             "resolved_provider_model": provider_default_model,
+            "resolved_team_lead_model": team_lead_model_name,
+            "resolved_team_worker_model": team_worker_model_name,
         }
 
         def construct(kind: ComponentKind, component_id: str) -> Any:
@@ -394,8 +446,24 @@ class RuntimeBuilder:
                 model=agent_model_name,
                 output_mode=output_mode,
             )
+        elif profile.mode == "m8_workflow":
+            agent_model = OpenAICompatibleAgentModel(
+                provider_executor=provider,
+                model=generator_model_name,
+                output_mode=AgentOutputMode.M3_CLAIM_FIRST,
+            )
         else:
-            raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
+            if profile.mode != "m8_team":
+                raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
+
+        orchestrator = None
+        if profile.orchestration:
+            orchestrator = construct(ComponentKind.ORCHESTRATION, profile.orchestration)
+        agent_config = (
+            AgentLoopConfig(max_model_turns=1, max_tool_calls=0)
+            if profile.mode == "m8_workflow"
+            else None
+        )
 
         manifest = ComponentManifest(
             profile_id=profile.profile_id,
@@ -413,13 +481,15 @@ class RuntimeBuilder:
             agent_model,
             policy,
             verifier if profile.mode == "m2" else None,
-            verifier if profile.mode == "m3" else None,
+            verifier if profile.mode in {"m3", "m8_workflow", "m8_team"} else None,
             tool_registry,
             trace_factory,
             manifest,
-            agent_model_name,
+            team_lead_model_name if profile.mode == "m8_team" else agent_model_name,
             knowledge_scope,
             run_context_config or self.environment.run_budget,
+            orchestrator,
+            agent_config,
         )
 
     def _environment_dict(self) -> dict[str, Any]:
@@ -449,16 +519,18 @@ class RuntimeBuilder:
         return str(role_config.get("model") or provider_default)
 
     def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
-        if profile.mode not in {"m0", "m1", "m2", "m3"}:
+        if profile.mode not in {"m0", "m1", "m2", "m3", "m8_workflow", "m8_team"}:
             raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
-        if profile.mode == "m3" and scope is None:
-            raise RuntimeBuildError("m3 profile requires a KnowledgeScope")
+        if profile.mode in {"m3", "m8_workflow", "m8_team"} and scope is None:
+            raise RuntimeBuildError("claim-first profile requires a KnowledgeScope")
         if profile.mode == "m2" and (profile.policy is None or profile.verifier is None):
             raise RuntimeBuildError("m2 profile requires policy and verifier components")
-        if profile.mode == "m3" and (profile.policy is None or profile.verifier is None):
-            raise RuntimeBuildError("m3 profile requires policy and verifier components")
+        if profile.mode in {"m3", "m8_workflow", "m8_team"} and (profile.policy is None or profile.verifier is None):
+            raise RuntimeBuildError("claim-first profile requires policy and verifier components")
         if profile.mode in {"m1", "m2", "m3"} and not profile.tool_set:
             raise RuntimeBuildError(f"{profile.mode} profile requires an explicit tool set")
+        if profile.mode == "m8_team" and (profile.orchestration != "agent-team-v1" or not profile.tool_set):
+            raise RuntimeBuildError("m8_team profile requires agent-team-v1 and an explicit tool set")
 
 
 class _RecordedEvidenceRetriever:
@@ -511,6 +583,19 @@ def _build_provider(context: ComponentBuildContext) -> BuiltComponent:
         model, base_url = config.model, config.base_url
     if not hasattr(executor, "execute"):
         raise TypeError("provider executor must implement execute")
+    roles = {
+        "agent": _role_model(context, "agent"),
+        "generator": _role_model(context, "generator"),
+        "policy": _role_model(context, "policy"),
+        "verifier": _role_model(context, "verifier"),
+    }
+    if context.profile.orchestration is not None:
+        roles.update(
+            {
+                "team_lead": _role_model(context, "team_lead"),
+                "team_worker": _role_model(context, "team_worker"),
+            }
+        )
     return BuiltComponent(
         executor,
         _identity(
@@ -520,12 +605,7 @@ def _build_provider(context: ComponentBuildContext) -> BuiltComponent:
             {
                 "model": model,
                 "base_url": base_url,
-                "roles": {
-                    "agent": _role_model(context, "agent"),
-                    "generator": _role_model(context, "generator"),
-                    "policy": _role_model(context, "policy"),
-                    "verifier": _role_model(context, "verifier"),
-                },
+                "roles": roles,
             },
         ),
     )
@@ -769,6 +849,77 @@ def _build_metadata_trace(context: ComponentBuildContext) -> BuiltComponent:
 
 def _build_public_trace(context: ComponentBuildContext) -> BuiltComponent:
     return BuiltComponent(RuntimeTraceFactory(TraceContentPolicy.PUBLIC_EVAL_CONTENT), _identity(ComponentKind.TRACE, context.profile.trace, "health_ai_copilot.runtime.trace.RunTrace", {"content_policy": "public_eval_content"}))
+
+
+def _build_orchestrator(context: ComponentBuildContext) -> BuiltComponent:
+    """Construct the fixed M8 lead/worker graph from the trusted registry."""
+
+    provider = _provider_from(context)
+    lead_model_name = str(
+        context.environment.get("resolved_team_lead_model")
+        or _role_model(context, "team_lead")
+    )
+    worker_model_name = str(
+        context.environment.get("resolved_team_worker_model")
+        or _role_model(context, "team_worker")
+    )
+    worker_prompt = (
+        "You are a bounded Health-Copilot Evidence or Guideline Worker. "
+        "Work only on the assigned objective. Use only observed evidence or the "
+        "single policy-approved search result. Never delegate or answer outside "
+        "the claim-first JSON contract. Return claims with citation_ids, or abstain."
+    )
+    worker_model = OpenAICompatibleAgentModel(
+        provider_executor=provider,
+        model=worker_model_name,
+        output_mode=AgentOutputMode.M3_CLAIM_FIRST,
+        provider_call_kind=ProviderCallKind.TEAM_WORKER,
+        system_prompt=worker_prompt,
+    )
+    lead_model = OpenAICompatibleTeamLeadModel(provider, lead_model_name)
+    cfg = _component_config(context.profile, ComponentKind.ORCHESTRATION)
+    lead_contract = str(cfg.get("lead_contract", "team-lead-v1"))
+    worker_contract = str(cfg.get("worker_contract", "m3-claim-first-v1"))
+    allowed_roles = tuple(cfg.get("allowed_roles", [role.value for role in TeamRole]))
+    team_config = TeamBudgetConfig(
+        max_lead_calls=int(cfg.get("max_lead_calls", 2)),
+        max_workers_started=int(cfg.get("max_workers_started", 2)),
+        max_tasks_created=int(cfg.get("max_tasks_created", 2)),
+        max_delegation_rounds=int(cfg.get("max_delegation_rounds", 1)),
+        max_worker_model_turns=int(cfg.get("max_worker_model_turns", 2)),
+        max_worker_tool_calls=int(cfg.get("max_worker_tool_calls", 1)),
+    )
+    tool_instances = [
+        context.instances[(ComponentKind.TOOL, tool_id)] for tool_id in context.profile.tool_set
+    ]
+    orchestrator = AgentTeamOrchestrator(
+        lead_model,
+        worker_model,
+        ToolRegistry(tool_instances),
+        config=team_config,
+        evidence_policy=context.instances.get(
+            (ComponentKind.POLICY, context.profile.policy)
+        ),
+        knowledge_scope=context.knowledge_scope,
+    )
+    identity_config = {
+        "lead_model": lead_model_name,
+        "worker_model": worker_model_name,
+        "lead_contract": lead_contract,
+        "worker_contract": worker_contract,
+        "allowed_roles": list(allowed_roles),
+        "scheduler": cfg.get("scheduler", "sequential-v1"),
+        **team_config.to_dict(),
+    }
+    return BuiltComponent(
+        orchestrator,
+        _identity(
+            ComponentKind.ORCHESTRATION,
+            context.profile.orchestration or "agent-team-v1",
+            "health_ai_copilot.team.AgentTeamOrchestrator",
+            identity_config,
+        ),
+    )
 
 
 def _discover_build_commit() -> str | None:

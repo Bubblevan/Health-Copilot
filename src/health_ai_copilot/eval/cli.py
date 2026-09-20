@@ -96,6 +96,16 @@ def _compare(args) -> int:
     for key in ("suite_id", "suite_version", "dataset_sha256", "metric_definition_version"):
         if left.get(key) != right.get(key):
             raise EvalConfigurationError(f"incompatible bundles: {key} differs")
+    if left.get("suite_id") == "m8-agent-team-focused-v1":
+        allowed = set(
+            default_eval_suite_registry()
+            .get("m8-agent-team-focused-v1")
+            .provenance.get("allowed_profiles", ())
+        )
+        if left.get("profile_id") not in allowed or right.get("profile_id") not in allowed:
+            raise EvalConfigurationError(
+                "M8 comparison only permits the workflow, single-agent, and team profiles"
+            )
     left_metrics = json.loads((args.left / "metrics.json").read_text(encoding="utf-8"))
     right_metrics = json.loads((args.right / "metrics.json").read_text(encoding="utf-8"))
     delta = {}

@@ -218,3 +218,44 @@ dispatcher for the single product `search_knowledge` tool. M7 adds no tool or ge
 middleware/plugin loader. Live provider execution requires explicit CLI opt-in; offline
 suites inject a provider sentinel that raises if accidentally called. Replay consumes
 recorded provider/tool exchanges and reports remaining exchanges plus live-call status.
+
+## M8 bounded Agent Team
+
+M8 adds an optional orchestration component without changing the frozen M3
+single-Agent path:
+
+```text
+RuntimeProfile(m8-team-bm25-v1)
+  -> ComponentRegistry / RuntimeBuilder
+  -> one parent RunContext
+  -> Team Lead (turn 1)
+       -> runtime TaskStore + Mailbox
+       -> Evidence Worker (isolated AgentSession)
+       -> Guideline Worker (isolated AgentSession)
+       -> structured WorkerReports
+  -> Team Lead (turn 2, no delegation)
+  -> TeamEvidenceLedger
+  -> M3 citation/support verifier
+  -> deterministic materializer
+```
+
+The Team Lead is a decomposition/synthesis model and has no product search
+tool. Workers may propose the existing `search_knowledge` action, but the
+same M3 `EvidencePolicy`, `KnowledgeScope`, `ToolRunner`, and parent budget
+guard it. The runtime assigns task/worker/message IDs and enforces the only
+valid task transitions. The mailbox is point-to-point; workers cannot see each
+other's sessions or send each other messages.
+
+Team state is ephemeral runtime coordination, not Memory. The ledger accepts
+initial evidence and worker-observed evidence with provenance. Worker citation
+provenance and Lead final citation integrity are deterministic checks; final
+semantic support still belongs to `ClaimSupportVerifier`, never to worker
+agreement. Metadata-only traces record counts, IDs, statuses, and hashes, not
+raw task/question/report content.
+
+The M8 candidate diagnostic compares a deterministic L0 workflow, frozen M3
+L1 single Agent, and L2 Agent Team on the same BM25 corpus and final verifier.
+Provider calls, tool calls, tokens, latency, delegation, evidence-group
+coverage, route quality, OOD behavior, and per-category instability remain
+separate metrics. M8 makes no claim that the Team should win and does not make
+it the production default.

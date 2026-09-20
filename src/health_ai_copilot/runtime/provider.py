@@ -19,6 +19,8 @@ class ProviderCallKind(StrEnum):
     POLICY = "policy"
     GROUNDING_VERIFIER = "grounding_verifier"
     CLAIM_SUPPORT_VERIFIER = "claim_support_verifier"
+    TEAM_LEAD = "team_lead"
+    TEAM_WORKER = "team_worker"
 
 
 class ProviderFailureKind(StrEnum):

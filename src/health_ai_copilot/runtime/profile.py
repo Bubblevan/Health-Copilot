@@ -22,6 +22,7 @@ class RuntimeProfile:
     trace: str = "metadata-jsonl-v1"
     mode: str = "m0"
     config: Mapping[str, Any] = field(default_factory=dict)
+    orchestration: str | None = None
 
     def __post_init__(self) -> None:
         for name in ("profile_id", "provider", "retriever", "trace", "mode"):
@@ -32,6 +33,10 @@ class RuntimeProfile:
             value = getattr(self, name)
             if value is not None and (not isinstance(value, str) or not value.strip()):
                 raise ValueError(f"profile {name} must be non-empty or null")
+        if self.orchestration is not None and (
+            not isinstance(self.orchestration, str) or not self.orchestration.strip()
+        ):
+            raise ValueError("profile orchestration must be non-empty or null")
         tools = tuple(self.tool_set)
         if any(not isinstance(item, str) or not item.strip() for item in tools):
             raise ValueError("profile tool_set must contain non-empty IDs")
@@ -59,6 +64,8 @@ class RuntimeProfile:
         }
         if include_config:
             value["config"] = dict(self.config)
+        if self.orchestration is not None:
+            value["orchestration"] = self.orchestration
         return value
 
     @classmethod
@@ -75,4 +82,5 @@ class RuntimeProfile:
             trace=value.get("trace", "metadata-jsonl-v1"),
             mode=value.get("mode", "m0"),
             config=value.get("config", {}),
+            orchestration=value.get("orchestration"),
         )

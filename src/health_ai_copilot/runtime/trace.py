@@ -29,6 +29,18 @@ class TraceEventType(StrEnum):
     TOOL_END = "tool_end"
     BUDGET_DENIED = "budget_denied"
     HARNESS_DISPOSITION = "harness_disposition"
+    TEAM_STARTED = "team_start"
+    LEAD_DECISION = "lead_decision"
+    TASK_CREATED = "task_created"
+    TASK_ASSIGNED = "task_assigned"
+    TASK_STARTED = "task_started"
+    WORKER_STARTED = "worker_started"
+    WORKER_FINISHED = "worker_finished"
+    WORKER_REPORT = "worker_report"
+    MESSAGE_DELIVERED = "message_delivered"
+    EVIDENCE_ADDED = "evidence_added"
+    TEAM_FINAL_PROPOSED = "team_final"
+    TEAM_STOPPED = "team_stop"
 
 
 @dataclass(frozen=True)

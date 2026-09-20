@@ -1,0 +1,24 @@
+{
+  "suite_id": "m8-agent-team-focused-v1",
+  "version": "1",
+  "dataset": "evals/m8_agent_team_focused_v1.jsonl",
+  "review_status": "pending_human_review",
+  "diagnostic_label": "focused candidate diagnostic",
+  "construction_rationale": "A small closed-corpus pack separates direct education, multi-evidence decomposition, cross-source comparison, and out-of-scope routing without adding diagnosis or treatment authority.",
+  "source_knowledge_card_ids": [
+    "who-hypertension-01-definition",
+    "who-hypertension-02-confirmation",
+    "cdc-high-blood-pressure-about-01-us-threshold",
+    "cdc-high-blood-pressure-measuring-01-home",
+    "cdc-high-blood-pressure-measuring-02-repeat",
+    "cdc-high-blood-pressure-measuring-03-before-reading",
+    "cdc-high-blood-pressure-measuring-04-position",
+    "cdc-high-blood-pressure-managing-01-monitoring",
+    "cdc-high-blood-pressure-prevention-01-diet",
+    "cdc-high-blood-pressure-prevention-03-activity",
+    "cdc-high-blood-pressure-prevention-04-sleep",
+    "cdc-high-blood-pressure-risk-01-sodium",
+    "cdc-high-blood-pressure-risk-05-overweight"
+  ],
+  "notes": "Source cards are reviewed corpus units; composed questions and required evidence groups remain candidate annotations until human review."
+}

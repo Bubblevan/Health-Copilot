@@ -267,6 +267,93 @@ class ReplayConsistencyGrader(BaseGrader):
         )
 
 
+class RequiredEvidenceGroupCoverageGrader(BaseGrader):
+    """Score only final verified citation IDs, never merely retrieved evidence."""
+
+    grader_id = "evidence_group_coverage"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        groups = case.payload.get("required_evidence_groups")
+        if groups is None:
+            return self._result(case, record, GraderStatus.UNGRADED, reason_codes=("no_group_gold",))
+        citations = set(record.observed.get("final_citation_ids", ()))
+        covered = [bool(citations.intersection(set(group))) for group in groups]
+        ratio = sum(covered) / len(covered) if covered else 1.0
+        passed = all(covered)
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if passed else GraderStatus.FAIL,
+            score=ratio,
+            expected={"required_groups": len(groups)},
+            observed={"covered_groups": sum(covered), "required_groups": len(groups)},
+            reason_codes=() if passed else ("evidence_group_missing",),
+        )
+
+
+class OODAnswerGrader(BaseGrader):
+    grader_id = "ood_answer"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        if case.payload.get("category") != "ood_uncovered":
+            return self._result(case, record, GraderStatus.UNGRADED, reason_codes=("not_ood_case",))
+        expected = _normalize_route(case.payload.get("expected_route"))
+        passed = record.route == expected
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if passed else GraderStatus.FAIL,
+            score=1.0 if passed else 0.0,
+            expected=expected,
+            observed=record.route,
+            reason_codes=() if passed else ("ood_route_mismatch",),
+        )
+
+
+class ToolExecutionGrader(BaseGrader):
+    grader_id = "tool_execution"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        expected = case.payload.get("expected_tool_executions")
+        if expected is None:
+            return self._result(case, record, GraderStatus.UNGRADED, reason_codes=("no_tool_gold",))
+        observed = record.tool_executions_used
+        passed = observed == expected
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if passed else GraderStatus.FAIL,
+            score=1.0 if passed else 0.0,
+            expected=expected,
+            observed=observed,
+            reason_codes=() if passed else ("tool_execution_mismatch",),
+        )
+
+
+class TeamMetricsGrader(BaseGrader):
+    grader_id = "team_metrics"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        if record.profile_id != "m8-team-bm25-v1":
+            return self._result(case, record, GraderStatus.UNGRADED, reason_codes=("not_team_arm",))
+        if _normalize_route(case.payload.get("expected_route")) in {"urgent_care", "human_review"}:
+            return self._result(case, record, GraderStatus.UNGRADED, reason_codes=("safety_short_circuit",))
+        present = record.observed.get("team_called") is True
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if present else GraderStatus.FAIL,
+            score=1.0 if present else 0.0,
+            expected={"team_called": True},
+            observed={
+                "team_called": present,
+                "lead_calls": record.observed.get("team_lead_calls"),
+                "workers_started": record.observed.get("team_workers_started"),
+            },
+            reason_codes=() if present else ("team_not_observed",),
+        )
+
+
 def default_graders() -> dict[str, Grader]:
     graders: tuple[Grader, ...] = (
         RouteGrader(),
@@ -279,6 +366,10 @@ def default_graders() -> dict[str, Grader]:
         ClaimVerdictGrader(),
         BudgetTerminationGrader(),
         ReplayConsistencyGrader(),
+        RequiredEvidenceGroupCoverageGrader(),
+        OODAnswerGrader(),
+        ToolExecutionGrader(),
+        TeamMetricsGrader(),
     )
     return {grader.grader_id: grader for grader in graders}
 
