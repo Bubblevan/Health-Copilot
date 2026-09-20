@@ -130,7 +130,8 @@ four direct education cases, four decomposable multi-evidence cases, two
 cross-source comparison cases, and two OOD/safety cases. The composed-question
 annotations and required evidence groups are recorded in
 `m8_agent_team_focused_v1.annotation_manifest.json` with
-`review_status=pending_human_review`; they are not a validated benchmark.
+`review_status=human_reviewed_frozen`; they remain a focused diagnostic, not a
+validated clinical benchmark.
 
 The unified suite `m8-agent-team-focused-v1` permits only these compatible
 arms: `m8-workflow-bm25-v1` (L0 deterministic workflow), `m3-bm25-default`

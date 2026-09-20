@@ -2,7 +2,24 @@
   "suite_id": "m8-agent-team-focused-v1",
   "version": "1",
   "dataset": "evals/m8_agent_team_focused_v1.jsonl",
-  "review_status": "pending_human_review",
+  "review_status": "human_reviewed_frozen",
+  "dataset_sha256": "78a417bef691892fb0b248911044f0325849ae4a4ae1065ec7ad009968180549",
+  "freeze_scope": {
+    "reviewed_fields": [
+      "question",
+      "expected_route",
+      "required_evidence_groups",
+      "decomposition_required",
+      "ood_rationale"
+    ],
+    "comparison_arms": [
+      "m8-workflow-bm25-v1",
+      "m3-bm25-default",
+      "m8-team-bm25-v1"
+    ],
+    "trials_per_arm": 3,
+    "budget_policy": "topology_native_bounded"
+  },
   "diagnostic_label": "focused candidate diagnostic",
   "construction_rationale": "A small closed-corpus pack separates direct education, multi-evidence decomposition, cross-source comparison, and out-of-scope routing without adding diagnosis or treatment authority.",
   "source_knowledge_card_ids": [
@@ -20,5 +37,5 @@
     "cdc-high-blood-pressure-risk-01-sodium",
     "cdc-high-blood-pressure-risk-05-overweight"
   ],
-  "notes": "Source cards are reviewed corpus units; composed questions and required evidence groups remain candidate annotations until human review."
+  "notes": "Source cards, composed questions, required evidence groups, routing labels, and OOD rationale were human-reviewed and frozen for the M8 empirical comparison. This is a focused diagnostic, not a clinical benchmark."
 }

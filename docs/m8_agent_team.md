@@ -94,8 +94,8 @@ canonical JSON so frozen M0–M7 hashes remain unchanged.
 
 The candidate suite `m8-agent-team-focused-v1` contains 12 closed-corpus cases:
 4 direct, 4 decomposable, 2 cross-source comparison, and 2 uncovered/OOD. Its
-annotation manifest is explicitly `pending_human_review`; results must be
-described as a focused candidate diagnostic, not a validated benchmark. The
+annotation manifest is now `human_reviewed_frozen`; results remain a focused
+diagnostic, not a validated clinical benchmark. The
 comparison arms are:
 
 | Arm | Profile | Control flow |

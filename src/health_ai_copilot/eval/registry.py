@@ -244,7 +244,7 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
             provenance={
                 "gold_semantics": "focused candidate diagnostic for L0 workflow, L1 single agent, and L2 bounded Agent Team",
                 "annotation_manifest": "evals/m8_agent_team_focused_v1.annotation_manifest.json",
-                "review_status": "pending_human_review",
+                "review_status": "human_reviewed_frozen",
             },
             allowed_profiles=(
                 "m8-workflow-bm25-v1",
