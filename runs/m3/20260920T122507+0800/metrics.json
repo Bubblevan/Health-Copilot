@@ -1,0 +1,13 @@
+{
+  "case_count": 21,
+  "supported_accept_rate": 1.0,
+  "unsupported_reject_rate": 1.0,
+  "contradicted_reject_rate": 1.0,
+  "multi_claim_all_supported_accept_rate": 1.0,
+  "multi_claim_one_unsupported_reject_rate": 1.0,
+  "fabricated_citation_reject_rate": 1.0,
+  "wrong_citation_binding_reject_rate": 1.0,
+  "deterministic_citation_rejections": 1,
+  "semantic_verifier_rejections": 11,
+  "verifier_errors": 0
+}
