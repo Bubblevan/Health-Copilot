@@ -17,6 +17,9 @@ results.
 the current 40-row source file. It is an evaluation-data review, not a clinical
 expert validation claim.
 
+M3 expansion files use the same candidate/review-manifest workflow. They do
+not alter frozen `m3_capability.jsonl` or `m3_claim_support.jsonl`.
+
 External artifacts stay in `artifacts/benchmarks/` and remain separate:
 
 - NFCorpus is an independent biomedical retrieval benchmark with its own qrels.
