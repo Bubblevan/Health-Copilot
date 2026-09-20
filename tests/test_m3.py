@@ -1,7 +1,6 @@
 
 import json
 from pathlib import Path
-from types import SimpleNamespace
 
 import pytest
 
@@ -16,6 +15,7 @@ from health_ai_copilot.knowledge.scope import (
 )
 from health_ai_copilot.pipeline import HealthCopilotPipeline
 from health_ai_copilot.policy.evidence import EvidenceAssessment, EvidenceDecision
+from health_ai_copilot.runtime import FakeProviderExecutor, ProviderCallKind, ProviderResponse
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
 from health_ai_copilot.verification.grounding import (
     ClaimResult,
@@ -407,33 +407,13 @@ def test_m2_rejects_duplicate_claim_result_index_without_changing_normal_replay(
 
 
 def test_claim_support_provider_receives_only_each_claims_cited_evidence() -> None:
-    captured = {}
-
-    class _Completions:
-        def create(self, **kwargs):
-            captured.update(kwargs)
-            body = {
-                "claim_results": [
-                    {
-                        "claim_index": 0,
-                        "verdict": "supported",
-                        "supporting_source_ids": ["source-a"],
-                    }
-                ]
-            }
-            return SimpleNamespace(
-                choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(body)))]
-            )
-
-    verifier = OpenAICompatibleClaimSupportVerifier.__new__(OpenAICompatibleClaimSupportVerifier)
-    verifier._client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions()))
-    verifier.model_name = "fixture-model"
-    verifier.temperature = 0
+    executor = FakeProviderExecutor([ProviderResponse("recorded", ProviderCallKind.CLAIM_SUPPORT_VERIFIER, "fixture-model", json.dumps({"claim_results": [{"claim_index": 0, "verdict": "supported", "supporting_source_ids": ["source-a"]}]}))])
+    verifier = OpenAICompatibleClaimSupportVerifier(provider_executor=executor, model="fixture-model")
     claims = (_claim(source_id="source-a"),)
     cited = materialize_cited_evidence(claims, (_evidence("source-a"), _evidence("source-b")))
 
     result = verifier.verify(claims, cited)
-    payload = json.loads(captured["messages"][1]["content"])
+    payload = json.loads(executor.requests[0].messages[1]["content"])
 
     assert result.claim_results[0].verdict == ClaimVerdict.SUPPORTED
     assert payload["claims"] == [
@@ -443,7 +423,7 @@ def test_claim_support_provider_receives_only_each_claims_cited_evidence() -> No
             "cited_evidence": [{"source_id": "source-a", "excerpt": "excerpt source-a"}],
         }
     ]
-    assert "source-b" not in captured["messages"][1]["content"]
+    assert "source-b" not in executor.requests[0].messages[1]["content"]
 
 
 def test_wrong_citation_binding_fixture_isolated_to_wrong_source() -> None:
