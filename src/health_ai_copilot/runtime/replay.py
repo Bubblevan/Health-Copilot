@@ -248,7 +248,9 @@ def _write_jsonl(path: Path, items: Sequence[Mapping[str, Any]] | Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as handle:
         for item in items:
-            handle.write(json.dumps(item, ensure_ascii=False, sort_keys=True))
+            # Provider messages are opaque strings. Preserve nested mapping insertion
+            # order so a replay reconstructs the exact next-turn prompt bytes.
+            handle.write(json.dumps(item, ensure_ascii=False))
             handle.write("\n")
 
 

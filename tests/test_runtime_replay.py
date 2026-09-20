@@ -80,3 +80,17 @@ def test_replay_tool_runner_returns_recorded_result_without_live_registry(tmp_pa
     assert result.ok is True
     assert result.data == "recorded result"
     assert replay.remaining_exchanges == 0
+
+
+def test_tool_exchange_round_trip_preserves_next_turn_json_order(tmp_path) -> None:
+    exchange = RecordedToolExchange(
+        "search_knowledge",
+        {"query": "fixture"},
+        ToolResult.success({"source_id": "source", "title": "title", "excerpt": "excerpt"}),
+    )
+    path = tmp_path / "tool_exchanges.jsonl"
+    write_tool_exchanges(path, [exchange])
+
+    restored = read_tool_exchanges(path)[0]
+
+    assert list(restored.result.data) == ["source_id", "title", "excerpt"]
