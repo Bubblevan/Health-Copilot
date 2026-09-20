@@ -25,6 +25,7 @@ from ..runtime import (
 from ..runtime.builder import RuntimeBuilder
 from ..runtime.trace import TraceContentPolicy
 from ..safety import route_question
+from ..team import worker_evidence_diversity
 from ..verification.citations import verify_citations
 from ..verification.grounding import (
     ClaimVerdict,
@@ -733,6 +734,7 @@ class EvaluationRunner:
             source_id for claim in final_claims for source_id in claim.citation_ids
         ]
         team_reports = list(team.reports) if team else []
+        worker_overlap, worker_unique = worker_evidence_diversity(team_reports)
         initial_team_evidence = (
             [item.evidence.source_id for item in team.state.evidence_ledger.list_items() if item.origin.value == "initial"]
             if team else []
@@ -775,6 +777,12 @@ class EvaluationRunner:
             "team_worker_successes": sum(item.status.value == "succeeded" for item in team_reports) if team else None,
             "team_delegated": bool(team and team.state.tasks_created),
             "team_stop_reason": team.stop_reason.value if team and team.stop_reason else None,
+            "team_topology": team.state.topology if team else None,
+            "team_scheduler": team.state.scheduler if team else None,
+            "team_allowed_roles": list(team.state.allowed_roles) if team else [],
+            "team_role_records": [item.to_metadata() for item in team_reports],
+            "worker_evidence_overlap": worker_overlap,
+            "worker_unique_evidence_contribution": worker_unique,
         }
         observed.update(observed_extra or {})
         return self._record(
@@ -876,6 +884,17 @@ class EvaluationRunner:
                     "ranks": list(observed.get("initial_evidence_ranks", ())),
                 }
             )
+        if observed.get("team_called"):
+            events.append(
+                {
+                    "event": "team_identity",
+                    "topology": observed.get("team_topology"),
+                    "scheduler": observed.get("team_scheduler"),
+                    "allowed_roles": list(observed.get("team_allowed_roles", ())),
+                }
+            )
+            for role_record in observed.get("team_role_records", ()):
+                events.append({"event": "worker_role", **dict(role_record)})
         if observed.get("tool_proposed") is not None:
             events.append(
                 {
@@ -1101,6 +1120,14 @@ class EvaluationRunner:
                 "m8.lead_calls_per_case",
                 [row.observed.get("team_lead_calls") for row in complete],
             ),
+            "m8.worker_evidence_overlap": average(
+                "m8.worker_evidence_overlap",
+                [row.observed.get("worker_evidence_overlap") for row in complete],
+            ),
+            "m8.worker_unique_evidence_contribution": average(
+                "m8.worker_unique_evidence_contribution",
+                [row.observed.get("worker_unique_evidence_contribution") for row in complete],
+            ),
             "m8.budget_exhaustion_rate": MetricResult.ratio(
                 "m8.budget_exhaustion_rate",
                 version,
@@ -1157,6 +1184,7 @@ class EvaluationRunner:
             "component_manifest_hash": components.manifest_hash if components else None,
             "metric_definition_version": suite.metric_definition_version,
             "trace_content_policy": spec.trace_content_policy,
+            "orchestration": _orchestration_manifest(components),
             "file_sha256": file_hashes,
             "manifest_hash": canonical_hash(file_hashes | {"suite_id": suite.suite_id, "run_spec_hash": spec.spec_hash}),
         }
@@ -1277,6 +1305,19 @@ def _write_jsonl(path: Path, items) -> None:
 
 def _write_text(path: Path, text: str) -> None:
     path.write_text(text.rstrip() + "\n", encoding="utf-8", newline="\n")
+
+
+def _orchestration_manifest(components) -> dict[str, Any] | None:
+    if components is None:
+        return None
+    config = components.profile.config.get("orchestration", {})
+    if not isinstance(config, Mapping):
+        return None
+    return {
+        key: config[key]
+        for key in ("topology", "scheduler", "allowed_roles")
+        if key in config
+    } or None
 
 
 def _report(suite, spec, metrics, failures):

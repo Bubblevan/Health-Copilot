@@ -1,10 +1,13 @@
 from collections.abc import Sequence
+from types import SimpleNamespace
 
 import pytest
 
 from health_ai_copilot.agent.messages import FinalTurn, ToolCall, ToolCallTurn
 from health_ai_copilot.agent.tools import ToolRegistry
 from health_ai_copilot.contracts import Evidence
+from health_ai_copilot.eval.schema import CaseRunStatus
+from health_ai_copilot.eval.system import EvaluationRunner
 from health_ai_copilot.knowledge.loader import load_knowledge_cards
 from health_ai_copilot.knowledge.scope import CapabilityTopic, KnowledgeScope
 from health_ai_copilot.pipeline import HealthCopilotPipeline
@@ -28,6 +31,8 @@ from health_ai_copilot.team import (
     TeamBudgetConfig,
     TeamRole,
     TeamStopReason,
+    WorkerReport,
+    worker_evidence_diversity,
 )
 from health_ai_copilot.tools.search_knowledge import SearchKnowledgeTool
 from health_ai_copilot.verification.grounding import GroundedClaim
@@ -65,7 +70,7 @@ class ScriptedWorker:
         )
 
 
-def _orchestrator(lead, worker, *, retriever=None, budget=None, policy=None):
+def _orchestrator(lead, worker, *, retriever=None, budget=None, policy=None, allowed_roles=None):
     retriever = retriever or (lambda query, top_k=3: [_evidence("worker-source")])
     registry = ToolRegistry([SearchKnowledgeTool(retriever)])
     return AgentTeamOrchestrator(
@@ -74,6 +79,7 @@ def _orchestrator(lead, worker, *, retriever=None, budget=None, policy=None):
         registry,
         config=budget,
         evidence_policy=policy,
+        allowed_roles=allowed_roles,
     )
 
 
@@ -141,6 +147,124 @@ def test_workers_have_isolated_sessions_and_reports_are_the_only_cross_agent_pat
     assert "objective A" not in str(guideline_worker.sessions[0])
     assert any(message.kind.value == "worker_report" for message in result.state.mailbox.list_messages())
     assert result.state.mailbox.list_messages()[0].kind.value == "task_assignment"
+    assert result.state.topology == "star-supervisor-v1"
+    assert result.state.scheduler == "sequential-v1"
+    assert {item["role"] for item in result.state.to_metadata()["worker_roles"]} == {
+        "evidence",
+        "guideline",
+    }
+
+
+def test_builder_uses_role_specific_worker_system_contracts():
+    cards = load_knowledge_cards("tests/fixtures/knowledge_cards")
+    scope = KnowledgeScope(
+        "fixture-scope",
+        "1",
+        "fixture-pack",
+        "2026-09-20",
+        "test",
+        "fixture",
+        ("synthetic",),
+        (CapabilityTopic("synthetic", "fixture", tuple(card.id for card in cards)),),
+    )
+    components = RuntimeBuilder(
+        environment={"provider_executor": FakeProviderExecutor()}
+    ).build(
+        default_runtime_profiles()["m8-team-bm25-v1"],
+        cards=cards,
+        knowledge_scope=scope,
+    )
+    orchestration_config = components.profile.config["orchestration"]
+    assert orchestration_config["topology"] == "star-supervisor-v1"
+    assert orchestration_config["scheduler"] == "sequential-v1"
+    assert orchestration_config["allowed_roles"] == ["evidence", "guideline"]
+    workers = components.orchestrator.worker_model
+    evidence_prompt = workers[TeamRole.EVIDENCE]._system_prompt
+    guideline_prompt = workers[TeamRole.GUIDELINE]._system_prompt
+    assert evidence_prompt != guideline_prompt
+    assert "factual evidence acquisition" in evidence_prompt.lower()
+    assert "source coverage" in evidence_prompt.lower()
+    assert "avoid recommendation synthesis" in evidence_prompt.lower()
+    assert "guideline and recommendation context" in guideline_prompt.lower()
+    assert "publisher and jurisdiction distinctions" in guideline_prompt.lower()
+    assert "avoid unsupported factual expansion" in guideline_prompt.lower()
+
+
+def test_allowed_roles_are_enforced_at_runtime():
+    lead = ScriptedLead([
+        LeadDecision(
+            LeadDecisionKind.DELEGATE,
+            tasks=(LeadTaskProposal(TeamRole.GUIDELINE, "guidance"),),
+        )
+    ])
+    orchestrator = _orchestrator(
+        lead,
+        ScriptedWorker("initial"),
+        allowed_roles=(TeamRole.EVIDENCE,),
+    )
+    result = orchestrator.run(
+        "question", [_evidence("initial")], runtime=RunContext.create("m8")
+    )
+    assert result.stop_reason == TeamStopReason.INVALID_DELEGATION
+    assert result.state.tasks_created == 0
+    assert result.state.allowed_roles == ("evidence",)
+
+
+def test_worker_evidence_overlap_and_unique_contribution_are_deterministic():
+    reports = (
+        WorkerReport(
+            "task-e",
+            "worker-evidence",
+            TeamRole.EVIDENCE,
+            "succeeded",
+            citation_ids=("evidence-only",),
+            observed_source_ids=("shared", "evidence-only"),
+            provider_calls=1,
+        ),
+        WorkerReport(
+            "task-g",
+            "worker-guideline",
+            TeamRole.GUIDELINE,
+            "succeeded",
+            citation_ids=("guideline-only",),
+            observed_source_ids=("shared", "guideline-only"),
+            provider_calls=1,
+        ),
+    )
+    overlap, unique = worker_evidence_diversity(reports)
+    assert overlap == pytest.approx(1 / 3)
+    assert unique == pytest.approx(2 / 3)
+    assert reports[0].to_metadata()["provider_calls"] == 1
+    assert reports[0].to_metadata()["final_cited_source_ids"] == ["evidence-only"]
+
+
+def test_m8_eval_aggregates_worker_diversity_metrics():
+    record = SimpleNamespace(
+        status=CaseRunStatus.COMPLETE,
+        case_id="case-1",
+        route="answer",
+        harness_disposition="answer",
+        provider_calls_used=4,
+        tool_executions_used=0,
+        input_tokens_used=0,
+        output_tokens_used=0,
+        total_tokens_used=0,
+        elapsed_ms=1.0,
+        observed={
+            "team_delegated": True,
+            "team_workers_started": 2,
+            "team_lead_calls": 2,
+            "worker_evidence_overlap": 1 / 3,
+            "worker_unique_evidence_contribution": 2 / 3,
+        },
+    )
+    case = SimpleNamespace(
+        case_id="case-1",
+        payload={"category": "decomposable", "expected_route": "answer"},
+    )
+    metrics = EvaluationRunner()._m8_metrics([record], [case], "m8-test-v1")
+    assert metrics["m8.worker_evidence_overlap"].value == pytest.approx(1 / 3)
+    assert metrics["m8.worker_unique_evidence_contribution"].value == pytest.approx(2 / 3)
 
 
 def test_worker_fabricated_citation_fails_task_and_is_not_added_to_ledger():

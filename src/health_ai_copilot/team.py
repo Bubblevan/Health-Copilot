@@ -40,6 +40,35 @@ class TeamRole(StrEnum):
     GUIDELINE = "guideline"
 
 
+TEAM_TOPOLOGY = "star-supervisor-v1"
+TEAM_SCHEDULER = "sequential-v1"
+
+# These contracts are intentionally role-specific even when the builder uses
+# the same checkpoint, provider executor, and tool set for both workers.
+TEAM_ROLE_SYSTEM_CONTRACTS: dict[TeamRole, str] = {
+    TeamRole.EVIDENCE: (
+        "You are the Evidence Worker. Your role contract is factual evidence acquisition, "
+        "source coverage, and source-level observation. Search only for facts needed by the "
+        "assigned objective, record which sources were actually observed, and return claims "
+        "grounded in those sources. Avoid recommendation synthesis: do not turn facts into "
+        "clinical advice, treatment instructions, or guideline recommendations."
+    ),
+    TeamRole.GUIDELINE: (
+        "You are the Guideline Worker. Your role contract is guideline and recommendation "
+        "context, including publisher and jurisdiction distinctions. Identify the issuing "
+        "body, scope, population, and applicable jurisdiction when present. Avoid unsupported "
+        "factual expansion: do not invent facts beyond observed sources or silently generalize "
+        "a recommendation outside its stated context."
+    ),
+}
+
+
+TEAM_ROLE_CONTRACT_IDS: dict[TeamRole, str] = {
+    TeamRole.EVIDENCE: "m8-evidence-worker-v1",
+    TeamRole.GUIDELINE: "m8-guideline-worker-v1",
+}
+
+
 class LeadDecisionKind(StrEnum):
     FINAL = "final"
     DELEGATE = "delegate"
@@ -345,6 +374,7 @@ class WorkerReport:
     claims: tuple[GroundedClaim, ...] = ()
     citation_ids: tuple[str, ...] = ()
     observed_source_ids: tuple[str, ...] = ()
+    provider_calls: int = 0
     tool_proposals: int = 0
     tool_executions: int = 0
     stop_reason: str | None = None
@@ -356,10 +386,18 @@ class WorkerReport:
         object.__setattr__(self, "claims", tuple(self.claims))
         object.__setattr__(self, "citation_ids", tuple(self.citation_ids))
         object.__setattr__(self, "observed_source_ids", tuple(self.observed_source_ids))
+        if self.provider_calls < 0 or self.tool_proposals < 0 or self.tool_executions < 0:
+            raise ValueError("worker side-effect counts must not be negative")
 
     @property
     def claim_text_hashes(self) -> tuple[str, ...]:
         return tuple(sha256(claim.text.encode("utf-8")).hexdigest() for claim in self.claims)
+
+    @property
+    def final_cited_source_ids(self) -> tuple[str, ...]:
+        """Sources explicitly contributed to the worker's final claims."""
+
+        return tuple(dict.fromkeys(self.citation_ids))
 
     def to_model_dict(self) -> dict[str, Any]:
         return {
@@ -373,6 +411,8 @@ class WorkerReport:
             ],
             "citation_ids": list(self.citation_ids),
             "observed_source_ids": list(self.observed_source_ids),
+            "final_cited_source_ids": list(self.final_cited_source_ids),
+            "provider_calls": self.provider_calls,
             "tool_proposals": self.tool_proposals,
             "tool_executions": self.tool_executions,
             "stop_reason": self.stop_reason,
@@ -389,11 +429,48 @@ class WorkerReport:
             "claim_text_sha256": list(self.claim_text_hashes),
             "citation_count": len(self.citation_ids),
             "observed_source_count": len(self.observed_source_ids),
+            "final_cited_source_ids": list(self.final_cited_source_ids),
+            "provider_calls": self.provider_calls,
             "tool_proposals": self.tool_proposals,
             "tool_executions": self.tool_executions,
             "stop_reason": self.stop_reason,
             "error_code": self.error_code,
         }
+
+
+def worker_evidence_diversity(
+    reports: Sequence[WorkerReport],
+) -> tuple[float | None, float | None]:
+    """Return deterministic overlap and unique-contribution ratios.
+
+    The ratios are computed over role-level observed source IDs.  With fewer
+    than two worker roles there is no cross-role comparison, so both values
+    are ``None`` and remain outside aggregate denominators.
+    """
+
+    by_role: dict[TeamRole, set[str]] = {}
+    for report in reports:
+        by_role.setdefault(report.role, set()).update(report.observed_source_ids)
+    role_sets = tuple(by_role.values())
+    if len(role_sets) < 2:
+        return None, None
+
+    union = set().union(*role_sets)
+    if not union:
+        return 0.0, 0.0
+    pair_intersection = 0
+    pair_union = 0
+    for index, left in enumerate(role_sets):
+        for right in role_sets[index + 1 :]:
+            pair_intersection += len(left & right)
+            pair_union += len(left | right)
+    overlap = pair_intersection / pair_union if pair_union else 0.0
+    occurrence_count: dict[str, int] = {}
+    for source_ids in role_sets:
+        for source_id in source_ids:
+            occurrence_count[source_id] = occurrence_count.get(source_id, 0) + 1
+    unique = sum(count == 1 for count in occurrence_count.values()) / len(union)
+    return overlap, unique
 
 
 @dataclass(frozen=True)
@@ -432,6 +509,9 @@ class TeamBudgetConfig:
 @dataclass
 class TeamRunState:
     team_id: str = field(default_factory=lambda: f"team-{uuid4().hex}")
+    topology: str = TEAM_TOPOLOGY
+    scheduler: str = TEAM_SCHEDULER
+    allowed_roles: tuple[str, ...] = tuple(role.value for role in TeamRole)
     lead_calls_used: int = 0
     delegation_rounds_used: int = 0
     workers_started: int = 0
@@ -442,6 +522,15 @@ class TeamRunState:
     worker_runs: dict[str, AgentRunResult] = field(default_factory=dict)
     worker_reports: list[WorkerReport] = field(default_factory=list)
     stop_reason: TeamStopReason | None = None
+
+    def to_metadata(self) -> dict[str, Any]:
+        return {
+            "team_id": self.team_id,
+            "topology": self.topology,
+            "scheduler": self.scheduler,
+            "allowed_roles": list(self.allowed_roles),
+            "worker_roles": [report.to_metadata() for report in self.worker_reports],
+        }
 
 
 @dataclass(frozen=True)
@@ -486,6 +575,9 @@ class AgentTeamOrchestrator:
         evidence_policy: EvidencePolicy | None = None,
         knowledge_scope: KnowledgeScope | None = None,
         tool_runner: ToolRunner | None = None,
+        allowed_roles: Sequence[TeamRole | str] | None = None,
+        topology: str = TEAM_TOPOLOGY,
+        scheduler: str = TEAM_SCHEDULER,
     ) -> None:
         self.lead_model = lead_model
         self.worker_model = worker_model
@@ -494,6 +586,18 @@ class AgentTeamOrchestrator:
         self.evidence_policy = evidence_policy
         self.knowledge_scope = knowledge_scope
         self.tool_runner = tool_runner or LiveToolRunner(tool_registry)
+        raw_allowed_roles = tuple(TeamRole) if allowed_roles is None else tuple(allowed_roles)
+        self.allowed_roles = tuple(TeamRole(role) for role in raw_allowed_roles)
+        if not self.allowed_roles:
+            raise ValueError("allowed_roles must not be empty")
+        if len(set(self.allowed_roles)) != len(self.allowed_roles):
+            raise ValueError("allowed_roles must not contain duplicates")
+        if not isinstance(topology, str) or not topology.strip():
+            raise ValueError("topology must be a non-empty string")
+        if not isinstance(scheduler, str) or not scheduler.strip():
+            raise ValueError("scheduler must be a non-empty string")
+        self.topology = topology
+        self.scheduler = scheduler
 
     def run(
         self,
@@ -502,7 +606,11 @@ class AgentTeamOrchestrator:
         *,
         runtime: RunContext,
     ) -> TeamRunResult:
-        state = TeamRunState()
+        state = TeamRunState(
+            topology=self.topology,
+            scheduler=self.scheduler,
+            allowed_roles=tuple(role.value for role in self.allowed_roles),
+        )
         state.evidence_ledger.add_initial(initial_evidence)
         self._trace(runtime, TraceEventType.TEAM_STARTED, state, initial_source_count=len(initial_evidence))
         if initial_evidence:
@@ -676,10 +784,16 @@ class AgentTeamOrchestrator:
             knowledge_scope=self.knowledge_scope,
             tool_runner=self.tool_runner,
         )
+        provider_calls_before = runtime.budget.provider_calls_used
         try:
             result = loop.run(worker_prompt, initial_evidence, runtime=runtime)
             state.worker_runs[worker_id] = result
-            report = self._report_from_run(task, worker_id, result)
+            report = self._report_from_run(
+                task,
+                worker_id,
+                result,
+                provider_calls=runtime.budget.provider_calls_used - provider_calls_before,
+            )
             if (
                 result.stop_reason is not None
                 and result.stop_reason.value == "model_error"
@@ -698,6 +812,7 @@ class AgentTeamOrchestrator:
                     claims=report.claims,
                     citation_ids=report.citation_ids,
                     observed_source_ids=report.observed_source_ids,
+                    provider_calls=report.provider_calls,
                     tool_proposals=report.tool_proposals,
                     tool_executions=report.tool_executions,
                     stop_reason=report.stop_reason,
@@ -734,6 +849,7 @@ class AgentTeamOrchestrator:
                 worker_id,
                 task.role,
                 TeamTaskStatus.FAILED,
+                provider_calls=runtime.budget.provider_calls_used - provider_calls_before,
                 error_code="worker_failed",
             )
             self._deliver_report(state, report, runtime, failure=True)
@@ -748,7 +864,12 @@ class AgentTeamOrchestrator:
             )
 
     def _report_from_run(
-        self, task: TeamTask, worker_id: str, result: AgentRunResult
+        self,
+        task: TeamTask,
+        worker_id: str,
+        result: AgentRunResult,
+        *,
+        provider_calls: int = 0,
     ) -> WorkerReport:
         observed_ids = tuple(item.source_id for item in result.observed_evidence)
         citation_ids = tuple(source_id for claim in result.claims for source_id in claim.citation_ids)
@@ -768,6 +889,7 @@ class AgentTeamOrchestrator:
             claims=tuple(result.claims),
             citation_ids=citation_ids,
             observed_source_ids=observed_ids,
+            provider_calls=provider_calls,
             tool_proposals=result.state.tool_proposals_used,
             tool_executions=result.state.tool_calls_used,
             stop_reason=result.stop_reason.value if result.stop_reason else None,
@@ -817,14 +939,15 @@ class AgentTeamOrchestrator:
                 return self.worker_model[role.value]
         return self.worker_model
 
-    @staticmethod
-    def _validate_delegation(tasks: Sequence[LeadTaskProposal]) -> tuple[LeadTaskProposal, ...]:
+    def _validate_delegation(self, tasks: Sequence[LeadTaskProposal]) -> tuple[LeadTaskProposal, ...]:
         proposals = tuple(
             item if isinstance(item, LeadTaskProposal) else LeadTaskProposal.from_value(item)
             for item in tasks
         )
         seen: set[TeamRole] = set()
         for proposal in proposals:
+            if proposal.role not in self.allowed_roles:
+                raise ValueError(f"worker role is not allowed: {proposal.role.value}")
             if proposal.role in seen:
                 raise ValueError("duplicate worker role")
             seen.add(proposal.role)
@@ -834,6 +957,9 @@ class AgentTeamOrchestrator:
     def _summary(state: TeamRunState) -> dict[str, Any]:
         return {
             "team_id": state.team_id,
+            "topology": state.topology,
+            "scheduler": state.scheduler,
+            "allowed_roles": list(state.allowed_roles),
             "lead_calls_used": state.lead_calls_used,
             "delegation_rounds_used": state.delegation_rounds_used,
             "tasks_created": state.tasks_created,
@@ -952,6 +1078,10 @@ def _is_budget_failure(exc: Exception, runtime: RunContext) -> bool:
 
 
 __all__ = [
+    "TEAM_ROLE_CONTRACT_IDS",
+    "TEAM_ROLE_SYSTEM_CONTRACTS",
+    "TEAM_SCHEDULER",
+    "TEAM_TOPOLOGY",
     "AgentTeamOrchestrator",
     "EvidenceOrigin",
     "EvidenceProvenance",
@@ -973,4 +1103,5 @@ __all__ = [
     "TeamTask",
     "TeamTaskStatus",
     "WorkerReport",
+    "worker_evidence_diversity",
 ]

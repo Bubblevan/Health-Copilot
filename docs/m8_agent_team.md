@@ -1,8 +1,12 @@
 # M8 — Bounded Agent Team
 
-M8 implements Harness Macro H5 as a bounded, sequential Team Lead plus two
-specialized worker roles. It is experimental orchestration, not Swarm,
+M8 implements Harness Macro H5 as a bounded star-topology Agent Team: a
+sequential Team Lead plus two specialized worker roles. It is experimental orchestration, not Swarm,
 persistent memory, a diagnostic system, or a replacement for the M3 verifier.
+
+The explicit orchestration identity is `topology=star-supervisor-v1` and
+`scheduler=sequential-v1`. The lead is the only coordinator; workers report
+only to the lead; no parallel subagent claim is made.
 
 ## Runtime topology
 
@@ -54,6 +58,15 @@ structured `WorkerReport` values. All provider and tool side effects still use
 the single parent `RunContext`, including one shared provider/tool/token/
 deadline budget.
 
+The two workers may use the same checkpoint, provider executor, and tools, but
+they do not share one system contract. The Evidence Worker is constrained to
+factual evidence acquisition and source coverage and must avoid recommendation
+synthesis. The Guideline Worker is constrained to guideline/recommendation
+context and publisher/jurisdiction distinctions and must avoid unsupported
+factual expansion. `allowed_roles` is passed into the orchestrator and enforced
+when a lead proposal is validated; the profile manifest therefore describes
+the executable role boundary, not only an identity label.
+
 ## Evidence and finalization
 
 `TeamEvidenceLedger` records every source as `INITIAL` or `WORKER`, with
@@ -97,8 +110,36 @@ exhaustion) are reported separately from route, evidence-group coverage,
 citation integrity, claim support, OOD behavior, and per-category metrics.
 No weighted overall score or production-default switch is implied.
 
+## Source Alignment
+
+M8 is aligned with the centralized hierarchical family of agent-team designs,
+but it is deliberately a closeout-sized control experiment rather than a
+general multi-agent platform. The decisions below are recorded so that future
+experiments do not silently change the M8 empirical baseline.
+
+| Source | Adopted | Intentionally deferred | Rejected for M8 | Why |
+| --- | --- | --- | --- | --- |
+| [Anthropic Multi-Agent Research](https://www.anthropic.com/engineering/multi-agent-research-system) | Lead-to-specialist delegation, explicit task boundaries, structured worker findings, and source-aware synthesis. | Parallel workers, iterative research loops, memory-backed plans, and a separate citation agent. | Open-web research, dynamic worker spawning, and unbounded replanning. | M8 must isolate role specialization and provenance before measuring live-agent gains. |
+| [Anthropic, Patterns and problems in emerging multiagent systems (2026)](https://www.anthropic.com/research/multiagent-systems) | Treat duplicate evidence, premature consensus, and missing unique information as measurable coordination risks; keep a central authority and auditable reports. | Reputation, richer trust calibration, dissent protocols, and adversarial multi-agent stress tests. | Peer-to-peer forums, long-lived peer goals, shared mutable workspaces, and decentralized coordination. | The reported conformity and coordination failures argue for a small, fail-closed control plane in M8. |
+| [Microsoft Agent Framework / Magentic](https://learn.microsoft.com/en-us/semantic-kernel/frameworks/agent/agent-orchestration/magentic) | Manager plus specialized participants as the reference family for centralized hierarchical orchestration. | Dynamic manager replanning, progress-aware agent selection, shared context, and multiple collaboration rounds. | Directly adopting the flexible Magentic workflow as the M8 runtime. | M8 needs fixed topology, sequential scheduling, and one delegation wave for deterministic attribution. |
+| [Magentic-One](https://arxiv.org/abs/2411.04468) | Central manager, bounded specialist roles, and manager-owned synthesis as an architectural comparison point. | General-purpose open-ended task solving, checkpointing, plan review, and adaptive recovery. | A direct Magentic-One implementation or its full participant set. | The M8 question is role-specialized health evidence handling, not general open-ended autonomy. |
+| [AgentScope / Alibaba AgentTeams](https://github.com/agentscope-ai/AgentTeams) | Manager–Worker vocabulary, explicit worker capability boundaries, and per-role execution metadata. | Human-in-the-loop operations, shared team rooms, external gateways, MCP configuration, and distributed deployment. | Matrix/shared-infrastructure coordination and external Manager/Worker control planes. | M8 remains an in-process, replayable harness with one parent budget and no new external control surface. |
+| [ClawArena-Team](https://arxiv.org/abs/2606.31174) | Execution-based management evidence, least-privilege awareness, and per-role trajectory records. | Multimodal, multi-directory, multi-turn dynamic workflows and its full management score. | Using its benchmark or score as an M8 quality claim. | M8 records the interface needed for later comparison without importing a different task domain or judge. |
+| [MultiAgentBench](https://aclanthology.org/2025.acl-long.421.pdf) | Topology-aware evaluation language and explicit contribution/coordination accounting. | Chain, tree, graph, competition, discussion, and long-horizon coordination protocols. | Dynamic graphs and non-star topology in the M8 execution path. | M8 freezes `star-supervisor-v1` so topology is not a confound in the L0/L1/L2 comparison. |
+| [Agent scaling / Ringelmann effect](https://arxiv.org/abs/2606.02646) | Deterministic `worker_evidence_overlap` and `worker_unique_evidence_contribution` indicators, plus strict worker/task caps. | Scale-law fitting, larger teams, heterogeneous-model ablations, and causal claims about useful team size. | Extrapolating a two-worker diagnostic into a scaling law or training signal. | The metrics expose redundancy and unique evidence now; they are not SHARP, SRPO, or Dr.MAS training data. |
+
+### Frozen M8 boundary
+
+M8 is a **bounded star-topology Agent Team** implementing only
+**centralized hierarchical orchestration**. It does not implement dynamic
+topology, decentralized MAS, A2A, MCP, Memory, or post-training. Those remain
+future work tracked beyond this closeout: M9 for topology/protocol/tool-surface
+expansion, M10 for Memory, and M11 for post-training. No M8 result should be
+reported as evidence for those later capabilities.
+
 ## Explicit non-goals
 
 M8 does not start MCP, sandbox, permissions, web search, memory, persistent
-conversation state, multimodal work, post-training, dynamic role creation,
-recursive delegation, worker parallelism, or diagnostic/doctor agents.
+conversation state, multimodal work, post-training, dynamic topology,
+decentralized MAS, A2A, dynamic role creation, recursive delegation, worker
+parallelism, or diagnostic/doctor agents.

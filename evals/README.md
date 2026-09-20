@@ -139,3 +139,12 @@ share the same dataset SHA, BM25 retriever, KnowledgeScope, provider model,
 and claim-support verifier. Team-only rates are null/not applicable for L0
 and L1. Cost dimensions remain first-class; no weighted overall score is
 reported.
+
+The frozen Team identity is `topology=star-supervisor-v1` and
+`scheduler=sequential-v1`. Team trajectories retain one metadata record per
+role, including provider calls, tool proposals/executions, observed source IDs,
+and final cited source contribution. The M8 aggregate metrics also expose
+`m8.worker_evidence_overlap` (pairwise observed-source Jaccard overlap) and
+`m8.worker_unique_evidence_contribution` (the fraction of union sources seen by
+exactly one role). These are deterministic diagnostics for redundancy and
+coverage; they are not training signals and do not imply a validated benchmark.

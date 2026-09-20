@@ -32,6 +32,10 @@ from ..retrieval.hybrid import (
     TokenOverlapReranker,
 )
 from ..team import (
+    TEAM_ROLE_CONTRACT_IDS,
+    TEAM_ROLE_SYSTEM_CONTRACTS,
+    TEAM_SCHEDULER,
+    TEAM_TOPOLOGY,
     AgentTeamOrchestrator,
     OpenAICompatibleTeamLeadModel,
     TeamBudgetConfig,
@@ -232,6 +236,7 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
                 "team_lead": {"model": None},
                 "team_worker": {"model": None},
                 "orchestration": {
+                    "topology": "star-supervisor-v1",
                     "scheduler": "sequential-v1",
                     "max_lead_calls": 2,
                     "max_workers_started": 2,
@@ -863,24 +868,30 @@ def _build_orchestrator(context: ComponentBuildContext) -> BuiltComponent:
         context.environment.get("resolved_team_worker_model")
         or _role_model(context, "team_worker")
     )
-    worker_prompt = (
-        "You are a bounded Health-Copilot Evidence or Guideline Worker. "
-        "Work only on the assigned objective. Use only observed evidence or the "
-        "single policy-approved search result. Never delegate or answer outside "
-        "the claim-first JSON contract. Return claims with citation_ids, or abstain."
-    )
-    worker_model = OpenAICompatibleAgentModel(
-        provider_executor=provider,
-        model=worker_model_name,
-        output_mode=AgentOutputMode.M3_CLAIM_FIRST,
-        provider_call_kind=ProviderCallKind.TEAM_WORKER,
-        system_prompt=worker_prompt,
-    )
+    worker_models = {
+        role: OpenAICompatibleAgentModel(
+            provider_executor=provider,
+            model=worker_model_name,
+            output_mode=AgentOutputMode.M3_CLAIM_FIRST,
+            provider_call_kind=ProviderCallKind.TEAM_WORKER,
+            system_prompt=(
+                f"{TEAM_ROLE_SYSTEM_CONTRACTS[role]} "
+                "Work only on the assigned objective. Use only observed evidence or the "
+                "single policy-approved search result. Never delegate or answer outside "
+                "the claim-first JSON contract. Return claims with citation_ids, or abstain."
+            ),
+        )
+        for role in TeamRole
+    }
     lead_model = OpenAICompatibleTeamLeadModel(provider, lead_model_name)
     cfg = _component_config(context.profile, ComponentKind.ORCHESTRATION)
     lead_contract = str(cfg.get("lead_contract", "team-lead-v1"))
     worker_contract = str(cfg.get("worker_contract", "m3-claim-first-v1"))
-    allowed_roles = tuple(cfg.get("allowed_roles", [role.value for role in TeamRole]))
+    allowed_roles = tuple(
+        TeamRole(role) for role in cfg.get("allowed_roles", [role.value for role in TeamRole])
+    )
+    topology = str(cfg.get("topology", TEAM_TOPOLOGY))
+    scheduler = str(cfg.get("scheduler", TEAM_SCHEDULER))
     team_config = TeamBudgetConfig(
         max_lead_calls=int(cfg.get("max_lead_calls", 2)),
         max_workers_started=int(cfg.get("max_workers_started", 2)),
@@ -894,13 +905,16 @@ def _build_orchestrator(context: ComponentBuildContext) -> BuiltComponent:
     ]
     orchestrator = AgentTeamOrchestrator(
         lead_model,
-        worker_model,
+        worker_models,
         ToolRegistry(tool_instances),
         config=team_config,
         evidence_policy=context.instances.get(
             (ComponentKind.POLICY, context.profile.policy)
         ),
         knowledge_scope=context.knowledge_scope,
+        allowed_roles=allowed_roles,
+        topology=topology,
+        scheduler=scheduler,
     )
     identity_config = {
         "lead_model": lead_model_name,
@@ -908,7 +922,11 @@ def _build_orchestrator(context: ComponentBuildContext) -> BuiltComponent:
         "lead_contract": lead_contract,
         "worker_contract": worker_contract,
         "allowed_roles": list(allowed_roles),
-        "scheduler": cfg.get("scheduler", "sequential-v1"),
+        "role_contracts": {
+            role.value: TEAM_ROLE_CONTRACT_IDS[role] for role in TeamRole
+        },
+        "topology": topology,
+        "scheduler": scheduler,
         **team_config.to_dict(),
     }
     return BuiltComponent(

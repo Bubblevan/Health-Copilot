@@ -349,6 +349,12 @@ class TeamMetricsGrader(BaseGrader):
                 "team_called": present,
                 "lead_calls": record.observed.get("team_lead_calls"),
                 "workers_started": record.observed.get("team_workers_started"),
+                "topology": record.observed.get("team_topology"),
+                "scheduler": record.observed.get("team_scheduler"),
+                "worker_evidence_overlap": record.observed.get("worker_evidence_overlap"),
+                "worker_unique_evidence_contribution": record.observed.get(
+                    "worker_unique_evidence_contribution"
+                ),
             },
             reason_codes=() if present else ("team_not_observed",),
         )
