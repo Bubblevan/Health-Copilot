@@ -131,7 +131,7 @@ M0–M5 的历史 evaluator 和 artifact path 保留。M7.1 已完成 target-spe
 proposal/execution provenance、trajectory_v1、eval-run/execution-run identity、
 standalone grounding parity 与 executable budget closeout；功能冻结 checkpoint 为
 `main@0d4656c9fc920f1a1c8639bac33c49d5d27f44aa`。
-## M8 — IMPLEMENTED / EXPERIMENTAL
+## M8 — FROZEN
 
 H5 Bounded Agent Team 已实现：
 
@@ -141,8 +141,13 @@ H5 Bounded Agent Team 已实现：
 - Lead/Worker 与既有 M4 ProviderExecutor、ToolRunner、EvidencePolicy、KnowledgeScope、RunBudget 共用父级运行上下文；
 - worker citation provenance 以及 M3 claim-support final boundary；
 - `m8-agent-team-focused-v1` 的 L0 workflow / L1 frozen single Agent / L2 team 比较定义；
-- candidate annotation manifest、Team-specific trace events 和 cost/topology metrics。
+- candidate annotation manifest、Team-specific trace events 和 cost/topology metrics；
+- M8.3 Team-Lead contract diagnosis、fail-closed failure taxonomy 与 v2 frozen comparison。
 
-M8 保持实验性，不替换 `m3-bm25-default` 产品默认配置。Team worker 调度有意保持顺序；M9 MCP/Sandbox/Permission、M10 Memory、M11 post-training 和 M12 multimodal 均未启动。详见 `docs/m8_agent_team.md`。
+H5 Agent Team — COMPLETE。M8 仍不替换 `m3-bm25-default` 产品默认配置；Team worker
+调度有意保持顺序。M9 MCP/Sandbox/Permission、M10 Memory、M11 post-training 和
+M12 multimodal 均未启动。v1 失败审计与 v2 closeout 见
+`docs/m8_empirical_v1_failure.md`、`docs/m8_empirical_v2_closeout.md` 和
+`docs/m8_agent_team.md`。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。
