@@ -1,5 +1,24 @@
 # Roadmap
 
+## Harness Macros
+
+宏观路线与里程碑路线分开记录，历史 M0–M5 artifact path 不改名：
+
+| Harness Macro | 主题 | 当前/计划映射 |
+| --- | --- | --- |
+| H0 | Vertical Slice | M0 |
+| H1 | Agent Core | M1 |
+| H2 | Harness Runtime | M2 + M3 + M4 |
+| H3 | Extensible / Plugin Runtime | M5 + M6 |
+| H4 | Agent Eval System | M7 |
+| H5 | Agent Team | M8 |
+| H6 | MCP / Sandbox / Permission | M9 |
+| H7 | Context / Memory | M10 |
+| H8 | Post-training | M11 |
+| H9 | Multimodal | M12（可选） |
+
+M7 之后的条目仍是 future work；本次只完成 H3/M6。
+
 ## M0 — Safety-Gated Evidence RAG（implemented）
 
 当前里程碑，目标是稳定的、非自主的 vertical slice：
@@ -69,12 +88,32 @@ M4 FINAL FROZEN：`main@51f0ee5a9352c5cabd360d302a2cef1eb9b5da25`。M4.1 明确�
 M5 has introduced a generic `RetrievalDocument`, frozen BM25 baseline, optional dense retrieval, RRF hybrid fusion,
 optional reranking, index provenance, an 80-case component-derived reviewed retrieval suite, retrieval-only ablation
 tooling, and a four-arm M3/M4 focused end-to-end diagnostic. Hybrid+CrossEncoder wins these retrieval diagnostics, but
-BM25 remains the default because of latency and focused-pack limits. See `docs/m5_retrieval.md`; no M6 work has started.
+BM25 remains the default because of latency and focused-pack limits. See `docs/m5_retrieval.md`; M6 now formalizes these
+frozen alternatives as explicit runtime profiles.
 
-## M6+ — Later extensions（planned）
+## M6 — Composable Runtime Profiles & Component Registry（implemented）
 
-后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；可考虑更广的 evaluation harness、
-provider boundaries、复杂证据研究、memory、dense/hybrid retrieval 或视觉输入。任何 post-training 都必须
-建立在固定评测集、trajectory/failure 数据和合规数据许可之上。
+M6 是 H3 的第二阶段，也是 M5 之后的第一个通用 subsystem replacement runtime：
+
+- `RuntimeProfile` 只包含 declarative component ID 与 JSON 配置；
+- `ComponentRegistry` 仅使用源码显式注册的 trusted in-process factory，不扫描、安装或动态导入；
+- `RuntimeBuilder` 一次构造 provider、retriever、policy、verifier、tool、trace 组件；
+- `ComponentIdentity`、`LearnedArtifactIdentity` 与 canonical `ComponentManifest` 提供 profile/component provenance；
+- manifest hash 进入 `RunIdentity.config_hash`、`RUN_START` metadata 与 replay compatibility；
+- `--profile` 区分 hashing/token-overlap demo 与 SentenceTransformer/CrossEncoder learned profile；缺失依赖、模型、revision 或 index 只会 fail closed；
+- `search_knowledge` 仍是唯一 product Agent tool，`ToolRegistry` 仍负责运行期 dispatch，未被 ComponentRegistry 替换。
+
+M5 的 80-case suite 仍是 component-derived regression/evaluation suite，不是独立 external generalization test；
+6-case E2E arm comparison 仍是 compatibility diagnostic，不能从一次随机小样本把 provider call count 或端到端
+latency 差异因果归因给 retrieval。M5 metrics 与 BM25 default 决策保持冻结。
+
+组件生命周期、单次 RunContext 生命周期和未来的 Session/Memory 生命周期明确分离；Memory 尚未实现。
+
+## M7 — Agent Eval System（planned）
+
+M6 之后的下一阶段是 H4/M7 Agent Eval System。它不在本次任务中启动。
+
+后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；任何 post-training 都必须建立在固定评测集、
+trajectory/failure 数据和合规数据许可之上。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。

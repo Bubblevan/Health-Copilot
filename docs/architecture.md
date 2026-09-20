@@ -105,6 +105,35 @@ public evaluation recording 必须显式 opt-in。Replay 对 canonical request f
 recorded provider/tool outputs 重跑相同 pipeline branch；mismatch、缺失 exchange 或 budget denial 都 fail closed。
 M4 没有增加 product tool，也没有修改 M0–M3 wire contracts。
 
+## M6 composable runtime profiles
+
+M6 adds an outer construction plane without changing the frozen AgentLoop,
+policy, verifier, provider transport, or `Retriever.search` contracts:
+
+```text
+RuntimeProfile -> ComponentRegistry -> RuntimeBuilder
+                         |                 |
+                         +-- trusted factories
+                                           v
+             RuntimeComponents + canonical ComponentManifest
+                                           |
+                                           v
+                         HealthCopilotPipeline / AgentLoop
+```
+
+Component construction is explicit and fail-closed. The profile selects IDs;
+execution code does not branch on profile names. `ComponentRegistry` constructs
+subsystems, while the existing `ToolRegistry` dispatches Agent tool calls.
+Long-lived retrievers/provider adapters are built once per `RuntimeComponents`;
+`RunContext`, `RunBudgetState`, `RunTrace`, and `AgentState` remain per-run
+state. Session/Memory lifetime is not implemented.
+
+Every M6 `RunContext` can carry `profile_id` and `component_manifest_hash`.
+They are emitted in `RUN_START` metadata and the manifest hash is also the
+run `config_hash`; metadata-only traces still reject medical content. Replay
+can require the recorded profile and manifest to match, while recorded tool
+exchanges can be replayed without constructing a live learned retriever.
+
 ## Later milestones
 
 后续再考虑 permission、production persistence、dense/hybrid retrieval、multimodal evidence 与 post-training；

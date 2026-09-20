@@ -67,5 +67,5 @@ are lower. External benchmark figures must not be presented as Health-Copilot pr
 M5 is **frozen** at implementation/evaluation checkpoint `main@a69801bde6826daaf02aa933c2cdf2a05697d42a`.
 `DEFAULT_RETRIEVER` remains **BM25**: Hybrid+CrossEncoder wins both reviewed retrieval diagnostics, but costs roughly
 three orders of magnitude more local retrieval latency, the end-to-end pack is only six cases, and the closed corpus is
-small. This is a conservative production-default decision, not a claim that BM25 wins every retrieval metric. M6 is not
-started.
+small. This is a conservative production-default decision, not a claim that BM25 wins every retrieval metric. M6
+formalizes these alternatives as explicit runtime profiles; it does not retune or replace this frozen decision.

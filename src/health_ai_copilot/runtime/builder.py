@@ -1,0 +1,632 @@
+"""Declarative profile construction for the trusted in-process runtime."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+from ..agent.model import AgentOutputMode, OpenAICompatibleAgentModel
+from ..agent.tools import ToolRegistry
+from ..config import load_openai_config
+from ..generation.openai_compatible import OpenAICompatibleGenerator
+from ..knowledge.scope import KnowledgeScope
+from ..pipeline import HealthCopilotPipeline
+from ..policy.model import OpenAICompatibleEvidencePolicy
+from ..retrieval.bm25 import BM25Retriever
+from ..retrieval.dense import (
+    DenseIndex,
+    DenseRetriever,
+    HashingEmbeddingBackend,
+    SentenceTransformerEmbeddingBackend,
+)
+from ..retrieval.documents import document_from_knowledge_card
+from ..retrieval.hybrid import (
+    HybridRetriever,
+    RerankedRetriever,
+    SentenceTransformerReranker,
+    TokenOverlapReranker,
+)
+from ..tools.search_knowledge import SearchKnowledgeTool
+from ..verification.grounding import (
+    OpenAICompatibleClaimSupportVerifier,
+    OpenAICompatibleGroundingVerifier,
+)
+from .budget import RunBudgetConfig
+from .components import (
+    BuiltComponent,
+    ComponentIdentity,
+    ComponentKind,
+    ComponentManifest,
+    LearnedArtifactIdentity,
+    config_hash,
+    implementation_name,
+)
+from .context import RunContext
+from .profile import RuntimeProfile
+from .provider import OpenAICompatibleProviderExecutor, ProviderExecutor
+from .registry import ComponentBuildContext, ComponentRegistry
+from .trace import RunTrace, TraceContentPolicy
+
+
+class RuntimeBuildError(RuntimeError):
+    """Raised when a profile cannot be constructed without a fallback."""
+
+
+@dataclass(frozen=True)
+class RuntimeBuildConfig:
+    """Per-builder environment/config boundary; profiles remain declarative."""
+
+    provider_executor: ProviderExecutor | None = None
+    provider_model: str | None = None
+    provider_base_url: str | None = None
+    artifact_revisions: Mapping[str, str] = field(default_factory=dict)
+    knowledge_pack_version: str = "m0.2-2026-09-15"
+    build_commit: str = "m6-runtime"
+    local_files_only: bool = True
+    run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
+
+
+class RuntimeTraceFactory:
+    """A cheap per-run trace factory owned by a built runtime profile."""
+
+    def __init__(self, default_policy: TraceContentPolicy = TraceContentPolicy.METADATA_ONLY):
+        self.default_policy = default_policy
+
+    def create(
+        self,
+        path: Path | None = None,
+        *,
+        content_policy: TraceContentPolicy | None = None,
+    ) -> RunTrace:
+        return RunTrace(path, content_policy or self.default_policy)
+
+
+@dataclass
+class RuntimeComponents:
+    """Long-lived component graph plus factories for execution-local state."""
+
+    profile: RuntimeProfile
+    provider_executor: ProviderExecutor
+    retriever: Any | None
+    generator: Any | None
+    agent_model: Any | None
+    evidence_policy: Any | None
+    grounding_verifier: Any | None
+    claim_support_verifier: Any | None
+    tool_registry: ToolRegistry
+    trace_factory: RuntimeTraceFactory
+    component_manifest: ComponentManifest
+    model_name: str
+    knowledge_scope: KnowledgeScope | None = None
+    run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
+
+    @property
+    def manifest_hash(self) -> str:
+        return self.component_manifest.manifest_hash
+
+    @property
+    def component_manifest_hash(self) -> str:
+        return self.component_manifest.manifest_hash
+
+    def write_manifest(self, path: Path) -> None:
+        self.component_manifest.write(path)
+
+    def create_run_context(
+        self,
+        *,
+        runtime_mode: str | None = None,
+        budget: RunBudgetConfig | None = None,
+        trace_path: Path | None = None,
+        content_policy: TraceContentPolicy = TraceContentPolicy.METADATA_ONLY,
+    ) -> RunContext:
+        trace = self.trace_factory.create(trace_path, content_policy=content_policy)
+        return RunContext.create(
+            runtime_mode or self.profile.mode,
+            budget=budget or self.run_budget,
+            trace=trace,
+            profile_id=self.profile.profile_id,
+            component_manifest_hash=self.manifest_hash,
+            config_hash=self.manifest_hash,
+        )
+
+    def pipeline(self, *, runtime: RunContext | None = None, tool_runner=None) -> HealthCopilotPipeline:
+        """Create an execution facade over the already-built long-lived graph."""
+
+        return HealthCopilotPipeline(
+            self.retriever,
+            generator=self.generator,
+            agent_model=self.agent_model,
+            tool_registry=self.tool_registry,
+            evidence_policy=self.evidence_policy,
+            grounding_verifier=self.grounding_verifier,
+            claim_support_verifier=self.claim_support_verifier,
+            knowledge_scope=self.knowledge_scope,
+            runtime=runtime,
+            tool_runner=tool_runner,
+        )
+
+
+def default_runtime_profiles() -> dict[str, RuntimeProfile]:
+    """Return the source-defined M6 profiles and their explicit retrieval names."""
+
+    provider = "openai-compatible-v1"
+    search = ("search-knowledge-v1",)
+    profiles = {
+        "m0-bm25-default": RuntimeProfile(
+            "m0-bm25-default", provider, "bm25-v1", tool_set=(), mode="m0"
+        ),
+        "m1-bm25-default": RuntimeProfile(
+            "m1-bm25-default", provider, "bm25-v1", tool_set=search, mode="m1"
+        ),
+        "m2-bm25-default": RuntimeProfile(
+            "m2-bm25-default",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m2-v1",
+            verifier="grounding-v1",
+            tool_set=search,
+            mode="m2",
+        ),
+        "m3-bm25-default": RuntimeProfile(
+            "m3-bm25-default",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+        ),
+        "m3-dense-hashing-demo": RuntimeProfile(
+            "m3-dense-hashing-demo",
+            provider,
+            "dense-hashing-demo-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+        ),
+        "m3-hybrid-hashing-demo": RuntimeProfile(
+            "m3-hybrid-hashing-demo",
+            provider,
+            "hybrid-hashing-demo-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+        ),
+        "m3-hybrid-token-rerank-demo": RuntimeProfile(
+            "m3-hybrid-token-rerank-demo",
+            provider,
+            "hybrid-token-rerank-demo-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+        ),
+        "m3-dense-st-multilingual-minilm": RuntimeProfile(
+            "m3-dense-st-multilingual-minilm",
+            provider,
+            "dense-st-multilingual-minilm-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+            config={"retriever": {"embedding_revision": None}},
+        ),
+        "m3-hybrid-rrf-st": RuntimeProfile(
+            "m3-hybrid-rrf-st",
+            provider,
+            "hybrid-rrf-st-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+            config={"retriever": {"embedding_revision": None}},
+        ),
+        "m3-hybrid-rerank-local": RuntimeProfile(
+            "m3-hybrid-rerank-local",
+            provider,
+            "hybrid-rerank-st-mmarco-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m3",
+            config={
+                "retriever": {
+                    "embedding_revision": None,
+                    "reranker_revision": None,
+                    "candidate_top_k": 10,
+                }
+            },
+        ),
+    }
+    return profiles
+
+
+def default_component_registry() -> ComponentRegistry:
+    """Build the explicit source registration table used by RuntimeBuilder."""
+
+    registry = ComponentRegistry()
+    registry.register(
+        ComponentKind.PROVIDER,
+        "openai-compatible-v1",
+        _build_provider,
+        implementation="health_ai_copilot.runtime.provider.OpenAICompatibleProviderExecutor",
+    )
+    registry.register(ComponentKind.RETRIEVER, "bm25-v1", _build_bm25, implementation="health_ai_copilot.retrieval.bm25.BM25Retriever")
+    registry.register(ComponentKind.RETRIEVER, "dense-hashing-demo-v1", _build_dense_hashing, implementation="health_ai_copilot.retrieval.dense.DenseRetriever[HashingEmbeddingBackend]")
+    registry.register(ComponentKind.RETRIEVER, "hybrid-hashing-demo-v1", _build_hybrid_hashing, implementation="health_ai_copilot.retrieval.hybrid.HybridRetriever[hashing]")
+    registry.register(ComponentKind.RETRIEVER, "hybrid-token-rerank-demo-v1", _build_hybrid_token, implementation="health_ai_copilot.retrieval.hybrid.HybridRetriever+TokenOverlapReranker")
+    registry.register(ComponentKind.RETRIEVER, "dense-st-multilingual-minilm-v1", _build_dense_st, implementation="health_ai_copilot.retrieval.dense.DenseRetriever[SentenceTransformer]", optional_dependency="sentence-transformers")
+    registry.register(ComponentKind.RETRIEVER, "hybrid-rrf-st-v1", _build_hybrid_rrf_st, implementation="health_ai_copilot.retrieval.hybrid.HybridRetriever[SentenceTransformer]", optional_dependency="sentence-transformers")
+    registry.register(ComponentKind.RETRIEVER, "hybrid-rerank-st-mmarco-v1", _build_hybrid_rerank_st, implementation="health_ai_copilot.retrieval.hybrid.HybridRetriever+SentenceTransformerReranker", optional_dependency="sentence-transformers")
+    registry.register(ComponentKind.POLICY, "evidence-policy-m2-v1", _build_policy_m2, implementation="health_ai_copilot.policy.model.OpenAICompatibleEvidencePolicy")
+    registry.register(ComponentKind.POLICY, "evidence-policy-m3-v1", _build_policy_m3, implementation="health_ai_copilot.policy.model.OpenAICompatibleEvidencePolicy")
+    registry.register(ComponentKind.VERIFIER, "grounding-v1", _build_grounding, implementation="health_ai_copilot.verification.grounding.OpenAICompatibleGroundingVerifier")
+    registry.register(ComponentKind.VERIFIER, "claim-support-v1", _build_claim_support, implementation="health_ai_copilot.verification.grounding.OpenAICompatibleClaimSupportVerifier")
+    registry.register(ComponentKind.TOOL, "search-knowledge-v1", _build_search_tool, implementation="health_ai_copilot.tools.search_knowledge.SearchKnowledgeTool")
+    registry.register(ComponentKind.TRACE, "metadata-jsonl-v1", _build_metadata_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
+    registry.register(ComponentKind.TRACE, "public-eval-jsonl-v1", _build_public_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
+    return registry
+
+
+class RuntimeBuilder:
+    """Construct a profile graph once; request state is created separately."""
+
+    def __init__(
+        self,
+        registry: ComponentRegistry | None = None,
+        *,
+        environment: RuntimeBuildConfig | Mapping[str, Any] | None = None,
+    ) -> None:
+        self.registry = registry or default_component_registry()
+        if environment is None:
+            self.environment = RuntimeBuildConfig()
+        elif isinstance(environment, RuntimeBuildConfig):
+            self.environment = environment
+        else:
+            self.environment = RuntimeBuildConfig(**dict(environment))
+
+    def build(
+        self,
+        profile: RuntimeProfile,
+        *,
+        cards: Sequence[Any],
+        knowledge_scope: KnowledgeScope | None = None,
+        run_context_config: RunBudgetConfig | None = None,
+        replay_initial_evidence: Mapping[str, Sequence[Any]] | None = None,
+    ) -> RuntimeComponents:
+        self._validate_profile(profile, knowledge_scope)
+        instances: dict[tuple[ComponentKind, str], Any] = {}
+        identities: list[ComponentIdentity] = []
+
+        def construct(kind: ComponentKind, component_id: str) -> Any:
+            context = ComponentBuildContext(
+                profile=profile,
+                cards=tuple(cards),
+                knowledge_scope=knowledge_scope,
+                environment=self._environment_dict(),
+                instances=instances,
+            )
+            binding = self.registry.build(kind, component_id, context)
+            instances[(kind, component_id)] = binding.instance
+            identities.append(binding.identity)
+            return binding.instance
+
+        provider = construct(ComponentKind.PROVIDER, profile.provider)
+        model_name = self._model_name(profile)
+        if replay_initial_evidence is not None:
+            retriever = _RecordedEvidenceRetriever(replay_initial_evidence)
+            instances[(ComponentKind.RETRIEVER, profile.retriever)] = retriever
+            retriever_identity = ComponentIdentity(
+                ComponentKind.RETRIEVER,
+                profile.retriever,
+                "health_ai_copilot.runtime.builder.RecordedEvidenceRetriever",
+                "1",
+                config_hash=config_hash({"replay_initial_evidence": sorted(replay_initial_evidence)}),
+            )
+            identities.append(retriever_identity)
+        else:
+            retriever = construct(ComponentKind.RETRIEVER, profile.retriever)
+
+        policy = construct(ComponentKind.POLICY, profile.policy) if profile.policy else None
+        verifier = construct(ComponentKind.VERIFIER, profile.verifier) if profile.verifier else None
+
+        tools = [construct(ComponentKind.TOOL, item) for item in profile.tool_set]
+        tool_registry = ToolRegistry(tools)
+        trace_factory = construct(ComponentKind.TRACE, profile.trace)
+
+        generator = None
+        agent_model = None
+        if profile.mode == "m0":
+            generator = OpenAICompatibleGenerator(provider_executor=provider, model=model_name)
+        elif profile.mode in {"m1", "m2", "m3"}:
+            output_mode = {
+                "m1": AgentOutputMode.M1,
+                "m2": AgentOutputMode.M2_GROUNDED,
+                "m3": AgentOutputMode.M3_CLAIM_FIRST,
+            }[profile.mode]
+            agent_model = OpenAICompatibleAgentModel(
+                provider_executor=provider,
+                model=model_name,
+                output_mode=output_mode,
+            )
+        else:
+            raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
+
+        manifest = ComponentManifest(
+            profile_id=profile.profile_id,
+            components=tuple(identities),
+            knowledge_pack_version=self.environment.knowledge_pack_version,
+            knowledge_scope_version=knowledge_scope.version if knowledge_scope else None,
+            profile_config_hash=profile.config_hash,
+        )
+        return RuntimeComponents(
+            profile,
+            provider,
+            retriever,
+            generator,
+            agent_model,
+            policy,
+            verifier if profile.mode == "m2" else None,
+            verifier if profile.mode == "m3" else None,
+            tool_registry,
+            trace_factory,
+            manifest,
+            model_name,
+            knowledge_scope,
+            run_context_config or self.environment.run_budget,
+        )
+
+    def _environment_dict(self) -> dict[str, Any]:
+        return {
+            "provider_executor": self.environment.provider_executor,
+            "provider_model": self.environment.provider_model,
+            "provider_base_url": self.environment.provider_base_url,
+            "artifact_revisions": dict(self.environment.artifact_revisions),
+            "knowledge_pack_version": self.environment.knowledge_pack_version,
+            "build_commit": self.environment.build_commit,
+            "local_files_only": self.environment.local_files_only,
+        }
+
+    def _model_name(self, profile: RuntimeProfile) -> str:
+        config = _component_config(profile, ComponentKind.PROVIDER)
+        explicit = self.environment.provider_model or config.get("model")
+        if explicit:
+            return str(explicit)
+        if self.environment.provider_executor is not None:
+            return "injected-provider-model"
+        return load_openai_config().model
+
+    def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
+        if profile.mode not in {"m0", "m1", "m2", "m3"}:
+            raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
+        if profile.mode == "m3" and scope is None:
+            raise RuntimeBuildError("m3 profile requires a KnowledgeScope")
+        if profile.mode == "m2" and (profile.policy is None or profile.verifier is None):
+            raise RuntimeBuildError("m2 profile requires policy and verifier components")
+        if profile.mode == "m3" and (profile.policy is None or profile.verifier is None):
+            raise RuntimeBuildError("m3 profile requires policy and verifier components")
+        if profile.mode in {"m1", "m2", "m3"} and not profile.tool_set:
+            raise RuntimeBuildError(f"{profile.mode} profile requires an explicit tool set")
+
+
+class _RecordedEvidenceRetriever:
+    """Replay-only initial evidence source; it never constructs a live retriever."""
+
+    def __init__(self, rows: Mapping[str, Sequence[Any]]) -> None:
+        self._rows = {key: tuple(value) for key, value in rows.items()}
+
+    def search(self, query: str, top_k: int = 5) -> list[Any]:
+        return list(self._rows.get(query, ()))[:top_k]
+
+
+def _component_config(profile: RuntimeProfile, kind: ComponentKind) -> Mapping[str, Any]:
+    raw = profile.config.get(kind.value, {})
+    if not isinstance(raw, Mapping):
+        raise TypeError(f"profile {kind.value} config must be an object")
+    return raw
+
+
+def _identity(
+    kind: ComponentKind,
+    component_id: str,
+    implementation: str,
+    config: object,
+    *,
+    artifact_revision: str | None = None,
+    learned_artifacts: tuple[LearnedArtifactIdentity, ...] = (),
+) -> ComponentIdentity:
+    return ComponentIdentity(
+        kind,
+        component_id,
+        implementation,
+        "1",
+        artifact_revision=artifact_revision,
+        config_hash=config_hash(config),
+        learned_artifacts=learned_artifacts,
+    )
+
+
+def _build_provider(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = _component_config(context.profile, ComponentKind.PROVIDER)
+    executor = context.environment.get("provider_executor")
+    model = context.environment.get("provider_model") or cfg.get("model")
+    base_url = context.environment.get("provider_base_url") or cfg.get("base_url")
+    if executor is None:
+        config = load_openai_config(model_override=str(model) if model else None)
+        executor = OpenAICompatibleProviderExecutor(config)
+        model, base_url = config.model, config.base_url
+    if not hasattr(executor, "execute"):
+        raise TypeError("provider executor must implement execute")
+    return BuiltComponent(
+        executor,
+        _identity(
+            ComponentKind.PROVIDER,
+            context.profile.provider,
+            "health_ai_copilot.runtime.provider.OpenAICompatibleProviderExecutor",
+            {"model": model or "injected-provider-model", "base_url": base_url},
+        ),
+    )
+
+
+def _build_bm25(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = _component_config(context.profile, ComponentKind.RETRIEVER)
+    k1, b = float(cfg.get("k1", 1.5)), float(cfg.get("b", 0.75))
+    retriever = BM25Retriever(context.cards, k1=k1, b=b)
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, implementation_name(retriever), {"k1": k1, "b": b}))
+
+
+def _hashing_dense(context: ComponentBuildContext):
+    cfg = _component_config(context.profile, ComponentKind.RETRIEVER)
+    dimension = int(cfg.get("dimension", 256))
+    backend = HashingEmbeddingBackend(dimension)
+    retriever = DenseRetriever.from_knowledge_cards(
+        context.cards,
+        backend,
+        knowledge_pack_version=context.environment["knowledge_pack_version"],
+        build_commit=context.environment["build_commit"],
+    )
+    return retriever, {"dimension": dimension, "backend": backend.identity}
+
+
+def _build_dense_hashing(context: ComponentBuildContext) -> BuiltComponent:
+    retriever, cfg = _hashing_dense(context)
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.dense.DenseRetriever[HashingEmbeddingBackend]", cfg))
+
+
+def _build_hybrid_hashing(context: ComponentBuildContext) -> BuiltComponent:
+    bm25 = BM25Retriever(context.cards)
+    dense, cfg = _hashing_dense(context)
+    retriever = HybridRetriever(bm25, dense)
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.hybrid.HybridRetriever[hashing]", {**cfg, "rrf_k": retriever.rrf_k}))
+
+
+def _build_hybrid_token(context: ComponentBuildContext) -> BuiltComponent:
+    bm25 = BM25Retriever(context.cards)
+    dense, dense_cfg = _hashing_dense(context)
+    hybrid = HybridRetriever(bm25, dense)
+    reranker = TokenOverlapReranker()
+    retriever = RerankedRetriever(hybrid, reranker, candidate_top_k=int(_component_config(context.profile, ComponentKind.RETRIEVER).get("candidate_top_k", 10)))
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.hybrid.HybridRetriever+TokenOverlapReranker", {**dense_cfg, "candidate_top_k": retriever.candidate_top_k}))
+
+
+def _artifact_revision(context: ComponentBuildContext, key: str, cfg: Mapping[str, Any]) -> str | None:
+    explicit = cfg.get(key)
+    revisions = context.environment.get("artifact_revisions", {})
+    if explicit is None:
+        explicit = revisions.get(key) or revisions.get(context.profile.retriever)
+    if explicit is None:
+        return None
+    if not isinstance(explicit, str) or not explicit.strip():
+        raise ValueError(f"{key} must be a non-empty revision string or null")
+    return explicit.strip()
+
+
+def _learned_backend(context: ComponentBuildContext):
+    cfg = _component_config(context.profile, ComponentKind.RETRIEVER)
+    model_id = str(cfg.get("embedding_model", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"))
+    revision = _artifact_revision(context, "embedding_revision", cfg)
+    local_files_only = bool(cfg.get("local_files_only", context.environment["local_files_only"]))
+    backend = SentenceTransformerEmbeddingBackend(
+        model_id,
+        revision=revision,
+        local_files_only=local_files_only,
+    )
+    artifact = LearnedArtifactIdentity(
+        "sentence-transformers",
+        "embedding",
+        model_id,
+        revision,
+        local_files_only,
+        backend.dimension,
+    )
+    return backend, artifact
+
+
+def _learned_dense(context: ComponentBuildContext):
+    backend, artifact = _learned_backend(context)
+    cfg = _component_config(context.profile, ComponentKind.RETRIEVER)
+    index = DenseIndex.build(
+        [document_from_knowledge_card(card) for card in context.cards],
+        backend,
+        knowledge_pack_version=context.environment["knowledge_pack_version"],
+        build_commit=context.environment["build_commit"],
+    )
+    index_dir = cfg.get("index_dir")
+    if index_dir is not None:
+        # Loading is strict: a missing or stale manifest is a construction error,
+        # and the freshly built candidate is never used as a fallback.
+        index = DenseIndex.load(Path(str(index_dir)), expected=index.manifest)
+    retriever = DenseRetriever(index, backend)
+    return retriever, artifact
+
+
+def _build_dense_st(context: ComponentBuildContext) -> BuiltComponent:
+    retriever, artifact = _learned_dense(context)
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.dense.DenseRetriever[SentenceTransformer]", {"embedding": artifact.to_dict()}, artifact_revision=artifact.revision, learned_artifacts=(artifact,)))
+
+
+def _build_hybrid_rrf_st(context: ComponentBuildContext) -> BuiltComponent:
+    bm25 = BM25Retriever(context.cards)
+    dense, artifact = _learned_dense(context)
+    retriever = HybridRetriever(bm25, dense)
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.hybrid.HybridRetriever[SentenceTransformer]", {"embedding": artifact.to_dict(), "rrf_k": retriever.rrf_k}, artifact_revision=artifact.revision, learned_artifacts=(artifact,)))
+
+
+def _build_hybrid_rerank_st(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = _component_config(context.profile, ComponentKind.RETRIEVER)
+    bm25 = BM25Retriever(context.cards)
+    dense, embedding_artifact = _learned_dense(context)
+    hybrid = HybridRetriever(bm25, dense)
+    model_id = str(cfg.get("reranker_model", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"))
+    revision = _artifact_revision(context, "reranker_revision", cfg)
+    local_files_only = bool(cfg.get("local_files_only", context.environment["local_files_only"]))
+    reranker = SentenceTransformerReranker(model_id, revision=revision, local_files_only=local_files_only)
+    reranker_artifact = LearnedArtifactIdentity("sentence-transformers", "cross-encoder", model_id, revision, local_files_only)
+    retriever = RerankedRetriever(hybrid, reranker, candidate_top_k=int(cfg.get("candidate_top_k", 10)))
+    revisions = [item.revision for item in (embedding_artifact, reranker_artifact) if item.revision]
+    artifact_revision = ";".join(revisions) if len(revisions) == 2 else None
+    return BuiltComponent(retriever, _identity(ComponentKind.RETRIEVER, context.profile.retriever, "health_ai_copilot.retrieval.hybrid.HybridRetriever+SentenceTransformerReranker", {"embedding": embedding_artifact.to_dict(), "reranker": reranker_artifact.to_dict(), "candidate_top_k": retriever.candidate_top_k}, artifact_revision=artifact_revision, learned_artifacts=(embedding_artifact, reranker_artifact)))
+
+
+def _provider_from(context: ComponentBuildContext):
+    return context.instances[(ComponentKind.PROVIDER, context.profile.provider)]
+
+
+def _build_policy_m2(context: ComponentBuildContext) -> BuiltComponent:
+    policy = OpenAICompatibleEvidencePolicy(provider_executor=_provider_from(context), knowledge_scope=None)
+    return BuiltComponent(policy, _identity(ComponentKind.POLICY, context.profile.policy or "evidence-policy-m2-v1", implementation_name(policy), {"scope": "m2"}))
+
+
+def _build_policy_m3(context: ComponentBuildContext) -> BuiltComponent:
+    if context.knowledge_scope is None:
+        raise ValueError("M3 evidence policy requires a knowledge scope")
+    policy = OpenAICompatibleEvidencePolicy(provider_executor=_provider_from(context), knowledge_scope=context.knowledge_scope)
+    return BuiltComponent(policy, _identity(ComponentKind.POLICY, context.profile.policy or "evidence-policy-m3-v1", implementation_name(policy), {"scope_id": context.knowledge_scope.scope_id, "scope_version": context.knowledge_scope.version}))
+
+
+def _build_grounding(context: ComponentBuildContext) -> BuiltComponent:
+    verifier = OpenAICompatibleGroundingVerifier(provider_executor=_provider_from(context))
+    return BuiltComponent(verifier, _identity(ComponentKind.VERIFIER, context.profile.verifier or "grounding-v1", implementation_name(verifier), {"kind": "grounding"}))
+
+
+def _build_claim_support(context: ComponentBuildContext) -> BuiltComponent:
+    verifier = OpenAICompatibleClaimSupportVerifier(provider_executor=_provider_from(context))
+    return BuiltComponent(verifier, _identity(ComponentKind.VERIFIER, context.profile.verifier or "claim-support-v1", implementation_name(verifier), {"kind": "claim_support"}))
+
+
+def _build_search_tool(context: ComponentBuildContext) -> BuiltComponent:
+    retriever = context.instances[(ComponentKind.RETRIEVER, context.profile.retriever)]
+    tool = SearchKnowledgeTool(retriever, knowledge_scope=context.knowledge_scope)
+    return BuiltComponent(tool, _identity(ComponentKind.TOOL, "search-knowledge-v1", implementation_name(tool), {"top_k": 3, "scope_version": context.knowledge_scope.version if context.knowledge_scope else None}))
+
+
+def _build_metadata_trace(context: ComponentBuildContext) -> BuiltComponent:
+    return BuiltComponent(RuntimeTraceFactory(), _identity(ComponentKind.TRACE, context.profile.trace, "health_ai_copilot.runtime.trace.RunTrace", {"content_policy": "metadata_only"}))
+
+
+def _build_public_trace(context: ComponentBuildContext) -> BuiltComponent:
+    return BuiltComponent(RuntimeTraceFactory(TraceContentPolicy.PUBLIC_EVAL_CONTENT), _identity(ComponentKind.TRACE, context.profile.trace, "health_ai_copilot.runtime.trace.RunTrace", {"content_policy": "public_eval_content"}))

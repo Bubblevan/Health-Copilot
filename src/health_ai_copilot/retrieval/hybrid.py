@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from dataclasses import replace
 
 from ..contracts import Evidence
+from ..runtime.components import LearnedArtifactIdentity
 from .tokenizer import tokenize
 
 
@@ -76,14 +77,31 @@ class SentenceTransformerReranker(Reranker):
     """Optional local learned cross-encoder reranker; unavailable dependencies fail clearly."""
 
     def __init__(
-        self, model_name: str, *, device: str | None = None, local_files_only: bool = True
+        self,
+        model_name: str,
+        *,
+        revision: str | None = None,
+        device: str | None = None,
+        local_files_only: bool = True,
     ) -> None:
         try:
             from sentence_transformers import CrossEncoder
         except ImportError as exc:
             raise RuntimeError("install the retrieval extra for sentence-transformers") from exc
-        self.identity = f"sentence-transformers-cross-encoder:{model_name}"
-        self._model = CrossEncoder(model_name, device=device, local_files_only=local_files_only)
+        self.identity = f"sentence-transformers-cross-encoder:{model_name}@{revision or 'unresolved'}"
+        self._model = CrossEncoder(
+            model_name,
+            revision=revision,
+            device=device,
+            local_files_only=local_files_only,
+        )
+        self.artifact_identity = LearnedArtifactIdentity(
+            provider="sentence-transformers",
+            family="cross-encoder",
+            model_id=model_name,
+            revision=revision,
+            local_files_only=local_files_only,
+        )
 
     def rerank(self, query: str, candidates: Sequence[Evidence], top_k: int) -> list[Evidence]:
         scores = self._model.predict([(query, f"{item.title}\n{item.excerpt}") for item in candidates])

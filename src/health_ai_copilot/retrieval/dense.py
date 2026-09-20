@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Protocol
 
 from ..contracts import Evidence, KnowledgeCard
+from ..runtime.components import LearnedArtifactIdentity
 from .documents import RetrievalDocument, document_from_knowledge_card
 
 
@@ -83,19 +84,35 @@ class SentenceTransformerEmbeddingBackend:
     """Optional local dense backend; CI never imports or downloads it by default."""
 
     def __init__(
-        self, model_name: str, *, device: str | None = None, local_files_only: bool = True
+        self,
+        model_name: str,
+        *,
+        revision: str | None = None,
+        device: str | None = None,
+        local_files_only: bool = True,
     ) -> None:
         try:
             from sentence_transformers import SentenceTransformer
         except ImportError as exc:
             raise DenseBackendUnavailable("install the retrieval extra for sentence-transformers") from exc
-        self.identity = f"sentence-transformers:{model_name}"
+        self.identity = f"sentence-transformers:{model_name}@{revision or 'unresolved'}"
         self._model = SentenceTransformer(
-            model_name, device=device, local_files_only=local_files_only
+            model_name,
+            revision=revision,
+            device=device,
+            local_files_only=local_files_only,
         )
         # sentence-transformers exposes the same dimension through this stable
         # public method; the older get_sentence_embedding_dimension is deprecated.
         self.dimension = int(self._model.get_embedding_dimension())
+        self.artifact_identity = LearnedArtifactIdentity(
+            provider="sentence-transformers",
+            family="embedding",
+            model_id=model_name,
+            revision=revision,
+            local_files_only=local_files_only,
+            dimension=self.dimension,
+        )
 
     def embed_documents(self, texts: Sequence[str]) -> Sequence[Sequence[float]]:
         return self._model.encode(list(texts), normalize_embeddings=True).tolist()

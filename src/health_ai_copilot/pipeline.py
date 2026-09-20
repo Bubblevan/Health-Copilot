@@ -12,6 +12,7 @@ from .generation.base import Generator
 from .knowledge.scope import KnowledgeScope
 from .policy.evidence import EvidencePolicy
 from .runtime.context import RunContext
+from .runtime.tools import ToolRunner
 from .runtime.trace import TraceEventType
 from .safety import route_question
 from .tools.search_knowledge import SearchKnowledgeTool
@@ -124,6 +125,7 @@ class HealthCopilotPipeline:
         knowledge_scope: KnowledgeScope | None = None,
         claim_support_verifier: ClaimSupportVerifier | None = None,
         runtime: RunContext | None = None,
+        tool_runner: ToolRunner | None = None,
     ):
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
@@ -182,6 +184,7 @@ class HealthCopilotPipeline:
                 evidence_policy=evidence_policy,
                 knowledge_scope=knowledge_scope,
                 runtime=runtime,
+                tool_runner=tool_runner,
             )
 
     def answer(self, question: str) -> AssistantResponse:

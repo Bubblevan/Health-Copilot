@@ -33,6 +33,14 @@ class RecordedProviderExchange:
     request_fingerprint: str
 
 
+@dataclass(frozen=True)
+class ReplayMetadata:
+    """Identity recorded beside a new M6 exchange pack."""
+
+    profile_id: str | None = None
+    component_manifest_hash: str | None = None
+
+
 class RecordingProviderExecutor:
     """Records successful provider exchanges while preserving one delegated call."""
 
@@ -51,11 +59,24 @@ class RecordingProviderExecutor:
 class ReplayProviderExecutor:
     """Returns a recorded response only when the full request contract matches."""
 
-    def __init__(self, exchanges: Sequence[RecordedProviderExchange]) -> None:
+    def __init__(
+        self,
+        exchanges: Sequence[RecordedProviderExchange],
+        *,
+        recorded_metadata: ReplayMetadata | None = None,
+        expected_profile_id: str | None = None,
+        expected_component_manifest_hash: str | None = None,
+    ) -> None:
         self._exchanges = list(exchanges)
         self.requests: list[ProviderRequest] = []
+        self.recorded_metadata = recorded_metadata
+        self.expected_profile_id = expected_profile_id
+        self.expected_component_manifest_hash = expected_component_manifest_hash
+        self._metadata_checked = False
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
+        if not self._check_metadata(runtime):
+            raise ProviderFailure(ProviderFailureKind.REPLAY_MISMATCH)
         try:
             runtime.budget.guard_provider()
         except BudgetDenied as exc:
@@ -80,6 +101,27 @@ class ReplayProviderExecutor:
         )
         runtime.budget.record_usage(normalized.usage)
         return normalized
+
+    def _check_metadata(self, runtime: RunContext) -> bool:
+        if self._metadata_checked:
+            return True
+        expected_profile = self.expected_profile_id or runtime.identity.profile_id
+        expected_manifest = (
+            self.expected_component_manifest_hash
+            or runtime.identity.component_manifest_hash
+        )
+        if expected_profile is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.profile_id != expected_profile
+        ):
+            return False
+        if expected_manifest is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.component_manifest_hash != expected_manifest
+        ):
+            return False
+        self._metadata_checked = True
+        return True
 
     @property
     def remaining_exchanges(self) -> int:
@@ -109,13 +151,28 @@ class RecordingToolRunner:
 class ReplayToolRunner:
     """Serves recorded tool observations and never owns a live registry or network client."""
 
-    def __init__(self, exchanges: Sequence[RecordedToolExchange]) -> None:
+    def __init__(
+        self,
+        exchanges: Sequence[RecordedToolExchange],
+        *,
+        recorded_metadata: ReplayMetadata | None = None,
+        expected_profile_id: str | None = None,
+        expected_component_manifest_hash: str | None = None,
+    ) -> None:
         self._exchanges = list(exchanges)
         self.calls: list[ToolCall] = []
+        self.recorded_metadata = recorded_metadata
+        self.expected_profile_id = expected_profile_id
+        self.expected_component_manifest_hash = expected_component_manifest_hash
+        self._metadata_checked = False
 
     def execute(self, call: ToolCall, runtime: RunContext) -> ToolResult:
         from ..agent.tools import ToolResult
 
+        if not self._check_metadata(runtime):
+            return ToolResult.failure(
+                "replay_mismatch", "recorded profile/component manifest does not match"
+            )
         try:
             runtime.budget.guard_tool()
         except BudgetDenied as exc:
@@ -129,6 +186,27 @@ class ReplayToolRunner:
         ):
             return ToolResult.failure("replay_mismatch", "recorded tool exchange does not match")
         return exchange.result
+
+    def _check_metadata(self, runtime: RunContext) -> bool:
+        if self._metadata_checked:
+            return True
+        expected_profile = self.expected_profile_id or runtime.identity.profile_id
+        expected_manifest = (
+            self.expected_component_manifest_hash
+            or runtime.identity.component_manifest_hash
+        )
+        if expected_profile is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.profile_id != expected_profile
+        ):
+            return False
+        if expected_manifest is not None and (
+            self.recorded_metadata is None
+            or self.recorded_metadata.component_manifest_hash != expected_manifest
+        ):
+            return False
+        self._metadata_checked = True
+        return True
 
     @property
     def remaining_exchanges(self) -> int:
