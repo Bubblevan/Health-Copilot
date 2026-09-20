@@ -20,6 +20,12 @@ expert validation claim.
 M3 expansion files use the same candidate/review-manifest workflow. They do
 not alter frozen `m3_capability.jsonl` or `m3_claim_support.jsonl`.
 
+`m3_capability_expansion_v1.review.json` and
+`m3_claim_support_expansion_v1.review.json` record the approved hashes for
+the first M3 expansion release. The approved files remain physically separate
+from the frozen packs, so their live metrics are reported as expansion results
+and never overwrite the original M3 closeout.
+
 External artifacts stay in `artifacts/benchmarks/` and remain separate:
 
 - NFCorpus is an independent biomedical retrieval benchmark with its own qrels.

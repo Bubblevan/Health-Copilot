@@ -1,0 +1,18 @@
+{
+  "release_id": "m3-claim-support-expansion-v1",
+  "dataset_path": "evals/expansion/m3_claim_support_candidates_batch_a.jsonl",
+  "dataset_sha256": "3de74bfbd839007437ca39eee04024df586b4034667d38da5203ab5e22a246f1",
+  "case_count": 21,
+  "supported_case_count": 7,
+  "unsupported_case_count": 1,
+  "contradicted_case_count": 6,
+  "multi_claim_all_supported_case_count": 2,
+  "multi_claim_one_unsupported_case_count": 1,
+  "fabricated_citation_case_count": 1,
+  "wrong_citation_binding_case_count": 3,
+  "reviewed_at": "2026-09-20",
+  "reviewer": "user-approved-evaluation-review",
+  "review_scope": "claim wording, cited-evidence binding, expected verifier verdict, deterministic-citation behavior, and data-release readiness",
+  "clinical_expert_validation": false,
+  "frozen_m0_m3_modified": false
+}

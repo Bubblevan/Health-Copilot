@@ -1,0 +1,15 @@
+{
+  "release_id": "m3-capability-expansion-v1",
+  "dataset_path": "evals/expansion/m3_capability_candidates_batch_a.jsonl",
+  "dataset_sha256": "fc9806be39d13e9d3d7db86d344e990925298b90bdc3be666c0bca2b6e5bbccc",
+  "case_count": 30,
+  "sufficient_in_scope_case_count": 10,
+  "recoverable_in_scope_case_count": 10,
+  "insufficient_related_but_uncovered_case_count": 6,
+  "insufficient_out_of_scope_case_count": 4,
+  "reviewed_at": "2026-09-20",
+  "reviewer": "user-approved-evaluation-review",
+  "review_scope": "question wording, frozen evidence, proposed query, expected decision, expected topic mapping, scope boundary, and data-release readiness",
+  "clinical_expert_validation": false,
+  "frozen_m0_m3_modified": false
+}
