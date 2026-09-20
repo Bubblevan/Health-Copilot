@@ -6,6 +6,14 @@ from dataclasses import asdict
 
 from ..config import ConfigurationError, load_openai_config
 from ..contracts import Evidence, GenerationDraft
+from ..runtime import (
+    OpenAICompatibleProviderExecutor,
+    ProviderCallKind,
+    ProviderExecutor,
+    ProviderFailure,
+    ProviderRequest,
+    RunContext,
+)
 from .base import GenerationError
 
 _SYSTEM_PROMPT = """你是患者教育原型中的回答生成器。
@@ -25,25 +33,26 @@ JSON 格式：
 class OpenAICompatibleGenerator:
     """Call an OpenAI-compatible chat endpoint with low-temperature JSON output."""
 
-    def __init__(self) -> None:
-        try:
-            config = load_openai_config()
-        except ConfigurationError as exc:
-            raise GenerationError(str(exc)) from exc
-
-        try:
-            from openai import OpenAI
-        except ImportError as exc:
-            raise GenerationError(
-                "The live generator requires the 'openai' package; install the project extras."
-            ) from exc
-
-        client_kwargs = {"api_key": config.api_key}
-        if config.base_url:
-            client_kwargs["base_url"] = config.base_url
-        self._client = OpenAI(**client_kwargs)
-        self._model = config.model
-        self._temperature = config.temperature
+    def __init__(
+        self,
+        *,
+        provider_executor: ProviderExecutor | None = None,
+        model: str | None = None,
+        temperature: float | None = None,
+        runtime: RunContext | None = None,
+    ) -> None:
+        if provider_executor is None:
+            try:
+                config = load_openai_config()
+                provider_executor = OpenAICompatibleProviderExecutor(config)
+            except (ConfigurationError, ProviderFailure) as exc:
+                raise GenerationError(str(exc)) from exc
+            model = config.model
+            temperature = config.temperature
+        self._provider_executor = provider_executor
+        self._model = model or "injected-provider-model"
+        self._temperature = 0.1 if temperature is None else temperature
+        self._runtime = runtime
 
     def _prompt(self, question: str, evidence: Sequence[Evidence]) -> str:
         evidence_json = json.dumps(
@@ -91,16 +100,20 @@ class OpenAICompatibleGenerator:
 
     def generate(self, question: str, evidence: Sequence[Evidence]) -> GenerationDraft:
         try:
-            response = self._client.chat.completions.create(
-                model=self._model,
-                messages=[
-                    {"role": "system", "content": _SYSTEM_PROMPT},
-                    {"role": "user", "content": self._prompt(question, evidence)},
-                ],
-                temperature=self._temperature,
-                response_format={"type": "json_object"},
+            response = self._provider_executor.execute(
+                ProviderRequest.create(
+                    kind=ProviderCallKind.GENERATOR,
+                    model=self._model,
+                    messages=(
+                        {"role": "system", "content": _SYSTEM_PROMPT},
+                        {"role": "user", "content": self._prompt(question, evidence)},
+                    ),
+                    temperature=self._temperature,
+                    response_format={"type": "json_object"},
+                ),
+                self._runtime or RunContext.create("m0"),
             )
-            content = response.choices[0].message.content
+            content = response.content
         except GenerationError:
             raise
         except Exception as exc:
