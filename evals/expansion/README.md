@@ -7,9 +7,15 @@ question wording, source mapping, scope boundary, and data-license record.
 
 `m0_hypertension_candidates_v1.jsonl` is the first expansion batch. It adds
 one non-duplicate Chinese query for every current product KnowledgeCard plus
-multi-source and corpus-uncovered controls. It can be run as a diagnostic with
-the existing M0 evaluator, but its metrics must not be reported as frozen M0
-baseline results before promotion into a separately versioned reviewed pack.
+multi-source and corpus-uncovered controls. The source rows retain their
+candidate state for provenance. A separately versioned review manifest freezes
+the exact file SHA256 and records an approval; only a manifest-approved hash is
+an expansion release. Its metrics remain separate from frozen M0 baseline
+results.
+
+`m0_hypertension_expansion_v1.review.json` records the user-approved review of
+the current 40-row source file. It is an evaluation-data review, not a clinical
+expert validation claim.
 
 External artifacts stay in `artifacts/benchmarks/` and remain separate:
 

@@ -1,0 +1,13 @@
+{
+  "release_id": "m0-hypertension-expansion-v1",
+  "dataset_path": "evals/expansion/m0_hypertension_candidates_v1.jsonl",
+  "dataset_sha256": "45a192d7442091188dce4cdbd1aefe41e1262b2dd0586a7f7b1dd6f710f570e3",
+  "case_count": 40,
+  "source_anchored_case_count": 34,
+  "corpus_uncovered_control_count": 6,
+  "reviewed_at": "2026-09-20",
+  "reviewer": "user-approved-evaluation-review",
+  "review_scope": "question wording, expected source mapping, scope boundary, and data-release readiness",
+  "clinical_expert_validation": false,
+  "frozen_m0_m3_modified": false
+}
