@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field, fields, replace
 from enum import StrEnum
 from hashlib import sha256
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+
+from ..runtime.budget import RunBudgetConfig
 
 if TYPE_CHECKING:
     from ..runtime.components import RuntimeComponents
@@ -79,6 +81,30 @@ def sha256_file(path: str | Path) -> str:
 
 def _mapping(value: Mapping[str, Any] | None) -> dict[str, Any]:
     return dict(value or {})
+
+
+def effective_budget_config(overrides: Mapping[str, Any] | None) -> RunBudgetConfig:
+    """Validate eval overrides and turn them into an executable run budget."""
+
+    values = _mapping(overrides)
+    allowed = {item.name for item in fields(RunBudgetConfig)}
+    unknown = sorted(set(values) - allowed)
+    if unknown:
+        raise EvalConfigurationError(
+            f"unknown budget override(s): {', '.join(unknown)}"
+        )
+    for name, value in values.items():
+        if value is None:
+            continue
+        if name == "deadline_ms":
+            valid = isinstance(value, (int, float)) and not isinstance(value, bool)
+        else:
+            valid = isinstance(value, int) and not isinstance(value, bool)
+        if not valid or value < 0:
+            raise EvalConfigurationError(
+                f"invalid budget override {name}={value!r}"
+            )
+    return RunBudgetConfig(**values)
 
 
 @dataclass(frozen=True)
@@ -183,7 +209,9 @@ class EvalRunSpec:
             raise ValueError("trials must be positive")
         if len(self.dataset_sha256) != 64:
             raise ValueError("dataset_sha256 must be a SHA-256 digest")
-        object.__setattr__(self, "budget_overrides", _mapping(self.budget_overrides))
+        normalized_budget = _mapping(self.budget_overrides)
+        effective_budget_config(normalized_budget)
+        object.__setattr__(self, "budget_overrides", normalized_budget)
 
     def to_dict(self) -> dict[str, Any]:
         return {

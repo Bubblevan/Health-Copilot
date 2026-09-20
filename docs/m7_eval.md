@@ -42,6 +42,15 @@ AgentLoop. In pipeline artifacts, `tool_proposed` is the agent proposal count wh
 `tool_executed` is the tool execution count; a policy veto can therefore be recorded
 as proposal `true`, execution `false`.
 
+Standalone M2 grounding uses the same disposition rule as
+`HealthCopilotPipeline._response_from_grounded_final`: it returns `ANSWER` only when
+`coverage_ok` is true and every claim verdict is `supported`; otherwise it returns
+`ABSTAIN` with `grounding_failed`. Citation-ID integrity is checked before any
+verifier provider call. `EvalRunSpec.budget_overrides` is executable configuration,
+limited to `RunBudgetConfig` fields (`max_provider_calls`, `max_tool_executions`,
+`deadline_ms`, `max_total_tokens`); unknown or invalid keys fail before execution.
+Per-run ERROR records retain all five budget counters from the failed `RunContext`.
+
 Public case/trajectory content requires both suite permission and
 `--public-eval-content`. Metadata-only traces contain hashes, IDs, counts and statuses;
 the trace policy rejects medical question/answer/evidence fields.
@@ -90,6 +99,11 @@ observation IDs, final claim/citation IDs, stop reason, harness disposition, bud
 usage and case completion. It never records hidden chain-of-thought. Metadata-only
 artifacts hash proposed medical queries; public evaluation artifacts may include the
 reviewed query text.
+
+The final M7.1 local live-smoke summary is recorded in
+`runs/m7/m7_1_live_smoke_closeout.json`. It records Codex-observed local results and
+references the existing bundles; it is not a new benchmark and live smoke is not
+rerun to improve metrics.
 
 ## CLI
 

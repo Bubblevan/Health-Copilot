@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from health_ai_copilot.agent.messages import AssistantToolCallMessage, ToolCall
-from health_ai_copilot.contracts import Route
+from health_ai_copilot.contracts import KnowledgeCard, Route
 from health_ai_copilot.eval.failures import FailureMapper
 from health_ai_copilot.eval.graders import RouteGrader
 from health_ai_copilot.eval.metrics import trial_metrics
@@ -34,8 +34,25 @@ from health_ai_copilot.eval.schema import (
     MetricResult,
 )
 from health_ai_copilot.eval.system import EvaluationRunner, load_eval_cases
+from health_ai_copilot.policy.evidence import EvidenceAssessment, EvidenceDecision
+from health_ai_copilot.policy.model import OpenAICompatibleEvidencePolicy
+from health_ai_copilot.runtime import (
+    FakeProviderExecutor,
+    ProviderCallKind,
+    ProviderFailure,
+    ProviderFailureKind,
+    ProviderResponse,
+    RunContext,
+)
+from health_ai_copilot.runtime.budget import RunBudgetConfig
 from health_ai_copilot.runtime.components import ComponentKind
 from health_ai_copilot.runtime.registry import ComponentRegistry
+from health_ai_copilot.runtime.trace import RunTrace, TraceContentPolicy
+from health_ai_copilot.verification.grounding import (
+    ClaimResult,
+    ClaimVerdict,
+    GroundingResult,
+)
 
 
 def _record(case_id: str = "case-1", **kwargs) -> CaseRunRecord:
@@ -44,6 +61,82 @@ def _record(case_id: str = "case-1", **kwargs) -> CaseRunRecord:
         "test-suite", case_id, 1, "run", EvalExecutionMode.OFFLINE, "profile", "manifest", "commit",
         status, **kwargs
     )
+
+
+def _card(source_id: str = "source-1") -> KnowledgeCard:
+    return KnowledgeCard(
+        source_id,
+        "Stored title",
+        "Stored excerpt",
+        "https://example.org/source",
+        "reviewed-publisher",
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03",
+        "reviewer",
+        "v1",
+        None,
+    )
+
+
+class _NoExecutionComponent:
+    def __init__(self, *, policy=None, grounding=None, claim_support=None, profile_id="m2-bm25-default", budget=None):
+        self.profile = SimpleNamespace(profile_id=profile_id)
+        self.manifest_hash = "manifest"
+        self.component_manifest = SimpleNamespace(code_commit="commit")
+        self.knowledge_scope = None
+        self.retriever_calls = 0
+        self.pipeline_calls = 0
+        self.evidence_policy = policy
+        self.grounding_verifier = grounding
+        self.claim_support_verifier = claim_support
+        self._budget = budget or RunBudgetConfig()
+        self.retriever = SimpleNamespace(search=self._unexpected_retriever_call)
+
+    def _unexpected_retriever_call(self, *args, **kwargs):
+        self.retriever_calls += 1
+        raise AssertionError("direct target must not invoke retrieval")
+
+    def pipeline(self, **kwargs):
+        self.pipeline_calls += 1
+        raise AssertionError("direct target must not construct an agent pipeline")
+
+    def create_run_context(self, *, trace_path, content_policy=TraceContentPolicy.METADATA_ONLY):
+        return RunContext.create(
+            "m2",
+            budget=self._budget,
+            trace=RunTrace(trace_path, content_policy),
+        )
+
+
+class _FixturePolicy:
+    def __init__(self, assessment):
+        self.assessment = assessment
+        self.calls = []
+
+    def assess(self, question, evidence, proposed_query, *, runtime=None):
+        self.calls.append((question, tuple(evidence), proposed_query))
+        return self.assessment
+
+
+class _FixtureGroundingVerifier:
+    def __init__(self, result):
+        self.result = result
+        self.calls = []
+
+    def verify(self, answer, claims, evidence, *, runtime=None):
+        self.calls.append((answer, tuple(claims), tuple(evidence)))
+        return self.result
+
+
+class _FixtureClaimSupportVerifier:
+    def __init__(self, result):
+        self.result = result
+        self.calls = []
+
+    def verify(self, claims, cited_evidence, *, runtime=None):
+        self.calls.append((tuple(claims), tuple(tuple(item) for item in cited_evidence)))
+        return self.result
 
 
 def test_component_and_suite_duplicate_ids_are_rejected() -> None:
@@ -203,6 +296,205 @@ def test_pipeline_record_separates_tool_proposal_from_execution() -> None:
     )
     events = {event["event"] for event in trajectory.events}
     assert {"initial_evidence", "tool_proposal", "tool_execution", "budget", "case_complete"} <= events
+
+
+def test_eval_budget_overrides_are_validated_and_executable(tmp_path: Path) -> None:
+    runner = EvaluationRunner()
+    spec = runner.prepare_run_spec(
+        "m2-policy-v1",
+        execution_mode=EvalExecutionMode.LIVE,
+        budget_overrides={"max_provider_calls": 0},
+        output_root=tmp_path,
+    )
+    components = runner._build_offline_components(spec, "m0-bm25-default", [_card()], None)
+    assert components.run_budget.max_provider_calls == 0
+    with pytest.raises(EvalConfigurationError, match="unknown budget override"):
+        runner.prepare_run_spec(
+            "m2-policy-v1",
+            execution_mode=EvalExecutionMode.LIVE,
+            budget_overrides={"not_a_budget": 1},
+        )
+    with pytest.raises(EvalConfigurationError, match="invalid budget override"):
+        runner.prepare_run_spec(
+            "m2-policy-v1",
+            execution_mode=EvalExecutionMode.LIVE,
+            budget_overrides={"max_provider_calls": -1},
+        )
+
+
+def test_policy_target_uses_frozen_evidence_without_retrieval_or_agent(tmp_path: Path) -> None:
+    runner = EvaluationRunner()
+    policy = _FixturePolicy(
+        EvidenceAssessment(
+            EvidenceDecision.SUFFICIENT,
+            supporting_source_ids=("source-1",),
+            reason_codes=("direct_support",),
+        )
+    )
+    components = _NoExecutionComponent(policy=policy)
+    suite = runner.registry.get("m2-policy-v1")
+    spec = runner.prepare_run_spec(
+        suite.suite_id, execution_mode=EvalExecutionMode.LIVE, output_root=tmp_path
+    )
+    case = EvalCase(
+        "policy-case",
+        {
+            "question": "fixture question",
+            "evidence_source_ids": ["source-1"],
+            "proposed_query": "fixture query",
+        },
+    )
+    bundle = tmp_path / "policy-bundle"
+    (bundle / "traces").mkdir(parents=True)
+    records, _ = runner._run_policy(bundle, suite, spec, [case], components, [_card()], False)
+
+    assert records[0].status == CaseRunStatus.COMPLETE
+    assert policy.calls[0][1][0].source_id == "source-1"
+    assert components.retriever_calls == 0
+    assert components.pipeline_calls == 0
+
+
+def test_budget_zero_prevents_direct_policy_provider_call(tmp_path: Path) -> None:
+    runner = EvaluationRunner()
+    provider = FakeProviderExecutor(
+        [ProviderResponse("provider-1", ProviderCallKind.POLICY, "fixture", "{}")]
+    )
+    policy = OpenAICompatibleEvidencePolicy(provider_executor=provider, model="fixture")
+    components = _NoExecutionComponent(
+        policy=policy,
+        budget=RunBudgetConfig(max_provider_calls=0),
+    )
+    suite = runner.registry.get("m2-policy-v1")
+    spec = runner.prepare_run_spec(
+        suite.suite_id,
+        execution_mode=EvalExecutionMode.LIVE,
+        budget_overrides={"max_provider_calls": 0},
+        output_root=tmp_path,
+    )
+    case = EvalCase(
+        "policy-budget-case",
+        {
+            "question": "fixture question",
+            "evidence_source_ids": ["source-1"],
+            "proposed_query": "fixture query",
+        },
+    )
+    bundle = tmp_path / "policy-budget-bundle"
+    (bundle / "traces").mkdir(parents=True)
+    records, _ = runner._run_policy(bundle, suite, spec, [case], components, [_card()], False)
+
+    assert records[0].status == CaseRunStatus.ERROR
+    assert provider.requests == []
+    assert records[0].provider_calls_used == 0
+
+
+def test_provider_failure_preserves_runtime_budget_provenance(tmp_path: Path) -> None:
+    runner = EvaluationRunner()
+    provider = FakeProviderExecutor(
+        failure=ProviderFailure(ProviderFailureKind.CONNECTION)
+    )
+    policy = OpenAICompatibleEvidencePolicy(provider_executor=provider, model="fixture")
+    components = _NoExecutionComponent(policy=policy)
+    suite = runner.registry.get("m2-policy-v1")
+    spec = runner.prepare_run_spec(
+        suite.suite_id, execution_mode=EvalExecutionMode.LIVE, output_root=tmp_path
+    )
+    case = EvalCase(
+        "policy-provider-error",
+        {
+            "question": "fixture question",
+            "evidence_source_ids": ["source-1"],
+            "proposed_query": "fixture query",
+        },
+    )
+    bundle = tmp_path / "policy-error-bundle"
+    (bundle / "traces").mkdir(parents=True)
+    records, _ = runner._run_policy(bundle, suite, spec, [case], components, [_card()], False)
+    record = records[0]
+
+    assert record.status == CaseRunStatus.ERROR
+    assert len(provider.requests) == 1
+    assert record.provider_calls_used == 1
+    assert record.tool_executions_used == 0
+    assert record.input_tokens_used == 0
+    assert record.output_tokens_used == 0
+    assert record.total_tokens_used == 0
+
+
+@pytest.mark.parametrize(
+    ("coverage_ok", "verdict", "expected_route", "expected_disposition"),
+    [
+        (True, ClaimVerdict.SUPPORTED, Route.ANSWER.value, "answer"),
+        (True, ClaimVerdict.UNSUPPORTED, Route.ABSTAIN.value, "grounding_failed"),
+        (True, ClaimVerdict.CONTRADICTED, Route.ABSTAIN.value, "grounding_failed"),
+        (False, ClaimVerdict.SUPPORTED, Route.ABSTAIN.value, "grounding_failed"),
+    ],
+)
+def test_m2_grounding_target_matches_pipeline_disposition(
+    tmp_path: Path,
+    coverage_ok: bool,
+    verdict: ClaimVerdict,
+    expected_route: str,
+    expected_disposition: str,
+) -> None:
+    runner = EvaluationRunner()
+    result = GroundingResult(
+        coverage_ok,
+        (ClaimResult(0, verdict, ("source-1",) if verdict == ClaimVerdict.SUPPORTED else ()),),
+    )
+    verifier = _FixtureGroundingVerifier(result)
+    components = _NoExecutionComponent(grounding=verifier)
+    suite = runner.registry.get("m2-grounding-v1")
+    spec = runner.prepare_run_spec(
+        suite.suite_id, execution_mode=EvalExecutionMode.LIVE, output_root=tmp_path
+    )
+    case = EvalCase(
+        "grounding-case",
+        {
+            "answer": "fixture answer",
+            "claims": [{"text": "fixture claim", "citation_ids": ["source-1"]}],
+            "evidence_source_ids": ["source-1"],
+        },
+    )
+    bundle = tmp_path / "grounding-bundle"
+    (bundle / "traces").mkdir(parents=True)
+    records, _ = runner._run_verifier(bundle, suite, spec, [case], components, [_card()], False)
+
+    assert records[0].route == expected_route
+    assert records[0].harness_disposition == expected_disposition
+    assert components.retriever_calls == 0
+    assert components.pipeline_calls == 0
+    assert len(verifier.calls) == 1
+    assert verifier.calls[0][2][0].source_id == "source-1"
+
+
+def test_m3_fabricated_citation_is_rejected_before_provider(tmp_path: Path) -> None:
+    runner = EvaluationRunner()
+    verifier = _FixtureClaimSupportVerifier(
+        SimpleNamespace(claim_results=())
+    )
+    components = _NoExecutionComponent(
+        claim_support=verifier,
+        profile_id="m3-bm25-default",
+    )
+    suite = runner.registry.get("m3-claim-support-v1")
+    spec = runner.prepare_run_spec(
+        suite.suite_id, execution_mode=EvalExecutionMode.LIVE, output_root=tmp_path
+    )
+    case = EvalCase(
+        "m3-fabricated",
+        {
+            "claims": [{"text": "fixture claim", "citation_ids": ["not-observed"]}],
+            "evidence_source_ids": ["source-1"],
+        },
+    )
+    bundle = tmp_path / "m3-fabricated-bundle"
+    (bundle / "traces").mkdir(parents=True)
+    records, _ = runner._run_verifier(bundle, suite, spec, [case], components, [_card()], False)
+
+    assert records[0].route == Route.ABSTAIN.value
+    assert records[0].harness_disposition == "invalid_citation"
+    assert verifier.calls == []
 
 
 def test_m3_case_payload_is_preserved_without_rewriting_gold() -> None:

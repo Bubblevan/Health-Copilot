@@ -49,6 +49,7 @@ from .schema import (
     GraderStatus,
     TrajectoryRecord,
     canonical_hash,
+    effective_budget_config,
     sha256_file,
 )
 
@@ -253,7 +254,10 @@ class EvaluationRunner:
         if profile is None:
             raise EvalConfigurationError(f"unknown runtime profile: {profile_id}")
         return RuntimeBuilder(environment={"provider_executor": _OfflineProvider()}).build(
-            profile, cards=cards, knowledge_scope=scope
+            profile,
+            cards=cards,
+            knowledge_scope=scope,
+            run_context_config=effective_budget_config(spec.budget_overrides),
         )
 
     def _build_live_components(self, spec, cards, scope):
@@ -262,7 +266,12 @@ class EvaluationRunner:
         profiles = default_runtime_profiles()
         if spec.profile_id not in profiles:
             raise EvalConfigurationError(f"unknown runtime profile: {spec.profile_id}")
-        return RuntimeBuilder().build(profiles[spec.profile_id], cards=cards, knowledge_scope=scope)
+        return RuntimeBuilder().build(
+            profiles[spec.profile_id],
+            cards=cards,
+            knowledge_scope=scope,
+            run_context_config=effective_budget_config(spec.budget_overrides),
+        )
 
     def _run_m0(self, bundle, suite, spec, cases, components):
         records: list[CaseRunRecord] = []
@@ -575,7 +584,11 @@ class EvaluationRunner:
                         observed["claim_supporting_source_ids"] = [
                             list(item.supporting_source_ids) for item in result.claim_results
                         ]
-                        disposition = "answer" if result.coverage_ok else "grounding_failed"
+                        grounding_succeeded = result.coverage_ok and all(
+                            item.verdict == ClaimVerdict.SUPPORTED
+                            for item in result.claim_results
+                        )
+                        disposition = "answer" if grounding_succeeded else "grounding_failed"
                         observed["harness_disposition"] = disposition
                         runtime.trace.close(status="complete")
                         records.append(
@@ -585,7 +598,11 @@ class EvaluationRunner:
                                 components,
                                 case,
                                 trial,
-                                route=Route.ANSWER.value if result.coverage_ok else Route.ABSTAIN.value,
+                                route=(
+                                    Route.ANSWER.value
+                                    if grounding_succeeded
+                                    else Route.ABSTAIN.value
+                                ),
                                 harness_disposition=disposition,
                                 provider_calls_used=runtime.budget.provider_calls_used,
                                 tool_executions_used=runtime.budget.tool_executions_used,
@@ -641,9 +658,15 @@ class EvaluationRunner:
                 trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
                 components = RuntimeBuilder(
                     environment={"provider_executor": provider, "provider_model": model}
-                ).build(profile, cards=cards, knowledge_scope=scope)
+                ).build(
+                    profile,
+                    cards=cards,
+                    knowledge_scope=scope,
+                    run_context_config=effective_budget_config(spec.budget_overrides),
+                )
                 runtime = RunContext.create(
                     "m7_replay",
+                    budget=effective_budget_config(spec.budget_overrides),
                     trace=components.trace_factory.create(trace_path),
                 )
                 pipeline = components.pipeline(runtime=runtime)
@@ -752,6 +775,32 @@ class EvaluationRunner:
         total_tokens_used=None, elapsed_ms=None, observed=None, error_code=None,
         error_message=None, runtime=None, trace_path=None,
     ):
+        if runtime is not None:
+            provider_calls_used = (
+                runtime.budget.provider_calls_used
+                if provider_calls_used is None
+                else provider_calls_used
+            )
+            tool_executions_used = (
+                runtime.budget.tool_executions_used
+                if tool_executions_used is None
+                else tool_executions_used
+            )
+            input_tokens_used = (
+                runtime.budget.input_tokens_used
+                if input_tokens_used is None
+                else input_tokens_used
+            )
+            output_tokens_used = (
+                runtime.budget.output_tokens_used
+                if output_tokens_used is None
+                else output_tokens_used
+            )
+            total_tokens_used = (
+                runtime.budget.total_tokens_used
+                if total_tokens_used is None
+                else total_tokens_used
+            )
         return CaseRunRecord(
             suite_id=suite.suite_id,
             case_id=case.case_id,
