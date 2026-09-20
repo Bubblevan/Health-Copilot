@@ -72,6 +72,25 @@ class TokenOverlapReranker(Reranker):
         ]
 
 
+class SentenceTransformerReranker(Reranker):
+    """Optional local learned cross-encoder reranker; unavailable dependencies fail clearly."""
+
+    def __init__(self, model_name: str, *, device: str | None = None) -> None:
+        try:
+            from sentence_transformers import CrossEncoder
+        except ImportError as exc:
+            raise RuntimeError("install the retrieval extra for sentence-transformers") from exc
+        self.identity = f"sentence-transformers-cross-encoder:{model_name}"
+        self._model = CrossEncoder(model_name, device=device)
+
+    def rerank(self, query: str, candidates: Sequence[Evidence], top_k: int) -> list[Evidence]:
+        scores = self._model.predict([(query, f"{item.title}\n{item.excerpt}") for item in candidates])
+        ranked = sorted(
+            zip(candidates, scores, strict=True), key=lambda item: (-float(item[1]), item[0].source_id)
+        )
+        return [replace(item, score=float(score)) for item, score in ranked[:top_k]]
+
+
 class RerankedRetriever:
     def __init__(self, candidate_retriever, reranker: Reranker, *, candidate_top_k: int = 10) -> None:
         if candidate_top_k <= 0:

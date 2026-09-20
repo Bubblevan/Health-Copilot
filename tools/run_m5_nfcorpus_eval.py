@@ -1,6 +1,8 @@
 """Run M5 retrieval arms on external NFCorpus without product provenance fabrication."""
 
 import json
+import argparse
+from pathlib import Path
 
 from health_ai_copilot.eval.nfcorpus import evaluate_nfcorpus, load_nfcorpus
 from health_ai_copilot.retrieval import (
@@ -14,8 +16,12 @@ from health_ai_copilot.retrieval import (
 )
 
 
-def main() -> int:
-    dataset = load_nfcorpus("artifacts/benchmarks/nfcorpus")
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data-dir", default="artifacts/benchmarks/nfcorpus")
+    parser.add_argument("--output")
+    args = parser.parse_args(argv)
+    dataset = load_nfcorpus(args.data_dir)
     backend = HashingEmbeddingBackend()
     bm25 = BM25Retriever(dataset.documents)
     dense = DenseRetriever(
@@ -30,7 +36,10 @@ def main() -> int:
         "hybrid_rerank": RerankedRetriever(hybrid, TokenOverlapReranker()),
     }
     metrics = {name: evaluate_nfcorpus(dataset, retriever=retriever) for name, retriever in arms.items()}
-    print(json.dumps(metrics, ensure_ascii=False, indent=2))
+    rendered = json.dumps(metrics, ensure_ascii=False, indent=2)
+    if args.output:
+        Path(args.output).write_text(rendered + "\n", encoding="utf-8", newline="\n")
+    print(rendered)
     return 0
 
 

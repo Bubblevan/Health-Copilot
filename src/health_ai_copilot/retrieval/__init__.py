@@ -9,7 +9,13 @@ from .dense import (
     HashingEmbeddingBackend,
 )
 from .documents import RetrievalDocument, document_from_knowledge_card
-from .hybrid import FakeReranker, HybridRetriever, RerankedRetriever, TokenOverlapReranker
+from .hybrid import (
+    FakeReranker,
+    HybridRetriever,
+    RerankedRetriever,
+    SentenceTransformerReranker,
+    TokenOverlapReranker,
+)
 from .tokenizer import tokenize
 
 __all__ = [
@@ -23,6 +29,7 @@ __all__ = [
     "HybridRetriever",
     "RerankedRetriever",
     "RetrievalDocument",
+    "SentenceTransformerReranker",
     "TokenOverlapReranker",
     "document_from_knowledge_card",
     "tokenize",
