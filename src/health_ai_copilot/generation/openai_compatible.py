@@ -110,6 +110,7 @@ class OpenAICompatibleGenerator:
                     ),
                     temperature=self._temperature,
                     response_format={"type": "json_object"},
+                    timeout_seconds=30.0,
                 ),
                 self._runtime or RunContext.create("m0"),
             )

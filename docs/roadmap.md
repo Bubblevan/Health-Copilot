@@ -55,10 +55,14 @@ expected answers `18/18`、unexpected abstains `0/18`、mean model turns `1.30` 
 
 ## M4 — Budgeted & Replayable Harness Runtime（implemented）
 
-M4 添加 all-live-adapter provider boundary、pre-side-effect deadline/call/token guards、guarded tool dispatch、
+M4 添加 all-live-adapter provider boundary、pre-side-effect deadline/call/observed-cumulative-token guards、guarded tool dispatch、
 privacy-tiered JSONL trace、strict public-evaluation provider/tool replay，以及 deterministic offline failure
 injection。它保留 M0–M3 contracts，未增加 Agent capability。固定六条 M4 record/replay pack 仅是 regression
 diagnostic，不是 generalization result。
+
+M4 FINAL FROZEN：`main@51f0ee5a9352c5cabd360d302a2cef1eb9b5da25`。M4.1 明确固定 SDK
+`max_retries=0` 与所有 adapter 的 30-second provider timeout；任何未来 retry 都必须由 Harness
+显式实现并计入 trace/budget，不能依赖 SDK hidden retry。
 
 ## M5+ — Later extensions（planned）
 

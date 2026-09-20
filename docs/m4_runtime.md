@@ -4,7 +4,9 @@ M4 adds a narrow execution-control plane without changing the M0–M3 product co
 
 ## Boundaries and budgets
 
-All live model adapters call `ProviderExecutor`: generator, Agent, EvidencePolicy, M2 grounding verifier and M3 claim-support verifier. `RunContext` owns a monotonic `RunBudgetState`. Before a provider request or a tool dispatch it checks the deadline, provider-call cap, tool-execution cap, and, when configured, the hard total-token cap. Missing usage under a hard token cap makes later provider calls fail closed. `LiveToolRunner` guards before registry dispatch, so a denied tool never reaches its handler.
+All live model adapters call `ProviderExecutor`: generator, Agent, EvidencePolicy, M2 grounding verifier and M3 claim-support verifier. Every request has the same explicit 30-second timeout contract. The OpenAI-compatible SDK is constructed with `max_retries=0`: a future retry policy must be explicitly implemented by the Harness and counted in budget/trace; SDK-hidden HTTP retries are forbidden.
+
+`RunContext` owns a monotonic `RunBudgetState`. Before a provider request or a tool dispatch it checks the deadline, provider-call cap, tool-execution cap, and, when configured, an **observed cumulative token budget**. Missing usage with this option enabled makes later provider calls fail closed; once observed cumulative usage reaches the threshold, later provider calls do not execute. This is post-usage enforcement, not a promise that one final request cannot overshoot the threshold. `LiveToolRunner` guards before registry dispatch, so a denied tool never reaches its handler.
 
 ## Trace and privacy
 

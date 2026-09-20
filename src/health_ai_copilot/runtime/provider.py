@@ -122,7 +122,9 @@ class OpenAICompatibleProviderExecutor:
             from openai import OpenAI
         except ImportError as exc:
             raise ProviderFailure(ProviderFailureKind.PROVIDER_ERROR) from exc
-        kwargs: dict[str, Any] = {"api_key": config.api_key}
+        # SDK retries must remain disabled. Any future retry policy belongs in
+        # this harness, where each attempt can consume budget and be traced.
+        kwargs: dict[str, Any] = {"api_key": config.api_key, "max_retries": 0}
         if config.base_url:
             kwargs["base_url"] = config.base_url
         self._client = OpenAI(**kwargs)
