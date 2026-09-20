@@ -155,6 +155,12 @@ materialization。用户可见的事实文本只来自已验证 claim 的原文�
 `coverage_ok` 判断。这去除了自由 answer/claim coverage mismatch 的用户可见路径，但不声称消除
 hallucination、clinical validation、独立验证或完美 claim support。
 
+Claim support 使用 **single-call batched cited-evidence binding**：verifier payload 显式绑定
+每个 `claim_index` 与其 cited evidence，且没有被任何 claim 引用的 observed evidence 不会进入 payload。
+这不是 cryptographic 或 physical per-claim isolation：同一 context window 仍可能包含其他 claim 的
+cited evidence。若需物理隔离，则必须每个 claim 单独 verifier call，代价是额外 model round trip；M3
+明确选择了单次、有界调用的 trade-off。
+
 ## 设计限制
 
 M0/M1 的 citation verifier 只验证模型返回的 ID 是否属于本次实际观察到的 Evidence，并从

@@ -28,6 +28,7 @@ from health_ai_copilot.verification.grounding import (
     validate_grounding_result,
 )
 from health_ai_copilot.verification.materialize import materialize_verified_claims
+from tools.run_m3_claim_support_eval import claim_support_metrics
 
 
 def _evidence(source_id: str = "source-a") -> Evidence:
@@ -458,3 +459,41 @@ def test_wrong_citation_binding_fixture_isolated_to_wrong_source() -> None:
         "who-hypertension-03-silent",
         "cdc-high-blood-pressure-measuring-02-repeat",
     ]
+
+
+def test_claim_support_metrics_separate_disposition_from_fine_grained_verdicts() -> None:
+    rows = [
+        {
+            "category": "unsupported",
+            "accepted": False,
+            "rejection_stage": "semantic_verifier",
+            "expected_verdicts": ["unsupported"],
+            "claim_results": [{"claim_index": 0, "verdict": "contradicted"}],
+        },
+        {
+            "category": "supported",
+            "accepted": True,
+            "rejection_stage": None,
+            "expected_verdicts": ["supported", "supported"],
+            "claim_results": [
+                {"claim_index": 0, "verdict": "supported"},
+                {"claim_index": 1, "verdict": "supported"},
+            ],
+        },
+        {
+            "category": "fabricated_citation",
+            "accepted": False,
+            "rejection_stage": "deterministic_citation",
+            "expected_verdicts": [],
+            "claim_results": [],
+        },
+    ]
+
+    metrics = claim_support_metrics(rows)
+
+    assert metrics["unsupported_reject_rate"] == 1.0
+    assert metrics["supported_accept_rate"] == 1.0
+    assert metrics["fabricated_citation_reject_rate"] == 1.0
+    assert metrics["fine_grained_claim_verdict_correct"] == 2
+    assert metrics["fine_grained_claim_verdict_count"] == 3
+    assert metrics["fine_grained_claim_verdict_accuracy"] == 2 / 3

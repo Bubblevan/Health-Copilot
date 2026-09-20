@@ -113,6 +113,26 @@ def claim_support_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         selected = [row for row in rows if row["category"] == category]
         return sum(row["accepted"] for row in selected) / len(selected) if selected else None
 
+    fine_grained_total = 0
+    fine_grained_correct = 0
+    for row in rows:
+        # Fabricated-citation rows intentionally have no semantic-verdict gold:
+        # their expected behavior is deterministic citation rejection.
+        expected = row["expected_verdicts"]
+        if not expected:
+            continue
+        observed_by_index = {
+            item["claim_index"]: (
+                item["verdict"].value
+                if isinstance(item["verdict"], ClaimVerdict)
+                else item["verdict"]
+            )
+            for item in row["claim_results"]
+        }
+        for claim_index, expected_verdict in enumerate(expected):
+            fine_grained_total += 1
+            fine_grained_correct += observed_by_index.get(claim_index) == expected_verdict
+
     return {
         "case_count": len(rows),
         "supported_accept_rate": accept_rate("supported"),
@@ -122,6 +142,11 @@ def claim_support_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "multi_claim_one_unsupported_reject_rate": reject_rate("multi_claim_one_unsupported"),
         "fabricated_citation_reject_rate": reject_rate("fabricated_citation"),
         "wrong_citation_binding_reject_rate": reject_rate("wrong_citation_binding"),
+        "fine_grained_claim_verdict_accuracy": (
+            fine_grained_correct / fine_grained_total if fine_grained_total else None
+        ),
+        "fine_grained_claim_verdict_correct": fine_grained_correct,
+        "fine_grained_claim_verdict_count": fine_grained_total,
         "deterministic_citation_rejections": sum(row["rejection_stage"] == "deterministic_citation" for row in rows),
         "semantic_verifier_rejections": sum(row["rejection_stage"] == "semantic_verifier" for row in rows),
         "verifier_errors": sum(row["rejection_stage"] == "verifier_error" for row in rows),
@@ -146,6 +171,12 @@ def _report(metrics: dict[str, Any], rows: list[dict[str, Any]]) -> str:
         "# M3 standalone claim-support evaluation",
         "",
         "M3 verifies claims only. It does not call a semantic answer-coverage judge.",
+        (
+            "Disposition metrics report whether a fixture was accepted or rejected as intended. "
+            "`fine_grained_claim_verdict_accuracy` separately compares each semantic "
+            "SUPPORTED/UNSUPPORTED/CONTRADICTED verdict; fabricated-citation fixtures are excluded "
+            "because they are rejected before semantic verification."
+        ),
         "",
         "```json",
         json.dumps(metrics, ensure_ascii=False, indent=2),

@@ -83,3 +83,12 @@ those IDs directly and never reruns BM25, so future retriever changes cannot mut
 `m3_claim_support.jsonl` evaluates only claim support (including multi-claim, fabricated citation, and wrong
 citation binding). It intentionally has no `coverage_missing` category because M3 removes free-answer coverage
 classification from the output path by constructing visible text from verified claims.
+
+Claim-support reports separate two layers of evidence: disposition-level accept/reject correctness (whether the
+pipeline safely accepts or rejects a fixture) and `fine_grained_claim_verdict_accuracy` (per semantic
+SUPPORTED/UNSUPPORTED/CONTRADICTED verdict). A fabricated-citation fixture has no semantic-verdict denominator,
+because deterministic citation integrity rejects it before the verifier.
+
+Approved M3 expansion releases live in `evals/expansion/` with review manifests that bind the exact dataset SHA256.
+Their results are separate from frozen M3 packs. See `evals/expansion/m3_expansion_annotation_audit.md` for the
+two capability cases under annotation review and the expansion fine-grained verdict analysis.

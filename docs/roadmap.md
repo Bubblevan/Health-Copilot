@@ -48,6 +48,11 @@ M3 empirical closeout 应按 `runs/m3/` 的 capability、claim-support 与 focus
 解读：claim-first 是消除自由 answer/claim coverage mismatch 的结构性路径改动，不是独立 verifier 或
 完美 semantic claim support 的声明。
 
+M3 runtime implementation 已冻结。最新 3-trial focused diagnostic 观测到 M3 OOD tool execution `0/12`、
+expected answers `18/18`、unexpected abstains `0/18`、mean model turns `1.30` 和 mean tool executions
+`0.30`；较早、同配置的小样本曾观测到 `15/18` expected answers。这些随机的小包诊断仅用于 regression，
+不是稳定 answer-rate 或泛化能力声明。当前 freeze 与 evaluation-QA 状态见 `docs/m3_evaluation_freeze.md`。
+
 ## M4+ — Later extensions（planned）
 
 后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；可考虑更广的 evaluation harness、

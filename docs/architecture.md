@@ -138,3 +138,9 @@ failure is stored separately as the harness disposition.
 M3 has no semantic coverage verifier in its critical path. The model may internally carry an `answer`
 field for compatibility, but the pipeline ignores it: only verified, whitespace-normalized, exact-deduped
 claim text is rendered as ordered bullets, and citations are reconstructed from observed Evidence.
+
+Claim support uses **single-call batched cited-evidence binding**. The payload explicitly associates each
+`claim_index` with `cited_evidence`; observed evidence that no claim cites is excluded. This narrows the
+verifier's evidence set without claiming cryptographic or physical per-claim isolation: a shared verifier
+context can still contain another claim's cited evidence. A physically isolated design would require one
+verifier call per claim and therefore additional model round trips; M3 keeps one bounded verifier call.
