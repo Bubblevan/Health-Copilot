@@ -128,7 +128,7 @@ H4 Agent Eval System 已完成。M7 在 M6 运行时之外建立统一、显式�
 
 M7 不改变 M0–M6 运行时、gold、检索配置、policy 或 replay 语义；M5 metrics 仍冻结。
 M0–M5 的历史 evaluator 和 artifact path 保留。M7 closeout 后续仅更新本节的最终
-freeze checkpoint 为 `main@9b5001f06178260054b1b5759d6efb5f760f87ed`；M8 / H5 Agent Team
+freeze checkpoint 为 `main@44b5d57b0cfa6b8df76dd84bdbe71e2ca7f9eabd`；M8 / H5 Agent Team
 不在本次启动。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。
