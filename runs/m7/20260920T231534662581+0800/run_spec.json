@@ -1,0 +1,18 @@
+{
+  "budget_overrides": {},
+  "code_commit": "7ed466a",
+  "component_manifest_hash": "4eca2d6aff4bb794bcd1779a89451a34a56a7c2fcd1ca39fd1075af309049518",
+  "dataset_path": "evals\\m4_replay.jsonl",
+  "dataset_sha256": "08edbdfb0b84d9555ac3c01e14e20d5c9191a8d4a56c56f49e0a3035d6aaac65",
+  "execution_mode": "replay",
+  "output_root": "runs/m7",
+  "profile_config_hash": "06ca629157cea96034f0a1d7ec0dbb7d32797d3543ebd40a508395605aaad2d7",
+  "profile_id": "m3-bm25-default",
+  "replay_run_dir": "runs/m4/20260920T132709+0800",
+  "replay_source": "runs/m4/20260920T132709+0800",
+  "run_spec_hash": "066bf35af75781759ae64ac838b0bddb1c6c14c596fae32759a2ecd877600043",
+  "schema_version": "m7-run-spec-v1",
+  "suite_id": "m4-replay-v1",
+  "trace_content_policy": "public_eval_content",
+  "trials": 1
+}

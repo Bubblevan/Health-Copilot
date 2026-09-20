@@ -1,0 +1,32 @@
+{
+  "component_manifest_hash": "4eca2d6aff4bb794bcd1779a89451a34a56a7c2fcd1ca39fd1075af309049518",
+  "dataset_path": "evals\\m4_replay.jsonl",
+  "dataset_sha256": "08edbdfb0b84d9555ac3c01e14e20d5c9191a8d4a56c56f49e0a3035d6aaac65",
+  "execution_mode": "replay",
+  "file_sha256": {
+    "case_results.jsonl": "0cc93e983ef5454428d1521f1e5e60b21fb7ea64d7d9a799ee3640c5b67a5816",
+    "cases.jsonl": "80fe155d599b0bea60509268598bdbdf08c85dca20a115d7dcded3ddbd5f7983",
+    "component_manifest.json": "ca51ecb167f7839cc77ee19751fbd885409f89e9f1ceb6d935c31f87495d86cd",
+    "failures.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "grader_results.jsonl": "6e981dfd908a925545106e06f4a9cd930f959e522a0744c6975297f92f2bc0c6",
+    "metrics.json": "a1e5892fc3ba27a9ea36291fcec7b3f1505876c2b7f146e60159de5a9750d93f",
+    "report.md": "345d57740164b4f318de8b56ec5907cd4b2a8a9ac4fe40780245de4d17e1ff8d",
+    "run_spec.json": "5aefa6054348aebc706c7a40c4043cd3eec4c15a8e935848349e6f561c1895c1",
+    "traces/m1-001-t1.jsonl": "c68ea1be334be50aed515df197bedf2edf448ba8e87c98a03b4f0f35b447881b",
+    "traces/m1-002-t1.jsonl": "c2705a0c99ff8bc87af518ded692336e4c83c8e49e0056fd92b6a1de2f36faaf",
+    "traces/m1-004-t1.jsonl": "b328b8efb1b7524355e0f7272e07d2fe70e66c0bdbab4256b033d9454f1abfe5",
+    "traces/m1-005-t1.jsonl": "2cfc129c293dffc508c92ef53a5acbc56fc6fa2d7c2a5fe129594670f896238c",
+    "traces/m1-007-t1.jsonl": "8cc561a9c344b9c3832a08fa97494211687510f553f733e4e7f88f73bbb224e2",
+    "traces/m1-008-t1.jsonl": "42b31f543843ba3ab57e4196e1a0169c05928d1698487adee0a884629de0669d",
+    "trajectories.jsonl": "195d01b2af6a72893793cb9347914ac22d6392134c495d58fc4751f45373d2a4"
+  },
+  "manifest_hash": "e2e4714d9e3089b5b0da66678d19e28b1908fb1e7b4a3a15900a6fcb3e9b815b",
+  "metric_definition_version": "m4-replay-v1",
+  "profile_id": "m3-bm25-default",
+  "run_spec_hash": "066bf35af75781759ae64ac838b0bddb1c6c14c596fae32759a2ecd877600043",
+  "schema_version": "m7-artifact-manifest-v1",
+  "suite_id": "m4-replay-v1",
+  "suite_version": "1",
+  "target_kind": "replay",
+  "trace_content_policy": "public_eval_content"
+}

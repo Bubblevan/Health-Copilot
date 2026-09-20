@@ -1,0 +1,2 @@
+{"event_type": "run_start", "fields": {"component_manifest_hash": "f8347dd7d3f6afdbcaecebb16496f1cceb3d52edcf565f58ef871616e60a8ba4", "profile_id": "m0-bm25-default"}, "sequence": 1}
+{"event_type": "run_end", "fields": {"event_count": 1, "status": "complete"}, "sequence": 2}

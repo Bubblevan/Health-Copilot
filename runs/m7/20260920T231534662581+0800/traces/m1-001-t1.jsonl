@@ -1,0 +1,4 @@
+{"event_type": "run_start", "fields": {"code_commit": null, "component_manifest_hash": null, "profile_id": null, "run_id": "run-b146eac880ca4e4c81257348176d98d5", "runtime_mode": "m7_replay"}, "sequence": 1}
+{"event_type": "policy_decision", "fields": {"decision": "recoverable", "matched_topic_ids": ["diagnostic_confirmation", "home_monitoring"], "reason_codes": ["related_but_incomplete", "missing_required_evidence"], "supporting_source_count": 4}, "sequence": 2}
+{"event_type": "harness_disposition", "fields": {"disposition": "answer", "route": "answer", "safety_reason_count": 0}, "sequence": 3}
+{"event_type": "run_end", "fields": {"event_count": 3, "status": "complete"}, "sequence": 4}
