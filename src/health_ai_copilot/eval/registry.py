@@ -184,7 +184,6 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
             "m3-bm25-default",
             ("route", "replay_consistency", "budget_termination"),
             "m4-replay-v1",
-            content_policy="public_eval_content",
             public_content_allowed=True,
             provenance={
                 "source_dataset": "fixed six-case subset of evals/m1_recovery.jsonl",

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 from time import perf_counter
@@ -139,6 +140,8 @@ class EvaluationRunner:
         suite = self.registry.get(spec.suite_id)
         self.registry.validate_mode(suite, spec.execution_mode)
         self._validate_content_policy(suite, spec, public_eval_content)
+        if public_eval_content:
+            spec = replace(spec, trace_content_policy="public_eval_content")
         if spec.execution_mode == EvalExecutionMode.LIVE and not allow_live_provider:
             raise EvalConfigurationError(
                 "live evaluation is disabled by default; pass --allow-live-provider explicitly"
@@ -177,6 +180,16 @@ class EvaluationRunner:
 
         if components is not None:
             spec = spec.bind_runtime(components)
+            records = [
+                replace(
+                    record,
+                    run_id=spec.spec_hash,
+                    profile_id=spec.profile_id,
+                    component_manifest_hash=spec.component_manifest_hash,
+                    code_commit=spec.code_commit,
+                )
+                for record in records
+            ]
 
         grader_results = self._grade(suite, cases, records)
         failures = self.failure_mapper.collect(cases, records, grader_results)
@@ -408,7 +421,7 @@ class EvaluationRunner:
             "policy_decision": state.policy_decision if state else None,
             "matched_topic_ids": list(state.policy_matched_topic_ids) if state else [],
             "retrieved_source_ids": [item.source_id for item in run.observed_evidence] if run else [],
-            "citation_integrity_valid": response.route == Route.ANSWER or response.route == Route.ABSTAIN,
+            "citation_integrity_valid": pipeline.last_harness_disposition != "invalid_citation",
             "claim_verdicts": [item.verdict.value for item in getattr(pipeline.last_claim_support_result, "claim_results", ())],
         }
         observed.update(observed_extra or {})
