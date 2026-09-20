@@ -2,8 +2,8 @@
   "milestone": "M3.1",
   "source_implementation_commit": "4ecf06b",
   "claim_support_live_run": "runs/m3/20260920T112419+0800",
-  "focused_live_run": null,
-  "focused_live_run_status": "not_completed_no_partial_artifact_retained",
+  "focused_live_run": "runs/m3/20260920T114456+0800",
+  "focused_live_run_status": "completed",
   "capability_subsystem_retuned": false,
   "m4_started": false
 }

@@ -46,7 +46,7 @@ def main(argv: list[str] | None = None) -> int:
     run_dir.mkdir(parents=True, exist_ok=False)
     run_config = _config(args, config, scope, len(cases))
     _write_json(run_dir / "config.json", run_config)
-    (run_dir / "cases.jsonl").write_text(Path(args.dataset).read_text(encoding="utf-8"), encoding="utf-8")
+    _write_text(run_dir / "cases.jsonl", Path(args.dataset).read_text(encoding="utf-8"))
 
     m2_runs: dict[str, Any] = {}
     m2_responses: dict[str, Any] = {}
@@ -142,7 +142,7 @@ def main(argv: list[str] | None = None) -> int:
     _write_jsonl(run_dir / "claim_results.jsonl", claim_rows)
     _write_jsonl(run_dir / "failures.jsonl", failures)
     _write_json(run_dir / "metrics.json", metrics)
-    (run_dir / "report.md").write_text(_report(run_dir.name, metrics, failures), encoding="utf-8")
+    _write_text(run_dir / "report.md", _report(run_dir.name, metrics, failures))
     print(run_dir)
     print(json.dumps(metrics, ensure_ascii=False, indent=2))
     return 0
@@ -281,11 +281,15 @@ def _ratio_or_none(numerator, denominator):
 
 
 def _write_json(path, value):
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    _write_text(path, json.dumps(value, ensure_ascii=False, indent=2) + "\n")
 
 
 def _write_jsonl(path, rows):
-    path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+    _write_text(path, "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
+
+
+def _write_text(path, value):
+    path.write_text(value, encoding="utf-8", newline="\n")
 
 
 def _write_progress(run_dir, trial, case_key, arm, status):

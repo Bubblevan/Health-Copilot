@@ -51,12 +51,25 @@ is retained as observed; no gold was modified for it.
 
 ## Focused M2-vs-M3
 
-The verifier input contract changed, so the older focused run is not presented
-as a M3.1 result. A fresh 3-trial focused rerun was attempted, but this desktop
-environment's background child process made no network progress and produced no
-`metrics.json`; all incomplete directories were deleted and no partial result is
-reported. A foreground single M3 CLI call did complete, confirming the repaired
-runtime wiring, but it is not an A/B evaluation.
+The first focused attempts appeared stalled because the evaluator wrote only at
+batch completion. TCP connectivity to `api.deepseek.com:443` and a foreground
+M3 CLI request both succeeded; after adding progress records, the fresh complete
+three-trial run finished at `runs/m3/20260920T114456+0800/`.
+
+| metric | fresh M2 | fresh M3 | frozen M2 baseline |
+| --- | ---: | ---: | ---: |
+| OOD tool execution | 9/12 (0.75) | 0/12 (0.0) | 8/12 (0.6667) |
+| expected answer | 15/18 (0.8333) | 18/18 (1.0) | 17/18 (0.9444) |
+| unexpected abstain | 3/18 (0.1667) | 0/18 (0.0) | — |
+| mean model turns | 1.6 | 1.3 | — |
+| mean tool executions | 0.6 | 0.3 | — |
+| mean policy calls | 0.7 | 0.6667 | — |
+| mean verifier calls | 0.5667 | 0.6 | — |
+
+M3 had no expected-answer false reject in this stochastic run. All eleven M3
+OOD proposals with a policy decision were `INSUFFICIENT` with no matched topic
+and no tool execution; the twelfth OOD trajectory abstained before policy. This
+is an observed three-trial result, not a guarantee of future improvement.
 
 ## Verification
 
