@@ -9,8 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from ..contracts import KnowledgeCard
 from ..retrieval.bm25 import BM25Retriever
+from ..retrieval.documents import RetrievalDocument
 
 
 @dataclass(frozen=True)
@@ -26,7 +26,7 @@ class RetrievalEvalCase:
 class NFCorpusDataset:
     """The three BEIR artifacts after parsing, without changing their semantics."""
 
-    documents: tuple[KnowledgeCard, ...]
+    documents: tuple[RetrievalDocument, ...]
     cases: tuple[RetrievalEvalCase, ...]
     split: str
 
@@ -72,7 +72,7 @@ def _load_qrels(path: Path) -> dict[str, dict[str, int]]:
     return relevance
 
 
-def _as_eval_card(record: dict[str, Any]) -> KnowledgeCard:
+def _as_eval_document(record: dict[str, Any]) -> RetrievalDocument:
     document_id = record.get("_id")
     if not isinstance(document_id, str) or not document_id:
         raise ValueError("NFCorpus corpus record needs a non-empty _id")
@@ -80,20 +80,11 @@ def _as_eval_card(record: dict[str, Any]) -> KnowledgeCard:
     text = record.get("text", "")
     if not isinstance(title, str) or not isinstance(text, str) or not (title or text):
         raise ValueError(f"NFCorpus document {document_id} needs title or text")
-    return KnowledgeCard(
+    return RetrievalDocument(
         id=document_id,
         title=title,
-        content=text,
-        source_url="https://github.com/beir-cellar/beir",
-        publisher="BEIR NFCorpus",
-        published_at=None,
-        collected_at="external-benchmark",
-        reviewed_at=None,
-        reviewer="external-benchmark",
-        version="beir-nfcorpus",
-        expires_at=None,
-        audience=["retrieval_evaluation"],
-        tags=["benchmark", "biomedical", "nfcorpus"],
+        text=text,
+        metadata={"dataset": "beir-nfcorpus"},
     )
 
 
@@ -105,7 +96,7 @@ def load_nfcorpus(data_dir: str | Path, split: str = "test") -> NFCorpusDataset:
     qrels_path = _find_file(root, f"{split}.tsv")
     qrels = _load_qrels(qrels_path)
 
-    documents = tuple(_as_eval_card(record) for record in corpus_records)
+    documents = tuple(_as_eval_document(record) for record in corpus_records)
     cases: list[RetrievalEvalCase] = []
     for record in query_records:
         query_id = record.get("_id")

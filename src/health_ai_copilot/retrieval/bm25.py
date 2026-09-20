@@ -5,21 +5,28 @@ from collections.abc import Sequence
 from math import log
 
 from ..contracts import Evidence, KnowledgeCard
+from .documents import RetrievalDocument, document_from_knowledge_card
 from .tokenizer import tokenize
 
 
 class BM25Retriever:
     """BM25 over card title, content and tags."""
 
-    def __init__(self, cards: Sequence[KnowledgeCard], k1: float = 1.5, b: float = 0.75):
+    def __init__(
+        self,
+        cards: Sequence[KnowledgeCard] | Sequence[RetrievalDocument],
+        k1: float = 1.5,
+        b: float = 0.75,
+    ):
         if k1 < 0 or not 0 <= b <= 1:
             raise ValueError("BM25 requires k1 >= 0 and b between 0 and 1")
         self.cards = tuple(sorted(cards, key=lambda card: card.id))
+        self.documents = tuple(_as_document(card) for card in self.cards)
         self.k1 = k1
         self.b = b
         self._documents = [
-            tokenize(" ".join((card.title, card.content, *card.tags)))
-            for card in self.cards
+            tokenize(" ".join((document.title or "", document.text, *_tags(document))))
+            for document in self.documents
         ]
         self._term_frequencies = [Counter(document) for document in self._documents]
         document_frequency: Counter[str] = Counter()
@@ -69,11 +76,21 @@ class BM25Retriever:
         ranked.sort(key=lambda item: (-item[0], item[1].id))
         return [
             Evidence(
-                source_id=card.id,
-                title=card.title,
-                excerpt=card.content,
-                source_url=card.source_url,
+                source_id=document.id,
+                title=document.title or document.id,
+                excerpt=document.text,
+                source_url=str(document.metadata.get("source_url", "")),
                 score=score,
             )
             for score, card in ranked[:top_k]
+            for document in (_as_document(card),)
         ]
+
+
+def _as_document(card: KnowledgeCard | RetrievalDocument) -> RetrievalDocument:
+    return card if isinstance(card, RetrievalDocument) else document_from_knowledge_card(card)
+
+
+def _tags(document: RetrievalDocument) -> tuple[str, ...]:
+    value = document.metadata.get("tags", ())
+    return tuple(item for item in value if isinstance(item, str)) if isinstance(value, (list, tuple)) else ()
