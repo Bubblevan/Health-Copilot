@@ -92,10 +92,23 @@ M0 为保持现有 `AssistantResponse` contract，字段名仍是 `safety_reason
 `invalid_citation` 等 status reason。M1 保持该兼容字段；后续里程碑再演进为 `reasons` 或
 `status_reasons`，按 safety 与 runtime failure domain 分离，避免字段名产生误导。
 
+## M4 budgeted and replayable runtime
+
+```text
+domain adapter -> ProviderExecutor -> RunBudget guard -> provider / recorded response
+AgentLoop tool proposal -> ToolRunner -> RunBudget guard -> registry / recorded tool result
+                                       \-> metadata trace events
+```
+
+`RunContext` 是 execution-local control-plane state，而非 memory。默认 trace 不持久化用户内容；
+public evaluation recording 必须显式 opt-in。Replay 对 canonical request fingerprint 做严格匹配，并以
+recorded provider/tool outputs 重跑相同 pipeline branch；mismatch、缺失 exchange 或 budget denial 都 fail closed。
+M4 没有增加 product tool，也没有修改 M0–M3 wire contracts。
+
 ## Later milestones
 
-后续 Harness Runtime 再考虑更广泛的 policy/budget/timeout、持久化 trace/replay 与可插拔
-runtime；dense/hybrid retrieval、multimodal evidence 和 post-training 也都必须先有 baseline、
+后续再考虑 permission、production persistence、dense/hybrid retrieval、multimodal evidence 与 post-training；
+它们都必须先有 baseline、
 失败案例、ablation 和可复现评测，再增加复杂度。
 
 ## M2 evidence policy and grounding

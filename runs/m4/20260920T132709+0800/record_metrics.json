@@ -1,0 +1,7 @@
+{
+  "case_count": 6,
+  "route_match_rate": 1.0,
+  "ood_tool_execution": 0,
+  "provider_call_count": 16,
+  "tool_execution_count": 2
+}

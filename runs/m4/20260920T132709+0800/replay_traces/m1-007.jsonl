@@ -1,0 +1,4 @@
+{"event_type": "run_start", "fields": {"run_id": "run-0a5c71e795624ccea5600daedd5f469e", "runtime_mode": "m4_semantic_replay"}, "sequence": 1}
+{"event_type": "policy_decision", "fields": {"decision": "insufficient", "matched_topic_ids": [], "reason_codes": ["missing_required_evidence", "out_of_scope"], "supporting_source_count": 0}, "sequence": 2}
+{"event_type": "harness_disposition", "fields": {"disposition": "abstain", "route": "abstain", "safety_reason_count": 1}, "sequence": 3}
+{"event_type": "run_end", "fields": {"event_count": 3, "status": "complete"}, "sequence": 4}

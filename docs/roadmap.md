@@ -53,7 +53,14 @@ expected answers `18/18`、unexpected abstains `0/18`、mean model turns `1.30` 
 `0.30`；较早、同配置的小样本曾观测到 `15/18` expected answers。这些随机的小包诊断仅用于 regression，
 不是稳定 answer-rate 或泛化能力声明。当前 freeze 与 evaluation-QA 状态见 `docs/m3_evaluation_freeze.md`。
 
-## M4+ — Later extensions（planned）
+## M4 — Budgeted & Replayable Harness Runtime（implemented）
+
+M4 添加 all-live-adapter provider boundary、pre-side-effect deadline/call/token guards、guarded tool dispatch、
+privacy-tiered JSONL trace、strict public-evaluation provider/tool replay，以及 deterministic offline failure
+injection。它保留 M0–M3 contracts，未增加 Agent capability。固定六条 M4 record/replay pack 仅是 regression
+diagnostic，不是 generalization result。
+
+## M5+ — Later extensions（planned）
 
 后续工作必须先由新的失败案例、固定评测和可复现 ablation 驱动；可考虑更广的 evaluation harness、
 provider boundaries、复杂证据研究、memory、dense/hybrid retrieval 或视觉输入。任何 post-training 都必须

@@ -1,0 +1,20 @@
+{
+  "commit_sha": "5b955044cf78341114735aa08d7d02858829e4a8",
+  "model": "deepseek-flash",
+  "policy_model": "deepseek-flash",
+  "verifier_model": "deepseek-flash",
+  "same_model_verification": true,
+  "base_url": "https://api.deepseek.com",
+  "temperature": 0.1,
+  "dataset_path": "evals/m4_replay.jsonl",
+  "dataset_sha256": "08edbdfb0b84d9555ac3c01e14e20d5c9191a8d4a56c56f49e0a3035d6aaac65",
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "knowledge_scope_id": "hypertension-patient-education-v1",
+  "knowledge_scope_version": "1",
+  "knowledge_scope_sha256": "8bb8729bfc1910ca78daa60e2d476cd4af1241db3ac94ce2c2480f7cdfc6c4a5",
+  "case_count": 6,
+  "retries": 0,
+  "max_model_turns": 2,
+  "max_tool_calls": 1,
+  "trace_content_policy": "public_eval_content"
+}

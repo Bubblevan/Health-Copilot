@@ -161,12 +161,21 @@ Claim support 使用 **single-call batched cited-evidence binding**：verifier p
 cited evidence。若需物理隔离，则必须每个 claim 单独 verifier call，代价是额外 model round trip；M3
 明确选择了单次、有界调用的 trade-off。
 
+## M4 已实现：Budgeted & Replayable Harness Runtime
+
+M4 为既有 M0–M3 adapters 引入统一 `ProviderExecutor` 边界和 `RunContext`：provider/tool 副作用均在
+执行前经过单调 deadline、provider/tool 次数及可选 hard token budget guard。默认 `metadata_only`
+JSONL trace 不保存问题、回答、claims、evidence、provider messages 或工具 query；公开、reviewed eval
+才可以显式选择 content recording。严格 fingerprint 的 provider/tool replay 会重新运行 pipeline control
+flow，但不会创建 live provider client 或调用 live tool；mismatch fail closed。详见
+[`docs/m4_runtime.md`](docs/m4_runtime.md)。这不是 clinical validation、隐私合规认证或泛化证明。
+
 ## 设计限制
 
 M0/M1 的 citation verifier 只验证模型返回的 ID 是否属于本次实际观察到的 Evidence，并从
 存储的 Evidence 复制标题、摘要和 URL；它不证明每个自然语言 claim 与引用之间存在语义
-蕴含关系。M2 已补充 claim-level grounding；持久化 trace/replay 和完整 Harness Runtime
-仍留到后续阶段。
+蕴含关系。M2 已补充 claim-level grounding；M4 已提供有界 budget、metadata trace 与 public-eval
+replay，但没有添加生产 conversation memory、新 Agent tool、web search 或任何临床验证。
 
 为保持 M0 的兼容性，`AssistantResponse.safety_reasons` 当前同时承载 safety reason 和
 pipeline status reason（如 `retrieval_error`、`generation_error`、`invalid_citation`）。

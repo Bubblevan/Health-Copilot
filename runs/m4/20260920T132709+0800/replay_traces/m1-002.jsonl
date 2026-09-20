@@ -1,0 +1,4 @@
+{"event_type": "run_start", "fields": {"run_id": "run-a8a779f6b4c44f518d37a1d576a4d762", "runtime_mode": "m4_semantic_replay"}, "sequence": 1}
+{"event_type": "policy_decision", "fields": {"decision": "recoverable", "matched_topic_ids": ["symptoms"], "reason_codes": ["related_but_incomplete", "missing_required_evidence"], "supporting_source_count": 0}, "sequence": 2}
+{"event_type": "harness_disposition", "fields": {"disposition": "answer", "route": "answer", "safety_reason_count": 0}, "sequence": 3}
+{"event_type": "run_end", "fields": {"event_count": 3, "status": "complete"}, "sequence": 4}

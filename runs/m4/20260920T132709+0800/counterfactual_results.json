@@ -1,0 +1,16 @@
+{
+  "execution": "offline deterministic contract tests",
+  "provider_timeout_injection": {
+    "injected_before_delegate": true,
+    "observed": "provider failure is normalized and the domain adapter fails closed"
+  },
+  "tool_failure_injection": {
+    "injected_before_delegate": true,
+    "observed": "structured tool failure is returned without registry handler execution"
+  },
+  "request_mismatch": {
+    "injected_by": "replay request model mismatch",
+    "observed": "replay_mismatch provider failure"
+  },
+  "evidence": "tests/test_runtime_failure_injection.py; tests/test_runtime_replay.py"
+}

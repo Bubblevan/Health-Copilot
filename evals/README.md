@@ -92,3 +92,10 @@ because deterministic citation integrity rejects it before the verifier.
 Approved M3 expansion releases live in `evals/expansion/` with review manifests that bind the exact dataset SHA256.
 Their results are separate from frozen M3 packs. See `evals/expansion/m3_expansion_annotation_audit.md` for the
 two capability cases under annotation review and the expansion fine-grained verdict analysis.
+
+## M4 public record/replay diagnostic
+
+`m4_replay.jsonl` is a fixed six-case subset of previously reviewed `m1_recovery.jsonl`, with source-dataset
+provenance per row. It exercises public recording and semantic replay only; it does not change M1/M2/M3 gold and
+is not a new answer-quality or generalization benchmark. `runs/m4/` public artifacts contain reviewed fixture
+content by explicit design; production `metadata_only` traces must not.

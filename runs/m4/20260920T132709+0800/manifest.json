@@ -1,0 +1,17 @@
+{
+  "artifact_kind": "m4_public_record_and_semantic_replay",
+  "live_record_commit": "5b95504",
+  "dataset": "evals/m4_replay.jsonl",
+  "dataset_provenance": "fixed six-case subset of reviewed evals/m1_recovery.jsonl",
+  "content_policy": "public_eval_content",
+  "record_status": "complete",
+  "replay_status": "complete",
+  "record_results": "record_results.jsonl",
+  "replay_results": "replay_results.jsonl",
+  "provider_exchange_directory": "provider_exchanges",
+  "tool_exchange_directory": "tool_exchanges",
+  "trace_directory": "traces",
+  "replay_trace_directory": "replay_traces",
+  "counterfactual_results": "counterfactual_results.json",
+  "api_key_persisted": false
+}
