@@ -16,7 +16,13 @@ from ..agent.tools import ToolResult, ToolSpec
 from ..contracts import Evidence
 from ..runtime.trace import TraceEventType, canonical_json_sha256
 from .permissions import PermissionDecision, PermissionGuard
-from .sandbox import SandboxBackend, SandboxFailure, SandboxProfile, ensure_sandbox_backend
+from .sandbox import (
+    SandboxBackend,
+    SandboxFailure,
+    SandboxFailureKind,
+    SandboxProfile,
+    ensure_sandbox_backend,
+)
 
 MCP_PROTOCOL_VERSION = "2026-07-28"
 MCP_SDK_VERSION = "2.2.0"
@@ -35,8 +41,19 @@ class McpFailureKind(StrEnum):
 
 
 class McpFailure(RuntimeError):
-    def __init__(self, kind: McpFailureKind, message: str = "MCP operation failed") -> None:
+    def __init__(
+        self,
+        kind: McpFailureKind,
+        message: str = "MCP operation failed",
+        *,
+        sandbox_failure_kind: SandboxFailureKind | None = None,
+    ) -> None:
         self.kind = McpFailureKind(kind)
+        self.sandbox_failure_kind = (
+            SandboxFailureKind(sandbox_failure_kind)
+            if sandbox_failure_kind is not None
+            else None
+        )
         super().__init__(message)
 
 
@@ -235,8 +252,8 @@ class McpClient:
             command = [self.config.command, *self.config.args]
             if self.config.sandbox_profile_id is not None:
                 if self.sandbox_backend is None or self.sandbox_profile is None:
-                    raise McpFailure(
-                        McpFailureKind.AUTHORIZATION,
+                    raise SandboxFailure(
+                        SandboxFailureKind.UNAVAILABLE,
                         "stdio MCP server requires an explicit sandbox backend",
                     )
                 ensure_sandbox_backend(self.sandbox_profile, self.sandbox_backend)
@@ -287,7 +304,11 @@ class McpClient:
         except McpFailure:
             raise
         except SandboxFailure as exc:
-            raise McpFailure(McpFailureKind.SANDBOX, "MCP sandbox setup failed") from exc
+            raise McpFailure(
+                McpFailureKind.SANDBOX,
+                "MCP sandbox setup failed",
+                sandbox_failure_kind=exc.kind,
+            ) from exc
         except Exception as exc:  # SDK exceptions stay behind the typed boundary
             raise McpFailure(McpFailureKind.DISCOVERY, "MCP server discovery failed") from exc
 
@@ -326,7 +347,11 @@ class McpClient:
         except McpFailure:
             raise
         except SandboxFailure as exc:
-            raise McpFailure(McpFailureKind.SANDBOX, "MCP sandbox setup failed") from exc
+            raise McpFailure(
+                McpFailureKind.SANDBOX,
+                "MCP sandbox setup failed",
+                sandbox_failure_kind=exc.kind,
+            ) from exc
         except Exception as exc:
             raise McpFailure(McpFailureKind.CATALOG, "MCP tool catalog failed") from exc
 
@@ -342,7 +367,11 @@ class McpClient:
         except McpFailure:
             raise
         except SandboxFailure as exc:
-            raise McpFailure(McpFailureKind.SANDBOX, "MCP sandbox setup failed") from exc
+            raise McpFailure(
+                McpFailureKind.SANDBOX,
+                "MCP sandbox setup failed",
+                sandbox_failure_kind=exc.kind,
+            ) from exc
         except Exception as exc:
             raise McpFailure(McpFailureKind.CALL_ERROR, "MCP tool call failed") from exc
 
@@ -476,6 +505,11 @@ class McpToolAdapter:
                     server_id=self.client.config.server_id,
                     tool_name=self.remote_name,
                     failure_kind=exc.kind.value,
+                    sandbox_failure_kind=(
+                        exc.sandbox_failure_kind.value
+                        if exc.sandbox_failure_kind is not None
+                        else None
+                    ),
                 )
             return ToolResult.failure(f"mcp_{exc.kind.value}", "MCP operation failed")
 

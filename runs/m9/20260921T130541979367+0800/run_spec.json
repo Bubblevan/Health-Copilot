@@ -1,0 +1,18 @@
+{
+  "budget_overrides": {},
+  "code_commit": null,
+  "component_manifest_hash": null,
+  "dataset_path": "evals\\m9_mcp_security_v1.jsonl",
+  "dataset_sha256": "610c3d7d9ca0da4de8619352cd86f3829c370d98108512ee8fdd9b4821b37176",
+  "execution_mode": "offline",
+  "output_root": "runs/m9",
+  "profile_config_hash": null,
+  "profile_id": "m9-mcp-search-bm25-v1",
+  "replay_run_dir": null,
+  "replay_source": null,
+  "run_spec_hash": "bd89fcc2e90802307ffad909e1719cb3123b30fa33197336823596a4f8beac9d",
+  "schema_version": "m7-run-spec-v1",
+  "suite_id": "m9-mcp-security-v1",
+  "trace_content_policy": "metadata_only",
+  "trials": 1
+}

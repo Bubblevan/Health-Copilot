@@ -152,7 +152,7 @@ M12 multimodal 均未启动。v1 失败审计与 v2 closeout 见
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。
 
-## M9 — H6 COMPLETE ON VALIDATED WSL2 BACKEND
+## M9.1 — H6 FINAL CLOSEOUT
 
 M9 增加了严格 pinned 的 MCP `2026-07-28` capability boundary，使用官方
 `mcp==2.2.0` Python SDK，并保持 `m3-bm25-default` 为产品默认。新增的
@@ -166,4 +166,14 @@ H6 的三个边界分别实现并验证：
 - Permission/Approval：trusted local default-deny `PermissionPolicy`、`ALLOW`/`DENY`/`REQUIRE_APPROVAL`、argument-hash-bound `ApprovalProvider`；
 - Sandbox：真实 WSL2 Ubuntu 24.04 Bubblewrap stdio fixture，独立验证 allowed read、workspace write、outside filesystem deny 和 network deny；required backend 缺失时 fail closed。
 
-M9 不实现 remote OAuth（文档明确为 NOT IMPLEMENTED）、dynamic topology、decentralized MAS、A2A、Memory、post-training 或 multimodal。完整边界与 source alignment 见 `docs/m9_mcp_security.md`；M10 Memory、M11 post-training、M12 multimodal 均未启动。
+M9.1 完成了 H6 closeout：RuntimeProfile 显式选择 MCP/Permission/Sandbox
+组件，保留 M0–M8 profile hash，修正 sandbox failure taxonomy，并将
+`m9-mcp-security-v1` 注册为 M7 offline security suite。GitHub Actions 仅
+验证平台无关的 protocol/permission/unit contract；WSL-specific
+containment tests 在 CI 中 skip，并由本地受支持主机上的 WSL2/Bubblewrap
+smoke 单独证明。完整边界与 source alignment 见
+`docs/m9_mcp_security.md`。
+
+M9 不实现 remote OAuth（文档明确为 NOT IMPLEMENTED）、dynamic topology、
+decentralized MAS、A2A、Memory、post-training 或 multimodal。M10 Memory、
+M11 post-training、M12 multimodal 均未启动。

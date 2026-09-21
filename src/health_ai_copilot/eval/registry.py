@@ -253,6 +253,23 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
             ),
             expected_dataset_sha256="78a417bef691892fb0b248911044f0325849ae4a4ae1065ec7ad009968180549",
         ),
+        EvalSuite(
+            "m9-mcp-security-v1",
+            "1",
+            EvalTargetKind.SECURITY,
+            "evals/m9_mcp_security_v1.jsonl",
+            (EvalExecutionMode.OFFLINE,),
+            "m9-mcp-search-bm25-v1",
+            ("security_control",),
+            "m9-security-metrics-v1",
+            provenance={
+                "gold_semantics": "deterministic MCP, permission, approval, and sandbox control-plane contracts",
+                "review_status": "harness fixture; not general security certification",
+                "real_containment": "separate WSL2/Bubblewrap integration smoke",
+            },
+            allowed_profiles=("m9-mcp-search-bm25-v1",),
+            expected_dataset_sha256="610c3d7d9ca0da4de8619352cd86f3829c370d98108512ee8fdd9b4821b37176",
+        ),
     )
     for suite in registrations:
         registry.register(suite)

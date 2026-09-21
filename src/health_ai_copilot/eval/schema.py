@@ -32,6 +32,7 @@ class EvalTargetKind(StrEnum):
     REPLAY = "replay"
     DETERMINISTIC_GATE = "deterministic_gate"
     ORCHESTRATION = "orchestration"
+    SECURITY = "security"
 
 
 class EvalExecutionMode(StrEnum):

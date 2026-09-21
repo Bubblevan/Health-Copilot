@@ -22,7 +22,15 @@ from ..mcp.permissions import (
     PermissionGuard,
     PermissionPolicy,
 )
-from ..mcp.sandbox import NoSandboxDevBackend
+from ..mcp.sandbox import (
+    BubblewrapSandboxBackend,
+    NoSandboxDevBackend,
+    SandboxFilesystemPolicy,
+    SandboxNetworkPolicy,
+    SandboxPolicy,
+    SandboxProfile,
+    WslBubblewrapSandboxBackend,
+)
 from ..mcp.server import build_search_knowledge_server
 from ..pipeline import HealthCopilotPipeline
 from ..policy.model import OpenAICompatibleEvidencePolicy
@@ -330,6 +338,9 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
             verifier="claim-support-v1",
             tool_set=("mcp-search-knowledge-v1",),
             mode="m9_mcp",
+            mcp_client="mcp-client-2026-07-28-v1",
+            permission="permission-policy-v1",
+            sandbox="no-sandbox-dev-v1",
             config={
                 "mcp": {
                     "server_id": "m9-search-knowledge-server",
@@ -375,6 +386,8 @@ def default_component_registry() -> ComponentRegistry:
     registry.register(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1", _build_mcp_client, implementation="health_ai_copilot.mcp.client.McpClient")
     registry.register(ComponentKind.PERMISSION, "permission-policy-v1", _build_permission, implementation="health_ai_copilot.mcp.permissions.PermissionGuard")
     registry.register(ComponentKind.SANDBOX, "no-sandbox-dev-v1", _build_dev_sandbox, implementation="health_ai_copilot.mcp.sandbox.NoSandboxDevBackend")
+    registry.register(ComponentKind.SANDBOX, "bubblewrap-sandbox-v1", _build_bubblewrap_sandbox, implementation="health_ai_copilot.mcp.sandbox.BubblewrapSandboxBackend")
+    registry.register(ComponentKind.SANDBOX, "bubblewrap-sandbox-wsl-v1", _build_wsl_bubblewrap_sandbox, implementation="health_ai_copilot.mcp.sandbox.WslBubblewrapSandboxBackend")
     return registry
 
 
@@ -462,10 +475,13 @@ class RuntimeBuilder:
         policy = construct(ComponentKind.POLICY, profile.policy) if profile.policy else None
         verifier = construct(ComponentKind.VERIFIER, profile.verifier) if profile.verifier else None
 
-        if profile.mode == "m9_mcp":
-            construct(ComponentKind.PERMISSION, "permission-policy-v1")
-            construct(ComponentKind.SANDBOX, "no-sandbox-dev-v1")
-            construct(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1")
+        for kind, component_id in (
+            (ComponentKind.PERMISSION, profile.permission),
+            (ComponentKind.SANDBOX, profile.sandbox),
+            (ComponentKind.MCP_CLIENT, profile.mcp_client),
+        ):
+            if component_id is not None:
+                construct(kind, component_id)
         tools = [construct(ComponentKind.TOOL, item) for item in profile.tool_set]
         tool_registry = ToolRegistry(tools)
         trace_factory = construct(ComponentKind.TRACE, profile.trace)
@@ -574,8 +590,19 @@ class RuntimeBuilder:
             raise RuntimeBuildError(f"{profile.mode} profile requires an explicit tool set")
         if profile.mode == "m8_team" and (profile.orchestration != "agent-team-v1" or not profile.tool_set):
             raise RuntimeBuildError("m8_team profile requires agent-team-v1 and an explicit tool set")
-        if profile.mode == "m9_mcp" and profile.tool_set != ("mcp-search-knowledge-v1",):
-            raise RuntimeBuildError("m9_mcp profile requires the MCP search tool")
+        if profile.mode == "m9_mcp":
+            if profile.tool_set != ("mcp-search-knowledge-v1",):
+                raise RuntimeBuildError("m9_mcp profile requires the MCP search tool")
+            missing = [
+                name
+                for name in ("mcp_client", "permission", "sandbox")
+                if getattr(profile, name) is None
+            ]
+            if missing:
+                raise RuntimeBuildError(
+                    "m9_mcp profile requires declarative component selections: "
+                    + ", ".join(missing)
+                )
 
 
 class _RecordedEvidenceRetriever:
@@ -889,12 +916,15 @@ def _build_search_tool(context: ComponentBuildContext) -> BuiltComponent:
 
 
 def _build_permission(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.permission
+    if component_id is None:
+        raise RuntimeBuildError("permission component is not selected by the profile")
     cfg = _component_config(context.profile, ComponentKind.PERMISSION)
     mcp_cfg = context.profile.config.get("mcp", {})
     if not isinstance(mcp_cfg, Mapping):
         raise TypeError("profile mcp config must be an object")
     server_id = str(mcp_cfg.get("server_id", "m9-search-knowledge-server"))
-    policy_id = str(cfg.get("policy_id", "permission-policy-v1"))
+    policy_id = str(cfg.get("policy_id", component_id))
     policy = PermissionPolicy(
         {(server_id, "search_knowledge"): CapabilityPolicy(CapabilityClass.READ, decision="allow")},
         policy_id=policy_id,
@@ -904,7 +934,7 @@ def _build_permission(context: ComponentBuildContext) -> BuiltComponent:
         guard,
         _identity(
             ComponentKind.PERMISSION,
-            "permission-policy-v1",
+            component_id,
             "health_ai_copilot.mcp.permissions.PermissionGuard",
             {"policy_id": policy_id, "policy_hash": policy.config_hash},
         ),
@@ -912,16 +942,19 @@ def _build_permission(context: ComponentBuildContext) -> BuiltComponent:
 
 
 def _build_dev_sandbox(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.sandbox
+    if component_id is None:
+        raise RuntimeBuildError("sandbox component is not selected by the profile")
     cfg = _component_config(context.profile, ComponentKind.SANDBOX)
     backend = NoSandboxDevBackend()
     return BuiltComponent(
         backend,
         _identity(
             ComponentKind.SANDBOX,
-            "no-sandbox-dev-v1",
+            component_id,
             "health_ai_copilot.mcp.sandbox.NoSandboxDevBackend",
             {
-                "profile_id": cfg.get("profile_id", "no-sandbox-dev-v1"),
+                "profile_id": cfg.get("profile_id", component_id),
                 "contained": False,
                 "requires_real_enforcement": False,
             },
@@ -929,7 +962,67 @@ def _build_dev_sandbox(context: ComponentBuildContext) -> BuiltComponent:
     )
 
 
+def _build_bubblewrap_sandbox(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.sandbox
+    if component_id is None:
+        raise RuntimeBuildError("sandbox component is not selected by the profile")
+    return BuiltComponent(
+        BubblewrapSandboxBackend(),
+        _identity(
+            ComponentKind.SANDBOX,
+            component_id,
+            "health_ai_copilot.mcp.sandbox.BubblewrapSandboxBackend",
+            _component_config(context.profile, ComponentKind.SANDBOX),
+        ),
+    )
+
+
+def _build_wsl_bubblewrap_sandbox(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.sandbox
+    if component_id is None:
+        raise RuntimeBuildError("sandbox component is not selected by the profile")
+    cfg = _component_config(context.profile, ComponentKind.SANDBOX)
+    return BuiltComponent(
+        WslBubblewrapSandboxBackend(
+            distribution=str(cfg.get("distribution", "Ubuntu-24.04"))
+        ),
+        _identity(
+            ComponentKind.SANDBOX,
+            component_id,
+            "health_ai_copilot.mcp.sandbox.WslBubblewrapSandboxBackend",
+            cfg,
+        ),
+    )
+
+
+def _sandbox_profile(context: ComponentBuildContext) -> SandboxProfile | None:
+    component_id = context.profile.sandbox
+    if component_id is None:
+        return None
+    cfg = _component_config(context.profile, ComponentKind.SANDBOX)
+    filesystem = cfg.get("filesystem", {})
+    if not isinstance(filesystem, Mapping):
+        raise TypeError("profile sandbox filesystem config must be an object")
+    read_roots = tuple(Path(item) for item in filesystem.get("read_roots", ()))
+    write_roots = tuple(Path(item) for item in filesystem.get("write_roots", ()))
+    network = SandboxNetworkPolicy(cfg.get("network", SandboxNetworkPolicy.DENY_ALL))
+    network_origins = tuple(str(item) for item in cfg.get("network_origins", ()))
+    return SandboxProfile(
+        str(cfg.get("profile_id", component_id)),
+        SandboxPolicy(
+            SandboxFilesystemPolicy(read_roots=read_roots, write_roots=write_roots),
+            network=network,
+            network_origins=network_origins,
+        ),
+        backend_id=component_id,
+        requires_real_enforcement=bool(cfg.get("requires_real_enforcement", False)),
+    )
+
+
 def _build_mcp_client(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.mcp_client
+    if component_id is None:
+        raise RuntimeBuildError("MCP client component is not selected by the profile")
     cfg = dict(context.profile.config.get("mcp", {}))
     server_id = str(cfg.get("server_id", "m9-search-knowledge-server"))
     retriever = context.instances[(ComponentKind.RETRIEVER, context.profile.retriever)]
@@ -944,16 +1037,40 @@ def _build_mcp_client(context: ComponentBuildContext) -> BuiltComponent:
         protocol_version=MCP_PROTOCOL_VERSION,
         endpoint_identity=f"inproc:{server_id}",
         auth_mode=str(cfg.get("auth_mode", "unauthenticated_local")),
-        sandbox_profile_id=str(cfg.get("sandbox_profile_id", "no-sandbox-dev-v1")),
+        sandbox_profile_id=(
+            str(cfg["sandbox_profile_id"])
+            if "sandbox_profile_id" in cfg and cfg["sandbox_profile_id"] is not None
+            else None
+        ),
         tool_namespace=str(cfg.get("tool_namespace", f"mcp::{server_id}")),
     )
-    client = McpClient(config, server)
+    sandbox_backend = None
+    sandbox_profile = None
+    if config.transport == "stdio" and config.sandbox_profile_id is not None:
+        sandbox_id = context.profile.sandbox
+        if sandbox_id is None:
+            raise RuntimeBuildError("stdio MCP requires a selected sandbox component")
+        try:
+            sandbox_backend = context.instances[(ComponentKind.SANDBOX, sandbox_id)]
+        except KeyError as exc:
+            raise RuntimeBuildError(
+                f"stdio MCP requires sandbox dependency {sandbox_id}"
+            ) from exc
+        sandbox_profile = _sandbox_profile(context)
+        if sandbox_profile is None:
+            raise RuntimeBuildError("stdio MCP requires a sandbox profile")
+    client = McpClient(
+        config,
+        server,
+        sandbox_backend=sandbox_backend,
+        sandbox_profile=sandbox_profile,
+    )
     catalog = client.catalog()
     return BuiltComponent(
         client,
         _identity(
             ComponentKind.MCP_CLIENT,
-            "mcp-client-2026-07-28-v1",
+            component_id,
             "health_ai_copilot.mcp.client.McpClient",
             {
                 **config.to_safe_dict(),
@@ -968,8 +1085,17 @@ def _build_mcp_client(context: ComponentBuildContext) -> BuiltComponent:
 
 
 def _build_mcp_search_tool(context: ComponentBuildContext) -> BuiltComponent:
-    client = context.instances[(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1")]
-    guard = context.instances[(ComponentKind.PERMISSION, "permission-policy-v1")]
+    client_id = context.profile.mcp_client
+    permission_id = context.profile.permission
+    if client_id is None or permission_id is None:
+        raise RuntimeBuildError("MCP tool requires MCP client and permission selections")
+    try:
+        client = context.instances[(ComponentKind.MCP_CLIENT, client_id)]
+        guard = context.instances[(ComponentKind.PERMISSION, permission_id)]
+    except KeyError as exc:
+        raise RuntimeBuildError(
+            "MCP tool dependencies were not constructed"
+        ) from exc
     catalog = client.catalog()
     try:
         remote_spec = next(item for item in catalog.tools if item.name == "search_knowledge")

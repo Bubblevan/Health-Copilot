@@ -1,4 +1,4 @@
-# M9 — Modern MCP Capability Boundary, Permission/Approval & Sandbox
+# M9.1 — Declarative MCP/Security Graph, Failure Semantics & Eval Closeout
 
 M9 implements Harness Macro H6 as three separate control layers:
 
@@ -14,7 +14,7 @@ MCP authorization nor sandbox widening.
 
 ## Status and frozen boundary
 
-M9 is an experimental capability-boundary milestone. The product default is
+M9.1 is the final H6 closeout over the experimental M9 capability boundary. The product default is
 still `m3-bm25-default`; the only product-facing M9 profile is the opt-in,
 read-only `m9-mcp-search-bm25-v1`. The security fixture tools are test-only and
 are not registered in M3, M8, or M9 product profiles.
@@ -24,10 +24,73 @@ SFT/DPO/RL, multimodal work, dynamic topology, decentralized MAS, A2A, or MCP
 Apps/Tasks/Prompts. M10 is reserved for Memory, M11 for post-training, and M12
 for multimodal work.
 
-The real containment evidence in this closeout was collected on WSL2 Ubuntu
-24.04 with Bubblewrap. Environments without that backend must fail closed for a
+The M9 checkpoint recorded real containment evidence on WSL2 Ubuntu 24.04 with
+Bubblewrap. This M9.1 closeout preserves that evidence boundary and adds the
+platform-independent contracts; the current Windows host has no available
+WSL2/Bubblewrap backend, so its containment smoke is reported as skipped rather
+than as new evidence. Environments without that backend must fail closed for a
 profile that requires real enforcement; a `no-sandbox-dev-v1` profile is an
 explicit non-containing development escape hatch, not an H6 claim.
+
+## M9.1 declarative closeout
+
+`RuntimeProfile` now has optional component selections:
+
+```text
+mcp_client: str | None
+permission: str | None
+sandbox: str | None
+```
+
+The fields are component IDs, not Python objects. They are omitted from the
+canonical profile dictionary when `None`, preserving the frozen M0–M8 profile
+hashes. The explicit M9 declaration is:
+
+```text
+profile:  m9-mcp-search-bm25-v1
+mode:     m9_mcp
+mcp_client: mcp-client-2026-07-28-v1
+permission: permission-policy-v1
+sandbox:    no-sandbox-dev-v1
+tool_set:   mcp-search-knowledge-v1
+```
+
+The builder constructs these IDs from the profile graph. It does not select
+M9 components by branching on `profile_id`; unknown IDs and missing required
+M9 graph fields fail closed. The component manifest therefore records the MCP,
+permission, and sandbox identities selected by the profile. The real backend
+registrations are explicit (`bubblewrap-sandbox-v1` and
+`bubblewrap-sandbox-wsl-v1`) and are never dynamically installed or made the
+product default.
+
+Sandbox setup is not authorization. A required stdio sandbox that is missing,
+unavailable, or non-containing is reported as:
+
+```text
+McpFailureKind.SANDBOX
+SandboxFailureKind.UNAVAILABLE | FILESYSTEM_DENIED | NETWORK_DENIED | PROCESS_ERROR
+```
+
+The MCP `AUTHORIZATION` category remains reserved for a future actual
+protocol/resource-server authorization failure. Permission denial, approval
+denial, MCP tool-call errors, and sandbox failures remain distinct in the M7
+failure taxonomy.
+
+The security manifest is now a first-class offline M7 suite:
+`m9-mcp-security-v1`, target kind `security`, metric definition
+`m9-security-metrics-v1`. It runs deterministic in-process fixtures only and
+produces the normal M7 bundle. The closeout bundle is
+`runs/m9/20260921T130541979367+0800/`; it contains 12/12 passing controls,
+including 4/4 permission, 3/3 protocol, and 5/5 sandbox-contract controls.
+This offline result is not a claim of real process containment; the latter is
+reported separately from the WSL2/Bubblewrap smoke.
+
+The M8 real-run interpretation is intentionally precise: observed worker
+completion was `0`; full observed-context overlap was `1.0` on the comparable
+multi-worker records; recovery-only unique contribution was `0`. Therefore no
+unique worker evidence contribution was observed. The overlap metric does not
+justify claiming that two independently completed workers produced the same
+evidence.
 
 ## A. Modern MCP baseline
 
@@ -255,6 +318,18 @@ not part of M9's execution semantics.
 
 ## Acceptance evidence
 
+- `RuntimeProfile` declaratively selects the M9 MCP client, permission, and
+  sandbox components; M0–M8 canonical profile hashes remain frozen.
+- `m9-mcp-security-v1` is visible in `health-eval list` as an offline
+  `security` target and `health-eval run --suite m9-mcp-security-v1
+  --execution offline` produces the standard M7 bundle.
+- The offline security bundle passes 12/12 controls: permission 4/4,
+  protocol 3/3, and sandbox contract 5/5. These are deterministic control
+  semantics, not a security certification or real-containment result.
+- GitHub Actions validates the platform-independent protocol, permission, unit,
+  and offline security contracts; WSL-specific containment tests are skipped
+  there. The supported local Windows/WSL2 host is the separate source of real
+  Bubblewrap containment evidence.
 - SDK: `mcp==2.2.0`; protocol: `2026-07-28`.
 - Modern discovery and no legacy session dependency: deterministic tests pass.
 - Streamable HTTP `MCP-Protocol-Version`, `Mcp-Method`, and `Mcp-Name`: instrumented official-SDK test passes.

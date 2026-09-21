@@ -1,0 +1,2 @@
+{"event_type": "security_control", "fields": {"case_id": "network-egress", "control_passed": true, "failure_code": null}, "sequence": 1}
+{"event_type": "run_end", "fields": {"event_count": 1, "status": "complete"}, "sequence": 2}

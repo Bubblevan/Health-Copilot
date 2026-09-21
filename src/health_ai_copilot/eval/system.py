@@ -23,7 +23,7 @@ from ..runtime import (
     read_tool_exchanges,
 )
 from ..runtime.builder import RuntimeBuilder
-from ..runtime.trace import TraceContentPolicy
+from ..runtime.trace import RunTrace, TraceContentPolicy, TraceEventType
 from ..safety import route_question
 from ..team import (
     TeamLeadFailureKind,
@@ -58,6 +58,7 @@ from .schema import (
     effective_budget_config,
     sha256_file,
 )
+from .security import run_security_case
 
 
 class _OfflineProvider:
@@ -179,7 +180,10 @@ class EvaluationRunner:
         ):
             scope = load_knowledge_scope(knowledge_scope, cards)
 
-        if suite.suite_id == "m0-regression-v1":
+        if suite.suite_id == "m9-mcp-security-v1":
+            records, trajectories = self._run_m9_security(bundle, suite, spec, cases)
+            components = None
+        elif suite.suite_id == "m0-regression-v1":
             components = self._build_offline_components(spec, spec.profile_id or "m0-bm25-default", cards, scope)
             records, trajectories = self._run_m0(bundle, suite, spec, cases, components)
         elif suite.suite_id == "m5-product-retrieval-v1":
@@ -243,6 +247,8 @@ class EvaluationRunner:
             metrics.update(self._m5_metrics(records, suite.metric_definition_version))
         elif suite.suite_id == "m8-agent-team-focused-v1":
             metrics.update(self._m8_metrics(records, cases, suite.metric_definition_version))
+        elif suite.suite_id == "m9-mcp-security-v1":
+            metrics.update(self._m9_security_metrics(records, cases, suite.metric_definition_version))
         self._write_bundle(
             bundle,
             spec,
@@ -351,6 +357,75 @@ class EvaluationRunner:
                     )
                 )
                 trajectories.append(self._trajectory(suite, case, trial, spec, records[-1]))
+        return records, trajectories
+
+    def _run_m9_security(self, bundle, suite, spec, cases):
+        records: list[CaseRunRecord] = []
+        trajectories: list[TrajectoryRecord] = []
+        for trial in range(1, spec.trials + 1):
+            for case in cases:
+                trace_path = bundle / "traces" / f"{case.case_id}-t{trial}.jsonl"
+                trace = RunTrace(trace_path, TraceContentPolicy.METADATA_ONLY)
+                outcome = run_security_case(case.case_id)
+                trace.emit(
+                    TraceEventType.SECURITY_CONTROL,
+                    case_id=case.case_id,
+                    control_passed=outcome.passed,
+                    failure_code=outcome.failure_code,
+                )
+                trace.close(status="complete" if outcome.passed else "failed")
+                record = self._record(
+                    suite,
+                    spec,
+                    None,
+                    case,
+                    trial,
+                    route="security",
+                    harness_disposition="security_control_complete",
+                    provider_calls_used=0,
+                    tool_executions_used=0,
+                    input_tokens_used=0,
+                    output_tokens_used=0,
+                    total_tokens_used=0,
+                    observed={
+                        "security_kind": case.payload.get("kind"),
+                        "control_passed": outcome.passed,
+                        "failure_code": outcome.failure_code,
+                        **outcome.observed,
+                    },
+                    trace_path=trace_path,
+                )
+                records.append(record)
+                trajectories.append(
+                    TrajectoryRecord(
+                        suite.suite_id,
+                        case.case_id,
+                        trial,
+                        schema_version="security_trajectory_v1",
+                        content_policy=spec.trace_content_policy,
+                        events=(
+                            {
+                                "event": "run_start",
+                                "profile_id": spec.profile_id,
+                                "execution_mode": spec.execution_mode.value,
+                            },
+                            {
+                                "event": "security_control",
+                                "kind": case.payload.get("kind"),
+                                "control_passed": outcome.passed,
+                                "failure_code": outcome.failure_code,
+                                **outcome.observed,
+                            },
+                            {
+                                "event": "case_complete",
+                                "status": record.status.value,
+                                "route": record.route,
+                            },
+                        ),
+                        eval_run_id=record.eval_run_id,
+                        execution_run_id=record.run_id,
+                    )
+                )
         return records, trajectories
 
     def _run_pipeline(self, bundle, suite, spec, cases, components, public):
@@ -1208,6 +1283,57 @@ class EvaluationRunner:
             key = f"m8.category.{category}.route_accuracy"
             metrics[key] = MetricResult.ratio(key, version, expected, len(rows), scope=category)
         return metrics
+
+    @staticmethod
+    def _m9_security_metrics(records, cases, version):
+        case_by_id = {case.case_id: case for case in cases}
+        complete = [record for record in records if record.status == CaseRunStatus.COMPLETE]
+
+        def rows_for(kind: str):
+            return [
+                record
+                for record in complete
+                if str(case_by_id[record.case_id].payload.get("kind", "")) == kind
+            ]
+
+        def count_metric(metric_id: str, rows):
+            passed = sum(bool(row.observed.get("control_passed")) for row in rows)
+            return MetricResult(
+                metric_id,
+                version,
+                passed,
+                passed,
+                len(rows),
+                "count",
+                "security_controls",
+                "numerator/denominator",
+            )
+
+        protocol_rows = rows_for("protocol")
+        permission_rows = (
+            rows_for("permission")
+            + rows_for("approval")
+            + rows_for("untrusted-output")
+        )
+        sandbox_rows = rows_for("sandbox") + rows_for("permission-sandbox")
+        return {
+            "m9.security_control_pass_rate": MetricResult.ratio(
+                "m9.security_control_pass_rate",
+                version,
+                sum(bool(row.observed.get("control_passed")) for row in complete),
+                len(complete),
+                scope="security_controls",
+            ),
+            "m9.permission_cases_passed": count_metric(
+                "m9.permission_cases_passed", permission_rows
+            ),
+            "m9.protocol_cases_passed": count_metric(
+                "m9.protocol_cases_passed", protocol_rows
+            ),
+            "m9.sandbox_contract_cases_passed": count_metric(
+                "m9.sandbox_contract_cases_passed", sandbox_rows
+            ),
+        }
 
     def _new_bundle(self, spec):
         root = Path(spec.output_root)

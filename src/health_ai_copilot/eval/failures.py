@@ -57,6 +57,13 @@ class FailureMapper:
         "network_denied": (FailureStage.SANDBOX, "network_denied"),
         "authorization_failed": (FailureStage.AUTHORIZATION, "authorization_failed"),
         "mcp_sandbox": (FailureStage.SANDBOX, "sandbox_unavailable"),
+        "protocol_version_mismatch": (FailureStage.MCP, "protocol_version_mismatch"),
+        "catalog_error": (FailureStage.MCP, "catalog_error"),
+        "permission_denied_unexpected": (FailureStage.PERMISSION, "permission_denied_unexpected"),
+        "approval_binding_failed": (FailureStage.PERMISSION, "approval_binding_failed"),
+        "filesystem_containment_failed": (FailureStage.SANDBOX, "filesystem_containment_failed"),
+        "network_containment_failed": (FailureStage.SANDBOX, "network_containment_failed"),
+        "security_control_failed": (FailureStage.EVAL_INFRA, "security_control_failed"),
     }
     _TEAM_LEAD_MAP: ClassVar = {
         "provider": "lead_provider_failure",

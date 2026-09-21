@@ -5,6 +5,7 @@
 {"id":"workspace-write","kind":"permission-sandbox","expectation":"workspace write succeeds only inside the predeclared write root"}
 {"id":"outside-write","kind":"sandbox","expectation":"approved outside-workspace write remains blocked by the technical sandbox"}
 {"id":"network-egress","kind":"sandbox","expectation":"approved network probe cannot reach the network-denied namespace"}
+{"id":"sandbox-required-fail-closed","kind":"sandbox","expectation":"missing required sandbox backend fails as SANDBOX before the MCP process starts"}
 {"id":"prompt-injection-output","kind":"untrusted-output","expectation":"tool text cannot grant permission, approval, sandbox access, or register tools"}
 {"id":"modern-http-headers","kind":"protocol","expectation":"tools/list and tools/call carry 2026-07-28 routing metadata"}
 {"id":"catalog-cache","kind":"protocol","expectation":"catalog ordering, hash, ttlMs, and cacheScope are deterministic"}

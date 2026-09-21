@@ -23,20 +23,19 @@ class RuntimeProfile:
     mode: str = "m0"
     config: Mapping[str, Any] = field(default_factory=dict)
     orchestration: str | None = None
+    mcp_client: str | None = None
+    permission: str | None = None
+    sandbox: str | None = None
 
     def __post_init__(self) -> None:
         for name in ("profile_id", "provider", "retriever", "trace", "mode"):
             value = getattr(self, name)
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"profile {name} must be non-empty")
-        for name in ("policy", "verifier"):
+        for name in ("policy", "verifier", "orchestration", "mcp_client", "permission", "sandbox"):
             value = getattr(self, name)
             if value is not None and (not isinstance(value, str) or not value.strip()):
                 raise ValueError(f"profile {name} must be non-empty or null")
-        if self.orchestration is not None and (
-            not isinstance(self.orchestration, str) or not self.orchestration.strip()
-        ):
-            raise ValueError("profile orchestration must be non-empty or null")
         tools = tuple(self.tool_set)
         if any(not isinstance(item, str) or not item.strip() for item in tools):
             raise ValueError("profile tool_set must contain non-empty IDs")
@@ -66,6 +65,10 @@ class RuntimeProfile:
             value["config"] = dict(self.config)
         if self.orchestration is not None:
             value["orchestration"] = self.orchestration
+        for name in ("mcp_client", "permission", "sandbox"):
+            component_id = getattr(self, name)
+            if component_id is not None:
+                value[name] = component_id
         return value
 
     @classmethod
@@ -83,4 +86,7 @@ class RuntimeProfile:
             mode=value.get("mode", "m0"),
             config=value.get("config", {}),
             orchestration=value.get("orchestration"),
+            mcp_client=value.get("mcp_client"),
+            permission=value.get("permission"),
+            sandbox=value.get("sandbox"),
         )

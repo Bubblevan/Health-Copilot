@@ -370,6 +370,30 @@ class TeamMetricsGrader(BaseGrader):
         )
 
 
+class SecurityControlGrader(BaseGrader):
+    """Grade one deterministic M9 control-plane fixture outcome."""
+
+    grader_id = "security_control"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        passed = record.status == CaseRunStatus.COMPLETE and bool(
+            record.observed.get("control_passed")
+        )
+        failure_code = record.observed.get("failure_code") or "security_control_failed"
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if passed else GraderStatus.FAIL,
+            score=1.0 if passed else 0.0,
+            expected={"control_passed": True},
+            observed={
+                "control_passed": bool(record.observed.get("control_passed")),
+                "failure_code": record.observed.get("failure_code"),
+            },
+            reason_codes=() if passed else (failure_code,),
+        )
+
+
 def default_graders() -> dict[str, Grader]:
     graders: tuple[Grader, ...] = (
         RouteGrader(),
@@ -386,6 +410,7 @@ def default_graders() -> dict[str, Grader]:
         OODAnswerGrader(),
         ToolExecutionGrader(),
         TeamMetricsGrader(),
+        SecurityControlGrader(),
     )
     return {grader.grader_id: grader for grader in graders}
 

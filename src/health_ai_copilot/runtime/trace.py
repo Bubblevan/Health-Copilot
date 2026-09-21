@@ -51,6 +51,7 @@ class TraceEventType(StrEnum):
     MCP_CALL_END = "mcp_call_end"
     MCP_CALL_ERROR = "mcp_call_error"
     SANDBOX_DENIED = "sandbox_denied"
+    SECURITY_CONTROL = "security_control"
 
 
 @dataclass(frozen=True)
