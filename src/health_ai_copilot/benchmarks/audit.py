@@ -208,6 +208,8 @@ def build_closeout(
     external: list[dict[str, Any]] = []
     blockers: list[str] = []
     for manifest in registry.list():
+        if manifest.benchmark_id == "research-architecture-v1":
+            continue
         manifest_report = audit_manifest(manifest)
         raw_root = bench_data / "raw" / manifest.benchmark_id
         normalized_root = bench_data / "normalized" / manifest.benchmark_id

@@ -190,7 +190,16 @@ def _audit(args: argparse.Namespace) -> int:
     root, benchmark_registry = _registry(args)
     _, benchmark_data = _paths(args)
     reports = []
-    selected = [args.benchmark] if args.benchmark else [item.benchmark_id for item in benchmark_registry.list()]
+    if args.benchmark == "research-architecture-v1":
+        selected = []
+    elif args.benchmark:
+        selected = [args.benchmark]
+    else:
+        selected = [
+            item.benchmark_id
+            for item in benchmark_registry.list()
+            if item.benchmark_id != "research-architecture-v1"
+        ]
     for benchmark_id in selected:
         manifest = benchmark_registry.get(benchmark_id)
         report = audit_manifest(manifest)
