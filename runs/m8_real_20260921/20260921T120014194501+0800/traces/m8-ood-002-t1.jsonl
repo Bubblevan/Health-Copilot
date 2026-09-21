@@ -1,0 +1,3 @@
+{"event_type": "run_start", "fields": {"code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2", "component_manifest_hash": "2553fadf3d9a4cbc747f127ada0713f7b6b3d99233b5fa48e1a870a10fa0c52d", "profile_id": "m3-bm25-default", "run_id": "run-0913d84af3b648b5978fdb35da8e51d2", "runtime_mode": "m3"}, "sequence": 1}
+{"event_type": "harness_disposition", "fields": {"disposition": "human_review", "route": "human_review", "safety_reason_count": 1}, "sequence": 2}
+{"event_type": "run_end", "fields": {"event_count": 2, "status": "complete"}, "sequence": 3}

@@ -1,0 +1,10 @@
+{"event_type": "run_start", "fields": {"code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2", "component_manifest_hash": "05ca7eee9312b43d8a0a59faab308b7514ff7bddc6f926480f70410eb3810c52", "profile_id": "m8-team-bm25-v1", "run_id": "run-9cc88f75f53a471bbc00043b3fcaac5c", "runtime_mode": "m8_team"}, "sequence": 1}
+{"event_type": "team_start", "fields": {"initial_source_count": 5, "team_id": "team-a534f5dff90345c78ddc0881ad08bcc7"}, "sequence": 2}
+{"event_type": "evidence_added", "fields": {"origin": "initial", "source_count": 5, "team_id": "team-a534f5dff90345c78ddc0881ad08bcc7"}, "sequence": 3}
+{"event_type": "lead_decision", "fields": {"lead_call": 1, "team_id": "team-a534f5dff90345c78ddc0881ad08bcc7", "worker_report_count": 0}, "sequence": 4}
+{"event_type": "provider_start", "fields": {"call_id": "provider-f5236231aea34b9388c0a1188fdce2db", "kind": "team_lead", "model": "deepseek-flash", "request_fingerprint": "153fbe458020261d3c249e8a1483fb8b10c3cc31f8a7aeabab621b8be1f5b340", "response_format": true, "temperature": 0, "tool_count": 0}, "sequence": 5}
+{"event_type": "provider_end", "fields": {"call_id": "provider-f5236231aea34b9388c0a1188fdce2db", "finish_reason": "stop", "kind": "team_lead", "latency_ms": 5578.000000008615, "model": "deepseek-flash", "request_fingerprint": "153fbe458020261d3c249e8a1483fb8b10c3cc31f8a7aeabab621b8be1f5b340", "tool_call_count": 0, "usage_total": 1846}, "sequence": 6}
+{"event_type": "lead_decision_result", "fields": {"action": "delegate", "lead_call": 1, "team_id": "team-a534f5dff90345c78ddc0881ad08bcc7"}, "sequence": 7}
+{"event_type": "team_stop", "fields": {"reason": "invalid_delegation", "team_id": "team-a534f5dff90345c78ddc0881ad08bcc7"}, "sequence": 8}
+{"event_type": "harness_disposition", "fields": {"disposition": "invalid_delegation", "route": "abstain", "safety_reason_count": 1}, "sequence": 9}
+{"event_type": "run_end", "fields": {"event_count": 9, "status": "complete"}, "sequence": 10}

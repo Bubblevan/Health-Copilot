@@ -1,0 +1,3 @@
+{"event_type": "run_start", "fields": {"code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2", "component_manifest_hash": "05ca7eee9312b43d8a0a59faab308b7514ff7bddc6f926480f70410eb3810c52", "profile_id": "m8-team-bm25-v1", "run_id": "run-af8dc9d615a0484fab1b3060c44e2b88", "runtime_mode": "m8_team"}, "sequence": 1}
+{"event_type": "harness_disposition", "fields": {"disposition": "human_review", "route": "human_review", "safety_reason_count": 1}, "sequence": 2}
+{"event_type": "run_end", "fields": {"event_count": 2, "status": "complete"}, "sequence": 3}

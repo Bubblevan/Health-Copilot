@@ -1,0 +1,5 @@
+{"event_type": "run_start", "fields": {"code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2", "component_manifest_hash": "608fb870bea87e72f7a724281a6f3e96b03432d8f46953ecc6997726880e1b83", "profile_id": "m8-workflow-bm25-v1", "run_id": "run-e5262edfd5fd43b2b8222157bff013d5", "runtime_mode": "m8_workflow"}, "sequence": 1}
+{"event_type": "provider_start", "fields": {"call_id": "provider-3378213d8f0a4e0dbc89c637c1dbb33c", "kind": "agent", "model": "deepseek-flash", "request_fingerprint": "4c9c70d2028e28dcc42e2eda0286c9e7f9ee358da6af30224ce878df125850fc", "response_format": true, "temperature": 0.1, "tool_count": 0}, "sequence": 2}
+{"event_type": "provider_error", "fields": {"call_id": "provider-3378213d8f0a4e0dbc89c637c1dbb33c", "failure_kind": "timeout", "kind": "agent", "model": "deepseek-flash", "request_fingerprint": "4c9c70d2028e28dcc42e2eda0286c9e7f9ee358da6af30224ce878df125850fc"}, "sequence": 3}
+{"event_type": "harness_disposition", "fields": {"disposition": "abstain", "route": "abstain", "safety_reason_count": 1}, "sequence": 4}
+{"event_type": "run_end", "fields": {"event_count": 4, "status": "complete"}, "sequence": 5}

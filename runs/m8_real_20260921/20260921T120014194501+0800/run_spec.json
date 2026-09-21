@@ -1,0 +1,18 @@
+{
+  "budget_overrides": {},
+  "code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2",
+  "component_manifest_hash": "2553fadf3d9a4cbc747f127ada0713f7b6b3d99233b5fa48e1a870a10fa0c52d",
+  "dataset_path": "evals\\m8_agent_team_focused_v1.jsonl",
+  "dataset_sha256": "78a417bef691892fb0b248911044f0325849ae4a4ae1065ec7ad009968180549",
+  "execution_mode": "live",
+  "output_root": "runs/m8_real_20260921",
+  "profile_config_hash": "06ca629157cea96034f0a1d7ec0dbb7d32797d3543ebd40a508395605aaad2d7",
+  "profile_id": "m3-bm25-default",
+  "replay_run_dir": null,
+  "replay_source": null,
+  "run_spec_hash": "e20a764493ab67d718fcc36aed1fef01ae05ba51135519c0c3c88012bcd0f6c8",
+  "schema_version": "m7-run-spec-v1",
+  "suite_id": "m8-agent-team-focused-v1",
+  "trace_content_policy": "public_eval_content",
+  "trials": 3
+}

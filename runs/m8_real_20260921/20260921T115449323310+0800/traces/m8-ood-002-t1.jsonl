@@ -1,0 +1,3 @@
+{"event_type": "run_start", "fields": {"code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2", "component_manifest_hash": "608fb870bea87e72f7a724281a6f3e96b03432d8f46953ecc6997726880e1b83", "profile_id": "m8-workflow-bm25-v1", "run_id": "run-2baeab76faa840839a2f2c54646a6127", "runtime_mode": "m8_workflow"}, "sequence": 1}
+{"event_type": "harness_disposition", "fields": {"disposition": "human_review", "route": "human_review", "safety_reason_count": 1}, "sequence": 2}
+{"event_type": "run_end", "fields": {"event_count": 2, "status": "complete"}, "sequence": 3}

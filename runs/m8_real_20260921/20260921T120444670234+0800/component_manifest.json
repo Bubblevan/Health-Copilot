@@ -1,0 +1,73 @@
+{
+  "code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2",
+  "components": [
+    {
+      "artifact_revision": null,
+      "component_id": "agent-team-v1",
+      "config_hash": "f8778ceb800bec626cc8453c9daf780e26589b19b843fc0da706e65eb5a2b523",
+      "implementation": "health_ai_copilot.team.AgentTeamOrchestrator",
+      "kind": "orchestration",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "evidence-policy-m3-v1",
+      "config_hash": "9b3ba24deed33f6f46d8d2da3d3893a55367df9c01b7208521c71977837591f2",
+      "implementation": "health_ai_copilot.policy.model.OpenAICompatibleEvidencePolicy",
+      "kind": "policy",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "openai-compatible-v1",
+      "config_hash": "e74cbe0fee199be7d21547f74e20b226287b39f25816a6b27bf2ededc46da005",
+      "implementation": "health_ai_copilot.runtime.provider.OpenAICompatibleProviderExecutor",
+      "kind": "provider",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "bm25-v1",
+      "config_hash": "e3603dfdc9cf9050e5a11d59701b96db1bcba3e9b13ee6625ae27fa2dfb3b47d",
+      "implementation": "health_ai_copilot.retrieval.bm25.BM25Retriever",
+      "kind": "retriever",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "search-knowledge-v1",
+      "config_hash": "9c678b680a60ffab9c04bad783b1223fc2f576c7c8b07443d593b1fcd81e01f6",
+      "implementation": "health_ai_copilot.tools.search_knowledge.SearchKnowledgeTool",
+      "kind": "tool",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "metadata-jsonl-v1",
+      "config_hash": "f52cdd2cdb49db1e1d05db7b5e9d56a7ff5ce1739db3a3184ec5c42510dc6921",
+      "implementation": "health_ai_copilot.runtime.trace.RunTrace",
+      "kind": "trace",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "claim-support-v1",
+      "config_hash": "5e5bb3e1b2ab77c9c7e61b470e4642cacf102d11330460de92a53657f55784d5",
+      "implementation": "health_ai_copilot.verification.grounding.OpenAICompatibleClaimSupportVerifier",
+      "kind": "verifier",
+      "learned_artifacts": [],
+      "version": "1"
+    }
+  ],
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "knowledge_scope_version": "1",
+  "manifest_hash": "05ca7eee9312b43d8a0a59faab308b7514ff7bddc6f926480f70410eb3810c52",
+  "profile_config_hash": "66a618302fd3f9fad02b90e3486e464bee10a183a5f9f40f5195b2731156da86",
+  "profile_id": "m8-team-bm25-v1"
+}

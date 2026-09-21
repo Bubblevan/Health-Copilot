@@ -1,0 +1,55 @@
+{
+  "code_commit": "e33a39f5a804b8c2e591cc8a3950495dc7618dc2",
+  "components": [
+    {
+      "artifact_revision": null,
+      "component_id": "evidence-policy-m3-v1",
+      "config_hash": "9b3ba24deed33f6f46d8d2da3d3893a55367df9c01b7208521c71977837591f2",
+      "implementation": "health_ai_copilot.policy.model.OpenAICompatibleEvidencePolicy",
+      "kind": "policy",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "openai-compatible-v1",
+      "config_hash": "bbee3f34389db7fe7e537d5370c0db6d0f6ab31c3e3c8584afbc428844c583c5",
+      "implementation": "health_ai_copilot.runtime.provider.OpenAICompatibleProviderExecutor",
+      "kind": "provider",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "bm25-v1",
+      "config_hash": "e3603dfdc9cf9050e5a11d59701b96db1bcba3e9b13ee6625ae27fa2dfb3b47d",
+      "implementation": "health_ai_copilot.retrieval.bm25.BM25Retriever",
+      "kind": "retriever",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "metadata-jsonl-v1",
+      "config_hash": "f52cdd2cdb49db1e1d05db7b5e9d56a7ff5ce1739db3a3184ec5c42510dc6921",
+      "implementation": "health_ai_copilot.runtime.trace.RunTrace",
+      "kind": "trace",
+      "learned_artifacts": [],
+      "version": "1"
+    },
+    {
+      "artifact_revision": null,
+      "component_id": "claim-support-v1",
+      "config_hash": "5e5bb3e1b2ab77c9c7e61b470e4642cacf102d11330460de92a53657f55784d5",
+      "implementation": "health_ai_copilot.verification.grounding.OpenAICompatibleClaimSupportVerifier",
+      "kind": "verifier",
+      "learned_artifacts": [],
+      "version": "1"
+    }
+  ],
+  "knowledge_pack_version": "m0.2-2026-09-15",
+  "knowledge_scope_version": "1",
+  "manifest_hash": "608fb870bea87e72f7a724281a6f3e96b03432d8f46953ecc6997726880e1b83",
+  "profile_config_hash": "4180548e8f0152f058a02ff81d438542a14e19d20b094ea4ba851eac052f02d2",
+  "profile_id": "m8-workflow-bm25-v1"
+}
