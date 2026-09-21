@@ -10,7 +10,7 @@ from __future__ import annotations
 import copy
 import json
 import sqlite3
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from enum import StrEnum
@@ -179,6 +179,49 @@ class SessionEvent:
         }
 
 
+def _prepare_events(
+    session_id: str,
+    current_revision: int,
+    events: Sequence[Any],
+    *,
+    run_id: str | None,
+) -> list[SessionEvent]:
+    """Validate and materialize a batch before mutating either store."""
+
+    prepared: list[SessionEvent] = []
+    for offset, spec in enumerate(events, start=1):
+        event_run_id = run_id
+        if isinstance(spec, SessionEvent):
+            event_type = spec.event_type
+            payload = spec.payload
+            event_run_id = spec.run_id or run_id
+            created_at = spec.created_at
+        elif isinstance(spec, Mapping):
+            if "event_type" not in spec or "payload" not in spec:
+                raise TypeError("session batch mapping requires event_type and payload")
+            event_type = spec["event_type"]
+            payload = spec["payload"]
+            event_run_id = spec.get("run_id", run_id)
+            created_at = spec.get("created_at")
+        elif isinstance(spec, Sequence) and not isinstance(spec, (str, bytes)) and len(spec) in {2, 3}:
+            event_type, payload = spec[0], spec[1]
+            event_run_id = spec[2] if len(spec) == 3 else run_id
+            created_at = None
+        else:
+            raise TypeError("session batch events must be SessionEvent, mapping, or tuple")
+        prepared.append(
+            SessionEvent.create(
+                session_id,
+                current_revision + offset,
+                event_type,
+                payload,
+                run_id=event_run_id,
+                created_at=created_at,
+            )
+        )
+    return prepared
+
+
 @runtime_checkable
 class SessionStore(Protocol):
     """Append-oriented persistence boundary for one opaque session scope."""
@@ -200,6 +243,26 @@ class SessionStore(Protocol):
         expected_revision: int | None = None,
         run_id: str | None = None,
     ) -> SessionEvent: ...
+
+    def append_batch(
+        self,
+        session_id: str,
+        events: Sequence[Any],
+        *,
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]: ...
+
+    def commit_turn(
+        self,
+        session_id: str,
+        user_event: Any,
+        assistant_event: Any | None = None,
+        *,
+        tool_events: Sequence[Any] = (),
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]: ...
 
     def list_events(self, session_id: str, *, at_revision: int | None = None) -> list[SessionEvent]: ...
 
@@ -246,6 +309,21 @@ class InMemorySessionStore:
         expected_revision: int | None = None,
         run_id: str | None = None,
     ) -> SessionEvent:
+        return self.append_batch(
+            session_id,
+            [(event_type, payload)],
+            expected_revision=expected_revision,
+            run_id=run_id,
+        )[0]
+
+    def append_batch(
+        self,
+        session_id: str,
+        events: Sequence[Any],
+        *,
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]:
         with self._lock:
             current = self.resume_session(session_id)
             if current.status != SessionStatus.ACTIVE:
@@ -254,15 +332,40 @@ class InMemorySessionStore:
                 raise SessionRevisionConflictError(
                     session_id, expected_revision, current.current_revision
                 )
-            sequence = current.current_revision + 1
-            event = SessionEvent.create(
-                session_id, sequence, event_type, payload, run_id=run_id
+            prepared = _prepare_events(
+                session_id,
+                current.current_revision,
+                events,
+                run_id=run_id,
             )
-            self._events[session_id].append(event)
+            self._events[session_id].extend(prepared)
             self._sessions[session_id] = SessionRecord(
-                **{**current.to_dict(), "current_revision": sequence}
+                **{
+                    **current.to_dict(),
+                    "current_revision": current.current_revision + len(prepared),
+                }
             )
-            return event
+            return copy.deepcopy(prepared)
+
+    def commit_turn(
+        self,
+        session_id: str,
+        user_event: Any,
+        assistant_event: Any | None = None,
+        *,
+        tool_events: Sequence[Any] = (),
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]:
+        events = [user_event, *tool_events]
+        if assistant_event is not None:
+            events.append(assistant_event)
+        return self.append_batch(
+            session_id,
+            events,
+            expected_revision=expected_revision,
+            run_id=run_id,
+        )
 
     def list_events(self, session_id: str, *, at_revision: int | None = None) -> list[SessionEvent]:
         with self._lock:
@@ -427,32 +530,72 @@ class SQLiteSessionStore:
         expected_revision: int | None = None,
         run_id: str | None = None,
     ) -> SessionEvent:
+        return self.append_batch(
+            session_id,
+            [(event_type, payload)],
+            expected_revision=expected_revision,
+            run_id=run_id,
+        )[0]
+
+    def append_batch(
+        self,
+        session_id: str,
+        events: Sequence[Any],
+        *,
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]:
         with self._transaction():
             current = self.resume_session(session_id)
             if current.status != SessionStatus.ACTIVE:
                 raise SessionStoreError(f"session is closed: {session_id}")
             if expected_revision is not None and expected_revision != current.current_revision:
                 raise SessionRevisionConflictError(session_id, expected_revision, current.current_revision)
-            sequence = current.current_revision + 1
-            event = SessionEvent.create(session_id, sequence, event_type, payload, run_id=run_id)
-            self._connection.execute(
-                "INSERT INTO session_events VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                (
-                    event.event_id,
-                    event.session_id,
-                    event.sequence,
-                    event.event_type.value,
-                    _payload_json(event.payload),
-                    event.payload_sha256,
-                    event.run_id,
-                    event.created_at,
-                ),
+            prepared = _prepare_events(
+                session_id,
+                current.current_revision,
+                events,
+                run_id=run_id,
             )
+            for event in prepared:
+                self._connection.execute(
+                    "INSERT INTO session_events VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        event.event_id,
+                        event.session_id,
+                        event.sequence,
+                        event.event_type.value,
+                        _payload_json(event.payload),
+                        event.payload_sha256,
+                        event.run_id,
+                        event.created_at,
+                    ),
+                )
             self._connection.execute(
                 "UPDATE sessions SET current_revision=? WHERE session_id=?",
-                (sequence, session_id),
+                (current.current_revision + len(prepared), session_id),
             )
-            return event
+            return prepared
+
+    def commit_turn(
+        self,
+        session_id: str,
+        user_event: Any,
+        assistant_event: Any | None = None,
+        *,
+        tool_events: Sequence[Any] = (),
+        expected_revision: int | None = None,
+        run_id: str | None = None,
+    ) -> list[SessionEvent]:
+        events = [user_event, *tool_events]
+        if assistant_event is not None:
+            events.append(assistant_event)
+        return self.append_batch(
+            session_id,
+            events,
+            expected_revision=expected_revision,
+            run_id=run_id,
+        )
 
     def list_events(self, session_id: str, *, at_revision: int | None = None) -> list[SessionEvent]:
         self.resume_session(session_id)

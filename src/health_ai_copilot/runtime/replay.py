@@ -40,6 +40,10 @@ class ReplayMetadata:
     profile_id: str | None = None
     component_manifest_hash: str | None = None
     code_commit: str | None = None
+    session_revision: int | None = None
+    memory_snapshot_hash: str | None = None
+    context_plan_hash: str | None = None
+    context_plan_hashes: tuple[str, ...] = ()
 
 
 class RecordingProviderExecutor:
@@ -68,6 +72,10 @@ class ReplayProviderExecutor:
         expected_profile_id: str | None = None,
         expected_component_manifest_hash: str | None = None,
         expected_code_commit: str | None = None,
+        expected_session_revision: int | None = None,
+        expected_memory_snapshot_hash: str | None = None,
+        expected_context_plan_hash: str | None = None,
+        expected_context_plan_hashes: Sequence[str] | None = None,
     ) -> None:
         self._exchanges = list(exchanges)
         self.requests: list[ProviderRequest] = []
@@ -75,7 +83,11 @@ class ReplayProviderExecutor:
         self.expected_profile_id = expected_profile_id
         self.expected_component_manifest_hash = expected_component_manifest_hash
         self.expected_code_commit = expected_code_commit
-        self._metadata_checked = False
+        self.expected_session_revision = expected_session_revision
+        self.expected_memory_snapshot_hash = expected_memory_snapshot_hash
+        self.expected_context_plan_hash = expected_context_plan_hash
+        self.expected_context_plan_hashes = tuple(expected_context_plan_hashes or ())
+        self._validated_identity: tuple[object, ...] | None = None
 
     def execute(self, request: ProviderRequest, runtime: RunContext) -> ProviderResponse:
         if not self._check_metadata(runtime):
@@ -106,13 +118,22 @@ class ReplayProviderExecutor:
         return normalized
 
     def _check_metadata(self, runtime: RunContext) -> bool:
-        if self._metadata_checked:
-            return True
         expected_profile = self.expected_profile_id or runtime.identity.profile_id
         expected_manifest = (
             self.expected_component_manifest_hash
             or runtime.identity.component_manifest_hash
         )
+        expected_commit = self.expected_code_commit or runtime.identity.code_commit
+        expected_state = _expected_state_identity(
+            runtime,
+            session_revision=self.expected_session_revision,
+            memory_snapshot_hash=self.expected_memory_snapshot_hash,
+            context_plan_hash=self.expected_context_plan_hash,
+            context_plan_hashes=self.expected_context_plan_hashes,
+        )
+        identity = (expected_profile, expected_manifest, expected_commit, *expected_state)
+        if self._validated_identity == identity:
+            return True
         if expected_profile is not None and (
             self.recorded_metadata is None
             or self.recorded_metadata.profile_id != expected_profile
@@ -123,13 +144,14 @@ class ReplayProviderExecutor:
             or self.recorded_metadata.component_manifest_hash != expected_manifest
         ):
             return False
-        expected_commit = self.expected_code_commit or runtime.identity.code_commit
         if expected_commit is not None and (
             self.recorded_metadata is None
             or self.recorded_metadata.code_commit != expected_commit
         ):
             return False
-        self._metadata_checked = True
+        if not _state_metadata_matches(self.recorded_metadata, expected_state):
+            return False
+        self._validated_identity = identity
         return True
 
     @property
@@ -168,6 +190,10 @@ class ReplayToolRunner:
         expected_profile_id: str | None = None,
         expected_component_manifest_hash: str | None = None,
         expected_code_commit: str | None = None,
+        expected_session_revision: int | None = None,
+        expected_memory_snapshot_hash: str | None = None,
+        expected_context_plan_hash: str | None = None,
+        expected_context_plan_hashes: Sequence[str] | None = None,
     ) -> None:
         self._exchanges = list(exchanges)
         self.calls: list[ToolCall] = []
@@ -175,7 +201,11 @@ class ReplayToolRunner:
         self.expected_profile_id = expected_profile_id
         self.expected_component_manifest_hash = expected_component_manifest_hash
         self.expected_code_commit = expected_code_commit
-        self._metadata_checked = False
+        self.expected_session_revision = expected_session_revision
+        self.expected_memory_snapshot_hash = expected_memory_snapshot_hash
+        self.expected_context_plan_hash = expected_context_plan_hash
+        self.expected_context_plan_hashes = tuple(expected_context_plan_hashes or ())
+        self._validated_identity: tuple[object, ...] | None = None
 
     def execute(self, call: ToolCall, runtime: RunContext) -> ToolResult:
         from ..agent.tools import ToolResult
@@ -199,13 +229,22 @@ class ReplayToolRunner:
         return exchange.result
 
     def _check_metadata(self, runtime: RunContext) -> bool:
-        if self._metadata_checked:
-            return True
         expected_profile = self.expected_profile_id or runtime.identity.profile_id
         expected_manifest = (
             self.expected_component_manifest_hash
             or runtime.identity.component_manifest_hash
         )
+        expected_commit = self.expected_code_commit or runtime.identity.code_commit
+        expected_state = _expected_state_identity(
+            runtime,
+            session_revision=self.expected_session_revision,
+            memory_snapshot_hash=self.expected_memory_snapshot_hash,
+            context_plan_hash=self.expected_context_plan_hash,
+            context_plan_hashes=self.expected_context_plan_hashes,
+        )
+        identity = (expected_profile, expected_manifest, expected_commit, *expected_state)
+        if self._validated_identity == identity:
+            return True
         if expected_profile is not None and (
             self.recorded_metadata is None
             or self.recorded_metadata.profile_id != expected_profile
@@ -216,13 +255,14 @@ class ReplayToolRunner:
             or self.recorded_metadata.component_manifest_hash != expected_manifest
         ):
             return False
-        expected_commit = self.expected_code_commit or runtime.identity.code_commit
         if expected_commit is not None and (
             self.recorded_metadata is None
             or self.recorded_metadata.code_commit != expected_commit
         ):
             return False
-        self._metadata_checked = True
+        if not _state_metadata_matches(self.recorded_metadata, expected_state):
+            return False
+        self._validated_identity = identity
         return True
 
     @property
@@ -244,6 +284,48 @@ def write_tool_exchanges(path: Path, exchanges: Sequence[RecordedToolExchange]) 
 
 def read_tool_exchanges(path: Path) -> list[RecordedToolExchange]:
     return [_tool_exchange_from_dict(item) for item in _read_jsonl(path)]
+
+
+def _expected_state_identity(
+    runtime: RunContext,
+    *,
+    session_revision: int | None,
+    memory_snapshot_hash: str | None,
+    context_plan_hash: str | None,
+    context_plan_hashes: Sequence[str],
+) -> tuple[object, ...]:
+    raw_revision = runtime.metadata.get("session_revision")
+    runtime_revision = int(raw_revision) if raw_revision not in {None, ""} else None
+    raw_hashes = runtime.metadata.get("context_plan_hashes", "")
+    try:
+        runtime_hashes = tuple(json.loads(raw_hashes)) if raw_hashes else ()
+    except (TypeError, ValueError, json.JSONDecodeError):
+        runtime_hashes = ()
+    return (
+        session_revision if session_revision is not None else runtime_revision,
+        memory_snapshot_hash or runtime.metadata.get("memory_snapshot_hash"),
+        context_plan_hash
+        or runtime.metadata.get("current_context_plan_hash")
+        or runtime.metadata.get("context_plan_hash"),
+        tuple(context_plan_hashes) or runtime_hashes,
+    )
+
+
+def _state_metadata_matches(
+    recorded: ReplayMetadata | None,
+    expected: tuple[object, ...],
+) -> bool:
+    if recorded is None:
+        return not any(value not in {None, (), ""} for value in expected)
+    recorded_state = (
+        recorded.session_revision,
+        recorded.memory_snapshot_hash,
+        recorded.context_plan_hash,
+        tuple(recorded.context_plan_hashes),
+    )
+    if not any(value not in {None, (), ""} for value in recorded_state):
+        return True
+    return recorded_state == expected
 
 
 def _provider_exchange_to_dict(exchange: RecordedProviderExchange) -> dict[str, Any]:

@@ -24,6 +24,7 @@ from .messages import (
     AssistantTurn,
     FinalTurn,
     MemoryContextMessage,
+    SessionContextMessage,
     ToolCall,
     ToolCallTurn,
     ToolResultMessage,
@@ -226,6 +227,28 @@ class OpenAICompatibleAgentModel:
                                         "source_type": record.source_type.value,
                                     }
                                     for record in message.records
+                                ],
+                                "authority": message.authority_notice,
+                            },
+                            ensure_ascii=False,
+                        ),
+                    }
+                )
+            elif isinstance(message, SessionContextMessage):
+                provider_messages.append(
+                    {
+                        "role": "user",
+                        "content": json.dumps(
+                            {
+                                "historical_session_context": [
+                                    {
+                                        "context_id": item.context_id,
+                                        "event_id": item.event_id,
+                                        "event_type": item.event_type,
+                                        "content": item.content,
+                                        "compacted": item.compacted,
+                                    }
+                                    for item in message.items
                                 ],
                                 "authority": message.authority_notice,
                             },

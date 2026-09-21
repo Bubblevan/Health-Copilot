@@ -42,6 +42,12 @@ from .memory import (
     MemoryWriteRequest,
     SQLiteMemoryStore,
 )
+from .projector import (
+    ContextProjectionError,
+    ContextProjector,
+    ProjectedContext,
+    SessionContextProjector,
+)
 from .provider import (
     FakeProviderExecutor,
     OpenAICompatibleProviderExecutor,
@@ -102,6 +108,8 @@ __all__ = [
     "ContextItemCategory",
     "ContextManager",
     "ContextPlan",
+    "ContextProjectionError",
+    "ContextProjector",
     "DeterministicTokenEstimator",
     "DuplicateComponentError",
     "FailureInjectingProviderExecutor",
@@ -124,6 +132,7 @@ __all__ = [
     "MemoryStatus",
     "MemoryWriteRequest",
     "OpenAICompatibleProviderExecutor",
+    "ProjectedContext",
     "ProviderCallKind",
     "ProviderExecutor",
     "ProviderFailure",
@@ -142,6 +151,7 @@ __all__ = [
     "RunIdentity",
     "SQLiteMemoryStore",
     "SQLiteSessionStore",
+    "SessionContextProjector",
     "SessionEvent",
     "SessionEventType",
     "SessionRecord",

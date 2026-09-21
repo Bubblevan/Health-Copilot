@@ -226,7 +226,7 @@ class StructuredCompactorV1:
 class ContextManager:
     """Selects provider context without executing, persisting, or authorizing anything."""
 
-    version = "m10-context-v1"
+    version = "m10-context-v2"
 
     def __init__(
         self,
@@ -442,7 +442,17 @@ class ContextManager:
         category = ContextItemCategory.TOOL_EXCHANGE if value.event_type in {SessionEventType.TOOL_CALL, SessionEventType.TOOL_RESULT} else ContextItemCategory.RECENT_HISTORY
         group_id = None
         if category == ContextItemCategory.TOOL_EXCHANGE and isinstance(payload, Mapping):
-            group_id = str(payload.get("tool_call_id") or payload.get("call_id") or "") or None
+            call_ids = payload.get("tool_calls")
+            first_call_id = (
+                call_ids[0].get("id")
+                if isinstance(call_ids, Sequence)
+                and call_ids
+                and isinstance(call_ids[0], Mapping)
+                else None
+            )
+            group_id = str(
+                payload.get("tool_call_id") or payload.get("call_id") or first_call_id or ""
+            ) or None
         return ContextItem(
             item_id=f"event-{value.event_id}",
             category=category,
@@ -461,8 +471,23 @@ class ContextManager:
             if item.group_id:
                 groups.setdefault(item.group_id, []).append(item)
         for group_id, members in groups.items():
-            categories = {item.category for item in members}
-            if ContextItemCategory.TOOL_EXCHANGE in categories and len(members) < 2:
+            if not any(item.category == ContextItemCategory.TOOL_EXCHANGE for item in members):
+                continue
+            call_ids: set[str] = set()
+            result_ids: set[str] = set()
+            for item in members:
+                if not isinstance(item.content, Mapping):
+                    continue
+                raw_calls = item.content.get("tool_calls")
+                if isinstance(raw_calls, Sequence):
+                    call_ids.update(
+                        str(call.get("id"))
+                        for call in raw_calls
+                        if isinstance(call, Mapping) and call.get("id")
+                    )
+                if item.content.get("tool_call_id"):
+                    result_ids.add(str(item.content["tool_call_id"]))
+            if len(members) < 2 or (call_ids and result_ids and not call_ids.intersection(result_ids)):
                 raise ContextAtomicityViolation(f"tool exchange group is incomplete: {group_id}")
 
 
@@ -473,6 +498,7 @@ def _content(value: Any) -> Any:
             "title": getattr(value, "title", ""),
             "excerpt": getattr(value, "excerpt", ""),
             "source_url": getattr(value, "source_url", ""),
+            "score": getattr(value, "score", 0.0),
         }
     return value
 

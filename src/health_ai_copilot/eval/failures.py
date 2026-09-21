@@ -69,6 +69,11 @@ class FailureMapper:
         "context_atomicity_violation": (FailureStage.CONTEXT, "context_atomicity_violation"),
         "memory_deleted_leakage": (FailureStage.MEMORY, "memory_deleted_leakage"),
         "memory_scope_violation": (FailureStage.MEMORY, "memory_scope_violation"),
+        "memory_store_error": (FailureStage.MEMORY, "memory_store_error"),
+        "session_revision_conflict": (FailureStage.SESSION, "session_revision_conflict"),
+        "session_commit_failed": (FailureStage.SESSION, "session_commit_failed"),
+        "context_projection_error": (FailureStage.CONTEXT, "context_projection_error"),
+        "memory_state_mismatch": (FailureStage.REPLAY, "memory_state_mismatch"),
     }
     _TEAM_LEAD_MAP: ClassVar = {
         "provider": "lead_provider_failure",

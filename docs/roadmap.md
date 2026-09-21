@@ -17,7 +17,7 @@
 | H8 | Post-training | M11 |
 | H9 | Multimodal | M12（可选） |
 
-M7 已完成 H4；M8/H5 已实现为实验性、受限的 Agent Team。H6 / M9 COMPLETE；H7 / M10 current；H8 / M11 future；H9 / M12 future。
+M7 已完成 H4；M8/H5 已实现为实验性、受限的 Agent Team。H6 / M9 COMPLETE；H7 / M10 COMPLETE；H8 / M11 future；H9 / M12 future。
 
 M9 final freeze：`main@2098b32857f8a6853d89e88d0ab1c80d83b6ee68`。
 
@@ -180,7 +180,7 @@ M9 不实现 remote OAuth（文档明确为 NOT IMPLEMENTED）、dynamic topolog
 decentralized MAS、A2A、post-training 或 multimodal。M10 Context / Memory 进入当前实现；
 M11 post-training、M12 multimodal 均未启动。
 
-## M10 — H7 Context / Memory（current）
+## M10.1 — H7 Context / Memory（COMPLETE / FROZEN）
 
 M10 把 RunContext、单次 bounded Agent execution 的 ephemeral AgentSession、跨运行的
 Persistent Session、单次 provider call 的 Context，以及经过明确策略写入的 Memory 分开。
@@ -189,4 +189,11 @@ Persistent Session、单次 provider call 的 Context，以及经过明确策略
 
 SQLite 状态是本地应用状态，不是 EHR、临床纵向记录或分布式数据库。测试仅使用公开/合成
 数据；加密 at rest、KMS、多租户访问控制、learned memory policy、RL context editing 和
-multimodal 均不属于 M10。实现与来源对齐见 [`docs/m10_context_memory.md`](m10_context_memory.md)。
+multimodal 均不属于 M10。M10.1 进一步冻结了 `ContextProjector` 的 executable
+plan-to-provider 边界：每次模型调用（包括工具后的第二次调用）重新生成
+`ContextPlan`，当前问题/Evidence/完整工具交换 fail-closed 保护；历史与选定 memory
+以 data-bearing、untrusted message 进入 provider；会话 turn 通过 revisioned atomic batch
+提交。`m10-context-integration-v1` 的十条离线合成夹具与七项独立 numerator/denominator
+metrics 已通过，原有 `m10-memory-v1` 24 条 suite 保持 24/24。实现与来源对齐见
+[`docs/m10_context_memory.md`](m10_context_memory.md) 和
+[`docs/m10_1_context_closeout.md`](m10_1_context_closeout.md)。M11 仍未启动。

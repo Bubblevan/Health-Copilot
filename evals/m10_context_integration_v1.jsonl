@@ -1,0 +1,10 @@
+{"id":"m10-context-history-001","scenario":"history_reaches_provider"}
+{"id":"m10-context-drop-001","scenario":"dropped_history_absent"}
+{"id":"m10-context-memory-001","scenario":"active_memory_reaches_provider"}
+{"id":"m10-context-memory-002","scenario":"superseded_memory_absent"}
+{"id":"m10-context-evidence-001","scenario":"current_evidence_protected"}
+{"id":"m10-context-tool-001","scenario":"tool_atomicity_turn2"}
+{"id":"m10-context-safety-001","scenario":"safety_precedes_memory","question":"我有胸痛和呼吸困难"}
+{"id":"m10-context-budget-001","scenario":"context_budget_fail_closed"}
+{"id":"m10-context-session-001","scenario":"atomic_session_commit"}
+{"id":"m10-context-replay-001","scenario":"memory_replay_identity"}

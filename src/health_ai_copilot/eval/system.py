@@ -186,6 +186,9 @@ class EvaluationRunner:
         elif suite.suite_id == "m10-memory-v1":
             records, trajectories = self._run_m10_memory(bundle, suite, spec, cases)
             components = None
+        elif suite.suite_id == "m10-context-integration-v1":
+            records, trajectories = self._run_m10_context_integration(bundle, suite, spec, cases)
+            components = None
         elif suite.suite_id == "m0-regression-v1":
             components = self._build_offline_components(spec, spec.profile_id or "m0-bm25-default", cards, scope)
             records, trajectories = self._run_m0(bundle, suite, spec, cases, components)
@@ -254,6 +257,8 @@ class EvaluationRunner:
             metrics.update(self._m9_security_metrics(records, cases, suite.metric_definition_version))
         elif suite.suite_id == "m10-memory-v1":
             metrics.update(self._m10_metrics(records, suite.metric_definition_version))
+        elif suite.suite_id == "m10-context-integration-v1":
+            metrics.update(self._m10_context_metrics(records, suite.metric_definition_version))
         self._write_bundle(
             bundle,
             spec,
@@ -457,6 +462,31 @@ class EvaluationRunner:
                 trajectory = self._trajectory(suite, case, trial, spec, record)
                 trajectory = replace(trajectory, schema_version="memory_trajectory_v1")
                 trajectories.append(trajectory)
+        return records, trajectories
+
+    def _run_m10_context_integration(self, bundle, suite, spec, cases):
+        """Run executable M10.1 projection fixtures without a live provider."""
+
+        from .m10_context_integration import run_m10_context_case
+
+        records: list[CaseRunRecord] = []
+        trajectories: list[TrajectoryRecord] = []
+        for trial in range(1, spec.trials + 1):
+            for case in cases:
+                started = perf_counter()
+                observed = run_m10_context_case(dict(case.payload))
+                record = self._record(
+                    suite,
+                    spec,
+                    None,
+                    case,
+                    trial,
+                    observed=observed,
+                    elapsed_ms=(perf_counter() - started) * 1000,
+                )
+                records.append(record)
+                trajectory = self._trajectory(suite, case, trial, spec, record)
+                trajectories.append(replace(trajectory, schema_version="context_integration_trajectory_v1"))
         return records, trajectories
 
     def _run_pipeline(self, bundle, suite, spec, cases, components, public):
@@ -1394,6 +1424,48 @@ class EvaluationRunner:
             "m10.protected_context_retention_rate": ratio("m10.protected_context_retention_rate", [row.observed.get("protected_current_retained") for row in rows("compaction")], scope="context"),
             "m10.compaction_ratio": MetricResult("m10.compaction_ratio", version, (sum(int(row.observed.get("compaction_count") or 0) for row in rows("compaction")) / len(compaction)) if compaction else None, sum(int(row.observed.get("compaction_count") or 0) for row in rows("compaction")), len(compaction), "ratio", "context", "sum/denominator"),
             "m10.cross_scope_leakage_rate": MetricResult.ratio("m10.cross_scope_leakage_rate", version, sum(not bool(value) for value in scopes), len(scopes), scope="scope"),
+        }
+
+    @staticmethod
+    def _m10_context_metrics(records, version):
+        """Expose each M10.1 control as its own numerator/denominator metric."""
+
+        def ratio(metric_id: str, field: str, *, scope: str):
+            values = [row.observed.get(field) for row in records if field in row.observed]
+            return MetricResult.ratio(
+                metric_id,
+                version,
+                sum(bool(value) for value in values),
+                len(values),
+                scope=scope,
+            )
+
+        return {
+            "m10.context_projection_accuracy": ratio(
+                "m10.context_projection_accuracy", "history_reaches_provider", scope="projection"
+            ),
+            "m10.dropped_context_leakage_rate": MetricResult.ratio(
+                "m10.dropped_context_leakage_rate",
+                version,
+                sum(not bool(row.observed.get("dropped_raw_absent")) for row in records if "dropped_raw_absent" in row.observed),
+                sum("dropped_raw_absent" in row.observed for row in records),
+                scope="dropped_context",
+            ),
+            "m10.protected_context_retention_rate": ratio(
+                "m10.protected_context_retention_rate", "current_evidence_protected", scope="protected_context"
+            ),
+            "m10.tool_atomicity_pass_rate": ratio(
+                "m10.tool_atomicity_pass_rate", "tool_atomicity_pass", scope="tool_exchange"
+            ),
+            "m10.safety_precedes_memory_rate": ratio(
+                "m10.safety_precedes_memory_rate", "safety_precedes_memory", scope="safety"
+            ),
+            "m10.atomic_turn_commit_rate": ratio(
+                "m10.atomic_turn_commit_rate", "atomic_turn_commit", scope="session_commit"
+            ),
+            "m10.memory_replay_identity_pass_rate": ratio(
+                "m10.memory_replay_identity_pass_rate", "memory_replay_identity", scope="replay_identity"
+            ),
         }
 
     def _new_bundle(self, spec):

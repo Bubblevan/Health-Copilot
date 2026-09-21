@@ -80,7 +80,9 @@ ID tie-break. Expired, deleted, superseded, and cross-scope records do not enter
 normal retrieval. Intent fields are optional; M10 never fabricates an intent.
 
 `ContextManager` selects `ContextItem`s under an explicit `ContextBudget` with a
-deterministic token estimate. Current user input, current Evidence, system
+deterministic token estimate. `ContextProjector` is the executable boundary
+that turns each selected plan into the exact provider-visible message tuple;
+the manager itself never calls a provider. Current user input, current Evidence, system
 pins, and unresolved current tool exchanges are protected. Old completed
 history and tool exchanges may be replaced by a hash-bearing
 `StructuredCompactorV1` summary. Assistant tool calls and matching results are

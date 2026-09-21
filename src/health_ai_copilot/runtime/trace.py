@@ -54,6 +54,7 @@ class TraceEventType(StrEnum):
     SECURITY_CONTROL = "security_control"
     SESSION_LOADED = "session_loaded"
     SESSION_COMMITTED = "session_committed"
+    SESSION_COMMIT_FAILED = "session_commit_failed"
     SESSION_FORKED = "session_forked"
     MEMORY_QUERY = "memory_query"
     MEMORY_SELECTED = "memory_selected"

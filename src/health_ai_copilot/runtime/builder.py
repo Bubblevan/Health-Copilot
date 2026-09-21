@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 from collections.abc import Mapping, Sequence
@@ -10,7 +11,10 @@ from pathlib import Path
 from typing import Any
 
 from ..agent.loop import AgentLoopConfig
-from ..agent.messages import MemoryContextMessage
+from ..agent.messages import (
+    AssistantToolCallMessage,
+    ToolResultMessage,
+)
 from ..agent.model import AgentOutputMode, OpenAICompatibleAgentModel
 from ..agent.session import AgentSession
 from ..agent.tools import ToolRegistry
@@ -35,7 +39,7 @@ from ..mcp.sandbox import (
     WslBubblewrapSandboxBackend,
 )
 from ..mcp.server import build_search_knowledge_server
-from ..pipeline import HealthCopilotPipeline
+from ..pipeline import HealthCopilotPipeline, abstain_response
 from ..policy.model import OpenAICompatibleEvidencePolicy
 from ..retrieval.bm25 import BM25Retriever
 from ..retrieval.dense import (
@@ -51,6 +55,7 @@ from ..retrieval.hybrid import (
     SentenceTransformerReranker,
     TokenOverlapReranker,
 )
+from ..safety import route_question
 from ..team import (
     TEAM_ROLE_CONTRACT_IDS,
     TEAM_ROLE_SYSTEM_CONTRACTS,
@@ -86,15 +91,23 @@ from .context_manager import (
 )
 from .memory import (
     InMemoryMemoryStore,
+    MemoryKind,
     MemoryPolicy,
     MemoryQuery,
     MemorySnapshotIdentity,
     SQLiteMemoryStore,
 )
 from .profile import RuntimeProfile
+from .projector import SessionContextProjector
 from .provider import OpenAICompatibleProviderExecutor, ProviderCallKind, ProviderExecutor
 from .registry import ComponentBuildContext, ComponentRegistry
-from .session import InMemorySessionStore, SessionEventType, SessionRecord, SQLiteSessionStore
+from .session import (
+    InMemorySessionStore,
+    SessionEventType,
+    SessionRecord,
+    SessionRevisionConflictError,
+    SQLiteSessionStore,
+)
 from .trace import RunTrace, TraceContentPolicy, TraceEventType, canonical_json_sha256
 
 
@@ -217,36 +230,77 @@ class RuntimeComponents:
     ) -> SessionAnswer:
         """Run one experimental M10 turn with explicit persistence boundaries."""
 
+        # Safety is deliberately evaluated before touching persistent session,
+        # memory, retrieval, or the provider. This keeps terminal current-turn
+        # routing correct even when M10 state is unavailable or malformed.
+        if not isinstance(question, str) or not question.strip() or route_question(question) is not None:
+            runtime = self.create_run_context(budget=budget, trace_path=trace_path)
+            response = self.pipeline(runtime=runtime).answer(question)
+            return SessionAnswer(response, None, (), None, requested_session_id=session_id)
         if self.session_store is None or self.context_manager is None:
             raise RuntimeBuildError("profile does not select M10 session/context components")
-        session = self.session_store.resume_session(session_id)
-        records = []
-        if self.memory_store is not None:
-            records = self.memory_store.query(
-                MemoryQuery(
-                    scope_id=session_id,
-                    text=question,
-                    intent=intent,
-                    top_k=8,
-                    current_values=current_values or {},
-                )
+
+        try:
+            session = self.session_store.resume_session(session_id)
+        except Exception:  # noqa: BLE001 - persistence failures are typed at the facade boundary
+            return SessionAnswer(
+                abstain_response("session_store_error"),
+                None,
+                (),
+                None,
+                error_code="session_store_error",
+                requested_session_id=session_id,
             )
-        effective_query = retrieval_query or _memory_expanded_query(question, records)
-        plan = self.context_manager.build_plan(
-            session_id=session.session_id,
-            session_revision=session.current_revision,
-            current_user=question,
-            current_evidence=(),
-            memory_records=records,
-            history=self.session_store.list_events(session.session_id),
-            retrieval_query=effective_query,
-        )
-        snapshot = (
-            self.memory_store.snapshot(session.session_id, session_revision=session.current_revision)
-            if self.memory_store is not None
-            else None
-        )
+
         runtime = self.create_run_context(budget=budget, trace_path=trace_path)
+        runtime.metadata["defer_trace_close"] = "true"
+        records = []
+        try:
+            if self.memory_store is not None:
+                records = self.memory_store.query(
+                    MemoryQuery(
+                        scope_id=session_id,
+                        text=question,
+                        intent=intent,
+                        top_k=8,
+                        current_values=current_values or {},
+                    )
+                )
+            effective_query = retrieval_query or _memory_expanded_query(question, records)
+            snapshot = (
+                self.memory_store.snapshot(
+                    session.session_id, session_revision=session.current_revision
+                )
+                if self.memory_store is not None
+                else None
+            )
+        except Exception:  # noqa: BLE001 - M10 state failures fail closed before retrieval/provider
+            response = abstain_response("memory_store_error")
+            if runtime.trace is not None:
+                runtime.trace.emit(
+                    TraceEventType.MEMORY_QUERY,
+                    scope_id_sha256=canonical_json_sha256(session_id),
+                    query_sha256=canonical_json_sha256(question),
+                    candidate_count=0,
+                    error_code="memory_store_error",
+                )
+                runtime.trace.close(status="complete")
+            return SessionAnswer(
+                response,
+                session,
+                (),
+                None,
+                error_code="memory_store_error",
+                requested_session_id=session_id,
+            )
+
+        runtime.metadata.update(
+            {
+                "session_revision": str(session.current_revision),
+                "memory_expanded_query_hash": canonical_json_sha256(effective_query),
+                "memory_snapshot_hash": snapshot.snapshot_sha256 if snapshot else "",
+            }
+        )
         if runtime.trace is not None:
             runtime.trace.emit(
                 TraceEventType.SESSION_LOADED,
@@ -266,54 +320,81 @@ class RuntimeComponents:
                     snapshot_sha256=snapshot.snapshot_sha256,
                     selected_count=len(records),
                 )
-            runtime.trace.emit(
-                TraceEventType.CONTEXT_PLAN,
-                session_revision=plan.session_revision,
-                context_plan_hash=plan.plan_hash,
-                selected_memory_count=len(plan.selected_memory_ids),
-                selected_history_count=len(plan.selected_event_ids),
-                compaction_count=plan.compaction_count,
-                estimated_tokens=plan.estimated_tokens,
-            )
-            if plan.compaction_count:
-                runtime.trace.emit(
-                    TraceEventType.CONTEXT_COMPACTED,
-                    compaction_count=plan.compaction_count,
-                    compacted_event_count=len(plan.compacted_event_ids),
-                )
+        projector = SessionContextProjector(
+            context_manager=self.context_manager,
+            session_store=self.session_store,
+            session_id=session.session_id,
+            question=question,
+            memory_records=records,
+            memory_store=self.memory_store,
+            retrieval_query=effective_query,
+        )
         ephemeral = AgentSession()
-        if records:
-            ephemeral.append(MemoryContextMessage(tuple(records)))
-        response = self.pipeline(runtime=runtime).answer(
+        active_pipeline = self.pipeline(runtime=runtime, context_projector=projector)
+        response = active_pipeline.answer(
             question,
             agent_session=ephemeral,
             retrieval_query=effective_query,
         )
-        self.session_store.append(
-            session.session_id,
-            SessionEventType.USER_INPUT,
-            {"question": question},
-            expected_revision=session.current_revision,
-            run_id=runtime.identity.run_id,
+        plans = (
+            tuple(active_pipeline.last_agent_run.context_plans)
+            if active_pipeline.last_agent_run
+            else ()
         )
-        latest = self.session_store.resume_session(session.session_id)
-        self.session_store.append(
-            session.session_id,
-            SessionEventType.ASSISTANT_OUTPUT,
-            {"route": response.route.value, "message": response.message},
-            expected_revision=latest.current_revision,
-            run_id=runtime.identity.run_id,
+        runtime.metadata["context_plan_hashes"] = json.dumps(
+            [plan.plan_hash for plan in plans], ensure_ascii=False, separators=(",", ":")
         )
-        latest = self.session_store.resume_session(session.session_id)
-        if runtime.trace is not None:
-            runtime.trace.emit(
-                TraceEventType.SESSION_COMMITTED,
-                session_id=latest.session_id,
-                session_revision=latest.current_revision,
+        turn_events = _session_turn_events(question, response, active_pipeline.last_agent_run)
+        try:
+            committed = self.session_store.append_batch(
+                session.session_id,
+                turn_events,
+                expected_revision=session.current_revision,
+                run_id=runtime.identity.run_id,
             )
-        return SessionAnswer(response, latest, plan, snapshot)
+            latest = self.session_store.resume_session(session.session_id)
+        except SessionRevisionConflictError:
+            response = abstain_response("session_revision_conflict")
+            latest = session
+            error_code = "session_revision_conflict"
+            committed = ()
+        except Exception:  # noqa: BLE001 - atomic persistence failure is distinct from model failure
+            response = abstain_response("session_commit_failed")
+            latest = session
+            error_code = "session_commit_failed"
+            committed = ()
+        else:
+            error_code = None
+        if runtime.trace is not None:
+            if committed:
+                runtime.trace.emit(
+                    TraceEventType.SESSION_COMMITTED,
+                    session_id=latest.session_id,
+                    session_revision=latest.current_revision,
+                    event_count=len(committed),
+                )
+            else:
+                runtime.trace.emit(
+                    TraceEventType.SESSION_COMMIT_FAILED,
+                    error_code=error_code or "session_commit_failed",
+                )
+            runtime.trace.close(status="complete")
+        return SessionAnswer(
+            response,
+            latest,
+            plans,
+            snapshot,
+            error_code=error_code,
+            requested_session_id=session_id,
+        )
 
-    def pipeline(self, *, runtime: RunContext | None = None, tool_runner=None) -> HealthCopilotPipeline:
+    def pipeline(
+        self,
+        *,
+        runtime: RunContext | None = None,
+        tool_runner=None,
+        context_projector=None,
+    ) -> HealthCopilotPipeline:
         """Create an execution facade over the already-built long-lived graph."""
 
         return HealthCopilotPipeline(
@@ -329,6 +410,7 @@ class RuntimeComponents:
             knowledge_scope=self.knowledge_scope,
             runtime=runtime,
             tool_runner=tool_runner,
+            context_projector=context_projector,
         )
 
 
@@ -337,35 +419,114 @@ class SessionAnswer:
     """Response plus non-sensitive session/context provenance."""
 
     response: AssistantResponse
-    session: SessionRecord
-    context_plan: ContextPlan
-    memory_snapshot: MemorySnapshotIdentity | None
+    session: SessionRecord | None
+    context_plans: tuple[ContextPlan, ...] = ()
+    memory_snapshot: MemorySnapshotIdentity | None = None
+    error_code: str | None = None
+    requested_session_id: str | None = None
+
+    def __post_init__(self) -> None:
+        # Preserve the old four-argument construction shape while exposing
+        # every model-turn plan to new callers.
+        if isinstance(self.context_plans, ContextPlan):
+            object.__setattr__(self, "context_plans", (self.context_plans,))
 
     @property
-    def session_id(self) -> str:
-        return self.session.session_id
+    def session_id(self) -> str | None:
+        return self.session.session_id if self.session else self.requested_session_id
 
     @property
-    def session_revision(self) -> int:
-        return self.session.current_revision
+    def session_revision(self) -> int | None:
+        return self.session.current_revision if self.session else None
+
+    @property
+    def context_plan(self) -> ContextPlan | None:
+        return self.context_plans[0] if self.context_plans else None
+
+    @property
+    def initial_context_plan(self) -> ContextPlan | None:
+        return self.context_plan
+
+    @property
+    def context_plan_hashes(self) -> tuple[str, ...]:
+        return tuple(plan.plan_hash for plan in self.context_plans)
 
     def to_metadata(self) -> dict[str, Any]:
         return {
-            "session_id": self.session.session_id,
-            "session_revision": self.session.current_revision,
-            "context_plan_hash": self.context_plan.plan_hash,
+            "session_id": self.session.session_id if self.session else self.requested_session_id,
+            "session_revision": self.session.current_revision if self.session else None,
+            "context_plan_hash": self.context_plan.plan_hash if self.context_plan else None,
+            "context_plan_hashes": list(self.context_plan_hashes),
             "memory_snapshot_hash": self.memory_snapshot.snapshot_sha256 if self.memory_snapshot else None,
+            "error_code": self.error_code,
         }
 
 
 def _memory_expanded_query(question: str, records: Sequence[Any]) -> str:
     parts = [question]
     for record in records:
+        if record.kind not in {MemoryKind.TASK_STATE, MemoryKind.USER_ASSERTED_CONTEXT}:
+            continue
         if isinstance(record.value, str) and record.value.strip():
             parts.append(record.value)
         if record.key not in question:
             parts.append(record.key)
     return " ".join(parts)
+
+
+def _session_turn_events(question: str, response: AssistantResponse, agent_run: Any) -> list[tuple[SessionEventType, Any]]:
+    events: list[tuple[SessionEventType, Any]] = [
+        (SessionEventType.USER_INPUT, {"question": question})
+    ]
+    if agent_run is not None:
+        for message in agent_run.state.session.messages:
+            if isinstance(message, AssistantToolCallMessage):
+                events.append(
+                    (
+                        SessionEventType.TOOL_CALL,
+                        {
+                            "tool_calls": [
+                                {"id": call.id, "name": call.name, "arguments": call.arguments}
+                                for call in message.tool_calls
+                            ]
+                        },
+                    )
+                )
+            elif isinstance(message, ToolResultMessage):
+                result = message.result
+                events.append(
+                    (
+                        SessionEventType.TOOL_RESULT,
+                        {
+                            "tool_call_id": message.tool_call_id,
+                            "tool_name": message.tool_name,
+                            "ok": result.ok,
+                            "data": result.data,
+                            "error": (
+                                {"code": result.error.code, "message": result.error.message}
+                                if result.error
+                                else None
+                            ),
+                            "observed_evidence": [
+                                {
+                                    "source_id": evidence.source_id,
+                                    "title": evidence.title,
+                                    "excerpt": evidence.excerpt,
+                                    "source_url": evidence.source_url,
+                                    "score": evidence.score,
+                                }
+                                for evidence in result.observed_evidence
+                            ],
+                        },
+                    )
+                )
+    events.append(
+        (
+            SessionEventType.ASSISTANT_OUTPUT,
+            {"route": response.route.value, "message": response.message},
+        )
+    )
+    return events
 
 
 def default_runtime_profiles() -> dict[str, RuntimeProfile]:
@@ -530,7 +691,7 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
             tool_set=search,
             mode="m10_context",
             session_store="sqlite-session-v1",
-            context_manager="context-manager-v1",
+            context_manager="context-manager-v2",
             config={
                 "session_store": {"backend": "sqlite", "schema_version": "v1"},
                 "context_manager": {
@@ -557,7 +718,7 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
             tool_set=search,
             mode="m10_memory",
             session_store="sqlite-session-v1",
-            context_manager="context-manager-v1",
+            context_manager="context-manager-v2",
             memory_store="sqlite-memory-v1",
             memory_policy="memory-policy-v1",
             config={
@@ -620,7 +781,7 @@ def default_component_registry() -> ComponentRegistry:
     registry.register(ComponentKind.SANDBOX, "bubblewrap-sandbox-wsl-v1", _build_wsl_bubblewrap_sandbox, implementation="health_ai_copilot.mcp.sandbox.WslBubblewrapSandboxBackend")
     registry.register(ComponentKind.SESSION_STORE, "in-memory-session-v1", _build_in_memory_session, implementation="health_ai_copilot.runtime.session.InMemorySessionStore")
     registry.register(ComponentKind.SESSION_STORE, "sqlite-session-v1", _build_sqlite_session, implementation="health_ai_copilot.runtime.session.SQLiteSessionStore")
-    registry.register(ComponentKind.CONTEXT_MANAGER, "context-manager-v1", _build_context_manager, implementation="health_ai_copilot.runtime.context_manager.ContextManager")
+    registry.register(ComponentKind.CONTEXT_MANAGER, "context-manager-v2", _build_context_manager, implementation="health_ai_copilot.runtime.context_manager.ContextManager[m10-context-v2]")
     registry.register(ComponentKind.MEMORY_STORE, "in-memory-memory-v1", _build_in_memory_memory, implementation="health_ai_copilot.runtime.memory.InMemoryMemoryStore")
     registry.register(ComponentKind.MEMORY_STORE, "sqlite-memory-v1", _build_sqlite_memory, implementation="health_ai_copilot.runtime.memory.SQLiteMemoryStore")
     registry.register(ComponentKind.MEMORY_POLICY, "memory-policy-v1", _build_memory_policy, implementation="health_ai_copilot.runtime.memory.MemoryPolicy")

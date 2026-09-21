@@ -1,6 +1,7 @@
 """Narrow execution identity/context; this is not conversation memory."""
 
 import inspect
+import json
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
@@ -78,6 +79,11 @@ class RunContext:
         component_manifest_hash: str | None = None,
         config_hash: str | None = None,
         code_commit: str | None = None,
+        session_revision: int | None = None,
+        memory_snapshot_hash: str | None = None,
+        initial_context_plan_hash: str | None = None,
+        current_context_plan_hash: str | None = None,
+        context_plan_hashes: tuple[str, ...] | None = None,
     ) -> "RunContext":
         context = cls(
             identity=RunIdentity.create(
@@ -90,6 +96,18 @@ class RunContext:
             budget=RunBudgetState(budget or RunBudgetConfig()),
             trace=trace,
         )
+        if session_revision is not None:
+            context.metadata["session_revision"] = str(session_revision)
+        if memory_snapshot_hash is not None:
+            context.metadata["memory_snapshot_hash"] = memory_snapshot_hash
+        if initial_context_plan_hash is not None:
+            context.metadata["initial_context_plan_hash"] = initial_context_plan_hash
+        if current_context_plan_hash is not None:
+            context.metadata["current_context_plan_hash"] = current_context_plan_hash
+        if context_plan_hashes is not None:
+            context.metadata["context_plan_hashes"] = json.dumps(
+                list(context_plan_hashes), ensure_ascii=False, separators=(",", ":")
+            )
         if trace is not None:
             trace.emit(
                 TraceEventType.RUN_START,

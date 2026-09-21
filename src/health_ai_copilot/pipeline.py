@@ -13,6 +13,7 @@ from .generation.base import Generator
 from .knowledge.scope import KnowledgeScope
 from .policy.evidence import EvidencePolicy
 from .runtime.context import RunContext, call_with_optional_runtime
+from .runtime.projector import ContextProjector
 from .runtime.tools import ToolRunner
 from .runtime.trace import TraceEventType
 from .safety import route_question
@@ -97,6 +98,11 @@ ABSTAIN_MESSAGES = {
     "claim_support_verifier_error": "当前回答校验服务无法正常工作，因此本原型不会返回该回答。",
     "claim_materialization_error": "当前回答未通过结构化输出校验，因此本原型不会返回该回答。",
     "invalid_input": "当前问题输入无效，暂时无法生成可靠回答。",
+    "context_budget_exhausted": "当前上下文无法在安全预算容纳必要问题与证据，因此本原型不会继续生成回答。",
+    "context_projection_error": "当前上下文投影未通过完整性校验，因此本原型不会生成可靠回答。",
+    "session_commit_failed": "当前会话未能完整保存，因此本原型不会返回未持久化的回答。",
+    "session_revision_conflict": "当前会话已被其他运行更新，请重新发起本轮请求。",
+    "memory_store_error": "当前记忆状态无法安全读取，因此本原型不会生成依赖该状态的回答。",
 }
 
 
@@ -129,6 +135,7 @@ class HealthCopilotPipeline:
         runtime: RunContext | None = None,
         tool_runner: ToolRunner | None = None,
         orchestrator: AgentTeamOrchestrator | None = None,
+        context_projector: ContextProjector | None = None,
     ):
         if top_k <= 0:
             raise ValueError("top_k must be greater than zero")
@@ -192,6 +199,7 @@ class HealthCopilotPipeline:
                 knowledge_scope=knowledge_scope,
                 runtime=runtime,
                 tool_runner=tool_runner,
+                context_projector=context_projector,
             )
 
     def answer(
@@ -306,7 +314,8 @@ class HealthCopilotPipeline:
                 disposition=disposition,
                 safety_reason_count=len(response.safety_reasons),
             )
-            runtime.trace.close(status="complete")
+            if runtime.metadata.get("defer_trace_close") != "true":
+                runtime.trace.close(status="complete")
         return response
 
     def _response_from_grounded_final(

@@ -287,6 +287,24 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
             },
             allowed_profiles=("m10-context-bm25-v1", "m10-memory-bm25-v1"),
         ),
+        EvalSuite(
+            "m10-context-integration-v1",
+            "1",
+            EvalTargetKind.MEMORY,
+            "evals/m10_context_integration_v1.jsonl",
+            (EvalExecutionMode.OFFLINE,),
+            "m10-context-bm25-v1",
+            ("m10_context_integration",),
+            "m10-context-metrics-v1",
+            public_content_allowed=True,
+            provenance={
+                "source_dataset": "deterministic synthetic executable context-projection fixtures",
+                "review_status": "harness fixture; not clinical validation",
+                "provider_mode": "offline capture; no live provider tokens",
+            },
+            allowed_profiles=("m10-context-bm25-v1",),
+            expected_dataset_sha256="7e4594e1acd2cb570357e76db5f1e54605270d47f50b953600a5c7f297ddbb8a",
+        ),
     )
     for suite in registrations:
         registry.register(suite)

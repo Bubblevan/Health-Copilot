@@ -414,6 +414,26 @@ class M10MemoryGrader(BaseGrader):
         )
 
 
+class M10ContextIntegrationGrader(BaseGrader):
+    """Grade executable ContextPlan-to-provider projection fixtures."""
+
+    grader_id = "m10_context_integration"
+    version = "m10-context-grader-v1"
+
+    def grade(self, case: EvalCase, record: CaseRunRecord) -> GraderResult:
+        passed = record.status == CaseRunStatus.COMPLETE and bool(record.observed.get("case_passed"))
+        reason = () if passed else (record.observed.get("failure_code") or "m10_context_case_failed",)
+        return self._result(
+            case,
+            record,
+            GraderStatus.PASS if passed else GraderStatus.FAIL,
+            score=1.0 if passed else 0.0,
+            expected={"case_passed": True},
+            observed={"case_passed": bool(record.observed.get("case_passed"))},
+            reason_codes=reason,
+        )
+
+
 def default_graders() -> dict[str, Grader]:
     graders: tuple[Grader, ...] = (
         RouteGrader(),
@@ -432,6 +452,7 @@ def default_graders() -> dict[str, Grader]:
         TeamMetricsGrader(),
         SecurityControlGrader(),
         M10MemoryGrader(),
+        M10ContextIntegrationGrader(),
     )
     return {grader.grader_id: grader for grader in graders}
 

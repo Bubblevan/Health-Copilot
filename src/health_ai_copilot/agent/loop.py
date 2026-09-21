@@ -7,6 +7,8 @@ from ..contracts import Evidence, GenerationDraft
 from ..knowledge.scope import KnowledgeScope
 from ..policy.evidence import EvidenceDecision, EvidencePolicy, validate_assessment
 from ..runtime.context import RunContext, call_with_optional_runtime
+from ..runtime.context_manager import ContextAtomicityViolation, ContextBudgetExceeded
+from ..runtime.projector import ContextProjector
 from ..runtime.tools import LiveToolRunner, ToolRunner
 from ..runtime.trace import TraceEventType
 from .events import AgentEvent, AgentEventType
@@ -44,6 +46,7 @@ class AgentLoopConfig:
 class AgentRunResult:
     state: AgentState
     events: tuple[AgentEvent, ...]
+    context_plans: tuple[object, ...] = ()
 
     @property
     def draft(self) -> GenerationDraft | None:
@@ -83,6 +86,7 @@ class AgentLoop:
         knowledge_scope: KnowledgeScope | None = None,
         tool_runner: ToolRunner | None = None,
         runtime: RunContext | None = None,
+        context_projector: ContextProjector | None = None,
     ) -> None:
         self.model = model
         self.registry = registry
@@ -92,6 +96,7 @@ class AgentLoop:
         self.knowledge_scope = knowledge_scope
         self.tool_runner = tool_runner or LiveToolRunner(registry)
         self.runtime = runtime
+        self.context_projector = context_projector
 
     def run(
         self,
@@ -109,6 +114,8 @@ class AgentLoop:
         )
         state.add_evidence(ranked_initial_evidence)
         events: list[AgentEvent] = []
+        context_plans: list[object] = []
+        projector = self.context_projector
 
         def emit(event: AgentEvent) -> None:
             events.append(event)
@@ -128,10 +135,110 @@ class AgentLoop:
             emit(AgentEvent(AgentEventType.TURN_START, active_session.session_id, turn=turn))
             state.model_turns_used += 1
 
+            provider_messages = tuple(active_session.messages)
+            if projector is not None:
+                try:
+                    projected = projector.project(
+                        session=active_session,
+                        current_evidence=tuple(state.observed_evidence),
+                        model_turn=turn,
+                        runtime=active_runtime,
+                    )
+                    provider_messages = projected.messages
+                    context_plans.append(projected.plan)
+                    if active_runtime.trace is not None:
+                        active_runtime.trace.emit(
+                            TraceEventType.CONTEXT_PLAN,
+                            model_turn=turn,
+                            context_plan_hash=projected.plan.plan_hash,
+                            session_revision=projected.plan.session_revision,
+                            memory_snapshot_hash=projected.memory_snapshot_hash,
+                            selected_memory_count=len(projected.plan.selected_memory_ids),
+                            selected_history_count=(
+                                len(projected.plan.selected_event_ids)
+                                + len(projected.plan.compacted_event_ids)
+                            ),
+                            compaction_count=projected.plan.compaction_count,
+                            estimated_tokens=projected.plan.estimated_tokens,
+                        )
+                        if projected.plan.compaction_count:
+                            active_runtime.trace.emit(
+                                TraceEventType.CONTEXT_COMPACTED,
+                                model_turn=turn,
+                                compaction_count=projected.plan.compaction_count,
+                                compacted_event_count=len(projected.plan.compacted_event_ids),
+                            )
+                except ContextBudgetExceeded:
+                    emit(
+                        AgentEvent(
+                            AgentEventType.MODEL_RESPONSE,
+                            active_session.session_id,
+                            turn=turn,
+                            response_kind="error",
+                            success=False,
+                            error_code="context_budget_exhausted",
+                        )
+                    )
+                    emit(
+                        AgentEvent(
+                            AgentEventType.TURN_END,
+                            active_session.session_id,
+                            turn=turn,
+                            success=False,
+                            error_code="context_budget_exhausted",
+                        )
+                    )
+                    state.stop(StopReason.CONTEXT_BUDGET_EXCEEDED)
+                    break
+                except ContextAtomicityViolation:
+                    emit(
+                        AgentEvent(
+                            AgentEventType.MODEL_RESPONSE,
+                            active_session.session_id,
+                            turn=turn,
+                            response_kind="error",
+                            success=False,
+                            error_code="context_atomicity_violation",
+                        )
+                    )
+                    emit(
+                        AgentEvent(
+                            AgentEventType.TURN_END,
+                            active_session.session_id,
+                            turn=turn,
+                            success=False,
+                            error_code="context_atomicity_violation",
+                        )
+                    )
+                    state.stop(StopReason.CONTEXT_PROJECTION_ERROR)
+                    break
+                except Exception:  # noqa: BLE001 - projection is fail-closed
+                    emit(
+                        AgentEvent(
+                            AgentEventType.MODEL_RESPONSE,
+                            active_session.session_id,
+                            turn=turn,
+                            response_kind="error",
+                            success=False,
+                            error_code="context_projection_error",
+                        )
+                    )
+                    emit(
+                        AgentEvent(
+                            AgentEventType.TURN_END,
+                            active_session.session_id,
+                            turn=turn,
+                            success=False,
+                            error_code="context_projection_error",
+                        )
+                    )
+                    state.stop(StopReason.CONTEXT_PROJECTION_ERROR)
+                    break
+
             try:
                 response = call_with_optional_runtime(
                     self.model.respond,
-                    tuple(active_session.messages),
+                    provider_messages,
                     tuple(self.registry.list_model_tool_specs()),
                     runtime=active_runtime,
                 )
@@ -347,4 +454,8 @@ class AgentLoop:
                 success=state.stop_reason in {StopReason.FINAL, StopReason.ABSTAIN},
             )
         )
-        return AgentRunResult(state=state, events=tuple(events))
+        return AgentRunResult(
+            state=state,
+            events=tuple(events),
+            context_plans=tuple(context_plans),
+        )

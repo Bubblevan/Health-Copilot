@@ -26,6 +26,8 @@ class StopReason(StrEnum):
     POLICY_ERROR = "policy_error"
     GROUNDING_FAILED = "grounding_failed"
     VERIFIER_ERROR = "verifier_error"
+    CONTEXT_BUDGET_EXCEEDED = "context_budget_exhausted"
+    CONTEXT_PROJECTION_ERROR = "context_projection_error"
 
 
 @dataclass
