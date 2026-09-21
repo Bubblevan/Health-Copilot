@@ -23,6 +23,46 @@ M9 final freeze：`main@2098b32857f8a6853d89e88d0ab1c80d83b6ee68`。
 
 M10.1 / H7 final freeze：`main@14e5b782a3b6f97887cbbf197e936200703a8e2d`。
 
+## Track split after M10.1
+
+### Core Harness Track
+
+```text
+M0 ───────────────────────── M10.1
+             COMPLETE / FROZEN
+```
+
+M0–M10.1 是已完成的核心 Harness 主线。后续研究不得为了获得更好看的
+Multi-Agent 结果而改写 M8 negative experiment、M10.1 context contract、既有
+profile hash 或冻结评测语义。
+
+### Research Extension Track
+
+```text
+E0  Benchmark Foundation
+ ↓
+E1  External Evaluation
+ ↓
+E2  Heterogeneous Parallel Agent Team
+ ↓
+E3  Bounded Swarm
+ ↓
+E4  Architecture Selection
+ ↓
+E5  Self-Evolving Harness
+ ↓
+E6  Final Research / Resume Freeze
+```
+
+Research Extension Track 当前为 planned，不代表任何外部 benchmark 分数或
+Multi-Agent 正向结论已经产生。执行契约与阶段门见
+[`docs/research_extension_track.md`](research_extension_track.md)。
+
+### Optional later
+
+M11 Learned Harness Policy / Post-training 与 M12 Multimodal 仍是可选后续方向，
+不阻塞 E0–E6，也不属于 Core Harness Track 的补丁版本。
+
 ## M0 — Safety-Gated Evidence RAG（implemented）
 
 当前里程碑，目标是稳定的、非自主的 vertical slice：
