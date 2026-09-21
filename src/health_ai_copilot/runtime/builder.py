@@ -15,6 +15,15 @@ from ..agent.tools import ToolRegistry
 from ..config import load_openai_config
 from ..generation.openai_compatible import OpenAICompatibleGenerator
 from ..knowledge.scope import KnowledgeScope
+from ..mcp.client import MCP_PROTOCOL_VERSION, McpClient, McpServerConfig, McpToolAdapter
+from ..mcp.permissions import (
+    CapabilityClass,
+    CapabilityPolicy,
+    PermissionGuard,
+    PermissionPolicy,
+)
+from ..mcp.sandbox import NoSandboxDevBackend
+from ..mcp.server import build_search_knowledge_server
 from ..pipeline import HealthCopilotPipeline
 from ..policy.model import OpenAICompatibleEvidencePolicy
 from ..retrieval.bm25 import BM25Retriever
@@ -313,6 +322,26 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
                 }
             },
         ),
+        "m9-mcp-search-bm25-v1": RuntimeProfile(
+            "m9-mcp-search-bm25-v1",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=("mcp-search-knowledge-v1",),
+            mode="m9_mcp",
+            config={
+                "mcp": {
+                    "server_id": "m9-search-knowledge-server",
+                    "transport": "inproc_test",
+                    "auth_mode": "unauthenticated_local",
+                    "sandbox_profile_id": "no-sandbox-dev-v1",
+                    "tool_namespace": "mcp::m9-search-knowledge-server",
+                },
+                "permission": {"policy_id": "permission-policy-v1"},
+                "sandbox": {"profile_id": "no-sandbox-dev-v1", "contained": False},
+            },
+        ),
     }
     return profiles
 
@@ -339,9 +368,13 @@ def default_component_registry() -> ComponentRegistry:
     registry.register(ComponentKind.VERIFIER, "grounding-v1", _build_grounding, implementation="health_ai_copilot.verification.grounding.OpenAICompatibleGroundingVerifier")
     registry.register(ComponentKind.VERIFIER, "claim-support-v1", _build_claim_support, implementation="health_ai_copilot.verification.grounding.OpenAICompatibleClaimSupportVerifier")
     registry.register(ComponentKind.TOOL, "search-knowledge-v1", _build_search_tool, implementation="health_ai_copilot.tools.search_knowledge.SearchKnowledgeTool")
+    registry.register(ComponentKind.TOOL, "mcp-search-knowledge-v1", _build_mcp_search_tool, implementation="health_ai_copilot.mcp.client.McpToolAdapter")
     registry.register(ComponentKind.TRACE, "metadata-jsonl-v1", _build_metadata_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
     registry.register(ComponentKind.TRACE, "public-eval-jsonl-v1", _build_public_trace, implementation="health_ai_copilot.runtime.trace.RunTrace")
     registry.register(ComponentKind.ORCHESTRATION, "agent-team-v1", _build_orchestrator, implementation="health_ai_copilot.team.AgentTeamOrchestrator")
+    registry.register(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1", _build_mcp_client, implementation="health_ai_copilot.mcp.client.McpClient")
+    registry.register(ComponentKind.PERMISSION, "permission-policy-v1", _build_permission, implementation="health_ai_copilot.mcp.permissions.PermissionGuard")
+    registry.register(ComponentKind.SANDBOX, "no-sandbox-dev-v1", _build_dev_sandbox, implementation="health_ai_copilot.mcp.sandbox.NoSandboxDevBackend")
     return registry
 
 
@@ -429,6 +462,10 @@ class RuntimeBuilder:
         policy = construct(ComponentKind.POLICY, profile.policy) if profile.policy else None
         verifier = construct(ComponentKind.VERIFIER, profile.verifier) if profile.verifier else None
 
+        if profile.mode == "m9_mcp":
+            construct(ComponentKind.PERMISSION, "permission-policy-v1")
+            construct(ComponentKind.SANDBOX, "no-sandbox-dev-v1")
+            construct(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1")
         tools = [construct(ComponentKind.TOOL, item) for item in profile.tool_set]
         tool_registry = ToolRegistry(tools)
         trace_factory = construct(ComponentKind.TRACE, profile.trace)
@@ -440,11 +477,12 @@ class RuntimeBuilder:
                 provider_executor=provider,
                 model=generator_model_name,
             )
-        elif profile.mode in {"m1", "m2", "m3"}:
+        elif profile.mode in {"m1", "m2", "m3", "m9_mcp"}:
             output_mode = {
                 "m1": AgentOutputMode.M1,
                 "m2": AgentOutputMode.M2_GROUNDED,
                 "m3": AgentOutputMode.M3_CLAIM_FIRST,
+                "m9_mcp": AgentOutputMode.M3_CLAIM_FIRST,
             }[profile.mode]
             agent_model = OpenAICompatibleAgentModel(
                 provider_executor=provider,
@@ -486,7 +524,7 @@ class RuntimeBuilder:
             agent_model,
             policy,
             verifier if profile.mode == "m2" else None,
-            verifier if profile.mode in {"m3", "m8_workflow", "m8_team"} else None,
+            verifier if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} else None,
             tool_registry,
             trace_factory,
             manifest,
@@ -524,18 +562,20 @@ class RuntimeBuilder:
         return str(role_config.get("model") or provider_default)
 
     def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
-        if profile.mode not in {"m0", "m1", "m2", "m3", "m8_workflow", "m8_team"}:
+        if profile.mode not in {"m0", "m1", "m2", "m3", "m8_workflow", "m8_team", "m9_mcp"}:
             raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
-        if profile.mode in {"m3", "m8_workflow", "m8_team"} and scope is None:
+        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} and scope is None:
             raise RuntimeBuildError("claim-first profile requires a KnowledgeScope")
         if profile.mode == "m2" and (profile.policy is None or profile.verifier is None):
             raise RuntimeBuildError("m2 profile requires policy and verifier components")
-        if profile.mode in {"m3", "m8_workflow", "m8_team"} and (profile.policy is None or profile.verifier is None):
+        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} and (profile.policy is None or profile.verifier is None):
             raise RuntimeBuildError("claim-first profile requires policy and verifier components")
         if profile.mode in {"m1", "m2", "m3"} and not profile.tool_set:
             raise RuntimeBuildError(f"{profile.mode} profile requires an explicit tool set")
         if profile.mode == "m8_team" and (profile.orchestration != "agent-team-v1" or not profile.tool_set):
             raise RuntimeBuildError("m8_team profile requires agent-team-v1 and an explicit tool set")
+        if profile.mode == "m9_mcp" and profile.tool_set != ("mcp-search-knowledge-v1",):
+            raise RuntimeBuildError("m9_mcp profile requires the MCP search tool")
 
 
 class _RecordedEvidenceRetriever:
@@ -846,6 +886,110 @@ def _build_search_tool(context: ComponentBuildContext) -> BuiltComponent:
     retriever = context.instances[(ComponentKind.RETRIEVER, context.profile.retriever)]
     tool = SearchKnowledgeTool(retriever, knowledge_scope=context.knowledge_scope)
     return BuiltComponent(tool, _identity(ComponentKind.TOOL, "search-knowledge-v1", implementation_name(tool), {"top_k": 3, "scope_version": context.knowledge_scope.version if context.knowledge_scope else None}))
+
+
+def _build_permission(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = _component_config(context.profile, ComponentKind.PERMISSION)
+    mcp_cfg = context.profile.config.get("mcp", {})
+    if not isinstance(mcp_cfg, Mapping):
+        raise TypeError("profile mcp config must be an object")
+    server_id = str(mcp_cfg.get("server_id", "m9-search-knowledge-server"))
+    policy_id = str(cfg.get("policy_id", "permission-policy-v1"))
+    policy = PermissionPolicy(
+        {(server_id, "search_knowledge"): CapabilityPolicy(CapabilityClass.READ, decision="allow")},
+        policy_id=policy_id,
+    )
+    guard = PermissionGuard(policy)
+    return BuiltComponent(
+        guard,
+        _identity(
+            ComponentKind.PERMISSION,
+            "permission-policy-v1",
+            "health_ai_copilot.mcp.permissions.PermissionGuard",
+            {"policy_id": policy_id, "policy_hash": policy.config_hash},
+        ),
+    )
+
+
+def _build_dev_sandbox(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = _component_config(context.profile, ComponentKind.SANDBOX)
+    backend = NoSandboxDevBackend()
+    return BuiltComponent(
+        backend,
+        _identity(
+            ComponentKind.SANDBOX,
+            "no-sandbox-dev-v1",
+            "health_ai_copilot.mcp.sandbox.NoSandboxDevBackend",
+            {
+                "profile_id": cfg.get("profile_id", "no-sandbox-dev-v1"),
+                "contained": False,
+                "requires_real_enforcement": False,
+            },
+        ),
+    )
+
+
+def _build_mcp_client(context: ComponentBuildContext) -> BuiltComponent:
+    cfg = dict(context.profile.config.get("mcp", {}))
+    server_id = str(cfg.get("server_id", "m9-search-knowledge-server"))
+    retriever = context.instances[(ComponentKind.RETRIEVER, context.profile.retriever)]
+    server = build_search_knowledge_server(
+        retriever,
+        knowledge_scope=context.knowledge_scope,
+        server_id=server_id,
+    )
+    config = McpServerConfig(
+        server_id=server_id,
+        transport=str(cfg.get("transport", "inproc_test")),
+        protocol_version=MCP_PROTOCOL_VERSION,
+        endpoint_identity=f"inproc:{server_id}",
+        auth_mode=str(cfg.get("auth_mode", "unauthenticated_local")),
+        sandbox_profile_id=str(cfg.get("sandbox_profile_id", "no-sandbox-dev-v1")),
+        tool_namespace=str(cfg.get("tool_namespace", f"mcp::{server_id}")),
+    )
+    client = McpClient(config, server)
+    catalog = client.catalog()
+    return BuiltComponent(
+        client,
+        _identity(
+            ComponentKind.MCP_CLIENT,
+            "mcp-client-2026-07-28-v1",
+            "health_ai_copilot.mcp.client.McpClient",
+            {
+                **config.to_safe_dict(),
+                "sdk_version": "2.2.0",
+                "catalog_hash": catalog.catalog_hash,
+                "catalog_ttl_ms": catalog.ttl_ms,
+                "catalog_cache_scope": catalog.cache_scope,
+                "sandbox_profile_hash": config_hash(context.profile.config.get("sandbox", {})),
+            },
+        ),
+    )
+
+
+def _build_mcp_search_tool(context: ComponentBuildContext) -> BuiltComponent:
+    client = context.instances[(ComponentKind.MCP_CLIENT, "mcp-client-2026-07-28-v1")]
+    guard = context.instances[(ComponentKind.PERMISSION, "permission-policy-v1")]
+    catalog = client.catalog()
+    try:
+        remote_spec = next(item for item in catalog.tools if item.name == "search_knowledge")
+    except StopIteration as exc:
+        raise RuntimeBuildError("MCP server did not expose search_knowledge") from exc
+    adapter = McpToolAdapter(client, remote_spec, permission_guard=guard, exposed_name="search_knowledge")
+    return BuiltComponent(
+        adapter,
+        _identity(
+            ComponentKind.TOOL,
+            "mcp-search-knowledge-v1",
+            "health_ai_copilot.mcp.client.McpToolAdapter",
+            {
+                "remote_name": remote_spec.name,
+                "namespace": client.config.tool_namespace,
+                "catalog_hash": catalog.catalog_hash,
+                "protocol_version": MCP_PROTOCOL_VERSION,
+            },
+        ),
+    )
 
 
 def _build_metadata_trace(context: ComponentBuildContext) -> BuiltComponent:

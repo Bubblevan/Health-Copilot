@@ -1,4 +1,6 @@
 .venv/
+.m9-wsl-venv/
+.m9-wsl-site/
 .uv-cache/
 *.egg-info/
 __pycache__/

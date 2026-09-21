@@ -67,6 +67,10 @@ class FailureStage(StrEnum):
     REPLAY = "replay"
     EVAL_INFRA = "eval_infra"
     ORCHESTRATION = "orchestration"
+    MCP = "mcp"
+    PERMISSION = "permission"
+    SANDBOX = "sandbox"
+    AUTHORIZATION = "authorization"
 
 
 def canonical_json(value: object) -> str:

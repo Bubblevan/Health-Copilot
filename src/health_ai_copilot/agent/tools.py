@@ -106,7 +106,13 @@ class ToolRegistry:
     def list_model_tool_specs(self) -> list[ToolSpec]:
         return [_get_tool_spec(self._tools[name]) for name in sorted(self._tools)]
 
-    def execute(self, tool: str | ToolCall, arguments: object | None = None) -> ToolResult:
+    def execute(
+        self,
+        tool: str | ToolCall,
+        arguments: object | None = None,
+        *,
+        runtime: Any | None = None,
+    ) -> ToolResult:
         """Validate and execute by name, converting all failures to observations."""
         if isinstance(tool, ToolCall):
             name = tool.name
@@ -129,16 +135,22 @@ class ToolRegistry:
             return ToolResult.failure("invalid_arguments", _safe_error_message(exc))
 
         try:
-            result = target.execute(validated)
+            runtime_executor = getattr(target, "execute_with_runtime", None)
+            if runtime is not None and callable(runtime_executor):
+                result = runtime_executor(validated, runtime=runtime)
+            else:
+                result = target.execute(validated)
         except Exception:  # noqa: BLE001 - tool errors are observations
             return ToolResult.failure("tool_execution_error", "tool execution failed")
         if not isinstance(result, ToolResult):
             return ToolResult.failure("invalid_tool_result", "tool returned an invalid result")
         return result
 
-    def execute_by_name(self, name: str, arguments: object) -> ToolResult:
+    def execute_by_name(
+        self, name: str, arguments: object, *, runtime: Any | None = None
+    ) -> ToolResult:
         """Explicit name-based convenience API for callers outside the loop."""
-        return self.execute(name, arguments)
+        return self.execute(name, arguments, runtime=runtime)
 
 
 def _safe_error_message(exc: Exception) -> str:

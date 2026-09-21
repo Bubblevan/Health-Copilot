@@ -19,6 +19,9 @@ class ComponentKind(StrEnum):
     TOOL = "tool"
     TRACE = "trace"
     ORCHESTRATION = "orchestration"
+    MCP_CLIENT = "mcp_client"
+    PERMISSION = "permission"
+    SANDBOX = "sandbox"
 
 
 @dataclass(frozen=True)

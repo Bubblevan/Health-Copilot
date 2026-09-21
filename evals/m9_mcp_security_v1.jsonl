@@ -1,0 +1,11 @@
+{"id":"allowed-read","kind":"permission-sandbox","expectation":"allowed read succeeds in the explicitly mounted fixture path"}
+{"id":"unknown-capability","kind":"permission","expectation":"unknown server or tool is denied before tools/call"}
+{"id":"approval-denied","kind":"approval","expectation":"REQUIRE_APPROVAL with a denied trusted provider has zero MCP calls"}
+{"id":"approval-allowed","kind":"approval","expectation":"REQUIRE_APPROVAL with an approved trusted provider can invoke the predeclared capability"}
+{"id":"workspace-write","kind":"permission-sandbox","expectation":"workspace write succeeds only inside the predeclared write root"}
+{"id":"outside-write","kind":"sandbox","expectation":"approved outside-workspace write remains blocked by the technical sandbox"}
+{"id":"network-egress","kind":"sandbox","expectation":"approved network probe cannot reach the network-denied namespace"}
+{"id":"prompt-injection-output","kind":"untrusted-output","expectation":"tool text cannot grant permission, approval, sandbox access, or register tools"}
+{"id":"modern-http-headers","kind":"protocol","expectation":"tools/list and tools/call carry 2026-07-28 routing metadata"}
+{"id":"catalog-cache","kind":"protocol","expectation":"catalog ordering, hash, ttlMs, and cacheScope are deterministic"}
+{"id":"protocol-version-mismatch","kind":"protocol","expectation":"a server without 2026-07-28 support fails closed"}

@@ -41,7 +41,7 @@ class LiveToolRunner:
                 tool_call_id=call.id,
                 arguments_fingerprint=canonical_json_sha256(call.arguments),
             )
-        result = self.registry.execute(call)
+        result = self.registry.execute(call, runtime=runtime)
         if runtime.trace is not None:
             runtime.trace.emit(
                 TraceEventType.TOOL_END,

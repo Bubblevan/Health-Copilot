@@ -151,3 +151,19 @@ M12 multimodal 均未启动。v1 失败审计与 v2 closeout 见
 `docs/m8_agent_team.md`。
 
 M0 不实现医疗诊断、处方、真实患者记录或临床验证。
+
+## M9 — H6 COMPLETE ON VALIDATED WSL2 BACKEND
+
+M9 增加了严格 pinned 的 MCP `2026-07-28` capability boundary，使用官方
+`mcp==2.2.0` Python SDK，并保持 `m3-bm25-default` 为产品默认。新增的
+`m9-mcp-search-bm25-v1` 仅通过显式 opt-in 使用 read-only MCP-backed
+`search_knowledge`；AgentLoop、M3 policy/verifier、KnowledgeScope 和 BM25
+语义保持不变。
+
+H6 的三个边界分别实现并验证：
+
+- MCP：`server/discover`、`tools/list`、`tools/call`、structured schema/result、catalog hash/TTL/cache provenance，以及 Streamable HTTP routing headers；
+- Permission/Approval：trusted local default-deny `PermissionPolicy`、`ALLOW`/`DENY`/`REQUIRE_APPROVAL`、argument-hash-bound `ApprovalProvider`；
+- Sandbox：真实 WSL2 Ubuntu 24.04 Bubblewrap stdio fixture，独立验证 allowed read、workspace write、outside filesystem deny 和 network deny；required backend 缺失时 fail closed。
+
+M9 不实现 remote OAuth（文档明确为 NOT IMPLEMENTED）、dynamic topology、decentralized MAS、A2A、Memory、post-training 或 multimodal。完整边界与 source alignment 见 `docs/m9_mcp_security.md`；M10 Memory、M11 post-training、M12 multimodal 均未启动。

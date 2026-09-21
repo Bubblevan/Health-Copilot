@@ -43,6 +43,14 @@ class TraceEventType(StrEnum):
     EVIDENCE_ADDED = "evidence_added"
     TEAM_FINAL_PROPOSED = "team_final"
     TEAM_STOPPED = "team_stop"
+    PERMISSION_CHECK = "permission_check"
+    APPROVAL_REQUESTED = "approval_requested"
+    APPROVAL_GRANTED = "approval_granted"
+    APPROVAL_DENIED = "approval_denied"
+    MCP_CALL_START = "mcp_call_start"
+    MCP_CALL_END = "mcp_call_end"
+    MCP_CALL_ERROR = "mcp_call_error"
+    SANDBOX_DENIED = "sandbox_denied"
 
 
 @dataclass(frozen=True)
