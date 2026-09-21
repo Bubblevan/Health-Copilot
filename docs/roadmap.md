@@ -21,6 +21,8 @@ M7 已完成 H4；M8/H5 已实现为实验性、受限的 Agent Team。H6 / M9 C
 
 M9 final freeze：`main@2098b32857f8a6853d89e88d0ab1c80d83b6ee68`。
 
+M10.1 / H7 final freeze：`main@14e5b782a3b6f97887cbbf197e936200703a8e2d`。
+
 ## M0 — Safety-Gated Evidence RAG（implemented）
 
 当前里程碑，目标是稳定的、非自主的 vertical slice：
