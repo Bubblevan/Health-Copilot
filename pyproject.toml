@@ -17,6 +17,7 @@ dependencies = [
 
 [project.scripts]
 health-eval = "health_ai_copilot.eval.cli:main"
+health-bench = "health_ai_copilot.benchmarks.cli:main"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]

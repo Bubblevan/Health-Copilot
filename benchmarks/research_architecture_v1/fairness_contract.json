@@ -1,0 +1,38 @@
+{
+  "schema_version": "fairness-contract-v1",
+  "question": "Compare architecture choices under separately reported budget regimes",
+  "regimes": [
+    {
+      "regime": "NATIVE_BUDGET",
+      "max_provider_calls": null,
+      "max_tool_executions": null,
+      "max_observed_tokens": null,
+      "deadline_ms": null,
+      "concurrency_limit": null,
+      "cost_model_version": "cost-model-v1"
+    },
+    {
+      "regime": "COST_MATCHED",
+      "max_provider_calls": 4,
+      "max_tool_executions": 8,
+      "max_observed_tokens": 12000,
+      "deadline_ms": null,
+      "concurrency_limit": 4,
+      "cost_model_version": "cost-model-v1"
+    },
+    {
+      "regime": "DEADLINE_MATCHED",
+      "max_provider_calls": null,
+      "max_tool_executions": null,
+      "max_observed_tokens": null,
+      "deadline_ms": 30000,
+      "concurrency_limit": 4,
+      "cost_model_version": "cost-model-v1"
+    }
+  ],
+  "deadline_measurement": "monotonic clock from execution start through final verified response",
+  "concurrency_accounting": {
+    "report_separately": ["wall_clock_latency_ms", "sum_worker_execution_ms", "provider_calls", "tool_calls", "input_tokens", "output_tokens"]
+  },
+  "status": "defined_not_executed"
+}

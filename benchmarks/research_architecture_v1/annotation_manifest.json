@@ -1,0 +1,30 @@
+{
+  "benchmark_id": "research-architecture-v1",
+  "status": "candidate",
+  "case_count": 48,
+  "planned_category_allocation": {
+    "SIMPLE_DIRECT": 6,
+    "SINGLE_SOURCE": 6,
+    "BREADTH_MULTI_SOURCE": 6,
+    "CROSS_SOURCE": 6,
+    "CONFLICTING_EVIDENCE": 6,
+    "TEMPORAL_EVIDENCE": 6,
+    "SERIAL_DEPENDENCY": 6,
+    "OOD_INSUFFICIENT": 6
+  },
+  "split_policy": {
+    "DEV": 24,
+    "TEST": 24,
+    "leakage_keys": ["source_group_id", "question_family_id", "exact_normalized_text_hash"]
+  },
+  "human_review": {
+    "status": "pending",
+    "reviewer": null,
+    "review_date": null,
+    "review_notes": null
+  },
+  "architecture_neutrality": {
+    "expected_winner_field": false,
+    "team_bias_review": "pending"
+  }
+}

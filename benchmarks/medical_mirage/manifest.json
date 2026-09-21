@@ -1,0 +1,52 @@
+{
+  "benchmark_id": "medical-mirage-v1",
+  "benchmark_family": "MEDICAL_RAG",
+  "version": "MIRAGE-benchmark-json",
+  "source_name": "Medical MIRAGE",
+  "canonical_url": "https://github.com/gzxiong/MIRAGE",
+  "paper_url": "https://aclanthology.org/2024.findings-acl.372/",
+  "upstream_revision": "392943af99cd94cafd50a0de2e7fca24bbf65494",
+  "adapter_version": "medical-mirage-adapter-v1",
+  "raw_artifacts": [
+    {
+      "name": "benchmark.json",
+      "url": "https://raw.githubusercontent.com/gzxiong/MIRAGE/392943af99cd94cafd50a0de2e7fca24bbf65494/benchmark.json",
+      "size_bytes": null,
+      "sha256": null,
+      "downloaded_at": null,
+      "content_type": "application/json",
+      "upstream_etag": null,
+      "upstream_last_modified": null
+    }
+  ],
+  "license": {
+    "license_name": null,
+    "license_url": "https://github.com/gzxiong/MIRAGE/blob/392943af99cd94cafd50a0de2e7fca24bbf65494/LICENSE",
+    "license_source": "MIRAGE repository and component dataset terms",
+    "license_review_status": "REVIEW_REQUIRED",
+    "redistribution_allowed": null,
+    "derived_artifact_commit_allowed": null,
+    "notes": "MIRAGE aggregates multiple medical QA datasets. Repository-level licensing is not sufficient to resolve every component dataset's redistribution status; review each subdataset before committing normalized content."
+  },
+  "privacy": "UNKNOWN",
+  "medical_content_policy": ["MEDICAL_QA", "CLINICAL_EXAM_STYLE", "BIOMEDICAL_LITERATURE"],
+  "normalization_schema_version": "benchmark-case-v1",
+  "split_manifest": {
+    "source": "MIRAGE benchmark.json",
+    "custom_split": false,
+    "subdataset_identity_preserved": true
+  },
+  "gold_contract": {
+    "kind": "multiple_choice_answer",
+    "options_preserved": true,
+    "retrieval_input": "question_only"
+  },
+  "metric_protocol": {
+    "family": "EXTERNAL_QUALITY",
+    "metrics": ["benchmark-specific accuracy/protocol metrics"],
+    "execution": "deferred_to_E1"
+  },
+  "judge_protocol": null,
+  "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
+  "status": "REVIEW_REQUIRED"
+}

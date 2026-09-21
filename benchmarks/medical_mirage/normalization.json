@@ -1,0 +1,8 @@
+{
+  "adapter_id": "medical-mirage",
+  "adapter_version": "medical-mirage-adapter-v1",
+  "schema_version": "benchmark-case-v1",
+  "preserve": ["subdataset", "question", "options", "answer", "zero_shot", "question_only_retrieval"],
+  "forbidden_transformations": ["flatten_without_origin", "retrieval_with_answer_options", "repository_license_only_admissibility"],
+  "offline": true
+}

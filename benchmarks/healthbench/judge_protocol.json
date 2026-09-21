@@ -1,0 +1,31 @@
+{
+  "judge_protocol_id": "healthbench-official-rubric-v1",
+  "benchmark_id": "healthbench-v1",
+  "reference_implementation_repository": "https://github.com/openai/simple-evals",
+  "reference_implementation_revision": "652c89d0ca9df547706735883097e9537d40dc47",
+  "dataset_artifact_url": "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+  "dataset_sha256": null,
+  "grader_prompt_identity": "healthbench_eval.py:GRADER_TEMPLATE@652c89d0ca9df547706735883097e9537d40dc47",
+  "grader_prompt_hash": "5f2d21688d86d91d876ef9b47a3904f9ad2fc2f4ef7be44a3e6c322f5f5988c9",
+  "expected_output_schema": {
+    "explanation": "string",
+    "criteria_met": "boolean"
+  },
+  "aggregation_version": "simple-evals-healthbench-aggregation@652c89d",
+  "reference_grader_model": "to_be_selected_and_frozen_before_E1",
+  "reference_grader_revision": "to_be_selected_and_frozen_before_E1",
+  "temperature": 0.0,
+  "sampling_parameters": {
+    "temperature": 0.0
+  },
+  "retry_policy": {
+    "status": "to_be_frozen_before_E1"
+  },
+  "parser_behavior": {
+    "status": "to_be_frozen_before_E1"
+  },
+  "cost_accounting_policy": {
+    "status": "to_be_frozen_before_E1"
+  },
+  "execution": "deferred_to_E1"
+}

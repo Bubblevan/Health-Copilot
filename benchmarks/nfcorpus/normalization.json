@@ -1,0 +1,8 @@
+{
+  "adapter_id": "nfcorpus-beir",
+  "adapter_version": "nfcorpus-adapter-v1",
+  "schema_version": "benchmark-case-v1",
+  "preserve": ["query_id", "query_text", "corpus_document_id", "title", "text", "graded_qrels", "canonical_split"],
+  "forbidden_transformations": ["binary_qrel_conversion", "random_split", "product_knowledge_card_conversion"],
+  "offline": true
+}

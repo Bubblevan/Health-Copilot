@@ -1,0 +1,11 @@
+{
+  "cost_model_version": "cost-model-v1",
+  "provider_input_tokens": "count observed provider input tokens",
+  "provider_output_tokens": "count observed provider output tokens",
+  "provider_calls": "count completed and failed provider calls",
+  "retriever_tool_calls": "count tool executions including failed executions",
+  "wall_clock_latency": "monotonic start-to-final-verified-response milliseconds",
+  "usd_estimate": null,
+  "price_table": null,
+  "status": "no_volatile_prices_in_gold"
+}

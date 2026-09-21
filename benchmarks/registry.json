@@ -1,0 +1,9 @@
+{
+  "schema_version": "benchmark-registry-v1",
+  "entries": {
+    "healthbench-v1": "benchmarks/healthbench/manifest.json",
+    "medical-mirage-v1": "benchmarks/medical_mirage/manifest.json",
+    "nfcorpus-v1": "benchmarks/nfcorpus/manifest.json",
+    "research-architecture-v1": "benchmarks/research_architecture_v1/manifest.json"
+  }
+}

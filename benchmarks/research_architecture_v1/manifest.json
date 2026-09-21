@@ -1,0 +1,54 @@
+{
+  "benchmark_id": "research-architecture-v1",
+  "benchmark_family": "INTERNAL_ARCHITECTURE_RESEARCH",
+  "version": "candidate-v1",
+  "source_name": "Health-Copilot reviewed knowledge-card-derived candidate pack",
+  "canonical_url": "repo://benchmarks/research_architecture_v1",
+  "paper_url": null,
+  "upstream_revision": "health-copilot@5a009d0bfee0b48016e9ab362ac21d17d549922c",
+  "adapter_version": "research-architecture-pack-v1",
+  "raw_artifacts": [
+    {
+      "name": "cases.jsonl",
+      "url": "repo://benchmarks/research_architecture_v1/cases.jsonl",
+      "size_bytes": null,
+      "sha256": null,
+      "downloaded_at": null,
+      "content_type": "application/jsonl",
+      "upstream_etag": null,
+      "upstream_last_modified": null
+    }
+  ],
+  "license": {
+    "license_name": "derived internal research artifact",
+    "license_url": null,
+    "license_source": "existing source-controlled reviewed knowledge-card provenance",
+    "license_review_status": "REVIEW_REQUIRED",
+    "redistribution_allowed": false,
+    "derived_artifact_commit_allowed": true,
+    "notes": "Candidate pack contains synthetic question wording and source IDs only. Human review must confirm medical-content handling, evidence substitutions and source provenance before freeze."
+  },
+  "privacy": "PUBLIC_SYNTHETIC",
+  "medical_content_policy": ["PATIENT_FACING_DIALOGUE", "MEDICAL_QA"],
+  "normalization_schema_version": "research-architecture-v1",
+  "split_manifest": {
+    "splits": ["DEV", "TEST"],
+    "target_case_count": 48,
+    "category_allocation": "6 cases per required category",
+    "leakage_audit": ["source_group_id", "question_family_id", "exact_normalized_text_hash"]
+  },
+  "gold_contract": {
+    "kind": "architecture_neutral_evidence_groups",
+    "expected_winner": false,
+    "task_profile_is_eval_only": true,
+    "human_review_required": true
+  },
+  "metric_protocol": {
+    "family": "HARNESS_DETERMINISTIC_AND_TEAM_CONTRIBUTION",
+    "metrics": ["EvidenceGroupCoverage", "citation_integrity", "unsupported_claim", "system_cost"],
+    "execution": "deferred_to_E2_E4"
+  },
+  "judge_protocol": null,
+  "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
+  "status": "REVIEW_REQUIRED"
+}

@@ -1,0 +1,8 @@
+{
+  "adapter_id": "healthbench-official",
+  "adapter_version": "healthbench-adapter-v1",
+  "schema_version": "benchmark-case-v1",
+  "preserve": ["prompt_id", "conversation", "rubrics", "rubric_weights", "rubric_sign", "subset"],
+  "forbidden_transformations": ["judge_execution", "rubric_score_claim", "clinical_truth_claim"],
+  "offline": true
+}

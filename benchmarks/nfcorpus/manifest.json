@@ -1,0 +1,53 @@
+{
+  "benchmark_id": "nfcorpus-v1",
+  "benchmark_family": "EXTERNAL_RETRIEVAL",
+  "version": "BEIR-v2.2.0",
+  "source_name": "NFCorpus upstream plus BEIR-formatted release",
+  "canonical_url": "https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/",
+  "paper_url": "https://openreview.net/forum?id=wCu6T5xFjeJ",
+  "upstream_revision": "beir-v2.2.0@6ef8c9097ebfb203ad360bd64e0cfb93e64f4a44",
+  "adapter_version": "nfcorpus-adapter-v1",
+  "raw_artifacts": [
+    {
+      "name": "nfcorpus.zip",
+      "url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip",
+      "size_bytes": null,
+      "sha256": null,
+      "downloaded_at": null,
+      "content_type": "application/zip",
+      "upstream_etag": null,
+      "upstream_last_modified": null
+    }
+  ],
+  "license": {
+    "license_name": null,
+    "license_url": null,
+    "license_source": "BEIR packaging documentation and NFCorpus upstream terms",
+    "license_review_status": "REVIEW_REQUIRED",
+    "redistribution_allowed": null,
+    "derived_artifact_commit_allowed": null,
+    "notes": "BEIR redistribution does not by itself establish the upstream NFCorpus license. Manual review is required before APPROVED. The current BEIR release reports an MD5 checksum in its table; E0 does not substitute that for a pinned SHA-256."
+  },
+  "privacy": "UNKNOWN",
+  "medical_content_policy": ["RETRIEVAL_ONLY", "BIOMEDICAL_LITERATURE"],
+  "normalization_schema_version": "benchmark-case-v1",
+  "split_manifest": {
+    "source": "canonical BEIR qrels split files",
+    "allowed_splits": ["train", "dev", "test"],
+    "custom_split": false,
+    "gold": "graded qrels preserved exactly"
+  },
+  "gold_contract": {
+    "kind": "graded_relevance_qrels",
+    "binary_conversion": false,
+    "source_ids_preserved": true
+  },
+  "metric_protocol": {
+    "family": "RETRIEVAL",
+    "metrics": ["nDCG", "Recall", "MRR"],
+    "execution": "deferred_to_E1"
+  },
+  "judge_protocol": null,
+  "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
+  "status": "REVIEW_REQUIRED"
+}

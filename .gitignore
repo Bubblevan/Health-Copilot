@@ -12,6 +12,7 @@ __pycache__/
 .env.*
 !.env.example
 artifacts/
+.health-bench-data/
 data/raw/
 data/processed/
 *.db

@@ -1,0 +1,1 @@
+{"prompt_id":"hb-1","prompt":[{"role":"user","content":"How can I record home blood pressure?"}],"rubrics":[{"criteria":"mentions recording readings","weight":1,"sign":1}],"subset":"main"}
