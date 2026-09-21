@@ -52,6 +52,18 @@ class TraceEventType(StrEnum):
     MCP_CALL_ERROR = "mcp_call_error"
     SANDBOX_DENIED = "sandbox_denied"
     SECURITY_CONTROL = "security_control"
+    SESSION_LOADED = "session_loaded"
+    SESSION_COMMITTED = "session_committed"
+    SESSION_FORKED = "session_forked"
+    MEMORY_QUERY = "memory_query"
+    MEMORY_SELECTED = "memory_selected"
+    MEMORY_WRITE_PROPOSED = "memory_write_proposed"
+    MEMORY_WRITE_COMMITTED = "memory_write_committed"
+    MEMORY_SUPERSEDED = "memory_superseded"
+    MEMORY_DELETED = "memory_deleted"
+    CONTEXT_PLAN = "context_plan"
+    CONTEXT_COMPACTED = "context_compacted"
+    CONTEXT_BUDGET_DENIED = "context_budget_denied"
 
 
 @dataclass(frozen=True)

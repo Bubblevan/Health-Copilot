@@ -270,6 +270,23 @@ def default_eval_suite_registry() -> EvalSuiteRegistry:
             allowed_profiles=("m9-mcp-search-bm25-v1",),
             expected_dataset_sha256="610c3d7d9ca0da4de8619352cd86f3829c370d98108512ee8fdd9b4821b37176",
         ),
+        EvalSuite(
+            "m10-memory-v1",
+            "1",
+            EvalTargetKind.MEMORY,
+            "evals/m10_memory_v1.jsonl",
+            (EvalExecutionMode.OFFLINE,),
+            "m10-memory-bm25-v1",
+            ("m10_memory",),
+            "m10-memory-metrics-v1",
+            public_content_allowed=True,
+            provenance={
+                "source_dataset": "deterministic synthetic memory/context trajectories",
+                "review_status": "harness fixture; not clinical validation",
+                "learned_policy": "deferred_to_m11",
+            },
+            allowed_profiles=("m10-context-bm25-v1", "m10-memory-bm25-v1"),
+        ),
     )
     for suite in registrations:
         registry.register(suite)

@@ -183,6 +183,9 @@ class EvaluationRunner:
         if suite.suite_id == "m9-mcp-security-v1":
             records, trajectories = self._run_m9_security(bundle, suite, spec, cases)
             components = None
+        elif suite.suite_id == "m10-memory-v1":
+            records, trajectories = self._run_m10_memory(bundle, suite, spec, cases)
+            components = None
         elif suite.suite_id == "m0-regression-v1":
             components = self._build_offline_components(spec, spec.profile_id or "m0-bm25-default", cards, scope)
             records, trajectories = self._run_m0(bundle, suite, spec, cases, components)
@@ -249,6 +252,8 @@ class EvaluationRunner:
             metrics.update(self._m8_metrics(records, cases, suite.metric_definition_version))
         elif suite.suite_id == "m9-mcp-security-v1":
             metrics.update(self._m9_security_metrics(records, cases, suite.metric_definition_version))
+        elif suite.suite_id == "m10-memory-v1":
+            metrics.update(self._m10_metrics(records, suite.metric_definition_version))
         self._write_bundle(
             bundle,
             spec,
@@ -426,6 +431,32 @@ class EvaluationRunner:
                         execution_run_id=record.run_id,
                     )
                 )
+        return records, trajectories
+
+    def _run_m10_memory(self, bundle, suite, spec, cases):
+        """Run the deterministic M10 substrate without a provider or product tool."""
+
+        from .m10 import run_m10_case
+
+        records: list[CaseRunRecord] = []
+        trajectories: list[TrajectoryRecord] = []
+        for trial in range(1, spec.trials + 1):
+            for case in cases:
+                started = perf_counter()
+                observed = run_m10_case(case.payload)
+                record = self._record(
+                    suite,
+                    spec,
+                    None,
+                    case,
+                    trial,
+                    observed=observed,
+                    elapsed_ms=(perf_counter() - started) * 1000,
+                )
+                records.append(record)
+                trajectory = self._trajectory(suite, case, trial, spec, record)
+                trajectory = replace(trajectory, schema_version="memory_trajectory_v1")
+                trajectories.append(trajectory)
         return records, trajectories
 
     def _run_pipeline(self, bundle, suite, spec, cases, components, public):
@@ -1333,6 +1364,36 @@ class EvaluationRunner:
             "m9.sandbox_contract_cases_passed": count_metric(
                 "m9.sandbox_contract_cases_passed", sandbox_rows
             ),
+        }
+
+    @staticmethod
+    def _m10_metrics(records, version):
+        def rows(category):
+            return [row for row in records if row.observed.get("category") == category]
+
+        def ratio(metric_id, values, *, scope):
+            return MetricResult.ratio(metric_id, version, sum(bool(value) for value in values), len(values), scope=scope)
+
+        basic = [row.observed.get("memory_retrieval_hit") for row in rows("basic_retrieval")]
+        updates = [row.observed.get("supersession_ok") for row in rows("supersession")]
+        expiry = [row.observed.get("expiry_ok") for row in rows("expiry")]
+        intent = [row.observed.get("intent_mismatch_ok") for row in rows("intent_mismatch")]
+        deletes = [row.observed.get("delete_ok") for row in rows("delete")]
+        scopes = [row.observed.get("scope_isolation_ok") for row in rows("scope_isolation")]
+        compaction = [row.observed.get("context_budget_pass") for row in rows("compaction")]
+        actions = [row.observed.get("action_grounding_ok") for row in rows("action_grounding")]
+        return {
+            "m10.memory_retrieval_hit_at_k": ratio("m10.memory_retrieval_hit_at_k", basic, scope="basic_retrieval"),
+            "m10.active_memory_precision": ratio("m10.active_memory_precision", basic, scope="active_memory"),
+            "m10.stale_memory_retrieval_rate": MetricResult.ratio("m10.stale_memory_retrieval_rate", version, sum(not bool(value) for value in expiry), len(expiry), scope="expiry"),
+            "m10.supersession_accuracy": ratio("m10.supersession_accuracy", updates, scope="supersession"),
+            "m10.deleted_memory_leakage_rate": MetricResult.ratio("m10.deleted_memory_leakage_rate", version, sum(not bool(value) for value in deletes), len(deletes), scope="deletion"),
+            "m10.intent_mismatch_rate": MetricResult.ratio("m10.intent_mismatch_rate", version, sum(not bool(value) for value in intent), len(intent), scope="intent"),
+            "m10.action_grounding_accuracy": ratio("m10.action_grounding_accuracy", actions, scope="action_grounding"),
+            "m10.context_budget_pass_rate": ratio("m10.context_budget_pass_rate", compaction, scope="context"),
+            "m10.protected_context_retention_rate": ratio("m10.protected_context_retention_rate", [row.observed.get("protected_current_retained") for row in rows("compaction")], scope="context"),
+            "m10.compaction_ratio": MetricResult("m10.compaction_ratio", version, (sum(int(row.observed.get("compaction_count") or 0) for row in rows("compaction")) / len(compaction)) if compaction else None, sum(int(row.observed.get("compaction_count") or 0) for row in rows("compaction")), len(compaction), "ratio", "context", "sum/denominator"),
+            "m10.cross_scope_leakage_rate": MetricResult.ratio("m10.cross_scope_leakage_rate", version, sum(not bool(value) for value in scopes), len(scopes), scope="scope"),
         }
 
     def _new_bundle(self, spec):

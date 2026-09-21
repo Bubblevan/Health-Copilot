@@ -33,6 +33,7 @@ class EvalTargetKind(StrEnum):
     DETERMINISTIC_GATE = "deterministic_gate"
     ORCHESTRATION = "orchestration"
     SECURITY = "security"
+    MEMORY = "memory"
 
 
 class EvalExecutionMode(StrEnum):
@@ -72,6 +73,9 @@ class FailureStage(StrEnum):
     PERMISSION = "permission"
     SANDBOX = "sandbox"
     AUTHORIZATION = "authorization"
+    SESSION = "session"
+    MEMORY = "memory"
+    CONTEXT = "context"
 
 
 def canonical_json(value: object) -> str:

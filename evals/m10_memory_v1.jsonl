@@ -1,0 +1,24 @@
+{"id":"m10-basic-001","scenario":"basic_retrieval","key":"preferred_language","value":"Chinese","query":"preferred_language","expected_value":"Chinese"}
+{"id":"m10-basic-002","scenario":"basic_retrieval","key":"output_format","value":"table","query":"output_format","expected_value":"table"}
+{"id":"m10-basic-003","scenario":"basic_retrieval","key":"education_topic","value":"low sodium diet","query":"low sodium","expected_value":"low sodium diet"}
+{"id":"m10-basic-004","scenario":"basic_retrieval","key":"unit","value":"mmHg","query":"unit","expected_value":"mmHg"}
+{"id":"m10-update-001","scenario":"supersession","key":"preferred_language","old_value":"English","new_value":"Chinese","query":"preferred_language"}
+{"id":"m10-update-002","scenario":"supersession","key":"output_format","old_value":"table","new_value":"list","query":"output_format"}
+{"id":"m10-update-003","scenario":"supersession","key":"unit","old_value":"mg","new_value":"mmHg","query":"unit"}
+{"id":"m10-update-004","scenario":"supersession","key":"education_topic","old_value":"sleep","new_value":"sodium","query":"education_topic"}
+{"id":"m10-expiry-001","scenario":"expiry","key":"temporary_focus","value":"old focus","expires_at":"2026-01-01T00:00:00Z","now":"2026-02-01T00:00:00Z"}
+{"id":"m10-expiry-002","scenario":"expiry","key":"future_focus","value":"future focus","valid_from":"2026-03-01T00:00:00Z","now":"2026-02-01T00:00:00Z"}
+{"id":"m10-expiry-003","scenario":"expiry","key":"bounded_focus","value":"bounded","valid_from":"2026-01-01T00:00:00Z","valid_until":"2026-01-31T00:00:00Z","now":"2026-02-01T00:00:00Z"}
+{"id":"m10-intent-001","scenario":"intent_mismatch","query":"blood pressure log","goal":"measurement_education","action_type":"teach","entity_types":["reading"],"good_value":"measurement guidance","bad_value":"summary formatting"}
+{"id":"m10-intent-002","scenario":"intent_mismatch","query":"blood pressure log","goal":"summary_formatting","action_type":"format","entity_types":["log"],"good_value":"summary formatting","bad_value":"measurement guidance"}
+{"id":"m10-intent-003","scenario":"intent_mismatch","query":"medication schedule","goal":"education","action_type":"explain","entity_types":["schedule"],"good_value":"education note","bad_value":"table formatting"}
+{"id":"m10-delete-001","scenario":"delete","key":"private_note","value":"synthetic note"}
+{"id":"m10-delete-002","scenario":"delete","key":"old_preference","value":"synthetic preference"}
+{"id":"m10-scope-001","scenario":"scope_isolation","key":"language","scope_a_value":"Chinese","scope_b_value":"English"}
+{"id":"m10-scope-002","scenario":"scope_isolation","key":"format","scope_a_value":"list","scope_b_value":"table"}
+{"id":"m10-compact-001","scenario":"compaction","history_count":12,"budget":64}
+{"id":"m10-compact-002","scenario":"compaction","history_count":20,"budget":80}
+{"id":"m10-compact-003","scenario":"compaction","history_count":8,"budget":72}
+{"id":"m10-action-001","scenario":"action_grounding","language":"Chinese","format":"list","unit":"mmHg"}
+{"id":"m10-action-002","scenario":"action_grounding","language":"English","format":"table","unit":"kPa"}
+{"id":"m10-action-003","scenario":"action_grounding","language":"Chinese","format":"table","unit":"mmHg"}

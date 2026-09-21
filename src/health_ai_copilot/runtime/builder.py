@@ -10,9 +10,12 @@ from pathlib import Path
 from typing import Any
 
 from ..agent.loop import AgentLoopConfig
+from ..agent.messages import MemoryContextMessage
 from ..agent.model import AgentOutputMode, OpenAICompatibleAgentModel
+from ..agent.session import AgentSession
 from ..agent.tools import ToolRegistry
 from ..config import load_openai_config
+from ..contracts import AssistantResponse
 from ..generation.openai_compatible import OpenAICompatibleGenerator
 from ..knowledge.scope import KnowledgeScope
 from ..mcp.client import MCP_PROTOCOL_VERSION, McpClient, McpServerConfig, McpToolAdapter
@@ -74,10 +77,25 @@ from .components import (
     implementation_name,
 )
 from .context import RunContext
+from .context_manager import (
+    ContextBudget,
+    ContextManager,
+    ContextPlan,
+    DeterministicTokenEstimator,
+    StructuredCompactorV1,
+)
+from .memory import (
+    InMemoryMemoryStore,
+    MemoryPolicy,
+    MemoryQuery,
+    MemorySnapshotIdentity,
+    SQLiteMemoryStore,
+)
 from .profile import RuntimeProfile
 from .provider import OpenAICompatibleProviderExecutor, ProviderCallKind, ProviderExecutor
 from .registry import ComponentBuildContext, ComponentRegistry
-from .trace import RunTrace, TraceContentPolicy, canonical_json_sha256
+from .session import InMemorySessionStore, SessionEventType, SessionRecord, SQLiteSessionStore
+from .trace import RunTrace, TraceContentPolicy, TraceEventType, canonical_json_sha256
 
 
 class RuntimeBuildError(RuntimeError):
@@ -95,6 +113,7 @@ class RuntimeBuildConfig:
     knowledge_pack_version: str = "m0.2-2026-09-15"
     build_commit: str | None = None
     local_files_only: bool = True
+    state_dir: Path | None = None
     run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
 
 
@@ -133,6 +152,10 @@ class RuntimeComponents:
     run_budget: RunBudgetConfig = field(default_factory=RunBudgetConfig)
     orchestrator: AgentTeamOrchestrator | None = None
     agent_config: AgentLoopConfig | None = None
+    session_store: Any | None = None
+    context_manager: ContextManager | None = None
+    memory_store: Any | None = None
+    memory_policy: MemoryPolicy | None = None
 
     @property
     def manifest_hash(self) -> str:
@@ -181,6 +204,115 @@ class RuntimeComponents:
         )
         return self.pipeline(runtime=runtime).answer(question)
 
+    def answer_in_session(
+        self,
+        session_id: str,
+        question: str,
+        *,
+        intent: Any | None = None,
+        current_values: Mapping[str, Any] | None = None,
+        retrieval_query: str | None = None,
+        budget: RunBudgetConfig | None = None,
+        trace_path: Path | None = None,
+    ) -> SessionAnswer:
+        """Run one experimental M10 turn with explicit persistence boundaries."""
+
+        if self.session_store is None or self.context_manager is None:
+            raise RuntimeBuildError("profile does not select M10 session/context components")
+        session = self.session_store.resume_session(session_id)
+        records = []
+        if self.memory_store is not None:
+            records = self.memory_store.query(
+                MemoryQuery(
+                    scope_id=session_id,
+                    text=question,
+                    intent=intent,
+                    top_k=8,
+                    current_values=current_values or {},
+                )
+            )
+        effective_query = retrieval_query or _memory_expanded_query(question, records)
+        plan = self.context_manager.build_plan(
+            session_id=session.session_id,
+            session_revision=session.current_revision,
+            current_user=question,
+            current_evidence=(),
+            memory_records=records,
+            history=self.session_store.list_events(session.session_id),
+            retrieval_query=effective_query,
+        )
+        snapshot = (
+            self.memory_store.snapshot(session.session_id, session_revision=session.current_revision)
+            if self.memory_store is not None
+            else None
+        )
+        runtime = self.create_run_context(budget=budget, trace_path=trace_path)
+        if runtime.trace is not None:
+            runtime.trace.emit(
+                TraceEventType.SESSION_LOADED,
+                session_id=session.session_id,
+                session_revision=session.current_revision,
+            )
+            runtime.trace.emit(
+                TraceEventType.MEMORY_QUERY,
+                scope_id_sha256=canonical_json_sha256(session.session_id),
+                query_sha256=canonical_json_sha256(question),
+                candidate_count=len(records),
+            )
+            if snapshot is not None:
+                runtime.trace.emit(
+                    TraceEventType.MEMORY_SELECTED,
+                    scope_id_sha256=snapshot.scope_id_sha256,
+                    snapshot_sha256=snapshot.snapshot_sha256,
+                    selected_count=len(records),
+                )
+            runtime.trace.emit(
+                TraceEventType.CONTEXT_PLAN,
+                session_revision=plan.session_revision,
+                context_plan_hash=plan.plan_hash,
+                selected_memory_count=len(plan.selected_memory_ids),
+                selected_history_count=len(plan.selected_event_ids),
+                compaction_count=plan.compaction_count,
+                estimated_tokens=plan.estimated_tokens,
+            )
+            if plan.compaction_count:
+                runtime.trace.emit(
+                    TraceEventType.CONTEXT_COMPACTED,
+                    compaction_count=plan.compaction_count,
+                    compacted_event_count=len(plan.compacted_event_ids),
+                )
+        ephemeral = AgentSession()
+        if records:
+            ephemeral.append(MemoryContextMessage(tuple(records)))
+        response = self.pipeline(runtime=runtime).answer(
+            question,
+            agent_session=ephemeral,
+            retrieval_query=effective_query,
+        )
+        self.session_store.append(
+            session.session_id,
+            SessionEventType.USER_INPUT,
+            {"question": question},
+            expected_revision=session.current_revision,
+            run_id=runtime.identity.run_id,
+        )
+        latest = self.session_store.resume_session(session.session_id)
+        self.session_store.append(
+            session.session_id,
+            SessionEventType.ASSISTANT_OUTPUT,
+            {"route": response.route.value, "message": response.message},
+            expected_revision=latest.current_revision,
+            run_id=runtime.identity.run_id,
+        )
+        latest = self.session_store.resume_session(session.session_id)
+        if runtime.trace is not None:
+            runtime.trace.emit(
+                TraceEventType.SESSION_COMMITTED,
+                session_id=latest.session_id,
+                session_revision=latest.current_revision,
+            )
+        return SessionAnswer(response, latest, plan, snapshot)
+
     def pipeline(self, *, runtime: RunContext | None = None, tool_runner=None) -> HealthCopilotPipeline:
         """Create an execution facade over the already-built long-lived graph."""
 
@@ -198,6 +330,42 @@ class RuntimeComponents:
             runtime=runtime,
             tool_runner=tool_runner,
         )
+
+
+@dataclass(frozen=True)
+class SessionAnswer:
+    """Response plus non-sensitive session/context provenance."""
+
+    response: AssistantResponse
+    session: SessionRecord
+    context_plan: ContextPlan
+    memory_snapshot: MemorySnapshotIdentity | None
+
+    @property
+    def session_id(self) -> str:
+        return self.session.session_id
+
+    @property
+    def session_revision(self) -> int:
+        return self.session.current_revision
+
+    def to_metadata(self) -> dict[str, Any]:
+        return {
+            "session_id": self.session.session_id,
+            "session_revision": self.session.current_revision,
+            "context_plan_hash": self.context_plan.plan_hash,
+            "memory_snapshot_hash": self.memory_snapshot.snapshot_sha256 if self.memory_snapshot else None,
+        }
+
+
+def _memory_expanded_query(question: str, records: Sequence[Any]) -> str:
+    parts = [question]
+    for record in records:
+        if isinstance(record.value, str) and record.value.strip():
+            parts.append(record.value)
+        if record.key not in question:
+            parts.append(record.key)
+    return " ".join(parts)
 
 
 def default_runtime_profiles() -> dict[str, RuntimeProfile]:
@@ -353,6 +521,68 @@ def default_runtime_profiles() -> dict[str, RuntimeProfile]:
                 "sandbox": {"profile_id": "no-sandbox-dev-v1", "contained": False},
             },
         ),
+        "m10-context-bm25-v1": RuntimeProfile(
+            "m10-context-bm25-v1",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m10_context",
+            session_store="sqlite-session-v1",
+            context_manager="context-manager-v1",
+            config={
+                "session_store": {"backend": "sqlite", "schema_version": "v1"},
+                "context_manager": {
+                    "budget": {
+                        "max_estimated_input_tokens": 4096,
+                        "reserved_system_tokens": 256,
+                        "reserved_current_turn_tokens": 512,
+                        "max_memory_tokens": 0,
+                        "max_history_tokens": 2048,
+                        "max_tool_observation_tokens": 1024,
+                    },
+                    "estimator": "chars4-cjk1-v1",
+                    "compactor": "structured-compactor-v1",
+                    "history_window": 24,
+                },
+            },
+        ),
+        "m10-memory-bm25-v1": RuntimeProfile(
+            "m10-memory-bm25-v1",
+            provider,
+            "bm25-v1",
+            policy="evidence-policy-m3-v1",
+            verifier="claim-support-v1",
+            tool_set=search,
+            mode="m10_memory",
+            session_store="sqlite-session-v1",
+            context_manager="context-manager-v1",
+            memory_store="sqlite-memory-v1",
+            memory_policy="memory-policy-v1",
+            config={
+                "session_store": {"backend": "sqlite", "schema_version": "v1"},
+                "context_manager": {
+                    "budget": {
+                        "max_estimated_input_tokens": 4096,
+                        "reserved_system_tokens": 256,
+                        "reserved_current_turn_tokens": 512,
+                        "max_memory_tokens": 1024,
+                        "max_history_tokens": 2048,
+                        "max_tool_observation_tokens": 1024,
+                    },
+                    "estimator": "chars4-cjk1-v1",
+                    "compactor": "structured-compactor-v1",
+                    "history_window": 24,
+                },
+                "memory_store": {"backend": "sqlite", "schema_version": "v1"},
+                "memory_policy": {
+                    "version": "m10-policy-v1",
+                    "sensitive_health_default": "deny",
+                    "allowed_sources": ["user_explicit", "trusted_application", "session_derived"],
+                },
+            },
+        ),
     }
     return profiles
 
@@ -388,6 +618,12 @@ def default_component_registry() -> ComponentRegistry:
     registry.register(ComponentKind.SANDBOX, "no-sandbox-dev-v1", _build_dev_sandbox, implementation="health_ai_copilot.mcp.sandbox.NoSandboxDevBackend")
     registry.register(ComponentKind.SANDBOX, "bubblewrap-sandbox-v1", _build_bubblewrap_sandbox, implementation="health_ai_copilot.mcp.sandbox.BubblewrapSandboxBackend")
     registry.register(ComponentKind.SANDBOX, "bubblewrap-sandbox-wsl-v1", _build_wsl_bubblewrap_sandbox, implementation="health_ai_copilot.mcp.sandbox.WslBubblewrapSandboxBackend")
+    registry.register(ComponentKind.SESSION_STORE, "in-memory-session-v1", _build_in_memory_session, implementation="health_ai_copilot.runtime.session.InMemorySessionStore")
+    registry.register(ComponentKind.SESSION_STORE, "sqlite-session-v1", _build_sqlite_session, implementation="health_ai_copilot.runtime.session.SQLiteSessionStore")
+    registry.register(ComponentKind.CONTEXT_MANAGER, "context-manager-v1", _build_context_manager, implementation="health_ai_copilot.runtime.context_manager.ContextManager")
+    registry.register(ComponentKind.MEMORY_STORE, "in-memory-memory-v1", _build_in_memory_memory, implementation="health_ai_copilot.runtime.memory.InMemoryMemoryStore")
+    registry.register(ComponentKind.MEMORY_STORE, "sqlite-memory-v1", _build_sqlite_memory, implementation="health_ai_copilot.runtime.memory.SQLiteMemoryStore")
+    registry.register(ComponentKind.MEMORY_POLICY, "memory-policy-v1", _build_memory_policy, implementation="health_ai_copilot.runtime.memory.MemoryPolicy")
     return registry
 
 
@@ -479,6 +715,10 @@ class RuntimeBuilder:
             (ComponentKind.PERMISSION, profile.permission),
             (ComponentKind.SANDBOX, profile.sandbox),
             (ComponentKind.MCP_CLIENT, profile.mcp_client),
+            (ComponentKind.SESSION_STORE, profile.session_store),
+            (ComponentKind.MEMORY_POLICY, profile.memory_policy),
+            (ComponentKind.MEMORY_STORE, profile.memory_store),
+            (ComponentKind.CONTEXT_MANAGER, profile.context_manager),
         ):
             if component_id is not None:
                 construct(kind, component_id)
@@ -493,12 +733,14 @@ class RuntimeBuilder:
                 provider_executor=provider,
                 model=generator_model_name,
             )
-        elif profile.mode in {"m1", "m2", "m3", "m9_mcp"}:
+        elif profile.mode in {"m1", "m2", "m3", "m9_mcp", "m10_context", "m10_memory"}:
             output_mode = {
                 "m1": AgentOutputMode.M1,
                 "m2": AgentOutputMode.M2_GROUNDED,
                 "m3": AgentOutputMode.M3_CLAIM_FIRST,
                 "m9_mcp": AgentOutputMode.M3_CLAIM_FIRST,
+                "m10_context": AgentOutputMode.M3_CLAIM_FIRST,
+                "m10_memory": AgentOutputMode.M3_CLAIM_FIRST,
             }[profile.mode]
             agent_model = OpenAICompatibleAgentModel(
                 provider_executor=provider,
@@ -540,7 +782,7 @@ class RuntimeBuilder:
             agent_model,
             policy,
             verifier if profile.mode == "m2" else None,
-            verifier if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} else None,
+            verifier if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp", "m10_context", "m10_memory"} else None,
             tool_registry,
             trace_factory,
             manifest,
@@ -549,6 +791,18 @@ class RuntimeBuilder:
             run_context_config or self.environment.run_budget,
             orchestrator,
             agent_config,
+            instances.get((ComponentKind.SESSION_STORE, profile.session_store))
+            if profile.session_store
+            else None,
+            instances.get((ComponentKind.CONTEXT_MANAGER, profile.context_manager))
+            if profile.context_manager
+            else None,
+            instances.get((ComponentKind.MEMORY_STORE, profile.memory_store))
+            if profile.memory_store
+            else None,
+            instances.get((ComponentKind.MEMORY_POLICY, profile.memory_policy))
+            if profile.memory_policy
+            else None,
         )
 
     def _environment_dict(self) -> dict[str, Any]:
@@ -560,6 +814,7 @@ class RuntimeBuilder:
             "knowledge_pack_version": self.environment.knowledge_pack_version,
             "build_commit": self.environment.build_commit,
             "local_files_only": self.environment.local_files_only,
+            "state_dir": Path(self.environment.state_dir) if self.environment.state_dir else None,
         }
 
     def _provider_default_model(self, profile: RuntimeProfile) -> str:
@@ -578,13 +833,13 @@ class RuntimeBuilder:
         return str(role_config.get("model") or provider_default)
 
     def _validate_profile(self, profile: RuntimeProfile, scope: KnowledgeScope | None) -> None:
-        if profile.mode not in {"m0", "m1", "m2", "m3", "m8_workflow", "m8_team", "m9_mcp"}:
+        if profile.mode not in {"m0", "m1", "m2", "m3", "m8_workflow", "m8_team", "m9_mcp", "m10_context", "m10_memory"}:
             raise RuntimeBuildError(f"unsupported runtime mode: {profile.mode}")
-        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} and scope is None:
+        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp", "m10_context", "m10_memory"} and scope is None:
             raise RuntimeBuildError("claim-first profile requires a KnowledgeScope")
         if profile.mode == "m2" and (profile.policy is None or profile.verifier is None):
             raise RuntimeBuildError("m2 profile requires policy and verifier components")
-        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp"} and (profile.policy is None or profile.verifier is None):
+        if profile.mode in {"m3", "m8_workflow", "m8_team", "m9_mcp", "m10_context", "m10_memory"} and (profile.policy is None or profile.verifier is None):
             raise RuntimeBuildError("claim-first profile requires policy and verifier components")
         if profile.mode in {"m1", "m2", "m3"} and not profile.tool_set:
             raise RuntimeBuildError(f"{profile.mode} profile requires an explicit tool set")
@@ -602,6 +857,15 @@ class RuntimeBuilder:
                 raise RuntimeBuildError(
                     "m9_mcp profile requires declarative component selections: "
                     + ", ".join(missing)
+                )
+        if profile.mode in {"m10_context", "m10_memory"}:
+            required = ["session_store", "context_manager"]
+            if profile.mode == "m10_memory":
+                required.extend(["memory_store", "memory_policy"])
+            missing = [name for name in required if getattr(profile, name) is None]
+            if missing:
+                raise RuntimeBuildError(
+                    f"{profile.mode} requires declarative component selections: " + ", ".join(missing)
                 )
 
 
@@ -639,6 +903,105 @@ def _identity(
         artifact_revision=artifact_revision,
         config_hash=config_hash(config),
         learned_artifacts=learned_artifacts,
+    )
+
+
+def _state_path(context: ComponentBuildContext, filename: str) -> Path:
+    configured = context.environment.get("state_dir")
+    state_dir = Path(configured) if configured else Path(".health-copilot-state")
+    state_dir.mkdir(parents=True, exist_ok=True)
+    return state_dir / filename
+
+
+def _safe_state_identity(path: Path) -> dict[str, str]:
+    """Bind storage identity without leaking a developer's absolute path."""
+
+    return {
+        "backend": "sqlite",
+        "schema_version": "v1",
+        "state_path_sha256": config_hash(str(path.resolve())),
+    }
+
+
+def _build_in_memory_session(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.session_store
+    if component_id is None:
+        raise RuntimeBuildError("session store component is not selected")
+    instance = InMemorySessionStore()
+    return BuiltComponent(instance, _identity(ComponentKind.SESSION_STORE, component_id, implementation_name(instance), {"backend": "in_memory", "schema_version": "v1"}))
+
+
+def _build_sqlite_session(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.session_store
+    if component_id is None:
+        raise RuntimeBuildError("session store component is not selected")
+    path = _state_path(context, "session.sqlite")
+    instance = SQLiteSessionStore(path)
+    return BuiltComponent(instance, _identity(ComponentKind.SESSION_STORE, component_id, implementation_name(instance), _safe_state_identity(path)))
+
+
+def _build_memory_policy(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.memory_policy
+    if component_id is None:
+        raise RuntimeBuildError("memory policy component is not selected")
+    cfg = _component_config(context.profile, ComponentKind.MEMORY_POLICY)
+    instance = MemoryPolicy()
+    identity_config = {
+        "version": str(cfg.get("version", instance.version)),
+        "allowed_kinds": sorted(item.value for item in instance.allowed_kinds),
+        "allowed_sources": sorted(item.value for item in instance.allowed_sources),
+        "sensitivity_policy": str(cfg.get("sensitive_health_default", "deny")),
+    }
+    return BuiltComponent(instance, _identity(ComponentKind.MEMORY_POLICY, component_id, implementation_name(instance), identity_config))
+
+
+def _build_in_memory_memory(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.memory_store
+    if component_id is None:
+        raise RuntimeBuildError("memory store component is not selected")
+    policy = context.instances.get((ComponentKind.MEMORY_POLICY, context.profile.memory_policy))
+    instance = InMemoryMemoryStore(policy=policy)
+    return BuiltComponent(instance, _identity(ComponentKind.MEMORY_STORE, component_id, implementation_name(instance), {"backend": "in_memory", "schema_version": "v1"}))
+
+
+def _build_sqlite_memory(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.memory_store
+    if component_id is None:
+        raise RuntimeBuildError("memory store component is not selected")
+    policy = context.instances.get((ComponentKind.MEMORY_POLICY, context.profile.memory_policy))
+    path = _state_path(context, "memory.sqlite")
+    instance = SQLiteMemoryStore(path, policy=policy)
+    return BuiltComponent(instance, _identity(ComponentKind.MEMORY_STORE, component_id, implementation_name(instance), _safe_state_identity(path)))
+
+
+def _build_context_manager(context: ComponentBuildContext) -> BuiltComponent:
+    component_id = context.profile.context_manager
+    if component_id is None:
+        raise RuntimeBuildError("context manager component is not selected")
+    cfg = _component_config(context.profile, ComponentKind.CONTEXT_MANAGER)
+    budget_cfg = cfg.get("budget", {})
+    if not isinstance(budget_cfg, Mapping):
+        raise TypeError("context manager budget config must be an object")
+    budget = ContextBudget(**dict(budget_cfg))
+    instance = ContextManager(
+        budget=budget,
+        estimator=DeterministicTokenEstimator(),
+        compactor=StructuredCompactorV1(),
+        history_window=int(cfg.get("history_window", 24)),
+    )
+    return BuiltComponent(
+        instance,
+        _identity(
+            ComponentKind.CONTEXT_MANAGER,
+            component_id,
+            implementation_name(instance),
+            {
+                "budget": budget.to_dict(),
+                "estimator": instance.estimator.version,
+                "compactor": instance.compactor.version,
+                "history_window": instance.history_window,
+            },
+        ),
     )
 
 

@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, TypeAlias
 
 from ..contracts import Evidence, GenerationDraft
+from ..runtime.memory import MemoryRecord
 from ..verification.grounding import GroundedClaim
 
 if TYPE_CHECKING:
@@ -25,6 +26,17 @@ class UserMessage:
 
     content: str
     evidence: tuple[Evidence, ...] = ()
+
+
+@dataclass(frozen=True)
+class MemoryContextMessage:
+    """Data-bearing memory context; never merged into system instructions."""
+
+    records: tuple[MemoryRecord, ...] = ()
+
+    @property
+    def authority_notice(self) -> str:
+        return "contextual user/session data; not medical evidence or runtime authority"
 
 
 @dataclass(frozen=True)
@@ -61,7 +73,7 @@ class ToolResultMessage:
 
 
 AgentMessage: TypeAlias = (
-    UserMessage | AssistantFinalMessage | AssistantToolCallMessage | ToolResultMessage
+    MemoryContextMessage | UserMessage | AssistantFinalMessage | AssistantToolCallMessage | ToolResultMessage
 )
 
 

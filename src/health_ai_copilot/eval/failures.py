@@ -64,6 +64,11 @@ class FailureMapper:
         "filesystem_containment_failed": (FailureStage.SANDBOX, "filesystem_containment_failed"),
         "network_containment_failed": (FailureStage.SANDBOX, "network_containment_failed"),
         "security_control_failed": (FailureStage.EVAL_INFRA, "security_control_failed"),
+        "m10_case_failed": (FailureStage.MEMORY, "m10_case_failed"),
+        "context_budget_exhausted": (FailureStage.CONTEXT, "context_budget_exhausted"),
+        "context_atomicity_violation": (FailureStage.CONTEXT, "context_atomicity_violation"),
+        "memory_deleted_leakage": (FailureStage.MEMORY, "memory_deleted_leakage"),
+        "memory_scope_violation": (FailureStage.MEMORY, "memory_scope_violation"),
     }
     _TEAM_LEAD_MAP: ClassVar = {
         "provider": "lead_provider_failure",

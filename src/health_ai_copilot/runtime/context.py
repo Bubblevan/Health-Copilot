@@ -100,3 +100,9 @@ class RunContext:
                 code_commit=code_commit,
             )
         return context
+
+
+# M10 keeps RunContext and model-call Context distinct, while exposing the
+# context selection API from the legacy runtime namespace for callers that
+# already import runtime.context.
+from .context_manager import ContextBudget, ContextItem, ContextManager, ContextPlan  # noqa: F401

@@ -22,6 +22,10 @@ class ComponentKind(StrEnum):
     MCP_CLIENT = "mcp_client"
     PERMISSION = "permission"
     SANDBOX = "sandbox"
+    SESSION_STORE = "session_store"
+    CONTEXT_MANAGER = "context_manager"
+    MEMORY_STORE = "memory_store"
+    MEMORY_POLICY = "memory_policy"
 
 
 @dataclass(frozen=True)

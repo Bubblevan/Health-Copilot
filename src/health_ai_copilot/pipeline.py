@@ -6,6 +6,7 @@ from typing import Protocol
 from .agent.events import AgentEvent
 from .agent.loop import AgentLoop, AgentLoopConfig, AgentRunResult
 from .agent.model import AgentModel
+from .agent.session import AgentSession
 from .agent.tools import ToolRegistry
 from .contracts import AssistantResponse, Citation, Evidence, GenerationDraft, Route
 from .generation.base import Generator
@@ -193,7 +194,13 @@ class HealthCopilotPipeline:
                 tool_runner=tool_runner,
             )
 
-    def answer(self, question: str) -> AssistantResponse:
+    def answer(
+        self,
+        question: str,
+        *,
+        agent_session: AgentSession | None = None,
+        retrieval_query: str | None = None,
+    ) -> AssistantResponse:
         active_runtime = self.runtime or RunContext.create("pipeline")
         self.last_agent_run = None
         self.last_team_run = None
@@ -208,7 +215,7 @@ class HealthCopilotPipeline:
             return self._finalize(terminal_response, active_runtime)
 
         try:
-            evidence = self.retriever.search(question, top_k=self.top_k)
+            evidence = self.retriever.search(retrieval_query or question, top_k=self.top_k)
         except Exception:  # noqa: BLE001 - pipeline must fail closed at component boundaries
             return self._finalize(abstain_response("retrieval_error"), active_runtime)
         if not evidence:
@@ -220,7 +227,10 @@ class HealthCopilotPipeline:
             )
 
         if self.agent_loop is not None:
-            return self._finalize(self._answer_with_agent(question, evidence, active_runtime), active_runtime)
+            return self._finalize(
+                self._answer_with_agent(question, evidence, active_runtime, agent_session),
+                active_runtime,
+            )
 
         try:
             # The M0 path remains intentionally replayable when no AgentModel is supplied.
@@ -266,9 +276,12 @@ class HealthCopilotPipeline:
         question: str,
         initial_evidence: Sequence[Evidence],
         runtime: RunContext,
+        agent_session: AgentSession | None = None,
     ) -> AssistantResponse:
         try:
-            run = self.agent_loop.run(question, initial_evidence, runtime=runtime)  # type: ignore[union-attr]
+            run = self.agent_loop.run(
+                question, initial_evidence, session=agent_session, runtime=runtime
+            )  # type: ignore[union-attr]
         except Exception:  # noqa: BLE001 - runtime boundary must fail closed
             return abstain_response("agent_error")
         self.last_agent_run = run

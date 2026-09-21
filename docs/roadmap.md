@@ -17,7 +17,9 @@
 | H8 | Post-training | M11 |
 | H9 | Multimodal | M12（可选） |
 
-M7 已完成 H4；M8/H5 已实现为实验性、受限的 Agent Team。M9 及之后的条目仍是 future work。
+M7 已完成 H4；M8/H5 已实现为实验性、受限的 Agent Team。H6 / M9 COMPLETE；H7 / M10 current；H8 / M11 future；H9 / M12 future。
+
+M9 final freeze：`main@2098b32857f8a6853d89e88d0ab1c80d83b6ee68`。
 
 ## M0 — Safety-Gated Evidence RAG（implemented）
 
@@ -145,7 +147,7 @@ H5 Bounded Agent Team 已实现：
 - M8.3 Team-Lead contract diagnosis、fail-closed failure taxonomy 与 v2 frozen comparison。
 
 H5 Agent Team — COMPLETE。M8 仍不替换 `m3-bm25-default` 产品默认配置；Team worker
-调度有意保持顺序。M9 MCP/Sandbox/Permission、M10 Memory、M11 post-training 和
+调度有意保持顺序。M10 Context / Memory 进入当前实现；M11 post-training 和
 M12 multimodal 均未启动。v1 失败审计与 v2 closeout 见
 `docs/m8_empirical_v1_failure.md`、`docs/m8_empirical_v2_closeout.md` 和
 `docs/m8_agent_team.md`。
@@ -175,5 +177,16 @@ smoke 单独证明。完整边界与 source alignment 见
 `docs/m9_mcp_security.md`。
 
 M9 不实现 remote OAuth（文档明确为 NOT IMPLEMENTED）、dynamic topology、
-decentralized MAS、A2A、Memory、post-training 或 multimodal。M10 Memory、
+decentralized MAS、A2A、post-training 或 multimodal。M10 Context / Memory 进入当前实现；
 M11 post-training、M12 multimodal 均未启动。
+
+## M10 — H7 Context / Memory（current）
+
+M10 把 RunContext、单次 bounded Agent execution 的 ephemeral AgentSession、跨运行的
+Persistent Session、单次 provider call 的 Context，以及经过明确策略写入的 Memory 分开。
+产品默认仍为 `m3-bm25-default`（memory-off）；只有 `m10-context-bm25-v1` 和
+`m10-memory-bm25-v1` 显式启用本实验能力。
+
+SQLite 状态是本地应用状态，不是 EHR、临床纵向记录或分布式数据库。测试仅使用公开/合成
+数据；加密 at rest、KMS、多租户访问控制、learned memory policy、RL context editing 和
+multimodal 均不属于 M10。实现与来源对齐见 [`docs/m10_context_memory.md`](m10_context_memory.md)。

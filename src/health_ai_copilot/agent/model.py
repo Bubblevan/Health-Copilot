@@ -23,6 +23,7 @@ from .messages import (
     AssistantToolCallMessage,
     AssistantTurn,
     FinalTurn,
+    MemoryContextMessage,
     ToolCall,
     ToolCallTurn,
     ToolResultMessage,
@@ -210,7 +211,29 @@ class OpenAICompatibleAgentModel:
             {"role": "system", "content": system_prompt}
         ]
         for message in messages:
-            if isinstance(message, UserMessage):
+            if isinstance(message, MemoryContextMessage):
+                provider_messages.append(
+                    {
+                        "role": "user",
+                        "content": json.dumps(
+                            {
+                                "memory_context": [
+                                    {
+                                        "memory_id": record.memory_id,
+                                        "kind": record.kind.value,
+                                        "key": record.key,
+                                        "value": record.value,
+                                        "source_type": record.source_type.value,
+                                    }
+                                    for record in message.records
+                                ],
+                                "authority": message.authority_notice,
+                            },
+                            ensure_ascii=False,
+                        ),
+                    }
+                )
+            elif isinstance(message, UserMessage):
                 provider_messages.append(
                     {
                         "role": "user",

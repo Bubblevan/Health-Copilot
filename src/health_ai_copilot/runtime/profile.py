@@ -26,13 +26,28 @@ class RuntimeProfile:
     mcp_client: str | None = None
     permission: str | None = None
     sandbox: str | None = None
+    session_store: str | None = None
+    context_manager: str | None = None
+    memory_store: str | None = None
+    memory_policy: str | None = None
 
     def __post_init__(self) -> None:
         for name in ("profile_id", "provider", "retriever", "trace", "mode"):
             value = getattr(self, name)
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"profile {name} must be non-empty")
-        for name in ("policy", "verifier", "orchestration", "mcp_client", "permission", "sandbox"):
+        for name in (
+            "policy",
+            "verifier",
+            "orchestration",
+            "mcp_client",
+            "permission",
+            "sandbox",
+            "session_store",
+            "context_manager",
+            "memory_store",
+            "memory_policy",
+        ):
             value = getattr(self, name)
             if value is not None and (not isinstance(value, str) or not value.strip()):
                 raise ValueError(f"profile {name} must be non-empty or null")
@@ -65,7 +80,15 @@ class RuntimeProfile:
             value["config"] = dict(self.config)
         if self.orchestration is not None:
             value["orchestration"] = self.orchestration
-        for name in ("mcp_client", "permission", "sandbox"):
+        for name in (
+            "mcp_client",
+            "permission",
+            "sandbox",
+            "session_store",
+            "context_manager",
+            "memory_store",
+            "memory_policy",
+        ):
             component_id = getattr(self, name)
             if component_id is not None:
                 value[name] = component_id
@@ -89,4 +112,8 @@ class RuntimeProfile:
             mcp_client=value.get("mcp_client"),
             permission=value.get("permission"),
             sandbox=value.get("sandbox"),
+            session_store=value.get("session_store"),
+            context_manager=value.get("context_manager"),
+            memory_store=value.get("memory_store"),
+            memory_policy=value.get("memory_policy"),
         )
