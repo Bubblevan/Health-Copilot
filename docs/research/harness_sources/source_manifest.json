@@ -1,0 +1,61 @@
+{
+  "schema_version": "h-ref-source-manifest-v1",
+  "audit": "Health-Copilot H-Ref Source-Level Harness Architecture Audit",
+  "retrieved_at": "2026-09-23T06:39:18Z",
+  "read_only_method": "Static inspection only; no install, postinstall, build, test, demo, or arbitrary repository script was run in the reference repositories.",
+  "health_copilot": {
+    "path": "D:/MyLab/Jianli/Health-Copilot",
+    "url": "https://github.com/Bubblevan/Health-Copilot.git",
+    "branch": "main",
+    "commit": "7a7703edf6f85d61c432ffba00e61d750c216048",
+    "git_status": {
+      "tracked_changes": [],
+      "untracked_paths_present": true,
+      "untracked_path_count_observed": 1118,
+      "note": "Pre-existing pytest/run artifacts and other untracked workspace material were left untouched. H-Ref stages only the files in this audit directory."
+    },
+    "license": {
+      "status": "not_declared_at_repo_root",
+      "evidence": "No root LICENSE* file was found and pyproject.toml has no project.license field at this commit."
+    }
+  },
+  "pi": {
+    "path": "D:/MyLab/Jianli/upstream/pi-mono",
+    "url": "https://github.com/earendil-works/pi.git",
+    "source_alias": "The requested badlogic/pi-mono entry currently resolves to the earendil-works/pi repository.",
+    "branch": "main",
+    "commit": "898ab804050730e9dcefb4443875d5a932aa6a32",
+    "git_status": {
+      "tracked_changes": [],
+      "untracked_paths_present": false
+    },
+    "license": {
+      "spdx": "MIT",
+      "path": "LICENSE"
+    }
+  },
+  "dsh": {
+    "path": "D:/MyLab/Jianli/upstream/deepseek-harness",
+    "url": "https://github.com/deepseek-ai/deepseek-harness.git",
+    "branch": "master",
+    "commit": "00102833dfaee1da9f48a3a8eae9d34005a75218",
+    "git_status": {
+      "tracked_changes": [],
+      "untracked_paths_present": false
+    },
+    "license": {
+      "spdx": "MIT",
+      "path": "LICENSE",
+      "third_party_notice": "THIRD_PARTY_NOTICES.md"
+    }
+  },
+  "health_baseline_and_scope": {
+    "core_track": "M0-M10.1 COMPLETE / FROZEN",
+    "e0_track": "E0/E0.1 COMPLETE / FROZEN",
+    "e1": "NOT_STARTED",
+    "e2": "NOT_STARTED",
+    "e3": "NOT_STARTED",
+    "m11": "NOT_STARTED",
+    "implementation_scope": "Documentation/audit artifacts only; no source, tests, benchmarks, evals, runtime profiles, registries, loops, MCP, memory, or team runtime changes."
+  }
+}
