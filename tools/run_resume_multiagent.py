@@ -1,4 +1,4 @@
-"""Run research-only Single, team, or Jev-routed architecture comparisons."""
+"""Run research-only Single, team, and Jev routing architecture comparisons."""
 
 from __future__ import annotations
 
@@ -23,7 +23,11 @@ from eval.resume_experiment_utils import (
     safe_output,
     write_json,
 )
-from health_ai_copilot.routing import JevArchitectureRouter, WORKER_FAMILY
+from health_ai_copilot.routing import (
+    JevArchitectureRouter,
+    JevTaskIntentRouter,
+    WORKER_FAMILY,
+)
 
 
 def load_provider() -> Any:
@@ -64,6 +68,7 @@ async def run_case(
     *,
     jev_router: JevArchitectureRouter | None = None,
     jev_data_classification: str | None = None,
+    route_artifact: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if architecture == "single":
         return await run_single(case, provider.single_answer)
@@ -76,12 +81,25 @@ async def run_case(
             budget_mode,
             deadline_ms,
         )
-    if architecture != "jev-routed" or jev_router is None or jev_data_classification is None:
-        raise ValueError("jev-routed mode requires a Jev router and explicit data classification")
+    is_jev_mode = architecture in {"jev-routed", "jev-intent-routed"}
+    if is_jev_mode and (jev_router is None or jev_data_classification is None):
+        raise ValueError("Jev routing modes require a router and explicit data classification")
+    if not is_jev_mode:
+        raise ValueError(f"unsupported architecture: {architecture}")
     decision = await jev_router.route(
         question=str(case.get("question", "")),
         data_classification=jev_data_classification,
     )
+    route_details = {
+        "routing_decision": decision.metadata(),
+        "jev_api_calls": 1,
+        "jev_input_tokens": decision.input_tokens,
+        "jev_output_tokens": decision.output_tokens,
+        "jev_latency_ms": decision.latency_ms,
+        "provider_calls": 1,
+    }
+    if route_artifact is not None:
+        route_artifact.update(route_details)
     if decision.architecture.value == "single":
         result = await run_single(case, provider.single_answer)
     else:
@@ -96,12 +114,9 @@ async def run_case(
             budget_mode,
             deadline_ms,
         )
-    result["routing_decision"] = decision.metadata()
-    result["jev_api_calls"] = 1
-    result["jev_input_tokens"] = decision.input_tokens
-    result["jev_output_tokens"] = decision.output_tokens
-    result["jev_latency_ms"] = decision.latency_ms
-    result["provider_calls"] = int(result.get("provider_calls", 0)) + 1
+    total_provider_calls = int(result.get("provider_calls", 0)) + 1
+    result.update(route_details)
+    result["provider_calls"] = total_provider_calls
     return result
 
 
@@ -131,11 +146,43 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def summarize_task_intent(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    primary_counts: dict[str, int] = {}
+    facets: dict[str, list[float]] = {}
+    for row in rows:
+        routing = row.get("routing_decision")
+        if not isinstance(routing, dict) or not isinstance(routing.get("primary_task_intent"), str):
+            continue
+        label = routing["primary_task_intent"]
+        primary_counts[label] = primary_counts.get(label, 0) + 1
+        probabilities = routing.get("intent_facet_probabilities", {})
+        if isinstance(probabilities, dict):
+            for name, value in probabilities.items():
+                if isinstance(value, (int, float)):
+                    facets.setdefault(str(name), []).append(float(value))
+    return {
+        "cases_with_intent_output": sum(primary_counts.values()),
+        "primary_task_intent_counts": dict(sorted(primary_counts.items())),
+        "mean_intent_facet_probabilities": {
+            name: mean(values) for name, values in sorted(facets.items())
+        },
+    }
+
+
 async def async_main(args: argparse.Namespace) -> int:
     validate_test_freeze(args.benchmark_dir, args.split)
-    if args.architecture == "jev-routed" and args.jev_data_classification not in {"public", "synthetic"}:
-        raise ValueError("jev-routed mode requires --jev-data-classification public or synthetic")
-    jev_router = JevArchitectureRouter() if args.architecture == "jev-routed" else None
+    jev_modes = {"jev-routed", "jev-intent-routed"}
+    if (
+        args.architecture in jev_modes
+        and args.jev_data_classification not in {"public", "synthetic"}
+    ):
+        raise ValueError("Jev routing requires --jev-data-classification public or synthetic")
+    if args.architecture == "jev-routed":
+        jev_router = JevArchitectureRouter()
+    elif args.architecture == "jev-intent-routed":
+        jev_router = JevTaskIntentRouter()
+    else:
+        jev_router = None
     config = {
         "benchmark": "research_architecture_v2",
         "architecture": args.architecture,
@@ -154,6 +201,8 @@ async def async_main(args: argparse.Namespace) -> int:
                 "jev_data_classification": args.jev_data_classification,
             }
         )
+        if isinstance(jev_router, JevTaskIntentRouter):
+            config["jev_route_policy_version"] = jev_router.policy_version
     identity = config_identity(config)
     if args.output_dir.exists() and any(args.output_dir.iterdir()) and not args.resume:
         raise FileExistsError(f"{args.output_dir} is non-empty; choose a new directory or pass --resume")
@@ -190,6 +239,7 @@ async def async_main(args: argparse.Namespace) -> int:
             continue
         started = time.perf_counter()
         try:
+            route_artifact: dict[str, Any] = {}
             result = await run_case(
                 case,
                 args.architecture,
@@ -197,33 +247,33 @@ async def async_main(args: argparse.Namespace) -> int:
                 args.budget_mode,
                 jev_router=jev_router,
                 jev_data_classification=args.jev_data_classification,
+                route_artifact=route_artifact,
             )
             result = {"case_id": case["case_id"], "task_family": case.get("task_family", "uncategorized"), "budget_mode": args.budget_mode, "case_identity": cid, "config_identity": identity, "status": "completed", **result}
             result["latency_ms"] = int(round((time.perf_counter() - started) * 1000))
             append_jsonl(result_path, result)
-            if args.architecture in {"team", "jev-routed"}:
+            if args.architecture == "team" or args.architecture in jev_modes:
                 for report in result.get("worker_reports", []):
                     append_jsonl(args.output_dir / "worker_reports.jsonl", {"case_id": case["case_id"], "config_identity": identity, **report})
                 for ledger_row in result.get("evidence_ledger", []):
                     append_jsonl(args.output_dir / "evidence_ledger.jsonl", {"case_id": case["case_id"], "config_identity": identity, **ledger_row})
         except Exception as exc:
             failure = {"case_id": case["case_id"], "task_family": case.get("task_family", "uncategorized"), "case_identity": cid, "config_identity": identity, "status": "failed", "failure_classification": classify_failure(exc), "error": safe_output(exc), "latency_ms": int(round((time.perf_counter() - started) * 1000))}
-            if args.architecture == "jev-routed":
-                failure.update(
-                    {
-                        "provider_calls": 1,
-                        "jev_api_calls": 1,
-                        "jev_input_tokens": 0,
-                        "jev_output_tokens": 0,
-                    }
-                )
+            failure.update(route_artifact)
             append_jsonl(args.output_dir / "failures.jsonl", failure)
             append_jsonl(result_path, failure)
     rows = [json.loads(line) for line in result_path.read_text(encoding="utf-8").splitlines() if line.strip()] if result_path.exists() else []
     metrics = {"architecture": args.architecture, "split": args.split, "budget_mode": args.budget_mode, "summary": summarize(rows)}
+    if args.architecture == "jev-intent-routed":
+        metrics["task_intent"] = summarize_task_intent(rows)
     category_metrics: dict[str, Any] = {}
     for category in sorted({str(row.get("task_family", "uncategorized")) for row in rows}):
-        category_metrics[category] = summarize([row for row in rows if str(row.get("task_family", "uncategorized")) == category])
+        category_rows = [
+            row for row in rows if str(row.get("task_family", "uncategorized")) == category
+        ]
+        category_metrics[category] = summarize(category_rows)
+        if args.architecture == "jev-intent-routed":
+            category_metrics[category]["task_intent"] = summarize_task_intent(category_rows)
     write_json(args.output_dir / "metrics.json", metrics)
     write_json(args.output_dir / "category_metrics.json", category_metrics)
     (args.output_dir / "report.md").write_text(
@@ -239,7 +289,11 @@ async def async_main(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--benchmark-dir", type=Path, required=True)
-    parser.add_argument("--architecture", choices=("single", "team", "jev-routed"), required=True)
+    parser.add_argument(
+        "--architecture",
+        choices=("single", "team", "jev-routed", "jev-intent-routed"),
+        required=True,
+    )
     parser.add_argument("--jev-data-classification", choices=("public", "synthetic"))
     parser.add_argument("--split", choices=("DEV", "TEST"), required=True)
     parser.add_argument("--budget-mode", choices=("native", "deadline", "cost"), required=True)

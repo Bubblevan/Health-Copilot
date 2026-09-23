@@ -1,12 +1,13 @@
-"""Research-only Jev gate for choosing Single or a heterogeneous team."""
+"""Research-only Jev architecture and evidence-task intent routing."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import StrEnum
 from typing import Any, Mapping
 
 from .jev import JevClient, JevResult
+from .task_intent import TaskIntentAssessment, parse_task_intent, task_intent_questions
 
 
 class Architecture(StrEnum):
@@ -41,9 +42,12 @@ class ArchitectureDecision:
     input_tokens: int
     output_tokens: int
     fallback_reason: str | None = None
+    task_intent: TaskIntentAssessment | None = None
+    route_policy_version: str | None = None
+    route_reasons: tuple[str, ...] = ()
 
     def metadata(self) -> dict[str, Any]:
-        return {
+        result = {
             "architecture": self.architecture.value,
             "worker_roles": [role.value for role in self.worker_roles],
             "architecture_probabilities": dict(self.architecture_probabilities),
@@ -55,6 +59,12 @@ class ArchitectureDecision:
             "output_tokens": self.output_tokens,
             "fallback_reason": self.fallback_reason,
         }
+        if self.task_intent is not None:
+            result.update(self.task_intent.metadata())
+        if self.route_policy_version is not None:
+            result["route_policy_version"] = self.route_policy_version
+            result["route_reasons"] = list(self.route_reasons)
+        return result
 
 
 class JevArchitectureRouter:
@@ -90,18 +100,22 @@ class JevArchitectureRouter:
         except Exception as exc:
             if not self.fallback_on_error:
                 raise
-            return ArchitectureDecision(
-                architecture=Architecture.PARALLEL_TEAM,
-                worker_roles=tuple(WorkerRole),
-                architecture_probabilities={},
-                worker_probabilities={},
-                confidence=0.0,
-                latency_ms=0,
-                model="fallback-team",
-                input_tokens=0,
-                output_tokens=0,
-                fallback_reason=type(exc).__name__,
-            )
+            return self._fallback_decision(type(exc).__name__)
+
+    @staticmethod
+    def _fallback_decision(reason: str) -> ArchitectureDecision:
+        return ArchitectureDecision(
+            architecture=Architecture.PARALLEL_TEAM,
+            worker_roles=tuple(WorkerRole),
+            architecture_probabilities={},
+            worker_probabilities={},
+            confidence=0.0,
+            latency_ms=0,
+            model="fallback-team",
+            input_tokens=0,
+            output_tokens=0,
+            fallback_reason=reason,
+        )
 
     def _decision(self, result: JevResult) -> ArchitectureDecision:
         architecture_answer = _typed_answer(result, "architecture", "choice")
@@ -136,6 +150,88 @@ class JevArchitectureRouter:
             model=result.model,
             input_tokens=result.input_tokens,
             output_tokens=result.output_tokens,
+        )
+
+
+class JevTaskIntentRouter(JevArchitectureRouter):
+    """Classify evidence-task intent and apply an explicit Python route policy."""
+
+    version = "jev-task-intent-router-v1"
+    policy_version = "task-intent-policy-v1"
+
+    async def route(self, *, question: str, data_classification: str) -> ArchitectureDecision:
+        _require_research_safe_classification(data_classification)
+        if not question.strip():
+            raise ValueError("question must be non-empty")
+        questions = _architecture_questions()
+        questions.update(task_intent_questions())
+        try:
+            result = await self.client.evaluate(
+                state={"question": question},
+                questions=questions,
+            )
+            return self._decision_with_task_intent(result)
+        except Exception as exc:
+            if not self.fallback_on_error:
+                raise
+            fallback = self._fallback_decision(type(exc).__name__)
+            return replace(
+                fallback,
+                route_policy_version=self.policy_version,
+                route_reasons=("jev_error_team_fallback",),
+            )
+
+    def _decision_with_task_intent(self, result: JevResult) -> ArchitectureDecision:
+        baseline = self._decision(result)
+        intent = parse_task_intent(result)
+        facets = intent.facet_probabilities
+        route_reasons: list[str] = []
+        if baseline.architecture == Architecture.PARALLEL_TEAM:
+            route_reasons.append("architecture_probability")
+        force_team_facets = (
+            "needs_independent_sources",
+            "requires_cross_source_comparison",
+            "requires_conflict_review",
+        )
+        route_reasons.extend(
+            name for name in force_team_facets if facets[name] >= self.team_threshold
+        )
+        architecture = (
+            Architecture.PARALLEL_TEAM
+            if route_reasons
+            else Architecture.SINGLE
+        )
+        roles = list(baseline.worker_roles)
+        requires_multiple_workers = any(
+            facets[name] >= self.team_threshold
+            for name in (
+                "needs_independent_sources",
+                "requires_cross_source_comparison",
+                "requires_conflict_review",
+            )
+        )
+        if (
+            architecture == Architecture.PARALLEL_TEAM
+            and requires_multiple_workers
+            and len(roles) < 2
+        ):
+            role_order = {role: index for index, role in enumerate(WorkerRole)}
+            ranked = sorted(
+                WorkerRole,
+                key=lambda role: (-baseline.worker_probabilities[role.value], role_order[role]),
+            )
+            for role in ranked:
+                if role not in roles:
+                    roles.append(role)
+                if len(roles) >= 2:
+                    break
+        return replace(
+            baseline,
+            architecture=architecture,
+            worker_roles=tuple(roles),
+            task_intent=intent,
+            route_policy_version=self.policy_version,
+            route_reasons=tuple(route_reasons),
         )
 
 
@@ -214,6 +310,7 @@ __all__ = [
     "Architecture",
     "ArchitectureDecision",
     "JevArchitectureRouter",
+    "JevTaskIntentRouter",
     "WORKER_FAMILY",
     "WorkerRole",
 ]
