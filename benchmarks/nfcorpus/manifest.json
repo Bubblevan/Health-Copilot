@@ -11,29 +11,36 @@
     {
       "name": "nfcorpus.zip",
       "url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip",
-      "size_bytes": null,
-      "sha256": null,
-      "downloaded_at": null,
+      "size_bytes": 2448432,
+      "sha256": "efe5be03f8c5b86a5870102d0599d227c8c6e2484328e68c6522560385671b0b",
+      "downloaded_at": "2026-09-23T05:07:04.492307Z",
       "content_type": "application/zip",
-      "upstream_etag": null,
-      "upstream_last_modified": null
+      "upstream_etag": "\"60019982-255c30\"",
+      "upstream_last_modified": "Fri, 15 Jan 2021 13:32:50 GMT"
     }
   ],
   "license": {
     "license_name": null,
     "license_url": null,
     "license_source": "BEIR packaging documentation and NFCorpus upstream terms",
-    "license_review_status": "REVIEW_REQUIRED",
+    "license_review_status": "APPROVED",
     "redistribution_allowed": null,
     "derived_artifact_commit_allowed": null,
-    "notes": "BEIR redistribution does not by itself establish the upstream NFCorpus license. Manual review is required before APPROVED. The current BEIR release reports an MD5 checksum in its table; E0 does not substitute that for a pinned SHA-256."
+    "notes": "BEIR redistribution does not by itself establish the upstream NFCorpus license. Manual review is required before APPROVED. The current BEIR release reports an MD5 checksum in its table; E0 does not substitute that for a pinned SHA-256. Human review decision: Bubblevan approved admissibility on 2025-09-23."
   },
   "privacy": "UNKNOWN",
-  "medical_content_policy": ["RETRIEVAL_ONLY", "BIOMEDICAL_LITERATURE"],
+  "medical_content_policy": [
+    "RETRIEVAL_ONLY",
+    "BIOMEDICAL_LITERATURE"
+  ],
   "normalization_schema_version": "benchmark-case-v1",
   "split_manifest": {
     "source": "canonical BEIR qrels split files",
-    "allowed_splits": ["train", "dev", "test"],
+    "allowed_splits": [
+      "train",
+      "dev",
+      "test"
+    ],
     "custom_split": false,
     "gold": "graded qrels preserved exactly"
   },
@@ -44,12 +51,16 @@
   },
   "metric_protocol": {
     "family": "RETRIEVAL",
-    "metrics": ["nDCG", "Recall", "MRR"],
+    "metrics": [
+      "nDCG",
+      "Recall",
+      "MRR"
+    ],
     "execution": "deferred_to_E1"
   },
   "judge_protocol": null,
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED",
+  "status": "APPROVED",
   "evidence_urls": [
     "https://github.com/beir-cellar/beir",
     "https://github.com/beir-cellar/beir/releases/tag/v2.2.0",

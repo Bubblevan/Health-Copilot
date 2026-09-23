@@ -11,7 +11,7 @@ from health_ai_copilot.benchmarks.adapters import (
     MedicalMirageAdapter,
     NFCorpusAdapter,
 )
-from health_ai_copilot.benchmarks.audit import audit_research_pack
+from health_ai_copilot.benchmarks.audit import audit_research_pack, research_pack_hashes
 from health_ai_copilot.benchmarks.contracts import (
     BenchmarkContractError,
     DatasetAdmissibility,
@@ -33,7 +33,7 @@ def test_registry_is_explicit_and_contains_only_e0_entries() -> None:
         "nfcorpus-v1",
         "research-architecture-v1",
     ]
-    assert registry.get("healthbench-v1").status == DatasetAdmissibility.REVIEW_REQUIRED
+    assert registry.get("healthbench-v1").status == DatasetAdmissibility.APPROVED
 
 
 def test_floating_revision_is_rejected() -> None:
@@ -105,11 +105,12 @@ def test_healthbench_adapter_preserves_rubrics_without_judging(tmp_path: Path) -
     assert case["metadata"]["subset"] == "main"
 
 
-def test_research_pack_has_pre_registered_balance_and_is_not_frozen() -> None:
+def test_research_pack_has_reviewed_balance_and_frozen_identity() -> None:
     report = audit_research_pack(ROOT / "benchmarks" / "research_architecture_v1")
     assert report.details["case_count"] == 48
     assert set(report.details["category_counts"].values()) == {6}
-    assert "pending human review" in report.errors
+    assert report.errors == ()
+    assert report.details["annotation_status"] == "frozen"
     assert all("expected-winner" not in error for error in report.errors)
 
 
@@ -163,3 +164,4 @@ def test_review_apply_and_freeze_recompute_and_persist_identity(tmp_path: Path) 
         "annotation_manifest_sha256",
         "aggregate_benchmark_sha256",
     }
+    assert annotation["hashes"] == research_pack_hashes(output)

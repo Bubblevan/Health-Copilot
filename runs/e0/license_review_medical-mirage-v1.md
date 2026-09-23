@@ -1,6 +1,6 @@
 # Source and license evidence — medical-mirage-v1
 
-Status: `REVIEW_REQUIRED` — machine-collected evidence only; no legal conclusion or human approval.
+Status: `APPROVED` — human admissibility decision recorded; evidence excerpts remain machine-collected.
 
 Canonical source: https://github.com/gzxiong/MIRAGE
 Pinned revision: `392943af99cd94cafd50a0de2e7fca24bbf65494`
@@ -100,12 +100,12 @@ The excerpts below are for reviewer navigation and are not a license interpretat
 
 ## Human decision fields
 
-- reviewer: `null`
-- review_date: `null`
-- final_admissibility: `REVIEW_REQUIRED`
+- reviewer: `Bubblevan`
+- review_date: `2025-09-23`
+- final_admissibility: `APPROVED`
 - redistribution_allowed: `null`
 - derived_artifact_commit_allowed: `null`
-- notes: pending human review of the evidence above
+- notes: human reviewer approved benchmark admissibility; redistribution and derived-artifact permissions remain unrecorded
 
 ## Local raw identity
 

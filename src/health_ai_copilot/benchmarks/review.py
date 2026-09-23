@@ -211,6 +211,9 @@ def freeze_research_pack(pack_root: str | Path) -> dict[str, Any]:
         profile_map[profile.case_id] = profile_dict
     _write_jsonl(root / "task_profiles.jsonl", [profile_map[key] for key in sorted(profile_map)])
     annotation["status"] = "frozen"
+    # Persist the status before hashing so annotation_manifest_sha256 covers
+    # the exact frozen annotation rather than the pre-freeze reviewed state.
+    annotation_path.write_text(canonical_json(annotation) + "\n", encoding="utf-8")
     hashes = research_pack_hashes(root)
     annotation["hashes"] = hashes
     annotation_path.write_text(canonical_json(annotation) + "\n", encoding="utf-8")

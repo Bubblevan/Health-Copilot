@@ -1,6 +1,6 @@
 # E0 — Benchmark Foundation / E0.1 Human Review Gate
 
-状态：`IMPLEMENTED / REVIEW PENDING`
+状态：`COMPLETE / FROZEN`
 
 E0 只建立可复现的 benchmark substrate，不执行外部评分，不调用 judge，不启动
 E2 heterogeneous Team、E3 swarm、E4 routing、E5 self-evolving Harness、M11 或
@@ -41,7 +41,7 @@ RUNNER DOES NOT SILENTLY CHANGE EITHER
 | Medical MIRAGE | `gzxiong/MIRAGE` at `392943af99cd94cafd50a0de2e7fca24bbf65494` | manifest and subdataset-preserving adapter | RAG protocol metrics | `REVIEW_REQUIRED` | `EXTERNAL_QUALITY` | canonical repo is specifically `gzxiong/MIRAGE` |
 | HealthBench | OpenAI `simple-evals` at `652c89d0ca9df547706735883097e9537d40dc47` | artifact and judge manifest | rubric judge execution | `REVIEW_REQUIRED` | `EXTERNAL_QUALITY` | judge protocol is pinned but not invoked |
 | M8 frozen internal diagnostic | `evals/m8_agent_team_focused_v1.jsonl` | preserved, not migrated | none | existing frozen policy | `HARNESS_DETERMINISTIC` | E0 does not repair or relabel M8 |
-| research-architecture-v1 | source-controlled candidate pack | 48 cases, profiles, split/audit contract | E2–E4 comparisons | human review pending | harness/team contribution | no expected-winner field |
+| research-architecture-v1 | source-controlled frozen pack | 48 cases, profiles, split/audit contract | E2–E4 comparisons | approved by Bubblevan on `2025-09-23` | harness/team contribution | no expected-winner field |
 
 ## Source-controlled layout
 
@@ -96,7 +96,7 @@ questions into the repository.
 
 ## research-architecture-v1
 
-The candidate pack has 48 cases, six per category:
+The research pack has 48 cases, six per category:
 
 | Category | Count |
 | --- | ---: |
@@ -120,14 +120,15 @@ task-family, evidence-group, serial-depth, expected-architecture or OOD gold hin
 required evidence group means at least one acceptable final verified citation; retrieved
 does not mean cited.
 
-The pack is currently `candidate` with `human_review.status = pending`. The deterministic
-review export is produced by:
+The pack is now `frozen` with `human_review.status = complete`, `APPROVE = 48`,
+`EDIT = 0`, `REJECT = 0`, and persisted aggregate identity hashes. The deterministic
+review export was produced by:
 
 ```powershell
 health-bench review-export research-architecture-v1
 ```
 
-Only after human review may the deliberate action below succeed:
+The deliberate freeze action succeeded only after the explicit human decision file:
 
 ```powershell
 health-bench freeze research-architecture-v1
@@ -217,11 +218,13 @@ license / raw / normalized / metric / judge gates, research-pack hashes and
 explicit blockers.
 
 After explicit local materialization, the three raw artifacts and normalized
-identities exist in the ignored `.health-bench-data/` cache. They remain
-unfrozen because their source manifests still have `sha256 = null` and
-`REVIEW_REQUIRED`; source evidence is not human approval. The research pack is
-still a candidate with pending human review. Therefore the current status is
-`E0_COMPLETE = no`, `READY_FOR_E1 = no` and `READY_FOR_E2 = no`.
+identities exist in the ignored `.health-bench-data/` cache. The human-approved
+raw SHA-256 values and normalized identities are now pinned in the manifests;
+the research pack is frozen with persisted hashes. The current status is
+`E0_COMPLETE = yes`, `READY_FOR_E1 = yes` and `READY_FOR_E2 = yes`.
+HealthBench remains individually blocked from E1 until its retry/parser/cost
+judge details are frozen; NFCorpus and MIRAGE satisfy the current E1-ready
+external gate.
 
 E0 is not `COMPLETE / FROZEN` merely because the registry or adapter tests pass. E0 can
 freeze only after source/version audit, license review, raw/normalized hashes, reviewed

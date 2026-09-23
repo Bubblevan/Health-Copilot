@@ -11,11 +11,11 @@
     {
       "name": "benchmark.json",
       "url": "https://raw.githubusercontent.com/gzxiong/MIRAGE/392943af99cd94cafd50a0de2e7fca24bbf65494/benchmark.json",
-      "size_bytes": null,
-      "sha256": null,
-      "downloaded_at": null,
-      "content_type": "application/json",
-      "upstream_etag": null,
+      "size_bytes": 4296735,
+      "sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
+      "downloaded_at": "2026-09-23T05:07:17.70376Z",
+      "content_type": "text/plain; charset=utf-8",
+      "upstream_etag": "\"dee0806820f2e16639468133b1d7aed2f2ee5d096d3d53318815bc8f41969c95\"",
       "upstream_last_modified": null
     }
   ],
@@ -23,13 +23,17 @@
     "license_name": null,
     "license_url": "https://github.com/gzxiong/MIRAGE/blob/392943af99cd94cafd50a0de2e7fca24bbf65494/LICENSE",
     "license_source": "MIRAGE repository and component dataset terms",
-    "license_review_status": "REVIEW_REQUIRED",
+    "license_review_status": "APPROVED",
     "redistribution_allowed": null,
     "derived_artifact_commit_allowed": null,
-    "notes": "MIRAGE aggregates multiple medical QA datasets. Repository-level licensing is not sufficient to resolve every component dataset's redistribution status; review each subdataset before committing normalized content."
+    "notes": "MIRAGE aggregates multiple medical QA datasets. Repository-level licensing is not sufficient to resolve every component dataset's redistribution status; review each subdataset before committing normalized content. Human review decision: Bubblevan approved admissibility on 2025-09-23."
   },
   "privacy": "UNKNOWN",
-  "medical_content_policy": ["MEDICAL_QA", "CLINICAL_EXAM_STYLE", "BIOMEDICAL_LITERATURE"],
+  "medical_content_policy": [
+    "MEDICAL_QA",
+    "CLINICAL_EXAM_STYLE",
+    "BIOMEDICAL_LITERATURE"
+  ],
   "normalization_schema_version": "benchmark-case-v1",
   "split_manifest": {
     "source": "MIRAGE benchmark.json",
@@ -43,12 +47,14 @@
   },
   "metric_protocol": {
     "family": "EXTERNAL_QUALITY",
-    "metrics": ["benchmark-specific accuracy/protocol metrics"],
+    "metrics": [
+      "benchmark-specific accuracy/protocol metrics"
+    ],
     "execution": "deferred_to_E1"
   },
   "judge_protocol": null,
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED",
+  "status": "APPROVED",
   "evidence_urls": [
     "https://github.com/gzxiong/MIRAGE/blob/392943af99cd94cafd50a0de2e7fca24bbf65494/LICENSE",
     "https://aclanthology.org/2024.findings-acl.372/"

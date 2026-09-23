@@ -1,6 +1,6 @@
 # Source and license evidence — healthbench-v1
 
-Status: `REVIEW_REQUIRED` — machine-collected evidence only; no legal conclusion or human approval.
+Status: `APPROVED` — human admissibility decision recorded; evidence excerpts remain machine-collected.
 
 Canonical source: https://github.com/openai/simple-evals
 Pinned revision: `652c89d0ca9df547706735883097e9537d40dc47`
@@ -137,12 +137,12 @@ The excerpts below are for reviewer navigation and are not a license interpretat
 
 ## Human decision fields
 
-- reviewer: `null`
-- review_date: `null`
-- final_admissibility: `REVIEW_REQUIRED`
+- reviewer: `Bubblevan`
+- review_date: `2025-09-23`
+- final_admissibility: `APPROVED`
 - redistribution_allowed: `null`
 - derived_artifact_commit_allowed: `null`
-- notes: pending human review of the evidence above
+- notes: human reviewer approved benchmark admissibility; redistribution and derived-artifact permissions remain unrecorded
 
 ## Local raw identity
 

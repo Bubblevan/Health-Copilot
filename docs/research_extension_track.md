@@ -2,7 +2,7 @@
 
 本文档定义 M10.1 冻结之后的研究路线。它把“核心 Harness 是否完成”和“研究问题是否还有价值”分开，避免为了做出更高的 Team 分数而修改已经冻结的实现或 benchmark 语义。
 
-当前基线为 `main@3616a991bf92821e790ac9efba29ef03bb46d295`；M0–M10.1 Core Harness 已完成并冻结。E0.1 正在执行显式 materialization 与人工 review gate；以下 E0–E6 均不应在对应阶段门通过前写成已完成能力或正向结论。
+当前基线为 `main@3616a991bf92821e790ac9efba29ef03bb46d295`；M0–M10.1 Core Harness 已完成并冻结。E0.1 的显式 materialization、人工 review 与 hash freeze 已完成；E1 仍未启动，以下 E1–E6 均不应在对应阶段门通过前写成已完成能力或正向结论。
 
 ## 研究问题
 

@@ -11,29 +11,36 @@
     {
       "name": "2025-05-07-06-14-12_oss_eval.jsonl",
       "url": "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
-      "size_bytes": null,
-      "sha256": null,
-      "downloaded_at": null,
-      "content_type": "application/jsonl",
-      "upstream_etag": null,
-      "upstream_last_modified": null
+      "size_bytes": 60258154,
+      "sha256": "e99dd3c6372c10d6fcc5e385c5fae69d0dd40392dae56836ef9493ae324ecd2f",
+      "downloaded_at": "2026-09-23T05:07:33.837261Z",
+      "content_type": "application/octet-stream",
+      "upstream_etag": "0x8DD9176E8C2022D",
+      "upstream_last_modified": "Mon, 12 May 2025 17:03:25 GMT"
     }
   ],
   "license": {
     "license_name": null,
     "license_url": "https://github.com/openai/simple-evals/blob/652c89d0ca9df547706735883097e9537d40dc47/LICENSE",
     "license_source": "OpenAI simple-evals repository and HealthBench dataset terms",
-    "license_review_status": "REVIEW_REQUIRED",
+    "license_review_status": "APPROVED",
     "redistribution_allowed": null,
     "derived_artifact_commit_allowed": null,
-    "notes": "The official reference implementation and dataset artifact are pinned separately. Human review is required for dataset use, grader-model access, and redistribution before APPROVED."
+    "notes": "The official reference implementation and dataset artifact are pinned separately. Human review is required for dataset use, grader-model access, and redistribution before APPROVED. Human review decision: Bubblevan approved admissibility on 2025-09-23."
   },
   "privacy": "PUBLIC_REALISTIC",
-  "medical_content_policy": ["PATIENT_FACING_DIALOGUE", "MEDICAL_QA"],
+  "medical_content_policy": [
+    "PATIENT_FACING_DIALOGUE",
+    "MEDICAL_QA"
+  ],
   "normalization_schema_version": "benchmark-case-v1",
   "split_manifest": {
     "source": "official artifact identity",
-    "subsets": ["main", "hard", "consensus"],
+    "subsets": [
+      "main",
+      "hard",
+      "consensus"
+    ],
     "custom_split": false
   },
   "gold_contract": {
@@ -43,7 +50,9 @@
   },
   "metric_protocol": {
     "family": "EXTERNAL_QUALITY",
-    "metrics": ["HealthBench rubric score"],
+    "metrics": [
+      "HealthBench rubric score"
+    ],
     "judge_required": true,
     "execution": "deferred_to_E1"
   },
@@ -51,18 +60,29 @@
     "judge_protocol_id": "healthbench-official-rubric-v1",
     "reference_implementation_revision": "652c89d0ca9df547706735883097e9537d40dc47",
     "grader_prompt_hash": "5f2d21688d86d91d876ef9b47a3904f9ad2fc2f4ef7be44a3e6c322f5f5988c9",
-    "expected_output_schema": {"explanation": "string", "criteria_met": "boolean"},
+    "expected_output_schema": {
+      "explanation": "string",
+      "criteria_met": "boolean"
+    },
     "aggregation_version": "simple-evals-healthbench-aggregation@652c89d",
     "reference_grader_model": "explicitly selected by E1 protocol review",
     "reference_grader_revision": "explicitly selected by E1 protocol review",
     "temperature": 0.0,
-    "sampling_parameters": {"temperature": 0.0},
-    "retry_policy": {"status": "to_be_frozen_before_E1"},
-    "parser_behavior": {"status": "to_be_frozen_before_E1"},
-    "cost_accounting_policy": {"status": "to_be_frozen_before_E1"}
+    "sampling_parameters": {
+      "temperature": 0.0
+    },
+    "retry_policy": {
+      "status": "to_be_frozen_before_E1"
+    },
+    "parser_behavior": {
+      "status": "to_be_frozen_before_E1"
+    },
+    "cost_accounting_policy": {
+      "status": "to_be_frozen_before_E1"
+    }
   },
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED",
+  "status": "APPROVED",
   "evidence_urls": [
     "https://github.com/openai/simple-evals/blob/652c89d0ca9df547706735883097e9537d40dc47/LICENSE",
     "https://github.com/openai/simple-evals/blob/652c89d0ca9df547706735883097e9537d40dc47/healthbench_eval.py"
