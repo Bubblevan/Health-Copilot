@@ -62,5 +62,9 @@
     "cost_accounting_policy": {"status": "to_be_frozen_before_E1"}
   },
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED"
+  "status": "REVIEW_REQUIRED",
+  "evidence_urls": [
+    "https://github.com/openai/simple-evals/blob/652c89d0ca9df547706735883097e9537d40dc47/LICENSE",
+    "https://github.com/openai/simple-evals/blob/652c89d0ca9df547706735883097e9537d40dc47/healthbench_eval.py"
+  ]
 }

@@ -10,6 +10,7 @@ from typing import Any
 
 from .contracts import (
     BenchmarkManifest,
+    DatasetAdmissibility,
     ReviewStatus,
     TaskProfile,
     canonical_hash,
@@ -168,7 +169,7 @@ def audit_research_pack(root: str | Path) -> AuditReport:
         category_counts[profile.task_family] = category_counts.get(profile.task_family, 0) + 1
         by_split.setdefault(profile.split, set()).add(profile.case_id)
         family_splits.setdefault((profile.source_group_id, profile.question_family_id), set()).add(profile.split)
-        if profile.annotation_status != ReviewStatus.REVIEWED and profile.split == "TEST":
+        if profile.annotation_status not in {ReviewStatus.REVIEWED, ReviewStatus.FROZEN} and profile.split == "TEST":
             errors.append(f"unreviewed internal research TEST gold: {profile.case_id}")
         serialized = canonical_json(profile.to_dict()).lower()
         if any(field in serialized for field in ("best_architecture", "team_should_win", "single_should_win")):
@@ -182,6 +183,16 @@ def audit_research_pack(root: str | Path) -> AuditReport:
         warnings.append("research pack is not frozen")
     if annotation.get("human_review", {}).get("status") != "complete":
         errors.append("pending human review")
+    if annotation.get("decision_summary", {}).get("REJECT", 0):
+        errors.append("research pack contains rejected cases")
+    if annotation.get("status") == "frozen":
+        try:
+            stored_hashes = annotation.get("hashes", {})
+            expected_hashes = research_pack_hashes(pack_root)
+            if any(stored_hashes.get(key) != value for key, value in expected_hashes.items()):
+                errors.append("frozen research-pack hash mismatch")
+        except (OSError, KeyError, ValueError) as exc:
+            errors.append(f"frozen research-pack hash error: {exc}")
     if not 48 <= len(cases) <= 60:
         errors.append("research pack must contain 48-60 cases")
     return AuditReport(
@@ -197,73 +208,213 @@ def audit_research_pack(root: str | Path) -> AuditReport:
     )
 
 
+def _read_json_if_exists(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    value = json.loads(path.read_text(encoding="utf-8"))
+    return value if isinstance(value, dict) else None
+
+
+def _source_review_complete(root: Path, benchmark_id: str) -> bool:
+    record = _read_json_if_exists(root / "runs" / "e0" / f"license_review_{benchmark_id}.json")
+    decision = record.get("human_decision") if record else None
+    return bool(
+        isinstance(decision, dict)
+        and decision.get("reviewer")
+        and decision.get("review_date")
+        and decision.get("final_admissibility") in {"APPROVED", "RESTRICTED", "UNAVAILABLE"}
+    )
+
+
+def _raw_identity(root: Path, benchmark_id: str) -> dict[str, Any] | None:
+    return _read_json_if_exists(root / "raw" / benchmark_id / "raw_identity.json")
+
+
+def _normalized_identity(root: Path, benchmark_id: str) -> dict[str, Any] | None:
+    return _read_json_if_exists(root / "normalized" / benchmark_id / "identity.json")
+
+
+def benchmark_stage_gate(
+    manifest: BenchmarkManifest,
+    repository_root: str | Path,
+    benchmark_data_root: str | Path | None = None,
+) -> dict[str, Any]:
+    root = Path(repository_root)
+    bench_data = Path(benchmark_data_root) if benchmark_data_root else data_root(root)
+    raw = _raw_identity(bench_data, manifest.benchmark_id)
+    normalized = _normalized_identity(bench_data, manifest.benchmark_id)
+    raw_by_name = {item.get("name"): item for item in raw.get("artifacts", [])} if raw else {}
+    raw_identity_frozen = bool(raw and all(
+        item.sha256 is not None and raw_by_name.get(item.name, {}).get("sha256") == item.sha256
+        for item in manifest.raw_artifacts
+    ))
+    normalized_audit = audit_normalized_dataset(
+        manifest,
+        bench_data / "normalized" / manifest.benchmark_id,
+    ) if normalized else AuditReport(manifest.benchmark_id, ("normalized data unavailable",))
+    normalized_identity_frozen = bool(
+        normalized
+        and normalized.get("normalized_sha256")
+        and normalized.get("split_manifest_sha256")
+        and raw_identity_frozen
+        and set(normalized.get("raw_artifact_sha256", [])) == {
+            item.sha256 for item in manifest.raw_artifacts if item.sha256
+        }
+        and normalized_audit.ok
+    )
+    source_review_complete = _source_review_complete(root, manifest.benchmark_id)
+    license_review_complete = (
+        manifest.status in {
+            DatasetAdmissibility.APPROVED,
+            DatasetAdmissibility.RESTRICTED,
+            DatasetAdmissibility.UNAVAILABLE,
+        }
+        and manifest.license.license_review_status in {
+            DatasetAdmissibility.APPROVED,
+            DatasetAdmissibility.RESTRICTED,
+            DatasetAdmissibility.UNAVAILABLE,
+        }
+    )
+    protocol_text = canonical_json(manifest.metric_protocol).lower()
+    metric_protocol_ready = bool(manifest.metric_protocol) and "to_be_frozen" not in protocol_text
+    judge_text = canonical_json(manifest.judge_protocol).lower() if manifest.judge_protocol else ""
+    judge_protocol_ready = not manifest.judge_protocol or "to_be_frozen" not in judge_text
+    e1_ready = bool(
+        manifest.status == DatasetAdmissibility.APPROVED
+        and source_review_complete
+        and license_review_complete
+        and raw_identity_frozen
+        and normalized_identity_frozen
+        and metric_protocol_ready
+        and judge_protocol_ready
+        and normalized_audit.ok
+    )
+    blockers: list[str] = []
+    checks = {
+        "source_review_complete": source_review_complete,
+        "license_review_complete": license_review_complete,
+        "raw_identity_frozen": raw_identity_frozen,
+        "normalized_identity_frozen": normalized_identity_frozen,
+        "metric_protocol_ready": metric_protocol_ready,
+        "judge_protocol_ready": judge_protocol_ready,
+    }
+    for name, passed in checks.items():
+        if not passed:
+            blockers.append(name)
+    if manifest.status != DatasetAdmissibility.APPROVED:
+        blockers.append(f"admissibility={manifest.status.value}")
+    return {
+        "benchmark_id": manifest.benchmark_id,
+        "review_status": "COMPLETE" if source_review_complete else "REVIEW_REQUIRED",
+        "admissibility": manifest.status.value,
+        **checks,
+        "e1_ready": e1_ready,
+        "raw_sha256": [item.sha256 for item in manifest.raw_artifacts],
+        "normalized_sha256": normalized.get("normalized_sha256") if normalized else None,
+        "normalized_identity": normalized,
+        "manifest_hash": manifest.manifest_hash,
+        "judge_protocol_hash": canonical_hash(manifest.judge_protocol)
+        if manifest.judge_protocol
+        else None,
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def research_pack_hashes(root: str | Path) -> dict[str, str]:
+    pack_root = Path(root)
+    cases = _read_jsonl(pack_root / "cases.jsonl")
+    annotation = json.loads((pack_root / "annotation_manifest.json").read_text(encoding="utf-8"))
+    gold = [{"case_id": row["case_id"], "gold": row["gold"]} for row in cases]
+    split = [
+        {"case_id": row["case_id"], "split": row.get("metadata", {}).get("split")}
+        for row in cases
+    ]
+    annotation_without_hashes = {key: value for key, value in annotation.items() if key != "hashes"}
+    values = {
+        "cases_sha256": sha256_file(pack_root / "cases.jsonl"),
+        "gold_sha256": canonical_hash(gold),
+        "task_profiles_sha256": sha256_file(pack_root / "task_profiles.jsonl"),
+        "split_sha256": canonical_hash(split),
+        "annotation_manifest_sha256": canonical_hash(annotation_without_hashes),
+    }
+    values["aggregate_benchmark_sha256"] = canonical_hash(values)
+    return values
+
+
+def _research_gate(root: Path) -> dict[str, Any]:
+    pack_root = root / "benchmarks" / "research_architecture_v1"
+    report = audit_research_pack(pack_root)
+    annotation = _read_json_if_exists(pack_root / "annotation_manifest.json") or {}
+    hashes = research_pack_hashes(pack_root)
+    stored_hashes = annotation.get("hashes", {})
+    hashes_frozen = annotation.get("status") == "frozen" and all(
+        stored_hashes.get(key) == value for key, value in hashes.items()
+    )
+    ready = bool(report.ok and hashes_frozen)
+    blockers = list(report.errors)
+    if not hashes_frozen:
+        blockers.append("research pack hashes not frozen")
+    if not (root / "benchmarks" / "research_architecture_v1" / "fairness_contract.json").exists():
+        blockers.append("fairness contract unavailable")
+    return {
+        "benchmark_id": "research-architecture-v1",
+        "human_review_status": annotation.get("human_review", {}).get("status"),
+        "annotation_status": annotation.get("status"),
+        "case_count": report.details.get("case_count") if report.details else None,
+        "category_counts": report.details.get("category_counts", {}) if report.details else {},
+        "hashes": hashes,
+        "hashes_frozen": hashes_frozen,
+        "e2_ready": ready,
+        "audit": report.to_dict(),
+        "blockers": sorted(set(blockers)),
+    }
+
+
 def build_closeout(
     registry: BenchmarkRegistry,
     repository_root: str | Path,
     *,
-    code_sha: str,
+    functional_code_sha: str,
+    final_documentation_sha: str | None = None,
 ) -> dict[str, Any]:
     root = Path(repository_root)
     bench_data = data_root(root)
-    external: list[dict[str, Any]] = []
-    blockers: list[str] = []
-    for manifest in registry.list():
-        if manifest.benchmark_id == "research-architecture-v1":
-            continue
-        manifest_report = audit_manifest(manifest)
-        raw_root = bench_data / "raw" / manifest.benchmark_id
-        normalized_root = bench_data / "normalized" / manifest.benchmark_id
-        raw_available = raw_root.exists() and any(raw_root.rglob("*"))
-        normalized_available = (normalized_root / "cases.jsonl").exists()
-        if not raw_available:
-            blockers.append(f"{manifest.benchmark_id}: raw data unavailable")
-        if not normalized_available:
-            blockers.append(f"{manifest.benchmark_id}: normalized data unavailable")
-        if manifest_report.errors:
-            blockers.extend(f"{manifest.benchmark_id}: {error}" for error in manifest_report.errors)
-        external.append(
-            {
-                "benchmark_id": manifest.benchmark_id,
-                "manifest_hash": manifest.manifest_hash,
-                "admissibility_status": manifest.status.value,
-                "raw_available": raw_available,
-                "normalized_available": normalized_available,
-                "raw_sha256": [item.sha256 for item in manifest.raw_artifacts],
-                "normalized_sha256": None,
-                "license_review_status": manifest.license.license_review_status.value,
-                "judge_protocol_hash": canonical_hash(manifest.judge_protocol)
-                if manifest.judge_protocol
-                else None,
-            }
-        )
-    research_report = audit_research_pack(root / "benchmarks" / "research_architecture_v1")
-    blockers.extend(f"research-architecture-v1: {error}" for error in research_report.errors)
+    external = [
+        benchmark_stage_gate(manifest, root, bench_data)
+        for manifest in registry.list()
+        if manifest.benchmark_id != "research-architecture-v1"
+    ]
+    research = _research_gate(root)
+    blockers = [
+        f"{item['benchmark_id']}: {blocker}"
+        for item in external
+        for blocker in item["blockers"]
+    ]
+    blockers.extend(f"research-architecture-v1: {item}" for item in research["blockers"])
+    all_external_reviews_complete = all(
+        item["source_review_complete"] and item["license_review_complete"] for item in external
+    )
+    fairness_path = root / "benchmarks" / "research_architecture_v1" / "fairness_contract.json"
+    fairness_sha = sha256_file(fairness_path) if fairness_path.exists() else None
+    e0_complete = bool(all_external_reviews_complete and research["e2_ready"] and fairness_sha)
+    ready_for_e1 = any(item["e1_ready"] for item in external)
+    ready_for_e2 = research["e2_ready"]
     return {
-        "schema_version": "e0-closeout-v1",
+        "schema_version": "e0-closeout-v2",
         "stage": "E0",
-        "code_sha": code_sha,
+        "code_identity": {
+            "functional_code_sha": functional_code_sha,
+            "final_documentation_sha": final_documentation_sha,
+        },
         "registry_hash": canonical_hash(
             {item.benchmark_id: item.manifest_hash for item in registry.list()}
         ),
         "external_benchmarks": external,
-        "research_pack": {
-            "benchmark_id": "research-architecture-v1",
-            "status": research_report.details.get("annotation_status") if research_report.details else None,
-            "case_count": research_report.details.get("case_count") if research_report.details else None,
-            "category_counts": research_report.details.get("category_counts", {})
-            if research_report.details
-            else {},
-            "sha256": None,
-            "audit": research_report.to_dict(),
-        },
-        "fairness_contracts": {
-            "native_budget": "benchmarks/research_architecture_v1/fairness_contract.json",
-            "cost_matched": "benchmarks/research_architecture_v1/fairness_contract.json",
-            "deadline_matched": "benchmarks/research_architecture_v1/fairness_contract.json",
-            "sha256": sha256_file(root / "benchmarks" / "research_architecture_v1" / "fairness_contract.json"),
-        },
-        "ready_for_e1": False,
-        "ready_for_e2": False,
+        "research_pack": research,
+        "fairness_contract_sha256": fairness_sha,
+        "e0_complete": e0_complete,
+        "ready_for_e1": ready_for_e1,
+        "ready_for_e2": ready_for_e2,
         "blockers": sorted(set(blockers)),
         "claims": {
             "external_evaluation_started": False,
@@ -278,9 +429,22 @@ def build_closeout(
     }
 
 
-def write_closeout(registry: BenchmarkRegistry, repository_root: str | Path, code_sha: str) -> Path:
+def write_closeout(
+    registry: BenchmarkRegistry,
+    repository_root: str | Path,
+    functional_code_sha: str,
+    final_documentation_sha: str | None = None,
+) -> Path:
     root = Path(repository_root)
-    output = root / "runs" / "e0" / "benchmark_foundation_closeout.json"
+    output = root / "runs" / "e0" / "benchmark_foundation_closeout_v2.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(canonical_json(build_closeout(registry, root, code_sha=code_sha)) + "\n", encoding="utf-8")
+    payload = build_closeout(
+        registry,
+        root,
+        functional_code_sha=functional_code_sha,
+        final_documentation_sha=final_documentation_sha,
+    )
+    text = canonical_json(payload) + "\n"
+    output.write_text(text, encoding="utf-8")
+    (output.with_name("benchmark_foundation_closeout.json")).write_text(text, encoding="utf-8")
     return output

@@ -48,5 +48,9 @@
   },
   "judge_protocol": null,
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED"
+  "status": "REVIEW_REQUIRED",
+  "evidence_urls": [
+    "https://github.com/gzxiong/MIRAGE/blob/392943af99cd94cafd50a0de2e7fca24bbf65494/LICENSE",
+    "https://aclanthology.org/2024.findings-acl.372/"
+  ]
 }

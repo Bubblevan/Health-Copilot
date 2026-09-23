@@ -168,6 +168,7 @@ class BenchmarkManifest:
     judge_protocol: Mapping[str, Any] | None
     created_with_commit: str
     status: DatasetAdmissibility
+    evidence_urls: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name in (
@@ -194,6 +195,7 @@ class BenchmarkManifest:
             raise BenchmarkContractError("medical_content_policy must not be empty")
         object.__setattr__(self, "status", DatasetAdmissibility(self.status))
         object.__setattr__(self, "raw_artifacts", tuple(self.raw_artifacts))
+        object.__setattr__(self, "evidence_urls", tuple(self.evidence_urls))
         if not self.raw_artifacts:
             raise BenchmarkContractError("a benchmark must declare at least one raw artifact")
 
@@ -227,6 +229,7 @@ class BenchmarkManifest:
             "judge_protocol": dict(self.judge_protocol) if self.judge_protocol else None,
             "created_with_commit": self.created_with_commit,
             "status": self.status.value,
+            "evidence_urls": list(self.evidence_urls),
         }
 
     @property
@@ -261,6 +264,7 @@ class NormalizedDatasetIdentity:
     case_count: int
     normalized_sha256: str | None
     split_manifest_sha256: str | None
+    extraction_provenance: Mapping[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if self.case_count < 0:
@@ -269,6 +273,8 @@ class NormalizedDatasetIdentity:
             _validate_sha(digest, "raw_artifact_sha256")
         _validate_sha(self.normalized_sha256, "normalized_sha256")
         _validate_sha(self.split_manifest_sha256, "split_manifest_sha256")
+        if self.extraction_provenance is not None:
+            object.__setattr__(self, "extraction_provenance", dict(self.extraction_provenance))
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -279,6 +285,9 @@ class NormalizedDatasetIdentity:
             "case_count": self.case_count,
             "normalized_sha256": self.normalized_sha256,
             "split_manifest_sha256": self.split_manifest_sha256,
+            "extraction_provenance": dict(self.extraction_provenance)
+            if self.extraction_provenance
+            else None,
         }
 
 

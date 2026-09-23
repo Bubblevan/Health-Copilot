@@ -26,5 +26,13 @@
   "architecture_neutrality": {
     "expected_winner_field": false,
     "team_bias_review": "pending"
-  }
+  },
+  "review_flags": [
+    {"case_id": "ra-single_source-03", "kind": "source_question_mismatch_candidate", "note": "question concerns healthy weight; referenced source ID appears sleep-oriented"},
+    {"case_id": "ra-single_source-05", "kind": "source_question_mismatch_candidate", "note": "question concerns tobacco exposure; referenced source ID appears overweight-oriented"},
+    {"case_id": "ra-single_source-06", "kind": "source_question_mismatch_candidate", "note": "question concerns alcohol; referenced source ID appears diet-oriented"},
+    {"case_id": "ra-breadth_multi_source-02", "kind": "evidence_group_mismatch_candidate", "note": "question asks diet/weight/sleep; current groups appear diet/activity/home monitoring"},
+    {"case_id": "ra-serial_dependency-04", "kind": "temporal_structure_mismatch_candidate", "note": "question asks source-date comparison; current temporal_structure is false"},
+    {"case_id": "ra-serial_dependency-06", "kind": "conflict_structure_mismatch_candidate", "note": "question mentions conflicting evidence; current conflict_structure is false"}
+  ]
 }

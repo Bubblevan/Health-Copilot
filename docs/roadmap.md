@@ -54,8 +54,9 @@ E5  Self-Evolving Harness
 E6  Final Research / Resume Freeze
 ```
 
-E0 当前为 `IMPLEMENTED / REVIEW PENDING`：合同、显式 registry、离线 adapter、审计工具、候选研究 pack
-和 fairness contract 已落地；外部 raw/normalized hash 与内部 pack 人工 review 尚未冻结。因此不代表任何
+E0/E0.1 当前为 `IMPLEMENTED / REVIEW PENDING`：合同、显式 registry、离线 adapter、显式 fetch 与
+source-evidence 工具、动态 stage gate、候选研究 pack 和 fairness contract 已落地；外部 raw/normalized
+hash 与内部 pack 人工 review 尚未冻结。因此不代表任何
 外部 benchmark 分数或 Multi-Agent 正向结论已经产生。执行契约与阶段门见
 [`docs/research_extension_track.md`](research_extension_track.md)。
 完整 E0 说明见 [`docs/e0_benchmark_foundation.md`](e0_benchmark_foundation.md)。

@@ -1,4 +1,4 @@
-# E0 — Benchmark Foundation
+# E0 — Benchmark Foundation / E0.1 Human Review Gate
 
 状态：`IMPLEMENTED / REVIEW PENDING`
 
@@ -148,18 +148,60 @@ Three future comparison regimes are defined in
 Wall-clock latency, sum of worker/provider execution time, provider calls, tool calls and
 tokens remain separate dimensions. Volatile API prices are not embedded in gold.
 
+## E0.1 explicit materialization and human review
+
+E0.1 makes every external side effect explicit. `list`, `inspect`, `prepare`,
+`verify`, `normalize`, `audit`, `profile` and `review-export` do not download or
+call a model. Only the following commands may access an external source:
+
+```powershell
+health-bench fetch <benchmark>
+health-bench review-source <benchmark>
+```
+
+`fetch` writes a local `raw_identity.json` containing the exact downloaded byte
+hash, size, URL and upstream HTTP metadata. NFCorpus is extracted with a
+path-safe extractor and records an `extraction_manifest.json`; the normalized
+identity carries that extraction provenance. The source manifest is never
+silently edited or pinned by a fetch.
+
+`review-source` writes `runs/e0/license_review_<benchmark>.md` and the matching
+JSON evidence packet. These packets contain fetched source/license excerpts,
+HTTP metadata and local raw identity when available. They deliberately leave
+`human_decision` empty and do not make legal, privacy or redistribution
+conclusions.
+
+The internal research pack follows a separate explicit decision flow:
+
+```powershell
+health-bench review-export research-architecture-v1
+health-bench apply-review research-architecture-v1 <decisions.jsonl> --output-root <reviewed-pack>
+health-bench freeze research-architecture-v1 --pack-root <reviewed-pack>
+```
+
+The decision file must contain exactly one human decision for every case,
+reviewer/date fields and all checklist booleans. `EDIT` can change only the
+question, gold or task profile; case IDs and splits cannot change. Freeze is
+fail-closed and persists case, gold, profile, split, annotation and aggregate
+hashes. No command invents reviewer identity, review date, license approval or
+human pack approval.
+
 ## CLI contract
 
 ```text
 health-bench list
 health-bench inspect <benchmark>
 health-bench prepare <benchmark>
+health-bench fetch <benchmark>
+health-bench review-source <benchmark>
 health-bench verify <benchmark>
 health-bench normalize <benchmark>
 health-bench audit [<benchmark>]
 health-bench profile [research-architecture-v1]
 health-bench review-export research-architecture-v1
+health-bench apply-review research-architecture-v1 <decisions.jsonl> --output-root <reviewed-pack>
 health-bench freeze research-architecture-v1
+health-bench closeout --functional-code-sha <commit>
 ```
 
 `list`, `inspect` and `profile` are network-free. `prepare` only creates the explicit
@@ -168,10 +210,18 @@ placed; it does not download. E0 intentionally has no `health-bench run` command
 
 ## Stage gate
 
-The closeout artifact is `runs/e0/benchmark_foundation_closeout.json`. Its current
-status is `READY_FOR_E1 = no` and `READY_FOR_E2 = no` because external raw/normalized
-hashes and admissibility reviews are not complete, and the internal research pack has
-not received human review. This is the intended `IMPLEMENTED / REVIEW PENDING` state.
+The dynamic closeout is `runs/e0/benchmark_foundation_closeout_v2.json`; the
+legacy-named `benchmark_foundation_closeout.json` is written as a compatibility
+alias. It records the functional code SHA, registry hash, per-benchmark source /
+license / raw / normalized / metric / judge gates, research-pack hashes and
+explicit blockers.
+
+After explicit local materialization, the three raw artifacts and normalized
+identities exist in the ignored `.health-bench-data/` cache. They remain
+unfrozen because their source manifests still have `sha256 = null` and
+`REVIEW_REQUIRED`; source evidence is not human approval. The research pack is
+still a candidate with pending human review. Therefore the current status is
+`E0_COMPLETE = no`, `READY_FOR_E1 = no` and `READY_FOR_E2 = no`.
 
 E0 is not `COMPLETE / FROZEN` merely because the registry or adapter tests pass. E0 can
 freeze only after source/version audit, license review, raw/normalized hashes, reviewed

@@ -50,5 +50,8 @@
   },
   "judge_protocol": null,
   "created_with_commit": "main@5a009d0bfee0b48016e9ab362ac21d17d549922c",
-  "status": "REVIEW_REQUIRED"
+  "status": "REVIEW_REQUIRED",
+  "evidence_urls": [
+    "repo://data/knowledge_cards"
+  ]
 }

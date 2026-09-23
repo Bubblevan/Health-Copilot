@@ -53,10 +53,28 @@ def _find_file(root: Path, names: tuple[str, ...]) -> Path:
 
 
 def _raw_file_hashes(root: Path) -> tuple[str, ...]:
+    identity_path = root / "raw_identity.json"
+    if identity_path.exists():
+        identity = json.loads(identity_path.read_text(encoding="utf-8"))
+        hashes = tuple(
+            item.get("sha256") for item in identity.get("artifacts", []) if item.get("sha256")
+        )
+        if hashes:
+            return hashes
     files = sorted(path for path in root.rglob("*") if path.is_file())
     if not files:
         raise FileNotFoundError(f"raw benchmark directory is empty: {root}")
     return tuple(sha256_file(path) for path in files)
+
+
+def _load_extraction_provenance(root: Path) -> dict[str, Any] | None:
+    path = root / "extraction_manifest.json"
+    if not path.exists():
+        return None
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict) or not value.get("archive_sha256"):
+        raise BenchmarkAdapterError("extraction manifest lacks archive SHA-256")
+    return value
 
 
 def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> str:
@@ -76,6 +94,7 @@ def _write_normalized_identity(
     cases: list[BenchmarkCase],
     normalized_hash: str,
     split_manifest: dict[str, Any],
+    extraction_provenance: dict[str, Any] | None = None,
 ) -> NormalizedDatasetIdentity:
     split_path = output_root / "split_manifest.json"
     split_path.write_text(canonical_json(split_manifest) + "\n", encoding="utf-8")
@@ -87,6 +106,7 @@ def _write_normalized_identity(
         case_count=len(cases),
         normalized_sha256=normalized_hash,
         split_manifest_sha256=sha256_file(split_path),
+        extraction_provenance=extraction_provenance,
     )
     (output_root / "identity.json").write_text(
         canonical_json(identity.to_dict()) + "\n", encoding="utf-8"
@@ -207,6 +227,7 @@ class NFCorpusAdapter(BenchmarkAdapter):
             cases=cases,
             normalized_hash=normalized_hash,
             split_manifest={"split": self.split, "case_ids": [case.case_id for case in cases]},
+            extraction_provenance=_load_extraction_provenance(raw_root),
         )
 
     def validate(self, normalized_root: Path) -> list[str]:
@@ -257,7 +278,15 @@ class MedicalMirageAdapter(BenchmarkAdapter):
         for dataset_name in sorted(datasets):
             dataset_rows = datasets[dataset_name]
             if isinstance(dataset_rows, dict):
-                dataset_rows = dataset_rows.get("data", dataset_rows.get("questions", []))
+                nested_rows = dataset_rows.get("data", dataset_rows.get("questions"))
+                if nested_rows is None:
+                    nested_rows = []
+                    for record_id, record in sorted(dataset_rows.items(), key=lambda item: str(item[0])):
+                        if isinstance(record, dict):
+                            record = dict(record)
+                            record.setdefault("id", str(record_id))
+                            nested_rows.append(record)
+                dataset_rows = nested_rows
             if not isinstance(dataset_rows, list):
                 continue
             for index, row in enumerate(dataset_rows):
