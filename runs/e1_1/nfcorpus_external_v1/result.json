@@ -1,0 +1,139 @@
+{
+  "experiment": "E1.1",
+  "benchmark": "nfcorpus-v1",
+  "dataset": {
+    "benchmark_id": "nfcorpus-v1",
+    "version": "BEIR-v2.2.0",
+    "upstream_revision": "beir-v2.2.0@6ef8c9097ebfb203ad360bd64e0cfb93e64f4a44",
+    "manifest_sha256": "36f32a5721dc10976128a9a8b3578b37053fa6557b7a4408d87d2d4a5e574128",
+    "raw_artifact_sha256": [
+      "efe5be03f8c5b86a5870102d0599d227c8c6e2484328e68c6522560385671b0b"
+    ],
+    "normalized_sha256": "7334540bf8d5c035d0ffe36d942d2773fff138fa925d89c9146360a4b165b300",
+    "split_manifest_sha256": "8512deaceb875c0edd91ed4d3e40e48fa4a54e9490e17d72dde0ec3ddd34069b",
+    "adapter_version": "nfcorpus-adapter-v1",
+    "schema_version": "benchmark-case-v1",
+    "case_count": 323,
+    "split": "test",
+    "data_files": {
+      "corpus_sha256": "cece41de15ca02856d6bddbf07e0461aa3b134d76e9d54b063efc76221fde572",
+      "cases_sha256": "7334540bf8d5c035d0ffe36d942d2773fff138fa925d89c9146360a4b165b300",
+      "split_manifest_sha256": "8512deaceb875c0edd91ed4d3e40e48fa4a54e9490e17d72dde0ec3ddd34069b"
+    }
+  },
+  "execution": {
+    "git_sha": "33a46865a1106c4158ad51593dd21412a3328e55",
+    "runner_sha256": "BEC0D3F3AFE5F4E8189782EE811D4798AEED38B87CB207AD94DBB87B5A31528B",
+    "generated_at_utc": "2026-09-23T07:40:49.845507+00:00",
+    "split": "test",
+    "top_k": 10,
+    "candidate_top_k": 10,
+    "rrf_k": 60,
+    "arms": [
+      "bm25",
+      "learned_dense",
+      "hybrid_rrf",
+      "hybrid_crossencoder"
+    ]
+  },
+  "learned_artifacts": {
+    "embedding": {
+      "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+      "dimension": 384,
+      "local_files_only": true
+    },
+    "reranker": {
+      "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+      "local_files_only": true
+    }
+  },
+  "metrics": {
+    "bm25": {
+      "dataset": "nfcorpus",
+      "split": "test",
+      "num_documents": 3633,
+      "num_cases": 323,
+      "evaluated_cases": 323,
+      "recall_at_10": 0.15203340008689414,
+      "mrr": 0.5181519976411618,
+      "ndcg_at_10": 0.31104054600986425
+    },
+    "learned_dense": {
+      "dataset": "nfcorpus",
+      "split": "test",
+      "num_documents": 3633,
+      "num_cases": 323,
+      "evaluated_cases": 323,
+      "recall_at_10": 0.10252478061270863,
+      "mrr": 0.40879650105656296,
+      "ndcg_at_10": 0.23601982478769756
+    },
+    "hybrid_rrf": {
+      "dataset": "nfcorpus",
+      "split": "test",
+      "num_documents": 3633,
+      "num_cases": 323,
+      "evaluated_cases": 323,
+      "recall_at_10": 0.1526130887831758,
+      "mrr": 0.5245847461791734,
+      "ndcg_at_10": 0.3094207280690942
+    },
+    "hybrid_crossencoder": {
+      "dataset": "nfcorpus",
+      "split": "test",
+      "num_documents": 3633,
+      "num_cases": 323,
+      "evaluated_cases": 323,
+      "recall_at_10": 0.1526130887831758,
+      "mrr": 0.5016425868593051,
+      "ndcg_at_10": 0.3091988909146717
+    }
+  },
+  "failure_summary": {
+    "arms": {
+      "bm25": {
+        "evaluated_cases": 323,
+        "hit_at_1": 0.44272445820433437,
+        "misses_at_k": 308,
+        "metric_keys": [
+          "recall_at_10",
+          "mrr",
+          "ndcg_at_10"
+        ]
+      },
+      "learned_dense": {
+        "evaluated_cases": 323,
+        "hit_at_1": 0.3281733746130031,
+        "misses_at_k": 318,
+        "metric_keys": [
+          "recall_at_10",
+          "mrr",
+          "ndcg_at_10"
+        ]
+      },
+      "hybrid_rrf": {
+        "evaluated_cases": 323,
+        "hit_at_1": 0.43962848297213625,
+        "misses_at_k": 309,
+        "metric_keys": [
+          "recall_at_10",
+          "mrr",
+          "ndcg_at_10"
+        ]
+      },
+      "hybrid_crossencoder": {
+        "evaluated_cases": 323,
+        "hit_at_1": 0.4086687306501548,
+        "misses_at_k": 309,
+        "metric_keys": [
+          "recall_at_10",
+          "mrr",
+          "ndcg_at_10"
+        ]
+      }
+    },
+    "failure_taxonomy": "graded_qrels_retrieval_v1"
+  }
+}

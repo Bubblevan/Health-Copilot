@@ -1,0 +1,14 @@
+{
+  "data_dir": ".health-bench-data\\normalized\\nfcorpus-v1",
+  "manifest": "benchmarks\\nfcorpus\\manifest.json",
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "embedding_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+  "reranker_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "reranker_revision": "1427fd652930e4ba29e8149678df786c240d8825",
+  "local_files_only": true,
+  "top_k": 10,
+  "candidate_top_k": 10,
+  "rrf_k": 60,
+  "git_sha": "33a46865a1106c4158ad51593dd21412a3328e55",
+  "runner_sha256": "BEC0D3F3AFE5F4E8189782EE811D4798AEED38B87CB207AD94DBB87B5A31528B"
+}
