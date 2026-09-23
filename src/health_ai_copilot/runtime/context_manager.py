@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from hashlib import sha256
 from typing import Any, Protocol
@@ -243,6 +243,35 @@ class ContextManager:
         if history_window < 0:
             raise ValueError("history_window must be non-negative")
 
+    def priority_candidates(
+        self,
+        *,
+        memory_records: Sequence[MemoryRecord] = (),
+        history: Sequence[SessionEvent | ContextItem] = (),
+        research_data_classification: str | None = None,
+    ) -> tuple[ContextItem, ...]:
+        """Build stable candidates; explicitly label research-safe data before external use."""
+        memory_items = [self._memory_item(record) for record in memory_records]
+        history_items = [self._history_item(item) for item in history]
+        if self.history_window:
+            history_items = history_items[-self.history_window :]
+        self._validate_groups(history_items)
+        items = tuple((*memory_items, *history_items))
+        if research_data_classification is not None:
+            if research_data_classification not in {"public", "synthetic"}:
+                raise ValueError("research_data_classification must be public or synthetic")
+            items = tuple(
+                replace(
+                    item,
+                    provenance={
+                        **item.provenance,
+                        "research_data_classification": research_data_classification,
+                    },
+                )
+                for item in items
+            )
+        return items
+
     def build_plan(
         self,
         *,
@@ -255,6 +284,7 @@ class ContextManager:
         system_pins: Sequence[ContextItem] = (),
         retrieval_query: str | None = None,
         extra_items: Sequence[ContextItem] = (),
+        priority_hints: Mapping[str, ContextPriority | str] | None = None,
     ) -> ContextPlan:
         items: list[ContextItem] = []
         items.extend(system_pins)
@@ -283,30 +313,14 @@ class ContextManager:
                     provenance={"source_id": source_id},
                 )
             )
-        for record in memory_records:
-            content = {
-                "memory_id": record.memory_id,
-                "kind": record.kind.value,
-                "key": record.key,
-                "value": record.value,
-                "source_type": record.source_type.value,
-                "value_sha256": record.value_sha256,
-            }
-            items.append(
-                ContextItem(
-                    item_id=f"memory-{record.memory_id}",
-                    category=ContextItemCategory.MEMORY,
-                    content=content,
-                    estimated_tokens=self.estimator.estimate(content),
-                    priority=ContextPriority.HIGH,
-                    provenance={"memory_id": record.memory_id, "status": record.status.value},
-                )
-            )
+        items.extend(self._memory_item(record) for record in memory_records)
         history_items = [self._history_item(item) for item in history]
         if self.history_window:
             history_items = history_items[-self.history_window :]
         items.extend(history_items)
         items.extend(extra_items)
+        if priority_hints:
+            items = self._apply_priority_hints(items, priority_hints)
         self._validate_groups(history_items)
 
         units: list[list[ContextItem]] = []
@@ -435,6 +449,44 @@ class ContextManager:
             compaction_count=compacted_count,
         )
 
+    @staticmethod
+    def _apply_priority_hints(
+        items: Sequence[ContextItem],
+        priority_hints: Mapping[str, ContextPriority | str],
+    ) -> list[ContextItem]:
+        normalized = {
+            str(item_id): ContextPriority(priority)
+            for item_id, priority in priority_hints.items()
+        }
+        by_id = {item.item_id: item for item in items}
+        unknown = set(normalized) - set(by_id)
+        if unknown:
+            raise ValueError(f"priority hints refer to unknown context items: {sorted(unknown)}")
+        eligible = {
+            ContextItemCategory.MEMORY,
+            ContextItemCategory.RECENT_HISTORY,
+            ContextItemCategory.SESSION_SUMMARY,
+            ContextItemCategory.TOOL_EXCHANGE,
+        }
+        for item_id in normalized:
+            item = by_id[item_id]
+            if item.protected or item.priority == ContextPriority.PROTECTED or item.category not in eligible:
+                raise ValueError(f"priority hints cannot change protected context: {item_id}")
+        groups: dict[str, list[ContextItem]] = {}
+        for item in items:
+            if item.group_id:
+                groups.setdefault(item.group_id, []).append(item)
+        for group_id, members in groups.items():
+            hinted = [item.item_id in normalized for item in members]
+            if any(hinted) and (not all(hinted) or len({normalized[item.item_id] for item in members}) != 1):
+                raise ValueError(f"priority hints must cover an atomic group consistently: {group_id}")
+        return [
+            replace(item, priority=normalized[item.item_id])
+            if item.item_id in normalized
+            else item
+            for item in items
+        ]
+
     def _history_item(self, value: SessionEvent | ContextItem) -> ContextItem:
         if isinstance(value, ContextItem):
             return value
@@ -462,6 +514,24 @@ class ContextManager:
             protected=category == ContextItemCategory.TOOL_EXCHANGE and isinstance(payload, Mapping) and bool(payload.get("unresolved")),
             provenance={"event_id": value.event_id, "sequence": value.sequence, "event_type": value.event_type.value},
             group_id=group_id,
+        )
+
+    def _memory_item(self, record: MemoryRecord) -> ContextItem:
+        content = {
+            "memory_id": record.memory_id,
+            "kind": record.kind.value,
+            "key": record.key,
+            "value": record.value,
+            "source_type": record.source_type.value,
+            "value_sha256": record.value_sha256,
+        }
+        return ContextItem(
+            item_id=f"memory-{record.memory_id}",
+            category=ContextItemCategory.MEMORY,
+            content=content,
+            estimated_tokens=self.estimator.estimate(content),
+            priority=ContextPriority.HIGH,
+            provenance={"memory_id": record.memory_id, "status": record.status.value},
         )
 
     @staticmethod
