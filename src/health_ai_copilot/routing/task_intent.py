@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Any, Mapping
+from typing import Any
 
 from .jev import JevResult
 
@@ -92,8 +93,10 @@ def task_intent_questions() -> dict[str, dict[str, Any]]:
             "One source or one source family is likely enough.",
         ),
         "requires_cross_source_comparison": (
-            "Does the question ask to compare guidance across sources, institutions, "
-            "or jurisdictions?",
+            (
+                "Does the question ask to compare guidance across sources, institutions, "
+                "or jurisdictions?"
+            ),
             "The requested answer must compare multiple sources, institutions, or jurisdictions.",
             "The question does not request a cross-source comparison.",
         ),
@@ -135,7 +138,7 @@ def parse_task_intent(result: JevResult) -> TaskIntentAssessment:
         raise ValueError("Jev returned an unknown primary task intent") from exc
     raw_probabilities = choice.get("probabilities")
     if not isinstance(raw_probabilities, Mapping):
-        raise ValueError("Jev did not return primary task intent probabilities")
+        raise TypeError("Jev primary task intent probabilities must be an object")
     primary_probabilities = {
         intent.value: _probability(raw_probabilities.get(intent.value))
         for intent in PrimaryTaskIntent
@@ -159,15 +162,15 @@ def parse_task_intent(result: JevResult) -> TaskIntentAssessment:
 
 def _probability(value: Any) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
-        raise ValueError("Jev probabilities must be numbers between 0 and 1")
+        raise TypeError("Jev probabilities must be numeric values between 0 and 1")
     if not 0.0 <= float(value) <= 1.0:
         raise ValueError("Jev probabilities must be between 0 and 1")
     return float(value)
 
 
 __all__ = [
-    "PrimaryTaskIntent",
     "TASK_INTENT_FACETS",
+    "PrimaryTaskIntent",
     "TaskIntentAssessment",
     "parse_task_intent",
     "task_intent_questions",

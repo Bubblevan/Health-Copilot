@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 from ..runtime.context_manager import ContextItem, ContextItemCategory, ContextPriority
 from .architecture import _require_research_safe_classification
 from .jev import JevClient, JevResult
-
 
 ELIGIBLE_CATEGORIES = frozenset(
     {

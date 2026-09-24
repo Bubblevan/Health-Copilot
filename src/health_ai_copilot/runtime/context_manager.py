@@ -256,7 +256,8 @@ class ContextManager:
         if self.history_window:
             history_items = history_items[-self.history_window :]
         self._validate_groups(history_items)
-        items = tuple((*memory_items, *history_items))
+        # Preserve the frozen M10.1 tuple-construction boundary.
+        items = tuple((*memory_items, *history_items))  # noqa: C409
         if research_data_classification is not None:
             if research_data_classification not in {"public", "synthetic"}:
                 raise ValueError("research_data_classification must be public or synthetic")

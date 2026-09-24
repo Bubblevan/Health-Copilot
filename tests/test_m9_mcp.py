@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import platform
+import subprocess
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -341,7 +342,11 @@ def test_mcp_tool_result_can_be_replayed_without_starting_mcp() -> None:
 @pytest.mark.skipif(platform.system() != "Windows", reason="WSL containment smoke is Windows-host specific")
 def test_wsl_bubblewrap_real_filesystem_containment(tmp_path: Path) -> None:
     backend = WslBubblewrapSandboxBackend()
-    if not backend.is_available():
+    try:
+        available = backend.is_available()
+    except (OSError, subprocess.SubprocessError):
+        available = False
+    if not available:
         pytest.skip("WSL2 Bubblewrap is unavailable")
     allowed_dir = tmp_path / "allowed"
     workspace = tmp_path / "workspace"
@@ -375,7 +380,11 @@ def test_real_stdio_mcp_fixture_is_contained_by_wsl_bubblewrap(tmp_path: Path) -
     site_dir = Path(".m9-wsl-site").resolve()
     fixture_script = Path("tools/m9_security_mcp_server.py").resolve()
     backend = WslBubblewrapSandboxBackend()
-    if not backend.is_available() or not site_dir.exists():
+    try:
+        available = backend.is_available()
+    except (OSError, subprocess.SubprocessError):
+        available = False
+    if not available or not site_dir.exists():
         pytest.skip("WSL Bubblewrap fixture dependencies are unavailable")
 
     allowed_dir = tmp_path / "allowed"

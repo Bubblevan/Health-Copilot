@@ -6,12 +6,12 @@ import asyncio
 import json
 import os
 import time
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
-
 
 DEFAULT_BASE_URL = "https://api.typesafe.ai"
 DEFAULT_MODEL = "jev-latest"
@@ -100,7 +100,7 @@ class JevClient:
         }
         started = time.perf_counter()
         response = await asyncio.to_thread(self._post, payload)
-        latency_ms = int(round((time.perf_counter() - started) * 1000))
+        latency_ms = round((time.perf_counter() - started) * 1000)
         answers = response.get("answers")
         usage = response.get("usage")
         if not isinstance(answers, Mapping) or not isinstance(usage, Mapping):
@@ -109,7 +109,10 @@ class JevClient:
             raise JevAPIError("TypeSafe response contains an invalid answer")
         input_tokens = usage.get("input_tokens")
         output_tokens = usage.get("output_tokens")
-        if not isinstance(input_tokens, int) or not isinstance(output_tokens, int):
+        if any(
+            not isinstance(value, int) or isinstance(value, bool) or value < 0
+            for value in (input_tokens, output_tokens)
+        ):
             raise JevAPIError("TypeSafe response contains invalid token usage")
         return JevResult(
             model=str(response.get("model", self.config.model)),

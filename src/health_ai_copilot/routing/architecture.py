@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, replace
 from enum import StrEnum
-from typing import Any, Mapping
+from typing import Any
 
 from .jev import JevClient, JevResult
 from .task_intent import TaskIntentAssessment, parse_task_intent, task_intent_questions
@@ -277,7 +278,7 @@ def _typed_answer(result: JevResult, name: str, expected_type: str) -> Mapping[s
 
 def _probabilities(value: Any, expected: tuple[str, ...]) -> dict[str, float]:
     if not isinstance(value, Mapping):
-        raise ValueError("Jev did not return architecture probabilities")
+        raise TypeError("Jev architecture probabilities must be an object")
     result = {name: _probability(value.get(name)) for name in expected}
     if sum(result.values()) <= 0:
         raise ValueError("Jev returned empty architecture probabilities")
@@ -307,10 +308,10 @@ def _require_research_safe_classification(value: str) -> None:
 
 
 __all__ = [
+    "WORKER_FAMILY",
     "Architecture",
     "ArchitectureDecision",
     "JevArchitectureRouter",
     "JevTaskIntentRouter",
-    "WORKER_FAMILY",
     "WorkerRole",
 ]

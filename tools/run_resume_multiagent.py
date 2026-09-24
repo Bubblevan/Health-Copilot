@@ -24,9 +24,9 @@ from eval.resume_experiment_utils import (
     write_json,
 )
 from health_ai_copilot.routing import (
+    WORKER_FAMILY,
     JevArchitectureRouter,
     JevTaskIntentRouter,
-    WORKER_FAMILY,
 )
 
 
@@ -250,15 +250,16 @@ async def async_main(args: argparse.Namespace) -> int:
                 route_artifact=route_artifact,
             )
             result = {"case_id": case["case_id"], "task_family": case.get("task_family", "uncategorized"), "budget_mode": args.budget_mode, "case_identity": cid, "config_identity": identity, "status": "completed", **result}
-            result["latency_ms"] = int(round((time.perf_counter() - started) * 1000))
+            result["latency_ms"] = round((time.perf_counter() - started) * 1000)
             append_jsonl(result_path, result)
             if args.architecture == "team" or args.architecture in jev_modes:
                 for report in result.get("worker_reports", []):
                     append_jsonl(args.output_dir / "worker_reports.jsonl", {"case_id": case["case_id"], "config_identity": identity, **report})
                 for ledger_row in result.get("evidence_ledger", []):
                     append_jsonl(args.output_dir / "evidence_ledger.jsonl", {"case_id": case["case_id"], "config_identity": identity, **ledger_row})
-        except Exception as exc:
-            failure = {"case_id": case["case_id"], "task_family": case.get("task_family", "uncategorized"), "case_identity": cid, "config_identity": identity, "status": "failed", "failure_classification": classify_failure(exc), "error": safe_output(exc), "latency_ms": int(round((time.perf_counter() - started) * 1000))}
+        # Preserve unexpected per-case failures as resumable records.
+        except Exception as exc:  # noqa: BLE001
+            failure = {"case_id": case["case_id"], "task_family": case.get("task_family", "uncategorized"), "case_identity": cid, "config_identity": identity, "status": "failed", "failure_classification": classify_failure(exc), "error": safe_output(exc), "latency_ms": round((time.perf_counter() - started) * 1000)}
             failure.update(route_artifact)
             append_jsonl(args.output_dir / "failures.jsonl", failure)
             append_jsonl(result_path, failure)
