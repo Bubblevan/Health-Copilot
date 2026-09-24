@@ -32,6 +32,22 @@ from tools.run_e1_2_r2med_retrieval import (
 )
 
 
+def paired_query_maps(
+    rows: list[dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+    rows_by_key: dict[str, dict[str, Any]] = {}
+    subset_by_key: dict[str, str] = {}
+    for row in rows:
+        subset = str(row["subset"])
+        query_id = str(row["query_id"])
+        key = json.dumps([subset, query_id], ensure_ascii=False, separators=(",", ":"))
+        if key in rows_by_key:
+            raise ValueError(f"duplicate query ID within {subset} for paired analysis")
+        rows_by_key[key] = row
+        subset_by_key[key] = subset
+    return rows_by_key, subset_by_key
+
+
 def collect_arm(
     partition: str,
     arm: str,
@@ -60,8 +76,7 @@ def collect_arm(
         if len(rows) != entry["query_count"] or len(checked) != entry["query_count"]:
             raise ValueError(f"wrong number of query results for {entry['name']} / {arm}")
         all_rows.extend(rows)
-    if len({str(row["query_id"]) for row in all_rows}) != len(all_rows):
-        raise ValueError(f"duplicate query IDs across {partition} subsets for {arm}")
+    paired_query_maps(all_rows)
     return all_rows
 
 
@@ -74,9 +89,8 @@ def lock_dev(*, scratch_root: Path) -> dict[str, Any]:
     dev_rows = {arm: collect_arm("DEV", arm, source_manifest=source_manifest, config_hash=config_hash, source_hash=source_hash, scratch_root=scratch_root) for arm in ARMS}
     summaries = _summaries(dev_rows)
     selected = select_best_fixed_baseline({arm: summaries[arm] for arm in FIXED_ARMS})
-    method_rows = {str(row["query_id"]): row for row in dev_rows["rrf_medcpt_rerank"]}
-    baseline_rows = {str(row["query_id"]): row for row in dev_rows[selected]}
-    subset_by_query = {str(row["query_id"]): str(row["subset"]) for row in dev_rows[selected]}
+    method_rows, _ = paired_query_maps(dev_rows["rrf_medcpt_rerank"])
+    baseline_rows, subset_by_query = paired_query_maps(dev_rows[selected])
     dev_difference = paired_macro_bootstrap(
         method_rows, baseline_rows, subset_by_query, metric="ndcg@10", resamples=10_000
     )
@@ -118,13 +132,12 @@ def analyze_test(*, scratch_root: Path, output_path: Path) -> dict[str, Any]:
     test_rows = {arm: collect_arm("TEST", arm, source_manifest=source_manifest, config_hash=config_hash, source_hash=source_hash, scratch_root=scratch_root) for arm in ARMS}
     summaries = _summaries(test_rows)
     baseline_arm = str(lock["selected_fixed_baseline"])
-    baseline = {str(row["query_id"]): row for row in test_rows[baseline_arm]}
-    subset_by_query = {str(row["query_id"]): str(row["subset"]) for row in test_rows[baseline_arm]}
+    baseline, subset_by_query = paired_query_maps(test_rows[baseline_arm])
     paired: dict[str, Any] = {}
     for arm in ARMS:
         if arm == baseline_arm:
             continue
-        candidates = {str(row["query_id"]): row for row in test_rows[arm]}
+        candidates, _ = paired_query_maps(test_rows[arm])
         paired[arm] = {
             metric: paired_macro_bootstrap(
                 candidates,
