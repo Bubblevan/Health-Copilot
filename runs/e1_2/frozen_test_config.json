@@ -42,7 +42,8 @@
     ],
     "prompt_and_sampling": "Both candidates receive the same case order, question/options, empty evidence, temperature 0, JSON answer format, and 32-token output cap.",
     "selection_metric": "macro exact-answer accuracy over the three clean subdatasets; invalid outputs and provider failures count incorrect",
-    "selection_rule": "Choose CONFIGURED_API_MODEL only if its macro accuracy exceeds QWEN3_LOCAL by at least 0.02 and its completed-call coverage is at least 95%; otherwise choose QWEN3_LOCAL. Record actual served model IDs.",
+    "minimum_completion_coverage_each_candidate": 0.95,
+    "selection_rule": "Abort model selection if QWEN3_LOCAL completion coverage is below 95%. Otherwise choose CONFIGURED_API_MODEL only if its macro accuracy exceeds QWEN3_LOCAL by at least 0.02 and its completed-call coverage is at least 95%; otherwise choose QWEN3_LOCAL. Record actual served model IDs.",
     "selection_uses_test": false
   },
   "answer_protocol": {
