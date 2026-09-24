@@ -1,0 +1,52 @@
+{
+  "schema_version": "e1-2-storage-plan-v1",
+  "captured_date_local": "2026-09-24",
+  "policy": {
+    "minimum_predicted_free_after_peak": "max(30 GiB, 20% of target volume capacity)",
+    "delete_or_evict_existing_user_data": false,
+    "downloaded_data_or_models_committed_to_git": false
+  },
+  "volumes": [
+    {
+      "drive": "D:",
+      "capacity_gib": 751.6,
+      "free_gib_before": 13.8,
+      "required_free_gib": 150.3,
+      "decision": "NO_NEW_RAW_DATA_OR_MODEL_CACHES",
+      "reason": "Already below the required free-space floor. Only small source-controlled code/docs and compact metrics may be written in the workspace."
+    },
+    {
+      "drive": "E:",
+      "capacity_gib": 803.9,
+      "free_gib_before": 194.0,
+      "required_free_gib": 160.8,
+      "maximum_safe_new_use_gib": 33.2,
+      "decision": "RESERVE_AS_FALLBACK_ONLY"
+    },
+    {
+      "drive": "F:",
+      "label": "Elements SE",
+      "device": "WD Elements SE 2623 USB HDD",
+      "health": "Healthy",
+      "capacity_gib": 931.5,
+      "free_gib_before": 763.3,
+      "required_free_gib": 186.3,
+      "maximum_safe_new_use_gib": 577.0,
+      "planned_new_use_cap_gib": 50.0,
+      "predicted_free_after_peak_gib": 713.3,
+      "decision": "USE_DEDICATED_E1_2_SCRATCH_ROOT",
+      "planned_contents": [
+        "shallow, commit-pinned upstream source checkouts",
+        "one official Qwen3-8B-GGUF Q4_K_M model file (5,027,783,488 bytes; pinned revision and SHA in e1_2_baseline_sources.md)",
+        "only the smallest selected clinical-retrieval data/index needed for the frozen condition"
+      ],
+      "stop_condition": "Do not begin a download if its size is unknown or if the total forecast exceeds 50 GiB; remeasure free space before each large artifact and stop if predicted remaining free space would fall below 186.3 GiB."
+    }
+  ],
+  "reused_without_copy": [
+    "E0-pinned Medical MIRAGE raw/normalized cache already present in the repository cache",
+    "18-file MedRAG Textbooks corpus already present in the workspace",
+    "three local MedCPT encoders already present under the existing models directory"
+  ],
+  "operational_risk": "F: is an external USB HDD. Keep it connected throughout the run; write compact committed metrics/manifests under runs/e1_2 only. No benchmark run depends on deleting or moving existing data."
+}

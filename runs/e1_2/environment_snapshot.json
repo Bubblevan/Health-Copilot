@@ -1,0 +1,42 @@
+{
+  "schema_version": "e1-2-environment-snapshot-v1",
+  "captured_date_local": "2026-09-24",
+  "repository": {
+    "branch": "main",
+    "commit": "f4be78e",
+    "github_actions": "success"
+  },
+  "host": {
+    "os": "Windows 11 Home 10.0.26200",
+    "system_ram_gib": 63.7,
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+      "vram_mib": 16376,
+      "observed_used_mib": 58,
+      "observed_utilization_percent": 0
+    },
+    "llama_cpp": {
+      "version": "10068",
+      "binary_source": "already-installed WinGet package ggml.llamacpp"
+    }
+  },
+  "data_identities": {
+    "medical_mirage_raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
+    "medical_mirage_normalized_sha256": "3a31d3e7fbe6b1184afdbd46925db28747e2ec60d3e53948d8b7ce8ecd614923",
+    "medical_mirage_case_count": 7663,
+    "medrag_textbooks_files": 18,
+    "medrag_textbooks_bytes": 211559353,
+    "medcpt_local_components": [
+      "MedCPT-Query-Encoder",
+      "MedCPT-Article-Encoder",
+      "MedCPT-Cross-Encoder"
+    ]
+  },
+  "provider_configuration": {
+    "configured_answer_model_id": "deepseek-flash",
+    "answer_api_key_present": true,
+    "jev_api_key_present": true,
+    "secret_values_recorded": false
+  },
+  "data_integrity_note": "The separate user-provided MIRAGE JSON under the Jianli data directory has SHA-256 9f07ffab4822513906d55ec8833607c94cbf86dd6f0810a20c12923f1a51c1e1 and does not match the frozen E0 raw identity; it is not used."
+}
