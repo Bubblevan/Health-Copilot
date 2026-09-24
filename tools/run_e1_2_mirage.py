@@ -13,8 +13,6 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.error import HTTPError
-from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -282,39 +280,64 @@ def select_generator(*, scratch_root: Path, config: dict[str, Any], config_sha25
 
 
 def run_jev_preflight() -> dict[str, Any]:
-    from health_ai_copilot.routing.jev import JevConfig
+    from dataclasses import replace
+
+    from health_ai_copilot.routing.jev import JevClient, JevConfig
 
     base: dict[str, Any] = {
         "requested_model": JEV_MODEL,
-        "endpoint": "GET /v1/models",
+        "endpoint": None,
         "checked_at_utc": datetime.now(UTC).isoformat(),
         "secret_values_recorded": False,
     }
     try:
         settings = JevConfig.from_env(dotenv_path=ROOT / ".env")
-        request = Request(
-            f"{settings.base_url.rstrip('/')}/v1/models",
-            headers={"Authorization": f"Bearer {settings.api_key}", "Accept": "application/json"},
-            method="GET",
+        client = JevClient(replace(settings, model=JEV_MODEL))
+        base["endpoint"] = (
+            "POST /api/v1/decide" if settings.api_mode == "hosted" else "POST /v1/systemone"
         )
-        with urlopen(request, timeout=settings.timeout_seconds) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-        models = payload.get("models", payload.get("data", [])) if isinstance(payload, dict) else []
+        result = asyncio.run(
+            client.evaluate(
+                state=(
+                    "Synthetic adapter smoke only: would an HTTP 404 troubleshooting question "
+                    "benefit from consulting an external technical reference?"
+                ),
+                questions={
+                    "retrieval_likely_to_help": JEV_QUESTIONS["retrieval_likely_to_help"],
+                    "requires_specialized_detail": JEV_QUESTIONS["requires_specialized_detail"],
+                },
+            )
+        )
+        answer_schema_valid = all(
+            name in result.answers
+            and isinstance(result.answers[name].get("noul"), (int, float))
+            and not isinstance(result.answers[name].get("noul"), bool)
+            and 0 <= float(result.answers[name]["noul"]) <= 1
+            for name in JEV_QUESTIONS
+        )
         base.update(
             {
-                "status": "AUTHENTICATED",
+                "status": "AUTHENTICATED"
+                if result.model == JEV_MODEL and answer_schema_valid
+                else "BLOCKED_MODEL_OR_SCHEMA_MISMATCH",
                 "http_status": 200,
-                "available_model_names": sorted(
-                    str(row.get("name", row.get("id", "")))
-                    for row in models
-                    if isinstance(row, dict)
-                ),
+                "api_mode": settings.api_mode,
+                "served_model": result.model,
+                "answer_schema_valid": answer_schema_valid,
+                "input_tokens": result.input_tokens,
+                "output_tokens": result.output_tokens,
+                "actual_cost_usd": result.cost_usd,
             }
         )
-    except HTTPError as exc:
-        base.update({"status": "BLOCKED_CREDENTIALS", "http_status": exc.code})
     except Exception as exc:  # noqa: BLE001 -- never persist request details or secrets
-        base.update({"status": "BLOCKED_PREFLIGHT", "error_type": type(exc).__name__})
+        base.update(
+            {
+                "status": "BLOCKED_PREFLIGHT",
+                "api_mode": settings.api_mode if "settings" in locals() else None,
+                "error_type": type(exc).__name__,
+                "error": str(exc)[:160] if type(exc).__name__ == "JevAPIError" else None,
+            }
+        )
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     path = ROOT / "runs" / "e1_2" / f"jev_preflight_{timestamp}.json"
     write_json_atomic(path, base, refuse_overwrite=True)
@@ -459,7 +482,7 @@ def run_arm(
     if partition_name == "TEST" and limit is not None:
         raise ValueError("TEST must run every frozen case; --limit is allowed only for DEV smoke checks")
     if arm_name == "jev_router" and not _jev_preflight_is_authenticated():
-        raise RuntimeError("Jev arm is blocked until authenticated model-list preflight succeeds")
+        raise RuntimeError("Jev arm is blocked until authenticated decision-API preflight succeeds")
 
     config, config_sha256 = load_frozen_config()
     selection = load_selection()
@@ -547,6 +570,7 @@ def run_arm(
             decision: dict[str, Any] | None = None
             route_latency_ms = 0
             router_tokens = {"input": 0, "output": 0}
+            router_cost_usd = None
             jev_served_model = None
             if arm_name == "closed_book":
                 action = RetrievalAction.CLOSED_BOOK
@@ -610,6 +634,7 @@ def run_arm(
                     decision = route.to_dict()
                     route_latency_ms = response.latency_ms
                     router_tokens = {"input": response.input_tokens, "output": response.output_tokens}
+                    router_cost_usd = response.cost_usd
                     jev_served_model = response.model
                     retrieved, retrieval_latency_ms = _selected_retrieval(action, case_id, bm25_rows, medcpt_rows)
                 except Exception as exc:  # noqa: BLE001 -- use fixed cheap failover and hide provider details
@@ -668,6 +693,7 @@ def run_arm(
                 "router_calls": router_calls,
                 "router_input_tokens": router_tokens["input"],
                 "router_output_tokens": router_tokens["output"],
+                "router_cost_usd": router_cost_usd,
                 "jev_served_model": jev_served_model,
                 "retrieval_calls": int(action is not RetrievalAction.CLOSED_BOOK),
                 "retrieved_chunks": len(evidence),

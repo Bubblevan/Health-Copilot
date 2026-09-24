@@ -123,6 +123,15 @@ async def run_case(
 def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     coverage = [float(row["evidence_group_coverage"]) for row in rows if isinstance(row.get("evidence_group_coverage"), (int, float))]
     latencies = [float(row["latency_ms"]) for row in rows if isinstance(row.get("latency_ms"), (int, float))]
+    jev_call_count = sum(int(row.get("jev_api_calls", 0)) for row in rows)
+    jev_output_token_values = [
+        row.get("jev_output_tokens")
+        for row in rows
+        if int(row.get("jev_api_calls", 0)) > 0 and row.get("jev_output_tokens") is not None
+    ]
+    jev_output_token_coverage = (
+        len(jev_output_token_values) / jev_call_count if jev_call_count else 1.0
+    )
     return {
         "cases": len(rows),
         "EvidenceGroupCoverage": mean(coverage),
@@ -137,7 +146,12 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "provider_calls": sum(int(row.get("provider_calls", 0)) for row in rows),
         "jev_api_calls": sum(int(row.get("jev_api_calls", 0)) for row in rows),
         "jev_input_tokens": sum(int(row.get("jev_input_tokens", 0)) for row in rows),
-        "jev_output_tokens": sum(int(row.get("jev_output_tokens", 0)) for row in rows),
+        "jev_output_tokens": (
+            sum(int(value) for value in jev_output_token_values)
+            if jev_output_token_coverage == 1.0
+            else None
+        ),
+        "jev_output_token_measurement_coverage": jev_output_token_coverage,
         "tool_calls": sum(int(row.get("tool_calls", 0)) for row in rows),
         "input_tokens": mean(float(row["lead_input_tokens"]) for row in rows if isinstance(row.get("lead_input_tokens"), (int, float))),
         "output_tokens": mean(float(row["lead_output_tokens"]) for row in rows if isinstance(row.get("lead_output_tokens"), (int, float))),

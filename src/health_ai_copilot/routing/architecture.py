@@ -41,7 +41,7 @@ class ArchitectureDecision:
     latency_ms: int
     model: str
     input_tokens: int
-    output_tokens: int
+    output_tokens: int | None
     fallback_reason: str | None = None
     task_intent: TaskIntentAssessment | None = None
     route_policy_version: str | None = None

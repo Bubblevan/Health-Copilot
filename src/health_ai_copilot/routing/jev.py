@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import math
 import os
 import time
 from collections.abc import Mapping
@@ -14,6 +15,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 DEFAULT_BASE_URL = "https://api.typesafe.ai"
+HOSTED_BASE_URL = "https://jevtypesafeai.com"
 DEFAULT_MODEL = "jev-latest"
 
 
@@ -34,8 +36,10 @@ class JevResult:
     model: str
     answers: Mapping[str, Mapping[str, Any]]
     input_tokens: int
-    output_tokens: int
+    output_tokens: int | None
     latency_ms: int
+    cost_usd: float | None = None
+    credits_remaining_usd: float | None = None
 
 
 @dataclass(frozen=True)
@@ -44,6 +48,7 @@ class JevConfig:
     model: str = DEFAULT_MODEL
     base_url: str = DEFAULT_BASE_URL
     timeout_seconds: float = 20.0
+    api_mode: str = "typesafe"
 
     def __post_init__(self) -> None:
         if not self.api_key.strip():
@@ -52,6 +57,8 @@ class JevConfig:
             raise JevConfigurationError("JEV_MODEL must be non-empty")
         if not self.base_url.startswith("https://"):
             raise JevConfigurationError("JEV_BASE_URL must use HTTPS")
+        if self.api_mode not in {"hosted", "typesafe"}:
+            raise JevConfigurationError("JEV_API_MODE must be 'hosted' or 'typesafe'")
         if self.timeout_seconds <= 0:
             raise JevConfigurationError("JEV_TIMEOUT_SECONDS must be positive")
 
@@ -71,16 +78,23 @@ class JevConfig:
             timeout = float(setting("JEV_TIMEOUT_SECONDS", "20"))
         except ValueError as exc:
             raise JevConfigurationError("JEV_TIMEOUT_SECONDS must be a number") from exc
+        api_mode = setting("JEV_API_MODE").lower()
+        if not api_mode:
+            api_mode = "hosted" if key.startswith("jv_live_") else "typesafe"
+        if api_mode not in {"hosted", "typesafe"}:
+            raise JevConfigurationError("JEV_API_MODE must be 'hosted' or 'typesafe'")
+        default_base_url = HOSTED_BASE_URL if api_mode == "hosted" else DEFAULT_BASE_URL
         return cls(
             api_key=key,
             model=setting("JEV_MODEL", DEFAULT_MODEL),
-            base_url=setting("JEV_BASE_URL", DEFAULT_BASE_URL).rstrip("/"),
+            base_url=setting("JEV_BASE_URL", default_base_url).rstrip("/"),
             timeout_seconds=timeout,
+            api_mode=api_mode,
         )
 
 
 class JevClient:
-    """Calls POST /v1/systemone and validates its typed response envelope."""
+    """Calls either the hosted decision API or TypeSafe's direct System One API."""
 
     def __init__(self, config: JevConfig | None = None) -> None:
         self.config = config or JevConfig.from_env()
@@ -93,10 +107,9 @@ class JevClient:
     ) -> JevResult:
         if not questions:
             raise ValueError("at least one named Jev question is required")
-        payload = {
-            "state": state,
-            "model": self.config.model,
-            "questions": {str(name): dict(question) for name, question in questions.items()},
+        payload = {"state": state, "model": self.config.model}
+        payload["questions"] = {
+            str(name): dict(question) for name, question in questions.items()
         }
         started = time.perf_counter()
         response = await asyncio.to_thread(self._post, payload)
@@ -104,28 +117,45 @@ class JevClient:
         answers = response.get("answers")
         usage = response.get("usage")
         if not isinstance(answers, Mapping) or not isinstance(usage, Mapping):
-            raise JevAPIError("TypeSafe response is missing answers or usage")
+            raise JevAPIError("Jev response is missing answers or usage")
         if any(not isinstance(answer, Mapping) for answer in answers.values()):
-            raise JevAPIError("TypeSafe response contains an invalid answer")
+            raise JevAPIError("Jev response contains an invalid answer")
         input_tokens = usage.get("input_tokens")
         output_tokens = usage.get("output_tokens")
         if any(
             not isinstance(value, int) or isinstance(value, bool) or value < 0
-            for value in (input_tokens, output_tokens)
+            for value in (input_tokens,)
         ):
-            raise JevAPIError("TypeSafe response contains invalid token usage")
+            raise JevAPIError("Jev response contains invalid input-token usage")
+        if output_tokens is None and self.config.api_mode == "typesafe":
+            raise JevAPIError("TypeSafe response contains no output-token usage")
+        if output_tokens is not None and (
+            not isinstance(output_tokens, int)
+            or isinstance(output_tokens, bool)
+            or output_tokens < 0
+        ):
+            raise JevAPIError("Jev response contains invalid output-token usage")
+        cost_usd = _optional_nonnegative_number(usage.get("cost_usd"), "cost_usd")
+        credits_remaining_usd = _optional_nonnegative_number(
+            usage.get("credits_remaining_usd"), "credits_remaining_usd"
+        )
+        if self.config.api_mode == "hosted" and cost_usd is None:
+            raise JevAPIError("hosted Jev response contains no actual cost")
         return JevResult(
             model=str(response.get("model", self.config.model)),
             answers={str(name): dict(answer) for name, answer in answers.items()},
             input_tokens=input_tokens,
             output_tokens=output_tokens,
             latency_ms=latency_ms,
+            cost_usd=cost_usd,
+            credits_remaining_usd=credits_remaining_usd,
         )
 
     def _post(self, payload: Mapping[str, Any]) -> Mapping[str, Any]:
         data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        endpoint_path = "/api/v1/decide" if self.config.api_mode == "hosted" else "/v1/systemone"
         request = Request(
-            f"{self.config.base_url}/v1/systemone",
+            f"{self.config.base_url}{endpoint_path}",
             data=data,
             headers={
                 "Authorization": f"Bearer {self.config.api_key}",
@@ -137,14 +167,27 @@ class JevClient:
             with urlopen(request, timeout=self.config.timeout_seconds) as response:
                 parsed = json.loads(response.read().decode("utf-8"))
         except HTTPError as exc:
-            raise JevAPIError(f"TypeSafe API returned HTTP {exc.code}") from None
+            raise JevAPIError(f"Jev API returned HTTP {exc.code}") from None
         except (URLError, TimeoutError) as exc:
-            raise JevAPIError(f"TypeSafe API request failed: {type(exc).__name__}") from None
+            raise JevAPIError(f"Jev API request failed: {type(exc).__name__}") from None
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-            raise JevAPIError(f"TypeSafe API returned invalid JSON: {type(exc).__name__}") from None
+            raise JevAPIError(f"Jev API returned invalid JSON: {type(exc).__name__}") from None
         if not isinstance(parsed, Mapping):
-            raise JevAPIError("TypeSafe API response must be a JSON object")
+            raise JevAPIError("Jev API response must be a JSON object")
         return parsed
+
+
+def _optional_nonnegative_number(value: Any, field: str) -> float | None:
+    if value is None:
+        return None
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, (int, float))
+        or not math.isfinite(value)
+        or value < 0
+    ):
+        raise JevAPIError(f"Jev response contains invalid {field}")
+    return float(value)
 
 
 def _project_root() -> Path:
@@ -164,6 +207,7 @@ def _read_jev_dotenv(path: Path) -> dict[str, str]:
         name, separator, value = stripped.partition("=")
         if separator and name.strip() in {
             "JEV_API_KEY",
+            "JEV_API_MODE",
             "JEV_MODEL",
             "JEV_BASE_URL",
             "JEV_TIMEOUT_SECONDS",

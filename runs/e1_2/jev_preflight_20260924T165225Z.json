@@ -1,0 +1,10 @@
+{
+  "requested_model": "jev-1.13.0",
+  "endpoint": "POST /api/v1/decide",
+  "checked_at_utc": "2026-09-24T16:52:25.412134+00:00",
+  "secret_values_recorded": false,
+  "status": "BLOCKED_PREFLIGHT",
+  "api_mode": "hosted",
+  "error_type": "JevAPIError",
+  "error": "Jev API request failed: URLError"
+}

@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, Self
 
 import pytest
 
@@ -117,6 +118,86 @@ def test_jev_client_validates_and_normalizes_response(monkeypatch: pytest.Monkey
     assert result.answers["route"]["choice"] == "closed_book"
 
 
+def test_jev_hosted_client_uses_hosted_endpoint_and_actual_usage(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from health_ai_copilot.routing import jev as jev_module
+
+    client = JevClient(
+        JevConfig(
+            api_key="test-only",
+            model="jev-1.13.0",
+            base_url="https://jevtypesafeai.com",
+            api_mode="hosted",
+        )
+    )
+    observed: dict[str, Any] = {}
+
+    class FakeResponse:
+        def __enter__(self) -> Self:
+            return self
+
+        def __exit__(self, *_args: object) -> None:
+            return None
+
+        def read(self) -> bytes:
+            return json.dumps(
+                {
+                    "model": "jev-1.13.0",
+                    "answers": {"gate": {"type": "noul", "noul": 0.8}},
+                    "usage": {
+                        "input_tokens": 62,
+                        "cost_usd": 0.000026,
+                        "credits_remaining_usd": 4.999974,
+                    },
+                }
+            ).encode()
+
+    def fake_urlopen(request: Any, *, timeout: float) -> FakeResponse:
+        observed["url"] = request.full_url
+        observed["payload"] = json.loads(request.data.decode())
+        observed["authorization"] = request.get_header("Authorization")
+        observed["timeout"] = timeout
+        return FakeResponse()
+
+    monkeypatch.setattr(jev_module, "urlopen", fake_urlopen)
+    result = run(
+        client.evaluate(
+            state="synthetic smoke fixture",
+            questions={"gate": {"type": "noul", "instructions": "Does retrieval help?"}},
+        )
+    )
+
+    assert observed["url"] == "https://jevtypesafeai.com/api/v1/decide"
+    assert observed["payload"] == {
+        "state": "synthetic smoke fixture",
+        "model": "jev-1.13.0",
+        "questions": {"gate": {"type": "noul", "instructions": "Does retrieval help?"}},
+    }
+    assert observed["authorization"] == "Bearer test-only"
+    assert result.model == "jev-1.13.0"
+    assert result.input_tokens == 62
+    assert result.output_tokens is None
+    assert result.cost_usd == pytest.approx(0.000026)
+    assert result.credits_remaining_usd == pytest.approx(4.999974)
+    assert result.answers["gate"]["noul"] == 0.8
+
+
+def test_jev_config_auto_selects_hosted_mode_for_hosted_key(
+    tmp_path: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    env_file = tmp_path / ".env"
+    env_file.write_text("JEV_API_KEY=jv_live_example\n", encoding="utf-8")
+    monkeypatch.delenv("JEV_API_KEY", raising=False)
+    monkeypatch.delenv("JEV_API_MODE", raising=False)
+    monkeypatch.delenv("JEV_BASE_URL", raising=False)
+
+    config = JevConfig.from_env(dotenv_path=env_file)
+
+    assert config.api_mode == "hosted"
+    assert config.base_url == "https://jevtypesafeai.com"
+
+
 @pytest.mark.parametrize(
     "response",
     [
@@ -125,6 +206,10 @@ def test_jev_client_validates_and_normalizes_response(monkeypatch: pytest.Monkey
         {"answers": {"route": "closed_book"}, "usage": {"input_tokens": 1, "output_tokens": 1}},
         {"answers": {"route": {"type": "choice"}}, "usage": {"input_tokens": True, "output_tokens": 1}},
         {"answers": {"route": {"type": "choice"}}, "usage": {"input_tokens": -1, "output_tokens": 1}},
+        {
+            "answers": {"route": {"type": "choice"}},
+            "usage": {"input_tokens": 1},
+        },
     ],
 )
 def test_jev_client_rejects_malformed_response(response: Mapping[str, Any], monkeypatch: pytest.MonkeyPatch) -> None:

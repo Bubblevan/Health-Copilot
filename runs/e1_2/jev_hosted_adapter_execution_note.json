@@ -1,0 +1,49 @@
+{
+  "schema_version": "e1-2-jev-hosted-adapter-execution-note-v1",
+  "status": "DOCUMENTED_PROTOCOL_ADAPTER_CHANGE",
+  "recorded_date_local": "2026-09-25",
+  "scope": "E1.2 Jev API transport and usage normalization only",
+  "provider": "Independent JevTypeSafeAI hosted API; not the official TypeSafe direct API",
+  "endpoint": "POST https://jevtypesafeai.com/api/v1/decide",
+  "credential_resolution": "Existing .env key is detected by its jv_live_ prefix; key contents are never written to artifacts or logs.",
+  "requested_model": "jev-1.13.0",
+  "smoke_test": {
+    "status": "AUTHENTICATED",
+    "checked_at_utc": "2026-09-24T16:52:47.475556+00:00",
+    "served_model": "jev-1.13.0",
+    "state": "Short synthetic, non-clinical HTTP 404 reference-routing question; no benchmark inputs, options, labels, or evidence.",
+    "answer_schema_valid": true,
+    "input_tokens": 448,
+    "output_tokens": 48,
+    "actual_cost_usd": 0.000189,
+    "artifact": "runs/e1_2/jev_preflight_20260924T165248Z.json"
+  },
+  "preflight_compatibility": {
+    "frozen_config_run_gate": "authenticated GET /v1/models",
+    "hosted_api_smoke": "authenticated POST /api/v1/decide",
+    "reason": "The hosted API key is not a credential for api.typesafe.ai and the hosted decision endpoint is the supported authenticated operation for this key.",
+    "initial_sandbox_attempt": "URLError before an HTTP response; no usage receipt was returned. A separately authorized retry completed the smoke test.",
+    "artifacts": [
+      "runs/e1_2/jev_preflight_20260924T165225Z.json",
+      "runs/e1_2/jev_preflight_20260924T165248Z.json"
+    ]
+  },
+  "frozen_protocol_impact": {
+    "frozen_test_config_modified": false,
+    "dev_selection_lock_modified": false,
+    "jev_arm_was_predeclared": true,
+    "changed": [
+      "Transport endpoint selection for the existing hosted key",
+      "Acceptance of hosted usage fields and capture of actual billed cost"
+    ],
+    "unchanged": [
+      "Jev model pin",
+      "Question-only routing information boundary",
+      "Jev question definitions and route threshold",
+      "Generator, retrieval arms, TEST split, metrics, and headline gate"
+    ],
+    "test_tuning_or_selection": false
+  },
+  "usage_semantics": "Hosted responses may omit output_tokens; the adapter preserves that as unknown instead of reporting a fabricated zero. Actual per-call cost is stored when the API returns it.",
+  "reference": "https://www.jevtypesafeai.com/typesafe/docs"
+}

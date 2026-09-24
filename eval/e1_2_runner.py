@@ -188,6 +188,12 @@ def summarize_results(rows: list[Mapping[str, Any]]) -> dict[str, Any]:
                 return None
             return sum(int(value) for value in values)
 
+        def complete_numeric_total(field: str) -> float | None:
+            values = [row.get(field) for row in group]
+            if count == 0 or any(value is None for value in values):
+                return None
+            return sum(float(value) for value in values)
+
         def token_measurement_coverage(field: str) -> float | None:
             values = [row.get(field) for row in group]
             return sum(value is not None for value in values) / count if count else None
@@ -238,6 +244,10 @@ def summarize_results(rows: list[Mapping[str, Any]]) -> dict[str, Any]:
             "answer_output_token_measurement_coverage": token_measurement_coverage("answer_output_tokens"),
             "router_input_tokens": complete_token_total("router_input_tokens"),
             "router_input_token_measurement_coverage": token_measurement_coverage("router_input_tokens"),
+            "router_output_tokens": complete_token_total("router_output_tokens"),
+            "router_output_token_measurement_coverage": token_measurement_coverage("router_output_tokens"),
+            "router_cost_usd": complete_numeric_total("router_cost_usd"),
+            "router_cost_measurement_coverage": token_measurement_coverage("router_cost_usd"),
             "context_characters": sum(int(row.get("context_characters", 0)) for row in group),
             "p50_component_latency_proxy_ms": _percentile(latency, 0.50),
             "p95_component_latency_proxy_ms": _percentile(latency, 0.95),
@@ -268,6 +278,10 @@ def summarize_results(rows: list[Mapping[str, Any]]) -> dict[str, Any]:
         "answer_output_token_measurement_coverage": total["answer_output_token_measurement_coverage"],
         "router_input_tokens": total["router_input_tokens"],
         "router_input_token_measurement_coverage": total["router_input_token_measurement_coverage"],
+        "router_output_tokens": total["router_output_tokens"],
+        "router_output_token_measurement_coverage": total["router_output_token_measurement_coverage"],
+        "router_cost_usd": total["router_cost_usd"],
+        "router_cost_measurement_coverage": total["router_cost_measurement_coverage"],
         "context_characters": total["context_characters"],
         "p50_component_latency_proxy_ms": total["p50_component_latency_proxy_ms"],
         "p95_component_latency_proxy_ms": total["p95_component_latency_proxy_ms"],

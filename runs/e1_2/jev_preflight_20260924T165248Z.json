@@ -1,0 +1,14 @@
+{
+  "requested_model": "jev-1.13.0",
+  "endpoint": "POST /api/v1/decide",
+  "checked_at_utc": "2026-09-24T16:52:47.475556+00:00",
+  "secret_values_recorded": false,
+  "status": "AUTHENTICATED",
+  "http_status": 200,
+  "api_mode": "hosted",
+  "served_model": "jev-1.13.0",
+  "answer_schema_valid": true,
+  "input_tokens": 448,
+  "output_tokens": 48,
+  "actual_cost_usd": 0.000189
+}
