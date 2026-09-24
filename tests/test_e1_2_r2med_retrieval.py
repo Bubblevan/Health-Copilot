@@ -1,8 +1,65 @@
+import hashlib
 import json
 
 import pytest
 
 import tools.run_e1_2_r2med_retrieval as retrieval
+
+
+def _write_source_dataset(tmp_path, duplicate_text="identical passage"):
+    rows = {
+        "corpus.jsonl": [
+            {"id": "doc-a", "text": "identical passage"},
+            {"id": "doc-a", "text": duplicate_text},
+            {"id": "doc-b", "text": "another passage"},
+        ],
+        "query.jsonl": [{"id": "query-1", "text": "question"}],
+        "qrels.jsonl": [{"q_id": "query-1", "p_id": "doc-a", "score": 1}],
+    }
+    source_root = tmp_path / "sources"
+    dataset_dir = source_root / "demo"
+    dataset_dir.mkdir(parents=True)
+    file_info = {}
+    for filename, records in rows.items():
+        path = dataset_dir / filename
+        path.write_text(
+            "".join(json.dumps(row) + "\n" for row in records),
+            encoding="utf-8",
+        )
+        payload = path.read_bytes()
+        file_info[filename] = {
+            "bytes": len(payload),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
+    entry = {
+        "name": "demo",
+        "directory": "demo",
+        "corpus_document_count": len(rows["corpus.jsonl"]),
+        "query_count": len(rows["query.jsonl"]),
+        "qrels_record_count": len(rows["qrels.jsonl"]),
+        "files": file_info,
+    }
+    return entry, source_root
+
+
+def test_dataset_loader_removes_only_exact_duplicate_corpus_rows(tmp_path):
+    entry, source_root = _write_source_dataset(tmp_path)
+
+    data = retrieval.load_dataset(entry, source_root)
+
+    assert [row["id"] for row in data["documents"]] == ["doc-a", "doc-b"]
+    assert data["source_integrity"] == {
+        "corpus_source_rows": 3,
+        "unique_document_ids": 2,
+        "identical_duplicate_rows_removed": 1,
+    }
+
+
+def test_dataset_loader_still_rejects_conflicting_duplicate_corpus_ids(tmp_path):
+    entry, source_root = _write_source_dataset(tmp_path, duplicate_text="different passage")
+
+    with pytest.raises(ValueError, match="conflicting duplicate corpus ID"):
+        retrieval.load_dataset(entry, source_root)
 
 
 def _write_fixed_arm(tmp_path, *, arm, status="COMPLETED", query_id="q1", model_hashes=None):

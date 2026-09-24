@@ -97,6 +97,13 @@ the primary score and paired subset-stratified bootstrap intervals. No positive
 headline is permitted unless the custom method beats the DEV-selected fixed
 baseline on TEST and the paired 95% interval excludes zero.
 
+The DEV source audit found 145 repeated rows across 142 IDs in
+`PMC-Treatment`; every repeated ID had exactly identical retrieval text. The
+runner retains the first copy, reports raw/unique/removed counts, and still
+aborts if any repeated ID has different text. The other two DEV corpora had no
+duplicate IDs. This deduplication affects only identical source rows and is
+part of the pinned runner implementation.
+
 The original `hfd.sh` attempt could not retrieve the Hugging Face metadata API
 (HTTP status `000`); it did not download dataset payloads. The selected public
 files were instead fetched from the same pinned Hugging Face Git/LFS revisions.

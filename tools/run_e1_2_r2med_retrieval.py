@@ -134,15 +134,20 @@ def load_dataset(entry: dict[str, Any], source_root: Path) -> dict[str, Any]:
         raise ValueError(f"query/qrels row count changed for {entry['name']}")
 
     documents: list[dict[str, str]] = []
-    doc_ids: set[str] = set()
+    documents_by_id: dict[str, str] = {}
+    duplicate_corpus_rows_removed = 0
     for row in corpus_rows:
         doc_id, text = row.get("id"), row.get("text")
         if not isinstance(doc_id, str) or not doc_id or not isinstance(text, str) or not text:
             raise ValueError(f"invalid corpus schema in {entry['name']}")
-        if doc_id in doc_ids:
-            raise ValueError(f"duplicate corpus ID in {entry['name']}")
-        doc_ids.add(doc_id)
+        if doc_id in documents_by_id:
+            if documents_by_id[doc_id] != text:
+                raise ValueError(f"conflicting duplicate corpus ID in {entry['name']}")
+            duplicate_corpus_rows_removed += 1
+            continue
+        documents_by_id[doc_id] = text
         documents.append({"id": doc_id, "text": text})
+    doc_ids = set(documents_by_id)
 
     queries: list[dict[str, str]] = []
     query_ids: set[str] = set()
@@ -168,7 +173,18 @@ def load_dataset(entry: dict[str, Any], source_root: Path) -> dict[str, Any]:
     if set(qrels) != query_ids:
         raise ValueError(f"queries without any qrels found in {entry['name']}")
 
-    return {"entry": entry, "paths": paths, "documents": documents, "queries": queries, "qrels": qrels}
+    return {
+        "entry": entry,
+        "paths": paths,
+        "documents": documents,
+        "queries": queries,
+        "qrels": qrels,
+        "source_integrity": {
+            "corpus_source_rows": len(corpus_rows),
+            "unique_document_ids": len(documents),
+            "identical_duplicate_rows_removed": duplicate_corpus_rows_removed,
+        },
+    }
 
 
 def ensure_index(data: dict[str, Any], index_root: Path) -> tuple[Path, bool]:
@@ -906,9 +922,11 @@ def run_partition(
 
     summaries_by_arm: dict[str, list[dict[str, Any]]] = {arm: [] for arm in arms}
     per_dataset: dict[str, Any] = {}
+    data_integrity_by_subset: dict[str, dict[str, int]] = {}
     for entry in source_entries:
         print(f"R2MED {partition} subset {entry['name']}: validating source and indexing", flush=True)
         data = load_dataset(entry, source_root)
+        data_integrity_by_subset[entry["name"]] = data["source_integrity"]
         outputs = run_dataset(
             partition=partition,
             entry=entry,
@@ -936,6 +954,7 @@ def run_partition(
         "partition": partition,
         "config_sha256": config_hash,
         "source_manifest_sha256": source_hash,
+        "data_integrity_by_subset": data_integrity_by_subset,
         "arms": {
             arm: {
                 "summary": summarize_metrics(rows),

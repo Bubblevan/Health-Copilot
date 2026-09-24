@@ -19,6 +19,7 @@
     "interpretation": "The HF package-level CC-BY-4.0 metadata is disclosed alongside, not as a replacement for, the source-license information in the paper. Raw benchmark content and derived indexes/embeddings/rankings remain outside Git; only aggregate results and attribution are intended for the project record.",
     "user_approved_disclosure_and_local_evaluation": "2026-09-24"
   },
+  "corpus_deduplication_policy": "Treat rows with the same document ID and exactly identical text as one retrieval document (first occurrence retained); any same-ID text conflict aborts. DEV audit found 145 redundant rows in 142 PMC-Treatment IDs, and zero duplicate IDs in PMC-Clinical and IIYi-Clinical. TEST record-level duplicate audit remains unopened until frozen execution.",
   "storage_root": "E:\\Health-Copilot-E1.2\\sources",
   "selection_rule": "Use untouched R2MED subsets as the entire confirmatory TEST; use previously exposed subsets only as DEV; do not create a question-level split across benchmark tasks.",
   "test_subsets": [
