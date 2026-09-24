@@ -3,7 +3,7 @@
   "status": "FROZEN_BEFORE_ANY_E1_2_ANSWER_CALLS",
   "frozen_date_local": "2026-09-24",
   "scope": "Resume Metrics Sprint E1.2 only; no changes to frozen M0-M10.1 contracts or E2 multi-agent work.",
-  "code_base_commit": "be12c89c98368c8e5cc71fefe3369023230d2cd8",
+  "code_base_commit": "d8f38f04b8fa839949910c66efe3484e575d1c28",
   "benchmark": {
     "name": "Medical MIRAGE / MedRAG benchmark",
     "raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
@@ -155,7 +155,7 @@
   "track_a_retrieval": {
     "benchmark": "R2MED, pinned public benchmark; benchmark is not blind, but selected TEST records were not inspected or used in DEV tuning.",
     "source_manifest": "runs/e1_2/r2med_source_manifest.json",
-    "source_manifest_sha256": "65704aff0d4006366cdfa5b85f8287802efabb8776a5ac082748df47f0ae9dbf",
+    "source_manifest_sha256": "7568ebbddf53bb83a7e7aa090c96eb9869603d354f4ab38f3926727dabdaea4b",
     "license_disclosure": "Hugging Face subset cards label the packaged data CC-BY-4.0. R2MED paper Table 8 lists query-source licenses separately, including PMC-Clinical CC-BY-NC-SA 4.0 and unspecified entries for PMC-Treatment and IIYi-Clinical. Preserve the attribution and provenance caveat; do not commit raw data or derived indexes/rankings.",
     "scratch_root": "E:\\Health-Copilot-E1.2",
     "test_subsets": ["MedQA-Diag", "MedXpertQA-Exam", "Medical-Sciences"],
