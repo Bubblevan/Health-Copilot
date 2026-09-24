@@ -3,7 +3,7 @@
   "status": "FROZEN_BEFORE_ANY_E1_2_ANSWER_CALLS",
   "frozen_date_local": "2026-09-24",
   "scope": "Resume Metrics Sprint E1.2 only; no changes to frozen M0-M10.1 contracts or E2 multi-agent work.",
-  "code_base_commit": "619c424f837c7e232d613a8fa7fca3523a79447b",
+  "code_base_commit": "be12c89c98368c8e5cc71fefe3369023230d2cd8",
   "benchmark": {
     "name": "Medical MIRAGE / MedRAG benchmark",
     "raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
@@ -28,6 +28,7 @@
     "primary_candidate": {
       "id": "QWEN3_LOCAL",
       "requested_model": "Qwen3-8B-Q4_K_M.gguf",
+      "expected_served_model": "F:\\Health-Copilot-E1.2\\models\\Qwen3-8B-Q4_K_M.gguf",
       "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
       "artifact_bytes": 5027783488,
       "provider": "local llama.cpp on loopback"
@@ -40,6 +41,7 @@
       {
         "id": "QWEN3_LOCAL",
         "requested_model": "Qwen3-8B-Q4_K_M.gguf",
+        "expected_served_model": "F:\\Health-Copilot-E1.2\\models\\Qwen3-8B-Q4_K_M.gguf",
         "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
         "artifact_bytes": 5027783488,
         "provider": "local llama.cpp on loopback"
