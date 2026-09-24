@@ -3,7 +3,7 @@
   "status": "FROZEN_BEFORE_ANY_E1_2_ANSWER_CALLS",
   "frozen_date_local": "2026-09-24",
   "scope": "Resume Metrics Sprint E1.2 only; no changes to frozen M0-M10.1 contracts or E2 multi-agent work.",
-  "code_base_commit": "PENDING_E1_2_IMPLEMENTATION_COMMIT",
+  "code_base_commit": "619c424f837c7e232d613a8fa7fca3523a79447b",
   "benchmark": {
     "name": "Medical MIRAGE / MedRAG benchmark",
     "raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
