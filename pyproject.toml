@@ -30,5 +30,8 @@ testpaths = ["tests"]
 line-length = 100
 target-version = "py311"
 
+[tool.ruff.lint.isort]
+known-first-party = ["eval", "health_ai_copilot"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
