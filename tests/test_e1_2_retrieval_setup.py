@@ -1,7 +1,9 @@
 import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
+import tools.run_e1_2_retrieval as retrieval
 from tools.prepare_e1_2_retrieval_inputs import build_retrieval_benchmark, materialize
 from tools.run_e1_2_retrieval import build_command
 
@@ -62,6 +64,27 @@ def test_retrieval_command_keeps_indexes_and_cache_on_scratch(tmp_path: Path):
     assert str(tmp_path / "cache" / "medcpt_textbooks") in command
     assert str(tmp_path / "retrieval" / "test" / "medcpt") in command
     assert command[command.index("--dense-candidate-depth") + 1] == "100"
+
+
+def test_storage_floor_uses_the_target_volume_capacity(tmp_path: Path, monkeypatch):
+    gib = 1024**3
+    disk = SimpleNamespace(total=int(803.9 * gib), free=int(190.3 * gib), used=0)
+    monkeypatch.setattr(retrieval.shutil, "disk_usage", lambda _path: disk)
+
+    retrieval.ensure_storage(tmp_path, reserve_gib=5.0)
+
+
+def test_storage_floor_still_enforces_twenty_percent_of_target_volume(tmp_path: Path, monkeypatch):
+    gib = 1024**3
+    disk = SimpleNamespace(total=int(803.9 * gib), free=int(160.0 * gib), used=0)
+    monkeypatch.setattr(retrieval.shutil, "disk_usage", lambda _path: disk)
+
+    try:
+        retrieval.ensure_storage(tmp_path, reserve_gib=1.0)
+    except OSError as exc:
+        assert "160.8 GiB free-space floor" in str(exc)
+    else:
+        raise AssertionError("storage guard accepted free space below the target volume floor")
 
 
 def test_materialize_writes_hashed_question_options_only_input_and_sidecar(tmp_path: Path):

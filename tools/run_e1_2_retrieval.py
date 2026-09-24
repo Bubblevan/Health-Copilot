@@ -16,17 +16,21 @@ SCRATCH_DEFAULT = Path(r"E:\Health-Copilot-E1.2")
 CORPUS_DEFAULT = ROOT / "data/raw/medrag_textbooks"
 MODEL_DEFAULT = ROOT.parent / "models"
 CLEAN_SUBDATASETS = ("medqa", "medmcqa", "mmlu")
-MIN_FREE_GIB = 186.3
+MIN_FREE_FRACTION = 0.20
+MIN_FREE_ABSOLUTE_GIB = 30.0
 NEW_USE_CAP_GIB = 50.0
 
 
 def ensure_storage(scratch_root: Path, *, reserve_gib: float = 5.0) -> None:
     if not scratch_root.is_dir():
         raise FileNotFoundError(f"E1.2 scratch root is unavailable: {scratch_root}")
-    free_gib = shutil.disk_usage(scratch_root).free / (1024**3)
-    if free_gib - reserve_gib < MIN_FREE_GIB:
+    disk_usage = shutil.disk_usage(scratch_root)
+    gib = 1024**3
+    free_gib = disk_usage.free / gib
+    minimum_free_gib = max(MIN_FREE_ABSOLUTE_GIB, disk_usage.total / gib * MIN_FREE_FRACTION)
+    if free_gib - reserve_gib < minimum_free_gib:
         raise OSError(
-            f"scratch volume would cross the {MIN_FREE_GIB:.1f} GiB free-space floor"
+            f"scratch volume would cross the {minimum_free_gib:.1f} GiB free-space floor"
         )
     used_bytes = sum(path.stat().st_size for path in scratch_root.rglob("*") if path.is_file())
     predicted_use_gib = used_bytes / (1024**3) + reserve_gib
