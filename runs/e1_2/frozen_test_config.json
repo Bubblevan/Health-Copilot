@@ -1,0 +1,145 @@
+{
+  "schema_version": "e1-2-adaptive-medical-rag-test-v1",
+  "status": "FROZEN_BEFORE_ANY_E1_2_ANSWER_CALLS",
+  "frozen_date_local": "2026-09-24",
+  "scope": "Resume Metrics Sprint E1.2 only; no changes to frozen M0-M10.1 contracts or E2 multi-agent work.",
+  "code_base_commit": "7c7b5dbecde9d69933ff291b3ddca3ef07a5eed4",
+  "benchmark": {
+    "name": "Medical MIRAGE / MedRAG benchmark",
+    "raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
+    "normalized_cases_sha256": "3a31d3e7fbe6b1184afdbd46925db28747e2ec60d3e53948d8b7ce8ecd614923",
+    "case_count": 7663,
+    "split_manifest": "runs/e1_2/mirage_split_manifest.json",
+    "split_manifest_sha256": "1427c479c34168d3406eab3216cdee92939ad7b917716c15f48185b69e7009d9",
+    "clean_test_subdatasets": ["medqa", "medmcqa", "mmlu"],
+    "clean_test_case_count": 5235,
+    "exposed_history_only": {
+      "pubmedqa": 500,
+      "bioasq": 618,
+      "use_for_primary_test_or_model_selection": false,
+      "reason": "Prior E0 answer runs exposed all 1,118 labels/results. Do not rerun or describe as unseen test."
+    },
+    "clinical_claims": false
+  },
+  "generator_selection": {
+    "design": "matched closed-book DEV-only pilot; fixed candidate set and selection rule",
+    "pilot_seed": "health-copilot-e1.2-generator-pilot-v1",
+    "sample": "Select 30 DEV cases per clean subdataset by ascending SHA-256(pilot_seed + NUL + case_id), without labels; same 90 cases for each candidate.",
+    "candidates": [
+      {
+        "id": "QWEN3_LOCAL",
+        "requested_model": "Qwen3-8B-Q4_K_M.gguf",
+        "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+        "artifact_bytes": 5027783488,
+        "provider": "local llama.cpp on loopback"
+      },
+      {
+        "id": "CONFIGURED_API_MODEL",
+        "requested_model": "deepseek-flash",
+        "provider": "existing HEALTH_COPILOT OpenAI-compatible configuration from .env",
+        "secret_values_recorded": false
+      }
+    ],
+    "prompt_and_sampling": "Both candidates receive the same case order, question/options, empty evidence, temperature 0, JSON answer format, and 32-token output cap.",
+    "selection_metric": "macro exact-answer accuracy over the three clean subdatasets; invalid outputs and provider failures count incorrect",
+    "selection_rule": "Choose CONFIGURED_API_MODEL only if its macro accuracy exceeds QWEN3_LOCAL by at least 0.02 and its completed-call coverage is at least 95%; otherwise choose QWEN3_LOCAL. Record actual served model IDs.",
+    "selection_uses_test": false
+  },
+  "answer_protocol": {
+    "provider_adapter": "eval.resume_openai_provider",
+    "prompt_mode_all_arms": "simple_evidence_injection; closed-book passes an empty evidence list",
+    "temperature": 0.0,
+    "max_output_tokens": 32,
+    "response_format": "json_object",
+    "reasoning": "disabled where supported",
+    "retries": 0,
+    "answer_extraction": "exact supplied MIRAGE option-label match",
+    "invalid_or_abstained": "incorrect; separately report invalid rate, answer coverage, and abstention rate",
+    "provider_failures": "incorrect for the fixed-denominator intention-to-treat accuracy; report completion coverage separately",
+    "same_generator_for_all_arms": true
+  },
+  "retrieval": {
+    "corpus": "Local MedRAG Textbooks, 18 JSONL files, 125847 chunks, 211559353 bytes",
+    "corpus_manifest_sha256": "2493967569d5220bf66604d05e0fd5472cdf2810a843f881dfba68d889585653",
+    "corpus_qrels_available": false,
+    "retriever_arms": {
+      "RAG_BM25": {
+        "implementation": "SQLite FTS5 BM25 over question-only terms",
+        "top_k": 5
+      },
+      "RAG_MEDCPT": {
+        "query_encoder": "local MedCPT-Query-Encoder",
+        "article_encoder": "local MedCPT-Article-Encoder",
+        "cross_encoder": "local MedCPT-Cross-Encoder",
+        "dense_candidates": 100,
+        "top_k_after_reranking": 5,
+        "query_max_length": 64,
+        "document_and_reranker_max_length": 512,
+        "query_article_similarity": "CLS-vector inner product",
+        "weights": {
+          "query_encoder_sha256": "19d78c0d5eaee2f81e6c47c5425bbadcc0c6af016cbb5da4a000d64e59d6e342",
+          "article_encoder_sha256": "a5d5ffe4d8666c1d0aa15f371b94fc3492ca8f927e5621abd4b3ee9fc845b0f3",
+          "cross_encoder_sha256": "61d5ccd48869e03500544525fc231641d7daa9ba267b202c82724750038dc1e0"
+        }
+      }
+    },
+    "retrieval_evaluation_claim": "No retrieval recall/MRR claim without independent relevance qrels; retrieval quality is assessed only via answer outcomes and operational costs."
+  },
+  "arms": [
+    "CLOSED_BOOK",
+    "RAG_BM25",
+    "RAG_MEDCPT",
+    "CHEAP_CAPABILITY_ROUTER",
+    "JEV_CAPABILITY_ROUTER"
+  ],
+  "router": {
+    "policy_version": "e1.2-capability-router-v1",
+    "route_threshold": 0.5,
+    "actions": {
+      "retrieval_help_below_threshold": "CLOSED_BOOK",
+      "retrieval_help_at_or_above_threshold_and_specialized_detail_below_threshold": "RAG_BM25",
+      "retrieval_help_at_or_above_threshold_and_specialized_detail_at_or_above_threshold": "RAG_MEDCPT"
+    },
+    "jev": {
+      "model": "jev-1.13.0",
+      "state": "question text only; no options, gold label, retrieved evidence, or answer",
+      "questions": ["retrieval_likely_to_help", "requires_specialized_detail"],
+      "version_basis": "TypeSafe model documentation lists versioned model IDs and advises pinning a version rather than a moving alias.",
+      "run_gate": "Run this arm only after the authenticated /v1/models preflight succeeds; otherwise mark BLOCKED_CREDENTIALS, never substitute the cheap router and label it Jev."
+    },
+    "cheap_router": {
+      "features": "fixed lexical evidence/specialization cue lists in eval/e1_2_capability_router.py",
+      "threshold_tuning": "none",
+      "jev_error_fallback": "same deterministic cheap policy; no full-team escalation"
+    },
+    "routing_information_boundary": "Every router receives only payload.question. Options and gold remain inaccessible to the routing decision."
+  },
+  "test_execution": {
+    "partition": "all 5,235 TEST cases from the three untouched subdatasets",
+    "test_once": true,
+    "test_used_for_tuning_or_selection": false,
+    "resume_only_same_config_identity": true,
+    "random_context": "DEV-only diagnostic on the fixed 90-case generator pilot; not a test arm and not used to tune the route policy.",
+    "oracle_router": "post-hoc analysis only, using the best outcome among fixed arms per case; never an executable or headline arm."
+  },
+  "metrics": {
+    "primary_quality": "micro exact-answer accuracy over all fixed-denominator TEST cases",
+    "uncertainty": "10,000 paired bootstrap resamples, stratified by clean subdataset; report 95% intervals for differences",
+    "required_slices": ["medqa", "medmcqa", "mmlu", "pubmedqa historical only", "bioasq historical only"],
+    "quality_and_coverage": ["accuracy", "answer coverage", "invalid-answer rate", "abstain rate", "provider failures"],
+    "cost_and_latency": ["answer input/output tokens", "retrieval calls", "retrieved chunks", "context characters/tokens when measured", "router input tokens", "router latency", "end-to-end p50/p95 latency"],
+    "route_analysis": ["action frequencies", "fallback rate", "false-positive/false-negative retrieval routes", "regret versus post-hoc fixed-arm oracle"],
+    "no_composite_score": true
+  },
+  "headline_eligibility": {
+    "quality_win": "An adaptive arm exceeds every fixed arm on TEST accuracy and paired 95% difference intervals support the win.",
+    "quality_cost_tradeoff": "Otherwise, it must be within 0.005 absolute accuracy of the best fixed arm and reduce retrieval calls by at least 25%, or answer input tokens by at least 20%, or end-to-end p95 latency by at least 15% versus the best-accuracy fixed retrieval arm.",
+    "honesty_rule": "If neither condition is met, report the result as non-headline/negative or inconclusive; do not change the split, metric, or success gate after opening TEST."
+  },
+  "storage": {
+    "scratch_root": "F:\\Health-Copilot-E1.2",
+    "new_use_cap_gib": 50,
+    "minimum_predicted_free_gib": 186.3,
+    "no_model_or_raw_data_downloads_pending": true
+  }
+}
