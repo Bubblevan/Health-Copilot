@@ -1,0 +1,22 @@
+{
+  "schema_version": "e1-2-generator-selection-v1",
+  "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+  "selection_uses": "DEV closed-book 90-case pilot for stability/identity only; no model comparison",
+  "selected_candidate": "QWEN3_LOCAL",
+  "rule": "QWEN3_LOCAL is fixed as the only primary candidate before answer calls because it is open, pinned, locally reproducible, and fits the measured GPU. Abort the pilot if completion coverage is below 95%, served identity mismatches, or output protocol is unstable; do not substitute a hosted model based on relative RAG gain. Record actual served model IDs.",
+  "pilot": {
+    "case_count": 90,
+    "completed": 90,
+    "completion_coverage": 1.0,
+    "format_valid_rate_among_completed": 1.0,
+    "subset_accuracy": {
+      "medqa": 0.7333333333333333,
+      "medmcqa": 0.5666666666666667,
+      "mmlu": 0.8
+    },
+    "served_models": [
+      "F:\\Health-Copilot-E1.2\\models\\Qwen3-8B-Q4_K_M.gguf"
+    ]
+  },
+  "case_id_set_sha256": "2535463389ee6df758f5ee194b11446c06b678e4db857f3b85c1b70570b851d5"
+}

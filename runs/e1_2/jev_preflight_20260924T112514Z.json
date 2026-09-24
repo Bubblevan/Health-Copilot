@@ -1,0 +1,8 @@
+{
+  "requested_model": "jev-1.13.0",
+  "endpoint": "GET /v1/models",
+  "checked_at_utc": "2026-09-24T11:25:14.862269+00:00",
+  "secret_values_recorded": false,
+  "status": "BLOCKED_PREFLIGHT",
+  "error_type": "URLError"
+}
