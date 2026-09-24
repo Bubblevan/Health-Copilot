@@ -1,0 +1,50 @@
+{
+  "schema_version": "e1-2-r2med-test-execution-notes-v1",
+  "status": "COMPLETED_WITH_DISCLOSED_IMPLEMENTATION_FIXES",
+  "partition": "TEST",
+  "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+  "source_manifest_sha256": "7568ebbddf53bb83a7e7aa090c96eb9869603d354f4ab38f3926727dabdaea4b",
+  "dev_selection_lock": {
+    "path": "runs/e1_2/r2med_dev_selection.json",
+    "selected_fixed_baseline": "bge_dense",
+    "test_selection_uses_dev_only": true
+  },
+  "execution_incidents": [
+    {
+      "attempt": 1,
+      "status": "ABORTED_IMPLEMENTATION_ERROR",
+      "scope": "The runner completed the first TEST subset's BM25, BGE, and MedCPT fixed arms, then stopped before RRF reranking because its guard required the base-ranking key set to equal exactly {bm25, medcpt_dense}; the joint frozen run also correctly contained bge_dense.",
+      "fix_commit": "b2d6881",
+      "fix": "Validate that the two required RRF inputs are present while allowing additional arms in the same joint run. Retrieval method, model, parameters, and DEV-selected comparator were unchanged.",
+      "recovery": "Reran the complete locked TEST. Same-identity completed fixed-arm outputs were validated and reused; all four arms and all three subsets passed completion checks."
+    },
+    {
+      "attempt": 1,
+      "status": "ANALYSIS_ABORTED_IMPLEMENTATION_ERROR",
+      "scope": "After the full retrieval run completed, the analyzer found query IDs reused across benchmark subsets and rejected the rows because it keyed them by query_id alone. No TEST report was emitted by this attempt.",
+      "fix_commit": "3ea0bc5",
+      "fix": "Pair on a collision-safe composite of subset and query_id, while still rejecting duplicate IDs within a subset. Added regression tests; the metric formula and bootstrap procedure were unchanged.",
+      "recovery": "Reanalyzed the completed TEST outputs with the fixed analyzer and wrote runs/e1_2/r2med_test_report.json."
+    }
+  ],
+  "final_run": {
+    "status": "COMPLETED",
+    "test_query_count": 303,
+    "subset_count": 3,
+    "arms": ["bm25", "bge_dense", "medcpt_dense", "rrf_medcpt_rerank"],
+    "aggregate_output_on_local_scratch": "E:\\Health-Copilot-E1.2\\results\\track_a\\test_aggregate.json",
+    "aggregate_report": "runs/e1_2/r2med_test_report.json"
+  },
+  "headline_gate": {
+    "eligible": false,
+    "metric": "equal-weight macro nDCG@10 difference for rrf_medcpt_rerank versus the DEV-selected bge_dense baseline",
+    "mean_difference": -0.03497305192872098,
+    "paired_95_percent_interval": [-0.060320317063902, -0.009804538847384652]
+  },
+  "data_and_license_disclosure": {
+    "source": "runs/e1_2/r2med_source_manifest.json",
+    "summary": "Hugging Face package cards label the packaged data CC-BY-4.0, while R2MED paper Table 8 lists differing source terms, including CC-BY-SA, MIT, CC-BY-NC-SA-4.0, and unspecified entries. The paper's source-level terms are disclosed alongside the package-level label; the package label is not treated as superseding them.",
+    "raw_data_and_derived_indexes_rankings_committed": false
+  },
+  "test_boundary": "Only aggregate TEST metrics are committed. Raw questions, qrels, document text, per-query rankings, and derived indexes remain on local E: scratch."
+}
