@@ -515,6 +515,18 @@ def load_rank_rows(path: Path, expected_identity: str) -> dict[str, dict[str, An
     return rows
 
 
+def validate_rrf_inputs(
+    base_rankings: dict[str, dict[str, list[tuple[str, float]]]],
+) -> None:
+    required = {"bm25", "medcpt_dense"}
+    missing = required.difference(base_rankings)
+    if missing:
+        raise ValueError(
+            "RRF reranking requires BM25 and MedCPT dense top-100 rankings; "
+            f"missing: {', '.join(sorted(missing))}"
+        )
+
+
 def run_dataset(
     *,
     partition: str,
@@ -645,8 +657,7 @@ def run_dataset(
     if "rrf_medcpt_rerank" in arms:
         if medcpt_models is None or torch is None:
             raise ValueError("MedCPT models were not loaded")
-        if set(base_rankings) != {"bm25", "medcpt_dense"}:
-            raise ValueError("RRF reranking requires BM25 and MedCPT dense top-100 rankings")
+        validate_rrf_inputs(base_rankings)
         fused: dict[str, list[tuple[str, float]]] = {}
         reranked: dict[str, list[tuple[str, float]]] = {}
         latencies: dict[str, float] = {}

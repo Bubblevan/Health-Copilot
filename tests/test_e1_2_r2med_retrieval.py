@@ -119,6 +119,17 @@ def test_fixed_dev_rankings_require_complete_compatible_manifests_and_rows(tmp_p
     assert len(rankings["bm25"]["q1"]) == 100
 
 
+def test_rrf_inputs_allow_other_fixed_arms_in_joint_test_run():
+    retrieval.validate_rrf_inputs(
+        {"bm25": {}, "medcpt_dense": {}, "bge_dense": {}}
+    )
+
+
+def test_rrf_inputs_reject_missing_base_ranking():
+    with pytest.raises(ValueError, match="missing: medcpt_dense"):
+        retrieval.validate_rrf_inputs({"bm25": {}, "bge_dense": {}})
+
+
 @pytest.mark.parametrize(
     ("status", "query_id"),
     [("RUNNING", "q1"), ("COMPLETED", "wrong-query")],
