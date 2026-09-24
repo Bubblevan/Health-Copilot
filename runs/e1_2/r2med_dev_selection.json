@@ -1,0 +1,157 @@
+{
+  "schema_version": "e1-2-r2med-dev-lock-v1",
+  "status": "LOCKED_BEFORE_TEST",
+  "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+  "source_manifest_sha256": "7568ebbddf53bb83a7e7aa090c96eb9869603d354f4ab38f3926727dabdaea4b",
+  "dev_query_count": 393,
+  "dev_metrics": {
+    "bm25": {
+      "query_count": 393,
+      "subset_count": 3,
+      "macro_equal_subset_weight": {
+        "ndcg@10": 0.17312807583775372,
+        "mrr@10": 0.22190966650044577,
+        "recall@5": 0.16927970442903126,
+        "recall@10": 0.2135065052812911
+      },
+      "by_subset": {
+        "IIYi-Clinical": {
+          "queries": 129,
+          "ndcg@10": 0.1264734064483056,
+          "mrr@10": 0.1901347360649686,
+          "recall@5": 0.1020671834625323,
+          "recall@10": 0.1511627906976744
+        },
+        "PMC-Clinical": {
+          "queries": 114,
+          "ndcg@10": 0.21884762112608322,
+          "mrr@10": 0.26892230576441106,
+          "recall@5": 0.21710526315789475,
+          "recall@10": 0.2704678362573099
+        },
+        "PMC-Treatment": {
+          "queries": 150,
+          "ndcg@10": 0.17406319993887234,
+          "mrr@10": 0.20667195767195767,
+          "recall@5": 0.18866666666666668,
+          "recall@10": 0.2188888888888889
+        }
+      }
+    },
+    "bge_dense": {
+      "query_count": 393,
+      "subset_count": 3,
+      "macro_equal_subset_weight": {
+        "ndcg@10": 0.1837405214259925,
+        "mrr@10": 0.2272440953805703,
+        "recall@5": 0.18249870801033594,
+        "recall@10": 0.24070787433700533
+      },
+      "by_subset": {
+        "IIYi-Clinical": {
+          "queries": 129,
+          "ndcg@10": 0.14505188448426148,
+          "mrr@10": 0.21244309093146302,
+          "recall@5": 0.12338501291989663,
+          "recall@10": 0.18074935400516795
+        },
+        "PMC-Clinical": {
+          "queries": 114,
+          "ndcg@10": 0.2109039880014171,
+          "mrr@10": 0.24682887774993037,
+          "recall@5": 0.2222222222222222,
+          "recall@10": 0.2858187134502924
+        },
+        "PMC-Treatment": {
+          "queries": 150,
+          "ndcg@10": 0.19526569179229894,
+          "mrr@10": 0.22246031746031747,
+          "recall@5": 0.2018888888888889,
+          "recall@10": 0.2555555555555556
+        }
+      }
+    },
+    "medcpt_dense": {
+      "query_count": 393,
+      "subset_count": 3,
+      "macro_equal_subset_weight": {
+        "ndcg@10": 0.02317744631912449,
+        "mrr@10": 0.02968007119435108,
+        "recall@5": 0.017874337005303956,
+        "recall@10": 0.03456027018450519
+      },
+      "by_subset": {
+        "IIYi-Clinical": {
+          "queries": 129,
+          "ndcg@10": 0.02412346047252571,
+          "mrr@10": 0.032665805340223945,
+          "recall@5": 0.021576227390180877,
+          "recall@10": 0.03669250645994832
+        },
+        "PMC-Clinical": {
+          "queries": 114,
+          "ndcg@10": 0.03573832503387841,
+          "mrr@10": 0.04936647173489278,
+          "recall@5": 0.027046783625730993,
+          "recall@10": 0.04532163742690059
+        },
+        "PMC-Treatment": {
+          "queries": 150,
+          "ndcg@10": 0.009670553450969352,
+          "mrr@10": 0.007007936507936508,
+          "recall@5": 0.005,
+          "recall@10": 0.021666666666666667
+        }
+      }
+    },
+    "rrf_medcpt_rerank": {
+      "query_count": 393,
+      "subset_count": 3,
+      "macro_equal_subset_weight": {
+        "ndcg@10": 0.2001780179444299,
+        "mrr@10": 0.2582979034580422,
+        "recall@5": 0.19226138990888073,
+        "recall@10": 0.2396500747994016
+      },
+      "by_subset": {
+        "IIYi-Clinical": {
+          "queries": 129,
+          "ndcg@10": 0.10169712649456535,
+          "mrr@10": 0.14575489110372833,
+          "recall@5": 0.08901808785529715,
+          "recall@10": 0.14095607235142119
+        },
+        "PMC-Clinical": {
+          "queries": 114,
+          "ndcg@10": 0.25847586777291126,
+          "mrr@10": 0.3166388192703982,
+          "recall@5": 0.23976608187134502,
+          "recall@10": 0.31432748538011696
+        },
+        "PMC-Treatment": {
+          "queries": 150,
+          "ndcg@10": 0.2403610595658131,
+          "mrr@10": 0.3125,
+          "recall@5": 0.24800000000000003,
+          "recall@10": 0.26366666666666666
+        }
+      }
+    }
+  },
+  "selected_fixed_baseline": "bge_dense",
+  "selection_rule": "highest equal-weight macro DEV nDCG@10 among bm25, bge_dense, and medcpt_dense; ties favor the fixed order in the protocol.",
+  "custom_method_dev_difference_vs_selected_baseline": {
+    "metric": "ndcg@10",
+    "mean_difference": 0.016437496518437397,
+    "macro_subset_mean_difference": 0.016437496518437397,
+    "micro_query_mean_difference": 0.016780497911721776,
+    "bootstrap_draw_mean": 0.01646881798747384,
+    "lower_95": -0.008204885150721096,
+    "upper_95": 0.041374710112888353,
+    "resamples": 10000,
+    "strata": 3
+  },
+  "custom_method_dev_complete": true,
+  "test_opened": false,
+  "test_selection_uses_dev_only": true
+}
