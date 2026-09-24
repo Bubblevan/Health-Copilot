@@ -22,6 +22,14 @@ not match the pinned E0 MIRAGE source. It is not used. The E0 raw and normalized
 artifacts are already present locally and their identities match the frozen
 manifest, so they are reused in place.
 
+Before any answer generation, the local llama.cpp `GET /v1/models` preflight
+reported the served model ID as the full path
+`F:\Health-Copilot-E1.2\models\Qwen3-8B-Q4_K_M.gguf`, while the API request name
+remains `Qwen3-8B-Q4_K_M.gguf`. The frozen protocol records both identities and
+checks the server-reported ID on every answer response; this is an identifier
+alignment only, not a candidate or weight change. The pinned SHA-256 remains
+`d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785`.
+
 ## Clinical retrieval benchmark protocol audit
 
 The pinned benchmark's README describes three 500-document corpora, two query

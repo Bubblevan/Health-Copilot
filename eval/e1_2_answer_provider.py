@@ -192,6 +192,12 @@ class E1_2AnswerProvider:
         }
 
 
+def verify_served_model(output: dict[str, Any], *, expected_model_id: str) -> None:
+    """Reject answers whose server-reported model identity differs from the frozen artifact."""
+    if output.get("served_model") != expected_model_id:
+        raise RuntimeError("answer provider served a model outside the frozen E1.2 identity")
+
+
 __all__ = [
     "E1_2AnswerProvider",
     "ProviderSettings",
@@ -199,4 +205,5 @@ __all__ = [
     "parse_answer",
     "read_health_env",
     "settings_for_candidate",
+    "verify_served_model",
 ]

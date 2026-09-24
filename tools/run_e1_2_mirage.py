@@ -20,7 +20,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from eval.e1_2_answer_provider import E1_2AnswerProvider, settings_for_candidate
+from eval.e1_2_answer_provider import (
+    E1_2AnswerProvider,
+    settings_for_candidate,
+    verify_served_model,
+)
 from eval.e1_2_capability_router import (
     JEV_QUESTIONS,
     RetrievalAction,
@@ -164,6 +168,9 @@ def run_generator_pilot(
     )
     if provider.settings.model != candidate_config["requested_model"]:
         raise ValueError(f"configured model for {candidate} differs from the frozen pilot")
+    expected_served_model = str(
+        candidate_config.get("expected_served_model", candidate_config["requested_model"])
+    )
     with result_path.open("a", encoding="utf-8") as handle:
         for index, case in enumerate(pilot_cases, start=1):
             case_id = str(case["case_id"])
@@ -173,6 +180,7 @@ def run_generator_pilot(
             started = time.perf_counter()
             try:
                 output = provider.answer(case=answer_case, evidence=[])
+                verify_served_model(output, expected_model_id=expected_served_model)
                 status = "completed"
                 prediction = output["prediction"]
                 failure_type = None
@@ -232,11 +240,12 @@ def select_generator(*, scratch_root: Path, config: dict[str, Any], config_sha25
     candidate_config = next(
         row for row in config["generator_selection"]["candidates"] if row["id"] == candidate
     )
-    expected_model = str(candidate_config["requested_model"])
+    requested_model = str(candidate_config["requested_model"])
+    expected_served_model = str(candidate_config.get("expected_served_model", requested_model))
     served_models = sorted({str(row.get("served_model") or "") for row in rows})
-    if served_models != [expected_model]:
+    if served_models != [expected_served_model]:
         raise RuntimeError("local pilot served-model identity is missing or differs from the frozen model")
-    if any(row.get("requested_model") != expected_model for row in rows):
+    if any(row.get("requested_model") != requested_model for row in rows):
         raise RuntimeError("local pilot requested-model identity differs from the frozen model")
     completion = sum(row.get("status") == "completed" for row in rows) / len(rows)
     valid_rate = sum(
@@ -468,6 +477,9 @@ def run_arm(
     )
     if provider.settings.model != candidate_config["requested_model"]:
         raise ValueError("selected generator model differs from the frozen config")
+    expected_served_model = str(
+        candidate_config.get("expected_served_model", candidate_config["requested_model"])
+    )
     split_manifest = json.loads(split_manifest_path.read_text(encoding="utf-8"))
     cases = load_partition(cases_path, split_manifest, partition_name)
     if partition_name == "DEV" and limit is not None:
@@ -628,6 +640,7 @@ def run_arm(
             else:
                 try:
                     output = provider.answer(case=answer_case, evidence=evidence)
+                    verify_served_model(output, expected_model_id=expected_served_model)
                     status = "completed"
                     prediction = output["prediction"]
                     failure_type = None
