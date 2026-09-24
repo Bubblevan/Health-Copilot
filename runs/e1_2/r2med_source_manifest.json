@@ -1,0 +1,145 @@
+{
+  "schema_version": "e1-2-r2med-sources-v1",
+  "benchmark": "R2MED",
+  "benchmark_repository": "https://github.com/R2MED/R2MED",
+  "data_license": "Hugging Face dataset cards label the packaged subsets CC-BY-4.0; see the source-license disclosure below for the R2MED paper's per-query-source terms.",
+  "license_disclosure": {
+    "hugging_face_dataset_card_license": "CC-BY-4.0",
+    "paper": "https://openreview.net/pdf/b1cd41af38a3494706a923e6de10affdcc496356.pdf",
+    "paper_table_8_query_source_licenses": {
+      "Biology": "CC-BY-4.0",
+      "Bioinformatics": "CC-BY-SA",
+      "Medical-Sciences": "CC-BY-SA",
+      "MedXpertQA-Exam": "MIT",
+      "MedQA-Diag": "MIT",
+      "PMC-Treatment": "not specified in the paper's table",
+      "PMC-Clinical": "CC-BY-NC-SA-4.0",
+      "IIYi-Clinical": "not specified in the paper's table"
+    },
+    "interpretation": "The HF package-level CC-BY-4.0 metadata is disclosed alongside, not as a replacement for, the source-license information in the paper. Raw benchmark content and derived indexes/embeddings/rankings remain outside Git; only aggregate results and attribution are intended for the project record.",
+    "user_approved_disclosure_and_local_evaluation": "2026-09-24"
+  },
+  "storage_root": "E:\\Health-Copilot-E1.2\\sources",
+  "selection_rule": "Use untouched R2MED subsets as the entire confirmatory TEST; use previously exposed subsets only as DEV; do not create a question-level split across benchmark tasks.",
+  "test_subsets": [
+    {
+      "name": "MedQA-Diag",
+      "repo_id": "R2MED/MedQA-Diag",
+      "directory": "r2med-medqa-diag-pinned",
+      "revision": "78b585990279cc01a493f876c1b0cf09557fba57",
+      "role": "TEST_UNOPENED",
+      "query_count": 118,
+      "corpus_document_count": 56250,
+      "qrels_record_count": 522,
+      "files": {
+        "corpus.jsonl": {"bytes": 46866718, "sha256": "2767063e36589bcda9ea87a898effd91529548838d645adccbc9e9c22bdd0f12"},
+        "query.jsonl": {"bytes": 110103, "sha256": "da365dd13dd5c1fa55332d60ff866c55c1fd17866be96e373dc7e0685d5c39c2"},
+        "qrels.jsonl": {"bytes": 32662, "sha256": "404f4b769998646ecac4c8394e22ad72985a80de573554242109f4c12330c735"}
+      }
+    },
+    {
+      "name": "MedXpertQA-Exam",
+      "repo_id": "R2MED/MedXpertQA-Exam",
+      "directory": "r2med-medxpertqa-exam",
+      "revision": "b457ea43db9ae5db74c3a3e5be0a213d0f85ac3a",
+      "role": "TEST_UNOPENED",
+      "query_count": 97,
+      "corpus_document_count": 61379,
+      "qrels_record_count": 292,
+      "files": {
+        "corpus.jsonl": {"bytes": 47362667, "sha256": "d529f798a40f9b2519a4946c12999d3a2c9b1f7d8dcec93151a6f09ed1c5dabc"},
+        "query.jsonl": {"bytes": 109944, "sha256": "dc73fbc55ba41c5b108f1c0c215e22050e211016c5cd9675c598220044d9844a"},
+        "qrels.jsonl": {"bytes": 18574, "sha256": "e33e1f0ee25c636292e5b49c3fcb4dc901a8dccc282f696547fde639a9a83281"}
+      }
+    },
+    {
+      "name": "Medical-Sciences",
+      "repo_id": "R2MED/Medical-Sciences",
+      "directory": "r2med-medical-sciences",
+      "revision": "1b48911514c80bf9182222d99752ad75e23b4b47",
+      "role": "TEST_UNOPENED",
+      "query_count": 88,
+      "corpus_document_count": 34810,
+      "qrels_record_count": 244,
+      "files": {
+        "corpus.jsonl": {"bytes": 21388342, "sha256": "4996d510ad610d49cd8a26bda30bbfcb8ea04be114480fa6af3e18e1a8c8f667"},
+        "query.jsonl": {"bytes": 239521, "sha256": "b2a4b2c7fc7462322038067748b43d23d81e6f9aa97ce0d543137de85dc33aa7"},
+        "qrels.jsonl": {"bytes": 15495, "sha256": "2f373e4ede4e7aa05182f6a28ee4c327b39e9e982b213ad46724a51a97a6ced9"}
+      }
+    }
+  ],
+  "dev_subsets": [
+    {
+      "name": "PMC-Treatment",
+      "repo_id": "R2MED/PMC-Treatment",
+      "directory": "r2med-pmc-treatment-dev",
+      "revision": "53c489a44a3664ba352c07550b72b4525a5968d5",
+      "role": "DEV_EXPOSED",
+      "query_count": 150,
+      "corpus_document_count": 28954,
+      "qrels_record_count": 315,
+      "files": {
+        "corpus.jsonl": {"bytes": 21291401, "sha256": "64f8b24dbf0535336ad08681a708fbbc894b931ca0f764864a53e2912315d193"},
+        "query.jsonl": {"bytes": 315462, "sha256": "d00462ba3417ff5578cedc8426b65364fbddd347e950d6f48781634d594257e2"},
+        "qrels.jsonl": {"bytes": 19863, "sha256": "f15a64b5ea002d5d84c3e5d31f03de0b6759d8117133c8460626c295e15a686f"}
+      }
+    },
+    {
+      "name": "PMC-Clinical",
+      "repo_id": "R2MED/PMC-Clinical",
+      "directory": "r2med-pmc-clinical-dev",
+      "revision": "812829522f7eaa407ef82b96717be85788a50f7e",
+      "role": "DEV_EXPOSED",
+      "query_count": 114,
+      "corpus_document_count": 60406,
+      "qrels_record_count": 248,
+      "files": {
+        "corpus.jsonl": {"bytes": 128933888, "sha256": "3a144a9e9d632bda656a29cae18e36a5a32379c2d93d8db218d19282550734cf"},
+        "query.jsonl": {"bytes": 113040, "sha256": "50036592515e00d3e499e8a9cea9723edb2e9f927df6ae72ed42721defc1bc4d"},
+        "qrels.jsonl": {"bytes": 15125, "sha256": "e99fdcfbef5a9d394e1b42f01e873a4375fba82eb300262244a19288d0dbd82d"}
+      }
+    },
+    {
+      "name": "IIYi-Clinical",
+      "repo_id": "R2MED/IIYi-Clinical",
+      "directory": "r2med-iiyi-clinical-dev",
+      "revision": "974abbc9bc281c3169180a6aa5d7586cfd2f5877",
+      "role": "DEV_EXPOSED",
+      "query_count": 129,
+      "corpus_document_count": 10449,
+      "qrels_record_count": 457,
+      "files": {
+        "corpus.jsonl": {"bytes": 57390010, "sha256": "c0b1779b32b821ee4941ef5969ac5046450ab660de8890df3c3f082d958ae74f"},
+        "query.jsonl": {"bytes": 354470, "sha256": "54ad937e46076d876fe2344493eb18043097f53c34ecb7a584d897c87f068ebb"},
+        "qrels.jsonl": {"bytes": 23285, "sha256": "43dbbb3d63952c625119f3aae13e603e6d5ed8d3fc748a72e01fe589930e5607"}
+      }
+    }
+  ],
+  "record_exposure": {
+    "dev_only_excerpt_emissions": {
+      "PMC-Treatment": 1,
+      "PMC-Clinical": 1,
+      "IIYi-Clinical": 1
+    },
+    "test_record_emissions": 0,
+    "test_content_opened_for_human_inspection": false,
+    "test_handling": "Test source records were only read by deterministic validation/retrieval/scoring code. Output must not contain query text, qrels, or document text."
+  },
+  "model_sources": {
+    "bge_base_en_v1_5": {
+      "repo_id": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "file": "model.safetensors",
+      "bytes": 437955512,
+      "sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
+      "license": "MIT"
+    },
+    "medcpt": {
+      "model_root": "D:\\MyLab\\Jianli\\models",
+      "query_encoder_sha256": "19d78c0d5eaee2f81e6c47c5425bbadcc0c6af016cbb5da4a000d64e59d6e342",
+      "article_encoder_sha256": "a5d5ffe4d8666c1d0aa15f371b94fc3492ca8f927e5621abd4b3ee9fc845b0f3",
+      "cross_encoder_sha256": "61d5ccd48869e03500544525fc231641d7daa9ba267b202c82724750038dc1e0"
+    }
+  },
+  "unused_subsets": ["Biology", "Bioinformatics"]
+}

@@ -174,11 +174,43 @@ def summarize_results(rows: list[Mapping[str, Any]]) -> dict[str, Any]:
     for row in rows:
         grouped[str(row.get("subdataset", "unknown"))].append(row)
 
+    def match_rate(group: list[Mapping[str, Any]], field: str) -> float | None:
+        values = [row.get(field) for row in group if row.get(field) is not None]
+        return sum(value is True for value in values) / len(values) if values else None
+
     def summarize(group: list[Mapping[str, Any]]) -> dict[str, Any]:
         count = len(group)
+        completed = [row for row in group if row.get("status") == "completed"]
+
+        def complete_token_total(field: str) -> int | None:
+            values = [row.get(field) for row in group]
+            if count == 0 or any(value is None for value in values):
+                return None
+            return sum(int(value) for value in values)
+
+        def token_measurement_coverage(field: str) -> float | None:
+            values = [row.get(field) for row in group]
+            return sum(value is not None for value in values) / count if count else None
+
+        invalid_responses = [row for row in completed if row.get("invalid_answer") is not None]
+        abstention_responses = [row for row in completed if row.get("abstained") is not None]
+        latency = [
+            float(row["component_latency_proxy_ms"])
+            for row in group
+            if row.get("component_latency_proxy_ms") is not None
+        ]
+        latency_coverage = len(latency) / count if count else None
         return {
             "cases": count,
-            "completed": sum(row.get("status") == "completed" for row in group),
+            "completed": len(completed),
+            "provider_failures": sum(
+                row.get("status") != "completed"
+                and row.get("failure_type") != "missing_retrieval_artifact"
+                for row in group
+            ),
+            "retrieval_artifact_failures": sum(
+                row.get("failure_type") == "missing_retrieval_artifact" for row in group
+            ),
             "correct": sum(row.get("is_correct") is True for row in group),
             "accuracy_fixed_denominator": (
                 sum(row.get("is_correct") is True for row in group) / count if count else None
@@ -186,30 +218,70 @@ def summarize_results(rows: list[Mapping[str, Any]]) -> dict[str, Any]:
             "answer_coverage": (
                 sum(row.get("status") == "completed" for row in group) / count if count else None
             ),
-            "invalid_answers": sum(bool(row.get("invalid_answer")) for row in group),
+            "invalid_answers": sum(row.get("invalid_answer") is True for row in invalid_responses),
+            "invalid_answer_rate": (
+                sum(row.get("invalid_answer") is True for row in invalid_responses) / len(invalid_responses)
+                if invalid_responses
+                else None
+            ),
+            "abstentions": sum(row.get("abstained") is True for row in abstention_responses),
+            "abstain_rate": (
+                sum(row.get("abstained") is True for row in abstention_responses) / len(abstention_responses)
+                if abstention_responses
+                else None
+            ),
             "retrieval_calls": sum(int(row.get("retrieval_calls", 0)) for row in group),
             "router_calls": sum(int(row.get("router_calls", 0)) for row in group),
-            "answer_input_tokens": sum(int(row.get("answer_input_tokens") or 0) for row in group),
-            "answer_output_tokens": sum(int(row.get("answer_output_tokens") or 0) for row in group),
-            "router_input_tokens": sum(int(row.get("router_input_tokens") or 0) for row in group),
+            "answer_input_tokens": complete_token_total("answer_input_tokens"),
+            "answer_input_token_measurement_coverage": token_measurement_coverage("answer_input_tokens"),
+            "answer_output_tokens": complete_token_total("answer_output_tokens"),
+            "answer_output_token_measurement_coverage": token_measurement_coverage("answer_output_tokens"),
+            "router_input_tokens": complete_token_total("router_input_tokens"),
+            "router_input_token_measurement_coverage": token_measurement_coverage("router_input_tokens"),
             "context_characters": sum(int(row.get("context_characters", 0)) for row in group),
-            "p50_end_to_end_latency_ms": _percentile(
-                [float(row["end_to_end_latency_ms"]) for row in group if row.get("end_to_end_latency_ms") is not None],
-                0.50,
-            ),
-            "p95_end_to_end_latency_ms": _percentile(
-                [float(row["end_to_end_latency_ms"]) for row in group if row.get("end_to_end_latency_ms") is not None],
-                0.95,
-            ),
+            "p50_component_latency_proxy_ms": _percentile(latency, 0.50),
+            "p95_component_latency_proxy_ms": _percentile(latency, 0.95),
+            "component_latency_proxy_measurement_coverage": latency_coverage,
+            "random_context_doc_count_match_rate": match_rate(group, "random_context_doc_count_matched"),
+            "random_context_char_budget_match_rate": match_rate(group, "random_context_char_budget_matched"),
         }
 
+    total = summarize(rows)
     return {
         "cases": len(rows),
         "accuracy_fixed_denominator": (
             sum(row.get("is_correct") is True for row in rows) / len(rows) if rows else None
         ),
+        "completed": total["completed"],
+        "provider_failures": total["provider_failures"],
+        "retrieval_artifact_failures": total["retrieval_artifact_failures"],
+        "answer_coverage": total["answer_coverage"],
+        "invalid_answers": total["invalid_answers"],
+        "invalid_answer_rate": total["invalid_answer_rate"],
+        "abstentions": total["abstentions"],
+        "abstain_rate": total["abstain_rate"],
+        "retrieval_calls": total["retrieval_calls"],
+        "router_calls": total["router_calls"],
+        "answer_input_tokens": total["answer_input_tokens"],
+        "answer_input_token_measurement_coverage": total["answer_input_token_measurement_coverage"],
+        "answer_output_tokens": total["answer_output_tokens"],
+        "answer_output_token_measurement_coverage": total["answer_output_token_measurement_coverage"],
+        "router_input_tokens": total["router_input_tokens"],
+        "router_input_token_measurement_coverage": total["router_input_token_measurement_coverage"],
+        "context_characters": total["context_characters"],
+        "p50_component_latency_proxy_ms": total["p50_component_latency_proxy_ms"],
+        "p95_component_latency_proxy_ms": total["p95_component_latency_proxy_ms"],
+        "component_latency_proxy_measurement_coverage": total[
+            "component_latency_proxy_measurement_coverage"
+        ],
+        "random_context_doc_count_match_rate": total["random_context_doc_count_match_rate"],
+        "random_context_char_budget_match_rate": total["random_context_char_budget_match_rate"],
         "by_subdataset": {name: summarize(group) for name, group in sorted(grouped.items())},
-        "metrics_semantics": "Provider failures and invalid answers count incorrect in the fixed case denominator; coverage is reported separately.",
+        "metrics_semantics": (
+            "Provider failures and invalid answers count incorrect in the fixed case denominator; coverage is reported separately. "
+            "Invalid and abstain rates use completed responses; token totals are omitted unless measured for every case. "
+            "Latency is a component-summed proxy from separately timed route, retrieval, and answer phases, not observed production end-to-end latency."
+        ),
     }
 
 

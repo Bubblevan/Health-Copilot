@@ -3,7 +3,7 @@
   "status": "FROZEN_BEFORE_ANY_E1_2_ANSWER_CALLS",
   "frozen_date_local": "2026-09-24",
   "scope": "Resume Metrics Sprint E1.2 only; no changes to frozen M0-M10.1 contracts or E2 multi-agent work.",
-  "code_base_commit": "7c7b5dbecde9d69933ff291b3ddca3ef07a5eed4",
+  "code_base_commit": "PENDING_E1_2_IMPLEMENTATION_COMMIT",
   "benchmark": {
     "name": "Medical MIRAGE / MedRAG benchmark",
     "raw_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
@@ -22,9 +22,20 @@
     "clinical_claims": false
   },
   "generator_selection": {
-    "design": "matched closed-book DEV-only pilot; fixed candidate set and selection rule",
+    "design": "closed-book DEV-only validation pilot for the preselected open, locally reproducible primary generator",
     "pilot_seed": "health-copilot-e1.2-generator-pilot-v1",
     "sample": "Select 30 DEV cases per clean subdataset by ascending SHA-256(pilot_seed + NUL + case_id), without labels; same 90 cases for each candidate.",
+    "primary_candidate": {
+      "id": "QWEN3_LOCAL",
+      "requested_model": "Qwen3-8B-Q4_K_M.gguf",
+      "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "artifact_bytes": 5027783488,
+      "provider": "local llama.cpp on loopback"
+    },
+    "optional_secondary_control": {
+      "requested_model": "deepseek-flash",
+      "role": "DEV-only strong-model stress control; never eligible for primary-generator selection or the frozen primary TEST"
+    },
     "candidates": [
       {
         "id": "QWEN3_LOCAL",
@@ -32,19 +43,17 @@
         "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
         "artifact_bytes": 5027783488,
         "provider": "local llama.cpp on loopback"
-      },
-      {
-        "id": "CONFIGURED_API_MODEL",
-        "requested_model": "deepseek-flash",
-        "provider": "existing HEALTH_COPILOT OpenAI-compatible configuration from .env",
-        "secret_values_recorded": false
       }
     ],
-    "prompt_and_sampling": "Both candidates receive the same case order, question/options, empty evidence, temperature 0, JSON answer format, and 32-token output cap.",
-    "selection_metric": "macro exact-answer accuracy over the three clean subdatasets; invalid outputs and provider failures count incorrect",
-    "minimum_completion_coverage_each_candidate": 0.95,
-    "selection_rule": "Abort model selection if QWEN3_LOCAL completion coverage is below 95%. Otherwise choose CONFIGURED_API_MODEL only if its macro accuracy exceeds QWEN3_LOCAL by at least 0.02 and its completed-call coverage is at least 95%; otherwise choose QWEN3_LOCAL. Record actual served model IDs.",
-    "selection_uses_test": false
+    "pilot_sample": {"per_subdataset": 30, "total": 90},
+    "pilot_purpose": "format, inference stability, served-model identity, completion coverage, and baseline saturation audit",
+    "prompt_and_sampling": "The sole frozen candidate receives the fixed DEV pilot case order, question/options, empty evidence, temperature 0, JSON answer format, and 32-token output cap.",
+    "selection_metric": "No comparative model selection; report macro exact-answer accuracy over the three clean DEV subdatasets as a baseline saturation/stability diagnostic, with invalid outputs and provider failures counted incorrect",
+    "minimum_completion_coverage": 0.95,
+    "minimum_format_valid_rate": 0.95,
+    "selection_rule": "QWEN3_LOCAL is fixed as the only primary candidate before answer calls because it is open, pinned, locally reproducible, and fits the measured GPU. Abort the pilot if completion coverage is below 95%, served identity mismatches, or output protocol is unstable; do not substitute a hosted model based on relative RAG gain. Record actual served model IDs.",
+    "selection_uses_test": false,
+    "deepseek_is_primary_candidate": false
   },
   "answer_protocol": {
     "provider_adapter": "eval.resume_openai_provider",
@@ -90,6 +99,7 @@
     "CLOSED_BOOK",
     "RAG_BM25",
     "RAG_MEDCPT",
+    "RANDOM_CONTEXT",
     "CHEAP_CAPABILITY_ROUTER",
     "JEV_CAPABILITY_ROUTER"
   ],
@@ -120,7 +130,9 @@
     "test_once": true,
     "test_used_for_tuning_or_selection": false,
     "resume_only_same_config_identity": true,
-    "random_context": "DEV-only diagnostic on the fixed 90-case generator pilot; not a test arm and not used to tune the route policy.",
+    "random_context_seed": "health-copilot-e1.2-random-context-v1",
+    "random_context": "Required DEV and TEST diagnostic. For each case sample unrelated corpus chunks deterministically by fixed seed and case ID; match BM25 context document count and character budget without using query terms to choose random chunks. Record both document-count and character-budget match rates.",
+    "dev_selection_lock": "Before any QA TEST answer call, commit runs/e1_2/dev_selection_lock.json. It selects the cost-reference arm by fixed-denominator DEV accuracy between RAG_BM25 and RAG_MEDCPT (ties favor BM25), and binds the frozen config, generator, and both DEV arm identities.",
     "oracle_router": "post-hoc analysis only, using the best outcome among fixed arms per case; never an executable or headline arm."
   },
   "metrics": {
@@ -128,19 +140,70 @@
     "uncertainty": "10,000 paired bootstrap resamples, stratified by clean subdataset; report 95% intervals for differences",
     "required_slices": ["medqa", "medmcqa", "mmlu", "pubmedqa historical only", "bioasq historical only"],
     "quality_and_coverage": ["accuracy", "answer coverage", "invalid-answer rate", "abstain rate", "provider failures"],
-    "cost_and_latency": ["answer input/output tokens", "retrieval calls", "retrieved chunks", "context characters/tokens when measured", "router input tokens", "router latency", "end-to-end p50/p95 latency"],
+    "cost_and_latency": ["answer input/output tokens", "retrieval calls", "retrieved chunks", "context characters/tokens when measured", "router input tokens", "router latency", "component-summed latency proxy p50/p95"],
+    "latency_method": "Report the runner's component-summed per-case latency proxy (separately timed route, retrieval, and answer components); do not label it observed production end-to-end latency.",
     "route_analysis": ["action frequencies", "fallback rate", "false-positive/false-negative retrieval routes", "regret versus post-hoc fixed-arm oracle"],
     "no_composite_score": true
   },
   "headline_eligibility": {
-    "quality_win": "An adaptive arm exceeds every fixed arm on TEST accuracy and paired 95% difference intervals support the win.",
-    "quality_cost_tradeoff": "Otherwise, it must be within 0.005 absolute accuracy of the best fixed arm and reduce retrieval calls by at least 25%, or answer input tokens by at least 20%, or end-to-end p95 latency by at least 15% versus the best-accuracy fixed retrieval arm.",
+    "quality_win": "The Jev capability router exceeds every fixed arm on TEST accuracy and paired 95% difference intervals support the win.",
+    "quality_cost_tradeoff": "Otherwise, Jev must be within 0.005 absolute accuracy of the best fixed TEST arm and reduce retrieval calls by at least 25%, or answer input tokens by at least 20%, or component-summed latency proxy p95 by at least 15% versus the fixed retrieval arm selected using DEV accuracy before TEST.",
     "honesty_rule": "If neither condition is met, report the result as non-headline/negative or inconclusive; do not change the split, metric, or success gate after opening TEST."
   },
+  "track_a_retrieval": {
+    "benchmark": "R2MED, pinned public benchmark; benchmark is not blind, but selected TEST records were not inspected or used in DEV tuning.",
+    "source_manifest": "runs/e1_2/r2med_source_manifest.json",
+    "source_manifest_sha256": "65704aff0d4006366cdfa5b85f8287802efabb8776a5ac082748df47f0ae9dbf",
+    "license_disclosure": "Hugging Face subset cards label the packaged data CC-BY-4.0. R2MED paper Table 8 lists query-source licenses separately, including PMC-Clinical CC-BY-NC-SA 4.0 and unspecified entries for PMC-Treatment and IIYi-Clinical. Preserve the attribution and provenance caveat; do not commit raw data or derived indexes/rankings.",
+    "scratch_root": "E:\\Health-Copilot-E1.2",
+    "test_subsets": ["MedQA-Diag", "MedXpertQA-Exam", "Medical-Sciences"],
+    "test_query_count": 303,
+    "dev_subsets": ["PMC-Treatment", "PMC-Clinical", "IIYi-Clinical"],
+    "dev_query_count": 393,
+    "exposure_note": "The first query/qrels/corpus snippets from each DEV subset were emitted during schema checks; these subsets are DEV-only and excluded from confirmatory TEST.",
+    "excluded_subsets": ["Biology", "Bioinformatics"],
+    "protocol": {
+      "test_partition": "All queries in the three untouched test subsets; subset membership is fixed before method development, no query-level resplitting.",
+      "test_execution": "One frozen run per arm after DEV-only selection/tuning; resume only under identical config, source, model, and code identities.",
+      "primary_metric": "Equal-weight macro nDCG@10 across the three test subsets; also report per-subset nDCG@10, MRR@10, Recall@5, and Recall@10.",
+      "uncertainty": "10,000 paired bootstrap resamples stratified by test subset; report 95% interval for each paired per-query nDCG@10 difference.",
+      "headline_gate": "The frozen hybrid/reranker must beat the strongest DEV-selected fixed baseline on macro TEST nDCG@10, with paired 95% interval lower bound above zero; otherwise no positive retrieval headline.",
+      "qrels": "R2MED's published primary protocol uses binary qrels. Labels are scorer-only; no qrels, relevance labels, or gold fields enter retrieval, query routing, or model inputs.",
+      "test_record_output": "Do not print or persist query text, qrels, or document contents in result artifacts; output ranked document IDs/scores and aggregate metrics only."
+    },
+    "baseline_arms": {
+      "bm25": "SQLite FTS5 BM25 with Porter/unicode61 tokenization; question/query text only.",
+      "bge_dense": "BAAI/bge-base-en-v1.5, L2-normalized cosine, author-recommended retrieval query prefix; documents are unprefixed.",
+      "medcpt_dense": "MedCPT query/article CLS vectors, inner product; local pinned weights.",
+      "ours": "RRF(BM25 top-100, MedCPT top-100, k=60), then MedCPT cross-encoder rerank top-100 and return top-10."
+    },
+    "retrieval_parameters": {
+      "top_k": 10,
+      "candidate_depth": 100,
+      "rrf_k": 60,
+      "bge_query_prefix": "Represent this sentence for searching relevant passages: ",
+      "bge_max_sequence_length": 512,
+      "medcpt_query_max_sequence_length": 64,
+      "medcpt_document_max_sequence_length": 512,
+      "medcpt_reranker_max_sequence_length": 512,
+      "embedding_batch_size": 32,
+      "reranker_batch_size": 16
+    },
+    "dev_selection": "Select strongest fixed baseline by macro DEV nDCG@10 across the three DEV subsets. RRF constant k=60 and candidate depth 100 are fixed a priori; no TEST tuning.",
+    "test_model_hashes": {
+      "bge_base_en_v1_5_revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "bge_model_safetensors_sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
+      "medcpt_query_sha256": "19d78c0d5eaee2f81e6c47c5425bbadcc0c6af016cbb5da4a000d64e59d6e342",
+      "medcpt_article_sha256": "a5d5ffe4d8666c1d0aa15f371b94fc3492ca8f927e5621abd4b3ee9fc845b0f3",
+      "medcpt_cross_encoder_sha256": "61d5ccd48869e03500544525fc231641d7daa9ba267b202c82724750038dc1e0"
+    },
+    "metric_implementation": "R2MED reports nDCG@10 with binary qrels. The local scorer uses gain=2^relevance-1 (equivalent to standard binary gain for 0/1 labels) and is independently tested against hand-computed fixtures."
+  },
   "storage": {
-    "scratch_root": "F:\\Health-Copilot-E1.2",
+    "scratch_root": "E:\\Health-Copilot-E1.2",
+    "answer_model_and_api_key_scratch_root": "F:\\Health-Copilot-E1.2",
     "new_use_cap_gib": 50,
-    "minimum_predicted_free_gib": 186.3,
-    "no_model_or_raw_data_downloads_pending": true
+    "minimum_predicted_free_gib": 160.8,
+    "no_full_generator_model_downloads_pending": true
   }
 }

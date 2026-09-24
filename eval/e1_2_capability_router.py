@@ -16,6 +16,7 @@ class RetrievalAction(StrEnum):
     CLOSED_BOOK = "closed_book"
     RAG_BM25 = "rag_bm25"
     RAG_MEDCPT = "rag_medcpt"
+    RANDOM_CONTEXT = "random_context"
 
 
 JEV_QUESTIONS: dict[str, dict[str, Any]] = {

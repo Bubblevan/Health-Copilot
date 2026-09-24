@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from eval.e1_2_runner import (
     load_partition,
     per_case_retrieval_latency,
@@ -50,12 +52,37 @@ def test_generator_pilot_is_stable_and_balanced_without_label_stratification():
 def test_fixed_denominator_accuracy_counts_provider_failures_as_incorrect():
     summary = summarize_results(
         [
-            {"case_id": "a", "subdataset": "medqa", "status": "completed", "is_correct": True},
-            {"case_id": "b", "subdataset": "medqa", "status": "failed", "is_correct": False},
+            {
+                "case_id": "a",
+                "subdataset": "medqa",
+                "status": "completed",
+                "is_correct": True,
+                "invalid_answer": False,
+                "abstained": False,
+            },
+            {
+                "case_id": "b",
+                "subdataset": "medqa",
+                "status": "failed",
+                "is_correct": False,
+                "failure_type": "ProviderError",
+            },
+            {
+                "case_id": "c",
+                "subdataset": "medqa",
+                "status": "completed",
+                "is_correct": False,
+                "invalid_answer": True,
+                "abstained": True,
+            },
         ]
     )
-    assert summary["accuracy_fixed_denominator"] == 0.5
-    assert summary["by_subdataset"]["medqa"]["answer_coverage"] == 0.5
+    assert summary["accuracy_fixed_denominator"] == pytest.approx(1 / 3)
+    assert summary["provider_failures"] == 1
+    assert summary["abstentions"] == 1
+    assert summary["abstain_rate"] == 0.5
+    assert summary["invalid_answer_rate"] == 0.5
+    assert summary["by_subdataset"]["medqa"]["answer_coverage"] == pytest.approx(2 / 3)
 
 
 def test_retrieval_latency_reads_recorded_component_metrics():

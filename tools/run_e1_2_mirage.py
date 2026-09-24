@@ -27,6 +27,7 @@ from eval.e1_2_capability_router import (
     route_cheap,
     route_from_jev_probabilities,
 )
+from eval.e1_2_protocol import assert_committed_artifact
 from eval.e1_2_runner import (
     CLEAN_SUBDATASETS,
     case_for_answer,
@@ -53,8 +54,10 @@ from tools.run_e1_2_retrieval import (
 
 CONFIG_PATH = ROOT / "runs/e1_2/frozen_test_config.json"
 SELECTION_PATH = ROOT / "runs/e1_2/generator_selection.json"
+DEV_SELECTION_LOCK_PATH = ROOT / "runs/e1_2/dev_selection_lock.json"
 JEV_MODEL = "jev-1.13.0"
-ARM_NAMES = ("closed_book", "rag_bm25", "rag_medcpt", "cheap_router", "jev_router")
+ARM_NAMES = ("closed_book", "rag_bm25", "rag_medcpt", "random_context", "cheap_router", "jev_router")
+LOCAL_API_KEY_DEFAULT = Path(r"F:\Health-Copilot-E1.2\llama-api-key.txt")
 
 
 def load_frozen_config(path: Path = CONFIG_PATH) -> tuple[dict[str, Any], str]:
@@ -88,16 +91,18 @@ def load_selection(path: Path = SELECTION_PATH) -> dict[str, Any]:
     if not path.is_file():
         raise FileNotFoundError("run the matched DEV closed-book model pilot before answer arms")
     value = json.loads(path.read_text(encoding="utf-8"))
-    if value.get("selected_candidate") not in {"QWEN3_LOCAL", "CONFIGURED_API_MODEL"}:
+    if value.get("selected_candidate") != "QWEN3_LOCAL":
         raise ValueError("generator selection artifact has no valid selected_candidate")
     return value
 
 
-def create_provider(candidate: str, scratch_root: Path) -> E1_2AnswerProvider:
+def create_provider(
+    candidate: str, local_api_key_path: Path
+) -> E1_2AnswerProvider:
     settings = settings_for_candidate(
         candidate,
         dotenv_path=ROOT / ".env",
-        local_api_key_path=scratch_root / "llama-api-key.txt",
+        local_api_key_path=local_api_key_path,
     )
     return E1_2AnswerProvider(settings)
 
@@ -113,8 +118,11 @@ def run_generator_pilot(
     cases_path: Path,
     split_manifest_path: Path,
     scratch_root: Path,
+    local_api_key_path: Path,
     config_sha256: str,
 ) -> None:
+    if candidate != "QWEN3_LOCAL":
+        raise ValueError("only the frozen local Qwen candidate may run the DEV pilot")
     split_manifest = json.loads(split_manifest_path.read_text(encoding="utf-8"))
     dev_cases = load_partition(cases_path, split_manifest, "DEV")
     pilot_cases = select_generator_pilot(dev_cases)
@@ -149,7 +157,7 @@ def run_generator_pilot(
                 raise RuntimeError("existing pilot rows use a different frozen identity")
             existing_rows[str(row["case_id"])] = row
 
-    provider = create_provider(candidate, scratch_root)
+    provider = create_provider(candidate, local_api_key_path)
     config, _ = load_frozen_config()
     candidate_config = next(
         row for row in config["generator_selection"]["candidates"] if row["id"] == candidate
@@ -180,7 +188,8 @@ def run_generator_pilot(
                 "result_identity": identity,
                 "status": status,
                 "prediction": prediction,
-                "invalid_answer": bool(output.get("invalid_answer", True)),
+                "invalid_answer": bool(output.get("invalid_answer")) if status == "completed" else None,
+                "abstained": prediction == "ABSTAIN",
                 "is_correct": status == "completed" and is_correct(prediction, gold_label(case)),
                 "answer_input_tokens": output.get("answer_input_tokens"),
                 "answer_output_tokens": output.get("answer_output_tokens"),
@@ -207,58 +216,57 @@ def select_generator(*, scratch_root: Path, config: dict[str, Any], config_sha25
             return existing
         raise RuntimeError("generator selection already exists for a different frozen config")
 
-    candidates = ("QWEN3_LOCAL", "CONFIGURED_API_MODEL")
-    all_rows: dict[str, dict[str, dict[str, Any]]] = {}
-    case_sets: list[set[str]] = []
-    per_candidate: dict[str, Any] = {}
-    for candidate in candidates:
-        result_path, manifest_path = pilot_paths(scratch_root, candidate)
-        if not manifest_path.is_file() or not result_path.is_file():
-            raise FileNotFoundError(f"missing completed DEV pilot for {candidate}")
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        if manifest.get("status") != "COMPLETED" or manifest.get("config_sha256") != config_sha256:
-            raise RuntimeError(f"DEV pilot for {candidate} is incomplete or incompatible")
-        rows = read_jsonl(result_path)
-        if len(rows) != 90:
-            raise ValueError(f"DEV pilot for {candidate} has {len(rows)} rows; expected 90")
-        by_case = {str(row["case_id"]): row for row in rows}
-        if len(by_case) != len(rows):
-            raise ValueError(f"DEV pilot for {candidate} contains duplicate cases")
-        case_sets.append(set(by_case))
-        all_rows[candidate] = by_case
-        subset_accuracy: dict[str, float] = {}
-        subset_coverage: dict[str, float] = {}
-        for subset in CLEAN_SUBDATASETS:
-            subset_rows = [row for row in rows if row.get("subdataset") == subset]
-            subset_accuracy[subset] = sum(row.get("is_correct") is True for row in subset_rows) / len(subset_rows)
-            subset_coverage[subset] = sum(row.get("status") == "completed" for row in subset_rows) / len(subset_rows)
-        per_candidate[candidate] = {
-            "macro_accuracy": sum(subset_accuracy.values()) / len(subset_accuracy),
-            "subset_accuracy": subset_accuracy,
-            "subset_completion_coverage": subset_coverage,
-            "completed_case_count": sum(row.get("status") == "completed" for row in rows),
-            "served_models": sorted({row.get("served_model") for row in rows if row.get("served_model")}),
-        }
-    if case_sets[0] != case_sets[1]:
-        raise ValueError("candidate pilots did not use identical case IDs")
-    local = per_candidate["QWEN3_LOCAL"]
-    api = per_candidate["CONFIGURED_API_MODEL"]
-    api_coverage = api["completed_case_count"] / 90
-    local_coverage = local["completed_case_count"] / 90
-    if local_coverage < float(config["generator_selection"]["minimum_completion_coverage_each_candidate"]):
+    candidate = "QWEN3_LOCAL"
+    result_path, manifest_path = pilot_paths(scratch_root, candidate)
+    if not manifest_path.is_file() or not result_path.is_file():
+        raise FileNotFoundError(f"missing completed DEV pilot for {candidate}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("status") != "COMPLETED" or manifest.get("config_sha256") != config_sha256:
+        raise RuntimeError(f"DEV pilot for {candidate} is incomplete or incompatible")
+    rows = read_jsonl(result_path)
+    if len(rows) != 90:
+        raise ValueError(f"DEV pilot for {candidate} has {len(rows)} rows; expected 90")
+    by_case = {str(row["case_id"]): row for row in rows}
+    if len(by_case) != len(rows):
+        raise ValueError(f"DEV pilot for {candidate} contains duplicate cases")
+    candidate_config = next(
+        row for row in config["generator_selection"]["candidates"] if row["id"] == candidate
+    )
+    expected_model = str(candidate_config["requested_model"])
+    served_models = sorted({str(row.get("served_model") or "") for row in rows})
+    if served_models != [expected_model]:
+        raise RuntimeError("local pilot served-model identity is missing or differs from the frozen model")
+    if any(row.get("requested_model") != expected_model for row in rows):
+        raise RuntimeError("local pilot requested-model identity differs from the frozen model")
+    completion = sum(row.get("status") == "completed" for row in rows) / len(rows)
+    valid_rate = sum(
+        row.get("status") == "completed" and row.get("invalid_answer") is False for row in rows
+    ) / max(sum(row.get("status") == "completed" for row in rows), 1)
+    if completion < float(config["generator_selection"]["minimum_completion_coverage"]):
         raise RuntimeError("local Qwen DEV pilot completion coverage is below the preregistered minimum")
-    if api_coverage >= 0.95 and api["macro_accuracy"] >= local["macro_accuracy"] + 0.02:
-        selected = "CONFIGURED_API_MODEL"
-    else:
-        selected = "QWEN3_LOCAL"
+    if valid_rate < float(config["generator_selection"]["minimum_format_valid_rate"]):
+        raise RuntimeError("local Qwen DEV pilot output-format validity is below the preregistered minimum")
+    subset_accuracy = {
+        subset: sum(
+            row.get("is_correct") is True and row.get("subdataset") == subset for row in rows
+        ) / sum(row.get("subdataset") == subset for row in rows)
+        for subset in CLEAN_SUBDATASETS
+    }
     result = {
         "schema_version": "e1-2-generator-selection-v1",
         "config_sha256": config_sha256,
-        "selection_uses": "DEV closed-book matched 90-case pilot only",
-        "selected_candidate": selected,
+        "selection_uses": "DEV closed-book 90-case pilot for stability/identity only; no model comparison",
+        "selected_candidate": candidate,
         "rule": config["generator_selection"]["selection_rule"],
-        "candidates": per_candidate,
-        "case_id_set_sha256": hashlib.sha256("\n".join(sorted(case_sets[0])).encode()).hexdigest(),
+        "pilot": {
+            "case_count": len(rows),
+            "completed": sum(row.get("status") == "completed" for row in rows),
+            "completion_coverage": completion,
+            "format_valid_rate_among_completed": valid_rate,
+            "subset_accuracy": subset_accuracy,
+            "served_models": served_models,
+        },
+        "case_id_set_sha256": hashlib.sha256("\n".join(sorted(by_case)).encode()).hexdigest(),
     }
     write_json_atomic(SELECTION_PATH, result, refuse_overwrite=True)
     return result
@@ -305,105 +313,74 @@ def run_jev_preflight() -> dict[str, Any]:
     return base
 
 
-def _pilot_random_evidence(
-    connection: sqlite3.Connection, case_id: str, *, seed: str, top_k: int = 5
-) -> list[dict[str, Any]]:
+def evidence_context_characters(evidence: list[dict[str, Any]]) -> int:
+    if not evidence:
+        return len("No retrieved evidence was supplied.")
+    blocks = []
+    for index, row in enumerate(evidence, start=1):
+        source_id = str(row.get("id") or f"retrieved-{index}")
+        title = str(row.get("title") or "Retrieved excerpt")
+        content = str(row.get("content") or row.get("contents") or "")
+        blocks.append(f"[source_id={source_id}] {title}\n{content}")
+    return sum(map(len, blocks)) + 2 * (len(blocks) - 1)
+
+
+def random_context_evidence(
+    connection: sqlite3.Connection,
+    case_id: str,
+    target_evidence: list[dict[str, Any]],
+    *,
+    seed: str,
+) -> tuple[list[dict[str, Any]], bool, bool]:
+    """Sample without query/qrel inputs and trim authentic text to the BM25 budget."""
+    target_count = len(target_evidence)
+    target_characters = evidence_context_characters(target_evidence)
+    if target_count == 0:
+        return [], True, target_characters == evidence_context_characters([])
     count = int(connection.execute("SELECT count(*) FROM chunks").fetchone()[0])
-    if count < top_k:
-        raise ValueError("random-context corpus has fewer chunks than top_k")
+    if count < target_count:
+        raise ValueError("random-context corpus has fewer chunks than the BM25 context")
     seed_bytes = hashlib.sha256(f"{seed}\0{case_id}".encode()).digest()
     generator = random.Random(int.from_bytes(seed_bytes[:8], "big"))
-    rowids = generator.sample(range(1, count + 1), top_k)
-    placeholders = ",".join("?" for _ in rowids)
-    rows = connection.execute(
-        f"SELECT rowid,id,title,content,contents FROM chunks WHERE rowid IN ({placeholders})",
-        rowids,
-    )
-    by_id = {
-        int(row[0]): {"id": row[1], "title": row[2], "content": row[3], "contents": row[4]}
-        for row in rows
-    }
-    if len(by_id) != top_k:
-        raise RuntimeError("random-context index lookup returned an incomplete sample")
-    return [by_id[rowid] for rowid in rowids]
-
-
-def run_random_diagnostic(
-    *, cases_path: Path, split_manifest_path: Path, scratch_root: Path, selection: dict[str, Any]
-) -> None:
-    split_manifest = json.loads(split_manifest_path.read_text(encoding="utf-8"))
-    pilot_cases = select_generator_pilot(load_partition(cases_path, split_manifest, "DEV"))
-    selected = str(selection["selected_candidate"])
-    provider = create_provider(selected, scratch_root)
-    index = scratch_root / "index" / "medrag_textbooks_fts5.sqlite3"
-    if not index.is_file():
-        raise FileNotFoundError("build the frozen BM25 index before the random-context diagnostic")
-    output_dir = scratch_root / "runs" / "e1_2" / "random_context_dev"
-    output_path = output_dir / "case_results.jsonl"
-    manifest_path = output_dir / "manifest.json"
-    identity = hashlib.sha256(
-        f"{selection['config_sha256']}\0random_context_dev\0{selected}".encode()
-    ).hexdigest()
-    output_dir.mkdir(parents=True, exist_ok=True)
-    if manifest_path.exists():
-        prior = json.loads(manifest_path.read_text(encoding="utf-8"))
-        if prior.get("result_identity") != identity:
-            raise RuntimeError("random-context DEV output identity mismatch")
-    else:
-        write_json_atomic(
-            manifest_path,
-            {"status": "RUNNING", "result_identity": identity, "case_count": len(pilot_cases)},
+    for _ in range(64):
+        rowids = generator.sample(range(1, count + 1), target_count)
+        placeholders = ",".join("?" for _ in rowids)
+        rows = connection.execute(
+            f"SELECT rowid,id,title,content FROM chunks WHERE rowid IN ({placeholders})",
+            rowids,
         )
-    completed = {
-        row["case_id"]: row
-        for row in read_jsonl(output_path)
-        if row.get("result_identity") == identity
-    } if output_path.exists() else {}
-    connection = sqlite3.connect(index)
-    try:
-        with output_path.open("a", encoding="utf-8") as handle:
-            for case in pilot_cases:
-                case_id = str(case["case_id"])
-                if case_id in completed:
-                    continue
-                evidence = _pilot_random_evidence(connection, case_id, seed="e1-2-random-context-v1")
-                answer_case = case_for_answer(case)
-                started = time.perf_counter()
-                try:
-                    output = provider.answer(case=answer_case, evidence=evidence)
-                    status = "completed"
-                    prediction = output["prediction"]
-                    failure_type = None
-                except Exception as exc:  # noqa: BLE001 -- do not persist provider response/body
-                    output = {}
-                    status = "failed"
-                    prediction = None
-                    failure_type = type(exc).__name__
-                record = {
-                    "case_id": case_id,
-                    "subdataset": answer_case["subdataset"],
-                    "result_identity": identity,
-                    "status": status,
-                    "prediction": prediction,
-                    "is_correct": status == "completed" and is_correct(prediction, gold_label(case)),
-                    "invalid_answer": bool(output.get("invalid_answer", True)),
-                    "answer_input_tokens": output.get("answer_input_tokens"),
-                    "answer_output_tokens": output.get("answer_output_tokens"),
-                    "answer_latency_ms": output.get("answer_latency_ms", round((time.perf_counter() - started) * 1000)),
-                    "retrieved_chunks": top_k if (top_k := len(evidence)) else 0,
-                    "context_characters": sum(len(str(item.get("contents", ""))) for item in evidence),
-                    "failure_type": failure_type,
-                    "served_model": output.get("served_model"),
-                }
-                handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
-                handle.flush()
-    finally:
-        connection.close()
-    write_json_atomic(
-        manifest_path,
-        {"status": "COMPLETED", "result_identity": identity, "case_count": len(pilot_cases)},
-    )
-    print(f"DEV random-context diagnostic completed: {len(pilot_cases)} cases")
+        by_id = {
+            int(row[0]): {"id": row[1], "title": row[2], "content": row[3]}
+            for row in rows
+        }
+        if len(by_id) != target_count:
+            raise RuntimeError("random-context index lookup returned an incomplete sample")
+        selected = [by_id[rowid] for rowid in rowids]
+        overhead = sum(
+            len(
+                f"[source_id={row['id']}] "
+                f"{row.get('title') or 'Retrieved excerpt'}\n"
+            )
+            for index, row in enumerate(selected)
+        ) + 2 * (target_count - 1)
+        target_content_chars = target_characters - overhead
+        if target_content_chars < target_count or sum(len(row["content"]) for row in selected) < target_content_chars:
+            continue
+        allocations = [min(len(row["content"]), max(1, target_content_chars // target_count)) for row in selected]
+        remaining = target_content_chars - sum(allocations)
+        for index, row in enumerate(selected):
+            extra = min(remaining, len(row["content"]) - allocations[index])
+            allocations[index] += extra
+            remaining -= extra
+        if remaining:
+            continue
+        evidence = [
+            {**row, "content": row["content"][:allocations[index]]}
+            for index, row in enumerate(selected)
+        ]
+        return evidence, len(evidence) == target_count, evidence_context_characters(evidence) == target_characters
+    selected = [by_id[rowid] for rowid in rowids]
+    return selected, len(selected) == target_count, evidence_context_characters(selected) == target_characters
 
 
 def _load_arm_retrievals(
@@ -412,7 +389,7 @@ def _load_arm_retrievals(
     base = scratch_root / "retrieval" / partition.lower()
     bm25: dict[str, dict[str, Any]] = {}
     medcpt: dict[str, dict[str, Any]] = {}
-    if arm in {"rag_bm25", "cheap_router", "jev_router"}:
+    if arm in {"rag_bm25", "random_context", "cheap_router", "jev_router"}:
         bm25 = load_retrieval_results(base / "bm25")
     if arm in {"rag_medcpt", "cheap_router", "jev_router"}:
         medcpt = load_retrieval_results(base / "medcpt")
@@ -435,6 +412,25 @@ def _jev_preflight_is_authenticated() -> bool:
     return json.loads(files[0].read_text(encoding="utf-8")).get("status") == "AUTHENTICATED"
 
 
+def require_committed_dev_selection_lock(
+    *, config_sha256: str, selected_candidate: str
+) -> dict[str, Any]:
+    if not DEV_SELECTION_LOCK_PATH.is_file():
+        raise FileNotFoundError("QA TEST requires a committed DEV selection lock")
+    lock = json.loads(DEV_SELECTION_LOCK_PATH.read_text(encoding="utf-8"))
+    if (
+        lock.get("status") != "LOCKED_BEFORE_TEST"
+        or lock.get("config_sha256") != config_sha256
+        or lock.get("generator_candidate") != selected_candidate
+        or lock.get("generator_selection_sha256") != file_sha256(SELECTION_PATH)
+        or lock.get("selected_retrieval_cost_reference") not in {"rag_bm25", "rag_medcpt"}
+        or lock.get("test_opened") is not False
+    ):
+        raise ValueError("QA DEV selection lock is incomplete or incompatible")
+    assert_committed_artifact(DEV_SELECTION_LOCK_PATH, repo_root=ROOT)
+    return lock
+
+
 def run_arm(
     *,
     partition: str,
@@ -442,6 +438,7 @@ def run_arm(
     cases_path: Path,
     split_manifest_path: Path,
     scratch_root: Path,
+    local_api_key_path: Path = LOCAL_API_KEY_DEFAULT,
     limit: int | None = None,
 ) -> None:
     partition_name = partition.upper()
@@ -460,7 +457,12 @@ def run_arm(
     if selection.get("config_sha256") != config_sha256:
         raise ValueError("generator selection was made against another frozen config")
     selected_candidate = str(selection["selected_candidate"])
-    provider = create_provider(selected_candidate, scratch_root)
+    if partition_name == "TEST":
+        require_committed_dev_selection_lock(
+            config_sha256=config_sha256,
+            selected_candidate=selected_candidate,
+        )
+    provider = create_provider(selected_candidate, local_api_key_path)
     candidate_config = next(
         row for row in config["generator_selection"]["candidates"] if row["id"] == selected_candidate
     )
@@ -477,6 +479,12 @@ def run_arm(
     bm25_rows, medcpt_rows = _load_arm_retrievals(
         arm=arm_name, partition=partition_name, scratch_root=scratch_root
     )
+    random_connection: sqlite3.Connection | None = None
+    if arm_name == "random_context":
+        index_path = scratch_root / "index" / "medrag_textbooks_fts5.sqlite3"
+        if not index_path.is_file():
+            raise FileNotFoundError(f"random-context sampling requires the BM25 index: {index_path}")
+        random_connection = sqlite3.connect(f"{index_path.resolve().as_uri()}?mode=ro", uri=True)
     if arm_name == "jev_router":
         jev = _jev_client()
     else:
@@ -543,6 +551,34 @@ def run_arm(
                 retrieved = medcpt_rows.get(case_id)
                 retrieval_latency_ms = per_case_retrieval_latency(retrieved or {}, "medcpt")
                 router_calls = 0
+            elif arm_name == "random_context":
+                action = RetrievalAction.RANDOM_CONTEXT
+                retrieved = bm25_rows.get(case_id)
+                router_calls = 0
+                random_doc_count_matched = False
+                random_char_budget_matched = False
+                if retrieved is None:
+                    retrieval_latency_ms = 0.0
+                else:
+                    if random_connection is None:
+                        raise RuntimeError("random-context SQLite index was not opened")
+                    target_evidence = retrieved.get("retrieved_evidence")
+                    target_evidence = target_evidence if isinstance(target_evidence, list) else []
+                    sampling_started = time.perf_counter()
+                    evidence, random_doc_count_matched, random_char_budget_matched = random_context_evidence(
+                        random_connection,
+                        case_id,
+                        target_evidence,
+                        seed=str(config["test_execution"]["random_context_seed"]),
+                    )
+                    retrieval_latency_ms = (time.perf_counter() - sampling_started) * 1000
+                    retrieved = {"retrieved_evidence": evidence}
+                decision = {
+                    "seed": str(config["test_execution"]["random_context_seed"]),
+                    "sampling": "deterministic corpus-row sample; query-independent",
+                    "random_doc_count_matched": random_doc_count_matched,
+                    "random_char_budget_matched": random_char_budget_matched,
+                }
             elif arm_name == "cheap_router":
                 route = route_cheap(question)
                 action = route.action
@@ -572,18 +608,17 @@ def run_arm(
 
             evidence = []
             retrieval_missing = False
-            if action is RetrievalAction.RAG_BM25 or action is RetrievalAction.RAG_MEDCPT:
+            if action in {
+                RetrievalAction.RAG_BM25,
+                RetrievalAction.RAG_MEDCPT,
+                RetrievalAction.RANDOM_CONTEXT,
+            }:
                 if retrieved is None:
                     retrieval_missing = True
                 else:
                     raw_evidence = retrieved.get("retrieved_evidence")
                     evidence = raw_evidence if isinstance(raw_evidence, list) else []
-            context_characters = sum(
-                len(str(item.get("contents") or item.get("content") or ""))
-                + len(str(item.get("title") or ""))
-                for item in evidence
-                if isinstance(item, dict)
-            )
+            context_characters = evidence_context_characters(evidence)
             started = time.perf_counter()
             if retrieval_missing:
                 output = {}
@@ -611,7 +646,8 @@ def run_arm(
                 "status": status,
                 "prediction": prediction,
                 "is_correct": status == "completed" and is_correct(prediction, gold_label(case)),
-                "invalid_answer": bool(output.get("invalid_answer", True)),
+                "invalid_answer": bool(output.get("invalid_answer")) if status == "completed" else None,
+                "abstained": prediction == "ABSTAIN",
                 "failure_type": failure_type,
                 "selected_action": action.value,
                 "route_decision": decision,
@@ -627,7 +663,13 @@ def run_arm(
                 "answer_input_tokens": output.get("answer_input_tokens"),
                 "answer_output_tokens": output.get("answer_output_tokens"),
                 "answer_latency_ms": answer_wall_ms,
-                "end_to_end_latency_ms": route_latency_ms + retrieval_latency_ms + answer_wall_ms,
+                "component_latency_proxy_ms": route_latency_ms + retrieval_latency_ms + answer_wall_ms,
+                "random_context_doc_count_matched": (
+                    random_doc_count_matched if arm_name == "random_context" else None
+                ),
+                "random_context_char_budget_matched": (
+                    random_char_budget_matched if arm_name == "random_context" else None
+                ),
                 "requested_model": output.get("requested_model", provider.settings.model),
                 "served_model": output.get("served_model"),
             }
@@ -636,6 +678,8 @@ def run_arm(
             if index % 50 == 0 or index == len(cases):
                 print(f"{partition_name} {arm_name}: {index}/{len(cases)} cases", flush=True)
 
+    if random_connection is not None:
+        random_connection.close()
     rows = read_jsonl(output_path)
     metrics = summarize_results(rows)
     write_json_atomic(output_dir / "metrics.json", metrics)
@@ -674,10 +718,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--phase",
-        choices=("pilot", "select-generator", "prepare-inputs", "retrieve", "random-diagnostic", "jev-preflight", "run-arm"),
+        choices=("pilot", "select-generator", "prepare-inputs", "retrieve", "jev-preflight", "run-arm"),
         required=True,
     )
-    parser.add_argument("--candidate", choices=("QWEN3_LOCAL", "CONFIGURED_API_MODEL"))
+    parser.add_argument("--candidate", choices=("QWEN3_LOCAL",))
     parser.add_argument("--partition", choices=("DEV", "TEST"))
     parser.add_argument("--arm", choices=ARM_NAMES)
     parser.add_argument("--retriever", choices=("bm25", "medcpt"))
@@ -685,6 +729,7 @@ def main() -> int:
     parser.add_argument("--cases", type=Path, default=DEFAULT_CASES)
     parser.add_argument("--split-manifest", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--scratch-root", type=Path, default=SCRATCH_DEFAULT)
+    parser.add_argument("--llama-api-key-file", type=Path, default=LOCAL_API_KEY_DEFAULT)
     args = parser.parse_args()
     config, config_sha256 = load_frozen_config()
     verify_frozen_source_identity(
@@ -702,6 +747,7 @@ def main() -> int:
             cases_path=args.cases,
             split_manifest_path=args.split_manifest,
             scratch_root=args.scratch_root,
+            local_api_key_path=args.llama_api_key_file,
             config_sha256=config_sha256,
         )
     elif args.phase == "select-generator":
@@ -728,16 +774,6 @@ def main() -> int:
             corpus_dir=CORPUS_DEFAULT,
             model_root=MODEL_DEFAULT,
         )
-    elif args.phase == "random-diagnostic":
-        selection = load_selection()
-        if selection.get("config_sha256") != config_sha256:
-            raise ValueError("generator selection was made against another frozen config")
-        run_random_diagnostic(
-            cases_path=args.cases,
-            split_manifest_path=args.split_manifest,
-            scratch_root=args.scratch_root,
-            selection=selection,
-        )
     elif args.phase == "jev-preflight":
         run_jev_preflight()
     else:
@@ -751,6 +787,7 @@ def main() -> int:
             cases_path=args.cases,
             split_manifest_path=args.split_manifest,
             scratch_root=args.scratch_root,
+            local_api_key_path=args.llama_api_key_file,
             limit=args.limit,
         )
     return 0

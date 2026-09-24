@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRATCH_DEFAULT = Path(r"F:\Health-Copilot-E1.2")
+SCRATCH_DEFAULT = Path(r"E:\Health-Copilot-E1.2")
 CORPUS_DEFAULT = ROOT / "data/raw/medrag_textbooks"
 MODEL_DEFAULT = ROOT.parent / "models"
 CLEAN_SUBDATASETS = ("medqa", "medmcqa", "mmlu")
