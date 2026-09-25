@@ -33,6 +33,7 @@ from eval.r2med_multiview import (
     encode_bge,
     weighted_rrf,
 )
+from tools.generate_r2med_gar import DEFAULT_SERVER as _DEFAULT_SERVER
 from tools.run_r2med_baselines import (
     MANIFEST_PATH as BASELINE_REPORT_PATH,
 )
@@ -50,6 +51,7 @@ from tools.verify_r2med_models import E_ROOT, verify_models
 DEFAULT_SOURCE_ROOT = Path(r"E:\Health-Copilot-E1.2\sources")
 DEFAULT_BGE_ROOT = E_ROOT / "models/bge-large-en-v1.5"
 DEFAULT_UPSTREAM = Path(r"D:\MyLab\Jianli\external\rag\R2MED")
+DEFAULT_LLAMA_SERVER = Path(_DEFAULT_SERVER)
 GENERATION_ROOT = ROOT / "runs/rag_r2med_crb/generation/dev"
 RANKING_ROOT = E_ROOT / "r2med/rankings/dev"
 REPORT_PATH = E_ROOT / "r2med/dev/reports/dev_report.json"
@@ -602,7 +604,7 @@ def main() -> None:
     parser.add_argument(
         "--llama-server",
         type=Path,
-        default=Path(r"C:\Users\bubblevan\AppData\Local\Microsoft\WinGet\Packages\ggml.llamacpp_Microsoft.Winget.Source_8weky3d8bbwe\llama-server.exe"),
+        default=DEFAULT_LLAMA_SERVER,
     )
     args = parser.parse_args()
     report = run_dev(

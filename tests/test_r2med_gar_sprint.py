@@ -42,6 +42,8 @@ from eval.r2med_multiview import (
     make_four_channels,
     weighted_rrf,
 )
+from tools.generate_r2med_gar import DEFAULT_SERVER
+from tools.run_r2med_crb_dev import DEFAULT_LLAMA_SERVER
 from tools.run_r2med_crb_test import assert_frozen_weights, validate_test_lock
 
 
@@ -53,6 +55,10 @@ class StaticClient:
     def complete(self, prompt: str, *, json_schema=None):
         self.calls.append((prompt, json_schema))
         return {"text": self.text, "finish_reason": "stop", "output_tokens": 17}
+
+
+def test_dev_runner_uses_shared_llama_server_default():
+    assert DEFAULT_LLAMA_SERVER == Path(DEFAULT_SERVER)
 
 
 def _deny_qrels_path_reads(monkeypatch):
