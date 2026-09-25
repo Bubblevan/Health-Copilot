@@ -1,0 +1,23 @@
+{
+  "schema_version": "e1-3-router-oof-run-v1",
+  "evaluation_status": "EXPOSED_EXPLORATORY_OOF",
+  "case_count": 5235,
+  "policy_count": 5,
+  "prediction_rows": 26175,
+  "protocol_sha256": "c81191fdace9f13c4e937d041fc2a0385e286fbc8ecd69b25941c655958c4e80",
+  "fold_manifest_sha256": "b90d07095fcf7058e99f586b803f8078331beddeb02c3f1234ce45ce6ba138d7",
+  "cost_oracle_v2_sha256": "42426e401b03c94628d70c0dd9111cfc68a9b0b598876b4fdaf65ed37722448d",
+  "bge_embedding_sha256": "5d105f4ce38fbffef4a2a7158c0bdc34c2423dc4d6f158a2eba7a1c863f95e2e",
+  "oof_predictions_sha256": "0911e1b92572095adfd63806616fb0e6de96da1ec37c9111b22d79cfe2963c1a",
+  "implementation_commit": "a2e8921ddb0bd3753d9542a61ba52ce4f0666de1",
+  "question_text_in_artifact": false,
+  "options_or_answers_in_artifact": false,
+  "new_answer_inference": false,
+  "policies": [
+    "tfidf_direct",
+    "tfidf_hierarchical",
+    "tfidf_hierarchical_always_medcpt",
+    "bge_hierarchical",
+    "bge_hierarchical_always_medcpt"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "e1-3-bge-question-embeddings-v1",
+  "model_repo_id": "BAAI/bge-base-en-v1.5",
+  "model_revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+  "model_weights_sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
+  "benchmark_input_sha256": "ca4c12a7d3cc8df57008e396af9fe5806129c1290a03c0865af0615e2e9a29d8",
+  "question_set_identity_sha256": "b70f1818177e3da4254a93c622df4a2902ce1259885df8888ce0449bc910af45",
+  "case_id_order_sha256": "ac814ef91b89511adc020a0f0cfd78e6fcd0b0ced49a87af261022fb9cb088c0",
+  "case_count": 5235,
+  "embedding_shape": [
+    5235,
+    768
+  ],
+  "dtype": "float32",
+  "normalized": true,
+  "max_sequence_length": 512,
+  "batch_size": 64,
+  "protocol_sha256": "c81191fdace9f13c4e937d041fc2a0385e286fbc8ecd69b25941c655958c4e80",
+  "embedding_file_sha256": "5d105f4ce38fbffef4a2a7158c0bdc34c2423dc4d6f158a2eba7a1c863f95e2e"
+}

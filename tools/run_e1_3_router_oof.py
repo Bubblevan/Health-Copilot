@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -149,6 +150,9 @@ def main() -> int:
         "cost_oracle_v2_sha256": protocol["cost_oracle_v2"]["sha256"],
         "bge_embedding_sha256": embedding_manifest["embedding_file_sha256"],
         "oof_predictions_sha256": sha256_file(output_path),
+        "implementation_commit": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=repo_root, text=True
+        ).strip(),
         "question_text_in_artifact": False,
         "options_or_answers_in_artifact": False,
         "new_answer_inference": False,
@@ -158,7 +162,9 @@ def main() -> int:
     if run_manifest_path.exists():
         raise FileExistsError(f"Refusing to overwrite an existing OOF run manifest: {run_manifest_path}")
     run_manifest_path.write_text(
-        json.dumps(run_manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(run_manifest, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
     print(json.dumps({"status": "OOF_PREDICTIONS_COMPLETE", **{k: run_manifest[k] for k in ("case_count", "policy_count", "prediction_rows", "oof_predictions_sha256")}}, indent=2))
     return 0

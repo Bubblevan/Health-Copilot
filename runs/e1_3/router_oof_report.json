@@ -1,0 +1,1320 @@
+{
+  "schema_version": "e1-3-router-oof-report-v1",
+  "evaluation_status": "EXPOSED_EXPLORATORY_OOF",
+  "benchmark": "Medical MIRAGE / MedRAG clean TEST subdatasets",
+  "case_count": 5235,
+  "outer_fold_count": 5,
+  "seed": 20260925,
+  "stratification": "subdataset_x_cost_oracle_class",
+  "protocol_sha256": "c81191fdace9f13c4e937d041fc2a0385e286fbc8ecd69b25941c655958c4e80",
+  "fold_manifest_sha256": "b90d07095fcf7058e99f586b803f8078331beddeb02c3f1234ce45ce6ba138d7",
+  "oof_integrity": {
+    "train_eval_overlap_cases": 0,
+    "duplicate_case_policy_predictions": 0,
+    "missing_case_policy_predictions": 0,
+    "prediction_rows": 26175,
+    "predictions_per_case": 5,
+    "case_id_order_sha256": "ac814ef91b89511adc020a0f0cfd78e6fcd0b0ced49a87af261022fb9cb088c0",
+    "question_text_in_git_artifacts": false,
+    "options_or_answers_in_git_artifacts": false,
+    "oof_predictions_sha256": "0911e1b92572095adfd63806616fb0e6de96da1ec37c9111b22d79cfe2963c1a"
+  },
+  "cost_oracle_v2": {
+    "class_counts": {
+      "BM25_RESCUE": 196,
+      "CLOSED_SUFFICIENT": 3245,
+      "MEDCPT_RESCUE": 96,
+      "UNRESOLVED": 1698
+    },
+    "retrieval_benefit_cases": 292,
+    "retrieval_benefit_prevalence": 0.05577841451766953,
+    "stage2_target_counts": {
+      "rag_bm25": 196,
+      "rag_medcpt": 96
+    },
+    "metrics": {
+      "cases": 5235,
+      "correct": 3537,
+      "accuracy": 0.6756446991404012,
+      "retrieval_calls": 292,
+      "retrieval_rate": 0.05577841451766953,
+      "answer_input_tokens": 1425551,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 1451250,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 237.0,
+      "component_latency_proxy_p95_ms": 718.7151000000009,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "no_success_action": "closed_book"
+  },
+  "stage1_metrics": {
+    "tfidf_direct": {
+      "positive_prevalence": 0.05577841451766953,
+      "pr_auc_average_precision": 0.06954003920361279,
+      "auroc": 0.5485583598225248,
+      "benefit_precision_at_policy_route": 0.10185185185185185,
+      "benefit_recall_at_policy_route": 0.03767123287671233
+    },
+    "tfidf_hierarchical": {
+      "positive_prevalence": 0.05577841451766953,
+      "pr_auc_average_precision": 0.0689745652959417,
+      "auroc": 0.5516560017071326,
+      "benefit_precision_at_policy_route": 0.06022304832713755,
+      "benefit_recall_at_policy_route": 0.2773972602739726
+    },
+    "tfidf_hierarchical_always_medcpt": {
+      "positive_prevalence": 0.05577841451766953,
+      "pr_auc_average_precision": 0.0689745652959417,
+      "auroc": 0.5516560017071326,
+      "benefit_precision_at_policy_route": 0.06022304832713755,
+      "benefit_recall_at_policy_route": 0.2773972602739726
+    },
+    "bge_hierarchical": {
+      "positive_prevalence": 0.05577841451766953,
+      "pr_auc_average_precision": 0.06242427868761332,
+      "auroc": 0.5343248651060446,
+      "benefit_precision_at_policy_route": 0.056558363417569195,
+      "benefit_recall_at_policy_route": 0.4828767123287671
+    },
+    "bge_hierarchical_always_medcpt": {
+      "positive_prevalence": 0.05577841451766953,
+      "pr_auc_average_precision": 0.06242427868761332,
+      "auroc": 0.5343248651060446,
+      "benefit_precision_at_policy_route": 0.056558363417569195,
+      "benefit_recall_at_policy_route": 0.4828767123287671
+    }
+  },
+  "stage2_metrics": {
+    "tfidf_hierarchical": {
+      "rescue_cases": 292,
+      "bm25_medcpt_accuracy": 0.6198630136986302,
+      "macro_f1": 0.5042748114953428,
+      "majority_baseline_action": "rag_bm25",
+      "majority_baseline_accuracy": 0.6712328767123288,
+      "majority_baseline_macro_f1": 0.4016393442622951,
+      "delta_vs_majority_accuracy_pp": -5.136986301369861
+    },
+    "bge_hierarchical": {
+      "rescue_cases": 292,
+      "bm25_medcpt_accuracy": 0.5582191780821918,
+      "macro_f1": 0.5233286511521962,
+      "majority_baseline_action": "rag_bm25",
+      "majority_baseline_accuracy": 0.6712328767123288,
+      "majority_baseline_macro_f1": 0.4016393442622951,
+      "delta_vs_majority_accuracy_pp": -11.301369863013699
+    }
+  },
+  "policy_table": [
+    {
+      "policy": "closed_book",
+      "cases": 5235,
+      "correct": 3245,
+      "accuracy": 0.6198662846227316,
+      "retrieval_calls": 0,
+      "retrieval_rate": 0.0,
+      "answer_input_tokens": 1127913,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 183225,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 233.0,
+      "component_latency_proxy_p95_ms": 409.3000000000002,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "rag_bm25",
+      "cases": 5235,
+      "correct": 3247,
+      "accuracy": 0.6202483285577841,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6642084,
+      "answer_input_token_measurement_count": 5234,
+      "answer_input_token_measurement_coverage": 0.9998089780324737,
+      "context_characters": 23137961,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 884.701,
+      "component_latency_proxy_p95_ms": 2328.6696000000006,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "rag_medcpt",
+      "cases": 5235,
+      "correct": 3269,
+      "accuracy": 0.624450811843362,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6167268,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22102925,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 1267.559261937868,
+      "component_latency_proxy_p95_ms": 1834.9670019394816,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "random_context",
+      "cases": 5235,
+      "correct": 3168,
+      "accuracy": 0.6051575931232092,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6667133,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22856233,
+      "component_latency_proxy_p50_ms": 1310.803500003647,
+      "component_latency_proxy_p95_ms": 1549.4683000249788,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency."
+    },
+    {
+      "policy": "cheap_router",
+      "cases": 5235,
+      "correct": 3258,
+      "accuracy": 0.622349570200573,
+      "retrieval_calls": 2311,
+      "retrieval_rate": 0.4414517669531996,
+      "answer_input_tokens": 3640366,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10567541,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 404.0,
+      "component_latency_proxy_p95_ms": 2267.3113000000008,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "jev_router",
+      "cases": 5235,
+      "correct": 3264,
+      "accuracy": 0.6234957020057307,
+      "retrieval_calls": 4908,
+      "retrieval_rate": 0.9375358166189112,
+      "answer_input_tokens": 5876822,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 20724018,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 2428.3319619449417,
+      "component_latency_proxy_p95_ms": 3044.3891919650237,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "tfidf_direct",
+      "cases": 5235,
+      "correct": 3248,
+      "accuracy": 0.6204393505253104,
+      "retrieval_calls": 108,
+      "retrieval_rate": 0.020630372492836675,
+      "answer_input_tokens": 1237336,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 644817,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 235.0,
+      "component_latency_proxy_p95_ms": 431.0,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "tfidf_hierarchical",
+      "cases": 5235,
+      "correct": 3235,
+      "accuracy": 0.6179560649474689,
+      "retrieval_calls": 1345,
+      "retrieval_rate": 0.25692454632282713,
+      "answer_input_tokens": 2493763,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 6006571,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 270.0,
+      "component_latency_proxy_p95_ms": 1383.445781964539,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "tfidf_hierarchical_always_medcpt",
+      "cases": 5235,
+      "correct": 3240,
+      "accuracy": 0.6189111747851003,
+      "retrieval_calls": 1345,
+      "retrieval_rate": 0.25692454632282713,
+      "answer_input_tokens": 2420647,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 5826261,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 270.0,
+      "component_latency_proxy_p95_ms": 1466.5851119500214,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "bge_hierarchical",
+      "cases": 5235,
+      "correct": 3239,
+      "accuracy": 0.618720152817574,
+      "retrieval_calls": 2493,
+      "retrieval_rate": 0.47621776504297997,
+      "answer_input_tokens": 3626709,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10865766,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 417.0,
+      "component_latency_proxy_p95_ms": 1660.1542719810832,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "bge_hierarchical_always_medcpt",
+      "cases": 5235,
+      "correct": 3245,
+      "accuracy": 0.6198662846227316,
+      "retrieval_calls": 2493,
+      "retrieval_rate": 0.47621776504297997,
+      "answer_input_tokens": 3535311,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10652747,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 417.0,
+      "component_latency_proxy_p95_ms": 1653.7801119549765,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    {
+      "policy": "cost_oracle_v2",
+      "cases": 5235,
+      "correct": 3537,
+      "accuracy": 0.6756446991404012,
+      "retrieval_calls": 292,
+      "retrieval_rate": 0.05577841451766953,
+      "answer_input_tokens": 1425551,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 1451250,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 237.0,
+      "component_latency_proxy_p95_ms": 718.7151000000009,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    }
+  ],
+  "comparison_metrics": {
+    "closed_book": {
+      "cases": 5235,
+      "correct": 3245,
+      "accuracy": 0.6198662846227316,
+      "retrieval_calls": 0,
+      "retrieval_rate": 0.0,
+      "answer_input_tokens": 1127913,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 183225,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 233.0,
+      "component_latency_proxy_p95_ms": 409.3000000000002,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "rag_bm25": {
+      "cases": 5235,
+      "correct": 3247,
+      "accuracy": 0.6202483285577841,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6642084,
+      "answer_input_token_measurement_count": 5234,
+      "answer_input_token_measurement_coverage": 0.9998089780324737,
+      "context_characters": 23137961,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 884.701,
+      "component_latency_proxy_p95_ms": 2328.6696000000006,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "rag_medcpt": {
+      "cases": 5235,
+      "correct": 3269,
+      "accuracy": 0.624450811843362,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6167268,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22102925,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 1267.559261937868,
+      "component_latency_proxy_p95_ms": 1834.9670019394816,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "cheap_router": {
+      "cases": 5235,
+      "correct": 3258,
+      "accuracy": 0.622349570200573,
+      "retrieval_calls": 2311,
+      "retrieval_rate": 0.4414517669531996,
+      "answer_input_tokens": 3640366,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10567541,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 404.0,
+      "component_latency_proxy_p95_ms": 2267.3113000000008,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "jev_router": {
+      "cases": 5235,
+      "correct": 3264,
+      "accuracy": 0.6234957020057307,
+      "retrieval_calls": 4908,
+      "retrieval_rate": 0.9375358166189112,
+      "answer_input_tokens": 5876822,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 20724018,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 2428.3319619449417,
+      "component_latency_proxy_p95_ms": 3044.3891919650237,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "tfidf_direct": {
+      "cases": 5235,
+      "correct": 3248,
+      "accuracy": 0.6204393505253104,
+      "retrieval_calls": 108,
+      "retrieval_rate": 0.020630372492836675,
+      "answer_input_tokens": 1237336,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 644817,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 235.0,
+      "component_latency_proxy_p95_ms": 431.0,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "tfidf_hierarchical": {
+      "cases": 5235,
+      "correct": 3235,
+      "accuracy": 0.6179560649474689,
+      "retrieval_calls": 1345,
+      "retrieval_rate": 0.25692454632282713,
+      "answer_input_tokens": 2493763,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 6006571,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 270.0,
+      "component_latency_proxy_p95_ms": 1383.445781964539,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "tfidf_hierarchical_always_medcpt": {
+      "cases": 5235,
+      "correct": 3240,
+      "accuracy": 0.6189111747851003,
+      "retrieval_calls": 1345,
+      "retrieval_rate": 0.25692454632282713,
+      "answer_input_tokens": 2420647,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 5826261,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 270.0,
+      "component_latency_proxy_p95_ms": 1466.5851119500214,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "bge_hierarchical": {
+      "cases": 5235,
+      "correct": 3239,
+      "accuracy": 0.618720152817574,
+      "retrieval_calls": 2493,
+      "retrieval_rate": 0.47621776504297997,
+      "answer_input_tokens": 3626709,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10865766,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 417.0,
+      "component_latency_proxy_p95_ms": 1660.1542719810832,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "bge_hierarchical_always_medcpt": {
+      "cases": 5235,
+      "correct": 3245,
+      "accuracy": 0.6198662846227316,
+      "retrieval_calls": 2493,
+      "retrieval_rate": 0.47621776504297997,
+      "answer_input_tokens": 3535311,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 10652747,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 417.0,
+      "component_latency_proxy_p95_ms": 1653.7801119549765,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "cost_oracle_v2": {
+      "cases": 5235,
+      "correct": 3537,
+      "accuracy": 0.6756446991404012,
+      "retrieval_calls": 292,
+      "retrieval_rate": 0.05577841451766953,
+      "answer_input_tokens": 1425551,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 1451250,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 237.0,
+      "component_latency_proxy_p95_ms": 718.7151000000009,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "random_context": {
+      "cases": 5235,
+      "correct": 3168,
+      "accuracy": 0.6051575931232092,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6667133,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22856233,
+      "component_latency_proxy_p50_ms": 1310.803500003647,
+      "component_latency_proxy_p95_ms": 1549.4683000249788,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency."
+    }
+  },
+  "relative_cost": {
+    "tfidf_direct": {
+      "vs_always_medcpt": {
+        "candidate_absolute": {
+          "accuracy": 0.6204393505253104,
+          "retrieval_calls": 108,
+          "answer_input_tokens": 1237336,
+          "component_latency_proxy_p95_ms": 431.0
+        },
+        "baseline_absolute": {
+          "accuracy": 0.624450811843362,
+          "retrieval_calls": 5235,
+          "answer_input_tokens": 6167268,
+          "component_latency_proxy_p95_ms": 1834.9670019394816
+        },
+        "delta": {
+          "accuracy_pp": -0.40114613180516345,
+          "retrieval_calls": -5127,
+          "retrieval_calls_percent_change": -97.93696275071633,
+          "retrieval_calls_reduction_percent": 97.93696275071633,
+          "answer_input_tokens": -4929932,
+          "answer_input_tokens_percent_change": -79.93704830080354,
+          "answer_input_tokens_reduction_percent": 79.93704830080354,
+          "component_latency_proxy_p95_ms": -1403.9670019394816,
+          "component_latency_proxy_p95_percent_change": -76.51183920231529
+        }
+      },
+      "vs_cheap_router": {
+        "candidate_absolute": {
+          "accuracy": 0.6204393505253104,
+          "retrieval_calls": 108,
+          "answer_input_tokens": 1237336,
+          "component_latency_proxy_p95_ms": 431.0
+        },
+        "baseline_absolute": {
+          "accuracy": 0.622349570200573,
+          "retrieval_calls": 2311,
+          "answer_input_tokens": 3640366,
+          "component_latency_proxy_p95_ms": 2267.3113000000008
+        },
+        "delta": {
+          "accuracy_pp": -0.19102196752626144,
+          "retrieval_calls": -2203,
+          "retrieval_calls_percent_change": -95.32669839896148,
+          "retrieval_calls_reduction_percent": 95.32669839896148,
+          "answer_input_tokens": -2403030,
+          "answer_input_tokens_percent_change": -66.01067035567303,
+          "answer_input_tokens_reduction_percent": 66.01067035567303,
+          "component_latency_proxy_p95_ms": -1836.3113000000008,
+          "component_latency_proxy_p95_percent_change": -80.99070030657018
+        }
+      }
+    },
+    "tfidf_hierarchical": {
+      "vs_always_medcpt": {
+        "candidate_absolute": {
+          "accuracy": 0.6179560649474689,
+          "retrieval_calls": 1345,
+          "answer_input_tokens": 2493763,
+          "component_latency_proxy_p95_ms": 1383.445781964539
+        },
+        "baseline_absolute": {
+          "accuracy": 0.624450811843362,
+          "retrieval_calls": 5235,
+          "answer_input_tokens": 6167268,
+          "component_latency_proxy_p95_ms": 1834.9670019394816
+        },
+        "delta": {
+          "accuracy_pp": -0.6494746895893133,
+          "retrieval_calls": -3890,
+          "retrieval_calls_percent_change": -74.30754536771728,
+          "retrieval_calls_reduction_percent": 74.30754536771728,
+          "answer_input_tokens": -3673505,
+          "answer_input_tokens_percent_change": -59.56454300348225,
+          "answer_input_tokens_reduction_percent": 59.56454300348225,
+          "component_latency_proxy_p95_ms": -451.5212199749426,
+          "component_latency_proxy_p95_percent_change": -24.60650352282651
+        }
+      },
+      "vs_cheap_router": {
+        "candidate_absolute": {
+          "accuracy": 0.6179560649474689,
+          "retrieval_calls": 1345,
+          "answer_input_tokens": 2493763,
+          "component_latency_proxy_p95_ms": 1383.445781964539
+        },
+        "baseline_absolute": {
+          "accuracy": 0.622349570200573,
+          "retrieval_calls": 2311,
+          "answer_input_tokens": 3640366,
+          "component_latency_proxy_p95_ms": 2267.3113000000008
+        },
+        "delta": {
+          "accuracy_pp": -0.4393505253104113,
+          "retrieval_calls": -966,
+          "retrieval_calls_percent_change": -41.80008654262224,
+          "retrieval_calls_reduction_percent": 41.80008654262224,
+          "answer_input_tokens": -1146603,
+          "answer_input_tokens_percent_change": -31.49691542004293,
+          "answer_input_tokens_reduction_percent": 31.49691542004293,
+          "component_latency_proxy_p95_ms": -883.8655180354617,
+          "component_latency_proxy_p95_percent_change": -38.98298032720348
+        }
+      }
+    },
+    "tfidf_hierarchical_always_medcpt": {
+      "vs_always_medcpt": {
+        "candidate_absolute": {
+          "accuracy": 0.6189111747851003,
+          "retrieval_calls": 1345,
+          "answer_input_tokens": 2420647,
+          "component_latency_proxy_p95_ms": 1466.5851119500214
+        },
+        "baseline_absolute": {
+          "accuracy": 0.624450811843362,
+          "retrieval_calls": 5235,
+          "answer_input_tokens": 6167268,
+          "component_latency_proxy_p95_ms": 1834.9670019394816
+        },
+        "delta": {
+          "accuracy_pp": -0.553963705826177,
+          "retrieval_calls": -3890,
+          "retrieval_calls_percent_change": -74.30754536771728,
+          "retrieval_calls_reduction_percent": 74.30754536771728,
+          "answer_input_tokens": -3746621,
+          "answer_input_tokens_percent_change": -60.75009226127355,
+          "answer_input_tokens_reduction_percent": 60.75009226127355,
+          "component_latency_proxy_p95_ms": -368.3818899894602,
+          "component_latency_proxy_p95_percent_change": -20.075668368973194
+        }
+      },
+      "vs_cheap_router": {
+        "candidate_absolute": {
+          "accuracy": 0.6189111747851003,
+          "retrieval_calls": 1345,
+          "answer_input_tokens": 2420647,
+          "component_latency_proxy_p95_ms": 1466.5851119500214
+        },
+        "baseline_absolute": {
+          "accuracy": 0.622349570200573,
+          "retrieval_calls": 2311,
+          "answer_input_tokens": 3640366,
+          "component_latency_proxy_p95_ms": 2267.3113000000008
+        },
+        "delta": {
+          "accuracy_pp": -0.34383954154727503,
+          "retrieval_calls": -966,
+          "retrieval_calls_percent_change": -41.80008654262224,
+          "retrieval_calls_reduction_percent": 41.80008654262224,
+          "answer_input_tokens": -1219719,
+          "answer_input_tokens_percent_change": -33.50539478722744,
+          "answer_input_tokens_reduction_percent": 33.50539478722744,
+          "component_latency_proxy_p95_ms": -800.7261880499793,
+          "component_latency_proxy_p95_percent_change": -35.31611155689027
+        }
+      }
+    },
+    "bge_hierarchical": {
+      "vs_always_medcpt": {
+        "candidate_absolute": {
+          "accuracy": 0.618720152817574,
+          "retrieval_calls": 2493,
+          "answer_input_tokens": 3626709,
+          "component_latency_proxy_p95_ms": 1660.1542719810832
+        },
+        "baseline_absolute": {
+          "accuracy": 0.624450811843362,
+          "retrieval_calls": 5235,
+          "answer_input_tokens": 6167268,
+          "component_latency_proxy_p95_ms": 1834.9670019394816
+        },
+        "delta": {
+          "accuracy_pp": -0.5730659025788065,
+          "retrieval_calls": -2742,
+          "retrieval_calls_percent_change": -52.378223495702,
+          "retrieval_calls_reduction_percent": 52.378223495702,
+          "answer_input_tokens": -2540559,
+          "answer_input_tokens_percent_change": -41.194237059261894,
+          "answer_input_tokens_reduction_percent": 41.194237059261894,
+          "component_latency_proxy_p95_ms": -174.81272995839845,
+          "component_latency_proxy_p95_percent_change": -9.52675060497703
+        }
+      },
+      "vs_cheap_router": {
+        "candidate_absolute": {
+          "accuracy": 0.618720152817574,
+          "retrieval_calls": 2493,
+          "answer_input_tokens": 3626709,
+          "component_latency_proxy_p95_ms": 1660.1542719810832
+        },
+        "baseline_absolute": {
+          "accuracy": 0.622349570200573,
+          "retrieval_calls": 2311,
+          "answer_input_tokens": 3640366,
+          "component_latency_proxy_p95_ms": 2267.3113000000008
+        },
+        "delta": {
+          "accuracy_pp": -0.3629417382999045,
+          "retrieval_calls": 182,
+          "retrieval_calls_percent_change": 7.875378623972306,
+          "retrieval_calls_reduction_percent": -7.875378623972306,
+          "answer_input_tokens": -13657,
+          "answer_input_tokens_percent_change": -0.37515458610480373,
+          "answer_input_tokens_reduction_percent": 0.37515458610480373,
+          "component_latency_proxy_p95_ms": -607.1570280189176,
+          "component_latency_proxy_p95_percent_change": -26.778723681168852
+        }
+      }
+    },
+    "bge_hierarchical_always_medcpt": {
+      "vs_always_medcpt": {
+        "candidate_absolute": {
+          "accuracy": 0.6198662846227316,
+          "retrieval_calls": 2493,
+          "answer_input_tokens": 3535311,
+          "component_latency_proxy_p95_ms": 1653.7801119549765
+        },
+        "baseline_absolute": {
+          "accuracy": 0.624450811843362,
+          "retrieval_calls": 5235,
+          "answer_input_tokens": 6167268,
+          "component_latency_proxy_p95_ms": 1834.9670019394816
+        },
+        "delta": {
+          "accuracy_pp": -0.4584527220630408,
+          "retrieval_calls": -2742,
+          "retrieval_calls_percent_change": -52.378223495702,
+          "retrieval_calls_reduction_percent": 52.378223495702,
+          "answer_input_tokens": -2631957,
+          "answer_input_tokens_percent_change": -42.676222275406225,
+          "answer_input_tokens_reduction_percent": 42.676222275406225,
+          "component_latency_proxy_p95_ms": -181.18688998450511,
+          "component_latency_proxy_p95_percent_change": -9.874122520622896
+        }
+      },
+      "vs_cheap_router": {
+        "candidate_absolute": {
+          "accuracy": 0.6198662846227316,
+          "retrieval_calls": 2493,
+          "answer_input_tokens": 3535311,
+          "component_latency_proxy_p95_ms": 1653.7801119549765
+        },
+        "baseline_absolute": {
+          "accuracy": 0.622349570200573,
+          "retrieval_calls": 2311,
+          "answer_input_tokens": 3640366,
+          "component_latency_proxy_p95_ms": 2267.3113000000008
+        },
+        "delta": {
+          "accuracy_pp": -0.24832855778413876,
+          "retrieval_calls": 182,
+          "retrieval_calls_percent_change": 7.875378623972306,
+          "retrieval_calls_reduction_percent": -7.875378623972306,
+          "answer_input_tokens": -105055,
+          "answer_input_tokens_percent_change": -2.8858362043816475,
+          "answer_input_tokens_reduction_percent": 2.8858362043816475,
+          "component_latency_proxy_p95_ms": -613.5311880450242,
+          "component_latency_proxy_p95_percent_change": -27.059856670101894
+        }
+      }
+    }
+  },
+  "failure_taxonomy": {
+    "tfidf_direct": {
+      "MISSED_RESCUE": 281,
+      "WASTED_RETRIEVAL": 65,
+      "HARMFUL_RETRIEVAL": 4,
+      "UNRESOLVED_RETRIEVAL": 32,
+      "WRONG_RETRIEVER": 4
+    },
+    "tfidf_hierarchical": {
+      "MISSED_RESCUE": 211,
+      "WASTED_RETRIEVAL": 837,
+      "HARMFUL_RETRIEVAL": 67,
+      "UNRESOLVED_RETRIEVAL": 427,
+      "WRONG_RETRIEVER": 24
+    },
+    "tfidf_hierarchical_always_medcpt": {
+      "MISSED_RESCUE": 211,
+      "WASTED_RETRIEVAL": 837,
+      "HARMFUL_RETRIEVAL": 62,
+      "UNRESOLVED_RETRIEVAL": 427,
+      "WRONG_RETRIEVER": 24
+    },
+    "bge_hierarchical": {
+      "MISSED_RESCUE": 151,
+      "WASTED_RETRIEVAL": 1541,
+      "HARMFUL_RETRIEVAL": 102,
+      "UNRESOLVED_RETRIEVAL": 811,
+      "WRONG_RETRIEVER": 45
+    },
+    "bge_hierarchical_always_medcpt": {
+      "MISSED_RESCUE": 151,
+      "WASTED_RETRIEVAL": 1541,
+      "HARMFUL_RETRIEVAL": 97,
+      "UNRESOLVED_RETRIEVAL": 811,
+      "WRONG_RETRIEVER": 44
+    }
+  },
+  "fold_stability": {
+    "tfidf_direct": {
+      "0": {
+        "cases": 1047,
+        "accuracy": 0.6227316141356256,
+        "retrieval_rate": 0.02005730659025788,
+        "retrieval_benefit_pr_auc": 0.09245825780149336,
+        "thresholds": [],
+        "stage2_fallback": false
+      },
+      "1": {
+        "cases": 1047,
+        "accuracy": 0.6179560649474689,
+        "retrieval_rate": 0.01623686723973257,
+        "retrieval_benefit_pr_auc": 0.07349871691604992,
+        "thresholds": [],
+        "stage2_fallback": false
+      },
+      "2": {
+        "cases": 1047,
+        "accuracy": 0.6198662846227316,
+        "retrieval_rate": 0.021012416427889206,
+        "retrieval_benefit_pr_auc": 0.07994666896125008,
+        "thresholds": [],
+        "stage2_fallback": false
+      },
+      "3": {
+        "cases": 1047,
+        "accuracy": 0.6189111747851003,
+        "retrieval_rate": 0.02387774594078319,
+        "retrieval_benefit_pr_auc": 0.06948115300743567,
+        "thresholds": [],
+        "stage2_fallback": false
+      },
+      "4": {
+        "cases": 1047,
+        "accuracy": 0.6227316141356256,
+        "retrieval_rate": 0.021967526265520534,
+        "retrieval_benefit_pr_auc": 0.05494204142662472,
+        "thresholds": [],
+        "stage2_fallback": false
+      }
+    },
+    "tfidf_hierarchical": {
+      "0": {
+        "cases": 1047,
+        "accuracy": 0.620821394460363,
+        "retrieval_rate": 0.0,
+        "retrieval_benefit_pr_auc": 0.08869311294614032,
+        "thresholds": [
+          0.95
+        ],
+        "stage2_fallback": false
+      },
+      "1": {
+        "cases": 1047,
+        "accuracy": 0.620821394460363,
+        "retrieval_rate": 0.041069723018147083,
+        "retrieval_benefit_pr_auc": 0.07631592068490872,
+        "thresholds": [
+          0.45
+        ],
+        "stage2_fallback": false
+      },
+      "2": {
+        "cases": 1047,
+        "accuracy": 0.6074498567335244,
+        "retrieval_rate": 0.9025787965616046,
+        "retrieval_benefit_pr_auc": 0.07745660424078404,
+        "thresholds": [
+          0.1
+        ],
+        "stage2_fallback": false
+      },
+      "3": {
+        "cases": 1047,
+        "accuracy": 0.6189111747851003,
+        "retrieval_rate": 0.3218720152817574,
+        "retrieval_benefit_pr_auc": 0.07202732268619445,
+        "thresholds": [
+          0.25
+        ],
+        "stage2_fallback": false
+      },
+      "4": {
+        "cases": 1047,
+        "accuracy": 0.6217765042979942,
+        "retrieval_rate": 0.019102196752626553,
+        "retrieval_benefit_pr_auc": 0.05471342040670937,
+        "thresholds": [
+          0.55
+        ],
+        "stage2_fallback": false
+      }
+    },
+    "tfidf_hierarchical_always_medcpt": {
+      "0": {
+        "cases": 1047,
+        "accuracy": 0.620821394460363,
+        "retrieval_rate": 0.0,
+        "retrieval_benefit_pr_auc": 0.08869311294614032,
+        "thresholds": [
+          0.95
+        ],
+        "stage2_fallback": false
+      },
+      "1": {
+        "cases": 1047,
+        "accuracy": 0.6227316141356256,
+        "retrieval_rate": 0.041069723018147083,
+        "retrieval_benefit_pr_auc": 0.07631592068490872,
+        "thresholds": [
+          0.45
+        ],
+        "stage2_fallback": false
+      },
+      "2": {
+        "cases": 1047,
+        "accuracy": 0.612225405921681,
+        "retrieval_rate": 0.9025787965616046,
+        "retrieval_benefit_pr_auc": 0.07745660424078404,
+        "thresholds": [
+          0.1
+        ],
+        "stage2_fallback": false
+      },
+      "3": {
+        "cases": 1047,
+        "accuracy": 0.6189111747851003,
+        "retrieval_rate": 0.3218720152817574,
+        "retrieval_benefit_pr_auc": 0.07202732268619445,
+        "thresholds": [
+          0.25
+        ],
+        "stage2_fallback": false
+      },
+      "4": {
+        "cases": 1047,
+        "accuracy": 0.6198662846227316,
+        "retrieval_rate": 0.019102196752626553,
+        "retrieval_benefit_pr_auc": 0.05471342040670937,
+        "thresholds": [
+          0.55
+        ],
+        "stage2_fallback": false
+      }
+    },
+    "bge_hierarchical": {
+      "0": {
+        "cases": 1047,
+        "accuracy": 0.620821394460363,
+        "retrieval_rate": 0.0,
+        "retrieval_benefit_pr_auc": 0.06516098715388419,
+        "thresholds": [
+          0.95
+        ],
+        "stage2_fallback": false
+      },
+      "1": {
+        "cases": 1047,
+        "accuracy": 0.6141356255969437,
+        "retrieval_rate": 0.623686723973257,
+        "retrieval_benefit_pr_auc": 0.06121028335758137,
+        "thresholds": [
+          0.35
+        ],
+        "stage2_fallback": false
+      },
+      "2": {
+        "cases": 1047,
+        "accuracy": 0.6179560649474689,
+        "retrieval_rate": 0.6198662846227316,
+        "retrieval_benefit_pr_auc": 0.06879965952544742,
+        "thresholds": [
+          0.35
+        ],
+        "stage2_fallback": false
+      },
+      "3": {
+        "cases": 1047,
+        "accuracy": 0.6170009551098377,
+        "retrieval_rate": 1.0,
+        "retrieval_benefit_pr_auc": 0.07944760726803617,
+        "thresholds": [
+          0.05
+        ],
+        "stage2_fallback": false
+      },
+      "4": {
+        "cases": 1047,
+        "accuracy": 0.623686723973257,
+        "retrieval_rate": 0.13753581661891118,
+        "retrieval_benefit_pr_auc": 0.05492360262464664,
+        "thresholds": [
+          0.6
+        ],
+        "stage2_fallback": false
+      }
+    },
+    "bge_hierarchical_always_medcpt": {
+      "0": {
+        "cases": 1047,
+        "accuracy": 0.620821394460363,
+        "retrieval_rate": 0.0,
+        "retrieval_benefit_pr_auc": 0.06516098715388419,
+        "thresholds": [
+          0.95
+        ],
+        "stage2_fallback": false
+      },
+      "1": {
+        "cases": 1047,
+        "accuracy": 0.6150907354345749,
+        "retrieval_rate": 0.623686723973257,
+        "retrieval_benefit_pr_auc": 0.06121028335758137,
+        "thresholds": [
+          0.35
+        ],
+        "stage2_fallback": false
+      },
+      "2": {
+        "cases": 1047,
+        "accuracy": 0.6246418338108882,
+        "retrieval_rate": 0.6198662846227316,
+        "retrieval_benefit_pr_auc": 0.06879965952544742,
+        "thresholds": [
+          0.35
+        ],
+        "stage2_fallback": false
+      },
+      "3": {
+        "cases": 1047,
+        "accuracy": 0.6160458452722063,
+        "retrieval_rate": 1.0,
+        "retrieval_benefit_pr_auc": 0.07944760726803617,
+        "thresholds": [
+          0.05
+        ],
+        "stage2_fallback": false
+      },
+      "4": {
+        "cases": 1047,
+        "accuracy": 0.6227316141356256,
+        "retrieval_rate": 0.13753581661891118,
+        "retrieval_benefit_pr_auc": 0.05492360262464664,
+        "thresholds": [
+          0.6
+        ],
+        "stage2_fallback": false
+      }
+    }
+  },
+  "paired_bootstrap": {
+    "best_learned_vs_cheap": {
+      "delta_accuracy": -0.0019102196752626144,
+      "delta_accuracy_pp": -0.19102196752626144,
+      "ci_95_pp": [
+        -0.6685768863419294,
+        0.28653295128939826
+      ],
+      "replicates": 10000,
+      "stratification": "paired resampling within each MIRAGE subdataset at fixed subdataset sample sizes",
+      "interpretation": "Exploratory OOF bootstrap interval; not confirmatory significance."
+    },
+    "best_learned_vs_medcpt": {
+      "delta_accuracy": -0.0040114613180516345,
+      "delta_accuracy_pp": -0.40114613180516345,
+      "ci_95_pp": [
+        -1.146131805157593,
+        0.3438395415472779
+      ],
+      "replicates": 10000,
+      "stratification": "paired resampling within each MIRAGE subdataset at fixed subdataset sample sizes",
+      "interpretation": "Exploratory OOF bootstrap interval; not confirmatory significance."
+    }
+  },
+  "pareto_frontier": [
+    "closed_book",
+    "cost_oracle_v2",
+    "tfidf_direct"
+  ],
+  "best_learned_policy": "tfidf_direct",
+  "best_bge_policy": "bge_hierarchical_always_medcpt",
+  "best_tfidf_policy": "tfidf_direct",
+  "sft_candidate_gate": {
+    "candidate_policy": "bge_hierarchical_always_medcpt",
+    "quality_path_pass": false,
+    "quality_path_folds_at_least_cheap": 1,
+    "cost_path_pass": false,
+    "cost_path_folds_no_more_calls_than_cheap": 2,
+    "reason": "GATES_NOT_MET"
+  },
+  "headroom": {
+    "closed_accuracy": 0.6198662846227316,
+    "best_fixed_accuracy": 0.624450811843362,
+    "cheap_accuracy": 0.622349570200573,
+    "best_learned_accuracy": 0.6204393505253104,
+    "best_learned_policy": "tfidf_direct",
+    "oracle_v2_accuracy": 0.6756446991404012,
+    "oracle_headroom": 0.05577841451766952,
+    "oracle_headroom_pp": 5.577841451766952,
+    "oracle_headroom_over_best_fixed": 0.05119388729703911,
+    "oracle_headroom_over_best_fixed_pp": 5.1193887297039105,
+    "learned_gain_over_closed": 0.0005730659025787732,
+    "learned_gain_over_closed_pp": 0.05730659025787732,
+    "oracle_headroom_recovered_fraction": 0.01027397260273931,
+    "learned_gain_over_cheap_pp": -0.19102196752626144,
+    "cheap_to_oracle_headroom_recovered_fraction": -0.035842293906809236
+  },
+  "oof_runner_commit": "a2e8921ddb0bd3753d9542a61ba52ce4f0666de1",
+  "disk_free_start_gib": {
+    "C": 18.36,
+    "D": 248.3,
+    "E": 194.24
+  },
+  "disk_free_end_gib": {
+    "C": 18.31,
+    "D": 248.27,
+    "E": 194.22
+  },
+  "research_questions": {
+    "RQ1 question-only retrieval-benefit signal": {
+      "answer": "YES, weak ranking signal; no useful Pareto policy emerged",
+      "evidence": "positive prevalence=0.0558; TF-IDF PR-AUC=0.0690; BGE PR-AUC=0.0624; best learned OOF accuracy=0.6204 vs closed=0.6199"
+    },
+    "RQ2 semantic BGE vs lexical TF-IDF": {
+      "answer": "NO / mixed; BGE does not beat TF-IDF on both PR-AUC and hierarchical accuracy",
+      "evidence": "BGE vs TF-IDF Stage-1 PR-AUC 0.0624 vs 0.0690; hierarchical OOF accuracy 0.6187 vs 0.6180. No confirmatory significance test is claimed."
+    },
+    "RQ3 value of Stage 2 retriever selector": {
+      "answer": "NO ACCURACY VALUE over always-MedCPT",
+      "evidence": "BGE hierarchical accuracy=0.6187, always-MedCPT=0.6199; rescue-only selector accuracy=0.5582, macro-F1=0.5233, majority-BM25 baseline accuracy=0.6712"
+    },
+    "RQ4 Pareto-domination of Cheap": {
+      "answer": "NO",
+      "evidence": "frontier=['closed_book', 'cost_oracle_v2', 'tfidf_direct']; best learned=tfidf_direct accuracy=0.6204, retrieval rate=0.0206; cheap accuracy=0.6223, retrieval rate=0.4415"
+    },
+    "RQ5 recovery of oracle headroom": {
+      "answer": "1.0% of Closed-to-Oracle-v2 headroom recovered",
+      "evidence": "Closed=0.6199; best fixed=0.6245; Cheap=0.6223; best learned=0.6204; Oracle v2=0.6756; relative-to-Cheap-to-Oracle fraction=-3.6%"
+    }
+  },
+  "external_retrieval_baselines": {
+    "nfcorpus": {
+      "bm25": {
+        "dataset": "nfcorpus",
+        "split": "test",
+        "num_documents": 3633,
+        "num_cases": 323,
+        "evaluated_cases": 323,
+        "recall_at_10": 0.15203340008689414,
+        "mrr": 0.5181519976411618,
+        "ndcg_at_10": 0.31104054600986425
+      },
+      "learned_dense": {
+        "dataset": "nfcorpus",
+        "split": "test",
+        "num_documents": 3633,
+        "num_cases": 323,
+        "evaluated_cases": 323,
+        "recall_at_10": 0.10252478061270863,
+        "mrr": 0.40879650105656296,
+        "ndcg_at_10": 0.23601982478769756
+      },
+      "hybrid_rrf": {
+        "dataset": "nfcorpus",
+        "split": "test",
+        "num_documents": 3633,
+        "num_cases": 323,
+        "evaluated_cases": 323,
+        "recall_at_10": 0.1526130887831758,
+        "mrr": 0.5245847461791734,
+        "ndcg_at_10": 0.3094207280690942
+      },
+      "hybrid_crossencoder": {
+        "dataset": "nfcorpus",
+        "split": "test",
+        "num_documents": 3633,
+        "num_cases": 323,
+        "evaluated_cases": 323,
+        "recall_at_10": 0.1526130887831758,
+        "mrr": 0.5016425868593051,
+        "ndcg_at_10": 0.3091988909146717
+      }
+    },
+    "r2med": {
+      "test_query_count": 303,
+      "selected_fixed_baseline": "bge_dense",
+      "selected_baseline_ndcg_at_10": 0.15161603386694156,
+      "custom_ndcg_at_10": 0.11664298193822058,
+      "custom_delta_ndcg_at_10": -0.03497305192872098,
+      "custom_ci_95": [
+        -0.060320317063902,
+        -0.009804538847384652
+      ],
+      "headline_gate_eligible": false,
+      "dev_query_count": 393
+    }
+  },
+  "mirage_fixed_baselines": {
+    "closed_book": {
+      "cases": 5235,
+      "correct": 3245,
+      "accuracy": 0.6198662846227316,
+      "retrieval_calls": 0,
+      "retrieval_rate": 0.0,
+      "answer_input_tokens": 1127913,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 183225,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 233.0,
+      "component_latency_proxy_p95_ms": 409.3000000000002,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "random_context": {
+      "cases": 5235,
+      "correct": 3168,
+      "accuracy": 0.6051575931232092,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6667133,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22856233,
+      "component_latency_proxy_p50_ms": 1310.803500003647,
+      "component_latency_proxy_p95_ms": 1549.4683000249788,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency."
+    },
+    "rag_bm25": {
+      "cases": 5235,
+      "correct": 3247,
+      "accuracy": 0.6202483285577841,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6642084,
+      "answer_input_token_measurement_count": 5234,
+      "answer_input_token_measurement_coverage": 0.9998089780324737,
+      "context_characters": 23137961,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 884.701,
+      "component_latency_proxy_p95_ms": 2328.6696000000006,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    },
+    "rag_medcpt": {
+      "cases": 5235,
+      "correct": 3269,
+      "accuracy": 0.624450811843362,
+      "retrieval_calls": 5235,
+      "retrieval_rate": 1.0,
+      "answer_input_tokens": 6167268,
+      "answer_input_token_measurement_count": 5235,
+      "answer_input_token_measurement_coverage": 1.0,
+      "context_characters": 22102925,
+      "context_character_measurement_count": 5235,
+      "component_latency_proxy_p50_ms": 1267.559261937868,
+      "component_latency_proxy_p95_ms": 1834.9670019394816,
+      "component_latency_measurement_count": 5235,
+      "component_latency_measurement_coverage": 1.0,
+      "latency_semantics": "Historical component-summed proxy; not observed production end-to-end latency and excludes learned-classifier inference time."
+    }
+  },
+  "gates": {
+    "RAG_BASELINES_COMPLETE": "YES",
+    "OOF_PROTOCOL_VALID": "YES",
+    "COST_ORACLE_V2_READY": "YES",
+    "TFIDF_SIGNAL_FOUND": "YES",
+    "BGE_SIGNAL_FOUND": "YES",
+    "BGE_BEATS_TFIDF": "NO",
+    "LEARNED_ROUTER_PARETO_DOMINATES_CHEAP": "NO",
+    "STRONG_CAPABILITY_ROUTING_SIGNAL": "NO",
+    "SFT_CANDIDATE": "NO",
+    "RAG_CLOSEOUT": "YES"
+  },
+  "interpretation": {
+    "clinical_validation": false,
+    "untouched_holdout": false,
+    "confirmatory_test": false,
+    "sft_or_grpo_run": false,
+    "learned_model_inference_latency_measured": false,
+    "sft_candidate_reason": "GATES_NOT_MET"
+  }
+}
