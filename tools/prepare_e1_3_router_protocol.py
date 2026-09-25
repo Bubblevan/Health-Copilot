@@ -198,8 +198,22 @@ def build_protocol(
         "models": {
             "direct_tfidf": {
                 "features": {
-                    "word": {"ngram_range": [1, 2], "min_df": 2, "max_features": 200000},
-                    "char_wb": {"ngram_range": [3, 5], "min_df": 2, "max_features": 300000},
+                    "word": {
+                        "analyzer": "word",
+                        "ngram_range": [1, 2],
+                        "min_df": 2,
+                        "max_features": 200000,
+                        "lowercase": True,
+                        "strip_accents": None,
+                    },
+                    "char_wb": {
+                        "analyzer": "char_wb",
+                        "ngram_range": [3, 5],
+                        "min_df": 2,
+                        "max_features": 300000,
+                        "lowercase": True,
+                        "strip_accents": None,
+                    },
                     "sublinear_tf": True,
                     "norm": "l2",
                     "dtype": "float32",
@@ -215,6 +229,14 @@ def build_protocol(
                 "fit_boundary": "vectorizers and classifier fit only on the current training partition",
             },
             "hierarchical": {
+                "logistic_regression": {
+                    "solver": "lbfgs",
+                    "C": 1.0,
+                    "class_weight": "balanced",
+                    "max_iter": 2000,
+                    "tol": 0.0001,
+                    "random_state": SEED,
+                },
                 "stage1": "balanced binary logistic regression for retrieval benefit",
                 "stage2": "balanced binary logistic regression, trained only on rescue cases; target BM25 if correct else MedCPT",
                 "stage2_small_class_fallback": "If either rescue retriever has fewer than 2 training examples, choose the majority rescue retriever and record fallback=true.",
@@ -234,7 +256,15 @@ def build_protocol(
                 "weights_bytes": bge_source["bytes"],
                 "weights_sha256": actual_model_sha,
                 "model_path": str(model_path.parent),
-                "encoding": "Raw question only; SentenceTransformer encode; L2-normalize embeddings; frozen model, no fine-tuning.",
+                "encoding": {
+                    "input": "raw question only; no options, prefixes, IDs, or labels",
+                    "max_sequence_length": 512,
+                    "batch_size": 64,
+                    "precision": "float32",
+                    "normalize_embeddings": True,
+                    "device": "cuda when available, otherwise cpu",
+                    "frozen": True,
+                },
                 "cache_path": "E:\\Health-Copilot-E1.3\\router\\bge_embeddings.npy",
             },
         },

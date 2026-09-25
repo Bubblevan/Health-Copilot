@@ -2,7 +2,7 @@
   "schema_version": "e1-3-oof-learned-capability-router-protocol-v1",
   "status": "FROZEN_BEFORE_OOF_METRICS",
   "evaluation_status": "EXPOSED_EXPLORATORY_OOF",
-  "start_commit": "d6fd050ae3fd99ad35b25a38a488c0608d73cf8d",
+  "start_commit": "81614eeacef1a192b9f74e874857791d407dcc00",
   "scope": "Question-only learned routing over existing MIRAGE E1.2 outcomes; no new answer inference.",
   "benchmark": {
     "name": "Medical MIRAGE / MedRAG clean TEST subdatasets",
@@ -92,20 +92,26 @@
     "direct_tfidf": {
       "features": {
         "word": {
+          "analyzer": "word",
           "ngram_range": [
             1,
             2
           ],
           "min_df": 2,
-          "max_features": 200000
+          "max_features": 200000,
+          "lowercase": true,
+          "strip_accents": null
         },
         "char_wb": {
+          "analyzer": "char_wb",
           "ngram_range": [
             3,
             5
           ],
           "min_df": 2,
-          "max_features": 300000
+          "max_features": 300000,
+          "lowercase": true,
+          "strip_accents": null
         },
         "sublinear_tf": true,
         "norm": "l2",
@@ -122,6 +128,14 @@
       "fit_boundary": "vectorizers and classifier fit only on the current training partition"
     },
     "hierarchical": {
+      "logistic_regression": {
+        "solver": "lbfgs",
+        "C": 1.0,
+        "class_weight": "balanced",
+        "max_iter": 2000,
+        "tol": 0.0001,
+        "random_state": 20260925
+      },
       "stage1": "balanced binary logistic regression for retrieval benefit",
       "stage2": "balanced binary logistic regression, trained only on rescue cases; target BM25 if correct else MedCPT",
       "stage2_small_class_fallback": "If either rescue retriever has fewer than 2 training examples, choose the majority rescue retriever and record fallback=true.",
@@ -161,7 +175,15 @@
       "weights_bytes": 437955512,
       "weights_sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
       "model_path": "E:\\Health-Copilot-E1.2\\models\\bge-base-en-v1.5",
-      "encoding": "Raw question only; SentenceTransformer encode; L2-normalize embeddings; frozen model, no fine-tuning.",
+      "encoding": {
+        "input": "raw question only; no options, prefixes, IDs, or labels",
+        "max_sequence_length": 512,
+        "batch_size": 64,
+        "precision": "float32",
+        "normalize_embeddings": true,
+        "device": "cuda when available, otherwise cpu",
+        "frozen": true
+      },
       "cache_path": "E:\\Health-Copilot-E1.3\\router\\bge_embeddings.npy"
     }
   },
@@ -200,7 +222,7 @@
     "numpy": "2.4.6",
     "disk_free_start_gib": {
       "C": {
-        "free_gib": 18.37
+        "free_gib": 18.36
       },
       "D": {
         "free_gib": 248.3
@@ -217,5 +239,5 @@
     "model_files_in_git": false,
     "answer_inference_or_cloud_calls": false
   },
-  "protocol_sha256": "0867c290a687c300e624777aa18a567c3f97858c215bd30a397d883379d53354"
+  "protocol_sha256": "c81191fdace9f13c4e937d041fc2a0385e286fbc8ecd69b25941c655958c4e80"
 }
