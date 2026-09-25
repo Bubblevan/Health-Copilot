@@ -1,0 +1,108 @@
+{
+  "schema_version": "e1-2-r2med-execution-preflight-v1",
+  "recorded_at_local": "2026-09-25T16:06:06+08:00",
+  "start_commit": "e00e4ce1be71a7795329de728bd086f01516685f",
+  "tracked_worktree_clean": true,
+  "preexisting_untracked_worktree_items_present": true,
+  "runtime": {
+    "python_executable": ".venv/Scripts/python.exe",
+    "python_version": "3.11.15",
+    "pytorch_version": "2.14.0+cu132",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "gpu_vram_gib": 15.99,
+    "nvidia_driver": "616.92",
+    "cuda_user_mode_driver": "13.4",
+    "sentence_transformers_version": "6.1.0"
+  },
+  "storage_before": {
+    "C": {"available": true, "free_gib": 19.12},
+    "D": {"available": true, "free_gib": 249.16},
+    "E": {"available": true, "free_gib": 205.21, "capacity_gib": 803.87},
+    "F": {"available": false, "free_gib": null, "note": "External volume was not mounted in this Windows session."},
+    "scratch_root": {
+      "path": "E:\\Health-Copilot-E1.2",
+      "existing_bytes": 4777445854,
+      "existing_gib": 4.449,
+      "existing_cache_gib": 1.80,
+      "hard_use_cap_gib": 50,
+      "minimum_free_gib": 160.77,
+      "safe_additional_use_gib": 44.44
+    }
+  },
+  "repositories": {
+    "health_copilot_start_commit": "e00e4ce1be71a7795329de728bd086f01516685f",
+    "upstream_r2med_path": "D:\\MyLab\\Jianli\\external\\rag\\R2MED",
+    "upstream_r2med_remote": "https://github.com/R2MED/R2MED.git",
+    "upstream_r2med_commit": "11244a4925a39082967a6c9d38ef01f279c316a5",
+    "upstream_tracked_worktree_clean": true
+  },
+  "models": {
+    "bge_base_en_v1_5": {
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "path": "E:\\Health-Copilot-E1.2\\models\\bge-base-en-v1.5",
+      "model_safetensors_sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
+      "hash_matches_frozen_config": true,
+      "downloaded_this_sprint": false
+    },
+    "medcpt": {
+      "path": "D:\\MyLab\\Jianli\\models",
+      "query_encoder_sha256": "19d78c0d5eaee2f81e6c47c5425bbadcc0c6af016cbb5da4a000d64e59d6e342",
+      "article_encoder_sha256": "a5d5ffe4d8666c1d0aa15f371b94fc3492ca8f927e5621abd4b3ee9fc845b0f3",
+      "cross_encoder_sha256": "61d5ccd48869e03500544525fc231641d7daa9ba267b202c82724750038dc1e0",
+      "all_hashes_match_frozen_config": true,
+      "copied_or_downloaded_this_sprint": false
+    }
+  },
+  "data_integrity": {
+    "source_root": "E:\\Health-Copilot-E1.2\\sources",
+    "source_manifest_sha256": "7568ebbddf53bb83a7e7aa090c96eb9869603d354f4ab38f3926727dabdaea4b",
+    "dev_subsets": {
+      "PMC-Treatment": {"queries": 150, "source_files_size_hash_and_row_counts_match": true},
+      "PMC-Clinical": {"queries": 114, "source_files_size_hash_and_row_counts_match": true},
+      "IIYi-Clinical": {"queries": 129, "source_files_size_hash_and_row_counts_match": true},
+      "total_queries": 393
+    },
+    "test_metadata_only": {
+      "MedQA-Diag": {"queries": 118, "source_files_size_hash_and_row_counts_match": true},
+      "MedXpertQA-Exam": {"queries": 97, "source_files_size_hash_and_row_counts_match": true},
+      "Medical-Sciences": {"queries": 88, "source_files_size_hash_and_row_counts_match": true},
+      "total_queries": 303,
+      "query_qrels_and_document_contents_opened_this_sprint": false
+    }
+  },
+  "existing_artifacts": {
+    "completed_dev_arm_manifests": 12,
+    "dev_lock_already_tracked": true,
+    "dev_lock_revalidated_this_sprint": true,
+    "dev_lock_revalidation_command": ".venv/Scripts/python.exe -B tools/analyze_e1_2_r2med.py --lock-dev --scratch-root E:\\Health-Copilot-E1.2",
+    "dev_lock_revalidation_status": "LOCKED_BEFORE_TEST",
+    "dev_query_count": 393,
+    "selected_fixed_baseline": "bge_dense",
+    "rrf_minus_bge_macro_ndcg_at_10": 0.016437496518437397,
+    "rrf_vs_bge_paired_bootstrap_95": [-0.008204885150721096, 0.041374710112888353],
+    "retrieval_arms_recomputed_this_sprint": false,
+    "historical_test_report_artifact_exists": true,
+    "historical_test_report_commit": "3ea0bc5",
+    "historical_test_report_contents_inspected_this_sprint": false,
+    "note": "All four DEV arms already had complete outputs for the frozen identity. This sprint independently re-aggregated those DEV-only outputs and confirmed the existing committed lock has exactly matching parsed JSON values; model retrieval was not repeated. No TEST analysis or execution was done."
+  },
+  "cache_and_network_policy": {
+    "python_install_commands_run": false,
+    "model_downloads_run": false,
+    "bge_snapshot_reused_from_e": true,
+    "medcpt_models_reused_read_only_from_d": true,
+    "f_cache_redirection_exercised": false,
+    "reason": "F: was not mounted and no package installation or model download was needed.",
+    "new_cache_or_model_files_written_to_c_d_or_wsl": false
+  },
+  "storage_after_dev_revalidation": {
+    "E_free_gib": 205.21,
+    "scratch_bytes": 4777445854,
+    "scratch_gib": 4.449,
+    "existing_cache_bytes": 1935079852,
+    "existing_cache_gib": 1.802,
+    "F_mounted": false
+  },
+  "current_sprint_test_opened": false
+}
