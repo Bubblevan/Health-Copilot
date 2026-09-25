@@ -24,7 +24,12 @@ from eval.r2med_crb_data import (
     load_partition_inputs,
     load_source_manifest,
 )
-from eval.r2med_crb_evaluator import evaluate_rankings, paired_stratified_bootstrap
+from eval.r2med_crb_evaluator import (
+    GAR_GENERATION_TO_MULTIVIEW,
+    GAR_MULTIVIEW_TO_GENERATION,
+    evaluate_rankings,
+    paired_stratified_bootstrap,
+)
 from eval.r2med_gar_generation import GENERATION_CONFIG, METHODS
 from eval.r2med_multiview import (
     FUSION_CONFIGS,
@@ -57,6 +62,21 @@ DEFAULT_SERVER = Path(
     r"C:\Users\bubblevan\AppData\Local\Microsoft\WinGet\Packages\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\llama-server.exe"
 )
 GAR_METHODS = ("hyde", "query2doc", "lamer")
+
+
+def resolve_dev_gar_baseline(dev_report: dict[str, Any]) -> str:
+    selected = dev_report["strongest_cost_matched_gar"]["method"]
+    try:
+        return GAR_MULTIVIEW_TO_GENERATION[selected]
+    except KeyError as error:
+        raise ValueError("DEV report names an invalid strongest cost-matched GAR baseline") from error
+
+
+def dev_multiview_configs(dev_report: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        method: dev_report["multi_view"][GAR_GENERATION_TO_MULTIVIEW[method]]["best_config"]
+        for method in GAR_METHODS
+    }
 def validate_test_lock(lock: dict[str, Any] | None, *, committed: bool) -> dict[str, Any]:
     if not committed or lock is None:
         raise FileNotFoundError("TEST is blocked until final_method_lock.json is committed")
@@ -299,9 +319,8 @@ def _evaluate_test(
         os.fsync(handle.fileno())
     run_partition_baselines("TEST", source_root, bge_root)
 
-    gar_baseline_method = dev_report["strongest_cost_matched_gar"]["method"]
-    if gar_baseline_method not in GAR_METHODS:
-        raise ValueError("DEV report names an invalid strongest cost-matched GAR baseline")
+    gar_baseline_key = dev_report["strongest_cost_matched_gar"]["method"]
+    gar_baseline_method = resolve_dev_gar_baseline(dev_report)
     crb_method = lock["crb_variant"]
     generation_methods = (*GAR_METHODS, crb_method)
     generation_stats = _ensure_test_generations(
@@ -444,9 +463,7 @@ def _evaluate_test(
         single_query_rows[method] = rows
         single_summaries[method] = summary
 
-    mv_configs = {
-        method: dev_report["multi_view"][method]["best_config"] for method in GAR_METHODS
-    }
+    mv_configs = dev_multiview_configs(dev_report)
     for method, config in mv_configs.items():
         allowed = next(
             (
@@ -539,7 +556,8 @@ def _evaluate_test(
         },
         "primary_comparison": {
             "candidate": crb_method,
-            "baseline": gar_baseline_method,
+            "baseline": gar_baseline_key,
+            "baseline_generation_method": gar_baseline_method,
             "delta_ndcg_at_10": delta_ndcg,
             "delta_mrr_at_10": delta_mrr,
             "delta_recall_at_10": delta_recall10,

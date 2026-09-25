@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 from eval.r2med_crb import BGE_QUERY_PREFIX, bm25_query_text, crb_lexical_text
 from eval.r2med_crb_data import SOURCE_MANIFEST_PATH, load_partition_inputs, load_source_manifest
 from eval.r2med_crb_evaluator import (
+    GAR_GENERATION_TO_MULTIVIEW,
     GAR_METHOD_ORDER,
     dev_success_gate,
     evaluate_rankings,
@@ -411,7 +412,8 @@ def run_dev(
                 single_rankings[method].setdefault("_bm25", {})
                 single_rankings[method]["_bm25"][subset.name] = single_bm25
 
-            channels_by_method[method][subset.name] = {
+            channel_method = GAR_GENERATION_TO_MULTIVIEW.get(method, method)
+            channels_by_method[channel_method][subset.name] = {
                 query_id: (
                     bm25_original[query_id],
                     bm25_bridge[query_id],

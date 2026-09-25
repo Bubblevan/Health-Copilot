@@ -16,6 +16,15 @@ from eval.r2med_multiview import FUSION_CONFIGS
 
 METRICS = ("ndcg@10", "mrr@10", "recall@5", "recall@10", "recall@50", "recall@100")
 GAR_METHOD_ORDER = ("hyde_mv", "query2doc_mv", "lamer_mv")
+GAR_GENERATION_TO_MULTIVIEW = {
+    "hyde": "hyde_mv",
+    "query2doc": "query2doc_mv",
+    "lamer": "lamer_mv",
+}
+GAR_MULTIVIEW_TO_GENERATION = {
+    multiview: generation
+    for generation, multiview in GAR_GENERATION_TO_MULTIVIEW.items()
+}
 
 
 def _load_qrels(

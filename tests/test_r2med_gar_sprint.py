@@ -22,6 +22,8 @@ from eval.r2med_crb_data import (
     _subset_manifest,
 )
 from eval.r2med_crb_evaluator import (
+    GAR_GENERATION_TO_MULTIVIEW,
+    GAR_METHOD_ORDER,
     METRICS,
     paired_stratified_bootstrap,
     select_best_fusion,
@@ -44,7 +46,12 @@ from eval.r2med_multiview import (
 )
 from tools.generate_r2med_gar import DEFAULT_SERVER
 from tools.run_r2med_crb_dev import DEFAULT_LLAMA_SERVER
-from tools.run_r2med_crb_test import assert_frozen_weights, validate_test_lock
+from tools.run_r2med_crb_test import (
+    assert_frozen_weights,
+    dev_multiview_configs,
+    resolve_dev_gar_baseline,
+    validate_test_lock,
+)
 
 
 class StaticClient:
@@ -59,6 +66,11 @@ class StaticClient:
 
 def test_dev_runner_uses_shared_llama_server_default():
     assert DEFAULT_LLAMA_SERVER == Path(DEFAULT_SERVER)
+
+
+def test_dev_generation_methods_map_to_multiview_result_keys():
+    assert tuple(GAR_GENERATION_TO_MULTIVIEW.values()) == GAR_METHOD_ORDER
+    assert set(GAR_GENERATION_TO_MULTIVIEW) == {"hyde", "query2doc", "lamer"}
 
 
 def _deny_qrels_path_reads(monkeypatch):
@@ -280,6 +292,26 @@ def test_test_weights_are_frozen():
     assert_frozen_weights(lock, rrf_k=60, weights=(2, 1, 2, 1))
     with pytest.raises(ValueError, match="differ"):
         assert_frozen_weights(lock, rrf_k=20, weights=(1, 1, 1, 1))
+
+
+def test_dev_selected_multiview_gar_maps_back_to_test_generation_method():
+    report = {
+        "strongest_cost_matched_gar": {"method": "query2doc_mv"},
+        "multi_view": {
+            "hyde_mv": {"best_config": {"config_id": "h"}},
+            "query2doc_mv": {"best_config": {"config_id": "q"}},
+            "lamer_mv": {"best_config": {"config_id": "l"}},
+        },
+    }
+    assert resolve_dev_gar_baseline(report) == "query2doc"
+    assert dev_multiview_configs(report) == {
+        "hyde": {"config_id": "h"},
+        "query2doc": {"config_id": "q"},
+        "lamer": {"config_id": "l"},
+    }
+    report["strongest_cost_matched_gar"]["method"] = "unknown"
+    with pytest.raises(ValueError, match="invalid"):
+        resolve_dev_gar_baseline(report)
 
 
 def test_metric_macro_equal_subset_weight():
