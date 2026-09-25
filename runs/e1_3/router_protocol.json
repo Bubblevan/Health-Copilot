@@ -1,0 +1,221 @@
+{
+  "schema_version": "e1-3-oof-learned-capability-router-protocol-v1",
+  "status": "FROZEN_BEFORE_OOF_METRICS",
+  "evaluation_status": "EXPOSED_EXPLORATORY_OOF",
+  "start_commit": "d6fd050ae3fd99ad35b25a38a488c0608d73cf8d",
+  "scope": "Question-only learned routing over existing MIRAGE E1.2 outcomes; no new answer inference.",
+  "benchmark": {
+    "name": "Medical MIRAGE / MedRAG clean TEST subdatasets",
+    "case_count": 5235,
+    "input_artifact": "E:\\Health-Copilot-E1.2\\inputs\\benchmark_test.json",
+    "input_sha256": "ca4c12a7d3cc8df57008e396af9fe5806129c1290a03c0865af0615e2e9a29d8",
+    "case_order_sha256": "ac814ef91b89511adc020a0f0cfd78e6fcd0b0ced49a87af261022fb9cb088c0",
+    "subdataset_counts": {
+      "medmcqa": 3346,
+      "medqa": 1018,
+      "mmlu": 871
+    },
+    "question_feature_boundary": "Only record['question']; options, labels, IDs and outcomes are excluded from features."
+  },
+  "historical_arm_sources": {
+    "closed_book": {
+      "result_identity": "ff7163c859f5d5730ca3b8c30b6690cc3610ef2fe3996ef2077e26e1b962ef62",
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "case_results_sha256": "c8330ccbb15e2e4977b4f8abc6cee999dfce9e4f17a069d72a01c27411fbd4bb",
+      "manifest_sha256": "0c07e1f015de7d863335605588a139bbffbba33682d721e84b4cef39ad82b2aa",
+      "metrics_sha256": "8710b8e80a13adc991d06f2f47104e9db4da4ffbf67860727a71555fdb6e2da6",
+      "rows": 5235
+    },
+    "rag_bm25": {
+      "result_identity": "07272e36cab00be31fb93c44f8adcbf47f78e52e2ae71304d820aa4a5c8e658f",
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "case_results_sha256": "cbba029bea0538f34320bd8648434e768273536d8f17e4089a9c7939dd73b3f5",
+      "manifest_sha256": "73b2456170142af5b6098f1cbfc1e412dd362ffe302c637e564287d55c796e22",
+      "metrics_sha256": "c408e259e3fd17a6575c22900484d83574dc1c12971966cf12d9227c6146d72d",
+      "rows": 5235
+    },
+    "rag_medcpt": {
+      "result_identity": "2f5f2dbfa4db8e7408449bf9c2444f5fb0cdfb87bb2e8c8834b3954dad8c363c",
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "case_results_sha256": "aa77651ddeac475fb30eb4112a5c6eda9690f71652a5731959515be65b276659",
+      "manifest_sha256": "ba8c3562f2d473fad750314030db0084dd55d21744fd77af3de6942be4f30fb6",
+      "metrics_sha256": "f62954d5c6dc1390b2f33369a24b6baef77583cef54a69f3adae33fcf1b684a7",
+      "rows": 5235
+    },
+    "cheap_router": {
+      "result_identity": "3afcafbf94a9b25fdf39e20ef5c48d3fdb5d34793071aabba26cb4ca397bf029",
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "case_results_sha256": "d6223afb45d910acca91c3a440b364af9095b584bde0b1e747e802a3434d510f",
+      "manifest_sha256": "4d5a4c5f64241fcc13617e3b0873438ba489337640908bb6eac945e19024b146",
+      "metrics_sha256": "619d880bcc467748d1e5fb7e97d02c5b37adee328304a7cbdd587a79c168804c",
+      "rows": 5235
+    },
+    "jev_router": {
+      "result_identity": "0d711273617a698ea76f8e8a88346eae62532f7f8d7dc61e03e1dcf7874dd942",
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "case_results_sha256": "77a1c9a5f5d1034ebc149ddcc104ebad0757b18337a2559d8a441e1522e68210",
+      "manifest_sha256": "c262d9607f7da4eb90f598f2c282c2f4efa69758c306a5adbf4cabc0a4b37d40",
+      "metrics_sha256": "a3d93ad92a1da507026877e3129c9a83fcffb1d6d75acbd888bd1b5f010495ec",
+      "rows": 5235
+    }
+  },
+  "cost_oracle_v2": {
+    "artifact": "runs/e1_3/router_cost_oracle_v2.jsonl",
+    "sha256": "42426e401b03c94628d70c0dd9111cfc68a9b0b598876b4fdaf65ed37722448d",
+    "action_rule": [
+      "closed_book_correct -> closed_book",
+      "else rag_bm25_correct -> rag_bm25",
+      "else rag_medcpt_correct -> rag_medcpt",
+      "else -> closed_book"
+    ],
+    "classes": {
+      "CLOSED_SUFFICIENT": "closed book correct",
+      "BM25_RESCUE": "closed book wrong and BM25 correct",
+      "MEDCPT_RESCUE": "closed book wrong, BM25 wrong, and MedCPT correct",
+      "UNRESOLVED": "all fixed arms wrong; choose the zero-retrieval closed-book action"
+    }
+  },
+  "outer_cv": {
+    "fold_count": 5,
+    "seed": 20260925,
+    "stratification": "subdataset_x_cost_oracle_class",
+    "fold_manifest": "runs/e1_3/router_fold_manifest.json",
+    "fold_manifest_sha256": "b90d07095fcf7058e99f586b803f8078331beddeb02c3f1234ce45ce6ba138d7",
+    "case_order_sha256": "ac814ef91b89511adc020a0f0cfd78e6fcd0b0ced49a87af261022fb9cb088c0"
+  },
+  "inner_cv": {
+    "fold_count": 3,
+    "seed_rule": "20260925 + outer_fold * 100 + inner_cv_instance_index",
+    "stratification": "retrieval-benefit binary target, training partition only"
+  },
+  "models": {
+    "direct_tfidf": {
+      "features": {
+        "word": {
+          "ngram_range": [
+            1,
+            2
+          ],
+          "min_df": 2,
+          "max_features": 200000
+        },
+        "char_wb": {
+          "ngram_range": [
+            3,
+            5
+          ],
+          "min_df": 2,
+          "max_features": 300000
+        },
+        "sublinear_tf": true,
+        "norm": "l2",
+        "dtype": "float32"
+      },
+      "classifier": {
+        "name": "multinomial logistic regression",
+        "solver": "lbfgs",
+        "C": 1.0,
+        "class_weight": "balanced",
+        "max_iter": 2000,
+        "tol": 0.0001
+      },
+      "fit_boundary": "vectorizers and classifier fit only on the current training partition"
+    },
+    "hierarchical": {
+      "stage1": "balanced binary logistic regression for retrieval benefit",
+      "stage2": "balanced binary logistic regression, trained only on rescue cases; target BM25 if correct else MedCPT",
+      "stage2_small_class_fallback": "If either rescue retriever has fewer than 2 training examples, choose the majority rescue retriever and record fallback=true.",
+      "threshold_grid": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95
+      ],
+      "threshold_selection": {
+        "method": "3-fold inner OOF predictions within outer-train only",
+        "quality_constraint": "policy accuracy >= Always-MedCPT accuracy - 0.25 percentage points",
+        "primary_choice": "minimum retrieval-call rate; tie -> higher threshold",
+        "no_feasible_threshold": "highest accuracy, then lowest retrieval-call rate, then highest threshold",
+        "probability_comparison": "retrieve when p(retrieval benefit) >= threshold"
+      }
+    },
+    "bge": {
+      "repo_id": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "weights_file": "model.safetensors",
+      "weights_bytes": 437955512,
+      "weights_sha256": "c7c1988aae201f80cf91a5dbbd5866409503b89dcaba877ca6dba7dd0a5167d7",
+      "model_path": "E:\\Health-Copilot-E1.2\\models\\bge-base-en-v1.5",
+      "encoding": "Raw question only; SentenceTransformer encode; L2-normalize embeddings; frozen model, no fine-tuning.",
+      "cache_path": "E:\\Health-Copilot-E1.3\\router\\bge_embeddings.npy"
+    }
+  },
+  "learned_policies": [
+    "tfidf_direct",
+    "tfidf_hierarchical",
+    "tfidf_hierarchical_always_medcpt",
+    "bge_hierarchical",
+    "bge_hierarchical_always_medcpt"
+  ],
+  "class_imbalance": "class_weight=balanced; no oversampling",
+  "counterfactual_costs": "Look up selected action's historical per-case answer tokens, context characters, retrieval calls, and component-summed latency proxy; provider failures count incorrect.",
+  "uncertainty": {
+    "paired_bootstrap_replicates": 10000,
+    "seed": 20260925,
+    "sampling": "paired cases, stratified by MIRAGE subdataset, percentile 95% CI",
+    "comparisons": [
+      "best learned vs cheap_router",
+      "best learned vs rag_medcpt"
+    ],
+    "interpretation": "Exploratory inference only; not confirmatory significance."
+  },
+  "selection_and_gates": {
+    "best_learned": "Highest OOF accuracy among all learned policies; tie -> lower retrieval rate, then fewer input tokens.",
+    "best_bge": "Highest OOF accuracy among the two BGE hierarchical policies; tie -> lower retrieval rate.",
+    "sft_candidate_quality": "Best BGE accuracy >= cheap_router + 0.20 pp AND retrieval rate <= cheap_router AND >=4/5 folds have accuracy >= cheap_router.",
+    "sft_candidate_cost": "Best BGE accuracy >= cheap_router - 0.20 pp AND calls <=80% of cheap_router AND >=4/5 folds have calls <= cheap_router.",
+    "strong_signal": "Best learned accuracy >= Always-MedCPT - 0.10 pp AND retrieval calls <=50% of Always-MedCPT.",
+    "pareto_dominance": "Any learned policy has accuracy >= cheap_router and retrieval rate <= cheap_router, with at least one strict improvement.",
+    "no_metric_driven_tuning": true
+  },
+  "bootstrap_best_policy_rule": "Among all learned policies, highest pooled OOF accuracy; ties resolved by retrieval rate then input-token sum.",
+  "environment": {
+    "python": "3.11.15",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.4.6",
+    "disk_free_start_gib": {
+      "C": {
+        "free_gib": 18.37
+      },
+      "D": {
+        "free_gib": 248.3
+      },
+      "E": {
+        "free_gib": 194.24
+      }
+    }
+  },
+  "storage_and_privacy": {
+    "scratch_root": "E:\\Health-Copilot-E1.3\\router",
+    "question_text_in_git": false,
+    "options_or_answers_in_git": false,
+    "model_files_in_git": false,
+    "answer_inference_or_cloud_calls": false
+  },
+  "protocol_sha256": "0867c290a687c300e624777aa18a567c3f97858c215bd30a397d883379d53354"
+}
