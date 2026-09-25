@@ -1,3 +1,6 @@
+import numpy as np
+
+from eval.e1_3_learned_router import outer_fold_indices
 from eval.e1_3_router_dataset import (
     cost_oracle_v2_action,
     historical_row_is_correct,
@@ -75,19 +78,24 @@ def test_fold_no_overlap_and_one_heldout_assignment_per_case() -> None:
     assert len(assignment) == len(case_ids)
     assert set(assignment) == set(case_ids)
     assert len(set(assignment.values())) == 5
+    fold_array = [assignment[case_id] for case_id in case_ids]
     for fold in range(5):
-        heldout = {case_id for case_id, value in assignment.items() if value == fold}
-        train = set(case_ids) - heldout
-        assert not (train & heldout)
-        assert heldout
+        train_indices, eval_indices = outer_fold_indices(
+            np.asarray(fold_array), fold
+        )
+        train = {case_ids[index] for index in train_indices}
+        heldout = {case_ids[index] for index in eval_indices}
+        assert train.isdisjoint(heldout)
+        assert len(heldout) == 9
 
 
 def test_outer_case_never_in_its_training_partition() -> None:
     case_ids = [f"case-{index}" for index in range(50)]
-    folds = {case_id: index % 5 for index, case_id in enumerate(case_ids)}
-    for heldout_case, heldout_fold in folds.items():
-        train_ids = {case_id for case_id, fold in folds.items() if fold != heldout_fold}
-        eval_ids = {case_id for case_id, fold in folds.items() if fold == heldout_fold}
-        assert heldout_case in eval_ids
-        assert heldout_case not in train_ids
-        assert train_ids.isdisjoint(eval_ids)
+    folds = np.asarray([index % 5 for index in range(50)])
+    for heldout_case_index, heldout_fold in enumerate(folds):
+        train, evaluation = outer_fold_indices(folds, int(heldout_fold))
+        assert heldout_case_index in evaluation
+        assert heldout_case_index not in train
+        assert {case_ids[index] for index in train}.isdisjoint(
+            {case_ids[index] for index in evaluation}
+        )
