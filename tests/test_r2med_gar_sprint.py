@@ -45,7 +45,10 @@ from eval.r2med_multiview import (
     weighted_rrf,
 )
 from tools.generate_r2med_gar import DEFAULT_SERVER
-from tools.run_r2med_crb_dev import DEFAULT_LLAMA_SERVER
+from tools.run_r2med_crb_dev import (
+    DEFAULT_LLAMA_SERVER,
+    EXPECTED_BM25_RUNTIME,
+)
 from tools.run_r2med_crb_test import (
     assert_frozen_weights,
     dev_multiview_configs,
@@ -71,6 +74,14 @@ def test_dev_runner_uses_shared_llama_server_default():
 def test_dev_generation_methods_map_to_multiview_result_keys():
     assert tuple(GAR_GENERATION_TO_MULTIVIEW.values()) == GAR_METHOD_ORDER
     assert set(GAR_GENERATION_TO_MULTIVIEW) == {"hyde", "query2doc", "lamer"}
+
+
+def test_bm25_runtime_is_pinned_for_reported_reproduction():
+    assert EXPECTED_BM25_RUNTIME == {
+        "pyserini": "1.3.0",
+        "gensim": "4.4.0",
+        "pyjnius": "1.7.0",
+    }
 
 
 def _deny_qrels_path_reads(monkeypatch):

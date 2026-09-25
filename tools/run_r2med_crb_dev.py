@@ -15,6 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from tools.verify_r2med_models import E_ROOT, verify_models
+
+BM25_RUNTIME_PACKAGE_ROOT = E_ROOT / "cache/python-packages"
+if BM25_RUNTIME_PACKAGE_ROOT.is_dir() and str(BM25_RUNTIME_PACKAGE_ROOT) not in sys.path:
+    sys.path.insert(0, str(BM25_RUNTIME_PACKAGE_ROOT))
+
 from eval.r2med_crb import BGE_QUERY_PREFIX, bm25_query_text, crb_lexical_text
 from eval.r2med_crb_data import SOURCE_MANIFEST_PATH, load_partition_inputs, load_source_manifest
 from eval.r2med_crb_evaluator import (
@@ -47,7 +53,6 @@ from tools.run_r2med_baselines import (
     _write_rankings,
     run_dev_baselines,
 )
-from tools.verify_r2med_models import E_ROOT, verify_models
 
 DEFAULT_SOURCE_ROOT = Path(r"E:\Health-Copilot-E1.2\sources")
 DEFAULT_BGE_ROOT = E_ROOT / "models/bge-large-en-v1.5"
@@ -58,6 +63,35 @@ RANKING_ROOT = E_ROOT / "r2med/rankings/dev"
 REPORT_PATH = E_ROOT / "r2med/dev/reports/dev_report.json"
 METHODS_WITH_SINGLE_VIEW = ("hyde", "query2doc", "lamer")
 MULTIVIEW_METHODS = (*GAR_METHOD_ORDER, "crb_q", "crb_prf")
+EXPECTED_BM25_RUNTIME = {"pyserini": "1.3.0", "gensim": "4.4.0", "pyjnius": "1.7.0"}
+
+
+def _bm25_runtime_identity() -> dict[str, str]:
+    from importlib.metadata import version
+
+    runtime = {name: version(name) for name in EXPECTED_BM25_RUNTIME}
+    if runtime != EXPECTED_BM25_RUNTIME:
+        raise RuntimeError(f"R2MED BM25 runtime mismatch: expected {EXPECTED_BM25_RUNTIME}, got {runtime}")
+    return {"python": sys.version.split()[0], **runtime}
+
+
+def _audit_original_bm25_replay(subsets) -> dict[str, Any]:
+    checked = 0
+    mismatches: list[tuple[str, str]] = []
+    for subset in subsets:
+        index = LuceneBM25Index([(document.doc_id, document.text) for document in subset.documents])
+        cached = _read_ranking(BASELINE_RANKING_ROOT / subset.name / "bm25_original.jsonl")
+        for query in subset.queries:
+            replay = [document.doc_id for document in index.search(query.text, top_k=100)]
+            checked += 1
+            if replay != cached[query.query_id]:
+                mismatches.append((subset.name, query.query_id))
+    if mismatches:
+        raise ValueError(
+            f"pinned BM25 runtime does not reproduce cached B0 top-100: "
+            f"{len(mismatches)}/{checked}; first={mismatches[:5]}"
+        )
+    return {"top_k": 100, "query_count": checked, "mismatch_count": 0, "status": "EXACT"}
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -287,6 +321,8 @@ def run_dev(
     source_sha = hashlib.sha256(SOURCE_MANIFEST_PATH.read_bytes()).hexdigest()
     subsets = load_partition_inputs("DEV", source_root=source_root)
     baseline = _ensure_base_rankings(source_root, bge_root)
+    bm25_runtime = _bm25_runtime_identity()
+    bm25_replay_audit = _audit_original_bm25_replay(subsets)
     generator_stats = _ensure_generation(source_root, upstream_root, server_executable)
 
     os.environ["HF_HOME"] = str(E_ROOT / "cache/huggingface")
@@ -563,6 +599,8 @@ def run_dev(
         "test_status": source_manifest["test_status"],
         "source_manifest_sha256": source_sha,
         "verified_models": verified,
+        "bm25_runtime": bm25_runtime,
+        "original_bm25_replay_audit": bm25_replay_audit,
         "base_retrieval_manifest_sha256": hashlib.sha256(BASELINE_REPORT_PATH.read_bytes()).hexdigest(),
         "generation_config": GENERATION_CONFIG,
         "generation_audit": generator_stats,
