@@ -27,6 +27,7 @@ from eval.r2med_crb_evaluator import (
     METRICS,
     paired_stratified_bootstrap,
     select_best_fusion,
+    select_strongest_gar,
     summarize_query_metrics,
 )
 from eval.r2med_gar_generation import (
@@ -431,6 +432,17 @@ def test_fusion_selection_stays_within_predeclared_grid():
     assert selected == one
     with pytest.raises(ValueError, match="outside"):
         select_best_fusion({"invented": summary})
+
+
+def test_strongest_gar_selection_returns_selected_summary_mapping():
+    summaries = {
+        "hyde_mv": {"macro_equal_subset_weight": {"ndcg@10": 0.1, "mrr@10": 0.2, "recall@10": 0.3}},
+        "query2doc_mv": {"macro_equal_subset_weight": {"ndcg@10": 0.2, "mrr@10": 0.2, "recall@10": 0.3}},
+        "lamer_mv": {"macro_equal_subset_weight": {"ndcg@10": 0.15, "mrr@10": 0.2, "recall@10": 0.3}},
+    }
+    method, summary = select_strongest_gar(summaries)
+    assert method == "query2doc_mv"
+    assert summary is summaries[method]
 
 
 def test_all_required_generator_methods_are_present():

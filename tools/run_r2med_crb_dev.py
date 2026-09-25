@@ -600,7 +600,7 @@ def run_dev(
             int(item[0] == "crb_q"),
         ),
     )
-    gate = dev_success_gate(best_crb_summary, strongest_gar[1])
+    gate = dev_success_gate(best_crb_summary, strongest_gar)
     chosen_crb_config = best_config_by_method[best_crb_method]
     chosen_crb_rankings = _rankings_for_config(channels_by_method[best_crb_method], chosen_crb_config)
 
@@ -683,7 +683,7 @@ def run_dev(
         },
         "strongest_cost_matched_gar": {
             "method": best_gar_method,
-            "summary": strongest_gar[1],
+            "summary": strongest_gar,
             "config_id": multi_results[best_gar_method]["best_config_id"],
         },
         "best_crb": {
