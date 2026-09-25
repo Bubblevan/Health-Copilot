@@ -1,0 +1,52 @@
+{
+  "schema_version": "pubhealthbench-corpus-audit-v1",
+  "audit_date": "2026-09-25",
+  "status": "VALIDATION_PROTOTYPE_NOT_MATERIALIZED",
+  "official_2026_rag_corpus": {
+    "paper": "arXiv:2607.06641v1",
+    "paper_reports_chunk_count": 5358,
+    "standalone_corpus_artifact_found": false,
+    "chunk_artifact_found": false,
+    "standalone_qrels_or_query_to_chunk_mapping_found": false,
+    "official_retrieval_runner_found": false,
+    "audit_scope": "Pinned official GitHub repository file listing and paper; no corpus or split rows downloaded."
+  },
+  "validation_prototype": {
+    "partition": "validation",
+    "rows": 161,
+    "pinned_input": "E:/Health-Copilot-E1.4/data/validation-00000-of-00001.parquet",
+    "input_sha256": "027b84d9fdfb37afdfb3c035c58aaaeeb4c04377466ba5c06b773aee5d5afdac",
+    "materialized": false,
+    "reason": "The pinned Validation download timed out; only an extraction skeleton was implemented and tested with synthetic fixtures.",
+    "planned_output": "E:/Health-Copilot-E1.4/corpus/validation_corpus.jsonl",
+    "allowed_source_column": "source_chunk_text",
+    "qa_columns_read": [],
+    "question_id_mapping_written": false,
+    "reviewed_or_test_corpus_materialized": false
+  },
+  "future_corpus_build_contract": {
+    "input_filename_and_sha_required": true,
+    "parquet_read_columns": ["source_chunk_text"],
+    "deduplication": "exact normalized-text SHA-256",
+    "document_ids": "opaque SHA-256-derived IDs",
+    "output_fields": ["doc_id", "text"],
+    "raw_text_may_be_committed": false,
+    "retriever_must_not_receive": ["question", "options", "answer", "answer_index", "question_id", "question-to-chunk mapping"]
+  },
+  "retrieval_protocol_for_future_validation_development": [
+    "R0: BM25",
+    "R1: BGE-base-en-v1.5 dense retrieval",
+    "R2: canonical MedCPT query/article encoders plus cross-encoder",
+    "R3: RRF(BM25 + MedCPT) then MedCPT cross-encoder"
+  ],
+  "generator_lock": {
+    "model": "Qwen3-8B-Q4_K_M.gguf",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "other_generators_allowed_for_this_series": false
+  },
+  "holdout_gate": {
+    "reviewed_confirmatory_partition": "not certified untouched due to split-unknown Dataset Viewer preview",
+    "final_method_lock_present": false,
+    "reviewed_inference_allowed": false
+  }
+}

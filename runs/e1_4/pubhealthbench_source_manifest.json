@@ -1,0 +1,78 @@
+{
+  "schema_version": "pubhealthbench-source-manifest-v1",
+  "audit_date": "2026-09-25",
+  "benchmark": "PubHealthBench",
+  "upstream": {
+    "github_repository": "https://github.com/ukhsa-collaboration/UKHSA-pubhealthbench",
+    "github_revision": "1d0139a83ae27b41096856fbf45ba5943db90702",
+    "github_revision_method": "git ls-remote HEAD",
+    "huggingface_dataset": "Joshua-Harris/PubHealthBench",
+    "huggingface_revision": "e061be207a5aaa834ed2b5d493090fafac392fd3",
+    "huggingface_revision_method": "official dataset commit page; files are Git-LFS objects"
+  },
+  "splits": {
+    "validation": {
+      "rows": 161,
+      "file": "data/validation-00000-of-00001.parquet",
+      "size_bytes": 930422,
+      "sha256": "027b84d9fdfb37afdfb3c035c58aaaeeb4c04377466ba5c06b773aee5d5afdac",
+      "source_metadata_verified": true,
+      "local_download_verified": false,
+      "local_materialized": false,
+      "permitted_for_dev": true
+    },
+    "reviewed": {
+      "rows": 760,
+      "file": "data/reviewed-00000-of-00001.parquet",
+      "size_bytes": 3881076,
+      "sha256": "63f14012d715d408798461141b48e1cd79e00b8feef97ef6e5b6d860b878b2ac",
+      "source_metadata_verified": true,
+      "downloaded": false,
+      "row_content_materialized": false,
+      "inference_run": false,
+      "protocol_status": "POTENTIAL_VIEWER_PREVIEW_EXPOSURE_SPLIT_UNVERIFIED"
+    },
+    "test_full": {
+      "rows": 7929,
+      "file": "data/test-00000-of-00001.parquet",
+      "size_bytes": 42985147,
+      "sha256": "83efadf8c5daf86dcb80a07b9b1980798c7228b9d8f5486c74469376fec6437e",
+      "source_metadata_verified": true,
+      "downloaded": false,
+      "row_content_materialized": false,
+      "inference_run": false,
+      "protocol_status": "POTENTIAL_VIEWER_PREVIEW_EXPOSURE_SPLIT_UNVERIFIED"
+    }
+  },
+  "license": {
+    "dataset": "CC-BY-4.0",
+    "source_chunk_text_and_retrieved_context_for_judge": "Open Government Licence v3.0",
+    "handling": "Raw QA rows and Crown-copyright text remain outside Git."
+  },
+  "split_contract": {
+    "development": "Validation-161",
+    "confirmatory_candidate": "Reviewed-760",
+    "full_set": "post-confirmatory secondary only; overlaps Reviewed",
+    "random_resplitting": false
+  },
+  "exposure_audit": {
+    "reviewed_parquet_requested_or_downloaded": false,
+    "test_parquet_requested_or_downloaded": false,
+    "reviewed_inference_calls": 0,
+    "dataset_viewer_preview_returned_by_search": true,
+    "viewer_preview_split_identified": false,
+    "possible_non_validation_row_content_seen": true,
+    "reviewed_holdout_certified_untouched": false,
+    "action": "Do not run a confirmatory evaluation. Treat the holdout as potentially exposed unless the benchmark owner provides a replacement protocol."
+  },
+  "network_and_storage": {
+    "validation_download_attempted": true,
+    "validation_download_result": "blocked by Hugging Face connection timeout; no parquet or partial file remained",
+    "download_target": "E:/Health-Copilot-E1.4/data/validation-00000-of-00001.parquet",
+    "e1_3_external_artifact_cap_gib": 15,
+    "e1_4_external_artifact_cap_gib": 5,
+    "minimum_e_free_fraction": 0.2,
+    "large_artifacts_written_to_c_or_d": false
+  },
+  "provenance_note": "Sizes and SHA-256 values are the upstream Git-LFS object metadata at the pinned Hugging Face revision. Local byte-for-byte verification was not possible because the download timed out. No parquet row content was downloaded."
+}
