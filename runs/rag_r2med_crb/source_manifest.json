@@ -1,0 +1,215 @@
+{
+  "schema_version": "r2med-gar-source-manifest-v1",
+  "test_status": "PUBLIC_BENCHMARK_REUSED",
+  "upstream": {
+    "repository": "https://github.com/R2MED/R2MED.git",
+    "commit": "11244a4925a39082967a6c9d38ef01f279c316a5",
+    "files_sha256": {
+      "src/eval_BM25.py": "01b6f4d68baea7f3c8d4c0f177ca1c6a17512c694cf9ba0f64ea7078b9fe882d",
+      "src/eval_retrieval.py": "dce42ec72f8a2d5e9b71e25bbf773cf27268b2b7e0940fe69494840b38ba7229",
+      "src/generate_hypothetical_doc.py": "cc207039a7b5a6937740eac055a48445c1a7d520daed6efe0ba8be63d5687f1a",
+      "src/instrcution.py": "8e767d77f22330beb4417b6baebc29be5e7ca59f386e5106162bea56882902a7",
+      "src/example.py": "a1636976765b6ce4ce365349e04183bf1d1f40337d2f5f4342f00de03f2363af"
+    }
+  },
+  "prompt_family_mapping": {
+    "PMC-Treatment": "PMC-Treat",
+    "PMC-Clinical": "PMCPatients",
+    "IIYi-Clinical": "IIYiPatients-EN",
+    "MedQA-Diag": "MedQA-Diag",
+    "MedXpertQA-Exam": "MedXpertQA-Exam",
+    "Medical-Sciences": "Stack-Medical"
+  },
+  "dataset_source": {
+    "root": "E:\\Health-Copilot-E1.2\\sources",
+    "existing_e1_2_manifest": "D:\\MyLab\\Jianli\\Health-Copilot\\runs\\e1_2\\r2med_source_manifest.json",
+    "existing_e1_2_manifest_sha256": "7568ebbddf53bb83a7e7aa090c96eb9869603d354f4ab38f3926727dabdaea4b",
+    "existing_frozen_config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f"
+  },
+  "datasets": {
+    "DEV": [
+      {
+        "name": "PMC-Treatment",
+        "repo_id": "R2MED/PMC-Treatment",
+        "directory": "r2med-pmc-treatment-dev",
+        "revision": "53c489a44a3664ba352c07550b72b4525a5968d5",
+        "role": "DEV_EXPOSED",
+        "query_count": 150,
+        "corpus_document_count": 28954,
+        "qrels_record_count": 315,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 21291401,
+            "sha256": "64f8b24dbf0535336ad08681a708fbbc894b931ca0f764864a53e2912315d193"
+          },
+          "query.jsonl": {
+            "bytes": 315462,
+            "sha256": "d00462ba3417ff5578cedc8426b65364fbddd347e950d6f48781634d594257e2"
+          },
+          "qrels.jsonl": {
+            "bytes": 19863,
+            "sha256": "f15a64b5ea002d5d84c3e5d31f03de0b6759d8117133c8460626c295e15a686f"
+          }
+        }
+      },
+      {
+        "name": "PMC-Clinical",
+        "repo_id": "R2MED/PMC-Clinical",
+        "directory": "r2med-pmc-clinical-dev",
+        "revision": "812829522f7eaa407ef82b96717be85788a50f7e",
+        "role": "DEV_EXPOSED",
+        "query_count": 114,
+        "corpus_document_count": 60406,
+        "qrels_record_count": 248,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 128933888,
+            "sha256": "3a144a9e9d632bda656a29cae18e36a5a32379c2d93d8db218d19282550734cf"
+          },
+          "query.jsonl": {
+            "bytes": 113040,
+            "sha256": "50036592515e00d3e499e8a9cea9723edb2e9f927df6ae72ed42721defc1bc4d"
+          },
+          "qrels.jsonl": {
+            "bytes": 15125,
+            "sha256": "e99fdcfbef5a9d394e1b42f01e873a4375fba82eb300262244a19288d0dbd82d"
+          }
+        }
+      },
+      {
+        "name": "IIYi-Clinical",
+        "repo_id": "R2MED/IIYi-Clinical",
+        "directory": "r2med-iiyi-clinical-dev",
+        "revision": "974abbc9bc281c3169180a6aa5d7586cfd2f5877",
+        "role": "DEV_EXPOSED",
+        "query_count": 129,
+        "corpus_document_count": 10449,
+        "qrels_record_count": 457,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 57390010,
+            "sha256": "c0b1779b32b821ee4941ef5969ac5046450ab660de8890df3c3f082d958ae74f"
+          },
+          "query.jsonl": {
+            "bytes": 354470,
+            "sha256": "54ad937e46076d876fe2344493eb18043097f53c34ecb7a584d897c87f068ebb"
+          },
+          "qrels.jsonl": {
+            "bytes": 23285,
+            "sha256": "43dbbb3d63952c625119f3aae13e603e6d5ed8d3fc748a72e01fe589930e5607"
+          }
+        }
+      }
+    ],
+    "TEST": [
+      {
+        "name": "MedQA-Diag",
+        "repo_id": "R2MED/MedQA-Diag",
+        "directory": "r2med-medqa-diag-pinned",
+        "revision": "78b585990279cc01a493f876c1b0cf09557fba57",
+        "role": "TEST_UNOPENED",
+        "query_count": 118,
+        "corpus_document_count": 56250,
+        "qrels_record_count": 522,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 46866718,
+            "sha256": "2767063e36589bcda9ea87a898effd91529548838d645adccbc9e9c22bdd0f12"
+          },
+          "query.jsonl": {
+            "bytes": 110103,
+            "sha256": "da365dd13dd5c1fa55332d60ff866c55c1fd17866be96e373dc7e0685d5c39c2"
+          },
+          "qrels.jsonl": {
+            "bytes": 32662,
+            "sha256": "404f4b769998646ecac4c8394e22ad72985a80de573554242109f4c12330c735"
+          }
+        }
+      },
+      {
+        "name": "MedXpertQA-Exam",
+        "repo_id": "R2MED/MedXpertQA-Exam",
+        "directory": "r2med-medxpertqa-exam",
+        "revision": "b457ea43db9ae5db74c3a3e5be0a213d0f85ac3a",
+        "role": "TEST_UNOPENED",
+        "query_count": 97,
+        "corpus_document_count": 61379,
+        "qrels_record_count": 292,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 47362667,
+            "sha256": "d529f798a40f9b2519a4946c12999d3a2c9b1f7d8dcec93151a6f09ed1c5dabc"
+          },
+          "query.jsonl": {
+            "bytes": 109944,
+            "sha256": "dc73fbc55ba41c5b108f1c0c215e22050e211016c5cd9675c598220044d9844a"
+          },
+          "qrels.jsonl": {
+            "bytes": 18574,
+            "sha256": "e33e1f0ee25c636292e5b49c3fcb4dc901a8dccc282f696547fde639a9a83281"
+          }
+        }
+      },
+      {
+        "name": "Medical-Sciences",
+        "repo_id": "R2MED/Medical-Sciences",
+        "directory": "r2med-medical-sciences",
+        "revision": "1b48911514c80bf9182222d99752ad75e23b4b47",
+        "role": "TEST_UNOPENED",
+        "query_count": 88,
+        "corpus_document_count": 34810,
+        "qrels_record_count": 244,
+        "files": {
+          "corpus.jsonl": {
+            "bytes": 21388342,
+            "sha256": "4996d510ad610d49cd8a26bda30bbfcb8ea04be114480fa6af3e18e1a8c8f667"
+          },
+          "query.jsonl": {
+            "bytes": 239521,
+            "sha256": "b2a4b2c7fc7462322038067748b43d23d81e6f9aa97ce0d543137de85dc33aa7"
+          },
+          "qrels.jsonl": {
+            "bytes": 15495,
+            "sha256": "2f373e4ede4e7aa05182f6a28ee4c327b39e9e982b213ad46724a51a97a6ced9"
+          }
+        }
+      }
+    ]
+  },
+  "models": {
+    "generator": {
+      "repo": "Qwen/Qwen3-8B-GGUF",
+      "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+      "file": "Qwen3-8B-Q4_K_M.gguf",
+      "bytes": 5027783488,
+      "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "status": "SHA_AND_SIZE_PINNED"
+    },
+    "dense_retriever": {
+      "repo": "BAAI/bge-large-en-v1.5",
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_file": "model.safetensors",
+      "weights_bytes": 1340616616,
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+      "status": "REVISION_PINNED"
+    }
+  },
+  "storage": {
+    "root": "E:\\Health-Copilot-RAG",
+    "free_bytes_at_manifest_creation": 206040326144,
+    "free_percent_at_manifest_creation": 23.87,
+    "minimum_free_percent": 20
+  },
+  "counts": {
+    "DEV": {
+      "PMC-Treatment": 150,
+      "PMC-Clinical": 114,
+      "IIYi-Clinical": 129
+    },
+    "TEST": {
+      "MedQA-Diag": 118,
+      "MedXpertQA-Exam": 97,
+      "Medical-Sciences": 88
+    }
+  }
+}
