@@ -8,6 +8,7 @@ import json
 import os
 import sys
 from datetime import UTC, datetime
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
@@ -64,6 +65,7 @@ REPORT_PATH = E_ROOT / "r2med/dev/reports/dev_report.json"
 METHODS_WITH_SINGLE_VIEW = ("hyde", "query2doc", "lamer")
 MULTIVIEW_METHODS = (*GAR_METHOD_ORDER, "crb_q", "crb_prf")
 EXPECTED_BM25_RUNTIME = {"pyserini": "1.3.0", "gensim": "4.4.0", "pyjnius": "1.7.0"}
+DENSE_REPLAY_SCORE_TOLERANCE = 1e-6
 
 
 def _bm25_runtime_identity() -> dict[str, str]:
@@ -240,24 +242,82 @@ def _read_ranking(path: Path) -> dict[str, list[str]]:
 def _write_channel(subset_name: str, method: str, channel: str, query_ids: list[str], rows) -> str:
     path = RANKING_ROOT / subset_name / f"{method}_{channel}.jsonl"
     expected = _ranking_rows(subset_name, f"{method}_{channel}", query_ids, rows)
-    return _write_or_verify_rankings(path, expected)
+    score_tolerance = (
+        DENSE_REPLAY_SCORE_TOLERANCE if channel in {"bge_generated", "single_bge"} else 0.0
+    )
+    return _write_or_verify_rankings(
+        path,
+        expected,
+        score_tolerance=score_tolerance,
+        check_cached_order_against_replay=(channel == "single_bge"),
+    )
 
 
-def _write_or_verify_rankings(path: Path, expected: list[dict[str, Any]]) -> str:
+def _write_or_verify_rankings(
+    path: Path,
+    expected: list[dict[str, Any]],
+    *,
+    score_tolerance: float = 0.0,
+    check_cached_order_against_replay: bool = False,
+) -> str:
     if not path.exists():
         return _write_rankings(path, expected)
     existing = _read_jsonl(path)
-    expected_identity = [
-        (row.get("subset"), row.get("query_id"), row.get("method"), [doc["doc_id"] for doc in row["ranking"]])
-        for row in expected
-    ]
-    existing_identity = [
-        (row.get("subset"), row.get("query_id"), row.get("method"), [doc["doc_id"] for doc in row["ranking"]])
-        for row in existing
-    ]
-    if existing_identity != expected_identity:
+    if not _ranking_replay_matches(
+        existing,
+        expected,
+        score_tolerance=score_tolerance,
+        check_cached_order_against_replay=check_cached_order_against_replay,
+    ):
         raise ValueError(f"existing DEV ranking artifact differs from deterministic replay: {path}")
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _ranking_replay_matches(
+    existing: list[dict[str, Any]],
+    expected: list[dict[str, Any]],
+    *,
+    score_tolerance: float = 0.0,
+    check_cached_order_against_replay: bool = False,
+) -> bool:
+    if len(existing) != len(expected):
+        return False
+    for cached, replay in zip(existing, expected, strict=True):
+        if any(cached.get(key) != replay.get(key) for key in ("subset", "query_id", "method")):
+            return False
+        cached_ranking = cached.get("ranking")
+        replay_ranking = replay.get("ranking")
+        if not isinstance(cached_ranking, list) or not isinstance(replay_ranking, list):
+            return False
+        cached_ids = [str(document["doc_id"]) for document in cached_ranking]
+        replay_ids = [str(document["doc_id"]) for document in replay_ranking]
+        if len(cached_ids) != len(set(cached_ids)) or len(replay_ids) != len(set(replay_ids)):
+            return False
+        if score_tolerance <= 0:
+            if cached_ids != replay_ids:
+                return False
+            continue
+        if set(cached_ids) != set(replay_ids):
+            return False
+        replay_scores = {
+            str(document["doc_id"]): float(document["score"]) for document in replay_ranking
+        }
+        if check_cached_order_against_replay:
+            if any(
+                replay_scores[first] + score_tolerance < replay_scores[second]
+                for first, second in pairwise(cached_ids)
+            ):
+                return False
+        else:
+            cached_scores = {
+                str(document["doc_id"]): float(document["score"]) for document in cached_ranking
+            }
+            if max(
+                abs(cached_scores[doc_id] - replay_scores[doc_id])
+                for doc_id in cached_scores
+            ) > score_tolerance:
+                return False
+    return True
 
 
 def _rankings_for_config(channels_by_subset, config: dict[str, Any]) -> dict[str, dict[str, list[str]]]:
@@ -409,6 +469,12 @@ def run_dev(
                 "bm25_bridge_sha256": _write_channel(subset.name, method, "bm25_bridge", query_ids, bm25_bridge_rows),
                 "bge_generated_sha256": _write_channel(subset.name, method, "bge_generated", query_ids, generated_dense_rows),
             }
+            bm25_bridge = _read_ranking(
+                RANKING_ROOT / subset.name / f"{method}_bm25_bridge.jsonl"
+            )
+            bge_generated = _read_ranking(
+                RANKING_ROOT / subset.name / f"{method}_bge_generated.jsonl"
+            )
 
             if method in METHODS_WITH_SINGLE_VIEW:
                 if method == "query2doc":
@@ -438,15 +504,16 @@ def run_dev(
                 artifact_hashes["single_bm25_sha256"] = _write_channel(
                     subset.name, method, "single_bm25", query_ids, single_rows
                 )
-                dense_rows_as_docs = [
-                    [RankedDocument(doc_id, 0.0) for doc_id in single_rankings[method][subset.name][query_id]]
-                    for query_id in query_ids
-                ]
                 artifact_hashes["single_bge_sha256"] = _write_channel(
-                    subset.name, method, "single_bge", query_ids, dense_rows_as_docs
+                    subset.name, method, "single_bge", query_ids, single_dense_rows
+                )
+                single_rankings[method][subset.name] = _read_ranking(
+                    RANKING_ROOT / subset.name / f"{method}_single_bge.jsonl"
                 )
                 single_rankings[method].setdefault("_bm25", {})
-                single_rankings[method]["_bm25"][subset.name] = single_bm25
+                single_rankings[method]["_bm25"][subset.name] = _read_ranking(
+                    RANKING_ROOT / subset.name / f"{method}_single_bm25.jsonl"
+                )
 
             channel_method = GAR_GENERATION_TO_MULTIVIEW.get(method, method)
             channels_by_method[channel_method][subset.name] = {
@@ -601,6 +668,10 @@ def run_dev(
         "verified_models": verified,
         "bm25_runtime": bm25_runtime,
         "original_bm25_replay_audit": bm25_replay_audit,
+        "dense_gpu_replay_policy": {
+            "score_tolerance": DENSE_REPLAY_SCORE_TOLERANCE,
+            "artifact_policy": "Reuse saved ranking only when top-100 candidate IDs match; generated-view per-document cosine score drift must be within tolerance, and single-view cached order must remain score-sorted within tolerance. Evaluation consumes the saved ranking.",
+        },
         "base_retrieval_manifest_sha256": hashlib.sha256(BASELINE_REPORT_PATH.read_bytes()).hexdigest(),
         "generation_config": GENERATION_CONFIG,
         "generation_audit": generator_stats,

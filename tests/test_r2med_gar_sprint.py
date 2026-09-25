@@ -47,7 +47,9 @@ from eval.r2med_multiview import (
 from tools.generate_r2med_gar import DEFAULT_SERVER
 from tools.run_r2med_crb_dev import (
     DEFAULT_LLAMA_SERVER,
+    DENSE_REPLAY_SCORE_TOLERANCE,
     EXPECTED_BM25_RUNTIME,
+    _ranking_replay_matches,
 )
 from tools.run_r2med_crb_test import (
     assert_frozen_weights,
@@ -82,6 +84,77 @@ def test_bm25_runtime_is_pinned_for_reported_reproduction():
         "gensim": "4.4.0",
         "pyjnius": "1.7.0",
     }
+
+
+def test_dense_replay_tie_tolerance_accepts_saved_ranking():
+    cached = {
+        "subset": "S",
+        "query_id": "q1",
+        "method": "hyde_bge_generated",
+        "ranking": [{"doc_id": "a", "score": 0.7}, {"doc_id": "b", "score": 0.6999997}],
+    }
+    replay = {
+        "subset": "S",
+        "query_id": "q1",
+        "method": "hyde_bge_generated",
+        "ranking": [{"doc_id": "b", "score": 0.6999998}, {"doc_id": "a", "score": 0.6999996}],
+    }
+    assert _ranking_replay_matches(
+        [cached], [replay], score_tolerance=DENSE_REPLAY_SCORE_TOLERANCE
+    )
+
+
+def test_dense_replay_tolerance_rejects_candidate_or_score_drift():
+    cached = {
+        "subset": "S",
+        "query_id": "q1",
+        "method": "hyde_bge_generated",
+        "ranking": [{"doc_id": "a", "score": 0.7}, {"doc_id": "b", "score": 0.6999997}],
+    }
+    changed_candidate = {
+        **cached,
+        "ranking": [{"doc_id": "a", "score": 0.7}, {"doc_id": "c", "score": 0.6999997}],
+    }
+    assert not _ranking_replay_matches(
+        [cached], [changed_candidate], score_tolerance=DENSE_REPLAY_SCORE_TOLERANCE
+    )
+
+    changed_score = {
+        **cached,
+        "ranking": [{"doc_id": "a", "score": 0.7}, {"doc_id": "b", "score": 0.6999}],
+    }
+    assert not _ranking_replay_matches(
+        [cached], [changed_score], score_tolerance=DENSE_REPLAY_SCORE_TOLERANCE
+    )
+
+
+def test_single_dense_replay_allows_only_near_tie_order_drift():
+    cached = {
+        "subset": "S",
+        "query_id": "q1",
+        "method": "hyde_single_bge",
+        "ranking": [{"doc_id": "a", "score": 0.0}, {"doc_id": "b", "score": 0.0}],
+    }
+    near_tie = {
+        **cached,
+        "ranking": [{"doc_id": "b", "score": 0.7}, {"doc_id": "a", "score": 0.6999997}],
+    }
+    assert _ranking_replay_matches(
+        [cached],
+        [near_tie],
+        score_tolerance=DENSE_REPLAY_SCORE_TOLERANCE,
+        check_cached_order_against_replay=True,
+    )
+    material_drift = {
+        **cached,
+        "ranking": [{"doc_id": "b", "score": 0.71}, {"doc_id": "a", "score": 0.69}],
+    }
+    assert not _ranking_replay_matches(
+        [cached],
+            [material_drift],
+            score_tolerance=DENSE_REPLAY_SCORE_TOLERANCE,
+            check_cached_order_against_replay=True,
+    )
 
 
 def _deny_qrels_path_reads(monkeypatch):
