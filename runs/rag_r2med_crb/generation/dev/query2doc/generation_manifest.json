@@ -1,0 +1,66 @@
+{
+  "schema_version": "r2med-gar-generation-manifest-v1",
+  "partition": "DEV",
+  "method": "query2doc",
+  "created_at_utc": "2026-09-25T18:43:06.518270+00:00",
+  "generator": {
+    "path": "E:\\Health-Copilot-RAG\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "bytes": 5027783488,
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "llama_cpp_version": "version: 10068 (571d0d540)",
+    "endpoint_bind": "127.0.0.1"
+  },
+  "prompt_sha256": [
+    "2b8ef63f3082104e7306afc50940b30b5843e5613b24b939639448d8f7804cfd",
+    "9090ae592e1269f36c5df34be1e4c4921dc8cbecff106b7d412e9ddb83425fa2",
+    "f3b137f8316222878959a60e5c780216034f2940ba7e8ba145ebee8411989700"
+  ],
+  "generation_config": {
+    "temperature": 0.0,
+    "reasoning": "disabled",
+    "max_output_tokens": 256,
+    "calls_per_query_per_method": 1,
+    "retry_on_error": false
+  },
+  "query_count": 393,
+  "call_count": 393,
+  "failure_count": 0,
+  "valid_output_count": 393,
+  "completion_count": 114,
+  "truncation_count": 279,
+  "average_output_tokens": 241.23409669211196,
+  "dataset_source_manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+  "upstream_commit": "11244a4925a39082967a6c9d38ef01f279c316a5",
+  "subsets": [
+    {
+      "subset": "PMC-Treatment",
+      "upstream_prompt_family": "PMC-Treat",
+      "query_count": 150,
+      "query_file_sha256": "d00462ba3417ff5578cedc8426b65364fbddd347e950d6f48781634d594257e2",
+      "corpus_file_sha256": "64f8b24dbf0535336ad08681a708fbbc894b931ca0f764864a53e2912315d193",
+      "query_order_sha256": "c3f31dee0bd9f4d67c17047a25af96dba9cbb1241e9bfbf4a3e1174df7858eac",
+      "artifact": "E:\\Health-Copilot-RAG\\r2med\\generated\\dev\\query2doc\\PMC-Treatment.jsonl",
+      "artifact_sha256": "48e96d232a3184e76832e2df1e7ea2dd0818907c0a2dbadefe79bbbc8bfef6eb"
+    },
+    {
+      "subset": "PMC-Clinical",
+      "upstream_prompt_family": "PMCPatients",
+      "query_count": 114,
+      "query_file_sha256": "50036592515e00d3e499e8a9cea9723edb2e9f927df6ae72ed42721defc1bc4d",
+      "corpus_file_sha256": "3a144a9e9d632bda656a29cae18e36a5a32379c2d93d8db218d19282550734cf",
+      "query_order_sha256": "6529411a461cfb57010fd33cd0a383253faab8be2513642b1c024a8d99fc7a7e",
+      "artifact": "E:\\Health-Copilot-RAG\\r2med\\generated\\dev\\query2doc\\PMC-Clinical.jsonl",
+      "artifact_sha256": "f225f8ed4d3ff243c5f9e7c6e8b751c834967613afc14e4a375c06187896f1a0"
+    },
+    {
+      "subset": "IIYi-Clinical",
+      "upstream_prompt_family": "IIYiPatients-EN",
+      "query_count": 129,
+      "query_file_sha256": "54ad937e46076d876fe2344493eb18043097f53c34ecb7a584d897c87f068ebb",
+      "corpus_file_sha256": "c0b1779b32b821ee4941ef5969ac5046450ab660de8890df3c3f082d958ae74f",
+      "query_order_sha256": "b5f87c6c634c8f2f2c05ce1248f4c5bf8512a91b8262feba2039d067197e929d",
+      "artifact": "E:\\Health-Copilot-RAG\\r2med\\generated\\dev\\query2doc\\IIYi-Clinical.jsonl",
+      "artifact_sha256": "4d19537601b27d14ecb1d9f44edcf7fcbad5d409b03e74e24cc9e2ab36348ae7"
+    }
+  ]
+}
