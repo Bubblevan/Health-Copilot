@@ -1,0 +1,93 @@
+{
+  "schema_version": "e1-3-mirage-holdout-audit-v1",
+  "audit_status": "FAIL_STOP_HOLDOUT_ALREADY_OPENED",
+  "benchmark": "Medical MIRAGE / MedRAG",
+  "source_identity": {
+    "raw_benchmark_sha256": "6f7f08c64cd2efe02a5d0c247229813c90db345d9dd6e3a451b5d24146d0f8fa",
+    "normalized_cases_sha256": "3a31d3e7fbe6b1184afdbd46925db28747e2ec60d3e53948d8b7ce8ecd614923",
+    "split_manifest": "runs/e1_2/mirage_split_manifest.json",
+    "split_manifest_sha256": "1427c479c34168d3406eab3216cdee92939ad7b917716c15f48185b69e7009d9",
+    "clean_test_subdatasets": [
+      "medqa",
+      "medmcqa",
+      "mmlu"
+    ],
+    "clean_test_case_count": 5235
+  },
+  "holdout_assessment": {
+    "mirage_test_clean": false,
+    "mirage_test_opened": true,
+    "eligible_for_e1_3_confirmatory_test": false,
+    "repartition_permitted": false,
+    "reason": "Completed E1.2 answer-run manifests identify the same frozen benchmark configuration, partition TEST, and all 5,235 clean TEST cases. The benchmark TEST is therefore no longer untouched for E1.3."
+  },
+  "disqualifying_evidence": [
+    {
+      "arm": "cheap_router",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "4d5a4c5f64241fcc13617e3b0873438ba489337640908bb6eac945e19024b146",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/cheap_router/manifest.json",
+      "answer_output_present": true
+    },
+    {
+      "arm": "closed_book",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "0c07e1f015de7d863335605588a139bbffbba33682d721e84b4cef39ad82b2aa",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/closed_book/manifest.json",
+      "answer_output_present": true
+    },
+    {
+      "arm": "jev_router",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "c262d9607f7da4eb90f598f2c282c2f4efa69758c306a5adbf4cabc0a4b37d40",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/jev_router/manifest.json",
+      "answer_output_present": true
+    },
+    {
+      "arm": "rag_bm25",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "73b2456170142af5b6098f1cbfc1e412dd362ffe302c637e564287d55c796e22",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/rag_bm25/manifest.json",
+      "answer_output_present": true
+    },
+    {
+      "arm": "rag_medcpt",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "ba8c3562f2d473fad750314030db0084dd55d21744fd77af3de6942be4f30fb6",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/rag_medcpt/manifest.json",
+      "answer_output_present": true
+    },
+    {
+      "arm": "random_context",
+      "status": "COMPLETED",
+      "partition": "TEST",
+      "case_count": 5235,
+      "config_sha256": "c950faa461c8c4fae8f73bfa2af501b5ba5dc87bd95af01f45b0a2e7ad07320f",
+      "manifest_sha256": "f5c4ad9a452e7d93c6ebfe5fd17d4ef800804e8b4f6097ffbb1ee8731877c2a7",
+      "manifest": "E:/Health-Copilot-E1.2/runs/e1_2/test/random_context/manifest.json",
+      "answer_output_present": true
+    }
+  ],
+  "audit_method": {
+    "inspected": "run manifest metadata and case_results.jsonl existence only",
+    "answer_result_contents_read": false,
+    "test_questions_or_gold_read": false,
+    "stopped_after_sufficient_disqualifying_evidence": true
+  },
+  "required_action": "STOP MIRAGE E1.3. Do not issue further QA calls against these cases, do not create a replacement split and describe it as untouched TEST, and do not report a confirmatory TEST result."
+}
