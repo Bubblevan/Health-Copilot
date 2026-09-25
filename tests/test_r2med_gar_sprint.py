@@ -25,6 +25,7 @@ from eval.r2med_crb_evaluator import (
     GAR_GENERATION_TO_MULTIVIEW,
     GAR_METHOD_ORDER,
     METRICS,
+    classify_crb_ablation_diagnostics,
     paired_stratified_bootstrap,
     select_best_fusion,
     select_strongest_gar,
@@ -443,6 +444,44 @@ def test_strongest_gar_selection_returns_selected_summary_mapping():
     method, summary = select_strongest_gar(summaries)
     assert method == "query2doc_mv"
     assert summary is summaries[method]
+
+
+def test_fusion_failure_is_attributed_to_crb_ablation_not_external_gar_gap():
+    def summary(ndcg, recall100=0.4):
+        return {"macro_equal_subset_weight": {"ndcg@10": ndcg, "recall@100": recall100}}
+
+    ablations = {
+        "A1_crb_lexical_bm25": summary(0.20),
+        "A2_crb_pseudo_evidence_bge": summary(0.19),
+        "A3_original_bm25_plus_crb_bm25": summary(0.21),
+        "A4_original_bge_plus_crb_bge": summary(0.195),
+        "A5_full_crb": summary(0.24),
+    }
+    original_bm25 = summary(0.19)
+    original_bge = summary(0.18)
+    result = classify_crb_ablation_diagnostics(
+        generation_valid_rate=0.40,
+        ablation_summaries=ablations,
+        original_bm25_summary=original_bm25,
+        original_bge_summary=original_bge,
+    )
+    assert result["flags"] == {
+        "GENERATION_BAD": True,
+        "LEXICAL_BRIDGE_BAD": False,
+        "DENSE_BRIDGE_BAD": False,
+        "FUSION_BAD": False,
+    }
+    assert result["fusion_comparison"]["best_simpler_arm"] == "A3_original_bm25_plus_crb_bm25"
+    assert result["fusion_comparison"]["delta"] == pytest.approx(0.03)
+
+    ablations["A5_full_crb"] = summary(0.21)
+    failed_fusion = classify_crb_ablation_diagnostics(
+        generation_valid_rate=1.0,
+        ablation_summaries=ablations,
+        original_bm25_summary=original_bm25,
+        original_bge_summary=original_bge,
+    )
+    assert failed_fusion["flags"]["FUSION_BAD"] is True
 
 
 def test_all_required_generator_methods_are_present():

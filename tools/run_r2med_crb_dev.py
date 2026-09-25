@@ -6,6 +6,8 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
+import subprocess
 import sys
 from datetime import UTC, datetime
 from itertools import pairwise
@@ -27,6 +29,7 @@ from eval.r2med_crb_data import SOURCE_MANIFEST_PATH, load_partition_inputs, loa
 from eval.r2med_crb_evaluator import (
     GAR_GENERATION_TO_MULTIVIEW,
     GAR_METHOD_ORDER,
+    classify_crb_ablation_diagnostics,
     dev_success_gate,
     evaluate_rankings,
     select_best_fusion,
@@ -637,21 +640,17 @@ def run_dev(
         }
         crb_stats = generator_stats[best_crb_method]
         quality_rate = crb_stats["valid_count"] / crb_stats["call_count"]
-        lex = ablation_summaries["A1_crb_lexical_bm25"]["macro_equal_subset_weight"]
-        original_bm25 = single_results["bm25"]["macro_equal_subset_weight"]
-        dense = ablation_summaries["A2_crb_pseudo_evidence_bge"]["macro_equal_subset_weight"]
-        original_bge = single_results["bge_large"]["macro_equal_subset_weight"]
-        lexical_good = lex["ndcg@10"] > original_bm25["ndcg@10"] or lex["recall@100"] > original_bm25["recall@100"]
-        dense_good = dense["ndcg@10"] > original_bge["ndcg@10"] or dense["recall@100"] > original_bge["recall@100"]
+        diagnostics = classify_crb_ablation_diagnostics(
+            generation_valid_rate=quality_rate,
+            ablation_summaries=ablation_summaries,
+            original_bm25_summary=single_results["bm25"],
+            original_bge_summary=single_results["bge_large"],
+        )
         ablation = {
             "summaries": ablation_summaries,
-            "diagnostic_flags": {
-                "GENERATION_BAD": quality_rate < 0.99 or crb_stats["truncation_count"] > 0,
-                "LEXICAL_BRIDGE_BAD": not lexical_good,
-                "DENSE_BRIDGE_BAD": not dense_good,
-                "FUSION_BAD": lexical_good and dense_good and gate["signal"] == "NEGATIVE",
-            },
-            "notes": "A3/A4 use equal-weight two-channel RRF at k=60; all ablations are DEV-only diagnostics.",
+            "diagnostic_flags": diagnostics["flags"],
+            "fusion_comparison": diagnostics["fusion_comparison"],
+            "notes": "A3/A4 use equal-weight two-channel RRF at k=60. FUSION_BAD means A5 failed to beat the best of A1-A4; it does not mean only that CRB lost to an external GAR baseline. All ablations are DEV-only diagnostics.",
         }
 
     best_crb_manifest = json.loads(
@@ -707,8 +706,67 @@ def run_dev(
     return report
 
 
+def refresh_existing_report_diagnostics(report_path: Path = REPORT_PATH) -> dict[str, Any]:
+    if not report_path.is_file():
+        raise FileNotFoundError(f"cannot refresh missing DEV report: {report_path}")
+    original_bytes = report_path.read_bytes()
+    report = json.loads(original_bytes)
+    if report.get("partition") != "DEV" or report.get("schema_version") != "r2med-crb-dev-report-v1":
+        raise ValueError("diagnostic refresh accepts only the completed R2MED DEV report")
+    if report.get("gate", {}).get("signal") != "NEGATIVE":
+        raise ValueError("diagnostic refresh is only for a completed negative DEV result")
+    ablation = report.get("ablation")
+    if not isinstance(ablation, dict) or not isinstance(ablation.get("summaries"), dict):
+        raise TypeError("DEV report is missing the predeclared CRB ablation summaries")
+    best_crb_method = report["best_crb"]["method"]
+    generation = report["generation_audit"][best_crb_method]
+    diagnostics = classify_crb_ablation_diagnostics(
+        generation_valid_rate=generation["valid_count"] / generation["call_count"],
+        ablation_summaries=ablation["summaries"],
+        original_bm25_summary=report["single_view"]["bm25"],
+        original_bge_summary=report["single_view"]["bge_large"],
+    )
+    backup_path = report_path.with_name("dev_report_pre_fusion_classifier_v1.json")
+    partial_path = report_path.with_suffix(report_path.suffix + ".partial")
+    if backup_path.exists() or partial_path.exists():
+        raise FileExistsError("diagnostic refresh backup or partial already exists; refusing to overwrite")
+    code_commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    shutil.copy2(report_path, backup_path)
+    ablation["diagnostic_flags"] = diagnostics["flags"]
+    ablation["fusion_comparison"] = diagnostics["fusion_comparison"]
+    ablation["notes"] = (
+        "A3/A4 use equal-weight two-channel RRF at k=60. FUSION_BAD means A5 failed to beat "
+        "the best of A1-A4; it does not mean only that CRB lost to an external GAR baseline. "
+        "All ablations are DEV-only diagnostics."
+    )
+    report["diagnostic_reanalysis"] = {
+        "version": "crb-ablation-classifier-v2",
+        "code_commit": code_commit,
+        "original_report_sha256": hashlib.sha256(original_bytes).hexdigest(),
+        "preserved_original_report": str(backup_path),
+        "scope": "Reclassified saved DEV ablation summaries only; no rankings, generation, qrels, or TEST inputs were read.",
+    }
+    with partial_path.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(partial_path, report_path)
+    return {
+        "diagnostic_flags": diagnostics["flags"],
+        "fusion_comparison": diagnostics["fusion_comparison"],
+        "preserved_original_report": str(backup_path),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--refresh-diagnostics-from-report", action="store_true")
     parser.add_argument("--source-root", type=Path, default=DEFAULT_SOURCE_ROOT)
     parser.add_argument("--bge-root", type=Path, default=DEFAULT_BGE_ROOT)
     parser.add_argument("--upstream-root", type=Path, default=DEFAULT_UPSTREAM)
@@ -718,6 +776,9 @@ def main() -> None:
         default=DEFAULT_LLAMA_SERVER,
     )
     args = parser.parse_args()
+    if args.refresh_diagnostics_from_report:
+        print(json.dumps(refresh_existing_report_diagnostics(), ensure_ascii=False, indent=2))
+        return
     report = run_dev(
         source_root=args.source_root,
         bge_root=args.bge_root,

@@ -243,3 +243,56 @@ def dev_success_gate(
         "positive_subsets": positive_subsets,
         "signal": "POSITIVE" if delta >= 0.005 and positive_subsets >= 2 else "NEGATIVE",
     }
+
+
+def classify_crb_ablation_diagnostics(
+    *,
+    generation_valid_rate: float,
+    ablation_summaries: Mapping[str, Mapping[str, Any]],
+    original_bm25_summary: Mapping[str, Any],
+    original_bge_summary: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Attribute a negative CRB DEV gate to generation, channels, or fusion itself."""
+    lexical = ablation_summaries["A1_crb_lexical_bm25"]["macro_equal_subset_weight"]
+    dense = ablation_summaries["A2_crb_pseudo_evidence_bge"]["macro_equal_subset_weight"]
+    full = ablation_summaries["A5_full_crb"]["macro_equal_subset_weight"]
+    original_bm25 = original_bm25_summary["macro_equal_subset_weight"]
+    original_bge = original_bge_summary["macro_equal_subset_weight"]
+    lexical_good = (
+        float(lexical["ndcg@10"]) > float(original_bm25["ndcg@10"])
+        or float(lexical["recall@100"]) > float(original_bm25["recall@100"])
+    )
+    dense_good = (
+        float(dense["ndcg@10"]) > float(original_bge["ndcg@10"])
+        or float(dense["recall@100"]) > float(original_bge["recall@100"])
+    )
+    simpler_arms = (
+        "A1_crb_lexical_bm25",
+        "A2_crb_pseudo_evidence_bge",
+        "A3_original_bm25_plus_crb_bm25",
+        "A4_original_bge_plus_crb_bge",
+    )
+    best_simpler_arm = max(
+        simpler_arms,
+        key=lambda arm: float(
+            ablation_summaries[arm]["macro_equal_subset_weight"]["ndcg@10"]
+        ),
+    )
+    simpler_ndcg = float(
+        ablation_summaries[best_simpler_arm]["macro_equal_subset_weight"]["ndcg@10"]
+    )
+    full_ndcg = float(full["ndcg@10"])
+    return {
+        "flags": {
+            "GENERATION_BAD": generation_valid_rate < 0.99,
+            "LEXICAL_BRIDGE_BAD": not lexical_good,
+            "DENSE_BRIDGE_BAD": not dense_good,
+            "FUSION_BAD": full_ndcg <= simpler_ndcg,
+        },
+        "fusion_comparison": {
+            "full_crb_ndcg_at_10": full_ndcg,
+            "best_simpler_arm": best_simpler_arm,
+            "best_simpler_arm_ndcg_at_10": simpler_ndcg,
+            "delta": full_ndcg - simpler_ndcg,
+        },
+    }
