@@ -139,6 +139,77 @@ def evaluate_rankings(
     return metrics_rows, summarize_query_metrics(metrics_rows)
 
 
+def evaluate_candidate_complementarity(
+    partition: str,
+    candidate_by_subset: Mapping[str, Mapping[str, Mapping[str, Sequence[str]]]],
+    *,
+    source_root: Path,
+    source_manifest_path: Path = SOURCE_MANIFEST_PATH,
+) -> dict[str, Any]:
+    """Post-hoc candidate-pool diagnostics; this evaluator remains the only qrels reader."""
+    if partition not in {"DEV", "TEST"}:
+        raise ValueError("partition must be DEV or TEST")
+    subset_results: dict[str, Any] = {}
+    all_query_rows: list[dict[str, Any]] = []
+    for subset, methods in candidate_by_subset.items():
+        if set(methods) != {"lamer", "crb"}:
+            raise ValueError("candidate complementarity requires LameR and CRB pools")
+        qrels = _load_qrels(
+            partition,
+            subset,
+            source_root=source_root,
+            source_manifest_path=source_manifest_path,
+        )
+        if set(methods["lamer"]) != set(qrels) or set(methods["crb"]) != set(qrels):
+            raise ValueError(f"candidate and qrels query IDs differ in {partition}/{subset}")
+        rows: list[dict[str, Any]] = []
+        for query_id, judgments in qrels.items():
+            relevant = {doc_id for doc_id, score in judgments.items() if score > 0}
+            lamer = set(methods["lamer"][query_id][:100])
+            crb = set(methods["crb"][query_id][:100])
+            union = lamer | crb
+            row = {
+                "subset": subset,
+                "query_id": query_id,
+                "lamer_recall@100": len(lamer & relevant) / len(relevant) if relevant else 0.0,
+                "crb_recall@100": len(crb & relevant) / len(relevant) if relevant else 0.0,
+                "raw_union_recall@100": len(union & relevant) / len(relevant) if relevant else 0.0,
+                "lamer_only_relevant": len((lamer - crb) & relevant),
+                "crb_only_relevant": len((crb - lamer) & relevant),
+                "both_relevant": len(lamer & crb & relevant),
+                "neither_relevant": len(relevant - union),
+            }
+            rows.append(row)
+            all_query_rows.append(row)
+        subset_results[subset] = {
+            "query_count": len(rows),
+            "lamer_recall@100": fmean(row["lamer_recall@100"] for row in rows),
+            "crb_recall@100": fmean(row["crb_recall@100"] for row in rows),
+            "raw_union_candidate_recall@100": fmean(row["raw_union_recall@100"] for row in rows),
+            "relevant_lamer_only": sum(row["lamer_only_relevant"] for row in rows),
+            "relevant_crb_only": sum(row["crb_only_relevant"] for row in rows),
+            "relevant_both": sum(row["both_relevant"] for row in rows),
+            "relevant_neither": sum(row["neither_relevant"] for row in rows),
+        }
+    if not subset_results:
+        raise ValueError("candidate complementarity requires at least one subset")
+    macro_keys = ("lamer_recall@100", "crb_recall@100", "raw_union_candidate_recall@100")
+    return {
+        "partition": partition,
+        "interpretation": "POST-HOC INTERPRETATION ONLY; raw union is a candidate-pool ceiling, not a final ranking metric",
+        "by_subset": subset_results,
+        "macro_equal_subset_weight": {
+            key: fmean(result[key] for result in subset_results.values()) for key in macro_keys
+        },
+        "relevant_pool_counts": {
+            "lamer_only": sum(row["lamer_only_relevant"] for row in all_query_rows),
+            "crb_only": sum(row["crb_only_relevant"] for row in all_query_rows),
+            "both": sum(row["both_relevant"] for row in all_query_rows),
+            "neither": sum(row["neither_relevant"] for row in all_query_rows),
+        },
+    }
+
+
 def select_best_fusion(
     summaries: Mapping[str, Mapping[str, Any]],
 ) -> tuple[str, Mapping[str, Any]]:
