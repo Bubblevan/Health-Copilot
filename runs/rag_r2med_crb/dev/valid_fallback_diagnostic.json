@@ -1,0 +1,489 @@
+{
+  "schema_version": "r2med-crb-valid-fallback-diagnostic-v1",
+  "partition": "DEV",
+  "test_accessed": false,
+  "model_calls": 0,
+  "ranking_recomputation": false,
+  "purpose": "paired valid/fallback diagnostic before any compact-schema regeneration",
+  "metric_scope": "DEV qrels are consumed only by the evaluation layer; no qrels enter generation or ranking",
+  "variants": {
+    "crb_q": {
+      "method": "crb_q",
+      "selected_dev_fusion": {
+        "config_id": "k20-W0",
+        "rrf_k": 20,
+        "weights": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "generation_counts": {
+        "total": 393,
+        "valid": 156,
+        "fallback": 237,
+        "valid_rate": 0.3969465648854962,
+        "fallback_truncated": 237,
+        "fallback_not_truncated": 0,
+        "valid_but_truncated": 4,
+        "by_subset": {
+          "PMC-Treatment": {
+            "valid": 60,
+            "fallback": 90,
+            "fallback_truncated": 90,
+            "valid_truncated": 3
+          },
+          "PMC-Clinical": {
+            "valid": 16,
+            "fallback": 98,
+            "fallback_truncated": 98,
+            "valid_truncated": 0
+          },
+          "IIYi-Clinical": {
+            "valid": 80,
+            "fallback": 49,
+            "fallback_truncated": 49,
+            "valid_truncated": 1
+          }
+        }
+      },
+      "fallback_reconstruction": {
+        "query_count": 237,
+        "exact_top100_matches": 235,
+        "exact_match_rate": 0.9915611814345991,
+        "status": "MISMATCH",
+        "scope_note": "This audit concerns fallback-stratum rows only. The primary valid-stratum paired delta compares actual CRB rankings to original-query B0/B1 cached rankings under the same RRF config. Fallback replay mismatches are listed by subset and are not included in the valid-query effect."
+      },
+      "by_subset": {
+        "PMC-Treatment": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 88,
+            "fallback_query_count": 90,
+            "bm25_bridge_equals_original_count": 90,
+            "bge_generated_equals_original_count": 86,
+            "mismatched_query_ids": [
+              "q_PMC11471588",
+              "q_PMC11434074"
+            ]
+          },
+          "valid": {
+            "query_count": 60,
+            "crb": {
+              "ndcg@10": 0.39553627750536974,
+              "recall@100": 0.7561111111111111
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.3260176671679536,
+              "recall@100": 0.6722222222222223
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.43410437846046285,
+              "recall@100": 0.8241666666666667
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.06951861033741617,
+              "recall@100": 0.08388888888888889
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.038568100955093124,
+              "recall@100": -0.06805555555555556
+            }
+          },
+          "fallback": {
+            "query_count": 90,
+            "crb": {
+              "ndcg@10": 0.27861535569607326,
+              "recall@100": 0.5790740740740741
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.27861535569607326,
+              "recall@100": 0.5790740740740741
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.47235887182446346,
+              "recall@100": 0.7788888888888889
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.1937435161283902,
+              "recall@100": -0.19981481481481483
+            }
+          }
+        },
+        "PMC-Clinical": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 98,
+            "fallback_query_count": 98,
+            "bm25_bridge_equals_original_count": 98,
+            "bge_generated_equals_original_count": 91,
+            "mismatched_query_ids": []
+          },
+          "valid": {
+            "query_count": 16,
+            "crb": {
+              "ndcg@10": 0.2148609858859597,
+              "recall@100": 0.6770833333333334
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.16969333198626046,
+              "recall@100": 0.6770833333333334
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.24743759942559002,
+              "recall@100": 0.6770833333333334
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.04516765389969925,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.032576613539630324,
+              "recall@100": 3.469446951953614e-18
+            }
+          },
+          "fallback": {
+            "query_count": 98,
+            "crb": {
+              "ndcg@10": 0.2010840480077602,
+              "recall@100": 0.6632653061224489
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.2010840480077602,
+              "recall@100": 0.6632653061224489
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.2652127395417695,
+              "recall@100": 0.7074829931972788
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.06412869153400927,
+              "recall@100": -0.044217687074829926
+            }
+          }
+        },
+        "IIYi-Clinical": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 49,
+            "fallback_query_count": 49,
+            "bm25_bridge_equals_original_count": 49,
+            "bge_generated_equals_original_count": 47,
+            "mismatched_query_ids": []
+          },
+          "valid": {
+            "query_count": 80,
+            "crb": {
+              "ndcg@10": 0.26357663594652087,
+              "recall@100": 0.7360416666666667
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.1976699561536567,
+              "recall@100": 0.64
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.19816160003120692,
+              "recall@100": 0.6883333333333332
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.06590667979286416,
+              "recall@100": 0.09604166666666666
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": 0.06541503591531393,
+              "recall@100": 0.04770833333333334
+            }
+          },
+          "fallback": {
+            "query_count": 49,
+            "crb": {
+              "ndcg@10": 0.13867981319931108,
+              "recall@100": 0.5329931972789116
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.13867981319931108,
+              "recall@100": 0.5329931972789116
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.14936348361501742,
+              "recall@100": 0.5149659863945578
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.010683670415706364,
+              "recall@100": 0.018027210884353738
+            }
+          }
+        }
+      },
+      "valid_stratum_paired_delta_vs_fallback": {
+        "ndcg@10_by_subset": {
+          "PMC-Treatment": 0.06951861033741617,
+          "PMC-Clinical": 0.04516765389969925,
+          "IIYi-Clinical": 0.06590667979286416
+        },
+        "recall@100_by_subset": {
+          "PMC-Treatment": 0.08388888888888889,
+          "PMC-Clinical": 0.0,
+          "IIYi-Clinical": 0.09604166666666666
+        },
+        "macro_equal_subset_ndcg@10": 0.06019764800999319,
+        "macro_equal_subset_recall@100": 0.059976851851851844,
+        "positive_ndcg_subsets": 3,
+        "subset_count": 3,
+        "primary_gate_eligible": true,
+        "signal": "POSITIVE",
+        "signal_rule": "paired valid-query delta > 0 macro and > 0 in at least 2 of 3 DEV subsets",
+        "eligibility_note": "Primary screening is CRB-Q only; each DEV subset must have at least 10 valid queries. CRB-PRF is supplementary. Fallback replay differences are reported separately and do not enter the valid-stratum paired effect."
+      }
+    },
+    "crb_prf": {
+      "method": "crb_prf",
+      "selected_dev_fusion": {
+        "config_id": "k20-W2",
+        "rrf_k": 20,
+        "weights": [
+          1,
+          2,
+          1,
+          2
+        ]
+      },
+      "generation_counts": {
+        "total": 393,
+        "valid": 112,
+        "fallback": 281,
+        "valid_rate": 0.28498727735368956,
+        "fallback_truncated": 281,
+        "fallback_not_truncated": 0,
+        "valid_but_truncated": 1,
+        "by_subset": {
+          "PMC-Treatment": {
+            "valid": 50,
+            "fallback": 100,
+            "fallback_truncated": 100,
+            "valid_truncated": 0
+          },
+          "PMC-Clinical": {
+            "valid": 1,
+            "fallback": 113,
+            "fallback_truncated": 113,
+            "valid_truncated": 0
+          },
+          "IIYi-Clinical": {
+            "valid": 61,
+            "fallback": 68,
+            "fallback_truncated": 68,
+            "valid_truncated": 1
+          }
+        }
+      },
+      "fallback_reconstruction": {
+        "query_count": 281,
+        "exact_top100_matches": 279,
+        "exact_match_rate": 0.9928825622775801,
+        "status": "MISMATCH",
+        "scope_note": "This audit concerns fallback-stratum rows only. The primary valid-stratum paired delta compares actual CRB rankings to original-query B0/B1 cached rankings under the same RRF config. Fallback replay mismatches are listed by subset and are not included in the valid-query effect."
+      },
+      "by_subset": {
+        "PMC-Treatment": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 98,
+            "fallback_query_count": 100,
+            "bm25_bridge_equals_original_count": 100,
+            "bge_generated_equals_original_count": 95,
+            "mismatched_query_ids": [
+              "q_PMC11426947",
+              "q_PMC11434074"
+            ]
+          },
+          "valid": {
+            "query_count": 50,
+            "crb": {
+              "ndcg@10": 0.363147870403799,
+              "recall@100": 0.8006666666666666
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.28066780099964,
+              "recall@100": 0.6406666666666666
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.44146467452386806,
+              "recall@100": 0.8053333333333333
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.08248006940415899,
+              "recall@100": 0.16
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.07831680412006908,
+              "recall@100": -0.004666666666666668
+            }
+          },
+          "fallback": {
+            "query_count": 100,
+            "crb": {
+              "ndcg@10": 0.3060305199274181,
+              "recall@100": 0.6041666666666666
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.3060305199274181,
+              "recall@100": 0.6041666666666666
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.4648532744563608,
+              "recall@100": 0.7928333333333333
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.1588227545289427,
+              "recall@100": -0.18866666666666668
+            }
+          }
+        },
+        "PMC-Clinical": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 113,
+            "fallback_query_count": 113,
+            "bm25_bridge_equals_original_count": 113,
+            "bge_generated_equals_original_count": 105,
+            "mismatched_query_ids": []
+          },
+          "valid": {
+            "query_count": 1,
+            "crb": {
+              "ndcg@10": 0.3084274278260313,
+              "recall@100": 1.0
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.14126697285982898,
+              "recall@100": 1.0
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.14126697285982898,
+              "recall@100": 1.0
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.1671604549662023,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": 0.1671604549662023,
+              "recall@100": 0.0
+            }
+          },
+          "fallback": {
+            "query_count": 113,
+            "crb": {
+              "ndcg@10": 0.19716869950160032,
+              "recall@100": 0.6622418879056047
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.19716869950160032,
+              "recall@100": 0.6622418879056047
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.263792770734894,
+              "recall@100": 0.700589970501475
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.06662407123329364,
+              "recall@100": -0.038348082595870206
+            }
+          }
+        },
+        "IIYi-Clinical": {
+          "fallback_reconstruction_audit": {
+            "exact_fallback_top100_matches": 68,
+            "fallback_query_count": 68,
+            "bm25_bridge_equals_original_count": 68,
+            "bge_generated_equals_original_count": 66,
+            "mismatched_query_ids": []
+          },
+          "valid": {
+            "query_count": 61,
+            "crb": {
+              "ndcg@10": 0.23665151106483168,
+              "recall@100": 0.726502732240437
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.16541528847763842,
+              "recall@100": 0.6090163934426229
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.16949616119773944,
+              "recall@100": 0.6573770491803279
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.07123622258719324,
+              "recall@100": 0.11748633879781421
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": 0.06715534986709225,
+              "recall@100": 0.06912568306010929
+            }
+          },
+          "fallback": {
+            "query_count": 68,
+            "crb": {
+              "ndcg@10": 0.18409668738121815,
+              "recall@100": 0.5906862745098039
+            },
+            "query_only_fallback_same_queries": {
+              "ndcg@10": 0.18409668738121815,
+              "recall@100": 0.5906862745098039
+            },
+            "strongest_gar_lamer_mv_same_queries": {
+              "ndcg@10": 0.18871283627309268,
+              "recall@100": 0.5911764705882353
+            },
+            "paired_delta_vs_query_only_fallback": {
+              "ndcg@10": 0.0,
+              "recall@100": 0.0
+            },
+            "paired_delta_vs_lamer_mv": {
+              "ndcg@10": -0.004616148891874543,
+              "recall@100": -0.0004901960784313757
+            }
+          }
+        }
+      },
+      "valid_stratum_paired_delta_vs_fallback": {
+        "ndcg@10_by_subset": {
+          "PMC-Treatment": 0.08248006940415899,
+          "PMC-Clinical": 0.1671604549662023,
+          "IIYi-Clinical": 0.07123622258719324
+        },
+        "recall@100_by_subset": {
+          "PMC-Treatment": 0.16,
+          "PMC-Clinical": 0.0,
+          "IIYi-Clinical": 0.11748633879781421
+        },
+        "macro_equal_subset_ndcg@10": 0.10695891565251818,
+        "macro_equal_subset_recall@100": 0.09249544626593807,
+        "positive_ndcg_subsets": 3,
+        "subset_count": 3,
+        "primary_gate_eligible": false,
+        "signal": "SUPPLEMENTARY_ONLY",
+        "signal_rule": "paired valid-query delta > 0 macro and > 0 in at least 2 of 3 DEV subsets",
+        "eligibility_note": "Primary screening is CRB-Q only; each DEV subset must have at least 10 valid queries. CRB-PRF is supplementary. Fallback replay differences are reported separately and do not enter the valid-stratum paired effect."
+      }
+    }
+  }
+}
