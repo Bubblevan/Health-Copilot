@@ -94,6 +94,19 @@ def test_dev_selection_uses_macro_ndcg_then_frozen_tie_breaks() -> None:
     assert select_best_dev_arm(summaries, configs) == "lambda_close"
 
 
+def test_dev_selection_treats_absent_lambda_as_neutral_for_single_source_arm() -> None:
+    summary = {
+        "macro_equal_subset_weight": {"ndcg@10": 0.31, "mrr@10": 0.4, "recall@10": 0.5}
+    }
+    summaries = {"lamer_single_source": summary, "dual_lambda_half": summary}
+    configs = {
+        "lamer_single_source": {"depth": 30, "lambda": None},
+        "dual_lambda_half": {"depth": 30, "lambda": 0.5},
+    }
+
+    assert select_best_dev_arm(summaries, configs) == "lamer_single_source"
+
+
 def test_macro_metric_weights_subsets_equally_not_queries() -> None:
     rows = []
     for query_id, subset, value in (

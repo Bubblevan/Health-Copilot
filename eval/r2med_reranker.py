@@ -39,12 +39,14 @@ def select_best_dev_arm(
     def key(name: str) -> tuple[float, float, float, int, float, float, str]:
         metrics = summaries[name]["macro_equal_subset_weight"]
         config = configs[name]
+        lambda_value = config.get("lambda")
+        lambda_value = 1.0 if lambda_value is None else float(lambda_value)
         return (
             float(metrics["ndcg@10"]),
             float(metrics["mrr@10"]),
             float(metrics["recall@10"]),
             -int(config.get("depth", 0)),
-            -abs(float(config.get("lambda", 1.0)) - 1.0),
+            -abs(lambda_value - 1.0),
             -float(config.get("alpha", 0.0)),
             name,
         )
