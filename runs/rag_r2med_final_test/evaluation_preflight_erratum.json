@@ -1,0 +1,55 @@
+{
+  "schema_version": "r2med-final-test-evaluation-preflight-erratum-v1",
+  "status": "READY_FOR_SCORING_PENDING_COMMIT",
+  "created_at_utc": "2026-09-26T07:06:46.818173+00:00",
+  "original_final_eval_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+  "original_lock_commit": "2ec73d03e4c76b8e4839ce85008ed50244c62162",
+  "ranking_freeze_manifest_sha256": "33a8080564b1f4676b11fadb22d00511d3f3f29a7fe5e3c3ecc7c64aba49e06e",
+  "qrels_opened_before_erratum": false,
+  "locked_runner_failure": "validate_generation_budget compared bare numeric query_id values across subsets",
+  "observed_test_identity": {
+    "subset_counts": {
+      "MedQA-Diag": 118,
+      "MedXpertQA-Exam": 97,
+      "Medical-Sciences": 88
+    },
+    "rows_per_generation_method": 303,
+    "shared_bare_query_ids_across_subsets": {
+      "lamer": [
+        "100",
+        "3",
+        "33",
+        "36",
+        "44",
+        "57",
+        "75",
+        "77",
+        "88"
+      ],
+      "compact_crb_q": [
+        "100",
+        "3",
+        "33",
+        "36",
+        "44",
+        "57",
+        "75",
+        "77",
+        "88"
+      ]
+    }
+  },
+  "correction": {
+    "identity_key": "(subset, query_id)",
+    "requires_exactly_one_row_per_query_within_each_subset": true,
+    "requires_locked_subset_counts_and_query_order_hashes": true,
+    "generation_or_ranking_artifacts_changed": false,
+    "method_configs_or_metrics_changed": false,
+    "locked_scoring_and_qrels_reader_changed": false
+  },
+  "scoring": {
+    "status": "NOT_STARTED",
+    "evaluator": "tools.run_r2med_final_test._evaluate_and_report",
+    "only_qrels_reader": "eval.r2med_crb_evaluator.py"
+  }
+}

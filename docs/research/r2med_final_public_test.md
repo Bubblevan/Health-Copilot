@@ -25,6 +25,12 @@ The generator is local Qwen3-8B Q4_K_M, one call per query per generated arm, te
 
 Generation and retrieval receive only native query text, corpus text, and (for LameR) the same query's top-10 BM25 passages. They do not read qrels, relevance labels, gold documents, or answer keys. The six complete rankings are persisted to the E: artifact root and SHA-256 frozen before evaluation. `eval/r2med_crb_evaluator.py` remains the only qrels/relevance consumer. Infrastructure interruption may resume unfinished generation query IDs; a completed query ID is never generated again.
 
+### Pre-scoring validation erratum
+
+The first locked runner pass completed all six ranking artifacts and froze their hashes, then stopped before the evaluator opened qrels. Its final generation-budget guard compared bare `query_id` values globally across all three subsets. R2MED query IDs are numeric and subset-local: each artifact had the exact locked subset count, unique IDs within that subset, matching query order, and matching generation/ranking hashes, but nine IDs legitimately appeared in more than one subset. The failed guard therefore rejected complete artifacts due to an identity-scope bug, not missing generations.
+
+The scoring continuation records this erratum in `runs/rag_r2med_final_test/evaluation_preflight_erratum.json`. It revalidates the committed lock, generation manifests/artifact hashes, the six frozen ranking hashes, and exact IDs/order per subset before scoring. It applies the uniqueness invariant to `(subset, query_id)` and calls the original locked scoring/evaluator code; no generation, retrieval, ranking, model, metric, or method setting is changed. The erratum is committed before qrels are opened. The first pass did not reach qrels access.
+
 ## Metrics and uncertainty
 
 Primary metric is equal-subset macro nDCG@10: compute mean nDCG@10 within each TEST subset, then take the unweighted mean of the three subset means. Secondary metrics are MRR@10 and Recall@5/10/50/100. Paired bootstrap uses 10,000 resamples, stratified by subset, seed 20260926. Intervals are exploratory because this is public/reused TEST; they are not confirmatory significance tests, and no multiplicity claim is made.
@@ -33,7 +39,7 @@ Comparisons are DualSource versus BM25, ordinary BM25+BGE RRF, and LameR-MV. The
 
 ## Results
 
-Results will be filled from the committed `runs/rag_r2med_final_test/test_report.json` and `candidate_analysis.json` after the locked TEST run. No TEST-derived choice of prompt, schema, weight, lambda, fusion, retriever, or reranker is permitted.
+Results will be filled from the committed `runs/rag_r2med_final_test/test_report.json` and `candidate_analysis.json` after the frozen TEST ranking evaluation. No TEST-derived choice of prompt, schema, weight, lambda, fusion, retriever, or reranker is permitted.
 
 | Method | MedQA-Diag nDCG@10 | MedXpertQA-Exam nDCG@10 | Medical-Sciences nDCG@10 | Macro nDCG@10 |
 | --- | ---: | ---: | ---: | ---: |
