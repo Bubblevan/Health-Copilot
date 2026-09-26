@@ -1,0 +1,83 @@
+{
+  "protocol_version": "memory-model-roles-v1",
+  "audit_date": "2026-09-26",
+  "principle": "Keep reader/answer model, memory system, embedding model, and judge model distinct in configuration, logs, cost accounting, and claims.",
+  "main_track": {
+    "role": "reader_answer_model",
+    "model": "Qwen3-8B",
+    "provider": "local",
+    "artifact": "E:/Health-Copilot-Models/models/qwen3-8b/Qwen3-8B-Q4_K_M.gguf",
+    "upstream_model_repo": "Qwen/Qwen3-8B-GGUF",
+    "upstream_revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "quantization": "Q4_K_M",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "runtime": "llama.cpp llama-server build b10068-571d0d540 (version 10068)",
+    "generation": {
+      "temperature": 0,
+      "seed": 42,
+      "max_new_tokens": 64,
+      "enable_thinking": false
+    },
+    "context": {
+      "native_context_tokens": 32768,
+      "max_model_length": 131072,
+      "rope_scaling": "yarn",
+      "rope_scale": 4,
+      "yarn_original_context": 32768,
+      "gguf_training_context_metadata": 40960,
+      "llama_cpp_metadata_override": "qwen3.context_length=int:131072; required because this server build otherwise caps the per-request slot at 40960 even with YaRN flags",
+      "kv_cache": "q8_0 on CPU via --no-kv-offload; weights GPU-offloaded; single parallel slot",
+      "flash_attention": true,
+      "truncation_policy": "No silent truncation. Record tokenizer prompt tokens and server truncated flag per query; any truncated main-track answer is an invalid run item requiring investigation and rerun before scoring."
+    },
+    "coverage": "All compatible baseline systems and Health-Copilot adapters use this same reader artifact, runtime, generation settings, and context configuration in Main Track. System-specific memory prompts and retrieval behavior remain part of the memory system and must be hashed/logged."
+  },
+  "upstream_parity_sanity_track": {
+    "role": "reader_answer_model",
+    "model": "OpenAI gpt-4.1",
+    "provider": "OpenAI API",
+    "purpose": "Low-cost adapter and direction sanity only; not the primary benchmark and not a performance claim against published numbers.",
+    "case_count": 6,
+    "selection": "One DEV question per question_type: minimum SHA256('memeval_upstream_parity_sanity_v1:' + question_id) within each category.",
+    "question_ids": {
+      "knowledge-update": "1cea1afa",
+      "multi-session": "1c549ce4",
+      "single-session-assistant": "778164c6",
+      "single-session-preference": "fca70973",
+      "single-session-user": "a82c026e",
+      "temporal-reasoning": "gpt4_e061b84g"
+    },
+    "question_ids_sha256_sorted_lf": "6b6b0af3ca1c48fe684b4fb6f43889d8135818866b235c5456c6edead4a2c008",
+    "systems": ["Full Context", "OpenClaw", "SimpleMem", "PropMem", "Mem0 OSS"],
+    "reader_controls": "All included systems use gpt-4.1 under their pinned upstream prompts/settings; gpt-4o remains the separate judge. Do not compare this track's scores as though it were Main Track."
+  },
+  "roles": {
+    "memory_system": {
+      "definition": "The system under comparison: ingestion/materialization, storage, revision policy, scope, retrieval, and context projection. It is not the reader, embedding provider, or judge.",
+      "systems": ["Full Context", "OpenClaw", "SimpleMem", "PropMem", "Mem0 OSS", "Health-Copilot M10-Flat/RevMem in later stages"],
+      "control": "Capture all system-specific prompts, model calls, configurations, and outputs. No hidden/proprietary model advantage or unlogged call."
+    },
+    "embedding_model": {
+      "model": "text-embedding-3-small",
+      "provider": "OpenAI API",
+      "dimensions": 1536,
+      "pricing_basis": "Input tokens only; record API usage receipts per system."
+    },
+    "judge_model": {
+      "model": "gpt-4o",
+      "provider": "OpenAI API",
+      "temperature": 0,
+      "max_tokens": 10,
+      "metric": "LongMemEval native binary accuracy using the pinned MemEval judge prompt and implementation."
+    },
+    "deterministic_metric": {
+      "name": "LongMemEval token F1",
+      "implementation": "Pinned MemEval implementation; local deterministic calculation; no judge model call."
+    }
+  },
+  "claim_guardrails": [
+    "Main Track results use Qwen3-8B; never claim equivalence to or improvement over MemEval README gpt-4.1 scores.",
+    "The gpt-4.1 sanity subset is descriptive only and cannot replace the Qwen3-8B Main Track.",
+    "Reader, memory system, embedding model, and judge model must be reported in separate fields."
+  ]
+}

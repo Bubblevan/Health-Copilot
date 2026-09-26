@@ -1,0 +1,58 @@
+{
+  "manifest_version": "memory-datasets-v1",
+  "audit_date": "2026-09-26",
+  "datasets": [
+    {
+      "dataset_id": "longmemeval_s",
+      "role": "Track A; official LongMemEval-S input",
+      "source_url": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned",
+      "source_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+      "filename": "longmemeval_s_cleaned.json",
+      "license": "MIT",
+      "question_count": 500,
+      "expected_size_bytes": 277383467,
+      "expected_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+      "expected_hash_source": "Official Hugging Face LFS/Xet file metadata at the pinned revision",
+      "local_materialized": true,
+      "local_path": "D:/MyLab/Jianli/data/longmemeval/longmemeval_s_cleaned.json",
+      "materialized_size_bytes": 277383467,
+      "materialized_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+      "materialization_status": "bytes, 500 unique question IDs, full ID inventory, and six category counts verified; active DEV/TEST v2 exactly matches the pinned S-derived MemEval sample and complement",
+      "required_before_mem1": "Use only split_manifest.json v2. Run the ordered 1-case and 10-case smoke gates before the full DEV reproduction."
+    },
+    {
+      "dataset_id": "longmemeval_oracle_id_source",
+      "role": "Invalid split-candidate audit source only; never use for tuning or evaluation and never substitute for LongMemEval-S",
+      "local_path": "D:/MyLab/Jianli/data/longmemeval/longmemeval_oracle.json",
+      "source_url": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned",
+      "source_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+      "filename": "longmemeval_oracle.json",
+      "license": "MIT",
+      "question_count": 500,
+      "size_bytes": 15388478,
+      "sha256": "821a2034d219ab45846873dd14c14f12cfe7776e73527a483f9dac095d38620c",
+      "status": "local bytes match the official LFS object digest; contains oracle evidence sessions only and is retained for audit; excluded from every LongMemEval Track A input and split"
+    },
+    {
+      "dataset_id": "memora_fama",
+      "role": "Track B at MEM-4, not yet materialized",
+      "source_url": "https://github.com/geniesinc/Memora",
+      "source_revision": "a6493188efc836d6511ed5e4163fe3ba87da30ff",
+      "local_materialized": false,
+      "status": "benchmark repository identified; dataset and evaluator hashes must be captured after checkout and before MEM-4"
+    }
+  ],
+  "longmemeval_question_type_counts": {
+    "single-session-user": 70,
+    "single-session-assistant": 56,
+    "single-session-preference": 30,
+    "multi-session": 133,
+    "temporal-reasoning": 133,
+    "knowledge-update": 78
+  },
+  "scope_exclusions": [
+    "LongMemEval-M is excluded from the first round.",
+    "LongMemEval-V2 is excluded until MEMORY_PUBLIC_CLOSEOUT=YES.",
+    "The oracle file is not substituted for LongMemEval-S."
+  ]
+}

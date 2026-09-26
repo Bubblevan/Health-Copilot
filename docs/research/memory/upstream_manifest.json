@@ -1,0 +1,68 @@
+{
+  "manifest_version": "memory-upstream-v1",
+  "audit_date": "2026-09-26",
+  "health_copilot": {
+    "path": "D:/MyLab/Jianli/Health-Copilot",
+    "base_sha": "76836cf162a9b3adcc0f52c4ee5edcf1dfd1f4fe",
+    "worktree_state_at_audit": "preexisting dirty and untracked work present; preserved"
+  },
+  "repositories": [
+    {
+      "name": "MemEval",
+      "role": "primary baseline/evaluation harness",
+      "path": "D:/MyLab/Jianli/external/memory/MemEval",
+      "remote": "https://github.com/ProsusAI/MemEval.git",
+      "checkout_sha": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+      "observed_remote_head_sha": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+      "worktree_clean": true
+    },
+    {
+      "name": "mem0",
+      "role": "industry OSS baseline",
+      "path": "D:/MyLab/Jianli/external/memory/mem0",
+      "remote": "https://github.com/mem0ai/mem0.git",
+      "checkout_sha": "8d6c001966573786d36908bfe4dfd52935749200",
+      "observed_remote_head_sha": "94c3fe9f238f3dbf29c9ce98643bd71eb13077cd",
+      "worktree_clean": true,
+      "pin_policy": "use checkout_sha; do not silently advance to remote HEAD"
+    },
+    {
+      "name": "Memora-System",
+      "identity": "Microsoft memory system, not the ACL benchmark",
+      "role": "optional architecture reference",
+      "path": "D:/MyLab/Jianli/external/memory/Memora",
+      "remote": "https://github.com/microsoft/Memora.git",
+      "checkout_sha": "dec3f8f2444eace7004fc084abe1be9f3d88270e",
+      "observed_remote_head_sha": "dec3f8f2444eace7004fc084abe1be9f3d88270e",
+      "worktree_clean": true
+    },
+    {
+      "name": "LongMemEval-V2",
+      "role": "stretch after memory public closeout; excluded from MEM-0/MEM-1",
+      "path": "D:/MyLab/Jianli/external/memory/LongMemEval-V2",
+      "remote": "https://github.com/xiaowu0162/LongMemEval-V2.git",
+      "checkout_sha": "2cc8c540bdb87fe6761629b585e727e1c4704520",
+      "observed_remote_head_sha": "2cc8c540bdb87fe6761629b585e727e1c4704520",
+      "worktree_clean": true
+    },
+    {
+      "name": "Memora-Benchmark",
+      "identity": "Genies ACL 2026 benchmark and FAMA evaluator",
+      "role": "MEM-4 forgetting-aware benchmark",
+      "path": null,
+      "remote": "https://github.com/geniesinc/Memora.git",
+      "checkout_sha": null,
+      "observed_remote_head_sha": "a6493188efc836d6511ed5e4163fe3ba87da30ff",
+      "worktree_clean": null,
+      "status": "remote identified; not checked out"
+    }
+  ],
+  "longmemeval_s": {
+    "source": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned",
+    "revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "filename": "longmemeval_s_cleaned.json",
+    "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "size_bytes": 277383467,
+    "sha256_source": "Hugging Face LFS/Xet metadata for the pinned revision"
+  }
+}
