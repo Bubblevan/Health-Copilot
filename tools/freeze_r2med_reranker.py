@@ -21,10 +21,14 @@ LOCK_PATH = ROOT / "runs/rag_r2med_rerank/final_method_lock.json"
 LOCKED_CODE_PATHS = (
     "eval/r2med_candidate_union.py",
     "eval/r2med_reranker.py",
+    "eval/r2med_crb_data.py",
+    "eval/r2med_crb_evaluator.py",
+    "eval/r2med_multiview.py",
     "tools/analyze_r2med_candidate_complementarity.py",
     "tools/run_r2med_reranker_dev.py",
     "tools/analyze_r2med_reranker_dev.py",
     "tools/freeze_r2med_reranker.py",
+    "runs/rag_r2med_rerank/protocol.json",
 )
 
 
@@ -43,8 +47,14 @@ def freeze_method(
     head = subprocess.run(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True
     ).stdout.strip()
-    if report.get("code_commit") != head:
-        raise ValueError("code commit changed after DEV evaluation; refusing to freeze mismatched method")
+    if subprocess.run(
+        ["git", "diff", "--quiet", report["code_commit"], head, "--", *LOCKED_CODE_PATHS],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    ).returncode:
+        raise ValueError("DEV method source changed after evaluation; refusing to freeze mismatched method")
     dirty = subprocess.run(
         ["git", "status", "--porcelain", "--", *LOCKED_CODE_PATHS],
         cwd=ROOT,
@@ -72,6 +82,7 @@ def freeze_method(
         "reranked_ranking_hashes": report["reranked_ranking_sha256"],
         "per_query_metrics_sha256": report["per_query_metrics"]["sha256"],
         "code_commit": head,
+        "dev_execution_code_commit": report["code_commit"],
         "test_policy": protocol["test_policy"],
         "test_run_started": False,
     }
