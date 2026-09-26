@@ -1,0 +1,310 @@
+{
+  "schema_version": "r2med-final-public-test-lock-v1",
+  "created_at_utc": "2026-09-26T05:36:31.570339+00:00",
+  "purpose": "PUBLIC_TEST_BASELINE_EVALUATION_ONLY",
+  "claim_boundary": {
+    "new_method_dev_win": false,
+    "allowed_question": "whether frozen pipelines improve over basic public retrieval baselines",
+    "prohibited_claim": "DualSource outperforms strongest GAR unless TEST strong-method gate passes",
+    "test_status": "public_benchmark_reused_not_untouched_or_confirmatory"
+  },
+  "test_status": "PUBLIC_BENCHMARK_REUSED",
+  "test_counts": {
+    "MedQA-Diag": 118,
+    "MedXpertQA-Exam": 97,
+    "Medical-Sciences": 88,
+    "total": 303
+  },
+  "source": {
+    "manifest_path": "runs/rag_r2med_crb/source_manifest.json",
+    "manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+    "upstream_commit": "11244a4925a39082967a6c9d38ef01f279c316a5",
+    "upstream_files_sha256": {
+      "src/eval_BM25.py": "01b6f4d68baea7f3c8d4c0f177ca1c6a17512c694cf9ba0f64ea7078b9fe882d",
+      "src/eval_retrieval.py": "dce42ec72f8a2d5e9b71e25bbf773cf27268b2b7e0940fe69494840b38ba7229",
+      "src/generate_hypothetical_doc.py": "cc207039a7b5a6937740eac055a48445c1a7d520daed6efe0ba8be63d5687f1a",
+      "src/instrcution.py": "8e767d77f22330beb4417b6baebc29be5e7ca59f386e5106162bea56882902a7",
+      "src/example.py": "a1636976765b6ce4ce365349e04183bf1d1f40337d2f5f4342f00de03f2363af"
+    },
+    "test_query_corpus_identity": {
+      "MedQA-Diag": {
+        "repo_id": "R2MED/MedQA-Diag",
+        "revision": "78b585990279cc01a493f876c1b0cf09557fba57",
+        "directory": "r2med-medqa-diag-pinned",
+        "query_count": 118,
+        "corpus_document_count": 56250,
+        "query_sha256": "da365dd13dd5c1fa55332d60ff866c55c1fd17866be96e373dc7e0685d5c39c2",
+        "query_bytes": 110103,
+        "corpus_sha256": "2767063e36589bcda9ea87a898effd91529548838d645adccbc9e9c22bdd0f12",
+        "corpus_bytes": 46866718
+      },
+      "MedXpertQA-Exam": {
+        "repo_id": "R2MED/MedXpertQA-Exam",
+        "revision": "b457ea43db9ae5db74c3a3e5be0a213d0f85ac3a",
+        "directory": "r2med-medxpertqa-exam",
+        "query_count": 97,
+        "corpus_document_count": 61379,
+        "query_sha256": "dc73fbc55ba41c5b108f1c0c215e22050e211016c5cd9675c598220044d9844a",
+        "query_bytes": 109944,
+        "corpus_sha256": "d529f798a40f9b2519a4946c12999d3a2c9b1f7d8dcec93151a6f09ed1c5dabc",
+        "corpus_bytes": 47362667
+      },
+      "Medical-Sciences": {
+        "repo_id": "R2MED/Medical-Sciences",
+        "revision": "1b48911514c80bf9182222d99752ad75e23b4b47",
+        "directory": "r2med-medical-sciences",
+        "query_count": 88,
+        "corpus_document_count": 34810,
+        "query_sha256": "b2a4b2c7fc7462322038067748b43d23d81e6f9aa97ce0d543137de85dc33aa7",
+        "query_bytes": 239521,
+        "corpus_sha256": "4996d510ad610d49cd8a26bda30bbfcb8ea04be114480fa6af3e18e1a8c8f667",
+        "corpus_bytes": 21388342
+      }
+    },
+    "prompt_family_mapping": {
+      "PMC-Treatment": "PMC-Treat",
+      "PMC-Clinical": "PMCPatients",
+      "IIYi-Clinical": "IIYiPatients-EN",
+      "MedQA-Diag": "MedQA-Diag",
+      "MedXpertQA-Exam": "MedXpertQA-Exam",
+      "Medical-Sciences": "Stack-Medical"
+    }
+  },
+  "models": {
+    "generator": {
+      "repo": "Qwen/Qwen3-8B-GGUF",
+      "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+      "file": "Qwen3-8B-Q4_K_M.gguf",
+      "bytes": 5027783488,
+      "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+    },
+    "dense_retriever": {
+      "repo": "BAAI/bge-large-en-v1.5",
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+      "core_files": {
+        "1_Pooling/config.json": {
+          "bytes": 191,
+          "git_blob_sha1": "9bd85925f325e25246d94c4918dc02ab98f2a1b7",
+          "sha256": "e54c164a07274f2eb45bb724f54a79d1efcc90c41573887cd9a29aeee0597352"
+        },
+        "config.json": {
+          "bytes": 779,
+          "git_blob_sha1": "ab101ed8d012df683ef32f92cea51e97615ad07c",
+          "sha256": "446712fac367857b4b1302762fe1cd7bfa8b3c4b77b4dc5d77c4025407660896"
+        },
+        "modules.json": {
+          "bytes": 349,
+          "git_blob_sha1": "952a9b81c0bfd99800fabf352f69c7ccd46c5e43",
+          "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
+        },
+        "sentence_bert_config.json": {
+          "bytes": 52,
+          "git_blob_sha1": "ea85692bff64b0d1917833c31ddbca8ab10f5455",
+          "sha256": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf"
+        },
+        "special_tokens_map.json": {
+          "bytes": 125,
+          "git_blob_sha1": "a8b3208c2884c4efb86e49300fdd3dc877220cdf",
+          "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3"
+        },
+        "tokenizer.json": {
+          "bytes": 711396,
+          "git_blob_sha1": "688882a79f44442ddc1f60d70334a7ff5df0fb47",
+          "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+        },
+        "tokenizer_config.json": {
+          "bytes": 366,
+          "git_blob_sha1": "37fca74771bc76a8e01178ce3a6055a0995f8093",
+          "sha256": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3"
+        },
+        "vocab.txt": {
+          "bytes": 231508,
+          "git_blob_sha1": "fb140275c155a9c7c5a3b3e0e77a9e839594a938",
+          "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        }
+      }
+    }
+  },
+  "generator": {
+    "identity": {
+      "repo": "Qwen/Qwen3-8B-GGUF",
+      "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+      "file": "Qwen3-8B-Q4_K_M.gguf",
+      "bytes": 5027783488,
+      "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+    },
+    "config": {
+      "temperature": 0.0,
+      "reasoning": "disabled",
+      "max_output_tokens": 256,
+      "calls_per_query_per_method": 1,
+      "retry_on_error": false,
+      "endpoint_bind": "127.0.0.1"
+    },
+    "llama_cpp_version": "version: 10068 (571d0d540)",
+    "expected_calls": {
+      "lamer": 303,
+      "compact_crb_q": 303,
+      "total": 606
+    },
+    "paid_api_calls": 0
+  },
+  "prompts": {
+    "lamer_upstream_template_sha256_by_subset": {
+      "MedQA-Diag": "317a15290b029422df211a96550f2f689d98fff61618a1e1847c7f54f8443122",
+      "MedXpertQA-Exam": "317a15290b029422df211a96550f2f689d98fff61618a1e1847c7f54f8443122",
+      "Medical-Sciences": "d74606d0a767262e1b6a41e2e542c053102116c2abf9bda95df98a4a0a3055a7"
+    },
+    "compact_crb_template_sha256": "7d0bb8159d4d089f723ca306c47f3585cf9cd8c946495e625336cf01bc3e3b24",
+    "compact_schema_sha256": "b6b85c41fce33560c8efbe7e3683aca74a0bd7596a3b30d28a5023fc07486550",
+    "compact_dev_generation_manifest_sha256": "34021d562b54238e56499f109bc52bfcc5ea5429f6734e0276ca9bd10eafb201"
+  },
+  "arms": {
+    "B0_BM25": {
+      "name": "BM25",
+      "kind": "lucene_bm25",
+      "top_k": 100,
+      "k1": 0.9,
+      "b": 0.4
+    },
+    "B1_BGE_large": {
+      "name": "BGE-large",
+      "kind": "bge_cosine",
+      "top_k": 100,
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+    },
+    "B2_BM25_BGE_RRF": {
+      "name": "BM25+BGE RRF",
+      "kind": "two_source_rrf",
+      "input_depth": 100,
+      "rrf_k": 60,
+      "weights": [
+        1,
+        1
+      ],
+      "output_depth": 100
+    },
+    "B3_LameR_MV": {
+      "name": "LameR-MV",
+      "kind": "four_view_gar_rrf",
+      "generation_method": "lamer",
+      "feedback_depth": 10,
+      "top_k": 100,
+      "rrf_k": 20,
+      "weights": [
+        1,
+        2,
+        1,
+        2
+      ],
+      "config_id": "k20-W2"
+    },
+    "B4_Compact_CRB_Q": {
+      "name": "Compact CRB-Q",
+      "kind": "four_view_gar_rrf",
+      "generation_method": "crb_q_compact_repair",
+      "top_k": 100,
+      "rrf_k": 20,
+      "weights": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "config_id": "k20-W0",
+      "prompt_sha256": "7d0bb8159d4d089f723ca306c47f3585cf9cd8c946495e625336cf01bc3e3b24",
+      "schema": {
+        "required_keys": [
+          "q",
+          "t",
+          "e"
+        ],
+        "max_output_tokens": 256
+      }
+    },
+    "B5_DualSource_RRF_lam0.5": {
+      "name": "DualSource-RRF λ=.5",
+      "kind": "two_source_rrf",
+      "lamer_weight": 1.0,
+      "crb_weight": 0.5,
+      "rrf_k": 60,
+      "input_depth": 100,
+      "keep_full_distinct_union": true,
+      "tie_break": [
+        "score_desc",
+        "lamer_rank_asc_null_last",
+        "crb_rank_asc_null_last",
+        "doc_id_asc"
+      ]
+    }
+  },
+  "metrics": {
+    "primary_metric": "equal-subset macro nDCG@10",
+    "secondary_metrics": [
+      "MRR@10",
+      "Recall@5",
+      "Recall@10",
+      "Recall@50",
+      "Recall@100"
+    ],
+    "bootstrap": {
+      "resamples": 10000,
+      "seed": 20260926,
+      "stratified_by": "TEST subset",
+      "interpretation": "exploratory paired uncertainty interval"
+    },
+    "comparison_ids": [
+      "DualSource_vs_BM25",
+      "DualSource_vs_ordinary_RRF",
+      "DualSource_vs_LameR_MV"
+    ]
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 20260926,
+    "stratified_by": "TEST subset",
+    "interpretation": "exploratory paired uncertainty interval"
+  },
+  "evaluation": {
+    "primary_metric": "equal-subset macro nDCG@10",
+    "qrels_boundary": "after_all_six_rankings_are_frozen",
+    "sole_qrels_consumer": "eval/r2med_crb_evaluator.py",
+    "candidate_analysis": "post-hoc interpretation only"
+  },
+  "dev_reference": {
+    "source_report": "runs/rag_r2med_rerank/dev_report.json",
+    "dual_source_macro_ndcg@10": 0.3019177133138125,
+    "lamer_mv_macro_ndcg@10": 0.29980031296853266,
+    "delta": 0.0021174003452798518,
+    "signal": "NEGATIVE_FOR_NEW_METHOD_CLAIM"
+  },
+  "storage": {
+    "artifact_root": "E:\\Health-Copilot-RAG\\r2med\\final_test",
+    "git_large_artifacts": false
+  },
+  "code": {
+    "commit": "5e828a9f5e268d99225f449d16db282bd0457c41",
+    "files_sha256": {
+      "eval/r2med_final_test.py": "979d7e3b472a5c63f6fa3b05df470742f481eea9db22809169c372f390e9fcb2",
+      "eval/r2med_crb_data.py": "01cc2c2d37a73b1778b6445d5e51c9bc04802fd2b601a95e8cbdcf124fb4256d",
+      "eval/r2med_crb_evaluator.py": "745bb77bc460421ff3c8dad385453a59983f96bdb679cd83dd66ee9a2a5761f7",
+      "eval/r2med_crb.py": "fc7bf6dca373d4e5eb87b3b3b4a2ad887ed85e660d3bfc8e82aa088237e77a1c",
+      "eval/r2med_gar_generation.py": "bb513ab75141dd805bcf77268d8d3fb15ae7a160e37a9094ddce517507d3f5f9",
+      "eval/r2med_multiview.py": "2bf69768b9aa04b92070ee7dd4b6ca662de54d9d33761e7073d044b338f2dc08",
+      "eval/r2med_candidate_union.py": "fdc158fd8766052dbfb3c0a902d4c04121aeb7b1f4580e17d3518749f9d87c22",
+      "tools/freeze_r2med_final_eval.py": "0285a670b4c23fa1a3582a7c0f2bf3536def4699d53d637e047c43aa559db541",
+      "tools/run_r2med_final_test.py": "7218f775d9fe94e805ac682353e92dc8d2ab3a7676ba8133c5122fe463d26be1",
+      "tools/analyze_r2med_final_test.py": "e36750c6192cd77e62b744e4f51b9883c7e0c62e4053d3cc77ca89d58f761df0",
+      "tools/run_r2med_baselines.py": "a19896644b35089874c0a0a30d4d11edeadb38075987a4b3fc896a51ef0be18e",
+      "tools/generate_r2med_gar.py": "b4cf13bd5628821d32c6acc3df5462494ac9c6fa7d96c0d2f29be86de6d034b3",
+      "tools/generate_r2med_crb_compact_repair.py": "52970c353104ffde8c2cf64956bbab3ac6767a4777a7db63d74b4810aa454bc5",
+      "tools/verify_r2med_models.py": "959d1f41c132628c5f5e21a701644bb6a9d415f7ded709cc971f5bbd2688c430",
+      "tests/test_r2med_final_test.py": "efb1bc5ff4a6f35ada34353150727991dea64a92ed1efe73de803218838b5240",
+      "runs/rag_r2med_crb/source_manifest.json": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+      "runs/rag_r2med_rerank/protocol.json": "cdb795e56b496347d80b9d305f04de764dcfe747189e6b2248a1bcaccf6be056",
+      "runs/rag_r2med_rerank/dev_report.json": "6fe5b0767ae429e9b02b33cee7f62893a42f15988627044f603a9262696b2197"
+    }
+  }
+}
