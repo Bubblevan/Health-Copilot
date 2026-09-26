@@ -1,0 +1,640 @@
+{
+  "schema_version": "r2med-final-public-test-report-v1",
+  "status": "COMPLETE",
+  "created_at_utc": "2026-09-26T07:07:38.588068+00:00",
+  "test_status": "PUBLIC_BENCHMARK_REUSED",
+  "test_accessed": true,
+  "test_executed_once": true,
+  "test_config_drift": false,
+  "lock": {
+    "path": "D:\\MyLab\\Jianli\\Health-Copilot\\runs\\rag_r2med_final_test\\final_eval_lock.json",
+    "sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+    "lock_commit": "2ec73d03e4c76b8e4839ce85008ed50244c62162",
+    "implementation_commit": "5e828a9f5e268d99225f449d16db282bd0457c41"
+  },
+  "source_manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+  "split_counts": {
+    "MedQA-Diag": 118,
+    "MedXpertQA-Exam": 97,
+    "Medical-Sciences": 88,
+    "total": 303
+  },
+  "arms": {
+    "B0_BM25": {
+      "name": "BM25",
+      "kind": "lucene_bm25",
+      "top_k": 100,
+      "k1": 0.9,
+      "b": 0.4
+    },
+    "B1_BGE_large": {
+      "name": "BGE-large",
+      "kind": "bge_cosine",
+      "top_k": 100,
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+    },
+    "B2_BM25_BGE_RRF": {
+      "name": "BM25+BGE RRF",
+      "kind": "two_source_rrf",
+      "input_depth": 100,
+      "rrf_k": 60,
+      "weights": [
+        1,
+        1
+      ],
+      "output_depth": 100
+    },
+    "B3_LameR_MV": {
+      "name": "LameR-MV",
+      "kind": "four_view_gar_rrf",
+      "generation_method": "lamer",
+      "feedback_depth": 10,
+      "top_k": 100,
+      "rrf_k": 20,
+      "weights": [
+        1,
+        2,
+        1,
+        2
+      ],
+      "config_id": "k20-W2"
+    },
+    "B4_Compact_CRB_Q": {
+      "name": "Compact CRB-Q",
+      "kind": "four_view_gar_rrf",
+      "generation_method": "crb_q_compact_repair",
+      "top_k": 100,
+      "rrf_k": 20,
+      "weights": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "config_id": "k20-W0",
+      "prompt_sha256": "7d0bb8159d4d089f723ca306c47f3585cf9cd8c946495e625336cf01bc3e3b24",
+      "schema": {
+        "required_keys": [
+          "q",
+          "t",
+          "e"
+        ],
+        "max_output_tokens": 256
+      }
+    },
+    "B5_DualSource_RRF_lam0.5": {
+      "name": "DualSource-RRF λ=.5",
+      "kind": "two_source_rrf",
+      "lamer_weight": 1.0,
+      "crb_weight": 0.5,
+      "rrf_k": 60,
+      "input_depth": 100,
+      "keep_full_distinct_union": true,
+      "tie_break": [
+        "score_desc",
+        "lamer_rank_asc_null_last",
+        "crb_rank_asc_null_last",
+        "doc_id_asc"
+      ]
+    }
+  },
+  "generation": {
+    "LameR": {
+      "query_count": 303,
+      "completed_count": 287,
+      "valid_count": 303,
+      "fallback_count": 0,
+      "truncation_count": 16,
+      "valid_rate": 1.0,
+      "calls_per_query": 1
+    },
+    "Compact_CRB_Q": {
+      "query_count": 303,
+      "completed_count": 303,
+      "valid_count": 296,
+      "fallback_count": 7,
+      "truncation_count": 0,
+      "valid_rate": 0.976897689768977,
+      "calls_per_query": 1
+    },
+    "paid_api_calls": 0,
+    "generation_manifests": {
+      "lamer": {
+        "path": "D:\\MyLab\\Jianli\\Health-Copilot\\runs\\rag_r2med_final_test\\generation\\lamer_manifest.json",
+        "sha256": "8a02df8795ea093a9f17d046f01fd0ba087384d7b3308d822655da09068935c3",
+        "query_count": 303,
+        "artifact_hashes": {
+          "MedQA-Diag": "7eaadff771ce768c4cc1b6e5a8e2cd883a5cd453e4fef9ca0c9d4bccb2208fdc",
+          "MedXpertQA-Exam": "a702d49eeaa9addb476150610280c34d3691753cc4e060b0406095dbbe38ffa3",
+          "Medical-Sciences": "e58e877fd7443c475bb18150f0c7256ebe58326497a529012c6e30f03a7bc564"
+        }
+      },
+      "compact_crb_q": {
+        "path": "D:\\MyLab\\Jianli\\Health-Copilot\\runs\\rag_r2med_final_test\\generation\\compact_crb_q_manifest.json",
+        "sha256": "16e196a328fcdf8f61d7771181851818604240d95239e39600e2975509aff9c0",
+        "query_count": 303,
+        "artifact_hashes": {
+          "MedQA-Diag": "ec0aed9b6ec7716a7700466b26919114aa068b8548ee40e20bd3346e20b123ee",
+          "MedXpertQA-Exam": "a9bfb43dae6e55cb9510e0490edf89ad0d31c0fe2404db928b3776166a21b4e7",
+          "Medical-Sciences": "a51b768be5c8c3c65df6ebea758bfdafe0c520d7a5dcb3e861da17fc2c699b34"
+        }
+      }
+    }
+  },
+  "ranking_artifacts": {
+    "B0_BM25": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B0_BM25\\MedQA-Diag.jsonl",
+        "sha256": "d813491d6e5db99a7f26b4248cf5d67564c7d21afec91f693bdce62785c22ce4",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B0_BM25\\MedXpertQA-Exam.jsonl",
+        "sha256": "3e1ac3389fce18422948abb7b26a437d335bc21e32cd034201c780d3d3fb2a99",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B0_BM25\\Medical-Sciences.jsonl",
+        "sha256": "3315ba4e667c884f2172bc7197e1b03e0a34dc33a91bac8399aa29d16733fd01",
+        "query_count": 88
+      }
+    },
+    "B1_BGE_large": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B1_BGE_large\\MedQA-Diag.jsonl",
+        "sha256": "893a4ffd8a6b0bab7dac2e6d3cca93273ae2f318fbb7dc93ec1d5e0004c173c2",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B1_BGE_large\\MedXpertQA-Exam.jsonl",
+        "sha256": "47aebd7fbd543abdf3aedebab7a2ed7ac6f2112221abcd19a59af58f0fda0770",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B1_BGE_large\\Medical-Sciences.jsonl",
+        "sha256": "7d5274097f9e2489d2123184abe113ca0555dfc2b0995de30b07eac1fb60df37",
+        "query_count": 88
+      }
+    },
+    "B2_BM25_BGE_RRF": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B2_BM25_BGE_RRF\\MedQA-Diag.jsonl",
+        "sha256": "c8622fa6abfaa086a44332501ce76a4898580bb9e9db915d74f39a75803d2d1f",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B2_BM25_BGE_RRF\\MedXpertQA-Exam.jsonl",
+        "sha256": "8f69e37bdcdfc041c95db2fcbc41ea99c04c44ef671dec09a0df6bcf6321def2",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B2_BM25_BGE_RRF\\Medical-Sciences.jsonl",
+        "sha256": "c0f92554b1f0d9f67aa1a533509763862b2685c7ccc37d666cfe153ef771e8ae",
+        "query_count": 88
+      }
+    },
+    "B3_LameR_MV": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B3_LameR_MV\\MedQA-Diag.jsonl",
+        "sha256": "92c54e4b5ad7eb80f333b7506bd182bcc845cf936b1c467b7c8e8ecb7b07855b",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B3_LameR_MV\\MedXpertQA-Exam.jsonl",
+        "sha256": "2bcbe75a564c054c1633ae32e2ac284d66979214e02eb7e8e6a2372c59d9fbb7",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B3_LameR_MV\\Medical-Sciences.jsonl",
+        "sha256": "b66ee8b687aa984eef42ecdfea30811af103802d5a001de05e6885b7f8067dc2",
+        "query_count": 88
+      }
+    },
+    "B4_Compact_CRB_Q": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B4_Compact_CRB_Q\\MedQA-Diag.jsonl",
+        "sha256": "b578d1f6313354ac0e25d680618b4eda1b3b0221b28195a33e1ae8cac4fbd563",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B4_Compact_CRB_Q\\MedXpertQA-Exam.jsonl",
+        "sha256": "7fa4042d61dc7b815686be3875d36eaf79ee29521a9a54aa32c76b9b6cfc44eb",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B4_Compact_CRB_Q\\Medical-Sciences.jsonl",
+        "sha256": "37a48aa9a291a0299688d3a881deb3221372b3ef3c4d8198ea470b0b8b41fdfb",
+        "query_count": 88
+      }
+    },
+    "B5_DualSource_RRF_lam0.5": {
+      "MedQA-Diag": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B5_DualSource_RRF_lam0.5\\MedQA-Diag.jsonl",
+        "sha256": "cfce9d0da459cb91f96dea7596ec6cab555c418b748e2220711cc385b8d0e4a1",
+        "query_count": 118
+      },
+      "MedXpertQA-Exam": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B5_DualSource_RRF_lam0.5\\MedXpertQA-Exam.jsonl",
+        "sha256": "bf183906cc5c956aba1530ff054f7feb75052bf7b7290b948b7915c404d5bceb",
+        "query_count": 97
+      },
+      "Medical-Sciences": {
+        "path": "E:\\Health-Copilot-RAG\\r2med\\final_test\\rankings\\B5_DualSource_RRF_lam0.5\\Medical-Sciences.jsonl",
+        "sha256": "317331b172e350f547914f4d3d86f5352d7f4cdda57194dc5eb1e0856d06f0e2",
+        "query_count": 88
+      }
+    }
+  },
+  "metrics": {
+    "primary": "equal-subset macro nDCG@10",
+    "arm_summaries": {
+      "B0_BM25": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.07630763291158414,
+          "mrr@10": 0.07982793017794328,
+          "recall@5": 0.07136218513610178,
+          "recall@10": 0.11374943063469622,
+          "recall@50": 0.24424250571540015,
+          "recall@100": 0.2973283230447305
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.025507344431998306,
+            "mrr@10": 0.03339050309389292,
+            "recall@5": 0.025564971751412428,
+            "recall@10": 0.04074858757062147,
+            "recall@50": 0.13301049233252624,
+            "recall@100": 0.17673527037933817
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.006588361443059556,
+            "mrr@10": 0.006999672721322206,
+            "recall@5": 0.002577319587628866,
+            "recall@10": 0.013500245459008346,
+            "recall@50": 0.08755522827687776,
+            "recall@100": 0.11557437407952871
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.19682719285969458,
+            "mrr@10": 0.19909361471861473,
+            "recall@5": 0.18594426406926406,
+            "recall@10": 0.2869994588744589,
+            "recall@50": 0.5121617965367965,
+            "recall@100": 0.5996753246753247
+          }
+        }
+      },
+      "B1_BGE_large": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.13412463860691415,
+          "mrr@10": 0.13469297757367824,
+          "recall@5": 0.14409966168386143,
+          "recall@10": 0.20293046711719176,
+          "recall@50": 0.33897535425143327,
+          "recall@100": 0.42747939364060716
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.08327614030532764,
+            "mrr@10": 0.09629741727199354,
+            "recall@5": 0.07882364810330912,
+            "recall@10": 0.1115314769975787,
+            "recall@50": 0.21356941081517353,
+            "recall@100": 0.2848970944309927
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.041026150444225536,
+            "mrr@10": 0.06152430044182621,
+            "recall@5": 0.0399607265586647,
+            "recall@10": 0.04941089837997054,
+            "recall@50": 0.14323760432007854,
+            "recall@100": 0.22047128129602356
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.27807162507118927,
+            "mrr@10": 0.246257215007215,
+            "recall@5": 0.3135146103896104,
+            "recall@10": 0.447849025974026,
+            "recall@50": 0.6601190476190476,
+            "recall@100": 0.7770698051948052
+          }
+        }
+      },
+      "B2_BM25_BGE_RRF": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.13922683521538368,
+          "mrr@10": 0.14722715971569283,
+          "recall@5": 0.13916010486155078,
+          "recall@10": 0.20101996286471213,
+          "recall@50": 0.3530342427293327,
+          "recall@100": 0.41573274525288334
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.0811087197649639,
+            "mrr@10": 0.1021589991928975,
+            "recall@5": 0.07628127522195319,
+            "recall@10": 0.1151230831315577,
+            "recall@50": 0.2025221953188055,
+            "recall@100": 0.26132970137207423
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.02567121726229869,
+            "mrr@10": 0.04076255931926035,
+            "recall@5": 0.02930780559646539,
+            "recall@10": 0.03858615611192931,
+            "recall@50": 0.1531173294059892,
+            "recall@100": 0.20629602356406482
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.3109005686188885,
+            "mrr@10": 0.29875992063492063,
+            "recall@5": 0.3118912337662338,
+            "recall@10": 0.4493506493506494,
+            "recall@50": 0.7034632034632035,
+            "recall@100": 0.7795725108225109
+          }
+        }
+      },
+      "B3_LameR_MV": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.22247126293185368,
+          "mrr@10": 0.2406348600160849,
+          "recall@5": 0.2209295715132907,
+          "recall@10": 0.29707224733543974,
+          "recall@50": 0.49706011463830785,
+          "recall@100": 0.5698671891211861
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.16546930023786816,
+            "mrr@10": 0.2085048426150121,
+            "recall@5": 0.14134382566585954,
+            "recall@10": 0.19571226795803065,
+            "recall@50": 0.3915758676351897,
+            "recall@100": 0.4729923325262308
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.098043819857372,
+            "mrr@10": 0.1224635902470954,
+            "recall@5": 0.10579283259695632,
+            "recall@10": 0.14964408443789887,
+            "recall@50": 0.31286205203730977,
+            "recall@100": 0.36863033873343154
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.4039006687003208,
+            "mrr@10": 0.39093614718614716,
+            "recall@5": 0.41565205627705626,
+            "recall@10": 0.5458603896103896,
+            "recall@50": 0.7867424242424242,
+            "recall@100": 0.867978896103896
+          }
+        }
+      },
+      "B4_Compact_CRB_Q": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.19945332069431546,
+          "mrr@10": 0.22045206265621697,
+          "recall@5": 0.19798733147228254,
+          "recall@10": 0.2751787504484953,
+          "recall@50": 0.4516915846326776,
+          "recall@100": 0.5339876850366322
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.13763999886131204,
+            "mrr@10": 0.17566249663707292,
+            "recall@5": 0.11675746569814366,
+            "recall@10": 0.17985270379338175,
+            "recall@50": 0.3777441485068604,
+            "recall@100": 0.4331719128329298
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.07660227072700655,
+            "mrr@10": 0.1010391098019964,
+            "recall@5": 0.06693667157584683,
+            "recall@10": 0.11178203240058911,
+            "recall@50": 0.2225822287677958,
+            "recall@100": 0.31163475699558174
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.38411769249462785,
+            "mrr@10": 0.38465458152958154,
+            "recall@5": 0.41026785714285713,
+            "recall@10": 0.5339015151515152,
+            "recall@50": 0.7547483766233767,
+            "recall@100": 0.8571563852813853
+          }
+        }
+      },
+      "B5_DualSource_RRF_lam0.5": {
+        "query_count": 303,
+        "subset_count": 3,
+        "macro_equal_subset_weight": {
+          "ndcg@10": 0.21424491917346009,
+          "mrr@10": 0.23284194229011193,
+          "recall@5": 0.20635094848411728,
+          "recall@10": 0.2903681836272916,
+          "recall@50": 0.47850155485737783,
+          "recall@100": 0.5791101296217712
+        },
+        "by_subset": {
+          "MedQA-Diag": {
+            "query_count": 118,
+            "ndcg@10": 0.15103316319015161,
+            "mrr@10": 0.19254439063761097,
+            "recall@5": 0.12822841000807103,
+            "recall@10": 0.18516949152542375,
+            "recall@50": 0.38148708635996775,
+            "recall@100": 0.4878228410008071
+          },
+          "MedXpertQA-Exam": {
+            "query_count": 97,
+            "ndcg@10": 0.08936048284687866,
+            "mrr@10": 0.12184994272623138,
+            "recall@5": 0.08918753068237605,
+            "recall@10": 0.1235027000490918,
+            "recall@50": 0.2727540500736377,
+            "recall@100": 0.37584683357879234
+          },
+          "Medical-Sciences": {
+            "query_count": 88,
+            "ndcg@10": 0.40234111148335,
+            "mrr@10": 0.3841314935064935,
+            "recall@5": 0.4016369047619048,
+            "recall@10": 0.5624323593073594,
+            "recall@50": 0.7812635281385281,
+            "recall@100": 0.8736607142857142
+          }
+        }
+      }
+    },
+    "secondary_metrics": [
+      "mrr@10",
+      "recall@5",
+      "recall@10",
+      "recall@50",
+      "recall@100"
+    ]
+  },
+  "paired_bootstrap": {
+    "protocol": {
+      "resamples": 10000,
+      "seed": 20260926,
+      "stratified_by": "TEST subset",
+      "interpretation": "exploratory paired uncertainty interval"
+    },
+    "interpretation": "exploratory paired uncertainty intervals; no confirmatory significance or multiplicity claim",
+    "comparisons": {
+      "DualSource_vs_BM25": {
+        "metric": "ndcg@10",
+        "mean_delta": 0.13793728626187596,
+        "lower_95": 0.11446326224163929,
+        "upper_95": 0.16316068106386764,
+        "resamples": 10000,
+        "strata": 3,
+        "subset_names": "MedQA-Diag,MedXpertQA-Exam,Medical-Sciences",
+        "relative_improvement_percent": 180.76472955425135
+      },
+      "DualSource_vs_ordinary_RRF": {
+        "metric": "ndcg@10",
+        "mean_delta": 0.07501808395807641,
+        "lower_95": 0.058247620313967234,
+        "upper_95": 0.09232031934823125,
+        "resamples": 10000,
+        "strata": 3,
+        "subset_names": "MedQA-Diag,MedXpertQA-Exam,Medical-Sciences",
+        "relative_improvement_percent": 53.8819142459308
+      },
+      "DualSource_vs_LameR_MV": {
+        "metric": "ndcg@10",
+        "mean_delta": -0.008226343758393595,
+        "lower_95": -0.019737310182607038,
+        "upper_95": 0.0031812612083723098,
+        "resamples": 10000,
+        "strata": 3,
+        "subset_names": "MedQA-Diag,MedXpertQA-Exam,Medical-Sciences",
+        "relative_improvement_percent": -3.697710729009278
+      },
+      "LameR_MV_vs_ordinary_RRF": {
+        "metric": "ndcg@10",
+        "mean_delta": 0.08324442771647,
+        "lower_95": 0.0639742834202848,
+        "upper_95": 0.10305468877331721,
+        "resamples": 10000,
+        "strata": 3,
+        "subset_names": "MedQA-Diag,MedXpertQA-Exam,Medical-Sciences",
+        "relative_improvement_percent": 59.79050488915518
+      }
+    }
+  },
+  "candidate_complementarity": {
+    "path": "D:\\MyLab\\Jianli\\Health-Copilot\\runs\\rag_r2med_final_test\\candidate_analysis.json",
+    "sha256": "90d07b1ad711674781b258153ff3a769d271a6a67bbe6e10d2e2acc6d554445b",
+    "metrics": {
+      "partition": "TEST",
+      "interpretation": "POST-HOC INTERPRETATION ONLY; raw union is a candidate-pool ceiling, not a final ranking metric",
+      "by_subset": {
+        "MedQA-Diag": {
+          "query_count": 118,
+          "lamer_recall@100": 0.4729923325262308,
+          "crb_recall@100": 0.4331719128329298,
+          "raw_union_candidate_recall@100": 0.5343825665859564,
+          "relevant_lamer_only": 50,
+          "relevant_crb_only": 31,
+          "relevant_both": 179,
+          "relevant_neither": 262
+        },
+        "MedXpertQA-Exam": {
+          "query_count": 97,
+          "lamer_recall@100": 0.36863033873343154,
+          "crb_recall@100": 0.31163475699558174,
+          "raw_union_candidate_recall@100": 0.42800687285223366,
+          "relevant_lamer_only": 32,
+          "relevant_crb_only": 20,
+          "relevant_both": 67,
+          "relevant_neither": 173
+        },
+        "Medical-Sciences": {
+          "query_count": 88,
+          "lamer_recall@100": 0.867978896103896,
+          "crb_recall@100": 0.8571563852813853,
+          "raw_union_candidate_recall@100": 0.8989583333333333,
+          "relevant_lamer_only": 13,
+          "relevant_crb_only": 11,
+          "relevant_both": 184,
+          "relevant_neither": 36
+        }
+      },
+      "macro_equal_subset_weight": {
+        "lamer_recall@100": 0.5698671891211861,
+        "crb_recall@100": 0.5339876850366322,
+        "raw_union_candidate_recall@100": 0.6204492575905077
+      },
+      "relevant_pool_counts": {
+        "lamer_only": 95,
+        "crb_only": 62,
+        "both": 430,
+        "neither": 471
+      },
+      "dual_source_ranked_recall@100": 0.5791101296217712,
+      "raw_union_is_candidate_pool_ceiling_not_final_ranked_recall": true
+    }
+  },
+  "gates": {
+    "PUBLIC_BASIC_BASELINE_IMPROVEMENT": true,
+    "STRONG_BASIC_BASELINE_IMPROVEMENT": true,
+    "POINT_IMPROVEMENT_OVER_LAMER": false,
+    "STRONG_BASELINE_IMPROVEMENT": false,
+    "PUBLIC_R2MED_TEST_EVIDENCE_READY": true,
+    "RESUME_BASIC_BASELINE_HEADLINE_READY": true,
+    "RESUME_STRONG_METHOD_HEADLINE_READY": false,
+    "R2MED_FINAL_CLOSEOUT": true
+  },
+  "claim_boundary": {
+    "novel_method_dev_win": false,
+    "public_test_can_support_basic_baseline_claim_only_if_gate_passes": true,
+    "strongest_gar_claim_only_if_strong_method_gate_passes": true,
+    "prohibited": [
+      "SOTA",
+      "clinical superiority",
+      "clinical validation",
+      "unseen test",
+      "untouched holdout"
+    ]
+  },
+  "gold_boundary": "All six rankings were frozen and hashed before this report's first qrels access.",
+  "evaluation_preflight_correction": {
+    "path": "runs\\rag_r2med_final_test\\evaluation_preflight_erratum.json",
+    "reason": "subset-local numeric query IDs repeat across TEST subsets; composite identities were validated",
+    "frozen_generation_and_ranking_artifacts_changed": false,
+    "scoring_or_qrels_reader_changed": false
+  }
+}

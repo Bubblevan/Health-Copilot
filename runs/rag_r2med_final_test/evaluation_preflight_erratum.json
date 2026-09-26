@@ -1,6 +1,6 @@
 {
   "schema_version": "r2med-final-test-evaluation-preflight-erratum-v1",
-  "status": "READY_FOR_SCORING_PENDING_COMMIT",
+  "status": "SCORING_COMPLETE",
   "created_at_utc": "2026-09-26T07:06:46.818173+00:00",
   "original_final_eval_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
   "original_lock_commit": "2ec73d03e4c76b8e4839ce85008ed50244c62162",
@@ -48,8 +48,11 @@
     "locked_scoring_and_qrels_reader_changed": false
   },
   "scoring": {
-    "status": "NOT_STARTED",
+    "status": "COMPLETE",
     "evaluator": "tools.run_r2med_final_test._evaluate_and_report",
-    "only_qrels_reader": "eval.r2med_crb_evaluator.py"
-  }
+    "only_qrels_reader": "eval.r2med_crb_evaluator.py",
+    "qrels_accessed_after_frozen_ranking_manifest": true,
+    "metrics_report_sha256": "458a842305deb0650d9f4d47957a7e8abd1b00263d7d81ef2b96cbb08956b23f"
+  },
+  "completed_at_utc": "2026-09-26T07:07:38.602101+00:00"
 }

@@ -39,16 +39,56 @@ Comparisons are DualSource versus BM25, ordinary BM25+BGE RRF, and LameR-MV. The
 
 ## Results
 
-Results will be filled from the committed `runs/rag_r2med_final_test/test_report.json` and `candidate_analysis.json` after the frozen TEST ranking evaluation. No TEST-derived choice of prompt, schema, weight, lambda, fusion, retriever, or reranker is permitted.
+The exact aggregate report is `runs/rag_r2med_final_test/test_report.json`; post-hoc pool diagnostics are in `runs/rag_r2med_final_test/candidate_analysis.json`. All values below are equal-weight means over the three subsets, not query-count-weighted micro averages.
 
 | Method | MedQA-Diag nDCG@10 | MedXpertQA-Exam nDCG@10 | Medical-Sciences nDCG@10 | Macro nDCG@10 |
 | --- | ---: | ---: | ---: | ---: |
-| BM25 | pending | pending | pending | pending |
-| BGE-large | pending | pending | pending | pending |
-| BM25+BGE RRF | pending | pending | pending | pending |
-| LameR-MV | pending | pending | pending | pending |
-| Compact CRB-Q | pending | pending | pending | pending |
-| DualSource-RRF λ=.5 | pending | pending | pending | pending |
+| BM25 | 0.0255 | 0.0066 | 0.1968 | 0.0763 |
+| BGE-large | 0.0833 | 0.0410 | 0.2781 | 0.1341 |
+| BM25+BGE RRF | 0.0811 | 0.0257 | 0.3109 | 0.1392 |
+| LameR-MV | **0.1655** | **0.0980** | **0.4039** | **0.2225** |
+| Compact CRB-Q | 0.1376 | 0.0766 | 0.3841 | 0.1995 |
+| DualSource-RRF λ=.5 | 0.1510 | 0.0894 | 0.4023 | 0.2142 |
+
+| Method | MRR@10 | Recall@5 | Recall@10 | Recall@50 | Recall@100 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| BM25 | 0.0798 | 0.0714 | 0.1137 | 0.2442 | 0.2973 |
+| BGE-large | 0.1347 | 0.1441 | 0.2029 | 0.3390 | 0.4275 |
+| BM25+BGE RRF | 0.1472 | 0.1392 | 0.2010 | 0.3530 | 0.4157 |
+| LameR-MV | **0.2406** | **0.2209** | **0.2971** | **0.4971** | 0.5699 |
+| Compact CRB-Q | 0.2205 | 0.1980 | 0.2752 | 0.4517 | 0.5340 |
+| DualSource-RRF λ=.5 | 0.2328 | 0.2064 | 0.2904 | 0.4785 | **0.5791** |
+
+### Paired comparisons
+
+Intervals are the pre-specified 10,000-resample, subset-stratified paired bootstrap with seed 20260926. They are exploratory uncertainty intervals on a public/reused TEST split, not confirmatory significance tests.
+
+| Comparison | Δ macro nDCG@10 | Exploratory 95% CI | Relative change |
+| --- | ---: | ---: | ---: |
+| DualSource − BM25 | +0.13794 | [ +0.11446, +0.16316 ] | +180.76% |
+| DualSource − BM25+BGE RRF | +0.07502 | [ +0.05825, +0.09232 ] | +53.88% |
+| DualSource − LameR-MV | −0.00823 | [ −0.01974, +0.00318 ] | −3.70% |
+| LameR-MV − BM25+BGE RRF | +0.08324 | [ +0.06397, +0.10305 ] | +59.79% |
+
+### Generation audit
+
+| Frozen generator arm | Calls | Valid | Fallback | Truncated | Paid API |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| LameR | 303 | 303 (100%) | 0 | 16 | 0 |
+| Compact CRB-Q | 303 | 296 (97.69%) | 7 | 0 | 0 |
+
+Each call was local, one per query, with no retries. The LameR manifest's `completed_count` is 287 because 16 outputs reached the 256-token limit; those rows remain valid generated artifacts and were used as-is. Compact CRB's seven invalid structured outputs followed the frozen original-query fallback. No repair was made on TEST.
+
+### Candidate complementarity
+
+| Candidate/ranking view | Equal-subset Recall@100 |
+| --- | ---: |
+| LameR-MV candidates | 0.56987 |
+| Compact CRB-Q candidates | 0.53399 |
+| Raw union of both top-100 pools | 0.62045 |
+| Final DualSource ranked top-100 | 0.57911 |
+
+Across query-relevant document pairs, 95 were found only in LameR's pool, 62 only in CRB's pool, 430 in both, and 471 in neither. Thus CRB supplies real complementary candidates, and DualSource raises ranked Recall@100 by 0.00924 over LameR, but that complementarity did not translate into higher nDCG@10. The raw union figure is a pool ceiling, not a final ranking score.
 
 ## Interpretation and resume claims
 
@@ -59,6 +99,28 @@ The report applies three distinct gates rather than collapsing them into a singl
 - Strongest-GAR improvement requires DualSource to exceed LameR-MV by at least +0.005, with a paired 95% interval lower bound above zero.
 
 Only claims supported by the corresponding gate may be used. Even a positive result does not establish SOTA, clinical superiority, clinical validation, or performance on an unseen test. If a basic gate passes, the resume bullet may say that the frozen pipeline improved R2MED public TEST retrieval over the named basic baseline, reporting the exact split and absolute delta. If the strong-method gate fails, do not claim that DualSource beat the strongest reproduced GAR method. The full mixed/negative result remains in the project record.
+
+| Final gate | Result |
+| --- | --- |
+| FINAL_EVAL_LOCKED | YES |
+| TEST_EXECUTED_ONCE | YES — one generation/retrieval run and one qrels scoring pass from frozen rankings |
+| TEST_CONFIG_DRIFT | NO |
+| PUBLIC_BASIC_BASELINE_IMPROVEMENT | YES |
+| STRONG_BASIC_BASELINE_IMPROVEMENT | YES |
+| POINT_IMPROVEMENT_OVER_LAMER | NO |
+| STRONG_BASELINE_IMPROVEMENT | NO |
+| PUBLIC_R2MED_TEST_EVIDENCE_READY | YES |
+| RESUME_BASIC_BASELINE_HEADLINE_READY | YES |
+| RESUME_STRONG_METHOD_HEADLINE_READY | NO |
+| R2MED_FINAL_CLOSEOUT | YES |
+
+### Resume evidence candidate
+
+> On the reused public R2MED TEST split (303 queries), a frozen generation-augmented retrieval pipeline improved equal-subset macro nDCG@10 from 0.1392 with BM25+BGE RRF to 0.2142 with a fixed LameR/Compact-CRB DualSource fusion (+0.0750 absolute; exploratory paired 95% CI [+0.0582, +0.0923]). It did not outperform LameR-MV (0.2225).
+
+This is a factual candidate sentence, not an automatic résumé edit. It supports the basic-baseline claim only; do not describe the fusion as a novel method or as outperforming strongest GAR.
+
+The local scoring environment used the existing project `.venv` with Pyserini 0.44.0, PyJNIus 1.7.0, and Gensim 4.4.0. These dependencies were installed after the initial locked run stopped at BM25 setup; no generation or ranking had occurred before that setup was corrected.
 
 ## Closeout
 

@@ -1,0 +1,49 @@
+{
+  "partition": "TEST",
+  "interpretation": "POST-HOC INTERPRETATION ONLY; raw union is a candidate-pool ceiling, not a final ranking metric",
+  "by_subset": {
+    "MedQA-Diag": {
+      "query_count": 118,
+      "lamer_recall@100": 0.4729923325262308,
+      "crb_recall@100": 0.4331719128329298,
+      "raw_union_candidate_recall@100": 0.5343825665859564,
+      "relevant_lamer_only": 50,
+      "relevant_crb_only": 31,
+      "relevant_both": 179,
+      "relevant_neither": 262
+    },
+    "MedXpertQA-Exam": {
+      "query_count": 97,
+      "lamer_recall@100": 0.36863033873343154,
+      "crb_recall@100": 0.31163475699558174,
+      "raw_union_candidate_recall@100": 0.42800687285223366,
+      "relevant_lamer_only": 32,
+      "relevant_crb_only": 20,
+      "relevant_both": 67,
+      "relevant_neither": 173
+    },
+    "Medical-Sciences": {
+      "query_count": 88,
+      "lamer_recall@100": 0.867978896103896,
+      "crb_recall@100": 0.8571563852813853,
+      "raw_union_candidate_recall@100": 0.8989583333333333,
+      "relevant_lamer_only": 13,
+      "relevant_crb_only": 11,
+      "relevant_both": 184,
+      "relevant_neither": 36
+    }
+  },
+  "macro_equal_subset_weight": {
+    "lamer_recall@100": 0.5698671891211861,
+    "crb_recall@100": 0.5339876850366322,
+    "raw_union_candidate_recall@100": 0.6204492575905077
+  },
+  "relevant_pool_counts": {
+    "lamer_only": 95,
+    "crb_only": 62,
+    "both": 430,
+    "neither": 471
+  },
+  "dual_source_ranked_recall@100": 0.5791101296217712,
+  "raw_union_is_candidate_pool_ceiling_not_final_ranked_recall": true
+}

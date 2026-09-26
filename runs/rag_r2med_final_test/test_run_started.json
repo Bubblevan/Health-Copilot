@@ -1,0 +1,19 @@
+{
+  "schema_version": "r2med-final-test-one-shot-marker-v1",
+  "status": "COMPLETE",
+  "lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+  "lock_commit": "2ec73d03e4c76b8e4839ce85008ed50244c62162",
+  "started_at_utc": "2026-09-26T05:37:41.826362+00:00",
+  "resume_count": 1,
+  "test_accessed": true,
+  "completed_query_rows_are_never_regenerated": true,
+  "test_inputs_started_at_utc": "2026-09-26T05:44:00.725117+00:00",
+  "last_resumed_at_utc": "2026-09-26T05:44:00.710827+00:00",
+  "evaluation_preflight_erratum": {
+    "path": "runs\\rag_r2med_final_test\\evaluation_preflight_erratum.json",
+    "sha256": "98daee9464077f9466df0e4d8f099b3d4c14c7033a1a1dde9fc4f424573c9d57",
+    "qrels_opened": true
+  },
+  "completed_at_utc": "2026-09-26T07:07:38.597100+00:00",
+  "report_sha256": "5d0d670ecd99ba4182b1802bc3d240e3d6583417fdbc2d5351f0c887a6131e95"
+}
