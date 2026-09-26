@@ -88,6 +88,35 @@
       "macro_recall@100": 0.7105312117503061
     }
   },
+  "test_candidate_reproduction": {
+    "generator": {
+      "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "temperature": 0.0,
+      "reasoning": "disabled",
+      "max_output_tokens": 256,
+      "calls_per_query_per_method": 1,
+      "retry_on_error": false,
+      "endpoint_bind": "127.0.0.1"
+    },
+    "lamer": {
+      "generation_method": "lamer",
+      "bm25_feedback_depth": 10,
+      "prompt_family": "pinned upstream R2MED mapping",
+      "multiview_config": {"config_id": "k20-W2", "rrf_k": 20, "weights": [1, 2, 1, 2]}
+    },
+    "compact_crb_q": {
+      "generation_method": "crb_q_compact_repair",
+      "compact_prompt_sha256": "7d0bb8159d4d089f723ca306c47f3585cf9cd8c946495e625336cf01bc3e3b24",
+      "schema": {"required_keys": ["q", "t", "e"], "max_output_tokens": 256},
+      "multiview_config": {"config_id": "k20-W0", "rrf_k": 20, "weights": [1, 1, 1, 1]}
+    },
+    "bge_large": {
+      "repo": "BAAI/bge-large-en-v1.5",
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+    },
+    "test_model_calls_expected": 606
+  },
   "baseline_matrix": {
     "B0": "original BM25",
     "B1": "original BGE-large",
