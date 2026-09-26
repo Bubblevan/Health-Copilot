@@ -1,0 +1,40 @@
+{
+  "manifest_version": "memeval-main-smoke-10-v1",
+  "status": "FROZEN_BEFORE_ANY_10_CASE_RESULTS",
+  "dataset_id": "longmemeval_s",
+  "dataset_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "dev_manifest": "split_manifest.json",
+  "dev_ids_sha256_sorted_lf": "c6e0b423f720bcb06e1c571a8f6b0d018e0c1707d21fe17108349962d30f739f",
+  "selection_algorithm": "Start with the six frozen upstream sanity IDs (one per question_type); then sort remaining DEV IDs by SHA256('memeval_main_smoke_v1:' + question_id) ascending and take four.",
+  "upstream_sanity_ids_by_question_type": {
+    "knowledge-update": "1cea1afa",
+    "multi-session": "1c549ce4",
+    "single-session-assistant": "778164c6",
+    "single-session-preference": "fca70973",
+    "single-session-user": "a82c026e",
+    "temporal-reasoning": "gpt4_e061b84g"
+  },
+  "additional_dev_ids": [
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "question_count": 10,
+  "question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "question_ids_sha256_sorted_lf": "a5ce841c2a60f9248bd1fc4fdc4f79a075c24a3a26921be2f96b042ec56e8b0d",
+  "diagnostic_only": true,
+  "test_access": false
+}

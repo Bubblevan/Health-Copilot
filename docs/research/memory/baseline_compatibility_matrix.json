@@ -1,0 +1,156 @@
+{
+  "matrix_version": "mem1-baseline-compatibility-v1",
+  "status": "MEM1A_OFFLINE_EXECUTION_READY",
+  "health_copilot_base_commit": "16e3d85b18eb802f28d61112deb7701fd2892ef7",
+  "mem0_upstream_commit": "8d6c001966573786d36908bfe4dfd52935749200",
+  "memeval_upstream_commit": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+  "patch_provenance": {
+    "path": "tools/research/memory/patches/memeval_qwen_main_v1.patch",
+    "upstream_sha": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+    "patch_sha256": "d796f92fcf48c5bd20bfca95dc9bc03164b6c44e07f3f76cc7cea752ba0e5b1a",
+    "patched_tree_sha": "64e11aa771a04bedf403f595acfe425ff766dad8",
+    "clean_apply_verified": true,
+    "external_checkout_restored_clean": true
+  },
+  "dependency_audit": {
+    "lockfile": "external/memory/MemEval/uv.lock",
+    "uv_lock_check": "PASS",
+    "isolated_environment": "external/memory/MemEval/.venv",
+    "python": "3.11.15",
+    "openai": "2.16.0",
+    "simplemem": "0.1.0",
+    "mem0ai": "1.0.3",
+    "benchmark_imports": "PASS",
+    "resolution_conflicts": [],
+    "paid_api_calls": 0
+  },
+  "dataset": {
+    "id": "longmemeval_s",
+    "revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "dev_ids_sha256": "c6e0b423f720bcb06e1c571a8f6b0d018e0c1707d21fe17108349962d30f739f",
+    "test_ids_sha256": "506b025d1ec4a3b18737863fa62ac12f7b272631fcb748d0cc2f466cd6bf424b",
+    "mem1_test_access": false
+  },
+  "roles": {
+    "main_reader_answer": {
+      "provider": "local_qwen",
+      "model": "health-memory-qwen3-8b",
+      "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "temperature": 0,
+      "seed": 42,
+      "max_new_tokens": 64,
+      "enable_thinking": false,
+      "endpoint_env": "HC_LOCAL_READER_BASE_URL",
+      "endpoint_policy": "must be loopback; never falls back to OPENAI_BASE_URL"
+    },
+    "upstream_parity_reader_answer": {
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "purpose": "six-case directional adapter sanity only",
+      "main_result": false
+    },
+    "memory_system": {
+      "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
+      "meaning": "ingestion, storage, retrieval and context construction; not a model/provider role"
+    },
+    "embedding": {
+      "provider": "openai",
+      "model": "text-embedding-3-small",
+      "dimensions": 1536,
+      "endpoint_env": "HC_EMBEDDING_BASE_URL",
+      "main_reader_loopback_forbidden": true
+    },
+    "judge": {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "temperature": 0,
+      "max_tokens": 10,
+      "endpoint_env": "HC_JUDGE_BASE_URL",
+      "main_reader_loopback_forbidden": true
+    },
+    "deterministic_metric": "MemEval LongMemEval token F1; local, no model call"
+  },
+  "systems": [
+    {
+      "name": "FullContext",
+      "module": "agents_memory.systems.fullcontext",
+      "reader_endpoint": "configured reader only",
+      "memory_ingestion_endpoint": null,
+      "embedding_endpoint": null,
+      "judge_endpoint": "explicit OpenAI judge client",
+      "answer_max_tokens_main": 64,
+      "answer_temperature_main": 0,
+      "answer_seed_main": 42,
+      "long_context_required": true,
+      "long_context_gate": "131072 slot; tokenizer prompt count and truncated=false required per answer"
+    },
+    {
+      "name": "OpenClaw",
+      "module": "agents_memory.systems.openclaw",
+      "reader_endpoint": "configured reader only",
+      "memory_ingestion_endpoint": null,
+      "embedding_endpoint": "explicit OpenAI text-embedding-3-small client",
+      "judge_endpoint": "explicit OpenAI judge client",
+      "retrieval": "pinned chunking and hybrid BM25/vector ranking unchanged"
+    },
+    {
+      "name": "Mem0 OSS",
+      "module": "agents_memory.systems.mem0",
+      "dependency": "mem0ai==1.0.3 (pinned in upstream uv.lock; installed in isolated benchmark .venv)",
+      "reader_endpoint": "explicit reader client",
+      "memory_ingestion_endpoint": "explicit OpenAI-compatible provider config plus injected reader client",
+      "embedding_endpoint": "explicit embedding provider config plus injected OpenAI embedding client",
+      "judge_endpoint": "explicit OpenAI judge client",
+      "static_audit": "pinned Mem0 source exposes memory.llm.client and memory.embedding_model.client; adapter fails closed if not"
+    },
+    {
+      "name": "SimpleMem",
+      "module": "agents_memory.systems.simplemem",
+      "dependency": "simplemem==0.1.0 (pinned in upstream uv.lock)",
+      "reader_endpoint": "role-aware reader client; final ask capped at 64 tokens in Main Track",
+      "memory_ingestion_endpoint": "imported SimpleMem OpenAI aliases patched to reader client; endpoint env scoped and restored",
+      "embedding_endpoint": "explicit OpenAI client through the existing EmbeddingModel adapter",
+      "judge_endpoint": "explicit OpenAI judge client",
+      "fail_closed": "requires at least one patchable sync OpenAI alias and rejects AsyncOpenAI",
+      "runtime_audit": "simplemem==0.1.0 and mem0ai==1.0.3 installed from the pinned lock; exact imports passed"
+    },
+    {
+      "name": "PropMem",
+      "module": "agents_memory.systems.propmem",
+      "reader_endpoint": "explicit reader client",
+      "memory_ingestion_endpoint": "reader client; 8192-token extraction budget preserved, temperature 0 and seed 42 in Main Track",
+      "embedding_endpoint": "explicit OpenAI text-embedding-3-small client injected into PropMemSystem",
+      "judge_endpoint": "explicit OpenAI judge client",
+      "algorithm_changes": false,
+      "failure_handling": "extraction/schema/provider failures propagate as infrastructure failures instead of empty propositions"
+    }
+  ],
+  "telemetry": {
+    "roles": ["reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge"],
+    "recorded": ["question_id", "system", "provider", "model", "prompt_tokens", "completion_tokens", "latency_ms", "retry_count", "cache_hit", "success", "truncated"],
+    "prompt_and_key_logging": false,
+    "provider_failure_is_quality_zero": false,
+    "judge_failure_is_incorrect": false
+  },
+  "offline_verification": {
+    "provider_and_failure_tests": 11,
+    "artifact_cache_manifest_tests": 7,
+    "dev_only_runner_tests": 4,
+    "pinned_lock_environment_imports": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
+    "ruff": "PASS",
+    "patch_clean_apply": "PASS",
+    "paid_api_calls": 0,
+    "benchmark_answers": 0,
+    "test_split_accessed": false,
+    "status": "PASS",
+    "gate": "MEM1_EXECUTION_READY=YES",
+    "controlled_entrypoint": "tools/research/memory/run_mem1.py",
+    "generation_and_judge_are_separate_stages": true
+  },
+  "next_stage_gates": [
+    "Configure an active loopback llama.cpp endpoint before MEM-1B.",
+    "Revalidate 131072 context length and explicit truncated=false on the actual MEM-1B FullContext response.",
+    "Complete the separate API/GPU cost preflight before the first paid request."
+  ]
+}

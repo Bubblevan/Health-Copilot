@@ -1,0 +1,1666 @@
+diff --git a/src/agents_memory/evaluation.py b/src/agents_memory/evaluation.py
+index 4307ee3..73f5619 100644
+--- a/src/agents_memory/evaluation.py
++++ b/src/agents_memory/evaluation.py
+@@ -3,9 +3,12 @@
+ import json
+ import os
+ import re
++import time
+ 
+ from openai import OpenAI
+ 
++from agents_memory.healthcopilot_provider import ProviderConfig, judge_client
++
+ JUDGE_PROMPT = """You are evaluating a memory retrieval system.
+ 
+ Query: {query}
+@@ -219,23 +222,35 @@ def evaluate_longmemeval(
+         )
+ 
+     prompt = template.format(q=question, a=expected, r=predicted)
+-    judge_model = os.environ.get("LONGMEMEVAL_JUDGE_MODEL", "gpt-4o")
+-
+-    try:
+-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+-        response = client.chat.completions.create(
+-            model=judge_model,
+-            messages=[{"role": "user", "content": prompt}],
+-            temperature=0,
+-            max_tokens=10,
+-        )
+-        eval_text = response.choices[0].message.content.strip().lower()
+-        correct = 1 if "yes" in eval_text else 0
+-    except Exception as e:
+-        print(f"  LongMemEval judge error: {e}")
+-        correct = 0
++    config = ProviderConfig.from_env()
++    client = judge_client(
++        "longmemeval",
++        question_id or "unknown",
++        config,
++    )
++    for attempt in range(3):
++        try:
++            response = client.chat.completions.create(
++                model=config.judge_model,
++                messages=[{"role": "user", "content": prompt}],
++                temperature=0,
++                max_tokens=10,
++            )
++            eval_text = response.choices[0].message.content.strip().lower()
++            correct = 1 if "yes" in eval_text else 0
++            return {"judge_status": "OK", "longmemeval_correct": correct}
++        except Exception as e:
++            if attempt < 2:
++                time.sleep(0.1 * (attempt + 1))
++                continue
++            print(f"  LongMemEval judge error: {e}")
++            return {
++                "judge_status": "ERROR",
++                "longmemeval_correct": None,
++                "judge_error": type(e).__name__,
++            }
+ 
+-    return {"longmemeval_correct": correct}
++    raise AssertionError("unreachable")
+ 
+ 
+ def evaluate_with_judge(question: str, expected: str, predicted: str) -> dict:
+diff --git a/src/agents_memory/healthcopilot_provider.py b/src/agents_memory/healthcopilot_provider.py
+new file mode 100644
+index 0000000..1f482aa
+--- /dev/null
++++ b/src/agents_memory/healthcopilot_provider.py
+@@ -0,0 +1,481 @@
++"""Explicit provider routing and call telemetry for Health-Copilot MEM-1."""
++
++from __future__ import annotations
++
++import contextvars
++import copy
++import json
++import os
++import sys
++import threading
++import time
++from contextlib import contextmanager
++from dataclasses import dataclass
++from pathlib import Path
++from typing import Any, Iterator, Literal
++from urllib.parse import urlsplit
++
++import httpx
++from openai import AsyncOpenAI, OpenAI
++
++OPENAI_API_BASE = "https://api.openai.com/v1"
++MAIN_READER_MODEL = "health-memory-qwen3-8b"
++PARITY_READER_MODEL = "gpt-4.1"
++
++Role = Literal["reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge"]
++
++
++@dataclass(frozen=True)
++class ProviderConfig:
++    track: Literal["main", "upstream_parity"]
++    reader_provider: Literal["local_qwen", "openai"]
++    reader_base_url: str
++    reader_api_key: str
++    reader_model: str
++    openai_api_key: str
++    embedding_model: str = "text-embedding-3-small"
++    embedding_base_url: str = OPENAI_API_BASE
++    judge_model: str = "gpt-4o"
++    judge_base_url: str = OPENAI_API_BASE
++
++    @classmethod
++    def from_env(cls) -> ProviderConfig:
++        track = os.environ.get("HC_MEMORY_TRACK", "main")
++        api_key = os.environ.get("OPENAI_API_KEY", "")
++        if not api_key:
++            raise RuntimeError("OPENAI_API_KEY is required for embedding and judge roles")
++
++        embedding_base = os.environ.get("HC_EMBEDDING_BASE_URL", OPENAI_API_BASE)
++        judge_base = os.environ.get("HC_JUDGE_BASE_URL", OPENAI_API_BASE)
++        if track == "main":
++            base_url = os.environ.get("HC_LOCAL_READER_BASE_URL", "")
++            if not base_url:
++                raise RuntimeError("HC_LOCAL_READER_BASE_URL is required for the Main Track")
++            if not _is_loopback_endpoint(base_url):
++                raise RuntimeError("Main Track reader must use a loopback llama.cpp endpoint")
++            model = os.environ.get("HC_READER_MODEL", MAIN_READER_MODEL)
++            if model != MAIN_READER_MODEL:
++                raise RuntimeError(f"Main Track reader model must be {MAIN_READER_MODEL}")
++            embedding_model = os.environ.get("HC_EMBEDDING_MODEL", "text-embedding-3-small")
++            judge_model = os.environ.get("HC_JUDGE_MODEL", "gpt-4o")
++            if embedding_model != "text-embedding-3-small" or judge_model != "gpt-4o":
++                raise RuntimeError("Main Track embedding and judge models are protocol-frozen")
++            if _is_loopback_endpoint(embedding_base):
++                raise RuntimeError("Embedding provider must not use the local reader endpoint")
++            if _is_loopback_endpoint(judge_base):
++                raise RuntimeError("Judge provider must not use the local reader endpoint")
++            return cls(
++                track="main",
++                reader_provider="local_qwen",
++                reader_base_url=base_url.rstrip("/"),
++                reader_api_key=os.environ.get("HC_LOCAL_READER_API_KEY", "local-only"),
++                reader_model=model,
++                openai_api_key=api_key,
++                embedding_model=embedding_model,
++                embedding_base_url=embedding_base,
++                judge_model=judge_model,
++                judge_base_url=judge_base,
++            )
++        if track == "upstream_parity":
++            model = os.environ.get("HC_READER_MODEL", PARITY_READER_MODEL)
++            if model != PARITY_READER_MODEL:
++                raise RuntimeError(f"Upstream parity reader model must be {PARITY_READER_MODEL}")
++            base_url = os.environ.get("HC_READER_BASE_URL", OPENAI_API_BASE)
++            embedding_model = os.environ.get("HC_EMBEDDING_MODEL", "text-embedding-3-small")
++            judge_model = os.environ.get("HC_JUDGE_MODEL", "gpt-4o")
++            if embedding_model != "text-embedding-3-small" or judge_model != "gpt-4o":
++                raise RuntimeError("Upstream-parity embedding and judge models are protocol-frozen")
++            return cls(
++                track="upstream_parity",
++                reader_provider="openai",
++                reader_base_url=base_url.rstrip("/"),
++                reader_api_key=api_key,
++                reader_model=model,
++                openai_api_key=api_key,
++                embedding_model=embedding_model,
++                embedding_base_url=embedding_base,
++                judge_model=judge_model,
++                judge_base_url=judge_base,
++            )
++        raise RuntimeError("HC_MEMORY_TRACK must be 'main' or 'upstream_parity'")
++
++
++@dataclass(frozen=True)
++class CallContext:
++    system: str = "unknown"
++    question_id: str = ""
++    role: Role | None = None
++
++
++_CALL_CONTEXT: contextvars.ContextVar[CallContext] = contextvars.ContextVar(
++    "healthcopilot_mem1_call_context", default=CallContext()
++)
++_READER_INPUT: contextvars.ContextVar[list[dict[str, Any]] | None] = contextvars.ContextVar(
++    "healthcopilot_mem1_reader_input", default=None
++)
++_LEDGER_PATH: Path | None = None
++_LEDGER_LOCK = threading.Lock()
++
++
++@contextmanager
++def call_context(system: str, question_id: str, role: Role | None = None) -> Iterator[None]:
++    token = _CALL_CONTEXT.set(CallContext(system=system, question_id=question_id, role=role))
++    try:
++        yield
++    finally:
++        _CALL_CONTEXT.reset(token)
++
++
++def clear_reader_input() -> None:
++    _READER_INPUT.set(None)
++
++
++def last_reader_input() -> list[dict[str, Any]] | None:
++    value = _READER_INPUT.get()
++    return copy.deepcopy(value) if value is not None else None
++
++
++def configure_call_ledger(path: str | Path) -> None:
++    global _LEDGER_PATH
++    _LEDGER_PATH = Path(path)
++    _LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
++
++
++def _record_call(
++    *,
++    role: Role,
++    provider: str,
++    model: str,
++    prompt_tokens: int | None,
++    completion_tokens: int | None,
++    latency_ms: float,
++    retry_count: int,
++    success: bool,
++    truncated: bool | None = None,
++    error_type: str | None = None,
++) -> None:
++    if _LEDGER_PATH is None:
++        return
++    context = _CALL_CONTEXT.get()
++    row = {
++        "question_id": context.question_id,
++        "system": context.system,
++        "role": role,
++        "provider": provider,
++        "model": model,
++        "prompt_tokens": prompt_tokens,
++        "completion_tokens": completion_tokens,
++        "latency_ms": round(latency_ms, 3),
++        "retry_count": retry_count,
++        "cache_hit": False,
++        "success": success,
++        "truncated": truncated,
++        "error_type": error_type,
++    }
++    with _LEDGER_LOCK:
++        with _LEDGER_PATH.open("a", encoding="utf-8") as ledger:
++            ledger.write(json.dumps(row, ensure_ascii=False) + "\n")
++
++
++def _telemetry_client(
++    role: Role,
++    provider: str,
++    system: str,
++    question_id: str,
++    transport: httpx.BaseTransport | None = None,
++) -> httpx.Client:
++    def on_request(request: httpx.Request) -> None:
++        request.extensions["hc_mem1_started"] = time.perf_counter()
++        active_context = _CALL_CONTEXT.get()
++        request.extensions["hc_mem1_context"] = (
++            active_context
++            if active_context.system != "unknown"
++            else CallContext(system=system, question_id=question_id)
++        )
++
++    def role_for(context: CallContext) -> Role:
++        return (
++            context.role
++            if role in ("reader_answer", "memory_ingest", "memory_reasoning")
++            and context.role in ("reader_answer", "memory_ingest", "memory_reasoning")
++            else role
++        )
++
++    def on_response(response: httpx.Response) -> None:
++        response.read()
++        request = response.request
++        started = request.extensions.get("hc_mem1_started", time.perf_counter())
++        context = request.extensions.get("hc_mem1_context", CallContext(system=system))
++        try:
++            request_body = json.loads(request.content.decode("utf-8"))
++        except (UnicodeDecodeError, json.JSONDecodeError):
++            request_body = {}
++        try:
++            response_body = response.json()
++        except (ValueError, json.JSONDecodeError):
++            response_body = {}
++        usage = response_body.get("usage", {}) if isinstance(response_body, dict) else {}
++        retry_header = request.headers.get("x-stainless-retry-count", "0")
++        try:
++            retry_count = int(retry_header)
++        except ValueError:
++            retry_count = 0
++        call_role = role_for(context)
++        with call_context(context.system, context.question_id, call_role):
++            _record_call(
++                role=call_role,
++                provider=provider,
++                model=str(request_body.get("model", "unknown")),
++                prompt_tokens=usage.get("prompt_tokens", usage.get("input_tokens")),
++                completion_tokens=usage.get("completion_tokens", usage.get("output_tokens")),
++                latency_ms=(time.perf_counter() - started) * 1000,
++                retry_count=retry_count,
++                success=response.status_code < 400,
++                truncated=(
++                    response_body.get("truncated")
++                    if isinstance(response_body, dict)
++                    else None
++                ),
++            )
++
++    class TelemetryClient(httpx.Client):
++        def send(self, request: httpx.Request, **kwargs: Any) -> httpx.Response:
++            started = request.extensions.get("hc_mem1_started", time.perf_counter())
++            try:
++                return super().send(request, **kwargs)
++            except Exception as error:
++                context = request.extensions.get(
++                    "hc_mem1_context", CallContext(system=system, question_id=question_id)
++                )
++                with call_context(context.system, context.question_id, role_for(context)):
++                    _record_call(
++                        role=role_for(context),
++                        provider=provider,
++                        model="unknown",
++                        prompt_tokens=None,
++                        completion_tokens=None,
++                        latency_ms=(time.perf_counter() - started) * 1000,
++                        retry_count=0,
++                        success=False,
++                        error_type=type(error).__name__,
++                    )
++                raise
++
++    return TelemetryClient(
++        event_hooks={"request": [on_request], "response": [on_response]},
++        trust_env=provider != "local_qwen",
++        transport=transport,
++    )
++
++
++def _client(
++    *,
++    base_url: str,
++    api_key: str,
++    role: Role,
++    provider: str,
++    system: str,
++    question_id: str,
++    transport: httpx.BaseTransport | None = None,
++) -> OpenAI:
++    if not base_url or not api_key:
++        raise RuntimeError(f"Missing explicit endpoint or key for {role}")
++    return OpenAI(
++        api_key=api_key,
++        base_url=base_url,
++        http_client=_telemetry_client(role, provider, system, question_id, transport),
++    )
++
++
++def _is_loopback_endpoint(base_url: str) -> bool:
++    try:
++        return urlsplit(base_url).hostname in {"127.0.0.1", "localhost", "::1"}
++    except ValueError:
++        return False
++
++
++def _validate_provider_routes(config: ProviderConfig) -> None:
++    reader_is_local = _is_loopback_endpoint(config.reader_base_url)
++    embedding_is_local = _is_loopback_endpoint(config.embedding_base_url)
++    judge_is_local = _is_loopback_endpoint(config.judge_base_url)
++    if config.track == "main":
++        if not reader_is_local or config.reader_provider != "local_qwen":
++            raise RuntimeError("Main Track reader must be routed to the local Qwen endpoint")
++        if config.reader_model != MAIN_READER_MODEL:
++            raise RuntimeError(f"Main Track reader model must be {MAIN_READER_MODEL}")
++    else:
++        if reader_is_local or config.reader_provider != "openai":
++            raise RuntimeError(
++                "Upstream-parity reader must use the configured GPT-4.1 API endpoint"
++            )
++        if config.reader_model != PARITY_READER_MODEL:
++            raise RuntimeError(f"Upstream-parity reader model must be {PARITY_READER_MODEL}")
++    if config.embedding_model != "text-embedding-3-small":
++        raise RuntimeError("Embedding model is protocol-frozen to text-embedding-3-small")
++    if embedding_is_local:
++        raise RuntimeError("Embedding client must not use the local reader endpoint")
++    if judge_is_local:
++        raise RuntimeError("Judge client must not use the local reader endpoint")
++    if config.judge_model != "gpt-4o":
++        raise RuntimeError("LongMemEval native judge is protocol-frozen to gpt-4o")
++
++
++class _ReaderCompletions:
++    def __init__(self, raw: OpenAI, config: ProviderConfig, default_role: Role):
++        self._raw = raw
++        self._config = config
++        self._default_role = default_role
++
++    def create(self, **kwargs: Any) -> Any:
++        request = dict(kwargs)
++        request["model"] = self._config.reader_model
++        active_role = _CALL_CONTEXT.get().role or self._default_role
++        if self._config.track == "main":
++            request["temperature"] = 0
++            request["seed"] = 42
++            if active_role == "reader_answer":
++                request.pop("max_completion_tokens", None)
++                request["max_tokens"] = 64
++            extra_body = request.get("extra_body")
++            extra_body = copy.deepcopy(extra_body) if isinstance(extra_body, dict) else {}
++            template_kwargs = extra_body.get("chat_template_kwargs", {})
++            template_kwargs["enable_thinking"] = False
++            extra_body["chat_template_kwargs"] = template_kwargs
++            request["extra_body"] = extra_body
++        if active_role == "reader_answer" and isinstance(request.get("messages"), list):
++            _READER_INPUT.set(copy.deepcopy(request["messages"]))
++        return self._raw.chat.completions.create(**request)
++
++
++class _ReaderClient:
++    def __init__(self, raw: OpenAI, config: ProviderConfig, default_role: Role):
++        self._raw = raw
++        self.chat = type(
++            "ChatProxy",
++            (),
++            {"completions": _ReaderCompletions(raw, config, default_role)},
++        )()
++        self.embeddings = raw.embeddings
++
++    def __getattr__(self, name: str) -> Any:
++        return getattr(self._raw, name)
++
++
++def reader_client(
++    role: Literal["reader_answer", "memory_ingest", "memory_reasoning"],
++    system: str,
++    question_id: str,
++    config: ProviderConfig | None = None,
++) -> OpenAI:
++    config = config or ProviderConfig.from_env()
++    _validate_provider_routes(config)
++    with call_context(system, question_id):
++        raw = _client(
++            base_url=config.reader_base_url,
++            api_key=config.reader_api_key,
++            role=role,
++            provider=config.reader_provider,
++            system=system,
++            question_id=question_id,
++        )
++    return _ReaderClient(raw, config, role)  # type: ignore[return-value]
++
++
++def embedding_client(system: str, question_id: str, config: ProviderConfig | None = None) -> OpenAI:
++    config = config or ProviderConfig.from_env()
++    _validate_provider_routes(config)
++    return _client(
++        base_url=config.embedding_base_url,
++        api_key=config.openai_api_key,
++        role="embedding",
++        provider="openai",
++        system=system,
++        question_id=question_id,
++    )
++
++
++def judge_client(system: str, question_id: str, config: ProviderConfig | None = None) -> OpenAI:
++    config = config or ProviderConfig.from_env()
++    _validate_provider_routes(config)
++    return _client(
++        base_url=config.judge_base_url,
++        api_key=config.openai_api_key,
++        role="judge",
++        provider="openai",
++        system=system,
++        question_id=question_id,
++    )
++
++
++def validate_reader_model(config: ProviderConfig, requested_model: str) -> None:
++    if requested_model != config.reader_model:
++        raise RuntimeError(
++            f"Configured reader is {config.reader_model}; received {requested_model}"
++        )
++
++
++@contextmanager
++def scoped_memory_llm_environment(config: ProviderConfig) -> Iterator[None]:
++    """Scope env-only third-party LLM clients without redirecting API roles."""
++    keys = ("OPENAI_API_KEY", "OPENAI_BASE_URL", "OPENAI_API_BASE", "OPENROUTER_API_KEY")
++    previous = {key: os.environ.get(key) for key in keys}
++    os.environ["OPENAI_API_KEY"] = config.reader_api_key
++    os.environ["OPENAI_BASE_URL"] = config.reader_base_url
++    os.environ.pop("OPENAI_API_BASE", None)
++    os.environ.pop("OPENROUTER_API_KEY", None)
++    try:
++        yield
++    finally:
++        for key, value in previous.items():
++            if value is None:
++                os.environ.pop(key, None)
++            else:
++                os.environ[key] = value
++
++
++def patch_openai_aliases(
++    package_prefix: str,
++    *,
++    role: Literal["memory_ingest", "memory_reasoning"],
++    system: str,
++    question_id: str,
++    config: ProviderConfig,
++) -> int:
++    """Replace already-imported third-party OpenAI aliases with the bound reader."""
++    patched = 0
++
++    def factory(*_args: Any, **_kwargs: Any) -> OpenAI:
++        return reader_client(role, system, question_id, config)
++
++    for module in tuple(sys.modules.values()):
++        name = getattr(module, "__name__", "")
++        if not name.startswith(package_prefix):
++            continue
++        if getattr(module, "AsyncOpenAI", None) is AsyncOpenAI:
++            raise RuntimeError(f"Async OpenAI client in {name} needs an explicit adapter")
++        if getattr(module, "OpenAI", None) is OpenAI:
++            setattr(module, "OpenAI", factory)
++            patched += 1
++    return patched
++
++
++def answer_request_kwargs(
++    config: ProviderConfig,
++    model: str | None = None,
++    **kwargs: Any,
++) -> dict[str, Any]:
++    request = {
++        "model": model or config.reader_model,
++        **kwargs,
++    }
++    if config.track == "main":
++        request["temperature"] = 0
++        request["seed"] = 42
++        request.setdefault("max_tokens", 64)
++        extra_body = request.get("extra_body")
++        extra_body = copy.deepcopy(extra_body) if isinstance(extra_body, dict) else {}
++        template_kwargs = extra_body.get("chat_template_kwargs", {})
++        template_kwargs["enable_thinking"] = False
++        extra_body["chat_template_kwargs"] = template_kwargs
++        request["extra_body"] = extra_body
++    return request
+diff --git a/src/agents_memory/propmem.py b/src/agents_memory/propmem.py
+index 8c27e78..1562994 100644
+--- a/src/agents_memory/propmem.py
++++ b/src/agents_memory/propmem.py
+@@ -18,6 +18,7 @@ from typing import Any
+ import numpy as np
+ from openai import OpenAI
+ 
++from agents_memory.healthcopilot_provider import ProviderConfig, answer_request_kwargs
+ from agents_memory.locomo import extract_dialogues, format_as_markdown
+ from agents_memory.openclaw import (
+     MemoryChunk,
+@@ -306,6 +307,7 @@ class PropMemSystem:
+     """
+ 
+     embedding_model: str = "text-embedding-3-small"
++    embedding_client: OpenAI | None = field(default=None, repr=False)
+     top_k_props: int = 30
+     top_k_chunks: int = 3
+ 
+@@ -363,7 +365,9 @@ class PropMemSystem:
+             self.chunks = chunk_markdown(markdown, tokens=400, overlap=80)
+             if self.chunks:
+                 self.chunk_embeddings = embed_texts(
+-                    [c.text for c in self.chunks], model=self.embedding_model
++                    [c.text for c in self.chunks],
++                    model=self.embedding_model,
++                    client=self.embedding_client,
+                 )
+ 
+         # 2. Extract propositions per session
+@@ -405,12 +409,16 @@ class PropMemSystem:
+                             props = future.result()
+                             self.propositions.extend(props)
+                         except Exception as err:
+-                            print(f"  Extraction error ({futures[future]}): {err}")
++                            raise RuntimeError(
++                                f"Proposition extraction failed for {futures[future]}"
++                            ) from err
+ 
+             # 3. Embed propositions
+             if self.propositions:
+                 self.proposition_embeddings = embed_texts(
+-                    [p.text for p in self.propositions], model=self.embedding_model
++                    [p.text for p in self.propositions],
++                    model=self.embedding_model,
++                    client=self.embedding_client,
+                 )
+ 
+                 # Parse date ordinals for temporal boosting
+@@ -434,7 +442,10 @@ class PropMemSystem:
+     @staticmethod
+     def _recover_partial_json(content: str) -> list[dict]:
+         """Extract complete {"entity": ..., "fact": ...} objects from truncated JSON."""
+-        pattern = r'\{\s*"entity"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*,\s*"fact"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*\}'
++        pattern = (
++            r'\{\s*"entity"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*,'
++            r'\s*"fact"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*\}'
++        )
+         items = []
+         for m in re.finditer(pattern, content):
+             entity = m.group(1).replace('\\"', '"').replace("\\n", " ")
+@@ -467,11 +478,14 @@ class PropMemSystem:
+ 
+         try:
+             response = client.chat.completions.create(
+-                model=model,
+-                messages=[{"role": "user", "content": prompt}],
+-                response_format={"type": "json_object"},
+-                max_tokens=8192,
+-                temperature=0.1,
++                **answer_request_kwargs(
++                    ProviderConfig.from_env(),
++                    model=model,
++                    max_tokens=8192,
++                    temperature=0.1,
++                    messages=[{"role": "user", "content": prompt}],
++                    response_format={"type": "json_object"},
++                ),
+             )
+             content = response.choices[0].message.content or ""
+             finish_reason = response.choices[0].finish_reason
+@@ -520,8 +534,7 @@ class PropMemSystem:
+             return propositions
+ 
+         except Exception as err:
+-            print(f"  Proposition extraction error ({session_id}): {err}")
+-            return []
++            raise RuntimeError(f"Proposition extraction error ({session_id})") from err
+ 
+     # ------------------------------------------------------------------
+     # Question type detection
+@@ -583,7 +596,9 @@ class PropMemSystem:
+     def _embed_query(self, text: str) -> list[float]:
+         if text in self._embedding_cache:
+             return self._embedding_cache[text]
+-        emb = embed_texts([text], model=self.embedding_model)[0]
++        emb = embed_texts(
++            [text], model=self.embedding_model, client=self.embedding_client
++        )[0]
+         self._embedding_cache[text] = emb
+         return emb
+ 
+@@ -905,18 +920,20 @@ class PropMemSystem:
+ 
+         try:
+             response = client.chat.completions.create(
+-                model=model,
+-                messages=[{"role": "user", "content": prompt}],
+-                response_format={"type": "json_object"},
+-                max_tokens=500,
+-                temperature=0.1,
++                **answer_request_kwargs(
++                    ProviderConfig.from_env(),
++                    model=model,
++                    max_tokens=500,
++                    temperature=0.1,
++                    messages=[{"role": "user", "content": prompt}],
++                    response_format={"type": "json_object"},
++                )
+             )
+             content = response.choices[0].message.content or ""
+             result = json.loads(content)
+             return result.get("answer", "").strip()
+-        except (json.JSONDecodeError, Exception) as err:
+-            print(f"  Answer error: {err}")
+-            return ""
++        except Exception as err:
++            raise RuntimeError("PropMem answer generation failed") from err
+ 
+     # ------------------------------------------------------------------
+     # v4: unified question classifier
+@@ -937,11 +954,14 @@ class PropMemSystem:
+ 
+         try:
+             response = client.chat.completions.create(
+-                model=model,
+-                messages=[{"role": "user", "content": prompt}],
+-                response_format={"type": "json_object"},
+-                max_tokens=80,
+-                temperature=0,
++                **answer_request_kwargs(
++                    ProviderConfig.from_env(),
++                    model=model,
++                    max_tokens=80,
++                    temperature=0,
++                    messages=[{"role": "user", "content": prompt}],
++                    response_format={"type": "json_object"},
++                )
+             )
+             content = response.choices[0].message.content or ""
+             result = json.loads(content)
+@@ -961,12 +981,7 @@ class PropMemSystem:
+                 "is_temporal": bool(result.get("is_temporal", False)),
+             }
+         except Exception as err:
+-            print(f"  Classifier error (falling back to heuristics): {err}")
+-            return {
+-                "entity": self._identify_entity(question),
+-                "is_inferential": self._is_inferential(question),
+-                "is_temporal": False,
+-            }
++            raise RuntimeError("PropMem question classifier failed") from err
+ 
+     # ------------------------------------------------------------------
+     # v4: knowledge update handling (contradiction detection)
+@@ -987,7 +1002,9 @@ class PropMemSystem:
+ 
+         # Build local embeddings for the retrieved props
+         texts = [p.text for p, _ in props]
+-        embs = embed_texts(texts, model=self.embedding_model)
++        embs = embed_texts(
++            texts, model=self.embedding_model, client=self.embedding_client
++        )
+ 
+         penalties: dict[int, float] = {}
+         for i in range(len(props)):
+@@ -1103,18 +1120,20 @@ class PropMemSystem:
+ 
+         try:
+             response = client.chat.completions.create(
+-                model=model,
+-                messages=[{"role": "user", "content": prompt}],
+-                response_format={"type": "json_object"},
+-                max_tokens=500,
+-                temperature=0.1,
++                **answer_request_kwargs(
++                    ProviderConfig.from_env(),
++                    model=model,
++                    max_tokens=500,
++                    temperature=0.1,
++                    messages=[{"role": "user", "content": prompt}],
++                    response_format={"type": "json_object"},
++                )
+             )
+             content = response.choices[0].message.content or ""
+             result = json.loads(content)
+             return result.get("answer", "").strip()
+-        except (json.JSONDecodeError, Exception) as err:
+-            print(f"  Answer v4 error: {err}")
+-            return ""
++        except Exception as err:
++            raise RuntimeError("PropMem v4 answer generation failed") from err
+ 
+     # ------------------------------------------------------------------
+     # Main pipeline
+diff --git a/src/agents_memory/systems/__init__.py b/src/agents_memory/systems/__init__.py
+index 645b255..d7010d8 100644
+--- a/src/agents_memory/systems/__init__.py
++++ b/src/agents_memory/systems/__init__.py
+@@ -1,13 +1,21 @@
+ """Memory system registry. Drop a .py file here to add a system."""
+ 
+ import importlib
++import os
+ import pkgutil
+ 
+ SYSTEMS: dict[str, dict] = {}
++selected = {
++    name.strip()
++    for name in os.environ.get("HC_MEM1_SYSTEMS", "").split(",")
++    if name.strip()
++}
+ 
+ for _, name, _ in pkgutil.iter_modules(__path__):
+     if name.startswith("_"):
+         continue
++    if selected and name not in selected:
++        continue
+     mod = importlib.import_module(f".{name}", __package__)
+     if hasattr(mod, "SYSTEM_INFO") and hasattr(mod, "run"):
+         info = mod.SYSTEM_INFO.copy()
+diff --git a/src/agents_memory/systems/_helpers.py b/src/agents_memory/systems/_helpers.py
+index 3c00634..8f9834b 100644
+--- a/src/agents_memory/systems/_helpers.py
++++ b/src/agents_memory/systems/_helpers.py
+@@ -9,6 +9,7 @@ from agents_memory.evaluation import (
+     evaluate_longmemeval,
+     evaluate_with_judge,
+ )
++from agents_memory.healthcopilot_provider import call_context, clear_reader_input, last_reader_input
+ from agents_memory.locomo import CATEGORY_NAMES as _DEFAULT_CATEGORIES
+ 
+ 
+@@ -18,6 +19,7 @@ async def _qa_results_async(
+     run_judge: bool,
+     category_names: dict | None = None,
+     judge_fn: str | None = None,
++    system_name: str | None = None,
+ ) -> list[dict]:
+     """Evaluate all QA pairs for a conversation.
+ 
+@@ -42,39 +44,49 @@ async def _qa_results_async(
+         category = qa.get("category", 0)
+         question_id = qa.get("question_id", "")
+ 
++        reader_error_type = None
+         try:
+-            predicted = (await answer_fn(question)) if is_async else answer_fn(question)
++            clear_reader_input()
++            with call_context(system_name or "unknown", question_id, "reader_answer"):
++                predicted = (await answer_fn(question)) if is_async else answer_fn(question)
+         except Exception as err:
+             print(f"    Error on Q{i}: {err}")
+-            predicted = ""
++            predicted = None
++            reader_error_type = type(err).__name__
+ 
+-        f1 = compute_f1(predicted, ground_truth)
++        quality_ok = predicted is not None
++        f1 = compute_f1(predicted, ground_truth) if quality_ok else None
+ 
+         row = {
+             "sample_id": sample_id,
++            "question_id": question_id,
+             "question": question,
+             "ground_truth": ground_truth,
+             "predicted": predicted,
+             "category": category,
+             "category_name": cats.get(category, str(category)),
+             "f1": f1,
++            "quality_status": "OK" if quality_ok else "INFRA_FAILURE",
++            "reader_error_type": reader_error_type,
++            "reader_messages": last_reader_input(),
+         }
+ 
+-        if run_judge:
+-            if judge_fn == "longmemeval":
+-                row.update(evaluate_longmemeval(
+-                    question, ground_truth, predicted,
+-                    category=str(category),
+-                    question_id=question_id,
+-                ))
+-            else:
+-                row.update(evaluate_with_judge(
+-                    question, ground_truth, predicted,
+-                ))
++        if run_judge and quality_ok:
++            with call_context(system_name or "unknown", question_id, "judge"):
++                if judge_fn == "longmemeval":
++                    row.update(evaluate_longmemeval(
++                        question, ground_truth, predicted,
++                        category=str(category),
++                        question_id=question_id,
++                    ))
++                else:
++                    row.update(evaluate_with_judge(
++                        question, ground_truth, predicted,
++                    ))
+ 
+         results.append(row)
+ 
+-        if i % 20 == 0:
++        if i % 20 == 0 and f1 is not None:
+             print(f"    QA {i}/{len(qa_pairs)} - F1={f1:.3f}")
+ 
+     return results
+@@ -86,6 +98,7 @@ def _qa_results(
+     run_judge: bool,
+     category_names: dict | None = None,
+     judge_fn: str | None = None,
++    system_name: str | None = None,
+ ) -> list[dict]:
+     """Sync wrapper around _qa_results_async."""
+     return asyncio.run(
+@@ -93,6 +106,7 @@ def _qa_results(
+             conv, answer_fn, run_judge,
+             category_names=category_names,
+             judge_fn=judge_fn,
++            system_name=system_name,
+         )
+     )
+ 
+diff --git a/src/agents_memory/systems/fullcontext.py b/src/agents_memory/systems/fullcontext.py
+index b2afe4c..ce29c20 100644
+--- a/src/agents_memory/systems/fullcontext.py
++++ b/src/agents_memory/systems/fullcontext.py
+@@ -1,9 +1,11 @@
+ """Full context baseline: entire conversation in prompt."""
+ 
+-import os
+-
+-from openai import OpenAI
+-
++from agents_memory.healthcopilot_provider import (
++    ProviderConfig,
++    answer_request_kwargs,
++    reader_client,
++    validate_reader_model,
++)
+ from agents_memory.locomo import extract_dialogues
+ from agents_memory.systems._helpers import _qa_results
+ 
+@@ -17,7 +19,10 @@ def run(
+     conv: dict, llm_model: str, run_judge: bool,
+     category_names: dict | None = None, judge_fn: str | None = None,
+ ) -> list[dict]:
+-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
++    config = ProviderConfig.from_env()
++    validate_reader_model(config, llm_model)
++    sample_id = str(conv.get("sample_id", "unknown"))
++    client = reader_client("reader_answer", "FullContext", sample_id, config)
+     dialogues = extract_dialogues(conv)
+ 
+     # Format conversation
+@@ -60,7 +65,9 @@ def run(
+ 
+     def answer_fn(question: str) -> str:
+         response = client.chat.completions.create(
+-            model=llm_model,
++            **answer_request_kwargs(config,
++            max_tokens=50,
++            temperature=0.1,
+             messages=[
+                 {
+                     "role": "user",
+@@ -70,12 +77,11 @@ def run(
+                     ),
+                 }
+             ],
+-            max_tokens=50,
+-            temperature=0.1,
++            ),
+         )
+         return response.choices[0].message.content.strip()
+ 
+     return _qa_results(
+         conv, answer_fn, run_judge,
+-        category_names=category_names, judge_fn=judge_fn,
++        category_names=category_names, judge_fn=judge_fn, system_name="FullContext",
+     )
+diff --git a/src/agents_memory/systems/mem0.py b/src/agents_memory/systems/mem0.py
+index daf20da..7092107 100644
+--- a/src/agents_memory/systems/mem0.py
++++ b/src/agents_memory/systems/mem0.py
+@@ -1,9 +1,14 @@
+ """Mem0: memory extraction + vector search."""
+ 
+-import os
+-
+-from openai import OpenAI
+-
++from agents_memory.healthcopilot_provider import (
++    ProviderConfig,
++    answer_request_kwargs,
++    call_context,
++    embedding_client,
++    reader_client,
++    scoped_memory_llm_environment,
++    validate_reader_model,
++)
+ from agents_memory.locomo import extract_dialogues
+ from agents_memory.systems._helpers import _qa_results
+ 
+@@ -28,30 +33,42 @@ def run(
+ ) -> list[dict]:
+     from mem0 import Memory
+ 
+-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
++    provider_config = ProviderConfig.from_env()
++    validate_reader_model(provider_config, llm_model)
++    sample_id = str(conv.get("sample_id", "unknown"))
++    answer_client = reader_client("reader_answer", "Mem0 OSS", sample_id, provider_config)
++    embed_client = embedding_client("Mem0 OSS", sample_id, provider_config)
+     dialogues = extract_dialogues(conv)
+-    sample_id = conv.get("sample_id", "unknown")
+     user_id = f"locomo-{sample_id}"
+ 
+-    config = {
++    memory_config = {
+         "llm": {
+             "provider": "openai",
+             "config": {
+-                "model": llm_model,
+-                "temperature": 0.1,
+-                "api_key": os.environ["OPENAI_API_KEY"],
++                "model": provider_config.reader_model,
++                "temperature": 0 if provider_config.track == "main" else 0.1,
++                "api_key": provider_config.reader_api_key,
++                "openai_base_url": provider_config.reader_base_url,
+             },
+         },
+         "embedder": {
+             "provider": "openai",
+             "config": {
+-                "model": "text-embedding-3-small",
+-                "api_key": os.environ["OPENAI_API_KEY"],
++                "model": provider_config.embedding_model,
++                "api_key": provider_config.openai_api_key,
++                "openai_base_url": provider_config.embedding_base_url,
++                "embedding_dims": 1536,
+             },
+         },
+         "version": "v1.1",
+     }
+-    memory = Memory.from_config(config)
++    with scoped_memory_llm_environment(provider_config):
++        memory = Memory.from_config(memory_config)
++
++    if not hasattr(memory.llm, "client") or not hasattr(memory.embedding_model, "client"):
++        raise RuntimeError("Pinned Mem0 OpenAI adapters no longer expose injectable clients")
++    memory.llm.client = reader_client("memory_ingest", "Mem0 OSS", sample_id, provider_config)
++    memory.embedding_model.client = embed_client
+ 
+     # Add dialogues in batches
+     batch_size = 10
+@@ -65,9 +82,10 @@ def run(
+             for d in batch
+         ]
+         try:
+-            memory.add(messages, user_id=user_id)
++            with call_context("Mem0 OSS", sample_id, "memory_ingest"):
++                memory.add(messages, user_id=user_id)
+         except Exception as e:
+-            print(f"    Error adding batch {i // batch_size}: {e}")
++            raise RuntimeError(f"Mem0 ingestion failed for batch {i // batch_size}") from e
+ 
+     print(f"    Dialogues ingested: {len(dialogues)}")
+ 
+@@ -77,7 +95,8 @@ def run(
+     )
+ 
+     def answer_fn(question: str) -> str:
+-        search_results = memory.search(query=question, user_id=user_id, limit=20)
++        with call_context("Mem0 OSS", sample_id, "memory_reasoning"):
++            search_results = memory.search(query=question, user_id=user_id, limit=20)
+         memories_list = (
+             search_results.get("results", [])
+             if isinstance(search_results, dict)
+@@ -89,8 +108,11 @@ def run(
+         )
+         if not memory_text.strip():
+             return "None"
+-        response = client.chat.completions.create(
+-            model=llm_model,
++        response = answer_client.chat.completions.create(
++            **answer_request_kwargs(
++            provider_config,
++            max_tokens=50,
++            temperature=0.1,
+             messages=[
+                 {"role": "system", "content": sys_prompt},
+                 {
+@@ -98,20 +120,19 @@ def run(
+                     "content": f"Memories:\n{memory_text}\n\nQuestion: {question}",
+                 },
+             ],
+-            max_tokens=50,
+-            temperature=0.1,
++            ),
+         )
+         return response.choices[0].message.content.strip()
+ 
+     results = _qa_results(
+         conv, answer_fn, run_judge,
+-        category_names=category_names, judge_fn=judge_fn,
++        category_names=category_names, judge_fn=judge_fn, system_name="Mem0 OSS",
+     )
+ 
+     # Cleanup
+     try:
+         memory.delete_all(user_id=user_id)
+-    except Exception:
+-        pass
++    except Exception as e:
++        raise RuntimeError("Mem0 cleanup failed; refusing to continue with retained state") from e
+ 
+     return results
+diff --git a/src/agents_memory/systems/openclaw.py b/src/agents_memory/systems/openclaw.py
+index 04831eb..b62c7da 100644
+--- a/src/agents_memory/systems/openclaw.py
++++ b/src/agents_memory/systems/openclaw.py
+@@ -1,9 +1,12 @@
+ """OpenClaw: hybrid BM25 + vector chunk retrieval."""
+ 
+-import os
+-
+-from openai import OpenAI
+-
++from agents_memory.healthcopilot_provider import (
++    ProviderConfig,
++    answer_request_kwargs,
++    embedding_client,
++    reader_client,
++    validate_reader_model,
++)
+ from agents_memory.locomo import extract_dialogues, format_as_markdown
+ from agents_memory.openclaw import chunk_markdown, embed_texts, hybrid_search
+ from agents_memory.systems._helpers import _qa_results
+@@ -27,13 +30,17 @@ def run(
+     conv: dict, llm_model: str, run_judge: bool,
+     category_names: dict | None = None, judge_fn: str | None = None,
+ ) -> list[dict]:
+-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
++    config = ProviderConfig.from_env()
++    validate_reader_model(config, llm_model)
++    sample_id = str(conv.get("sample_id", "unknown"))
++    client = reader_client("reader_answer", "OpenClaw", sample_id, config)
++    embed_client = embedding_client("OpenClaw", sample_id, config)
+     dialogues = extract_dialogues(conv)
+     markdown_text = format_as_markdown(dialogues)
+ 
+     chunks = chunk_markdown(markdown_text, tokens=400, overlap=80)
+     chunk_embeddings = embed_texts(
+-        [c.text for c in chunks], model="text-embedding-3-small"
++        [c.text for c in chunks], model=config.embedding_model, client=embed_client
+     )
+     print(f"    Chunks: {len(chunks)}")
+ 
+@@ -43,7 +50,9 @@ def run(
+     )
+ 
+     def answer_fn(question: str) -> str:
+-        query_emb = embed_texts([question], model="text-embedding-3-small")[0]
++        query_emb = embed_texts(
++            [question], model=config.embedding_model, client=embed_client
++        )[0]
+         search_results = hybrid_search(
+             query=question,
+             chunks=chunks,
+@@ -57,7 +66,9 @@ def run(
+         if not memory_text.strip():
+             return "None"
+         response = client.chat.completions.create(
+-            model=llm_model,
++            **answer_request_kwargs(config,
++            max_tokens=50,
++            temperature=0.1,
+             messages=[
+                 {"role": "system", "content": sys_prompt},
+                 {
+@@ -65,12 +76,11 @@ def run(
+                     "content": f"Memories:\n{memory_text}\n\nQuestion: {question}",
+                 },
+             ],
+-            max_tokens=50,
+-            temperature=0.1,
++            ),
+         )
+         return response.choices[0].message.content.strip()
+ 
+     return _qa_results(
+         conv, answer_fn, run_judge,
+-        category_names=category_names, judge_fn=judge_fn,
++        category_names=category_names, judge_fn=judge_fn, system_name="OpenClaw",
+     )
+diff --git a/src/agents_memory/systems/propmem.py b/src/agents_memory/systems/propmem.py
+index c1dec49..e749468 100644
+--- a/src/agents_memory/systems/propmem.py
++++ b/src/agents_memory/systems/propmem.py
+@@ -1,9 +1,11 @@
+ """PropMem: proposition-based entity-centric retrieval."""
+ 
+-import os
+-
+-from openai import OpenAI
+-
++from agents_memory.healthcopilot_provider import (
++    ProviderConfig,
++    embedding_client,
++    reader_client,
++    validate_reader_model,
++)
+ from agents_memory.propmem import PropMemSystem
+ from agents_memory.systems._helpers import _qa_results
+ 
+@@ -17,9 +19,17 @@ def run(
+     conv: dict, llm_model: str, run_judge: bool,
+     category_names: dict | None = None, judge_fn: str | None = None,
+ ) -> list[dict]:
+-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+-    system = PropMemSystem()
+-    ingest = system.ingest_conversation(conv, client, llm_model)
++    config = ProviderConfig.from_env()
++    validate_reader_model(config, llm_model)
++    sample_id = str(conv.get("sample_id", "unknown"))
++    ingest_client = reader_client("memory_ingest", "PropMem", sample_id, config)
++    answer_client = reader_client("reader_answer", "PropMem", sample_id, config)
++    embed_client = embedding_client("PropMem", sample_id, config)
++    system = PropMemSystem(
++        embedding_model=config.embedding_model,
++        embedding_client=embed_client,
++    )
++    ingest = system.ingest_conversation(conv, ingest_client, config.reader_model)
+     print(
+         f"    Ingested: chunks={ingest['num_chunks']}, "
+         f"propositions={ingest['num_propositions']}, "
+@@ -28,8 +38,9 @@ def run(
+ 
+     return _qa_results(
+         conv,
+-        lambda q: system.answer_question(q, client, llm_model)["answer"],
++        lambda q: system.answer_question(q, answer_client, config.reader_model)["answer"],
+         run_judge,
+         category_names=category_names,
+         judge_fn=judge_fn,
++        system_name="PropMem",
+     )
+diff --git a/src/agents_memory/systems/simplemem.py b/src/agents_memory/systems/simplemem.py
+index 054c218..4eeafec 100644
+--- a/src/agents_memory/systems/simplemem.py
++++ b/src/agents_memory/systems/simplemem.py
+@@ -1,11 +1,15 @@
+ """SimpleMem: multi-round retrieval with parallel processing."""
+ 
+-import os
+-from datetime import datetime
+-
+ import numpy as np
+-from openai import OpenAI
+ 
++from agents_memory.healthcopilot_provider import (
++    ProviderConfig,
++    call_context,
++    embedding_client,
++    patch_openai_aliases,
++    scoped_memory_llm_environment,
++    validate_reader_model,
++)
+ from agents_memory.locomo import extract_dialogues
+ from agents_memory.systems._helpers import _qa_results
+ 
+@@ -21,13 +25,12 @@ SYSTEM_INFO = {
+ # ---------------------------------------------------------------------------
+ from simplemem.utils.embedding import EmbeddingModel  # noqa: E402
+ 
+-_embed_client: OpenAI | None = None
++_embed_client = None
+ 
+ 
+-def _get_embed_client() -> OpenAI:
+-    global _embed_client
++def _get_embed_client():
+     if _embed_client is None:
+-        _embed_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
++        raise RuntimeError("SimpleMem embedding client was not explicitly configured")
+     return _embed_client
+ 
+ 
+@@ -58,36 +61,61 @@ def run(
+     conv: dict, llm_model: str, run_judge: bool,
+     category_names: dict | None = None, judge_fn: str | None = None,
+ ) -> list[dict]:
++    global _embed_client
+     from simplemem import SimpleMemConfig, SimpleMemSystem, set_config
+     from simplemem.models.memory_entry import Dialogue
+ 
++    provider_config = ProviderConfig.from_env()
++    validate_reader_model(provider_config, llm_model)
++    sample_id = str(conv.get("sample_id", "unknown"))
++    patched = patch_openai_aliases(
++        "simplemem",
++        role="memory_ingest",
++        system="SimpleMem",
++        question_id=sample_id,
++        config=provider_config,
++    )
++    if patched == 0:
++        raise RuntimeError("Pinned SimpleMem exposes no patchable OpenAI client alias")
++    _embed_client = embedding_client("SimpleMem", sample_id, provider_config)
+     config = SimpleMemConfig(
+-        openai_api_key=os.environ["OPENAI_API_KEY"],
+-        llm_model=llm_model,
++        openai_api_key=provider_config.reader_api_key,
++        llm_model=provider_config.reader_model,
+     )
+-    set_config(config)
+ 
+     dialogues = extract_dialogues(conv)
+-    memory = SimpleMemSystem(clear_db=True)
+-
+     dialogue_objects = [
+         Dialogue(
+             dialogue_id=i + 1,
+             speaker=d["speaker"],
+             content=d["text"],
+-            timestamp=d["timestamp"] or datetime.now().isoformat(),
++            timestamp=d["timestamp"] or "1970-01-01T00:00:00",
+         )
+         for i, d in enumerate(dialogues)
+     ]
+ 
+-    memory.add_dialogues(dialogue_objects)
+-    memory.finalize()
+-    print(f"    Dialogues ingested: {len(dialogue_objects)}")
+-
+-    return _qa_results(
+-        conv,
+-        lambda q: memory.ask(q),
+-        run_judge,
+-        category_names=category_names,
+-        judge_fn=judge_fn,
+-    )
++    with scoped_memory_llm_environment(provider_config):
++        set_config(config)
++        memory = SimpleMemSystem(clear_db=True)
++        with call_context("SimpleMem", sample_id, "memory_ingest"):
++            memory.add_dialogues(dialogue_objects)
++            memory.finalize()
++    print(f"    Dialogues ingested: {len(dialogue_objects)}; patched clients={patched}")
++
++    def answer_fn(question: str) -> str:
++        with scoped_memory_llm_environment(provider_config):
++            with call_context("SimpleMem", sample_id, "reader_answer"):
++                return memory.ask(question)
++
++    try:
++        return _qa_results(
++            conv,
++            answer_fn,
++            run_judge,
++            category_names=category_names,
++            judge_fn=judge_fn,
++            system_name="SimpleMem",
++        )
++    finally:
++        _embed_client.close()
++        _embed_client = None
+diff --git a/tests/test_healthcopilot_failures.py b/tests/test_healthcopilot_failures.py
+new file mode 100644
+index 0000000..7a4acb1
+--- /dev/null
++++ b/tests/test_healthcopilot_failures.py
+@@ -0,0 +1,106 @@
++import asyncio
++import importlib.util
++from pathlib import Path
++
++from agents_memory import evaluation
++from agents_memory.healthcopilot_provider import ProviderConfig
++
++_helpers_path = (
++    Path(__file__).parents[1] / "src" / "agents_memory" / "systems" / "_helpers.py"
++)
++_spec = importlib.util.spec_from_file_location("mem1_test_helpers", _helpers_path)
++_helpers = importlib.util.module_from_spec(_spec)
++assert _spec.loader is not None
++_spec.loader.exec_module(_helpers)
++_qa_results_async = _helpers._qa_results_async
++
++
++def test_reader_infrastructure_failure_is_not_zero_quality_or_judged():
++    async def fail(_question):
++        raise TimeoutError("local reader unavailable")
++
++    rows = asyncio.run(
++        _qa_results_async(
++            {
++                "sample_id": "q1",
++                "qa": [
++                    {
++                        "question_id": "q1",
++                        "question": "What did they choose?",
++                        "answer": "Swimming",
++                        "category": "knowledge-update",
++                    }
++                ],
++            },
++            fail,
++            run_judge=True,
++            judge_fn="longmemeval",
++            system_name="FullContext",
++        )
++    )
++
++    assert rows[0]["quality_status"] == "INFRA_FAILURE"
++    assert rows[0]["predicted"] is None
++    assert rows[0]["f1"] is None
++    assert "longmemeval_correct" not in rows[0]
++
++
++def test_judge_failure_is_null_after_bounded_retries(monkeypatch):
++    config = ProviderConfig(
++        track="main",
++        reader_provider="local_qwen",
++        reader_base_url="http://127.0.0.1:8080/v1",
++        reader_api_key="local-only",
++        reader_model="health-memory-qwen3-8b",
++        openai_api_key="test-openai-key",
++    )
++
++    class FailingCompletions:
++        calls = 0
++
++        def create(self, **_kwargs):
++            self.calls += 1
++            raise TimeoutError("judge unavailable")
++
++    failing = FailingCompletions()
++    fake_client = type(
++        "Client",
++        (),
++        {"chat": type("Chat", (), {"completions": failing})()},
++    )()
++    monkeypatch.setattr(evaluation.ProviderConfig, "from_env", lambda: config)
++    monkeypatch.setattr(evaluation, "judge_client", lambda *_args: fake_client)
++    monkeypatch.setattr(evaluation.time, "sleep", lambda *_args: None)
++
++    result = evaluation.evaluate_longmemeval(
++        "Question", "Expected", "Prediction", category="multi-session", question_id="q1"
++    )
++
++    assert failing.calls == 3
++    assert result["judge_status"] == "ERROR"
++    assert result["longmemeval_correct"] is None
++
++
++def test_memory_llm_environment_is_scoped_and_restored(monkeypatch):
++    from agents_memory.healthcopilot_provider import scoped_memory_llm_environment
++
++    config = ProviderConfig(
++        track="main",
++        reader_provider="local_qwen",
++        reader_base_url="http://127.0.0.1:8080/v1",
++        reader_api_key="local-only",
++        reader_model="health-memory-qwen3-8b",
++        openai_api_key="test-openai-key",
++    )
++    monkeypatch.setenv("OPENAI_BASE_URL", "https://proxy.invalid/v1")
++    monkeypatch.setenv("OPENAI_API_KEY", "cloud-key")
++    monkeypatch.setenv("OPENROUTER_API_KEY", "router-key")
++
++    with scoped_memory_llm_environment(config):
++        assert __import__("os").environ["OPENAI_BASE_URL"] == config.reader_base_url
++        assert __import__("os").environ["OPENAI_API_KEY"] == config.reader_api_key
++        assert "OPENROUTER_API_KEY" not in __import__("os").environ
++
++    assert __import__("os").environ["OPENAI_BASE_URL"] == "https://proxy.invalid/v1"
++    assert __import__("os").environ["OPENAI_API_KEY"] == "cloud-key"
++    assert __import__("os").environ["OPENROUTER_API_KEY"] == "router-key"
+diff --git a/tests/test_healthcopilot_provider.py b/tests/test_healthcopilot_provider.py
+new file mode 100644
+index 0000000..4afbcae
+--- /dev/null
++++ b/tests/test_healthcopilot_provider.py
+@@ -0,0 +1,214 @@
++import json
++
++import httpx
++import pytest
++
++from agents_memory import healthcopilot_provider as provider
++
++
++def main_config() -> provider.ProviderConfig:
++    return provider.ProviderConfig(
++        track="main",
++        reader_provider="local_qwen",
++        reader_base_url="http://127.0.0.1:8080/v1",
++        reader_api_key="local-only",
++        reader_model=provider.MAIN_READER_MODEL,
++        openai_api_key="test-openai-key",
++    )
++
++
++def test_main_provider_roles_ignore_global_openai_base_url(monkeypatch):
++    monkeypatch.setenv("HC_MEMORY_TRACK", "main")
++    monkeypatch.setenv("HC_LOCAL_READER_BASE_URL", "http://127.0.0.1:8080/v1")
++    monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
++    monkeypatch.setenv("OPENAI_BASE_URL", "http://127.0.0.1:9999/v1")
++    monkeypatch.delenv("HC_EMBEDDING_BASE_URL", raising=False)
++    monkeypatch.delenv("HC_JUDGE_BASE_URL", raising=False)
++    config = provider.ProviderConfig.from_env()
++
++    assert config.reader_base_url == "http://127.0.0.1:8080/v1"
++    assert config.embedding_base_url == provider.OPENAI_API_BASE
++    assert config.judge_base_url == provider.OPENAI_API_BASE
++
++
++def test_main_track_refuses_missing_or_nonlocal_reader(monkeypatch):
++    monkeypatch.setenv("HC_MEMORY_TRACK", "main")
++    monkeypatch.setenv("OPENAI_API_KEY", "test-openai-key")
++    monkeypatch.delenv("HC_LOCAL_READER_BASE_URL", raising=False)
++    with pytest.raises(RuntimeError, match="HC_LOCAL_READER_BASE_URL"):
++        provider.ProviderConfig.from_env()
++
++    monkeypatch.setenv("HC_LOCAL_READER_BASE_URL", "https://api.openai.com/v1")
++    with pytest.raises(RuntimeError, match="loopback"):
++        provider.ProviderConfig.from_env()
++
++    monkeypatch.setenv("HC_LOCAL_READER_BASE_URL", "http://127.0.0.1.evil.invalid/v1")
++    with pytest.raises(RuntimeError, match="loopback"):
++        provider.ProviderConfig.from_env()
++
++
++class FakeOpenAI:
++    calls = []
++
++    def __init__(self, **kwargs):
++        self.calls.append(kwargs)
++        self.chat = type("Chat", (), {"completions": type("Completions", (), {})()})()
++        self.chat.completions.create = lambda **request: request
++        self.embeddings = object()
++
++
++def test_factories_bind_reader_embedding_and_judge_to_separate_hosts(monkeypatch):
++    FakeOpenAI.calls = []
++    monkeypatch.setattr(provider, "OpenAI", FakeOpenAI)
++    config = main_config()
++
++    provider.reader_client("reader_answer", "FullContext", "q1", config)
++    provider.embedding_client("OpenClaw", "q2", config)
++    provider.judge_client("OpenClaw", "q2", config)
++
++    assert [c["base_url"] for c in FakeOpenAI.calls] == [
++        "http://127.0.0.1:8080/v1",
++        "https://api.openai.com/v1",
++        "https://api.openai.com/v1",
++    ]
++    assert [c["api_key"] for c in FakeOpenAI.calls] == [
++        "local-only",
++        "test-openai-key",
++        "test-openai-key",
++    ]
++
++
++def test_factories_fail_closed_on_cross_role_endpoint_leakage():
++    config = main_config()
++    local_embedding = provider.ProviderConfig(
++        **{**config.__dict__, "embedding_base_url": "http://localhost:8080/v1"}
++    )
++    local_judge = provider.ProviderConfig(
++        **{**config.__dict__, "judge_base_url": "http://127.0.0.1:8080/v1"}
++    )
++    cloud_reader = provider.ProviderConfig(
++        **{
++            **config.__dict__,
++            "reader_provider": "openai",
++            "reader_base_url": "https://api.openai.com/v1",
++        }
++    )
++
++    with pytest.raises(RuntimeError, match="Embedding client"):
++        provider.embedding_client("OpenClaw", "q1", local_embedding)
++    with pytest.raises(RuntimeError, match="Judge client"):
++        provider.judge_client("FullContext", "q1", local_judge)
++    with pytest.raises(RuntimeError, match="local Qwen"):
++        provider.reader_client("reader_answer", "FullContext", "q1", cloud_reader)
++
++
++def test_reader_proxy_enforces_main_controls_but_preserves_ingest_budget():
++    class Raw:
++        def __init__(self):
++            self.chat = type("Chat", (), {"completions": type("Completions", (), {})()})()
++            self.chat.completions.create = lambda **request: request
++
++    config = main_config()
++    raw = Raw()
++    answer = provider._ReaderCompletions(raw, config, "reader_answer").create(
++        model="wrong-model",
++        temperature=0.7,
++        seed=1,
++        max_tokens=2,
++        messages=[],
++    )
++    assert answer["model"] == provider.MAIN_READER_MODEL
++    assert answer["temperature"] == 0
++    assert answer["seed"] == 42
++    assert answer["max_tokens"] == 64
++    assert answer["extra_body"]["chat_template_kwargs"]["enable_thinking"] is False
++
++    ingest = provider._ReaderCompletions(raw, config, "memory_ingest").create(
++        model="wrong-model", temperature=0.7, seed=1, max_tokens=8192, messages=[]
++    )
++    assert ingest["max_tokens"] == 8192
++    assert ingest["temperature"] == 0
++    assert ingest["seed"] == 42
++
++
++def test_upstream_parity_reader_keeps_upstream_sampling_controls():
++    class Raw:
++        def __init__(self):
++            self.chat = type("Chat", (), {"completions": type("Completions", (), {})()})()
++            self.chat.completions.create = lambda **request: request
++
++    config = provider.ProviderConfig(
++        track="upstream_parity",
++        reader_provider="openai",
++        reader_base_url=provider.OPENAI_API_BASE,
++        reader_api_key="test-openai-key",
++        reader_model=provider.PARITY_READER_MODEL,
++        openai_api_key="test-openai-key",
++    )
++    result = provider._ReaderCompletions(Raw(), config, "reader_answer").create(
++        model="wrong-model", max_tokens=50, temperature=0.1, messages=[]
++    )
++    assert result["model"] == "gpt-4.1"
++    assert result["max_tokens"] == 50
++    assert result["temperature"] == 0.1
++    assert "seed" not in result
++
++
++def test_call_ledger_records_usage_without_request_body_or_credentials(tmp_path):
++    ledger = tmp_path / "calls.jsonl"
++    provider.configure_call_ledger(ledger)
++    transport = httpx.MockTransport(
++        lambda request: httpx.Response(
++            200,
++            json={"usage": {"prompt_tokens": 17, "completion_tokens": 3}},
++            request=request,
++        )
++    )
++    client = provider._telemetry_client(
++        "reader_answer", "local_qwen", "FullContext", "q1", transport
++    )
++    with provider.call_context("FullContext", "q1", "reader_answer"):
++        client.post(
++            "http://127.0.0.1:8080/v1/chat/completions",
++            json={"model": "health-memory-qwen3-8b", "messages": [{"content": "private"}]},
++            headers={"Authorization": "Bearer secret"},
++        )
++
++    row = json.loads(ledger.read_text(encoding="utf-8"))
++    assert row["role"] == "reader_answer"
++    assert row["provider"] == "local_qwen"
++    assert row["model"] == provider.MAIN_READER_MODEL
++    assert row["prompt_tokens"] == 17
++    assert row["completion_tokens"] == 3
++    assert row["success"] is True
++    assert "private" not in ledger.read_text(encoding="utf-8")
++    assert "secret" not in ledger.read_text(encoding="utf-8")
++    client.close()
++
++
++def test_transport_failure_is_recorded_without_request_content(tmp_path):
++    ledger = tmp_path / "calls.jsonl"
++    provider.configure_call_ledger(ledger)
++
++    def fail(_request):
++        raise httpx.ConnectError("offline", request=_request)
++
++    client = provider._telemetry_client(
++        "reader_answer", "local_qwen", "FullContext", "q2", httpx.MockTransport(fail)
++    )
++    with provider.call_context("FullContext", "q2", "reader_answer"):
++        with pytest.raises(httpx.ConnectError):
++            client.post(
++                "http://127.0.0.1:8080/v1/chat/completions",
++                json={"model": provider.MAIN_READER_MODEL, "messages": [{"content": "private"}]},
++                headers={"Authorization": "Bearer secret"},
++            )
++
++    row = json.loads(ledger.read_text(encoding="utf-8"))
++    assert row["question_id"] == "q2"
++    assert row["success"] is False
++    assert row["error_type"] == "ConnectError"
++    assert row["prompt_tokens"] is None
++    assert "private" not in ledger.read_text(encoding="utf-8")
++    assert "secret" not in ledger.read_text(encoding="utf-8")
++    client.close()
