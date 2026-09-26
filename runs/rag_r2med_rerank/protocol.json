@@ -41,6 +41,35 @@
       "keep_full_distinct_union": true
     }
   },
+  "baseline_rankings": {
+    "B0_BM25": {
+      "file": "bm25_original.jsonl",
+      "depth": 100,
+      "sha256_per_subset": {
+        "PMC-Treatment": "a1f797907d47af667c475b900b7a793e26f8a83a12f7468129ed20c6e8d38c8a",
+        "PMC-Clinical": "c6ea847d85e96cc418a31769c39e0cb9f96a12ba060ba141f4f4ef1d6c48fb69",
+        "IIYi-Clinical": "040032f3b31f5be850610eedf18a115d335688eb4b4ca4d28d9a1146a9d11e11"
+      }
+    },
+    "B1_BGE_large": {
+      "file": "bge_large_original.jsonl",
+      "depth": 100,
+      "sha256_per_subset": {
+        "PMC-Treatment": "1e38df2d14b739e2f575336e1fd42d1f5eb35d10b437df30e1b48ae3dc5d1f7f",
+        "PMC-Clinical": "67bcb566795a62b984e00a23fce9e78070446777e9bb2433f02902ec11ff12fb",
+        "IIYi-Clinical": "938eb92861a022d83ad9be7fb753f068d9cb18a08c1772915de60eee26a4aa30"
+      }
+    },
+    "B3_LameR_single_BGE": {
+      "file": "lamer_single_bge.jsonl",
+      "depth": 100,
+      "sha256_per_subset": {
+        "PMC-Treatment": "8a38c06ad9ad316b2703c23a9d582d865d72331e225c19beb2c135e60a2390f9",
+        "PMC-Clinical": "000d28852bffd2c0b70d10f80fb78dcd0782aa735cfe8558e0d86216f0b31f50",
+        "IIYi-Clinical": "e736407f0c1b5409c132fc2825a76ec6760cee5653939dd8bfd2c6e89b471623"
+      }
+    }
+  },
   "candidate_complementarity": {
     "analysis_artifact": "runs/rag_r2med_rerank/candidate_analysis.json",
     "decision": "POSITIVE",
@@ -49,6 +78,16 @@
     "phase_a_strongest_single_recall_at_100": 0.7105312117503061,
     "phase_a_delta": 0.07419012647898804
   },
+  "frozen_dev_reference_metrics": {
+    "LameR-MV": {
+      "macro_ndcg@10": 0.29980031296853266,
+      "macro_recall@100": 0.7075656648080147
+    },
+    "Compact_CRB_Q": {
+      "macro_ndcg@10": 0.29208238585216467,
+      "macro_recall@100": 0.7105312117503061
+    }
+  },
   "baseline_matrix": {
     "B0": "original BM25",
     "B1": "original BGE-large",
@@ -56,6 +95,7 @@
       "name": "BM25+BGE RRF",
       "rrf_k": 60,
       "weights": [1, 1],
+      "output_depth": 100,
       "tie_break": ["score_desc", "bm25_rank_asc_null_last", "bge_rank_asc_null_last", "doc_id_asc"]
     },
     "B3": "LameR single-view BGE",

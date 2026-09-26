@@ -50,7 +50,9 @@ The baseline matrix retains original BM25, original BGE-large, equal-weight
 BM25+BGE RRF (k=60), LameR single-view BGE, LameR-MV, and compact CRB-Q. Rerank
 LameR-MV and compact CRB-Q at K=20/30/50. Since Phase A passed, also evaluate
 DualSource-RRF with lambda in {0.5, 1.0, 2.0}, k=60, crossed with the same K
-grid. The dual-source score is
+grid. B2 is truncated to the fused top 100. The pinned per-subset SHA256
+identities of the B0/B1/B3 inputs, as well as the LameR/CRB candidate rankings,
+are recorded in the protocol. The dual-source score is
 `1/(60+lamer_rank) + lambda/(60+crb_rank)`; candidates are deduplicated by
 document ID and source ranks are retained.
 
