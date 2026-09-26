@@ -1,0 +1,126 @@
+{
+  "schema_version": "r2med-candidate-reranking-protocol-v1",
+  "status": "FROZEN_BEFORE_RERANKER_INFERENCE",
+  "partition": "DEV",
+  "split_counts": {
+    "PMC-Treatment": 150,
+    "PMC-Clinical": 114,
+    "IIYi-Clinical": 129,
+    "total": 393
+  },
+  "test_status": "PUBLIC_BENCHMARK_REUSED",
+  "source_manifest": "runs/rag_r2med_crb/source_manifest.json",
+  "candidate_sources": {
+    "lamer": {
+      "method": "LameR-MV",
+      "files": "E:/Health-Copilot-RAG/r2med/rankings/dev/<subset>/lamer_mv_mv_best.jsonl",
+      "depth": 100,
+      "sha256_per_subset": {
+        "PMC-Treatment": "d9a251e37bf880e948179c60a0ca978e92fa76d246f0a87f2bc877db0d476050",
+        "PMC-Clinical": "529970f538bebf38ddc0ed89810428dea3160454a70a06e4d3582f35559703ad",
+        "IIYi-Clinical": "d1b6bc8acbd4f960bcdd276dd2d1e27c694eb1b3c953378ac2d9c3ff1da21208"
+      }
+    },
+    "crb": {
+      "method": "Compact CRB-Q",
+      "files": "runs/rag_r2med_crb/compact_repair/rankings/dev/<subset>/crb_q_compact_repair_mv.jsonl",
+      "depth": 100,
+      "sha256_per_subset": {
+        "PMC-Treatment": "5ccd1bd988973f07ab81092e4ad785090ef3f4cd3842f1c53c3927978c18e737",
+        "PMC-Clinical": "c8bfd86cc292fed3eeb54b11353705952eacc779a1bc1b78b8b6cb63dd0294e3",
+        "IIYi-Clinical": "b1f0d14ee216afef1b425d4951a1705a56820a205b995b09bea8b8b8b01be8a8"
+      }
+    },
+    "fusion": {
+      "method": "DualSource-RRF",
+      "formula": "1/(k+lamer_rank) + lambda/(k+crb_rank)",
+      "k": 60,
+      "lambda_grid": [0.5, 1.0, 2.0],
+      "deduplicate_by": "doc_id",
+      "tie_break": ["score_desc", "lamer_rank_asc_null_last", "crb_rank_asc_null_last", "doc_id_asc"],
+      "keep_full_distinct_union": true
+    }
+  },
+  "candidate_complementarity": {
+    "analysis_artifact": "runs/rag_r2med_rerank/candidate_analysis.json",
+    "decision": "POSITIVE",
+    "gate": "raw union of both top-100 pools Recall@100 > strongest single-source Recall@100 + 0.005",
+    "phase_a_pool_union_recall_at_100": 0.7847213382292941,
+    "phase_a_strongest_single_recall_at_100": 0.7105312117503061,
+    "phase_a_delta": 0.07419012647898804
+  },
+  "baseline_matrix": {
+    "B0": "original BM25",
+    "B1": "original BGE-large",
+    "B2": {
+      "name": "BM25+BGE RRF",
+      "rrf_k": 60,
+      "weights": [1, 1],
+      "tie_break": ["score_desc", "bm25_rank_asc_null_last", "bge_rank_asc_null_last", "doc_id_asc"]
+    },
+    "B3": "LameR single-view BGE",
+    "B4": "LameR-MV",
+    "B5": "Compact CRB-Q"
+  },
+  "reranker": {
+    "name": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "local_path": "E:/Health-Copilot-RAG/models/bge-reranker-v2-m3",
+    "weights_identity": "record model.safetensors and tokenizer SHA256 in dev_report.json before inference",
+    "device": "CUDA",
+    "dtype": "float16",
+    "batch_size": 16,
+    "eval_mode": true,
+    "max_pair_tokens": 512,
+    "truncation": "deterministic tokenizer longest-first; original query text plus full corpus text",
+    "rerank_depth_grid": [20, 30, 50],
+    "tail_policy": "rerank exactly first K; preserve source/fusion order for every item after K",
+    "pair_score_cache": "E:/Health-Copilot-RAG/r2med/reranker/",
+    "cache_key": "sha256(query_id, doc_id, query_text_sha256, document_text_sha256, model_revision, max_pair_tokens)",
+    "qrels_or_gold_access": false
+  },
+  "dev_runs": {
+    "always_run": [
+      "LameR-MV+BGE-Rerank for K=20,30,50",
+      "Compact CRB-Q+BGE-Rerank for K=20,30,50"
+    ],
+    "run_if_candidate_complementarity_positive": [
+      "DualSource-RRF lambda=0.5,1.0,2.0 each+BGE-Rerank for K=20,30,50"
+    ],
+    "optional_reasonrank": {
+      "model": "ReasonRank-7B",
+      "run_only_if": "official public weights and inference fit existing 16-GB VRAM without a large environment or WSL",
+      "otherwise": "REASONRANK_SKIPPED_RESOURCE_CONSTRAINT=YES"
+    }
+  },
+  "selection": {
+    "primary_metric": "equal-weight arithmetic mean of per-subset nDCG@10",
+    "tie_break": ["higher MRR@10", "higher Recall@10", "smaller rerank depth", "lambda closer to 1"],
+    "strongest_non_ours": "best of B0-B5, LameR-MV+BGE-Rerank, Compact CRB-Q+BGE-Rerank, and optional ReasonRank if run",
+    "primary_reference": "max(LameR-MV, LameR-MV+BGE-Rerank)",
+    "dev_gate": "best OURS > strongest non-OURS by at least 0.005 macro nDCG@10 and is non-inferior on at least 2 of 3 subsets",
+    "strong_dev_gate": "delta at least +0.010 and Recall@100 >= LameR-MV",
+    "test_allowed_only_after_gate": true
+  },
+  "aar": {
+    "name": "Agreement-Aware Reranking",
+    "formula": "reranker_score + alpha * int(document_in_both_top100_sources)",
+    "alpha_grid": [0.0, 0.1, 0.2],
+    "eligible_only_if": "best DualSource-RRF+BGE DEV macro nDCG@10 is strictly greater than LameR-MV+BGE-Rerank",
+    "otherwise": "DO_NOT_RUN"
+  },
+  "test_policy": {
+    "one_shot": true,
+    "requires_final_method_lock": true,
+    "run_only_if_dev_gate_positive": true,
+    "bootstrap": "10000 paired query resamples stratified by TEST subset",
+    "resume_ready_gate": "OURS exceeds strongest frozen non-OURS by at least +0.010 macro nDCG@10 and paired stratified 95% CI lower bound > 0"
+  },
+  "stop_rules": {
+    "no_new_prompt_or_schema": true,
+    "no_new_retriever_family": true,
+    "no_new_reranker_or_training": true,
+    "no_test_tuning": true,
+    "if_dev_gate_negative": "report results and stop R2MED method development"
+  }
+}
