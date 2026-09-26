@@ -1,0 +1,150 @@
+{
+  "schema_version": "r2med-crb-compact-repair-dev-report-v1",
+  "created_at_utc": "2026-09-26T03:02:33.590306+00:00",
+  "partition": "DEV",
+  "test_accessed": false,
+  "test_run_started": false,
+  "source_manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+  "generation_manifest_sha256": "34021d562b54238e56499f109bc52bfcc5ea5429f6734e0276ca9bd10eafb201",
+  "generation_counts": {
+    "PMC-Treatment": {
+      "query_count": 150,
+      "valid_count": 147,
+      "fallback_count": 3
+    },
+    "PMC-Clinical": {
+      "query_count": 114,
+      "valid_count": 106,
+      "fallback_count": 8
+    },
+    "IIYi-Clinical": {
+      "query_count": 129,
+      "valid_count": 129,
+      "fallback_count": 0
+    }
+  },
+  "generation_total": {
+    "query_count": 393,
+    "valid_count": 382,
+    "fallback_count": 11
+  },
+  "retrieval": {
+    "bge_model_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+    "bge_model_path": "E:\\Health-Copilot-RAG\\models\\bge-large-en-v1.5",
+    "corpus_embeddings_reused_read_only": true,
+    "bm25_identity": {
+      "python": "3.11.15",
+      "pyserini": "1.3.0",
+      "gensim": "4.4.0",
+      "pyjnius": "1.7.0"
+    },
+    "fusion": {
+      "config_id": "k20-W0",
+      "rrf_k": 20,
+      "weights": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "top_k": 100,
+    "channel_count": 4,
+    "channel_artifact_sha256": {
+      "PMC-Treatment": {
+        "bm25_bridge": "cc9335f9a1ed459ab57499d9f4009a65b2b57149fdbd227c19504e381906a5b9",
+        "bge_generated": "1d477174e8d613412ea26c8070d7cc3971bd2032eb2c6142b3671175d64aa015"
+      },
+      "PMC-Clinical": {
+        "bm25_bridge": "dd6e744d568a4c8e4d4ddf447eb774c0fe473d7492c276d23d88485c52a5ec7f",
+        "bge_generated": "85748b4562d8812af1c4d7c57ecff2b411b130102171638219471a9f11e13b90"
+      },
+      "IIYi-Clinical": {
+        "bm25_bridge": "e78daa3c129bdf6aabf063a2417fddcdfcca2a5f9bc56658dd2acc7457fb8fab",
+        "bge_generated": "c5b3be24de53f391c03aaaa1d98301e1b835540b47c176a7cde076cadbfdef99"
+      }
+    },
+    "ranking_artifact_sha256": {
+      "PMC-Treatment": "5ccd1bd988973f07ab81092e4ad785090ef3f4cd3842f1c53c3927978c18e737",
+      "PMC-Clinical": "c8bfd86cc292fed3eeb54b11353705952eacc779a1bc1b78b8b6cb63dd0294e3",
+      "IIYi-Clinical": "b1f0d14ee216afef1b425d4951a1705a56820a205b995b09bea8b8b8b01be8a8"
+    }
+  },
+  "baseline_reference": {
+    "original_crb_q_macro_ndcg_at_10": 0.24817886163161987,
+    "strongest_cost_matched_gar_method": "lamer_mv",
+    "strongest_cost_matched_gar_macro_ndcg_at_10": 0.29980031296853266,
+    "strongest_cost_matched_gar_config": "k20-W2"
+  },
+  "candidate_summary": {
+    "query_count": 393,
+    "subset_count": 3,
+    "macro_equal_subset_weight": {
+      "ndcg@10": 0.29208238585216467,
+      "mrr@10": 0.34926492048381075,
+      "recall@5": 0.2817111383108935,
+      "recall@10": 0.36831887211568975,
+      "recall@50": 0.6229023527811778,
+      "recall@100": 0.7105312117503061
+    },
+    "by_subset": {
+      "IIYi-Clinical": {
+        "query_count": 129,
+        "ndcg@10": 0.224277709456107,
+        "mrr@10": 0.3085640457733481,
+        "recall@5": 0.1941860465116279,
+        "recall@10": 0.2744186046511628,
+        "recall@50": 0.5665374677002584,
+        "recall@100": 0.6757105943152455
+      },
+      "PMC-Clinical": {
+        "query_count": 114,
+        "ndcg@10": 0.26498330032811085,
+        "mrr@10": 0.29274923419660265,
+        "recall@5": 0.2595029239766082,
+        "recall@10": 0.35964912280701755,
+        "recall@50": 0.6345029239766081,
+        "recall@100": 0.7171052631578947
+      },
+      "PMC-Treatment": {
+        "query_count": 150,
+        "ndcg@10": 0.38698614777227625,
+        "mrr@10": 0.44648148148148153,
+        "recall@5": 0.3914444444444445,
+        "recall@10": 0.4708888888888889,
+        "recall@50": 0.6676666666666667,
+        "recall@100": 0.7387777777777778
+      }
+    }
+  },
+  "dev_gate_vs_strongest_cost_matched_gar": {
+    "crb_macro_ndcg_at_10": 0.29208238585216467,
+    "strongest_gar_macro_ndcg_at_10": 0.29980031296853266,
+    "delta": -0.007717927116367984,
+    "positive_subsets": 2,
+    "signal": "NEGATIVE"
+  },
+  "by_subset_comparison": {
+    "PMC-Treatment": {
+      "compact_crb_q_ndcg@10": 0.38698614777227625,
+      "original_crb_q_ndcg@10": 0.32538372441979185,
+      "strongest_gar_ndcg@10": 0.45705707447886323,
+      "compact_crb_q_delta_vs_gar": -0.07007092670658699
+    },
+    "PMC-Clinical": {
+      "compact_crb_q_ndcg@10": 0.26498330032811085,
+      "original_crb_q_ndcg@10": 0.20301765332399874,
+      "strongest_gar_ndcg@10": 0.2627179830342355,
+      "compact_crb_q_delta_vs_gar": 0.0022653172938753574
+    },
+    "IIYi-Clinical": {
+      "compact_crb_q_ndcg@10": 0.224277709456107,
+      "original_crb_q_ndcg@10": 0.21613520715106907,
+      "strongest_gar_ndcg@10": 0.1796258813924993,
+      "compact_crb_q_delta_vs_gar": 0.04465182806360771
+    }
+  },
+  "per_query_metrics_sha256": "0cd9987d9e7423659985fc088861089a445246a6a4cf4476a494127641074e7c",
+  "decision": "DEV_ONLY_STOP_AFTER_THIS_SINGLE_COMPACT_SCHEMA_VARIANT",
+  "gold_boundary": "Only the evaluator received DEV qrels, after generation and ranking completed."
+}
