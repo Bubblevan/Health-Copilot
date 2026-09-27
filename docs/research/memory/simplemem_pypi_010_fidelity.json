@@ -1,0 +1,192 @@
+{
+  "audit_script_sha256": "e28f63899b446cfe0d3c841cedb134f36f60471508763efe30e6e524b205ff1b",
+  "audit_version": "simplemem-fidelity-v1",
+  "baseline_interpretation": "SimpleMem-PyPI-0.1.0-MemEval: direct FTS is operational, but the planning retrieval path is semantic-only; not eligible to represent official SimpleMem architecture.",
+  "benchmark_data_accessed": false,
+  "call_counts": {
+    "planning_false": {
+      "keyword": 0,
+      "merge": 0,
+      "semantic": 1,
+      "structured": 0
+    },
+    "planning_true": {
+      "keyword": 0,
+      "merge": 1,
+      "semantic": 1,
+      "structured": 0
+    }
+  },
+  "config": {
+    "effective_test_config": {
+      "answer_generator_invoked": false,
+      "embedding": "fixed 2D vectors; outbound calls=0",
+      "llm": "static in-process fixture fake; outbound calls=0",
+      "planning_false": {
+        "enable_planning": false,
+        "enable_reflection": false
+      },
+      "planning_true": {
+        "enable_parallel_retrieval": false,
+        "enable_planning": true,
+        "enable_reflection": false,
+        "keyword_top_k": 2,
+        "semantic_top_k": 2,
+        "structured_top_k": 2
+      }
+    },
+    "effective_test_config_sha256": "b4b37142f89da6e1cc9319938d2112bc4845ef240cfad4501b1f89cb7b10e2a0",
+    "source_sha256": "e7b8b126c26ff8708349f0f42b9e98ef5fae616e0bcd16c81f24d0443eb60148"
+  },
+  "decision": "FAIL",
+  "fixture": {
+    "definition": {
+      "entries": [
+        {
+          "entities": [
+            "RX-17"
+          ],
+          "entry_id": "target",
+          "keywords": [
+            "metformin",
+            "medication",
+            "RX-17"
+          ],
+          "location": "Boston",
+          "lossless_restatement": "Alice's medication was metformin from prescription RX-17.",
+          "persons": [
+            "Alice"
+          ],
+          "synthetic_vector": [
+            0.0,
+            1.0
+          ],
+          "timestamp": "2025-01-02T00:00:00"
+        },
+        {
+          "entities": [
+            "MUSIC-3"
+          ],
+          "entry_id": "distractor",
+          "keywords": [
+            "classical music",
+            "violin"
+          ],
+          "location": "Boston",
+          "lossless_restatement": "Alice listens to classical music and enjoys the violin.",
+          "persons": [
+            "Alice"
+          ],
+          "synthetic_vector": [
+            1.0,
+            0.0
+          ],
+          "timestamp": "2025-01-02T00:00:00"
+        }
+      ],
+      "purpose": "Make semantic top-1 disagree with the lexical target.",
+      "query_vector": [
+        1.0,
+        0.0
+      ],
+      "question": "What medication did Alice mention?"
+    },
+    "sha256": "bdbbc4f16155134eef487ace0ee3f0666ffa522fbb2a42eb4fb3d59bbedcea41"
+  },
+  "fts": {
+    "direct_keyword_search_result_ids": [
+      "target"
+    ],
+    "implementation": "LanceDB local Tantivy FTS, tokenizer en_stem",
+    "index_creation_succeeded": true,
+    "semantic_result_ids": [
+      "distractor"
+    ]
+  },
+  "gate": "SIMPLEMEM_HYBRID_FIDELITY",
+  "official_release": {
+    "commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+    "expected_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+    "path": "D:\\MyLab\\Jianli\\external\\memory\\SimpleMem",
+    "repository": "https://github.com/aiming-lab/SimpleMem.git",
+    "source_tree_sha256": "e84e01b775296db1fcde799fac1a5ec2ffafe4a00de4a9f2000eb885aa5c1191",
+    "tag": "v0.1.0",
+    "worktree_clean": true
+  },
+  "package": {
+    "installed_source_tree_sha256": "c37639cf4d7e93f572c018fdf63974e5bbb16bc1f34da13f665da94f084a9954",
+    "name": "simplemem",
+    "sdist_sha256": "ae70c518205ba8dccc51f8731007fb1b86fb8d33254b32e192a829e0a6a86196",
+    "source": "PyPI wheel pinned by MemEval uv.lock",
+    "source_tree_sha256": "c37639cf4d7e93f572c018fdf63974e5bbb16bc1f34da13f665da94f084a9954",
+    "version": "0.1.0",
+    "wheel_sha256": "e6754a09f2f8474103d454b2e815daa4a4a1be1cd16b329fe2815322b9aef6b6"
+  },
+  "planning_false_result_ids": [
+    "distractor",
+    "target"
+  ],
+  "planning_source_verification": {
+    "call_order": [
+      "_analyze_information_requirements",
+      "_generate_targeted_queries",
+      "_execute_parallel_searches",
+      "_semantic_search",
+      "extend",
+      "_merge_and_deduplicate_entries",
+      "_retrieve_with_intelligent_reflection"
+    ],
+    "lexical_call_present": false,
+    "merge_dedup_call_present": true,
+    "method_present": true,
+    "optional_reflection_call_present": true,
+    "optional_reflection_condition_present": true,
+    "query_analysis_present": false,
+    "required_stage_calls_in_order": false,
+    "semantic_call_present": true,
+    "structured_call_present": false
+  },
+  "planning_true_result_ids": [
+    "distractor",
+    "target"
+  ],
+  "prompt_template_sha256": {
+    "_analyze_information_completeness": "4b1b40e99dc65a0f87622822695cbbe03c8c730914370f0f95ef664dbccd3050",
+    "_analyze_information_requirements": "b30a1d716cb44da861e77a7335e1f32260fc9bca1652fd67db96157314476330",
+    "_analyze_query": "4f13072305bc9cd31fa96c08e73d342b1e9fce0da9e283e3b498a2c21d34c983",
+    "_check_answer_adequacy": "bd86f6442240d22e5b87b16770b4d784084b3344b94c10eb714bfe07f0d5ac29",
+    "_generate_additional_queries": "14f6cdf9aed726ab62c82f09456d87704cbf1ce6bae8b12f3a0d6f377018c7f2",
+    "_generate_missing_info_queries": "747cdf1e2726b4c8c4e08b6d3b3c5f69113a7de1d7022b34aa200c7d7b6d0c38",
+    "_generate_search_queries": "a54d99c2cdffa0cfe39444d3f30f8eadde88d6a58bdf7e3c641f7e728feb86a3",
+    "_generate_targeted_queries": "69a133a24509ac59d2e2c33ab4ae3a17e3af45f2aba0dd0f936e29dd88a5bdae"
+  },
+  "provenance_comparison": {
+    "official_v0_1_0_hybrid_retriever_sha256": "7f667054213b7fc553a47510c7911f9d779afffefe297446883eb7c21407c0bc",
+    "pypi_hybrid_retriever_sha256": "69113962c351989303623b79c6dc73050a8c103cde018fcefe54eab2cb264681",
+    "source_hashes_match": false
+  },
+  "provenance_mismatch_with_official_v0_1_0_tag": true,
+  "providers": {
+    "embedding": "in-process deterministic synthetic vectors",
+    "hosted_calls": 0,
+    "llm": "in-process static fake",
+    "native_answer_head_invoked": false
+  },
+  "runtime_versions": {
+    "lance-namespace": "0.11.1",
+    "lance-namespace-urllib3-client": "0.11.1",
+    "lancedb": "0.27.1",
+    "pylance": "12.0.0",
+    "simplemem": "0.1.0",
+    "tantivy": "0.25.1"
+  },
+  "source_hashes": {
+    "config/__init__.py": "e7b8b126c26ff8708349f0f42b9e98ef5fae616e0bcd16c81f24d0443eb60148",
+    "core/hybrid_retriever.py": "69113962c351989303623b79c6dc73050a8c103cde018fcefe54eab2cb264681",
+    "database/vector_store.py": "b48f0a278cb9b9386eae4210b9a193119e2f2a6480877d51986a8b06dc6b1b72",
+    "system.py": "eeefd6debd4fb165c4987792f769d0d4bb1084e25b0ffa3d5b1eb5951fbd74a0"
+  },
+  "target": "pypi",
+  "test_type": "synthetic_no_benchmark_data",
+  "tested_module_file": "D:\\MyLab\\Jianli\\external\\memory\\MemEval\\.venv\\Lib\\site-packages\\simplemem\\core\\hybrid_retriever.py"
+}

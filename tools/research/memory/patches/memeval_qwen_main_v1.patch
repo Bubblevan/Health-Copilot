@@ -2195,15 +2195,28 @@ index c1dec49..1694e7b 100644
 +        system_name="PropMem",
      )
 diff --git a/src/agents_memory/systems/simplemem.py b/src/agents_memory/systems/simplemem.py
-index 054c218..d65e22b 100644
+index 054c218..4d66fd8 100644
 --- a/src/agents_memory/systems/simplemem.py
 +++ b/src/agents_memory/systems/simplemem.py
-@@ -1,13 +1,20 @@
- """SimpleMem: multi-round retrieval with parallel processing."""
+@@ -1,93 +1,292 @@
+-"""SimpleMem: multi-round retrieval with parallel processing."""
++"""Official aiming-lab/SimpleMem v0.1.0 source adapter for MEM-1."""
  
--import os
++from __future__ import annotations
++
++import contextlib
++import gc
++import importlib
+ import os
 -from datetime import datetime
++import runpy
++import subprocess
++import sys
++import threading
 +import time
++from collections import Counter
++from pathlib import Path
++from types import ModuleType
  
  import numpy as np
 -from openai import OpenAI
@@ -2212,144 +2225,215 @@ index 054c218..d65e22b 100644
 +    ProviderConfig,
 +    call_context,
 +    embedding_client,
-+    patch_openai_aliases,
 +    record_ingestion_latency,
 +    record_retrieval_metrics,
 +    validate_reader_model,
 +)
  from agents_memory.locomo import extract_dialogues
 -from agents_memory.systems._helpers import _qa_results
-+from agents_memory.systems._helpers import _context_result, _qa_results
++from agents_memory.systems._helpers import _context_result
  
  SYSTEM_INFO = {
-     "architecture": "multi-round retrieval with parallel processing",
-@@ -15,79 +22,199 @@ SYSTEM_INFO = {
+-    "architecture": "multi-round retrieval with parallel processing",
+-    "infrastructure": "SimpleMem library",
++    "architecture": "official aiming-lab/SimpleMem v0.1.0-tag; unmodified hybrid retrieval",
++    "infrastructure": "pinned official SimpleMem source with local-only provider adapter",
  }
  
- # ---------------------------------------------------------------------------
+-# ---------------------------------------------------------------------------
 -# Monkey-patch SimpleMem's EmbeddingModel to use OpenAI text-embedding-3-small
 -# instead of the default local Qwen3 SentenceTransformers model, so that all
 -# benchmark systems share the same embedding model for a fair comparison.
-+# Route SimpleMem through the shared local embedding client used by all baselines.
- # ---------------------------------------------------------------------------
- from simplemem.utils.embedding import EmbeddingModel  # noqa: E402
- 
--_embed_client: OpenAI | None = None
+-# ---------------------------------------------------------------------------
+-from simplemem.utils.embedding import EmbeddingModel  # noqa: E402
++OFFICIAL_COMMIT = "7da777f56a15db81bb261d296c89cad5915e8d67"
++OFFICIAL_REMOTE = "https://github.com/aiming-lab/SimpleMem.git"
 +_embed_client = None
  
+-_embed_client: OpenAI | None = None
+ 
++def _validate_official_checkout(root: Path) -> None:
++    def git(*args: str) -> str:
++        return subprocess.check_output(
++            ["git", "-C", str(root), *args], text=True, stderr=subprocess.STDOUT
++        ).strip()
  
 -def _get_embed_client() -> OpenAI:
 -    global _embed_client
-+def _get_embed_client():
-     if _embed_client is None:
+-    if _embed_client is None:
 -        _embed_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-+        raise RuntimeError("SimpleMem embedding client was not explicitly configured")
-     return _embed_client
+-    return _embed_client
++    remote = git("remote", "get-url", "origin").rstrip("/").removesuffix(".git")
++    if remote != OFFICIAL_REMOTE.removesuffix(".git"):
++        raise RuntimeError("SimpleMem source remote differs from aiming-lab/SimpleMem")
++    if git("rev-parse", "HEAD") != OFFICIAL_COMMIT:
++        raise RuntimeError("SimpleMem source is not pinned to official v0.1.0 commit 7da777f")
++    if git("describe", "--tags", "--exact-match", "HEAD") != "v0.1.0":
++        raise RuntimeError("SimpleMem checkout is not exactly tagged v0.1.0")
++    if git("status", "--porcelain", "--untracked-files=no"):
++        raise RuntimeError("Official SimpleMem source checkout has tracked modifications")
++
++
++@contextlib.contextmanager
++def _official_source(root: Path):
++    """Import the upstream top-level modules in a scoped compatibility boundary."""
++    _validate_official_checkout(root)
++    prefixes = ("config", "main", "models", "utils", "database", "core")
++    saved: dict[str, ModuleType] = {}
++    for name in list(sys.modules):
++        if not any(name == prefix or name.startswith(prefix + ".") for prefix in prefixes):
++            continue
++        module = sys.modules[name]
++        module_path = getattr(module, "__file__", None)
++        if module_path and root not in Path(module_path).resolve().parents:
++            raise RuntimeError(f"Conflicting preloaded SimpleMem module: {name}")
++        saved[name] = module
++        del sys.modules[name]
++
++    sys.path.insert(0, str(root))
++    try:
++        config_values = runpy.run_path(str(root / "config.py.example"))
++        config_module = ModuleType("config")
++        config_module.__file__ = str(root / "config.py.example")
++        for name, value in config_values.items():
++            if not name.startswith("__"):
++                setattr(config_module, name, value)
++        sys.modules["config"] = config_module
++        importlib.invalidate_caches()
++        main_module = importlib.import_module("main")
++        embedding_module = importlib.import_module("utils.embedding")
++        yield config_module, main_module.SimpleMemSystem, embedding_module.EmbeddingModel
++    finally:
++        imported = [
++            name for name in sys.modules
++            if any(name == prefix or name.startswith(prefix + ".") for prefix in prefixes)
++        ]
++        for name in imported:
++            del sys.modules[name]
++        sys.modules.update(saved)
++        if str(root) in sys.path:
++            sys.path.remove(str(root))
++        importlib.invalidate_caches()
++
++
++class _RetrievalTrace:
++    def __init__(self):
++        self._counts: Counter[str] = Counter()
++        self._lock = threading.Lock()
++
++    def increment(self, name: str) -> None:
++        with self._lock:
++            self._counts[name] += 1
++
++    def snapshot(self, *, planning: bool, reflection: bool) -> dict:
++        with self._lock:
++            counts = dict(self._counts)
++        return {
++            "source_repository": OFFICIAL_REMOTE,
++            "source_commit": OFFICIAL_COMMIT,
++            "source_tag": "v0.1.0",
++            "planning_enabled": planning,
++            "reflection_enabled": reflection,
++            "native_answer_head_invoked": False,
++            "calls": {
++                name: counts.get(name, 0)
++                for name in (
++                    "semantic",
++                    "keyword",
++                    "structured",
++                    "merge_deduplicate",
++                    "reflection",
++                )
++            },
++        }
++
++
++def _track_method(owner, method_name: str, trace: _RetrievalTrace, trace_name: str, role: str, question_id: str):
++    original = getattr(owner, method_name)
  
++    def tracked(*args, **kwargs):
++        trace.increment(trace_name)
++        with call_context("SimpleMem", question_id, role):
++            return original(*args, **kwargs)
  
 -def _openai_init(self, model_name=None, use_optimization=True):
 -    """Skip local model loading; set dimension for text-embedding-3-small."""
 -    self.model_name = "text-embedding-3-small"
 -    self.dimension = 1536
-+def _local_init(self, model_name=None, use_optimization=True):
-+    """Avoid SimpleMem's independent model loader and enforce the shared adapter."""
-+    self.model_name = "Qwen/Qwen3-Embedding-0.6B"
-+    self.dimension = 1024
-     self.model = None
+-    self.model = None
 -    self.model_type = "openai"
 -    self.supports_query_prompt = False
-+    self.model_type = "healthcopilot_local"
-+    self.supports_query_prompt = True
++    setattr(owner, method_name, tracked)
  
  
 -def _openai_encode(self, texts, **kwargs):
 -    """Use OpenAI text-embedding-3-small instead of local SentenceTransformers."""
-+def _local_encode(self, texts, is_query=False, **kwargs):
-+    """Use shared local embeddings and retain the upstream query/document split."""
-     if isinstance(texts, str):
-         texts = [texts]
-     response = _get_embed_client().embeddings.create(
+-    if isinstance(texts, str):
+-        texts = [texts]
+-    response = _get_embed_client().embeddings.create(
 -        input=texts, model="text-embedding-3-small"
-+        input=texts,
-+        model="Qwen/Qwen3-Embedding-0.6B",
-+        input_type="query" if is_query else "document",
-     )
-     return np.array([d.embedding for d in response.data])
+-    )
+-    return np.array([d.embedding for d in response.data])
++def _install_local_embedding(embedding_model_class) -> None:
++    def initialize(self, model_name=None, use_optimization=True):
++        self.model_name = "Qwen/Qwen3-Embedding-0.6B"
++        self.dimension = 1024
++        self.model = None
++        self.model_type = "healthcopilot_local"
++        self.supports_query_prompt = True
  
++    def encode(self, texts, is_query=False):
++        if isinstance(texts, str):
++            texts = [texts]
++        result = _embed_client.embeddings.create(
++            input=texts,
++            model="Qwen/Qwen3-Embedding-0.6B",
++            input_type="query" if is_query else "document",
++        )
++        return np.asarray([row.embedding for row in result.data], dtype=np.float32)
  
 -EmbeddingModel.__init__ = _openai_init
 -EmbeddingModel.encode = _openai_encode
-+def _install_tracked_retriever(memory, sample_id):
-+    original_retrieve = memory.hybrid_retriever.retrieve
-+
-+    def tracked_retrieve(question, *args, **kwargs):
-+        with call_context("SimpleMem", sample_id, "memory_reasoning"):
-+            contexts = original_retrieve(question, *args, **kwargs)
-+        memory._healthcopilot_retrieved_contexts = contexts
-+        return contexts
-+
-+    memory.hybrid_retriever.retrieve = tracked_retrieve
-+
-+
-+EmbeddingModel.__init__ = _local_init
-+EmbeddingModel.encode = _local_encode
++    embedding_model_class.__init__ = initialize
++    embedding_model_class.encode = encode
  
  
  def run(
-     conv: dict, llm_model: str, run_judge: bool,
-     category_names: dict | None = None, judge_fn: str | None = None,
+-    conv: dict, llm_model: str, run_judge: bool,
+-    category_names: dict | None = None, judge_fn: str | None = None,
++    conv: dict,
++    llm_model: str,
++    run_judge: bool,
++    category_names: dict | None = None,
++    judge_fn: str | None = None,
 +    context_only: bool = False,
  ) -> list[dict]:
-+    global _embed_client
-     from simplemem import SimpleMemConfig, SimpleMemSystem, set_config
-     from simplemem.models.memory_entry import Dialogue
- 
-+    provider_config = ProviderConfig.from_env()
-+    validate_reader_model(provider_config, llm_model)
-+    sample_id = str(conv.get("sample_id", "unknown"))
-+    patched = patch_openai_aliases(
-+        "simplemem",
-+        role="memory_ingest",
-+        system="SimpleMem",
-+        question_id=sample_id,
-+        config=provider_config,
-+    )
-+    if patched == 0:
-+        raise RuntimeError("Pinned SimpleMem exposes no patchable OpenAI client alias")
-+    _embed_client = embedding_client("SimpleMem", sample_id, provider_config)
-     config = SimpleMemConfig(
+-    from simplemem import SimpleMemConfig, SimpleMemSystem, set_config
+-    from simplemem.models.memory_entry import Dialogue
+-
+-    config = SimpleMemConfig(
 -        openai_api_key=os.environ["OPENAI_API_KEY"],
 -        llm_model=llm_model,
-+        openai_api_key="local-only",
-+        llm_model=provider_config.reader_model,
-+        # The shared llama.cpp endpoint exposes one inference slot. Keep
-+        # SimpleMem's upstream window-worker path, but avoid queuing 16
-+        # long-running requests against that single slot.
-+        max_parallel_workers=1,
-+        max_retrieval_workers=1,
-     )
+-    )
 -    set_config(config)
- 
-     dialogues = extract_dialogues(conv)
+-
+-    dialogues = extract_dialogues(conv)
 -    memory = SimpleMemSystem(clear_db=True)
 -
-     dialogue_objects = [
-         Dialogue(
-             dialogue_id=i + 1,
-             speaker=d["speaker"],
-             content=d["text"],
+-    dialogue_objects = [
+-        Dialogue(
+-            dialogue_id=i + 1,
+-            speaker=d["speaker"],
+-            content=d["text"],
 -            timestamp=d["timestamp"] or datetime.now().isoformat(),
-+            timestamp=d["timestamp"] or "1970-01-01T00:00:00",
-         )
-         for i, d in enumerate(dialogues)
-     ]
- 
+-        )
+-        for i, d in enumerate(dialogues)
+-    ]
+-
 -    memory.add_dialogues(dialogue_objects)
 -    memory.finalize()
 -    print(f"    Dialogues ingested: {len(dialogue_objects)}")
-+    set_config(config)
-+    memory = SimpleMemSystem(clear_db=True)
- 
+-
 -    return _qa_results(
 -        conv,
 -        lambda q: memory.ask(q),
@@ -2357,106 +2441,126 @@ index 054c218..d65e22b 100644
 -        category_names=category_names,
 -        judge_fn=judge_fn,
 -    )
-+    failed_windows = []
-+    original_worker = memory.memory_builder._generate_memory_entries_worker
-+    original_generate = memory.memory_builder._generate_memory_entries
++    global _embed_client
++    if not context_only or run_judge:
++        raise RuntimeError("Official SimpleMem MEM-1 adapter permits context-controlled, no-judge runs only")
 +
-+    def checked_worker(window, dialogue_ids, window_num):
-+        entries = original_worker(window, dialogue_ids, window_num)
-+        if not entries:
-+            failed_windows.append(window_num)
-+        return entries
-+
-+    def checked_generate(window):
-+        entries = original_generate(window)
-+        if not entries:
-+            failed_windows.append("sequential")
-+        return entries
-+
-+    memory.memory_builder._generate_memory_entries_worker = checked_worker
-+    memory.memory_builder._generate_memory_entries = checked_generate
-+    _install_tracked_retriever(memory, sample_id)
-+    ingestion_started = time.perf_counter()
-+    with call_context("SimpleMem", sample_id, "memory_ingest"):
-+        memory.add_dialogues(dialogue_objects)
-+        memory.finalize()
-+    if failed_windows:
-+        raise RuntimeError(
-+            f"SimpleMem ingestion produced empty memory for windows: {failed_windows}"
-+        )
-+    ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
-+    record_ingestion_latency(ingestion_latency)
-+    print(f"    Dialogues ingested: {len(dialogue_objects)}; patched clients={patched}")
-+
-+    def retrieve_context(question: str) -> tuple[list[dict], float]:
-+        retrieval_started = time.perf_counter()
-+        with call_context("SimpleMem", sample_id, "memory_reasoning"):
-+            retrieved = memory.hybrid_retriever.retrieve(question)
-+        memory._healthcopilot_retrieved_contexts = retrieved
-+        texts = [
-+            str(getattr(item, "lossless_restatement", item)) for item in retrieved
-+        ]
-+        latency = (time.perf_counter() - retrieval_started) * 1000
-+        record_retrieval_metrics(
-+            texts=texts,
-+            session_ids=[],
-+            latency_ms=latency,
-+            context_tokens=_get_embed_client().count_tokens(texts),
-+            session_provenance_available=False,
-+            ranked_session_groups=None,
-+        )
-+        return [{
-+            "text": text,
-+            "kind": "retrieved_context",
-+            "source_session_ids": [],
-+        } for text in texts], latency
-+
-+    if context_only:
-+        qa = conv.get("qa", [])[0]
-+        try:
-+            items, latency = retrieve_context(qa["question"])
-+            return [_context_result(
-+                conv,
-+                qa,
-+                items,
-+                retrieval_latency_ms=latency,
-+                ingestion_latency_ms=ingestion_latency,
-+                provenance_available=False,
-+            )]
-+        finally:
-+            _embed_client.close()
-+            _embed_client = None
-+
-+    def answer_fn(question: str) -> str:
-+        retrieval_started = time.perf_counter()
-+        with call_context("SimpleMem", sample_id, "reader_answer"):
-+            answer = memory.ask(question)
-+        retrieved = getattr(memory, "_healthcopilot_retrieved_contexts", [])
-+        texts = [
-+            str(getattr(item, "lossless_restatement", item)) for item in retrieved
-+        ]
-+        record_retrieval_metrics(
-+            texts=texts,
-+            session_ids=[],
-+            latency_ms=(time.perf_counter() - retrieval_started) * 1000,
-+            context_tokens=_get_embed_client().count_tokens(texts),
-+            session_provenance_available=False,
-+            ranked_session_groups=None,
-+        )
-+        return answer
++    provider_config = ProviderConfig.from_env()
++    validate_reader_model(provider_config, llm_model)
++    question_id = str(conv.get("sample_id", "unknown"))
++    memory_root = Path(os.environ.get("HC_MEM1_RUN_DIR", ".")).resolve()
++    db_path = memory_root / "simplemem_official_db" / question_id
++    official_root = Path(os.environ["HC_SIMPLEMEM_OFFICIAL_ROOT"]).resolve()
++    _embed_client = embedding_client("SimpleMem", question_id, provider_config)
 +
 +    try:
-+        return _qa_results(
-+            conv,
-+            answer_fn,
-+            run_judge,
-+            category_names=category_names,
-+            judge_fn=judge_fn,
-+            system_name="SimpleMem",
-+        )
++        with _official_source(official_root) as (simple_config, system_class, embedding_class):
++            simple_config.OPENAI_API_KEY = provider_config.local_protocol_token
++            simple_config.OPENAI_BASE_URL = provider_config.reader_base_url
++            simple_config.LLM_MODEL = provider_config.reader_model
++            simple_config.EMBEDDING_MODEL = provider_config.embedding_model
++            simple_config.EMBEDDING_DIMENSION = 1024
++            simple_config.USE_STREAMING = False
++            simple_config.LANCEDB_PATH = str(db_path)
++            simple_config.MEMORY_TABLE_NAME = "memory_entries"
++            simple_config.MAX_PARALLEL_WORKERS = 1
++            simple_config.MAX_RETRIEVAL_WORKERS = 1
++            _install_local_embedding(embedding_class)
++
++            memory = system_class(
++                api_key=provider_config.local_protocol_token,
++                model=provider_config.reader_model,
++                base_url=provider_config.reader_base_url,
++                db_path=str(db_path),
++                table_name="memory_entries",
++                clear_db=True,
++                enable_parallel_processing=True,
++                max_parallel_workers=1,
++                enable_parallel_retrieval=True,
++                max_retrieval_workers=1,
++            )
++            memory.llm_client.client.close()
++            from agents_memory.healthcopilot_provider import reader_client
++
++            memory.llm_client.client = reader_client(
++                "memory_ingest", "SimpleMem", question_id, provider_config
++            )
++
++            trace = _RetrievalTrace()
++            builder = memory.memory_builder
++            _track_method(builder, "_generate_memory_entries_worker", trace, "ingest_worker", "memory_ingest", question_id)
++            _track_method(builder, "_generate_memory_entries", trace, "ingest_sequential", "memory_ingest", question_id)
++            retriever = memory.hybrid_retriever
++            for method, label in (
++                ("_semantic_search", "semantic"),
++                ("_keyword_search", "keyword"),
++                ("_structured_search", "structured"),
++                ("_merge_and_deduplicate_entries", "merge_deduplicate"),
++                ("_retrieve_with_intelligent_reflection", "reflection"),
++            ):
++                _track_method(retriever, method, trace, label, "memory_reasoning", question_id)
++
++            dialogues = extract_dialogues(conv)
++            dialogue_type = importlib.import_module("models.memory_entry").Dialogue
++            dialogue_objects = [
++                dialogue_type(
++                    dialogue_id=index + 1,
++                    speaker=row["speaker"],
++                    content=row["text"],
++                    timestamp=row.get("timestamp") or "1970-01-01T00:00:00",
++                )
++                for index, row in enumerate(dialogues)
++            ]
++
++            ingestion_started = time.perf_counter()
++            with call_context("SimpleMem", question_id, "memory_ingest"):
++                memory.add_dialogues(dialogue_objects)
++                memory.finalize()
++            ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
++            if not memory.get_all_memories():
++                raise RuntimeError("Official SimpleMem produced no memory entries")
++            record_ingestion_latency(ingestion_latency)
++
++            qa = conv.get("qa", [])[0]
++            retrieval_started = time.perf_counter()
++            with call_context("SimpleMem", question_id, "memory_reasoning"):
++                retrieved = retriever.retrieve(qa["question"])
++            retrieval_latency = (time.perf_counter() - retrieval_started) * 1000
++            texts = [str(item.lossless_restatement) for item in retrieved]
++            record_retrieval_metrics(
++                texts=texts,
++                session_ids=[],
++                latency_ms=retrieval_latency,
++                context_tokens=_embed_client.count_tokens(texts),
++                session_provenance_available=False,
++                ranked_session_groups=None,
++            )
++            result = _context_result(
++                conv,
++                qa,
++                [
++                    {
++                        "text": text,
++                        "kind": "retrieved_context",
++                        "source_session_ids": [],
++                    }
++                    for text in texts
++                ],
++                retrieval_latency_ms=retrieval_latency,
++                ingestion_latency_ms=ingestion_latency,
++                provenance_available=False,
++            )
++            result["retrieval_trace"] = trace.snapshot(
++                planning=bool(simple_config.ENABLE_PLANNING),
++                reflection=bool(simple_config.ENABLE_REFLECTION),
++            )
++            memory.llm_client.client.close()
++            return [result]
 +    finally:
-+        _embed_client.close()
++        if _embed_client is not None:
++            _embed_client.close()
 +        _embed_client = None
++        gc.collect()
 diff --git a/tests/test_healthcopilot_failures.py b/tests/test_healthcopilot_failures.py
 new file mode 100644
 index 0000000..5bb210c
@@ -2729,33 +2833,60 @@ index 0000000..ffe3533
 +    client.close()
 diff --git a/tests/test_healthcopilot_simplemem.py b/tests/test_healthcopilot_simplemem.py
 new file mode 100644
-index 0000000..6e2276e
+index 0000000..cb694f3
 --- /dev/null
 +++ b/tests/test_healthcopilot_simplemem.py
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,53 @@
++from pathlib import Path
++
 +from agents_memory.healthcopilot_provider import call_context, current_call_context
-+from agents_memory.systems.simplemem import _install_tracked_retriever
++from agents_memory.systems.simplemem import (
++    _RetrievalTrace,
++    _install_local_embedding,
++    _official_source,
++    _track_method,
++)
 +
 +
-+def test_simplemem_planner_uses_memory_reasoning_without_changing_answer_role():
++def test_simplemem_retrieval_telemetry_preserves_result_and_role_boundary():
 +    seen = []
 +
 +    class Retriever:
-+        def retrieve(self, question):
++        def semantic_search(self, question):
 +            seen.append((question, current_call_context().role))
 +            return ["memory"]
 +
-+    class Memory:
-+        hybrid_retriever = Retriever()
-+
-+    memory = Memory()
-+    _install_tracked_retriever(memory, "q1")
++    retriever = Retriever()
++    trace = _RetrievalTrace()
++    _track_method(retriever, "semantic_search", trace, "semantic", "memory_reasoning", "q1")
 +
 +    with call_context("SimpleMem", "q1", "reader_answer"):
-+        result = memory.hybrid_retriever.retrieve("question")
++        result = retriever.semantic_search("question")
 +        answer_role_after_retrieval = current_call_context().role
 +
 +    assert seen == [("question", "memory_reasoning")]
 +    assert result == ["memory"]
-+    assert memory._healthcopilot_retrieved_contexts == ["memory"]
 +    assert answer_role_after_retrieval == "reader_answer"
++    assert trace.snapshot(planning=True, reflection=False)["calls"]["semantic"] == 1
++
++
++def test_official_tag_source_initializes_with_local_embedding_adapter(tmp_path):
++    official_root = Path(__file__).resolve().parents[2] / "SimpleMem"
++    with _official_source(official_root) as (simple_config, system_class, embedding_class):
++        simple_config.OPENAI_API_KEY = "local-only"
++        simple_config.OPENAI_BASE_URL = "http://127.0.0.1:8081/v1"
++        simple_config.LANCEDB_PATH = str(tmp_path)
++        _install_local_embedding(embedding_class)
++        memory = system_class(
++            api_key="local-only",
++            model="health-memory-qwen3-8b",
++            base_url="http://127.0.0.1:8081/v1",
++            db_path=str(tmp_path),
++            clear_db=True,
++            enable_parallel_processing=False,
++            enable_parallel_retrieval=False,
++        )
++        assert memory.vector_store.embedding_model.dimension == 1024
++        assert memory.vector_store.embedding_model.model_type == "healthcopilot_local"
++        memory.llm_client.client.close()
++        memory.answer_generator.llm_client.client.close()

@@ -99,6 +99,78 @@ def test_exception_chain_records_types_without_error_bodies():
     assert all("payload" not in str(item) for item in chain)
 
 
+def test_baseline_warning_telemetry_separates_recoveries_from_infra_failures():
+    rows = mem1_runner._baseline_warning_rows(
+        "mem0",
+        "synthetic-q",
+        "Error: '14'\nInvalid JSON response; retrying with repair",
+        [
+            {
+                "role": "memory_ingest",
+                "success": True,
+                "retry_count": 1,
+                "prompt_tokens": 3,
+                "completion_tokens": 1,
+            },
+            {"role": "embedding", "success": True, "truncated": True},
+            {
+                "role": "memory_reasoning",
+                "success": True,
+                "prompt_tokens": None,
+                "completion_tokens": None,
+            },
+            {"role": "reader_answer", "success": False, "retry_count": 0},
+        ],
+        adapter_completed=True,
+    )
+
+    by_type = {row["warning_type"]: row for row in rows}
+    assert by_type["MEM0_ACTION_HANDLER_WARNING"]["classification"] == "BASELINE_INTERNAL_WARNING"
+    assert by_type["MEM0_ACTION_HANDLER_WARNING"]["affected_operation"] == "DELETE"
+    assert by_type["MEM0_INVALID_JSON_RESPONSE"]["recovered"] is True
+    assert by_type["PROVIDER_RETRY"]["count"] == 1
+    assert by_type["EMBEDDING_TRUNCATION"]["classification"] == "BASELINE_INTERNAL_WARNING"
+    assert by_type["MISSING_USAGE_TELEMETRY"]["phase"] == "memory_reasoning"
+    assert by_type["PROVIDER_FAILURE"]["classification"] == "INFRA_FAILURE"
+    assert all("Invalid JSON response" not in str(row) for row in rows)
+
+    summary = mem1_runner._summarize_baseline_warnings(rows, ["mem0"])["mem0"]
+    assert summary["baseline_internal_warning_count"] == 5
+    assert summary["infra_failure_count"] == 1
+
+
+def test_baseline_warning_telemetry_records_simplemem_index_and_parser_recovery():
+    rows = mem1_runner._baseline_warning_rows(
+        "simplemem",
+        "synthetic-q",
+        "FTS index creation skipped: unavailable\nWarning: Failed to parse result",
+        [],
+        adapter_completed=True,
+    )
+    assert {row["warning_type"] for row in rows} == {
+        "SIMPLEMEM_FTS_INDEX_WARNING",
+        "SIMPLEMEM_PARSE_RECOVERY",
+    }
+    assert all(row["classification"] == "BASELINE_INTERNAL_WARNING" for row in rows)
+
+
+def test_simplemem_official_retrieval_trace_is_retained_in_prediction_diagnostics(tmp_path):
+    trace = {
+        "source_tag": "v0.1.0",
+        "source_commit": mem1_runner.PINNED_SIMPLEMEM_SHA,
+        "native_answer_head_invoked": False,
+        "calls": {"semantic": 2, "keyword": 1, "structured": 1, "merge_deduplicate": 1},
+    }
+    prediction = {
+        "system": "simplemem",
+        "question_id": "1cea1afa",
+        "memory_system_diagnostics": trace,
+    }
+    assert prediction["memory_system_diagnostics"]["source_commit"] == mem1_runner.PINNED_SIMPLEMEM_SHA
+    assert prediction["memory_system_diagnostics"]["calls"]["keyword"] == 1
+    assert prediction["memory_system_diagnostics"]["native_answer_head_invoked"] is False
+
+
 def test_generation_freezes_predictions_before_writing_metrics(tmp_path):
     predictions = tmp_path / "predictions.jsonl"
     mem1_runner.append_jsonl(

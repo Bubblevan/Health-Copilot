@@ -1,5 +1,7 @@
 # MEM-1B Local One-Case Smoke
 
+> Historical R7 adapter record. This run used the MemEval-pinned PyPI SimpleMem artifact, not official `aiming-lab/SimpleMem` v0.1.0. Its measurements remain valid for that exact run but do not represent the State A primary SimpleMem comparator after MEM-1D0.5. See `mem_1d0_5_simplemem_provenance_correction.md`.
+
 **Gate:** `MEM1_LOCAL_ONE_CASE_SMOKE=YES`
 
 **Run:** `runs/memory/mem1/local-one-case-20260927-r7`

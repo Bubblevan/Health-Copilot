@@ -10,6 +10,10 @@
 - This stage does not implement M10-Flat, RevMem, FAMA, Multi-Agent or training.
 - Upstream MemEval remains pinned at `807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4`; local adapter changes are carried in the pinned patch.
 
+## MEM-1D0.5 SimpleMem Provenance Amendment
+
+`SimpleMem-PyPI-0.1.0-MemEval` is a provenance diagnostic only; its audited execution-path finding must not be generalized to official SimpleMem. The primary State A comparator is the separate official `aiming-lab/SimpleMem` `v0.1.0` tag at `7da777f56a15db81bb261d296c89cad5915e8d67`. The official synthetic hybrid fidelity test and official-only `1cea1afa` context-controlled adapter smoke passed. This does not run or satisfy the frozen 10-case diagnostic. See `mem_1d0_5_simplemem_provenance_correction.md` and `baseline_compatibility_matrix.json`.
+
 ## Local Model Roles
 
 | Role | Main Track |
@@ -56,7 +60,7 @@ The isolated MemEval venv initially selected a CPU-only PyTorch wheel because it
 - `failure_attribution_hint` is a lexical heuristic with `failure_attribution_heuristic=true`, not a causal finding. Token-subset overlap cannot prove context sufficiency.
 - Reader, ingestion, embedding, schema, timeout and library errors are `INFRA_FAILURE`, have null prediction/F1 and are excluded from the quality denominator. They remain separately logged and retryable; embedding failure is never quality zero.
 - PropMem's local response adapter accepts only complete JSON or the one known case where a complete string-valued `answer` is the final member and only the outer brace is missing. Malformed, partial, duplicate, extra-field, or trailing-content forms remain infrastructure failures.
-- Missing SimpleMem streaming usage is `null` / `NOT_CAPTURED`, never numeric zero. Do not make total-token Pareto claims involving SimpleMem unless reliable usage becomes available without changing its algorithm.
+- The historical PyPI SimpleMem adapter's missing streaming usage remains `null` / `NOT_CAPTURED`, never numeric zero. The official v0.1.0 adapter uses non-streaming local transport for usage capture; its call ledger records local tokens. Do not transfer usage conclusions between these differently sourced arms.
 - Internal query planning/retrieval LLM calls use `memory_reasoning`; final answer-generation calls use the shared 256-token `reader_answer` budget.
 - No credential, request body or key is written to manifests or ledgers. Logs contain role, local provider, model, tokens, latency, retry/cache status, success and truncation metadata.
 - Cache identity includes system, question ID, dataset SHA, system config and prompt hashes, reader artifact SHA, embedding artifact hash when used, and adapter/patch code hash. Only exact-identity successful rows are reusable.

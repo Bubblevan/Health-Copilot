@@ -97,3 +97,13 @@ Before any 10-case execution, choose whether to:
 
 Do not run D1 until that decision is recorded and the remaining D0 items are
 completed. This report is a fidelity gate failure, not a benchmark result.
+
+# Superseded Finding: MEM-1D0.5 Provenance Correction
+
+This document is preserved as the D0 preflight audit trail, but its inference that SimpleMem should be treated as a generally “degraded semantic-only adaptation” was too broad and is no longer active. The audited behavior belongs specifically to `SimpleMem-PyPI-0.1.0-MemEval`: that installed package's effective retrieval path omitted lexical and structured calls in the audited planner execution. It must not be described as an intrinsic property of official SimpleMem.
+
+The official `aiming-lab/SimpleMem` v0.1.0 source at `7da777f56a15db81bb261d296c89cad5915e8d67` is a distinct upstream artifact and passes a data-free hybrid retrieval fidelity test. It is the State A primary comparator via an adapter that preserves upstream retrieval semantics. See [MEM-1D0.5 provenance correction](mem_1d0_5_simplemem_provenance_correction.md) and the machine-readable artifacts `simplemem_pypi_010_fidelity.json` and `simplemem_official_v010_fidelity.json`.
+
+The earlier `SIMPLEMEM_HYBRID_FIDELITY=NO` decision applies only to the PyPI adapter arm. It is retained for provenance and does not block the official-tag arm. The frozen 10-case diagnostic remains not run.
+
+---

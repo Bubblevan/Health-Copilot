@@ -2,6 +2,14 @@
 
 Audit date: 2026-09-26. All listed local checkouts were clean. Health-Copilot itself was already dirty before these documents were added; existing work was preserved.
 
+## MEM-1D0.5 Provenance Amendment
+
+This addendum is the active SimpleMem provenance decision; the MEM-0 audit details below remain historical records. The earlier PyPI adapter finding applies only to the effective execution path of `simplemem==0.1.0` installed from MemEval's lock. It does **not** characterize official SimpleMem as intrinsically semantic-only. The primary State A source is now the separate clean `aiming-lab/SimpleMem` checkout at tag `v0.1.0`, commit `7da777f56a15db81bb261d296c89cad5915e8d67`; its official planning path passed the synthetic semantic/lexical/structured/merge fidelity gate. The PyPI arm is renamed conceptually to `SimpleMem-PyPI-0.1.0-MemEval` and is provenance diagnostic only.
+
+The official source is integrated through a Health-Copilot compatibility adapter that routes its LLM calls to the loopback Qwen reader and its embeddings to the frozen local Qwen3-Embedding adapter. The upstream retrieval code, prompts, ranking and merge logic are not patched. The official-tag synthetic fidelity test and the `1cea1afa` context-controlled adapter smoke both passed; this closes the MEM-1D0.5 source/runtime gate, not the frozen 10-case diagnostic. The active machine-readable decision and source hashes are in `baseline_compatibility_matrix.json`, `upstream_manifest.json`, and `simplemem_official_v010_fidelity.json`.
+
+The active MEM-1 protocol is fully local with judge `NONE`; historical GPT-4.1/GPT-4o and hosted embedding details further below describe the original pre-amendment audit only. For active runtime settings, use `mem_1_local_only_protocol.json` and `mem_1_local_only_amendment.md`.
+
 ## Repository identity and role
 
 | Local directory | Remote / upstream | Checked-out SHA | Observed remote HEAD | Frozen role |

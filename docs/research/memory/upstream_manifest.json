@@ -27,6 +27,19 @@
       "pin_policy": "use checkout_sha; do not silently advance to remote HEAD"
     },
     {
+      "name": "SimpleMem-System",
+      "identity": "Official aiming-lab SimpleMem memory system, distinct from the MemEval-pinned PyPI distribution",
+      "role": "primary State A MEM-1 comparator after official-tag fidelity gate",
+      "path": "D:/MyLab/Jianli/external/memory/SimpleMem",
+      "remote": "https://github.com/aiming-lab/SimpleMem.git",
+      "tag": "v0.1.0",
+      "checkout_sha": "7da777f56a15db81bb261d296c89cad5915e8d67",
+      "source_tree_sha256": "e84e01b775296db1fcde799fac1a5ec2ffafe4a00de4a9f2000eb885aa5c1191",
+      "worktree_clean": true,
+      "fidelity_artifact": "docs/research/memory/simplemem_official_v010_fidelity.json",
+      "fidelity_gate": "SIMPLEMEM_OFFICIAL_TAG_HYBRID_FIDELITY=YES"
+    },
+    {
       "name": "Memora-System",
       "identity": "Microsoft memory system, not the ACL benchmark",
       "role": "optional architecture reference",
@@ -64,5 +77,14 @@
     "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
     "size_bytes": 277383467,
     "sha256_source": "Hugging Face LFS/Xet metadata for the pinned revision"
+  },
+  "mem1d0_5_amendment": {
+    "base_sha": "b9b7047279ec1c069abad3281c9615b481ad1c61",
+    "simplemem_pypi_arm": "SimpleMem-PyPI-0.1.0-MemEval; provenance diagnostic only; not the primary architecture comparator",
+    "simplemem_provenance_mismatch": "PROVENANCE_MISMATCH_WITH_OFFICIAL_V0.1.0_TAG",
+    "primary_state": "STATE_A_OFFICIAL_SIMPLEMEM_V0_1_0_TAG",
+    "official_tag_one_case_smoke": "PASS; diagnostic only",
+    "frozen_10_case_question": "NOT_RUN_BY_GATE",
+    "test_split_accessed": false
   }
 }

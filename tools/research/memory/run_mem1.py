@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import hashlib
 import importlib
+import io
 import json
 import math
 import os
+import re
 import subprocess
 import sys
 import time
@@ -36,6 +39,8 @@ MODEL_PATH = ROOT / "docs" / "research" / "memory" / "model_protocol.json"
 LOCAL_PROTOCOL_PATH = ROOT / "docs" / "research" / "memory" / "mem_1_local_only_protocol.json"
 DATASET_PATH = ROOT / "data" / "longmemeval" / "longmemeval_s_cleaned.json"
 PINNED_MEMEVAL_SHA = "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4"
+PINNED_SIMPLEMEM_SHA = "7da777f56a15db81bb261d296c89cad5915e8d67"
+PINNED_SIMPLEMEM_TREE_SHA = "e84e01b775296db1fcde799fac1a5ec2ffafe4a00de4a9f2000eb885aa5c1191"
 SYSTEMS = ("fullcontext", "openclaw", "mem0", "simplemem", "propmem")
 CATEGORIES = (
     "single-session-user",
@@ -61,6 +66,177 @@ def _exception_chain(error: BaseException) -> list[dict[str, Any]]:
         })
         current = current.__cause__ or current.__context__
     return chain
+
+
+def _source_tree_sha256(root: Path) -> str:
+    digest = hashlib.sha256()
+    for source in sorted(path for path in root.rglob("*.py") if "__pycache__" not in path.parts):
+        digest.update(source.relative_to(root).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(sha256_file(source).encode("ascii"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def verify_official_simplemem_source(root: Path) -> dict[str, str]:
+    audit_path = ROOT / "docs/research/memory/simplemem_official_v010_fidelity.json"
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    planning_calls = audit.get("call_counts", {}).get("planning_true", {})
+    if audit.get("decision") != "PASS" or not all(
+        planning_calls.get(name, 0) > 0
+        for name in ("semantic", "keyword", "structured", "merge")
+    ):
+        raise RuntimeError("Official SimpleMem synthetic fidelity gate is not recorded as PASS")
+    remote = subprocess.check_output(
+        ["git", "-C", str(root), "remote", "get-url", "origin"],
+        text=True,
+    ).strip().rstrip("/").removesuffix(".git")
+    head = subprocess.check_output(
+        ["git", "-C", str(root), "rev-parse", "HEAD"], text=True
+    ).strip()
+    status = subprocess.check_output(
+        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=no"],
+        text=True,
+    ).strip()
+    tree_sha = _source_tree_sha256(root)
+    if remote != "https://github.com/aiming-lab/SimpleMem":
+        raise RuntimeError("Official SimpleMem remote does not match the frozen upstream")
+    if head != PINNED_SIMPLEMEM_SHA or audit.get("official_release", {}).get("commit") != head:
+        raise RuntimeError("Official SimpleMem checkout differs from the pinned v0.1.0 commit")
+    if status:
+        raise RuntimeError("Official SimpleMem source checkout must remain clean")
+    if tree_sha != PINNED_SIMPLEMEM_TREE_SHA or audit.get("official_release", {}).get("source_tree_sha256") != tree_sha:
+        raise RuntimeError("Official SimpleMem source tree differs from its audited hash")
+    return {
+        "repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "tag": "v0.1.0",
+        "commit": head,
+        "source_tree_sha256": tree_sha,
+        "fidelity_artifact_sha256": sha256_file(audit_path),
+    }
+
+
+def _baseline_warning_rows(
+    system: str,
+    question_id: str,
+    captured_output: str,
+    provider_rows: list[dict[str, Any]],
+    *,
+    adapter_completed: bool,
+) -> list[dict[str, Any]]:
+    """Keep warning classifications while deliberately discarding captured log text."""
+    grouped: dict[tuple[str, str, str, bool | None, str, str], int] = {}
+
+    def add(
+        phase: str,
+        warning_type: str,
+        classification: str,
+        recovered: bool | None,
+        operation: str,
+        evidence_source: str,
+        count: int = 1,
+    ) -> None:
+        key = (phase, warning_type, classification, recovered, operation, evidence_source)
+        grouped[key] = grouped.get(key, 0) + count
+
+    for line in captured_output.splitlines():
+        lowered = line.strip().lower()
+        if not lowered:
+            continue
+        if system == "mem0" and (
+            "invalid json response" in lowered
+            or "invalid json" in lowered
+            or "json decode" in lowered
+        ):
+            add("memory_ingest", "MEM0_INVALID_JSON_RESPONSE", "BASELINE_INTERNAL_WARNING", adapter_completed, "structured_output", "baseline_log")
+        elif system == "mem0" and (
+            "delete" in lowered and ("error" in lowered or "fail" in lowered)
+            or re.search(r"error:\s*['\"]?\d+", lowered)
+        ):
+            add("memory_ingest", "MEM0_ACTION_HANDLER_WARNING", "BASELINE_INTERNAL_WARNING", adapter_completed, "DELETE" if "delete" in lowered or "error: '14'" in lowered else "unknown", "baseline_log")
+        elif "fts index creation skipped" in lowered:
+            add("memory_ingest", "SIMPLEMEM_FTS_INDEX_WARNING", "BASELINE_INTERNAL_WARNING", adapter_completed, "fts_index", "baseline_log")
+        elif system == "simplemem" and ("failed to parse" in lowered or "parser recovery" in lowered):
+            add("memory_ingest", "SIMPLEMEM_PARSE_RECOVERY", "BASELINE_INTERNAL_WARNING", adapter_completed, "structured_output", "baseline_log")
+        elif "failed to parse" in lowered or "parser recovery" in lowered:
+            add("baseline_context", "BASELINE_PARSER_RECOVERY", "BASELINE_INTERNAL_WARNING", adapter_completed, "parser", "baseline_log")
+        elif system == "simplemem" and ("retrying" in lowered or "retry attempt" in lowered or "falling back to sequential" in lowered):
+            add("baseline_context", "SIMPLEMEM_INTERNAL_RECOVERY", "BASELINE_INTERNAL_WARNING", adapter_completed, "upstream_recovery", "baseline_log")
+        elif "retrying" in lowered or "retry attempt" in lowered:
+            add("baseline_context", "MODEL_INTERNAL_RETRY", "BASELINE_INTERNAL_WARNING", adapter_completed, "model_call", "baseline_log")
+        elif system == "simplemem" and ("invalid json" in lowered or "json decode" in lowered):
+            add("baseline_context", "SIMPLEMEM_JSON_RECOVERY", "BASELINE_INTERNAL_WARNING", adapter_completed, "structured_output", "baseline_log")
+
+    for row in provider_rows:
+        phase = str(row.get("role") or "provider_call")
+        operation = phase
+        if row.get("success") is False:
+            add(phase, "PROVIDER_FAILURE", "INFRA_FAILURE", False, operation, "provider_call_ledger")
+        retry_count = int(row.get("retry_count") or 0)
+        if retry_count > 0:
+            add(phase, "PROVIDER_RETRY", "BASELINE_INTERNAL_WARNING", row.get("success") is True, operation, "provider_call_ledger", retry_count)
+        if phase == "embedding" and row.get("truncated") is True:
+            add(phase, "EMBEDDING_TRUNCATION", "BASELINE_INTERNAL_WARNING", False, operation, "provider_call_ledger")
+        if phase in {"memory_ingest", "memory_reasoning", "reader_answer"} and row.get("success") is True and (
+            row.get("prompt_tokens") is None or row.get("completion_tokens") is None
+        ):
+            add(phase, "MISSING_USAGE_TELEMETRY", "BASELINE_INTERNAL_WARNING", False, operation, "provider_call_ledger")
+
+    if not adapter_completed and not any(row.get("success") is False for row in provider_rows):
+        add("baseline_context", "ADAPTER_FAILURE", "INFRA_FAILURE", False, "context_adapter", "runner_status")
+
+    return [
+        {
+            "system": system,
+            "question_id": question_id,
+            "phase": phase,
+            "warning_type": warning_type,
+            "classification": classification,
+            "count": count,
+            "recovered": recovered,
+            "affected_operation": operation,
+            "evidence_source": evidence_source,
+        }
+        for (phase, warning_type, classification, recovered, operation, evidence_source), count in sorted(
+            grouped.items(), key=lambda item: tuple(str(value) for value in item[0])
+        )
+    ]
+
+
+def _summarize_baseline_warnings(
+    rows: list[dict[str, Any]], systems: list[str]
+) -> dict[str, Any]:
+    return {
+        system: {
+            "warning_rows": sum(row.get("system") == system for row in rows),
+            "baseline_internal_warning_count": sum(
+                int(row.get("count") or 1)
+                for row in rows
+                if row.get("system") == system
+                and row.get("classification") == "BASELINE_INTERNAL_WARNING"
+            ),
+            "infra_failure_count": sum(
+                int(row.get("count") or 1)
+                for row in rows
+                if row.get("system") == system
+                and row.get("classification") == "INFRA_FAILURE"
+            ),
+            "by_type": {
+                warning_type: sum(
+                    int(row.get("count") or 1)
+                    for row in rows
+                    if row.get("system") == system
+                    and row.get("warning_type") == warning_type
+                )
+                for warning_type in sorted({
+                    row.get("warning_type")
+                    for row in rows
+                    if row.get("system") == system
+                })
+            },
+        }
+        for system in systems
+    }
 
 
 def _digest_ids(question_ids: list[str]) -> str:
@@ -112,7 +288,10 @@ def verify_pinned_patch(memeval_root: Path, patch_path: Path, expected_patch_sha
     if sha256_file(patch_path) != expected_patch_sha:
         raise RuntimeError("MemEval patch SHA does not match the locked compatibility manifest")
     subprocess.run(
-        ["git", "-C", str(memeval_root), "apply", "--reverse", "--check", str(patch_path)],
+        [
+            "git", "-C", str(memeval_root.resolve()), "apply", "--reverse", "--check",
+            str(patch_path.resolve()),
+        ],
         check=True,
         capture_output=True,
         text=True,
@@ -503,8 +682,33 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
             f"{_format_metric(prediction['token_recall_mean'])} | "
             f"{_format_metric(prediction['normalized_exact_match_mean'])} | "
             f"{prediction['abstention_n']} | "
-            f"{_format_metric(prediction['abstention_accuracy'])} |"
-        )
+                f"{_format_metric(prediction['abstention_accuracy'])} |"
+            )
+    predictions = _latest_predictions(read_jsonl(run_dir / "predictions.jsonl"))
+    simplemem_trace = next(
+        (
+            predictions[("simplemem", question_id)].get("memory_system_diagnostics")
+            for question_id in manifest["question_ids"]
+            if ("simplemem", question_id) in predictions
+            and predictions[("simplemem", question_id)].get("memory_system_diagnostics")
+        ),
+        None,
+    )
+    if simplemem_trace:
+        trace_calls = simplemem_trace.get("calls", {})
+        lines.extend([
+            "",
+            "## SimpleMem Retrieval Trace",
+            "",
+            f"Official source: `{simplemem_trace.get('source_tag')}` / `{simplemem_trace.get('source_commit')}`.",
+            "This is adapter telemetry, not a quality or ranking claim.",
+            "",
+            "| Semantic | Keyword | Structured | Merge/deduplicate | Reflection | Native answer head |",
+            "|---:|---:|---:|---:|---:|---|",
+            "| " + " | ".join(str(trace_calls.get(key, 0)) for key in (
+                "semantic", "keyword", "structured", "merge_deduplicate", "reflection"
+            )) + f" | {simplemem_trace.get('native_answer_head_invoked')} |",
+        ])
     lines.extend([
         "", "## Category Metrics", "",
         "| System | Category | N | Token F1 | Precision | Recall | Norm. EM |",
@@ -556,7 +760,24 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
                 f"{_format_metric(diagnostic['mrr'])} | "
                 f"{_format_metric(diagnostic['retrieval_latency_ms'])} | "
                 f"{_format_metric(diagnostic['ingestion_latency_ms'])} |"
-            )
+        )
+    warning_summary = metrics.get("baseline_warnings", {})
+    lines.extend([
+        "",
+        "## Baseline Warnings",
+        "",
+        "`BASELINE_INTERNAL_WARNING` is reported separately from `INFRA_FAILURE`; full captured log lines and prompts are not stored.",
+        "",
+        "| System | Internal warning count | Infra failure count | Warning types |",
+        "|---|---:|---:|---|",
+    ])
+    for system in systems:
+        summary = warning_summary.get(system, {})
+        lines.append(
+            f"| {system} | {summary.get('baseline_internal_warning_count', 0)} | "
+            f"{summary.get('infra_failure_count', 0)} | "
+            f"{', '.join(sorted(summary.get('by_type', {}))) or '-'} |"
+        )
     lines.extend([
         "",
         "Session-retrieval metrics are null when a baseline does not expose auditable source-session provenance; this is not scored as a retrieval miss.",
@@ -648,6 +869,9 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
         unexpected = sorted(set(latest) - expected)
         raise RuntimeError(f"Generation coverage mismatch; missing={missing}, unexpected={unexpected}")
     call_rows = read_jsonl(run_dir / "call_ledger.jsonl")
+    warning_path = run_dir / "baseline_warnings.jsonl"
+    warning_path.touch(exist_ok=True)
+    warning_rows = read_jsonl(warning_path)
     every_answer_valid = all(latest[key].get("quality_status") == "OK" for key in expected)
     long_context_valid = "fullcontext" not in systems or _fullcontext_is_valid(latest, question_ids, call_rows)
     context_track = manifest.get("track") == "main_local_only_context_controlled"
@@ -673,6 +897,8 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
         "fullcontext_validation": "PASS" if long_context_valid else "FAIL_OR_MISSING_TRUNCATION_TELEMETRY",
         "systems": _summarize_predictions(rows, systems, question_ids),
         "memory_diagnostics": _summarize_memory_diagnostics(rows, systems, question_ids, call_rows),
+        "baseline_warnings": _summarize_baseline_warnings(warning_rows, systems),
+        "baseline_warnings_sha256": sha256_file(warning_path),
     }
     (run_dir / "deterministic_metrics.json").write_text(
         json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -810,6 +1036,8 @@ def _run_context_controlled(
         )
 
     configure_call_ledger(run_dir / "call_ledger.jsonl")
+    warnings_path = run_dir / "baseline_warnings.jsonl"
+    warnings_path.touch(exist_ok=True)
     bundle_rows = read_jsonl(bundles_path)
     latest_bundles = {
         (row.get("system"), row.get("question_id")): row
@@ -866,19 +1094,24 @@ def _run_context_controlled(
             started = time.perf_counter()
             bundle = None
             predicted = None
+            context_row = None
             error: BaseException | None = None
+            captured_output = io.StringIO()
+            adapter_completed = False
             try:
                 with_qa = {**conversation, "qa": [qa]}
-                context_rows = system["fn"](
-                    with_qa,
-                    config.reader_model,
-                    False,
-                    category_names=category_names,
-                    judge_fn="longmemeval",
-                    context_only=True,
-                )
+                with contextlib.redirect_stdout(captured_output), contextlib.redirect_stderr(captured_output):
+                    context_rows = system["fn"](
+                        with_qa,
+                        config.reader_model,
+                        False,
+                        category_names=category_names,
+                        judge_fn="longmemeval",
+                        context_only=True,
+                    )
                 if len(context_rows) != 1 or context_rows[0].get("quality_status") != "OK":
                     raise RuntimeError("Adapter did not return exactly one valid ContextBundle input")
+                adapter_completed = True
                 context_row = context_rows[0]
                 bundle = build_context_bundle(
                     system=system_name,
@@ -941,6 +1174,15 @@ def _run_context_controlled(
 
             call_rows = read_jsonl(run_dir / "call_ledger.jsonl")
             new_calls = call_rows[call_count_before:]
+            warning_rows = _baseline_warning_rows(
+                system_name,
+                question_id,
+                captured_output.getvalue(),
+                new_calls,
+                adapter_completed=adapter_completed,
+            )
+            for warning in warning_rows:
+                append_jsonl(warnings_path, warning)
             quality_status = "OK" if predicted is not None else "INFRA_FAILURE"
             answer_scores = (
                 _answer_metrics(predicted, qa["answer"])
@@ -973,6 +1215,7 @@ def _run_context_controlled(
                 "token_recall": answer_scores["token_recall"],
                 "normalized_exact_match": answer_scores["normalized_exact_match"],
                 "reader_prompt_tokens": prompt_tokens,
+                "baseline_warnings": warning_rows,
                 "context_reader_tokens": bundle_dict.get("context_reader_tokens"),
                 "context_embedding_tokens": bundle_dict.get("context_embedding_tokens"),
                 "retrieval_latency_ms": bundle_dict.get("retrieval_latency_ms"),
@@ -989,6 +1232,9 @@ def _run_context_controlled(
                     ) if predicted is not None else ["INFRA_FAILURE"]
                 ),
                 "failure_attribution_heuristic": True,
+                "memory_system_diagnostics": (
+                    context_row.get("retrieval_trace") if context_row is not None else None
+                ),
                 "shared_reader_template_sha256": (
                     shared_template_sha if predicted is not None else None
                 ),
@@ -1038,6 +1284,11 @@ def generate(args: argparse.Namespace) -> None:
     verify_pinned_patch(args.memeval_root, args.patch, patch_sha)
 
     system_names = list(dict.fromkeys(args.system))
+    simplemem_source = None
+    if "simplemem" in system_names:
+        simplemem_root = ROOT.parent / "external" / "memory" / "SimpleMem"
+        simplemem_source = verify_official_simplemem_source(simplemem_root)
+        os.environ["HC_SIMPLEMEM_OFFICIAL_ROOT"] = str(simplemem_root.resolve())
     systems = _load_system_registry(args.memeval_root, system_names)
     from agents_memory.benchmarks.longmemeval import _normalize
     from agents_memory.healthcopilot_provider import (
@@ -1090,11 +1341,14 @@ def generate(args: argparse.Namespace) -> None:
             "memory_internal_generation": local_protocol["roles"]["memory_internal_llm"]["generation"],
             "embedding_model": config.embedding_model if name != "fullcontext" else None,
             "embedding_artifact_sha256": embedding_artifact["model_sha256"] if name != "fullcontext" else None,
+            "architecture_source": simplemem_source if name == "simplemem" else None,
         }))
         for name in system_names
     }
     roles["memory_system"]["system_config_sha256"] = config_hashes
     roles["memory_system"]["prompt_source_sha256"] = source_hash
+    if simplemem_source is not None:
+        roles["memory_system"]["implementation_sources"] = {"simplemem": simplemem_source}
     roles["reader_answer_model"]["generation"] = local_protocol["roles"]["reader_answer_model"]["generation"]
     roles["embedding_model"]["runtime_settings"] = {
         key: embedding_artifact[key] for key in (

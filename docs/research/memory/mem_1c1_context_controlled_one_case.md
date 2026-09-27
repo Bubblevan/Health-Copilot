@@ -1,5 +1,7 @@
 # MEM-1C1 Final-Runtime Context-Controlled One-Case Gate
 
+> Historical MEM-1C1 runtime record. The SimpleMem adapter in this run was the MemEval-pinned PyPI artifact; this five-system output is not the official-tag SimpleMem result and its old patch SHA is not the active MEM-1D0.5 patch. Preserve it as historical runtime evidence; the official-source-only replacement smoke is documented in `mem_1d0_5_simplemem_provenance_correction.md`.
+
 `MEM1_CONTEXT_CONTROLLED_ONE_CASE=YES`
 
 This is runtime and diagnostic evidence for one frozen public DEV question only. It is not a performance ranking or a quality claim.
