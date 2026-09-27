@@ -81,7 +81,8 @@
   "mem1d0_5_amendment": {
     "base_sha": "b9b7047279ec1c069abad3281c9615b481ad1c61",
     "simplemem_pypi_arm": "SimpleMem-PyPI-0.1.0-MemEval; provenance diagnostic only; not the primary architecture comparator",
-    "simplemem_provenance_mismatch": "PROVENANCE_MISMATCH_WITH_OFFICIAL_V0.1.0_TAG",
+    "pypi_vs_official_source_hashes_match": false,
+    "simplemem_primary_source": "aiming-lab/SimpleMem@v0.1.0",
     "primary_state": "STATE_A_OFFICIAL_SIMPLEMEM_V0_1_0_TAG",
     "official_tag_one_case_smoke": "PASS; diagnostic only",
     "frozen_10_case_question": "NOT_RUN_BY_GATE",

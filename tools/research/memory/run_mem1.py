@@ -14,11 +14,12 @@ import re
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
+from context_bundle import verify_context_bundle
 from mem1_artifacts import (
     append_jsonl,
     canonical_json,
@@ -27,17 +28,37 @@ from mem1_artifacts import (
     read_jsonl,
     sha256_bytes,
     sha256_file,
+    verified_identity_hash,
     verify_hash_sidecar,
     write_hash_sidecar,
     write_run_manifest,
 )
-from context_bundle import build_context_bundle, verify_context_bundle
 
 ROOT = Path(__file__).resolve().parents[3]
 SPLIT_PATH = ROOT / "docs" / "research" / "memory" / "split_manifest.json"
 MODEL_PATH = ROOT / "docs" / "research" / "memory" / "model_protocol.json"
 LOCAL_PROTOCOL_PATH = ROOT / "docs" / "research" / "memory" / "mem_1_local_only_protocol.json"
 DATASET_PATH = ROOT / "data" / "longmemeval" / "longmemeval_s_cleaned.json"
+D1_SELECTION_PATH = ROOT / "docs" / "research" / "memory" / "main_smoke_10_manifest.json"
+D1_SELECTION_SHA256 = "5a38ff79d79be6a9db531227d63d6dc22dc619d11d2c701b2b4cc0295f04c911"
+D1_DATASET_ID = "longmemeval_s"
+D1_DATASET_REVISION = "98d7416c24c778c2fee6e6f3006e7a073259d48f"
+D1_DATASET_SHA256 = "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+D1_DEV_IDS_SHA256 = "c6e0b423f720bcb06e1c571a8f6b0d018e0c1707d21fe17108349962d30f739f"
+D1_QUESTION_IDS = (
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c",
+)
+D1_QUESTION_IDS_SHA256 = "a5ce841c2a60f9248bd1fc4fdc4f79a075c24a3a26921be2f96b042ec56e8b0d"
+D1_READER_TEMPLATE_SHA256 = "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b"
 PINNED_MEMEVAL_SHA = "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4"
 PINNED_SIMPLEMEM_SHA = "7da777f56a15db81bb261d296c89cad5915e8d67"
 PINNED_SIMPLEMEM_TREE_SHA = "e84e01b775296db1fcde799fac1a5ec2ffafe4a00de4a9f2000eb885aa5c1191"
@@ -260,6 +281,66 @@ def resolve_question_ids(
     return ids
 
 
+def validate_mem1d1_selection(
+    selection: dict[str, Any], split: dict[str, Any], selection_path: Path
+) -> None:
+    if selection_path.resolve() != D1_SELECTION_PATH.resolve():
+        raise ValueError("MEM-1D1 requires the canonical frozen 10-case selection manifest")
+    if sha256_file(selection_path) != D1_SELECTION_SHA256:
+        raise ValueError("MEM-1D1 selection manifest bytes differ from the frozen artifact")
+    expected = {
+        "manifest_version": "memeval-main-smoke-10-v1",
+        "status": "FROZEN_BEFORE_ANY_10_CASE_RESULTS",
+        "dataset_id": D1_DATASET_ID,
+        "dataset_revision": D1_DATASET_REVISION,
+        "dataset_sha256": D1_DATASET_SHA256,
+        "dev_manifest": "split_manifest.json",
+        "dev_ids_sha256_sorted_lf": D1_DEV_IDS_SHA256,
+        "question_count": 10,
+        "question_ids": list(D1_QUESTION_IDS),
+        "question_ids_sha256_sorted_lf": D1_QUESTION_IDS_SHA256,
+        "test_access": False,
+    }
+    if any(selection.get(key) != value for key, value in expected.items()):
+        raise ValueError("MEM-1D1 selection manifest does not match the frozen 10-case contract")
+    if (
+        split.get("dataset_id") != D1_DATASET_ID
+        or split.get("dataset_revision") != D1_DATASET_REVISION
+        or split.get("dataset_sha256") != D1_DATASET_SHA256
+        or split.get("dev", {}).get("question_ids_sha256_sorted_lf") != D1_DEV_IDS_SHA256
+    ):
+        raise ValueError("MEM-1D1 frozen split manifest differs from its selection contract")
+    dev_ids = set(split.get("dev", {}).get("question_ids", []))
+    test_ids = set(split.get("test", {}).get("question_ids", []))
+    if not set(D1_QUESTION_IDS).issubset(dev_ids) or set(D1_QUESTION_IDS) & test_ids:
+        raise ValueError("MEM-1D1 selection contains non-DEV or TEST IDs")
+    if _digest_ids(list(D1_QUESTION_IDS)) != D1_QUESTION_IDS_SHA256:
+        raise RuntimeError("Internal MEM-1D1 question digest constant is invalid")
+
+
+def _verify_frozen_evidence(run_dir: Path, *, require_ledgers: bool) -> bool:
+    pairs = [
+        ("predictions.jsonl", "predictions.sha256"),
+        ("context_bundles.jsonl", "context_bundles.sha256"),
+    ]
+    if require_ledgers:
+        pairs.extend([
+            ("call_ledger.jsonl", "call_ledger.sha256"),
+            ("baseline_warnings.jsonl", "baseline_warnings.sha256"),
+        ])
+    sidecar_presence = [(run_dir / sidecar).exists() for _, sidecar in pairs]
+    if not any(sidecar_presence):
+        return False
+    if not all(sidecar_presence):
+        raise RuntimeError("Frozen MEM-1 evidence is incomplete; refusing to resume or score")
+    for artifact_name, sidecar_name in pairs:
+        artifact = run_dir / artifact_name
+        sidecar = run_dir / sidecar_name
+        if not artifact.is_file() or not verify_hash_sidecar(artifact, sidecar):
+            raise RuntimeError(f"Frozen evidence hash mismatch: {artifact_name}")
+    return True
+
+
 def select_records(raw_items: list[dict[str, Any]], question_ids: list[str], normalize):
     wanted = set(question_ids)
     records = [normalize(item) for item in raw_items if item.get("question_id") in wanted]
@@ -324,6 +405,9 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--selection-manifest", type=Path)
     parser.add_argument("--question-id", action="append")
+    parser.add_argument("--mem1d1-frozen-10", action="store_true")
+    parser.add_argument("--execution-question-id", action="append")
+    parser.add_argument("--execution-system", choices=SYSTEMS, action="append")
     parser.add_argument("--system", choices=SYSTEMS, action="append", required=True)
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--split-manifest", type=Path, default=SPLIT_PATH)
@@ -350,6 +434,42 @@ def _load_locked_inputs(args: argparse.Namespace):
         "CANCELLED_BY_LOCAL_ONLY_AMENDMENT"
     ):
         raise RuntimeError("Historical GPT-4.1 parity track must remain explicitly cancelled")
+    if args.mem1d1_frozen_10:
+        if args.answer_track != "context_controlled":
+            raise ValueError("MEM-1D1 permits only the context_controlled answer track")
+        if args.question_id is not None:
+            raise ValueError("MEM-1D1 refuses manually supplied --question-id values")
+        if args.selection_manifest is None:
+            raise ValueError("MEM-1D1 requires main_smoke_10_manifest.json")
+        if list(args.system) != list(SYSTEMS):
+            raise ValueError("MEM-1D1 requires the exact frozen five-system matrix in order")
+        selection = json.loads(args.selection_manifest.read_text(encoding="utf-8"))
+        validate_mem1d1_selection(selection, split, args.selection_manifest)
+        if selection.get("dataset_sha256") != split.get("dataset_sha256"):
+            raise ValueError("MEM-1D1 selection manifest dataset SHA differs from frozen DEV")
+        requested_questions = args.execution_question_id
+        execution_questions = list(D1_QUESTION_IDS) if requested_questions is None else requested_questions
+        if (
+            not execution_questions
+            or len(execution_questions) != len(set(execution_questions))
+            or not set(execution_questions).issubset(D1_QUESTION_IDS)
+        ):
+            raise ValueError("MEM-1D1 execution question chunk must be a unique subset of frozen IDs")
+        requested_systems = args.execution_system
+        execution_systems = list(SYSTEMS) if requested_systems is None else requested_systems
+        if (
+            not execution_systems
+            or len(execution_systems) != len(set(execution_systems))
+            or not set(execution_systems).issubset(SYSTEMS)
+        ):
+            raise ValueError("MEM-1D1 execution system chunk must be a unique subset of the frozen matrix")
+        args.d1_selection_sha256 = D1_SELECTION_SHA256
+        args.execution_question_ids = execution_questions
+        args.execution_systems = execution_systems
+        return split, model_protocol, local_protocol, list(D1_QUESTION_IDS)
+
+    if args.execution_question_id is not None or args.execution_system is not None:
+        raise ValueError("Execution chunks are available only with --mem1d1-frozen-10")
     selected = args.question_id
     if args.selection_manifest:
         selection = json.loads(args.selection_manifest.read_text(encoding="utf-8"))
@@ -360,6 +480,9 @@ def _load_locked_inputs(args: argparse.Namespace):
             raise ValueError("Selection manifest must contain a question_ids list")
         selected = ids
     ids = resolve_question_ids(split_manifest=split, selected_ids=selected)
+    args.d1_selection_sha256 = None
+    args.execution_question_ids = ids
+    args.execution_systems = list(args.system)
     return split, model_protocol, local_protocol, ids
 
 
@@ -555,7 +678,7 @@ def _summarize_memory_diagnostics(rows: list[dict[str, Any]], systems: list[str]
                 row.setdefault("answer_session_recall_at_10", None)
                 row.setdefault("answer_session_mrr", None)
                 continue
-            expected_sessions = set(str(value) for value in answer_sessions)
+            expected_sessions = {str(value) for value in answer_sessions}
             recalled = set()
             reciprocal_rank = 0.0
             for rank, group in enumerate(groups, 1):
@@ -564,11 +687,11 @@ def _summarize_memory_diagnostics(rows: list[dict[str, Any]], systems: list[str]
                 if matched and reciprocal_rank == 0.0:
                     reciprocal_rank = 1.0 / rank
             row["answer_session_recall_at_5"] = len(
-                set().union(*(set(str(value) for value in group) for group in groups[:5]))
+                set().union(*({str(value) for value in group} for group in groups[:5]))
                 & expected_sessions
             ) / len(expected_sessions)
             row["answer_session_recall_at_10"] = len(
-                set().union(*(set(str(value) for value in group) for group in groups[:10]))
+                set().union(*({str(value) for value in group} for group in groups[:10]))
                 & expected_sessions
             ) / len(expected_sessions)
             row["answer_session_mrr"] = reciprocal_rank
@@ -815,7 +938,144 @@ def _fullcontext_is_valid(rows: dict[tuple[str, str], dict[str, Any]], ids: list
             return False
         if any(row.get("max_model_length") != 131072 for row in answer_calls):
             return False
+        if any(row.get("prompt_tokens", 131073) + 256 > 131072 for row in answer_calls):
+            return False
     return True
+
+
+def _validate_mem1d1_completion(
+    manifest: dict[str, Any],
+    systems: list[str],
+    question_ids: list[str],
+    predictions: dict[tuple[str, str], dict[str, Any]],
+    call_rows: list[dict[str, Any]],
+    warning_rows: list[dict[str, Any]],
+    *,
+    fullcontext_valid: bool,
+    context_valid: bool,
+) -> None:
+    if manifest.get("selection_manifest_sha256") != D1_SELECTION_SHA256:
+        raise RuntimeError("MEM-1D1 run manifest is not bound to the frozen selection artifact")
+    dataset = manifest.get("dataset", {})
+    if (
+        dataset.get("id") != D1_DATASET_ID
+        or dataset.get("revision") != D1_DATASET_REVISION
+        or dataset.get("sha256") != D1_DATASET_SHA256
+        or dataset.get("test_access") is not False
+        or manifest.get("test_access") is not False
+        or manifest.get("track") != "main_local_only_context_controlled"
+    ):
+        raise RuntimeError("MEM-1D1 run manifest violates the frozen local DEV protocol")
+    if systems != list(SYSTEMS) or question_ids != list(D1_QUESTION_IDS):
+        raise RuntimeError("MEM-1D1 terminal matrix differs from the frozen 5-by-10 selection")
+    if not all(predictions[key].get("quality_status") == "OK" for key in predictions):
+        raise RuntimeError("MEM-1D1 contains unresolved infrastructure-failure predictions")
+    template_hashes = {
+        row.get("shared_reader_template_sha256") for row in predictions.values()
+    }
+    if template_hashes != {D1_READER_TEMPLATE_SHA256}:
+        raise RuntimeError("MEM-1D1 did not use the frozen shared-reader template for every row")
+    if not fullcontext_valid or not context_valid:
+        raise RuntimeError("MEM-1D1 FullContext or ContextBundle integrity gate failed")
+
+    roles = manifest.get("roles", {})
+    reader = roles.get("reader_answer_model", {})
+    memory_llm = roles.get("memory_internal_llm", {})
+    embedding = roles.get("embedding_model", {})
+    judge = roles.get("judge_model", {})
+    reader_runtime = reader.get("runtime", {})
+    reader_generation = reader.get("generation", {})
+    if (
+        reader.get("provider") != "local_qwen"
+        or reader.get("artifact_sha256") != "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+        or urlsplit(reader.get("endpoint", "")).hostname not in {"127.0.0.1", "::1"}
+        or reader_generation != {
+            "temperature": 0,
+            "seed": 42,
+            "enable_thinking": False,
+            "answer_max_new_tokens": 256,
+        }
+        or memory_llm.get("provider") != "local_qwen"
+        or memory_llm.get("artifact_sha256") != reader.get("artifact_sha256")
+    ):
+        raise RuntimeError("MEM-1D1 reader or memory-internal LLM differs from the frozen local Qwen")
+    if (
+        reader_runtime.get("server") != "llama.cpp llama-server 10068 (571d0d540)"
+        or reader_runtime.get("server_binary_sha256") != "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb"
+        or reader_runtime.get("gpu_layers") != 99
+        or reader_runtime.get("flash_attention") is not True
+        or reader_runtime.get("kv_cache_type_k") != "q4_0"
+        or reader_runtime.get("kv_cache_type_v") != "q4_0"
+        or reader_runtime.get("context_length") != 131072
+        or reader_runtime.get("rope_scaling") != "yarn"
+        or reader_runtime.get("rope_scale") != 4
+        or reader_runtime.get("rope_original_context") != 32768
+    ):
+        raise RuntimeError("MEM-1D1 llama.cpp runtime differs from the frozen long-context configuration")
+    if (
+        embedding.get("provider") != "local_transformers"
+        or embedding.get("repo") != "Qwen/Qwen3-Embedding-0.6B"
+        or embedding.get("revision") != "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
+        or embedding.get("model_sha256") != "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa"
+        or embedding.get("weights_sha256") != "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+        or embedding.get("device") != "cuda:0"
+        or embedding.get("dtype") != "float16"
+    ):
+        raise RuntimeError("MEM-1D1 embedding runtime differs from the frozen local CUDA model")
+    if judge.get("provider") != "none" or judge.get("used") is not False:
+        raise RuntimeError("MEM-1D1 must not configure or use a judge")
+    if roles.get("memory_system", {}).get("systems") != list(SYSTEMS):
+        raise RuntimeError("MEM-1D1 run manifest system identities differ from the frozen matrix")
+    if any("judge" in str(row.get("role", "")).lower() for row in call_rows):
+        raise RuntimeError("MEM-1D1 call ledger contains a judge invocation")
+    allowed_providers = {"local_qwen", "local_transformers"}
+    if any(row.get("provider") not in allowed_providers for row in call_rows):
+        raise RuntimeError("MEM-1D1 call ledger contains a non-local or unknown provider")
+    if any(row.get("classification") == "INFRA_FAILURE" for row in warning_rows):
+        raise RuntimeError("MEM-1D1 warning ledger contains an unresolved infrastructure failure")
+
+    for question_id in D1_QUESTION_IDS:
+        row = predictions[("simplemem", question_id)]
+        trace = row.get("memory_system_diagnostics") or {}
+        if (
+            trace.get("source_tag") != "v0.1.0"
+            or trace.get("source_commit") != PINNED_SIMPLEMEM_SHA
+            or trace.get("native_answer_head_invoked") is not False
+            or trace.get("planning_enabled") is not True
+            or not isinstance(trace.get("reflection_enabled"), bool)
+            or not {
+                "semantic", "keyword", "structured", "merge_deduplicate", "reflection"
+            }.issubset(trace.get("calls", {}))
+        ):
+            raise RuntimeError(f"SimpleMem fidelity telemetry missing for {question_id}")
+
+    runner_code_sha = manifest.get("runner_code_sha256")
+    expected_cache_patch_hash = sha256_bytes(canonical_json({
+        "memeval_patch_sha256": manifest.get("code_patch_sha256"),
+        "healthcopilot_runner_sha256": runner_code_sha,
+    }))
+    expected_configs = roles.get("memory_system", {}).get("system_config_sha256", {})
+    expected_reader_sha = roles.get("reader_answer_model", {}).get("artifact_sha256")
+    expected_embedding_sha = roles.get("embedding_model", {}).get("model_sha256")
+    expected_prompt_hash = roles.get("memory_system", {}).get("prompt_source_sha256")
+    for (system, question_id), row in predictions.items():
+        identity = row.get("cache_identity", {})
+        verified_identity_hash(identity)
+        if (
+            identity.get("system") != system
+            or identity.get("question_id") != question_id
+            or identity.get("dataset_sha256") != D1_DATASET_SHA256
+            or identity.get("system_config_hash") != expected_configs.get(system)
+            or identity.get("reader_artifact_sha256") != expected_reader_sha
+            or identity.get("code_patch_hash") != expected_cache_patch_hash
+            or identity.get("prompt_hashes", {}).get("memory_system_and_prompts") != expected_prompt_hash
+        ):
+            raise RuntimeError(f"MEM-1D1 cache identity mismatch for {system}/{question_id}")
+        if system == "fullcontext":
+            if identity.get("embedding_model") is not None or identity.get("embedding_artifact_sha256") is not None:
+                raise RuntimeError("FullContext cache identity unexpectedly includes embeddings")
+        elif identity.get("embedding_artifact_sha256") != expected_embedding_sha:
+            raise RuntimeError(f"Shared embedding identity mismatch for {system}/{question_id}")
 
 
 def _context_bundle_rows_valid(
@@ -859,8 +1119,12 @@ def _context_bundle_rows_valid(
 def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[str], question_ids: list[str], embedding_model: str | None) -> dict[str, Any]:
     predictions_path = run_dir / "predictions.jsonl"
     sidecar_path = run_dir / "predictions.sha256"
-    if sidecar_path.exists() and not verify_hash_sidecar(predictions_path, sidecar_path):
-        raise RuntimeError("Frozen prediction hash mismatch; refusing to score")
+    d1_run = manifest.get("selection_manifest_sha256") == D1_SELECTION_SHA256
+    if sidecar_path.exists():
+        if d1_run:
+            _verify_frozen_evidence(run_dir, require_ledgers=True)
+        elif not verify_hash_sidecar(predictions_path, sidecar_path):
+            raise RuntimeError("Frozen prediction hash mismatch; refusing to score")
     rows = read_jsonl(predictions_path)
     latest = _latest_predictions(rows)
     expected = {(name, question_id) for name in systems for question_id in question_ids}
@@ -878,13 +1142,36 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
     context_valid = (
         _context_bundle_rows_valid(
             run_dir, systems, question_ids, latest,
-            freeze=every_answer_valid and long_context_valid,
+            freeze=every_answer_valid and long_context_valid and not d1_run,
         )
         if context_track else True
     )
+    if d1_run:
+        _validate_mem1d1_completion(
+            manifest,
+            systems,
+            question_ids,
+            latest,
+            call_rows,
+            warning_rows,
+            fullcontext_valid=long_context_valid,
+            context_valid=context_valid,
+        )
+        if every_answer_valid and long_context_valid and context_valid:
+            _context_bundle_rows_valid(
+                run_dir, systems, question_ids, latest, freeze=True
+            )
     frozen = sidecar_path.exists()
     if not frozen and every_answer_valid and long_context_valid and context_valid:
         digest = write_hash_sidecar(predictions_path, sidecar_path)
+        write_hash_sidecar(
+            run_dir / "call_ledger.jsonl", run_dir / "call_ledger.sha256"
+        )
+        write_hash_sidecar(
+            warning_path, run_dir / "baseline_warnings.sha256"
+        )
+        if d1_run:
+            _verify_frozen_evidence(run_dir, require_ledgers=True)
     elif frozen:
         digest = sidecar_path.read_text(encoding="ascii").split()[0]
     else:
@@ -899,6 +1186,7 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
         "memory_diagnostics": _summarize_memory_diagnostics(rows, systems, question_ids, call_rows),
         "baseline_warnings": _summarize_baseline_warnings(warning_rows, systems),
         "baseline_warnings_sha256": sha256_file(warning_path),
+        "call_ledger_sha256": sha256_file(run_dir / "call_ledger.jsonl"),
     }
     (run_dir / "deterministic_metrics.json").write_text(
         json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -968,7 +1256,7 @@ def _reader_context_token_counter(config):
                 response.raise_for_status()
                 tokens = response.json().get("tokens")
                 if not isinstance(tokens, list):
-                    raise RuntimeError("llama.cpp /tokenize did not return token IDs")
+                    raise TypeError("llama.cpp /tokenize did not return token IDs")
                 total += len(tokens)
         return total
 
@@ -1032,7 +1320,11 @@ def _run_context_controlled(
     sidecar_path = run_dir / "predictions.sha256"
     if sidecar_path.exists():
         return _finalize_generation(
-            run_dir, manifest, list(systems), question_ids, config.embedding_model
+            run_dir,
+            manifest,
+            manifest["roles"]["memory_system"]["systems"],
+            manifest["question_ids"],
+            config.embedding_model,
         )
 
     configure_call_ledger(run_dir / "call_ledger.jsonl")
@@ -1167,9 +1459,9 @@ def _run_context_controlled(
                     )
                 content = response.choices[0].message.content
                 if not isinstance(content, str):
-                    raise RuntimeError("Shared reader returned no text answer")
+                    raise TypeError("Shared reader returned no text answer")
                 predicted = content.strip()
-            except Exception as caught:
+            except Exception as caught:  # noqa: BLE001 - all provider/adapter failures become explicit INFRA_FAILURE rows
                 error = caught
 
             call_rows = read_jsonl(run_dir / "call_ledger.jsonl")
@@ -1259,12 +1551,40 @@ def _run_context_controlled(
                     "quality_status": "INFRA_FAILURE",
                     "prior_failure_count": len(failures),
                 })
+                if getattr(args, "mem1d1_frozen_10", False):
+                    raise RuntimeError(
+                        f"MEM-1D1 infrastructure failure at {system_name}/{question_id}; stopped for review"
+                    ) from error
+
+    locked_manifest = json.loads(
+        (run_dir / "run_manifest.json").read_text(encoding="utf-8")
+    )
+    locked_systems = locked_manifest["roles"]["memory_system"]["systems"]
+    locked_questions = locked_manifest["question_ids"]
+    latest = _latest_predictions(read_jsonl(predictions_path))
+    expected = {
+        (system, question_id)
+        for system in locked_systems
+        for question_id in locked_questions
+    }
+    if set(latest) != expected or any(
+        latest[key].get("quality_status") != "OK" for key in expected & set(latest)
+    ):
+        failed = sum(
+            latest[key].get("quality_status") != "OK"
+            for key in expected & set(latest)
+        )
+        print(
+            f"MEM-1D1 chunk recorded; terminal freeze deferred; "
+            f"predictions={len(expected & set(latest))}/{len(expected)}; infra_rows={failed}"
+        )
+        return None
 
     metrics = _finalize_generation(
         run_dir,
-        json.loads((run_dir / "run_manifest.json").read_text(encoding="utf-8")),
-        list(systems),
-        question_ids,
+        locked_manifest,
+        locked_systems,
+        locked_questions,
         config.embedding_model,
     )
     print(f"Prediction artifact frozen: {metrics['prediction_frozen']}")
@@ -1279,6 +1599,17 @@ def generate(args: argparse.Namespace) -> None:
     os.environ["HC_MEMORY_TRACK"] = "main_local_only"
     os.environ["HC_MEM1_RUN_DIR"] = str(args.run_dir.resolve())
     split, model_protocol, local_protocol, question_ids = _load_locked_inputs(args)
+    if args.mem1d1_frozen_10:
+        _verify_frozen_evidence(args.run_dir, require_ledgers=True)
+        if not (args.run_dir / "predictions.sha256").exists():
+            latest_existing = _latest_predictions(
+                read_jsonl(args.run_dir / "predictions.jsonl")
+            )
+            if any(row.get("quality_status") != "OK" for row in latest_existing.values()):
+                raise RuntimeError(
+                    "MEM-1D1 run contains an unresolved infrastructure row; "
+                    "do not retry it under the same frozen code identity"
+                )
     compatibility = json.loads((ROOT / "docs/research/memory/baseline_compatibility_matrix.json").read_text(encoding="utf-8"))
     patch_sha = compatibility["patch_provenance"]["patch_sha256"]
     verify_pinned_patch(args.memeval_root, args.patch, patch_sha)
@@ -1314,6 +1645,11 @@ def generate(args: argparse.Namespace) -> None:
 
     raw_items = json.loads(args.dataset.read_text(encoding="utf-8"))
     conversations = select_records(raw_items, question_ids, _normalize)
+    records_by_id = {
+        conversation["qa"][0]["question_id"]: conversation
+        for conversation in conversations
+    }
+    conversations = [records_by_id[question_id] for question_id in question_ids]
     source_hash = _source_prompt_hash(args.memeval_root / "src")
     roles = _provider_manifest(
         config, system_names, systems, reader_sha, embedding_artifact, slot_context,
@@ -1380,7 +1716,8 @@ def generate(args: argparse.Namespace) -> None:
         system_config_hash=run_config_hash,
         code_patch_sha256=patch_sha,
         runner_code_sha256=runner_code_sha,
-        created_at=datetime.now(timezone.utc).isoformat(),
+        created_at=datetime.now(UTC).isoformat(),
+        selection_manifest_sha256=args.d1_selection_sha256,
     )
 
     predictions_path = args.run_dir / "predictions.jsonl"
@@ -1391,12 +1728,20 @@ def generate(args: argparse.Namespace) -> None:
         release_local_embedding_runtimes()
         return
     if args.answer_track == "context_controlled":
+        execution_question_ids = set(args.execution_question_ids)
+        execution_conversations = [
+            conversation for conversation in conversations
+            if conversation["qa"][0]["question_id"] in execution_question_ids
+        ]
+        execution_systems = {
+            name: systems[name] for name in args.execution_systems
+        }
         try:
             _run_context_controlled(
                 args=args,
                 manifest=manifest,
-                systems=systems,
-                conversations=conversations,
+                systems=execution_systems,
+                conversations=execution_conversations,
                 question_ids=question_ids,
                 split=split,
                 source_hash=source_hash,
@@ -1449,7 +1794,7 @@ def generate(args: argparse.Namespace) -> None:
                 if len(result_rows) != 1:
                     raise RuntimeError("MEM-1 adapter must return exactly one row per question")
                 result = result_rows[0]
-            except Exception as error:
+            except Exception as error:  # noqa: BLE001 - isolate failures per requested prediction
                 result = {
                     "question_id": question_id,
                     "sample_id": question_id,

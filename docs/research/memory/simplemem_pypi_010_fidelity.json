@@ -1,5 +1,6 @@
 {
-  "audit_script_sha256": "e28f63899b446cfe0d3c841cedb134f36f60471508763efe30e6e524b205ff1b",
+  "audit_script_sha256": "ff22c6251683d48b6d012428afbd32025619c411704c93bad98958d3e83e598c",
+  "audit_target": "SimpleMem-PyPI-0.1.0-MemEval",
   "audit_version": "simplemem-fidelity-v1",
   "baseline_interpretation": "SimpleMem-PyPI-0.1.0-MemEval: direct FTS is operational, but the planning retrieval path is semantic-only; not eligible to represent official SimpleMem architecture.",
   "benchmark_data_accessed": false,
@@ -165,13 +166,13 @@
     "pypi_hybrid_retriever_sha256": "69113962c351989303623b79c6dc73050a8c103cde018fcefe54eab2cb264681",
     "source_hashes_match": false
   },
-  "provenance_mismatch_with_official_v0_1_0_tag": true,
   "providers": {
     "embedding": "in-process deterministic synthetic vectors",
     "hosted_calls": 0,
     "llm": "in-process static fake",
     "native_answer_head_invoked": false
   },
+  "pypi_vs_official_source_hashes_match": false,
   "runtime_versions": {
     "lance-namespace": "0.11.1",
     "lance-namespace-urllib3-client": "0.11.1",

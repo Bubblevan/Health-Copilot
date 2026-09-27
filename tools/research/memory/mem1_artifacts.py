@@ -5,8 +5,9 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 
 def canonical_json(value: Any) -> bytes:
@@ -73,6 +74,7 @@ def write_run_manifest(
     code_patch_sha256: str,
     runner_code_sha256: str,
     created_at: str,
+    selection_manifest_sha256: str | None = None,
 ) -> dict[str, Any]:
     required_roles = {
         "reader_answer_model",
@@ -116,6 +118,8 @@ def write_run_manifest(
         "runner_code_sha256": runner_code_sha256,
         "test_access": False,
     }
+    if selection_manifest_sha256 is not None:
+        manifest["selection_manifest_sha256"] = selection_manifest_sha256
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n"

@@ -6,17 +6,16 @@ from __future__ import annotations
 import argparse
 import ast
 import hashlib
-import importlib.metadata as metadata
 import json
 import subprocess
 import sys
 import tempfile
 import types
+from importlib import metadata
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-
 
 ROOT = Path(__file__).resolve().parents[3]
 MEMORY_ROOT = ROOT.parent / "external" / "memory"
@@ -192,7 +191,7 @@ def installed_version(name: str) -> str | None:
 def load_official_config() -> types.ModuleType:
     source = OFFICIAL_ROOT / "config.py.example"
     config = types.ModuleType("simplemem_fidelity_config")
-    exec(compile(source.read_text(encoding="utf-8"), str(source), "exec"), config.__dict__)
+    exec(compile(source.read_text(encoding="utf-8"), str(source), "exec"), config.__dict__)  # noqa: S102 - execute the pinned upstream config fixture in an isolated module
     config.OPENAI_API_KEY = None
     config.OPENAI_BASE_URL = None
     config.LLM_MODEL = "synthetic-fake-llm"
@@ -290,10 +289,10 @@ def load_target(target: str):
         return HybridRetriever, VectorStore, MemoryEntry, config
 
     sys.path.insert(0, str(ROOT))
+    from simplemem.config import get_config
     from simplemem.core.hybrid_retriever import HybridRetriever
     from simplemem.database.vector_store import VectorStore
     from simplemem.models.memory_entry import MemoryEntry
-    from simplemem.config import get_config
 
     return HybridRetriever, VectorStore, MemoryEntry, get_config()
 
@@ -387,7 +386,6 @@ def audit(target: str) -> dict[str, Any]:
         package_version = metadata.version("simplemem")
         package_source = "PyPI wheel pinned by MemEval uv.lock"
         package_root = Path(metadata.distribution("simplemem").locate_file("simplemem"))
-        config_root = package_root
         source_paths = [
             "core/hybrid_retriever.py",
             "database/vector_store.py",
@@ -536,30 +534,39 @@ def audit(target: str) -> dict[str, Any]:
         source_checks = planning_path_checks(prompt_file)
         gate_name = "SIMPLEMEM_HYBRID_FIDELITY"
 
+    pypi_retriever_hash = (
+        source_files.get("core/hybrid_retriever.py")
+        if target == "pypi"
+        else sha256_file(
+            Path(metadata.distribution("simplemem").locate_file("simplemem"))
+            / "core" / "hybrid_retriever.py"
+        )
+    )
+    pypi_vs_official_hashes_match = pypi_retriever_hash == official_retriever_hash
+
     return {
         "audit_version": "simplemem-fidelity-v1",
         "target": target,
+        "audit_target": (
+            "SimpleMem-PyPI-0.1.0-MemEval"
+            if target == "pypi"
+            else "aiming-lab/SimpleMem@v0.1.0"
+        ),
         "test_type": "synthetic_no_benchmark_data",
         "benchmark_data_accessed": False,
         "gate": gate_name,
         "decision": "PASS" if fidelity_pass else "FAIL",
-        "provenance_mismatch_with_official_v0_1_0_tag": target == "pypi",
         "baseline_interpretation": (
             "SimpleMem-PyPI-0.1.0-MemEval: direct FTS is operational, but the planning retrieval path is semantic-only; not eligible to represent official SimpleMem architecture."
             if target == "pypi"
             else "Official aiming-lab/SimpleMem v0.1.0 source checkout."
         ),
         "provenance_comparison": {
-            "pypi_hybrid_retriever_sha256": source_files.get("core/hybrid_retriever.py")
-            if target == "pypi"
-            else sha256_file(Path(metadata.distribution("simplemem").locate_file("simplemem")) / "core" / "hybrid_retriever.py"),
+            "pypi_hybrid_retriever_sha256": pypi_retriever_hash,
             "official_v0_1_0_hybrid_retriever_sha256": official_retriever_hash,
-            "source_hashes_match": (
-                source_files.get("core/hybrid_retriever.py") == official_retriever_hash
-                if target == "pypi"
-                else sha256_file(Path(metadata.distribution("simplemem").locate_file("simplemem")) / "core" / "hybrid_retriever.py") == official_retriever_hash
-            ),
+            "source_hashes_match": pypi_vs_official_hashes_match,
         },
+        "pypi_vs_official_source_hashes_match": pypi_vs_official_hashes_match,
         "tested_module_file": str(Path(sys.modules[hybrid_retriever.__module__].__file__).resolve()),
         "planning_source_verification": source_checks,
         "package": {

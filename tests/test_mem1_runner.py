@@ -1,10 +1,10 @@
 import importlib.util
-import types
+import json
 import sys
+import types
 from pathlib import Path
 
 import pytest
-
 
 _tools_path = Path(__file__).parents[1] / "tools" / "research" / "memory"
 sys.path.insert(0, str(_tools_path))
@@ -30,6 +30,107 @@ def test_runner_allows_frozen_dev_and_rejects_every_non_dev_id():
         mem1_runner.resolve_question_ids(
             split_manifest=split_manifest(), selected_ids=["test-only"]
         )
+
+
+def _mem1d1_args(selection_manifest, **overrides):
+    values = {
+        "split_manifest": mem1_runner.SPLIT_PATH,
+        "dataset": Path("frozen-dataset-placeholder"),
+        "answer_track": "context_controlled",
+        "question_id": None,
+        "selection_manifest": selection_manifest,
+        "system": list(mem1_runner.SYSTEMS),
+        "execution_question_id": None,
+        "execution_system": None,
+        "mem1d1_frozen_10": True,
+    }
+    values.update(overrides)
+    return types.SimpleNamespace(**values)
+
+
+def test_mem1d1_selection_is_exactly_the_frozen_manifest(monkeypatch):
+    selection_path = mem1_runner.D1_SELECTION_PATH
+    selection = json.loads(selection_path.read_text(encoding="utf-8"))
+    split = json.loads(mem1_runner.SPLIT_PATH.read_text(encoding="utf-8"))
+    mem1_runner.validate_mem1d1_selection(selection, split, selection_path)
+
+    altered = dict(selection, question_count=9)
+    with pytest.raises(ValueError, match="frozen 10-case contract"):
+        mem1_runner.validate_mem1d1_selection(altered, split, selection_path)
+
+    with pytest.raises(ValueError, match="canonical frozen"):
+        mem1_runner.validate_mem1d1_selection(
+            selection, split, selection_path.parent / "other_selection.json"
+        )
+
+
+def test_mem1d1_loader_requires_the_frozen_manifest_and_refuses_manual_ids(monkeypatch):
+    monkeypatch.setattr(
+        mem1_runner,
+        "sha256_file",
+        lambda path: (
+            mem1_runner.D1_SELECTION_SHA256
+            if Path(path).resolve() == mem1_runner.D1_SELECTION_PATH.resolve()
+            else mem1_runner.D1_DATASET_SHA256
+        ),
+    )
+    with pytest.raises(ValueError, match="requires main_smoke_10_manifest"):
+        mem1_runner._load_locked_inputs(_mem1d1_args(None))
+
+    with pytest.raises(ValueError, match="refuses manually supplied"):
+        mem1_runner._load_locked_inputs(_mem1d1_args(
+            mem1_runner.D1_SELECTION_PATH, question_id=["1cea1afa"]
+        ))
+
+
+def test_mem1d1_execution_chunks_must_be_subsets_but_lock_all_ten(monkeypatch):
+    monkeypatch.setattr(
+        mem1_runner,
+        "sha256_file",
+        lambda path: (
+            mem1_runner.D1_SELECTION_SHA256
+            if Path(path).resolve() == mem1_runner.D1_SELECTION_PATH.resolve()
+            else mem1_runner.D1_DATASET_SHA256
+        ),
+    )
+    args = _mem1d1_args(
+        mem1_runner.D1_SELECTION_PATH,
+        execution_question_id=["1cea1afa"],
+        execution_system=["simplemem"],
+    )
+    _, _, _, locked_ids = mem1_runner._load_locked_inputs(args)
+    assert locked_ids == list(mem1_runner.D1_QUESTION_IDS)
+    assert args.execution_question_ids == ["1cea1afa"]
+    assert args.execution_systems == ["simplemem"]
+
+    invalid = _mem1d1_args(
+        mem1_runner.D1_SELECTION_PATH,
+        execution_question_id=["test-only"],
+    )
+    with pytest.raises(ValueError, match="unique subset of frozen IDs"):
+        mem1_runner._load_locked_inputs(invalid)
+
+
+def test_mem1d1_freeze_verifies_all_four_evidence_ledgers(tmp_path):
+    artifacts = (
+        "predictions.jsonl",
+        "context_bundles.jsonl",
+        "call_ledger.jsonl",
+        "baseline_warnings.jsonl",
+    )
+    for name in artifacts:
+        (tmp_path / name).write_text("{}\n", encoding="utf-8")
+    assert mem1_runner._verify_frozen_evidence(tmp_path, require_ledgers=True) is False
+    for name in artifacts:
+        mem1_runner.write_hash_sidecar(
+            tmp_path / name, tmp_path / name.replace(".jsonl", ".sha256")
+        )
+    assert mem1_runner._verify_frozen_evidence(tmp_path, require_ledgers=True) is True
+
+    with (tmp_path / "call_ledger.jsonl").open("a", encoding="utf-8") as output:
+        output.write("tamper\n")
+    with pytest.raises(RuntimeError, match="hash mismatch"):
+        mem1_runner._verify_frozen_evidence(tmp_path, require_ledgers=True)
 
 
 def test_context_controlled_is_the_default_answer_track(monkeypatch, tmp_path):
@@ -213,6 +314,12 @@ def test_generation_freezes_predictions_before_writing_metrics(tmp_path):
 
     sidecar = tmp_path / "predictions.sha256"
     assert mem1_runner.verify_hash_sidecar(predictions, sidecar)
+    assert mem1_runner.verify_hash_sidecar(
+        tmp_path / "call_ledger.jsonl", tmp_path / "call_ledger.sha256"
+    )
+    assert mem1_runner.verify_hash_sidecar(
+        tmp_path / "baseline_warnings.jsonl", tmp_path / "baseline_warnings.sha256"
+    )
     assert metrics["systems"]["fullcontext"]["f1_mean"] == 0.5
     assert metrics["prediction_frozen"] is True
     assert (tmp_path / "token_efficiency.json").exists()

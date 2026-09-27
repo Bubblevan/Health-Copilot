@@ -16,7 +16,7 @@
     "source_tree_sha256": "e84e01b775296db1fcde799fac1a5ec2ffafe4a00de4a9f2000eb885aa5c1191",
     "pypi_arm": "SimpleMem-PyPI-0.1.0-MemEval; provenance diagnostic only; not primary architecture comparator",
     "pypi_effective_path_finding": "semantic-only under audited MemEval-pinned execution path; not a claim that official SimpleMem is intrinsically semantic-only",
-    "provenance_status": "PROVENANCE_MISMATCH_WITH_OFFICIAL_V0.1.0_TAG",
+    "provenance_status": "PYPI_ARTIFACT_SOURCE_DIFFERS_FROM_OFFICIAL_V0_1_0_TAG",
     "official_tag_synthetic_fidelity": "SIMPLEMEM_OFFICIAL_TAG_HYBRID_FIDELITY=YES",
     "official_tag_context_controlled_smoke": "PASS; diagnostic only"
   },
