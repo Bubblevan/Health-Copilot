@@ -1,0 +1,3776 @@
+{
+  "artifact_version": "mem1d1-case-review-v1",
+  "category_counts": {
+    "knowledge-update": 2,
+    "multi-session": 1,
+    "single-session-assistant": 1,
+    "single-session-preference": 2,
+    "single-session-user": 2,
+    "temporal-reasoning": 2
+  },
+  "dataset_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "fresh_case_ids": [
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "known_case_id": "1cea1afa",
+  "question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "rows": [
+    {
+      "answer_session_ids": [
+        "answer_79c395a9_1",
+        "answer_79c395a9_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "KNOWN_GATE_CASE",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "09af7ffe30c8df3a987d7117c118d1475565e773e5b40d8c7f3b802c8b625c16",
+      "context_embedding_tokens": 108065,
+      "context_reader_tokens": 108064,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "600",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "I'm sorry, but I don't have access to your Instagram follower count or any personal data about your social media accounts. You'll need to check your Instagram profile or app to see your current follower count. If you'd like help with anything else, feel free to ask! 😊",
+      "question": "How many Instagram followers do I currently have?",
+      "question_id": "1cea1afa",
+      "ranked_source_session_groups": [
+        [
+          "ultrachat_255553",
+          "6a2f9452_3",
+          "answer_79c395a9_1",
+          "ultrachat_455127",
+          "ultrachat_49031",
+          "sharegpt_5TilZ4R_41",
+          "a7ba08ab_1",
+          "b86848e2_2",
+          "4ea4f02f_3",
+          "ultrachat_165628",
+          "sharegpt_9NOw3Uo_93",
+          "ultrachat_67100",
+          "7063fad2",
+          "sharegpt_ETn2QdT_0",
+          "97f564ef",
+          "e06c6d99_5",
+          "894dd0c2_3",
+          "7af38385_1",
+          "2a0c336c",
+          "sharegpt_lfQALre_0",
+          "sharegpt_ffVJmD5_20",
+          "ultrachat_203194",
+          "c8fcdf5a_2",
+          "sharegpt_zWXjSog_16",
+          "sharegpt_FlNrAJN_0",
+          "77feed8e_1",
+          "e9ad5914_5",
+          "sharegpt_gehd6gz_0",
+          "sharegpt_TQNHiIB_0",
+          "ultrachat_318281",
+          "ultrachat_468681",
+          "sharegpt_eUCKBlU_38",
+          "ultrachat_3177",
+          "ultrachat_51727",
+          "52d46b4a_1",
+          "ultrachat_82739",
+          "26e9a635_1",
+          "sharegpt_nrCPDzJ_0",
+          "e131bcd4",
+          "602ad002_1",
+          "9c479e89_1",
+          "sharegpt_GYN9yoM_0",
+          "dc7c53fa_6",
+          "sharegpt_inuIr9J_119",
+          "3d2e66f2_1",
+          "sharegpt_X1NXUxZ_0",
+          "a126eeab_1",
+          "answer_79c395a9_2",
+          "726fa34a_2"
+        ]
+      ],
+      "reader_prompt_tokens": 108137,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_4cb841a8_1",
+        "answer_4cb841a8_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "multi-session",
+      "context_bundle_sha256": "01f87f7b8b3f09b3a1807a2411f36459da2694c8a6e876e14f9cc94ae84f5d73",
+      "context_embedding_tokens": 106057,
+      "context_reader_tokens": 106056,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "$140",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "The total cost of the car cover and detailing spray you purchased is $120 + $20 = $140.",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_id": "1c549ce4",
+      "ranked_source_session_groups": [
+        [
+          "f999b05c_1",
+          "35f04c7c_2",
+          "809cbce9_1",
+          "ddcd2c65_1",
+          "sharegpt_T95BPXB_0",
+          "sharegpt_miOKGt1_13",
+          "sharegpt_Ab5RUMY_0",
+          "ultrachat_399451",
+          "sharegpt_DwfIyV9_0",
+          "sharegpt_RkRREit_0",
+          "3d006c58_2",
+          "377f8fd9_1",
+          "73bc3176_2",
+          "f7644391_1",
+          "7b4f1615_2",
+          "sharegpt_yLBm8Vr_23",
+          "ultrachat_309534",
+          "162ff451",
+          "845e4b0b_1",
+          "ultrachat_441412",
+          "3620a0a3",
+          "answer_4cb841a8_1",
+          "8ea1045c_2",
+          "sharegpt_D6xjVIC_0",
+          "f1e4daa8_2",
+          "ultrachat_168372",
+          "73b5f98a",
+          "bbcc4a27_1",
+          "ultrachat_360830",
+          "fa1ce406_1",
+          "ultrachat_234942",
+          "sharegpt_cgOvqL1_0",
+          "9fa1fb9c",
+          "answer_4cb841a8_2",
+          "bd4110bc",
+          "sharegpt_vbNrVtS_151",
+          "ultrachat_228248",
+          "a5ab6ba7_1",
+          "sharegpt_ZvjRGRN_0",
+          "sharegpt_k2Jq89S_0",
+          "35f052f9_2",
+          "sharegpt_3D7Qpuq_14",
+          "d743153b_2",
+          "ultrachat_171892",
+          "sharegpt_XYtuANl_9"
+        ]
+      ],
+      "reader_prompt_tokens": 106135,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.125,
+        "normalized_exact_match": 0.0,
+        "precision": 0.06666666666666667,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_ultrachat_399000"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-assistant",
+      "context_bundle_sha256": "6fff48a13674d510175888d15fb4c0c70a15a5db0450ee76714a3c4937be0be3",
+      "context_embedding_tokens": 103371,
+      "context_reader_tokens": 103370,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "The Jamaican dish you were referring to is **\"Escovitch Fish\"**. It is a traditional dish that features fried snapper or other fish, typically served with a spicy and tangy pickled vegetable sauce. The sauce is made with ingredients like carrots, bell peppers, onions, and vinegar, giving it a bold, acidic, and spicy flavor profile. It is a popular dish in Jamaica and is often enjoyed with rice or as a standalone meal.",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_id": "778164c6",
+      "ranked_source_session_groups": [
+        [
+          "ultrachat_169952",
+          "ultrachat_336538",
+          "490bb46d_1",
+          "2d74df23_3",
+          "ultrachat_578090",
+          "ultrachat_423899",
+          "0ba46bdc_2",
+          "eccc6e84_3",
+          "sharegpt_VEoWAUD_0",
+          "05b551b6",
+          "sharegpt_CMe0Odo_0",
+          "sharegpt_xasomVD_35",
+          "a2053427_1",
+          "81e406dd_2",
+          "ultrachat_419925",
+          "ultrachat_144598",
+          "c6bd5277",
+          "sharegpt_uzwG36E_0",
+          "023641cc_3",
+          "sharegpt_n42dRB1_0",
+          "sharegpt_fnuLBKl_129",
+          "ultrachat_346016",
+          "sharegpt_ki9IVDq_6",
+          "c15dadce_4",
+          "sharegpt_CyJ3dal_43",
+          "sharegpt_4eVd8BN_0",
+          "ultrachat_460345",
+          "sharegpt_QizzJ7Z_0",
+          "b605741a_1",
+          "025836be_1",
+          "ultrachat_254669",
+          "1340826c",
+          "sharegpt_dUoAhvI_23",
+          "483ddd90",
+          "ultrachat_9855",
+          "sharegpt_In7us5d_0",
+          "sharegpt_luC18OZ_0",
+          "ddaa5a15_2",
+          "ultrachat_543871",
+          "e42d0467_1",
+          "ultrachat_313916",
+          "sharegpt_ty6EeyH_0",
+          "0c28f7fb",
+          "ultrachat_274821",
+          "sharegpt_mWsFRK3_127",
+          "sharegpt_Z622Ill_0",
+          "35201d43",
+          "answer_ultrachat_399000",
+          "sharegpt_84De5zv_0",
+          "sharegpt_WXCvFir_11"
+        ]
+      ],
+      "reader_prompt_tokens": 103472,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.07272727272727272,
+        "normalized_exact_match": 0.0,
+        "precision": 0.04,
+        "recall": 0.4
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_a1e169b1"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "e5afcd2f09f85155937e2e41968f65fad1282cdf7e1f69e5d1c546e778856b91",
+      "context_embedding_tokens": 107441,
+      "context_reader_tokens": 107440,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "I'm planning another theme park weekend; do you have any suggestions?",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_id": "fca70973",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_HK2HHXS_0",
+          "312bf939",
+          "ultrachat_242407",
+          "ultrachat_92538",
+          "sharegpt_CYcAuWq_0",
+          "2f2884ad_1",
+          "sharegpt_vGZ5lH1_21",
+          "e32f5666_1",
+          "09cff8ac",
+          "7b9ee249_2",
+          "e5c8e989_1",
+          "sharegpt_NMLgKqu_0",
+          "4e3f0831_1",
+          "ultrachat_546214",
+          "ultrachat_387027",
+          "83ea6306_1",
+          "sharegpt_GrOzRFW_0",
+          "dfa4025c_3",
+          "sharegpt_nsoAmEn_0",
+          "0bf06178_2",
+          "sharegpt_fPvtTbw_0",
+          "ultrachat_404610",
+          "e46a5384",
+          "d8681036_1",
+          "762a8b45_2",
+          "ultrachat_3370",
+          "55e0c6db_2",
+          "ultrachat_506636",
+          "066261cc_2",
+          "302434c2_1",
+          "sharegpt_TpiSm6y_0",
+          "sharegpt_PW5DCDT_0",
+          "b341cf37_2",
+          "sharegpt_8ziBSjY_19",
+          "f504b269",
+          "ultrachat_228631",
+          "sharegpt_33vA89D_0",
+          "5d5e80c5_1",
+          "cfcf5340_1",
+          "sharegpt_Yuw2LhQ_4",
+          "sharegpt_lSeiu11_0",
+          "sharegpt_3Ht62Qx_0",
+          "fc005760",
+          "99b061c5_1",
+          "answer_a1e169b1"
+        ]
+      ],
+      "reader_prompt_tokens": 107518,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.07407407407407408,
+        "normalized_exact_match": 0.0,
+        "precision": 0.25,
+        "recall": 0.043478260869565216
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_787e6a6d"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "7c57d2bef964cd59418574f78839853d2467c5f371b13ba08ae7c6b0cdfb605e",
+      "context_embedding_tokens": 107617,
+      "context_reader_tokens": 107616,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Dark Souls 3 DLC",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "The game you finally beat last weekend was **Dark Souls 3**, specifically the **DLC** (Downloadable Content) that includes the challenging boss and areas. It's a highly regarded game known for its difficulty and immersive world, and beating it is a significant achievement! 🎮🔥\n\nIf you're looking for more games to tackle or want tips on how to approach future challenges, feel free to ask! I'm here to help. What's your favorite part about beating that boss? The sense of accomplishment, the lore, or something else?",
+      "question": "What game did I finally beat last weekend?",
+      "question_id": "a82c026e",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_v11Tpg9_0",
+          "f18ebe36_4",
+          "ultrachat_380838",
+          "sharegpt_mrZ90jA_33",
+          "sharegpt_XrAhTcb_0",
+          "c71e1c7a_2",
+          "a31b0b32_1",
+          "sharegpt_vIkUTvg_0",
+          "23c0f73a_1",
+          "bdf735de_1",
+          "sharegpt_gvFtSPH_0",
+          "a6c41826_3",
+          "deb70f38_1",
+          "ultrachat_549208",
+          "sharegpt_mWFmQxk_36",
+          "ultrachat_209723",
+          "sharegpt_u71pVhw_0",
+          "sharegpt_laSTmcA_0",
+          "ultrachat_420966",
+          "1a693999_4",
+          "baf6d8d4_1",
+          "sharegpt_YpPCfzH_0",
+          "d9727262_4",
+          "ultrachat_186296",
+          "661e2cf8_2",
+          "3009ba66_2",
+          "daa32134",
+          "sharegpt_4Onu1MQ_0",
+          "516b0aae_1",
+          "ccaabf0b_1",
+          "sharegpt_aRLrK6P_13",
+          "answer_787e6a6d",
+          "f16b149f_2",
+          "sharegpt_k7s3Y7a_0",
+          "sharegpt_MBVSMQO_45",
+          "sharegpt_CMeL2P1_0",
+          "sharegpt_1uSqhEY_0",
+          "sharegpt_lACiQzE_0",
+          "ultrachat_365808",
+          "ultrachat_47035",
+          "752392bb_3",
+          "3489fa38_1",
+          "ultrachat_549633",
+          "sharegpt_5PY5H7c_0",
+          "sharegpt_7OkaPQ4_15",
+          "4774287c_2",
+          "d49c8d20_2"
+        ]
+      ],
+      "reader_prompt_tokens": 107689,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.1095890410958904,
+        "normalized_exact_match": 0.0,
+        "precision": 0.057971014492753624,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_8c64ce26_2",
+        "answer_8c64ce26_1",
+        "answer_8c64ce26_3"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "90b78a98d2dc93a62750ff2461a769a54407de51b7e467237b271d4d023edb12",
+      "context_embedding_tokens": 105201,
+      "context_reader_tokens": 105200,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "The event you participated in two weeks ago was the **Midsummer 5K Run**, where you achieved a personal best time of **27 minutes and 42 seconds**. This event is a popular annual race that brings together runners of all levels, and it's known for its scenic routes and community spirit. You mentioned that you've been using your new **Lenovo Yoga 7i** laptop to stay connected and manage your training, which is a great way to stay organized and focused. The **5K** is a great way to stay active, and it's a fantastic way to meet other runners and stay motivated. It's also a great way to stay healthy and improve your fitness level. I'm glad to hear that you're enjoying your new laptop and that it's helping you stay connected and focused on your training. Keep up the good work!",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_id": "gpt4_e061b84g",
+      "ranked_source_session_groups": [
+        [
+          "51221cac",
+          "ultrachat_279525",
+          "sharegpt_1B5KXOT_0",
+          "0e3d8491_1",
+          "ultrachat_246504",
+          "ultrachat_91284",
+          "ultrachat_413081",
+          "7083fcb9_1",
+          "ultrachat_545534",
+          "ultrachat_507366",
+          "sharegpt_rB6IP4G_0",
+          "answer_8c64ce26_2",
+          "sharegpt_osTHjYi_0",
+          "3929e6cc_1",
+          "1b44925a",
+          "ultrachat_231231",
+          "ultrachat_391029",
+          "3d6a2b24_1",
+          "ultrachat_547960",
+          "sharegpt_IL28zNH_0",
+          "sharegpt_PSbjff2_0",
+          "cad5dca8_2",
+          "2640c1b0",
+          "acbc1954",
+          "09d021e7_2",
+          "sharegpt_a4rfTHu_11",
+          "sharegpt_KSCdclV_0",
+          "ultrachat_57659",
+          "sharegpt_bJr1G28_11",
+          "c575291e_1",
+          "ultrachat_442096",
+          "c15dadce_1",
+          "answer_8c64ce26_1",
+          "sharegpt_qAsObVn_0",
+          "ultrachat_430731",
+          "sharegpt_783Lb5V_0",
+          "0dc2efcc_3",
+          "ultrachat_192785",
+          "answer_8c64ce26_3",
+          "sharegpt_5DSpgoJ_0",
+          "ultrachat_15819",
+          "68705467_1",
+          "ultrachat_546836",
+          "sharegpt_cUXo8S0_0",
+          "sharegpt_HOO59Ue_99",
+          "sharegpt_NCuLVp2_0",
+          "9dac9e37_1",
+          "ultrachat_213300",
+          "sharegpt_sDwO1bp_35",
+          "de43030f_1",
+          "sharegpt_g15cpiF_0",
+          "ae15e8b6_1",
+          "ultrachat_363574",
+          "ultrachat_104948",
+          "sharegpt_HiKYnva_0",
+          "ce584ba0",
+          "sharegpt_i33zh1e_15",
+          "sharegpt_hHGVWPU_1"
+        ]
+      ],
+      "reader_prompt_tokens": 105281,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.06451612903225806,
+        "normalized_exact_match": 0.0,
+        "precision": 0.03488372093023256,
+        "recall": 0.42857142857142855
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d8a1af6b_1",
+        "answer_d8a1af6b_2",
+        "answer_d8a1af6b_3",
+        "answer_d8a1af6b_4",
+        "answer_d8a1af6b_5"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "47028fe760531641c0765af3a7de4eca27b5adde12c3f33d8442b4d8f263d9d9",
+      "context_embedding_tokens": 106626,
+      "context_reader_tokens": 106625,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_id": "gpt4_f420262c",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_3dtASzd_0",
+          "cbe70f21",
+          "05fff0f4",
+          "116bae09",
+          "ultrachat_388154",
+          "sharegpt_Cc6jYfq_63",
+          "8e8c87fe_2",
+          "762d288d_1",
+          "ultrachat_479030",
+          "d4e1a02d",
+          "87252d80_3",
+          "ultrachat_486111",
+          "3418b277_5",
+          "808f1b35_1",
+          "ultrachat_55966",
+          "sharegpt_Asmwc6g_7",
+          "sharegpt_2PapmAb_0",
+          "sharegpt_B0riiep_0",
+          "607b478d",
+          "answer_d8a1af6b_1",
+          "ultrachat_548517",
+          "sharegpt_FXLPiDK_0",
+          "ultrachat_431201",
+          "3ea07188_2",
+          "ultrachat_58198",
+          "018d1d88_1",
+          "ultrachat_133350",
+          "sharegpt_xvpRCJY_0",
+          "d07f014a",
+          "answer_d8a1af6b_2",
+          "sharegpt_htKfBTv_0",
+          "94464f25",
+          "a823dc7c",
+          "ultrachat_6054",
+          "016f6bd4_2",
+          "39948bcf_4",
+          "sharegpt_ay1B0RI_15",
+          "7169e342_1",
+          "answer_d8a1af6b_3",
+          "ultrachat_446175",
+          "sharegpt_jFDrHZ3_0",
+          "ultrachat_215299",
+          "dbf644b3_1",
+          "answer_d8a1af6b_4",
+          "answer_d8a1af6b_5",
+          "sharegpt_0BZVqwW_0",
+          "b372c1e4_1"
+        ]
+      ],
+      "reader_prompt_tokens": 106705,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_c8354ae9"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "3d9a00d699d87c7f8be8edb6f951f4b43cf4e0e830d73357ec61f44dbb00548d",
+      "context_embedding_tokens": 107751,
+      "context_reader_tokens": 107750,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "lavender gin fizz",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**. It combines tequila, mango puree, lime juice, ginger beer, and a dash of smoked paprika for a unique and flavorful twist on the classic Moscow Mule. This recipe is a great example of how you're experimenting with different flavors and ingredients to create something new and exciting. It's a perfect match for your love of citrus and bold, smoky flavors. Keep up the great work! 🍸",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_id": "8550ddae",
+      "ranked_source_session_groups": [
+        [
+          "4f9928bb",
+          "e10dfffb_1",
+          "sharegpt_H6HtBTs_7",
+          "sharegpt_5uAXMuz_9",
+          "sharegpt_OiLI4jB_35",
+          "answer_c8354ae9",
+          "e594ae93",
+          "sharegpt_r4EToob_0",
+          "7b78417e_1",
+          "3b13915f",
+          "sharegpt_EGeZ3gD_0",
+          "ultrachat_365941",
+          "9deebbc2_2",
+          "d2cb1f8c",
+          "ultrachat_122734",
+          "ultrachat_147876",
+          "c7a15bdc",
+          "sharegpt_ipLglky_42",
+          "c81897cd_5",
+          "sharegpt_nYfh1BU_0",
+          "5365840b_3",
+          "ultrachat_7101",
+          "sharegpt_QtUprRG_12",
+          "38bbc2b7_2",
+          "6f7fabd2_2",
+          "sharegpt_H8FrXvr_25",
+          "295dc1ab_1",
+          "a6109135_1",
+          "fa3c1896",
+          "71cf5aeb_3",
+          "ultrachat_525474",
+          "828264fd_1",
+          "a7189b75",
+          "sharegpt_gZUW6mL_11",
+          "d7e234e5",
+          "8ec23b2c",
+          "f716720c_4",
+          "4f234e2c",
+          "ultrachat_529691",
+          "0cf7bfdb_2",
+          "ultrachat_193868",
+          "d59a335d"
+        ]
+      ],
+      "reader_prompt_tokens": 107825,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_555dfb94"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "80587cafe02f10cac1c2b04db5803afed1e19767e90d3ce68fdbde93ce234d33",
+      "context_embedding_tokens": 106637,
+      "context_reader_tokens": 106636,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "Certainly! If you're looking to enhance your current photography setup, there are several accessories that can help improve your workflow, image quality, and overall experience. Here are some suggestions:\n\n### **1. Tripod**\n- **Purpose:** Provides stability for long exposures, low-light photography, and landscape shots.\n- **Recommendations:** \n  - **Gitzo GT3543LS:** A lightweight, durable tripod with a G-Lock Ultra system for easy adjustments.\n  - **Manfrotto MT055XPRO:** A professional-grade tripod with a robust build and reliable performance.\n  - **Peak Design Travel Tripod:** A compact and portable option for on-the-go photography.\n\n### **2. Camera Bag**\n- **Purpose:** Keeps your gear organized, protected, and easily accessible.\n- **Recommendations:**\n  - **Think Tank Photo 20\" Camera Bag:** A durable, well-organized bag with padded compartments and a secure closure.\n  - **Lowepro HPC 550:** A high-capacity bag with a focus on durability and organization.\n  - **Peak Design Everyday Backpack:** A versatile, lightweight bag that can carry your camera and other gear for daily use.\n\n### **3. Lens Cleaning Kit",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_id": "06878be2",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_cn3iUbp_7",
+          "sharegpt_6Two42G_35",
+          "e58109ed_1",
+          "sharegpt_IDcYeMG_0",
+          "a67c1862_4",
+          "ultrachat_319509",
+          "sharegpt_Lk4UN8n_181",
+          "63b51f8a_1",
+          "8fcfbe43_2",
+          "ultrachat_448784",
+          "a6074da9_1",
+          "ultrachat_12958",
+          "ultrachat_474421",
+          "9806001e",
+          "85b50955_1",
+          "sharegpt_e77Ei51_12",
+          "ultrachat_22151",
+          "sharegpt_5cxEGva_147",
+          "79d53fd0_2",
+          "be1c6872",
+          "368276ab_3",
+          "ultrachat_278209",
+          "ultrachat_58258",
+          "sharegpt_1sxNkyQ_67",
+          "ca929779_1",
+          "ultrachat_506627",
+          "sharegpt_Aoss4uB_41",
+          "dc18f65b",
+          "sharegpt_m8q9RaM_0",
+          "sharegpt_fCb2GVw_0",
+          "ultrachat_138306",
+          "42165950_2",
+          "ultrachat_489051",
+          "9863a1c8_3",
+          "sharegpt_InRLwN7_0",
+          "answer_555dfb94",
+          "sharegpt_i7JgvKp_0",
+          "sharegpt_upcsBm3_0",
+          "sharegpt_GSC090N_6",
+          "sharegpt_NSm6RtC_49",
+          "d75245ea",
+          "347bd498",
+          "ultrachat_567461",
+          "ultrachat_556731",
+          "ultrachat_31347",
+          "465e7ef9",
+          "98a893d5",
+          "3e9fce53_1"
+        ]
+      ],
+      "reader_prompt_tokens": 106713,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.19548872180451127,
+        "normalized_exact_match": 0.0,
+        "precision": 0.12149532710280374,
+        "recall": 0.5
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d3bf812b_1",
+        "answer_d3bf812b_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "d08be76a2f9b902306581fca9218c23df5319ebb7ea6055c3dc5c1aea881ae33",
+      "context_embedding_tokens": 106095,
+      "context_reader_tokens": 106094,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Yes",
+      "ingestion_latency_ms": 0.0,
+      "memory_system_diagnostics": null,
+      "prediction": "Yes, you go to the gym more frequently than you did previously. This is a positive change that can have a significant impact on your fitness journey. Increased frequency of gym visits can lead to greater consistency, which is key to building strength, improving endurance, and achieving your fitness goals. It also allows for more opportunities to work on different aspects of your fitness, such as strength training, cardio, and flexibility.\n\nIf you're going to the gym more often, you might want to consider the following to make the most of your increased frequency:\n\n1. **Variety in workouts**: To avoid plateaus and keep your routine engaging, consider varying your workouts. This can include trying new exercises, changing your routine, or focusing on different muscle groups each session.\n2. **Progressive overload**: Gradually increase the intensity of your workouts to continue challenging your body and promoting growth.\n3. **Rest and recovery**: With more frequent gym visits, it's important to ensure you're giving your body enough time to rest and recover. This can include taking rest days, getting enough sleep, and incorporating recovery techniques like stretching or foam rolling.\n4. **Tracking progress**: Keep a record of your workouts, including the exercises, sets, reps, and weights you're using. This can help",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_id": "c4ea545c",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_IL28zNH_0",
+          "sharegpt_JJu53iW_0",
+          "ultrachat_114003",
+          "a2a8e2c9",
+          "sharegpt_bnUL4PZ_0",
+          "ea0e2434",
+          "60fdb334_2",
+          "answer_d3bf812b_1",
+          "8fd8d01a",
+          "sharegpt_Aij6myZ_0",
+          "ee7f5084_1",
+          "sharegpt_kRkQrRx_0",
+          "ultrachat_369982",
+          "f18ebe36_1",
+          "85a49fe0_1",
+          "ultrachat_82221",
+          "508d552e_5",
+          "sharegpt_CpVLHnZ_62",
+          "sharegpt_Qs7dRMR_0",
+          "5be74579",
+          "2ad94e57_1",
+          "sharegpt_uRwln6Y_29",
+          "ultrachat_260162",
+          "ultrachat_324444",
+          "ultrachat_409455",
+          "9f9b402a_5",
+          "sharegpt_71QV6Zs_7",
+          "sharegpt_vAsigme_0",
+          "5a6b1065",
+          "answer_d3bf812b_2",
+          "ultrachat_21766",
+          "fcddf7d1_2",
+          "sharegpt_CPzL3ju_0",
+          "94f71460_2",
+          "b2d284b1",
+          "ultrachat_241453",
+          "493e23ac",
+          "sharegpt_CjsrxRQ_0",
+          "a1f43f8d_2",
+          "e1cf8b68",
+          "6f8f4c80_1",
+          "ultrachat_92064",
+          "sharegpt_I0uNTjm_16",
+          "ultrachat_360867",
+          "ultrachat_340182",
+          "68d4de04_2"
+        ]
+      ],
+      "reader_prompt_tokens": 106171,
+      "retrieval_latency_ms": 0.0,
+      "session_provenance_available": true,
+      "system": "fullcontext",
+      "token_metrics": {
+        "f1": 0.015503875968992248,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0078125,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_79c395a9_1",
+        "answer_79c395a9_2"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "KNOWN_GATE_CASE",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "dbb149e5e3bc5683e62188744c2c22e79fdb0f87f0ac6b1fde8d6cd81f69185c",
+      "context_embedding_tokens": 7268,
+      "context_reader_tokens": 7267,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "600",
+      "ingestion_latency_ms": 8092.422100016847,
+      "memory_system_diagnostics": null,
+      "prediction": "None. The question about the number of Instagram followers is not addressed in the provided context.",
+      "question": "How many Instagram followers do I currently have?",
+      "question_id": "1cea1afa",
+      "ranked_source_session_groups": [
+        [],
+        [
+          "ultrachat_318281",
+          "ultrachat_468681"
+        ],
+        [],
+        [
+          "7063fad2",
+          "sharegpt_ETn2QdT_0",
+          "97f564ef"
+        ],
+        [
+          "2a0c336c",
+          "sharegpt_lfQALre_0",
+          "sharegpt_ffVJmD5_20",
+          "ultrachat_203194"
+        ],
+        [],
+        [],
+        [
+          "7063fad2",
+          "sharegpt_ETn2QdT_0",
+          "97f564ef",
+          "e06c6d99_5"
+        ],
+        [
+          "e9ad5914_5",
+          "sharegpt_gehd6gz_0",
+          "sharegpt_TQNHiIB_0",
+          "ultrachat_318281"
+        ],
+        [],
+        [],
+        [
+          "e9ad5914_5"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "2a0c336c",
+          "sharegpt_lfQALre_0"
+        ],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7340,
+      "retrieval_latency_ms": 107.82409997773357,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_4cb841a8_1",
+        "answer_4cb841a8_2"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "multi-session",
+      "context_bundle_sha256": "0ba709d36b409cb9f83d0554de157bacf146fd59e26aa91aeee3e8961b0b563b",
+      "context_embedding_tokens": 7084,
+      "context_reader_tokens": 7083,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "$140",
+      "ingestion_latency_ms": 10040.241200011224,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_id": "1c549ce4",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7162,
+      "retrieval_latency_ms": 267.0825000095647,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_ultrachat_399000"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-assistant",
+      "context_bundle_sha256": "a8aec9fdf057c182f51f5d45c83352b07eba83ebd47bd0486ba5eea9be2c2de4",
+      "context_embedding_tokens": 7492,
+      "context_reader_tokens": 7491,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "ingestion_latency_ms": 10429.628199985018,
+      "memory_system_diagnostics": null,
+      "prediction": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_id": "778164c6",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "c6bd5277",
+          "sharegpt_uzwG36E_0",
+          "023641cc_3"
+        ],
+        [
+          "81e406dd_2",
+          "ultrachat_419925"
+        ],
+        [],
+        [
+          "ultrachat_144598",
+          "c6bd5277",
+          "sharegpt_uzwG36E_0",
+          "023641cc_3"
+        ],
+        [],
+        [],
+        [],
+        [
+          "ultrachat_336538"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7593,
+      "retrieval_latency_ms": 289.7196999983862,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_a1e169b1"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "7d2d6ee0295a061b556bed87a18d40166cbd01259c32a1105b411b255cb29ea2",
+      "context_embedding_tokens": 7051,
+      "context_reader_tokens": 7050,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "ingestion_latency_ms": 11456.508300005225,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_id": "fca70973",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "b341cf37_2",
+          "sharegpt_8ziBSjY_19",
+          "f504b269"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7128,
+      "retrieval_latency_ms": 272.2920999804046,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_787e6a6d"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "ed5a1f681d7d823e717131462f5937ee559d91bcc7769dd23e586a203f7ed8be",
+      "context_embedding_tokens": 7035,
+      "context_reader_tokens": 7034,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "Dark Souls 3 DLC",
+      "ingestion_latency_ms": 10301.639899989823,
+      "memory_system_diagnostics": null,
+      "prediction": "The game you finally beat last weekend was Dark Souls 3.",
+      "question": "What game did I finally beat last weekend?",
+      "question_id": "a82c026e",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7107,
+      "retrieval_latency_ms": 327.20729999709874,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.39999999999999997,
+        "normalized_exact_match": 0.0,
+        "precision": 0.2727272727272727,
+        "recall": 0.75
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_8c64ce26_2",
+        "answer_8c64ce26_1",
+        "answer_8c64ce26_3"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "f152ed1cee94ed020edd8c502b2c9cd8411117e2fa9870ad96bc57b8b435bb7a",
+      "context_embedding_tokens": 6753,
+      "context_reader_tokens": 6752,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "ingestion_latency_ms": 10756.912700016983,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_id": "gpt4_e061b84g",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "ultrachat_413081",
+          "7083fcb9_1"
+        ]
+      ],
+      "reader_prompt_tokens": 6832,
+      "retrieval_latency_ms": 287.95300002093427,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d8a1af6b_1",
+        "answer_d8a1af6b_2",
+        "answer_d8a1af6b_3",
+        "answer_d8a1af6b_4",
+        "answer_d8a1af6b_5"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "eafa0a79a12c1c50b1b6b0d03f4fe81b4e26d89cbee52972fead78974649330f",
+      "context_embedding_tokens": 7508,
+      "context_reader_tokens": 7507,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "ingestion_latency_ms": 9130.013499991037,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_id": "gpt4_f420262c",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7587,
+      "retrieval_latency_ms": 322.99349998356774,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_c8354ae9"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "7189a772a35a01937f9005fba9b4c6559340616c77ee7eff57003de4ed25f95d",
+      "context_embedding_tokens": 7273,
+      "context_reader_tokens": 7272,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "lavender gin fizz",
+      "ingestion_latency_ms": 8593.060899991542,
+      "memory_system_diagnostics": null,
+      "prediction": "The user tried a lavender gin fizz recipe last weekend.",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_id": "8550ddae",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "5365840b_3",
+          "ultrachat_7101"
+        ],
+        [],
+        [],
+        [
+          "5365840b_3",
+          "ultrachat_7101"
+        ]
+      ],
+      "reader_prompt_tokens": 7347,
+      "retrieval_latency_ms": 214.0460999798961,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.4615384615384615,
+        "normalized_exact_match": 0.0,
+        "precision": 0.3,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_555dfb94"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "89e6583db3bde410065330f096f27bd48dded3e3d67b2855e8056265f279f66d",
+      "context_embedding_tokens": 7420,
+      "context_reader_tokens": 7419,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "ingestion_latency_ms": 9154.479599994374,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_id": "06878be2",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "sharegpt_5cxEGva_147",
+          "79d53fd0_2",
+          "be1c6872"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 7496,
+      "retrieval_latency_ms": 319.88719999208115,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d3bf812b_1",
+        "answer_d3bf812b_2"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "be312826c9f6ec91ca9520568325568c356739c585352f237429d4ac5baa3fe8",
+      "context_embedding_tokens": 6865,
+      "context_reader_tokens": 6864,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "Yes",
+      "ingestion_latency_ms": 9218.083899992052,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_id": "c4ea545c",
+      "ranked_source_session_groups": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "ultrachat_92064",
+          "sharegpt_I0uNTjm_16",
+          "ultrachat_360867",
+          "ultrachat_340182"
+        ],
+        [],
+        [],
+        [
+          "ultrachat_340182"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 6941,
+      "retrieval_latency_ms": 242.18940001446754,
+      "session_provenance_available": true,
+      "system": "openclaw",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_79c395a9_1",
+        "answer_79c395a9_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "MEM0_ACTION_HANDLER_WARNING",
+        "MEM0_INVALID_JSON_RESPONSE"
+      ],
+      "case_status": "KNOWN_GATE_CASE",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "ca833a8c73b76a10a354e33663fe737a299888daac46a6269ad4f3aa65d03fea",
+      "context_embedding_tokens": 453,
+      "context_reader_tokens": 452,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "600",
+      "ingestion_latency_ms": 638198.4756999882,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "How many Instagram followers do I currently have?",
+      "question_id": "1cea1afa",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 526,
+      "retrieval_latency_ms": 160.0310000067111,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_4cb841a8_1",
+        "answer_4cb841a8_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "multi-session",
+      "context_bundle_sha256": "e99a4c988e2c638941e37a52b2d79f4074a9b127607874a7e7f1fe459ddbc09e",
+      "context_embedding_tokens": 430,
+      "context_reader_tokens": 429,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "$140",
+      "ingestion_latency_ms": 500077.6313999959,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_id": "1c549ce4",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 509,
+      "retrieval_latency_ms": 133.00339999841526,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_ultrachat_399000"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-assistant",
+      "context_bundle_sha256": "77bcfcc336adf7f6fcb47b41fb4605a74b289bc2c0aafa2aa55b5e0fdc7344b6",
+      "context_embedding_tokens": 440,
+      "context_reader_tokens": 439,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "ingestion_latency_ms": 497528.98400000413,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_id": "778164c6",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 542,
+      "retrieval_latency_ms": 142.1583999763243,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_a1e169b1"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "MEM0_ACTION_HANDLER_WARNING"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "ff1ed347e2cb69ec995abfb8f2aea90951737abf1ca48ad0648a3c51e67021c2",
+      "context_embedding_tokens": 432,
+      "context_reader_tokens": 431,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "ingestion_latency_ms": 490502.8913000133,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_id": "fca70973",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 510,
+      "retrieval_latency_ms": 144.37120000366122,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_787e6a6d"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "MEM0_ACTION_HANDLER_WARNING"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "0d4a7da53655a04dc324fe8d5c12843a4ef7d161307b5e0b672a2173d8791951",
+      "context_embedding_tokens": 450,
+      "context_reader_tokens": 449,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Dark Souls 3 DLC",
+      "ingestion_latency_ms": 567644.7042000073,
+      "memory_system_diagnostics": null,
+      "prediction": "The last boss in Dark Souls 3 DLC.",
+      "question": "What game did I finally beat last weekend?",
+      "question_id": "a82c026e",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 523,
+      "retrieval_latency_ms": 152.19260001322255,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.6666666666666666,
+        "normalized_exact_match": 0.0,
+        "precision": 0.5,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_8c64ce26_2",
+        "answer_8c64ce26_1",
+        "answer_8c64ce26_3"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "75f7f5fb314bfbbadf08b12f0b19067156fc074c10a1f930cf430de480f8bf15",
+      "context_embedding_tokens": 478,
+      "context_reader_tokens": 477,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "ingestion_latency_ms": 643349.7718999861,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_id": "gpt4_e061b84g",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 558,
+      "retrieval_latency_ms": 171.87739998917095,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d8a1af6b_1",
+        "answer_d8a1af6b_2",
+        "answer_d8a1af6b_3",
+        "answer_d8a1af6b_4",
+        "answer_d8a1af6b_5"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "19d7d1dedfdafe327faca444750a1197dbf28b85d91c54c883b0b48a636c188e",
+      "context_embedding_tokens": 429,
+      "context_reader_tokens": 428,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "ingestion_latency_ms": 521000.2177999995,
+      "memory_system_diagnostics": null,
+      "prediction": "The order of airlines flown with from earliest to latest is: American Airlines, Delta, Spirit Airlines.",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_id": "gpt4_f420262c",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 509,
+      "retrieval_latency_ms": 134.09690000116825,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.3157894736842105,
+        "normalized_exact_match": 0.0,
+        "precision": 0.21428571428571427,
+        "recall": 0.6
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_c8354ae9"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "MEM0_ACTION_HANDLER_WARNING"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "01fbb3130184104819b05aebb0b1f949275aa3b8e524979300a616e00e1f4f30",
+      "context_embedding_tokens": 392,
+      "context_reader_tokens": 391,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "lavender gin fizz",
+      "ingestion_latency_ms": 468272.16960000806,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_id": "8550ddae",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 467,
+      "retrieval_latency_ms": 141.85960000031628,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_555dfb94"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "e212985cceb9685fe5508c493323ac3cbd9a8d988173ce3bfff38714a1fed9f4",
+      "context_embedding_tokens": 494,
+      "context_reader_tokens": 493,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "ingestion_latency_ms": 471462.37409999594,
+      "memory_system_diagnostics": null,
+      "prediction": "Based on your interests and needs, here are some accessories that could complement your current photography setup:\n\n- **Camera Bags**: Consider upgrading to a camera bag designed for Sony cameras, focusing on comfort and durability.\n- **Camera Flash**: You are looking at the Godox V1, so you might want a case or pouch to protect it.\n- **External Battery Packs**: A good external battery pack would help charge your Sony A7R IV and other devices on the go.\n- **Lens Cleaning Kit**: For cleaning your Sony 24-70mm f/2.8 lens, a proper cleaning kit is essential.\n- **Props and Backdrops**: If you're planning to take photos of eco-friendly candles, consider using sunflowers, zinnias, bell peppers, and eggplants as props and backdrops.",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_id": "06878be2",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 571,
+      "retrieval_latency_ms": 167.66450001159683,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.1592920353982301,
+        "normalized_exact_match": 0.0,
+        "precision": 0.10344827586206896,
+        "recall": 0.34615384615384615
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d3bf812b_1",
+        "answer_d3bf812b_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "MEM0_ACTION_HANDLER_WARNING"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "d5c6a7ec1f26d75be18d385da3027ba7f74be4d6205c53e2bc5e7e88ecb93708",
+      "context_embedding_tokens": 438,
+      "context_reader_tokens": 437,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "Yes",
+      "ingestion_latency_ms": 627672.3389000108,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_id": "c4ea545c",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 515,
+      "retrieval_latency_ms": 150.17740000621416,
+      "session_provenance_available": false,
+      "system": "mem0",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_79c395a9_1",
+        "answer_79c395a9_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "KNOWN_GATE_CASE",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "9ef3ab6f45d6a888454f727c60c8c0fb8a78ea877c816d8ca1f655d4987c79fb",
+      "context_embedding_tokens": 2018,
+      "context_reader_tokens": 2017,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "600",
+      "ingestion_latency_ms": 1805733.123299986,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 7,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "How many Instagram followers do I currently have?",
+      "question_id": "1cea1afa",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2090,
+      "retrieval_latency_ms": 18003.600500000175,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_4cb841a8_1",
+        "answer_4cb841a8_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "multi-session",
+      "context_bundle_sha256": "536ed8fe036003d1dc8836d8d33fe9f0c1cac51326d6848fc1b4a359519d90fb",
+      "context_embedding_tokens": 2377,
+      "context_reader_tokens": 2376,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "$140",
+      "ingestion_latency_ms": 793565.6718000246,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 9,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_id": "1c549ce4",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2455,
+      "retrieval_latency_ms": 18768.90339999227,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_ultrachat_399000"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-assistant",
+      "context_bundle_sha256": "c06848bf1911a8ba29d2f7f4357bdd19ca2d1c50529cac8272e6617589d8b59e",
+      "context_embedding_tokens": 1474,
+      "context_reader_tokens": 1473,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "ingestion_latency_ms": 857484.5250000071,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 1,
+          "reflection": 1,
+          "semantic": 2,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "The Jamaican dish recommended to try with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_id": "778164c6",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 1575,
+      "retrieval_latency_ms": 7625.003799999831,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.45454545454545453,
+        "normalized_exact_match": 0.0,
+        "precision": 0.29411764705882354,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_a1e169b1"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "2171c5e066b3ec0e8d91a0e43e4caaffdbb9b40316908678d41dba2a41819e5e",
+      "context_embedding_tokens": 2444,
+      "context_reader_tokens": 2443,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "ingestion_latency_ms": 566171.7389000114,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 9,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_id": "fca70973",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2521,
+      "retrieval_latency_ms": 23571.368800010532,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_787e6a6d"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "3fec2cd4bece334002ed14e3f2953aa250cb2a4644bf7ff67775e9d21d109922",
+      "context_embedding_tokens": 2400,
+      "context_reader_tokens": 2399,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "Dark Souls 3 DLC",
+      "ingestion_latency_ms": 629544.8102999944,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 7,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "What game did I finally beat last weekend?",
+      "question_id": "a82c026e",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2472,
+      "retrieval_latency_ms": 22317.083800007822,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_8c64ce26_2",
+        "answer_8c64ce26_1",
+        "answer_8c64ce26_3"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "cd012668c584cd1070d6d13af54aa9966433ae95dffd2329352a16f115e27747",
+      "context_embedding_tokens": 2136,
+      "context_reader_tokens": 2135,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "ingestion_latency_ms": 1347075.0452000066,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 9,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "The event you mentioned was a volleyball league game.",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_id": "gpt4_e061b84g",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2215,
+      "retrieval_latency_ms": 17762.459799996577,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.125,
+        "normalized_exact_match": 0.0,
+        "precision": 0.1111111111111111,
+        "recall": 0.14285714285714285
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d8a1af6b_1",
+        "answer_d8a1af6b_2",
+        "answer_d8a1af6b_3",
+        "answer_d8a1af6b_4",
+        "answer_d8a1af6b_5"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "46c1620899b23a461868779f7908a4e497175620f441cf6f8f88ebfb784067dd",
+      "context_embedding_tokens": 2259,
+      "context_reader_tokens": 2258,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "ingestion_latency_ms": 1080019.4794000126,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 8,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_id": "gpt4_f420262c",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2338,
+      "retrieval_latency_ms": 16291.374899999937,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_c8354ae9"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "0c633ad23597c5087a4bff5f0aaf3f4d34945c902f562821c1a079d9b16b388b",
+      "context_embedding_tokens": 3039,
+      "context_reader_tokens": 3038,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "lavender gin fizz",
+      "ingestion_latency_ms": 965543.7747000251,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 8,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_id": "8550ddae",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 3113,
+      "retrieval_latency_ms": 18332.267399993725,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_555dfb94"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "6ad227836be8364d7bb19ed4dd92cea7d85eba1a11519b0eaeda60c103bb23db",
+      "context_embedding_tokens": 2003,
+      "context_reader_tokens": 2002,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "ingestion_latency_ms": 1057094.408200006,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 9,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_id": "06878be2",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2079,
+      "retrieval_latency_ms": 15432.009900017874,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d3bf812b_1",
+        "answer_d3bf812b_2"
+      ],
+      "answer_session_mrr": null,
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "baseline_warning_types": [
+        "SIMPLEMEM_INTERNAL_RECOVERY"
+      ],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "7cedc5a6da334678be92a671663aeb34352ce4baae13a0ca62364dbeb4c43409",
+      "context_embedding_tokens": 2419,
+      "context_reader_tokens": 2418,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "Yes",
+      "ingestion_latency_ms": 1106645.2652000007,
+      "memory_system_diagnostics": {
+        "calls": {
+          "keyword": 1,
+          "merge_deduplicate": 3,
+          "reflection": 1,
+          "semantic": 9,
+          "structured": 1
+        },
+        "native_answer_head_invoked": false,
+        "planning_enabled": true,
+        "reflection_enabled": true,
+        "source_commit": "7da777f56a15db81bb261d296c89cad5915e8d67",
+        "source_repository": "https://github.com/aiming-lab/SimpleMem.git",
+        "source_tag": "v0.1.0"
+      },
+      "prediction": "None.",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_id": "c4ea545c",
+      "ranked_source_session_groups": null,
+      "reader_prompt_tokens": 2495,
+      "retrieval_latency_ms": 19055.538699991303,
+      "session_provenance_available": false,
+      "system": "simplemem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_79c395a9_1",
+        "answer_79c395a9_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "KNOWN_GATE_CASE",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "008f8dd37997652caa111260e8183481fca476faa49f06ff7fdeb257a11f4bb6",
+      "context_embedding_tokens": 3315,
+      "context_reader_tokens": 3314,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "600",
+      "ingestion_latency_ms": 899367.0625000086,
+      "memory_system_diagnostics": null,
+      "prediction": "You currently have 600 followers.",
+      "question": "How many Instagram followers do I currently have?",
+      "question_id": "1cea1afa",
+      "ranked_source_session_groups": [
+        [
+          "answer_79c395a9_2"
+        ],
+        [
+          "answer_79c395a9_1"
+        ],
+        [
+          "answer_79c395a9_1"
+        ],
+        [
+          "726fa34a_2"
+        ],
+        [
+          "26e9a635_1"
+        ],
+        [
+          "answer_79c395a9_1"
+        ],
+        [
+          "answer_79c395a9_2"
+        ],
+        [
+          "26e9a635_1"
+        ],
+        [
+          "sharegpt_TQNHiIB_0"
+        ],
+        [
+          "answer_79c395a9_1"
+        ],
+        [
+          "894dd0c2_3"
+        ],
+        [
+          "sharegpt_inuIr9J_119"
+        ],
+        [
+          "sharegpt_GYN9yoM_0"
+        ],
+        [
+          "97f564ef"
+        ],
+        [
+          "sharegpt_5TilZ4R_41"
+        ],
+        [
+          "894dd0c2_3"
+        ],
+        [
+          "3d2e66f2_1"
+        ],
+        [
+          "ultrachat_255553"
+        ],
+        [
+          "ultrachat_255553"
+        ],
+        [
+          "9c479e89_1"
+        ],
+        [
+          "a126eeab_1"
+        ],
+        [
+          "7063fad2"
+        ],
+        [
+          "ultrachat_82739"
+        ],
+        [
+          "sharegpt_ffVJmD5_20"
+        ],
+        [
+          "6a2f9452_3"
+        ],
+        [
+          "3d2e66f2_1"
+        ],
+        [
+          "answer_79c395a9_1"
+        ],
+        [
+          "3d2e66f2_1"
+        ],
+        [
+          "ultrachat_203194"
+        ],
+        [
+          "ultrachat_203194"
+        ],
+        [],
+        [
+          "ultrachat_318281",
+          "ultrachat_468681"
+        ],
+        [],
+        [
+          "7063fad2",
+          "sharegpt_ETn2QdT_0",
+          "97f564ef"
+        ],
+        [
+          "2a0c336c",
+          "sharegpt_lfQALre_0",
+          "sharegpt_ffVJmD5_20",
+          "ultrachat_203194"
+        ],
+        []
+      ],
+      "reader_prompt_tokens": 3387,
+      "retrieval_latency_ms": 280.87330001289956,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.33333333333333337,
+        "normalized_exact_match": 0.0,
+        "precision": 0.2,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_4cb841a8_1",
+        "answer_4cb841a8_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "multi-session",
+      "context_bundle_sha256": "c092975d6581dd3903a04f1999a9d7300e21e4d2b96d73f3987c167fca123055",
+      "context_embedding_tokens": 3339,
+      "context_reader_tokens": 3338,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "$140",
+      "ingestion_latency_ms": 1148693.8992000069,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_id": "1c549ce4",
+      "ranked_source_session_groups": [
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_2"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_2"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "f1e4daa8_2"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_2"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "35f052f9_2"
+        ],
+        [
+          "answer_4cb841a8_2"
+        ],
+        [
+          "f1e4daa8_2"
+        ],
+        [
+          "f1e4daa8_2"
+        ],
+        [
+          "35f052f9_2"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "sharegpt_T95BPXB_0"
+        ],
+        [
+          "sharegpt_T95BPXB_0"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "35f052f9_2"
+        ],
+        [
+          "sharegpt_miOKGt1_13"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "answer_4cb841a8_1"
+        ],
+        [
+          "sharegpt_T95BPXB_0"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3417,
+      "retrieval_latency_ms": 347.40709999459796,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_ultrachat_399000"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-assistant",
+      "context_bundle_sha256": "a1db70223655371218206a39c149776456ebebd5173ba4c2e4a0e77bcfea77d8",
+      "context_embedding_tokens": 3936,
+      "context_reader_tokens": 3935,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "ingestion_latency_ms": 1136304.1429999867,
+      "memory_system_diagnostics": null,
+      "prediction": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_id": "778164c6",
+      "ranked_source_session_groups": [
+        [
+          "answer_ultrachat_399000"
+        ],
+        [
+          "answer_ultrachat_399000"
+        ],
+        [
+          "answer_ultrachat_399000"
+        ],
+        [
+          "025836be_1"
+        ],
+        [
+          "490bb46d_1"
+        ],
+        [
+          "490bb46d_1"
+        ],
+        [
+          "025836be_1"
+        ],
+        [
+          "ddaa5a15_2"
+        ],
+        [
+          "ultrachat_144598"
+        ],
+        [
+          "025836be_1"
+        ],
+        [
+          "ultrachat_144598"
+        ],
+        [
+          "ddaa5a15_2"
+        ],
+        [
+          "ultrachat_144598"
+        ],
+        [
+          "0c28f7fb"
+        ],
+        [
+          "sharegpt_WXCvFir_11"
+        ],
+        [
+          "025836be_1"
+        ],
+        [
+          "c6bd5277"
+        ],
+        [
+          "2d74df23_3"
+        ],
+        [
+          "ultrachat_346016"
+        ],
+        [
+          "ultrachat_460345"
+        ],
+        [
+          "ddaa5a15_2"
+        ],
+        [
+          "ultrachat_313916"
+        ],
+        [
+          "490bb46d_1"
+        ],
+        [
+          "sharegpt_WXCvFir_11"
+        ],
+        [
+          "ultrachat_419925"
+        ],
+        [
+          "sharegpt_CyJ3dal_43"
+        ],
+        [
+          "sharegpt_fnuLBKl_129"
+        ],
+        [
+          "sharegpt_WXCvFir_11"
+        ],
+        [
+          "ddaa5a15_2"
+        ],
+        [
+          "2d74df23_3"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 4037,
+      "retrieval_latency_ms": 369.84729999676347,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "precision": 0.3333333333333333,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_a1e169b1"
+      ],
+      "answer_session_mrr": 0.0625,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "76c498c4d65203bfa0b3432238fc567c34811ff73f0797dbd4d21d28be49b18e",
+      "context_embedding_tokens": 3657,
+      "context_reader_tokens": 3656,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "ingestion_latency_ms": 1193137.165000022,
+      "memory_system_diagnostics": null,
+      "prediction": "None.",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_id": "fca70973",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_vGZ5lH1_21"
+        ],
+        [
+          "312bf939"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "5d5e80c5_1"
+        ],
+        [
+          "312bf939"
+        ],
+        [
+          "5d5e80c5_1"
+        ],
+        [
+          "fc005760"
+        ],
+        [
+          "fc005760"
+        ],
+        [
+          "762a8b45_2"
+        ],
+        [
+          "sharegpt_Yuw2LhQ_4"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "sharegpt_vGZ5lH1_21"
+        ],
+        [
+          "99b061c5_1"
+        ],
+        [
+          "ultrachat_387027"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [
+          "sharegpt_CYcAuWq_0"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "sharegpt_CYcAuWq_0"
+        ],
+        [
+          "e46a5384"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [
+          "fc005760"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [
+          "4e3f0831_1"
+        ],
+        [
+          "83ea6306_1"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "f504b269"
+        ],
+        [
+          "answer_a1e169b1"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3734,
+      "retrieval_latency_ms": 285.7160000130534,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_787e6a6d"
+      ],
+      "answer_session_mrr": 0.3333333333333333,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "41bc11a36866bc16e12e095fe5b2e7bd3adfafb6a25eff7723713d2bad0bef50",
+      "context_embedding_tokens": 3505,
+      "context_reader_tokens": 3504,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "Dark Souls 3 DLC",
+      "ingestion_latency_ms": 1148445.1631999982,
+      "memory_system_diagnostics": null,
+      "prediction": "The user mentioned they finally beat the last boss in the Dark Souls 3 DLC last weekend.",
+      "question": "What game did I finally beat last weekend?",
+      "question_id": "a82c026e",
+      "ranked_source_session_groups": [
+        [
+          "752392bb_3"
+        ],
+        [
+          "ccaabf0b_1"
+        ],
+        [
+          "answer_787e6a6d"
+        ],
+        [
+          "ultrachat_365808"
+        ],
+        [
+          "sharegpt_vIkUTvg_0"
+        ],
+        [
+          "d49c8d20_2"
+        ],
+        [
+          "sharegpt_mWFmQxk_36"
+        ],
+        [
+          "ccaabf0b_1"
+        ],
+        [
+          "516b0aae_1"
+        ],
+        [
+          "752392bb_3"
+        ],
+        [
+          "d9727262_4"
+        ],
+        [
+          "752392bb_3"
+        ],
+        [
+          "d9727262_4"
+        ],
+        [
+          "ccaabf0b_1"
+        ],
+        [
+          "ccaabf0b_1"
+        ],
+        [
+          "d9727262_4"
+        ],
+        [
+          "answer_787e6a6d"
+        ],
+        [
+          "answer_787e6a6d"
+        ],
+        [
+          "c71e1c7a_2"
+        ],
+        [
+          "752392bb_3"
+        ],
+        [
+          "sharegpt_mWFmQxk_36"
+        ],
+        [
+          "sharegpt_mWFmQxk_36"
+        ],
+        [
+          "answer_787e6a6d"
+        ],
+        [
+          "sharegpt_vIkUTvg_0"
+        ],
+        [
+          "sharegpt_gvFtSPH_0"
+        ],
+        [
+          "sharegpt_vIkUTvg_0"
+        ],
+        [
+          "23c0f73a_1"
+        ],
+        [
+          "sharegpt_u71pVhw_0"
+        ],
+        [
+          "3009ba66_2"
+        ],
+        [
+          "sharegpt_u71pVhw_0"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3577,
+      "retrieval_latency_ms": 272.8957000072114,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.4444444444444445,
+        "normalized_exact_match": 0.0,
+        "precision": 0.2857142857142857,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_8c64ce26_2",
+        "answer_8c64ce26_1",
+        "answer_8c64ce26_3"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 0.6666666666666666,
+      "answer_session_recall_at_5": 0.3333333333333333,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "0bfa47150cb957fe98115e39274fb237e55e0c812f9bab341f5dab77df62f91c",
+      "context_embedding_tokens": 3351,
+      "context_reader_tokens": 3350,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "FALSE_ABSTENTION",
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "ingestion_latency_ms": 1009230.1801999856,
+      "memory_system_diagnostics": null,
+      "prediction": "None",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_id": "gpt4_e061b84g",
+      "ranked_source_session_groups": [
+        [
+          "answer_8c64ce26_3"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "sharegpt_cUXo8S0_0"
+        ],
+        [
+          "answer_8c64ce26_3"
+        ],
+        [
+          "68705467_1"
+        ],
+        [
+          "answer_8c64ce26_1"
+        ],
+        [
+          "answer_8c64ce26_3"
+        ],
+        [
+          "sharegpt_cUXo8S0_0"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "sharegpt_5DSpgoJ_0"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "ultrachat_547960"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "answer_8c64ce26_3"
+        ],
+        [
+          "sharegpt_rB6IP4G_0"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "sharegpt_rB6IP4G_0"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "ultrachat_279525"
+        ],
+        [
+          "ultrachat_547960"
+        ],
+        [
+          "ultrachat_91284"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "51221cac"
+        ],
+        [
+          "sharegpt_a4rfTHu_11"
+        ],
+        [
+          "ultrachat_57659"
+        ],
+        [
+          "9dac9e37_1"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3430,
+      "retrieval_latency_ms": 274.8608000110835,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d8a1af6b_1",
+        "answer_d8a1af6b_2",
+        "answer_d8a1af6b_3",
+        "answer_d8a1af6b_4",
+        "answer_d8a1af6b_5"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 0.8,
+      "answer_session_recall_at_5": 0.6,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "temporal-reasoning",
+      "context_bundle_sha256": "d972d7add3330f9e40e5889488e75ca69f888d467a27e3640fa8ed953a865115",
+      "context_embedding_tokens": 3532,
+      "context_reader_tokens": 3531,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "ingestion_latency_ms": 885604.8316000088,
+      "memory_system_diagnostics": null,
+      "prediction": "None. The order of airlines you flew with is not mentioned in the provided context.",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_id": "gpt4_f420262c",
+      "ranked_source_session_groups": [
+        [
+          "answer_d8a1af6b_2"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_2"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_2"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "sharegpt_B0riiep_0"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_2"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_1"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_5"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_3"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "answer_d8a1af6b_2"
+        ],
+        [
+          "answer_d8a1af6b_4"
+        ],
+        [
+          "sharegpt_xvpRCJY_0"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3611,
+      "retrieval_latency_ms": 281.55310000875033,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.10526315789473682,
+        "normalized_exact_match": 0.0,
+        "precision": 0.07142857142857142,
+        "recall": 0.2
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_c8354ae9"
+      ],
+      "answer_session_mrr": 0.25,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-user",
+      "context_bundle_sha256": "9a3a70cb30c0dbfa150ba0b5be668c3feb7334a91384483d3fc0dfcda8e64bca",
+      "context_embedding_tokens": 3600,
+      "context_reader_tokens": 3599,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [],
+      "gold": "lavender gin fizz",
+      "ingestion_latency_ms": 915092.7382000082,
+      "memory_system_diagnostics": null,
+      "prediction": "The user tried a lavender gin fizz recipe last weekend.",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_id": "8550ddae",
+      "ranked_source_session_groups": [
+        [
+          "71cf5aeb_3"
+        ],
+        [
+          "a7189b75"
+        ],
+        [
+          "a7189b75"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "a7189b75"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "71cf5aeb_3"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "e10dfffb_1"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "71cf5aeb_3"
+        ],
+        [
+          "ultrachat_365941"
+        ],
+        [
+          "d2cb1f8c"
+        ],
+        [
+          "e10dfffb_1"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "5365840b_3"
+        ],
+        [
+          "5365840b_3"
+        ],
+        [
+          "4f234e2c"
+        ],
+        [
+          "38bbc2b7_2"
+        ],
+        [
+          "828264fd_1"
+        ],
+        [
+          "fa3c1896"
+        ],
+        [
+          "e10dfffb_1"
+        ],
+        [
+          "answer_c8354ae9"
+        ],
+        [
+          "7b78417e_1"
+        ],
+        [
+          "c7a15bdc"
+        ],
+        [
+          "3b13915f"
+        ],
+        [
+          "7b78417e_1"
+        ],
+        [
+          "38bbc2b7_2"
+        ],
+        [
+          "ultrachat_365941"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3674,
+      "retrieval_latency_ms": 267.50729998457246,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.4615384615384615,
+        "normalized_exact_match": 0.0,
+        "precision": 0.3,
+        "recall": 1.0
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_555dfb94"
+      ],
+      "answer_session_mrr": 0.0,
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "single-session-preference",
+      "context_bundle_sha256": "62e4c2c574da7c179cc0be0d242b61931314b4021a5a17a4b38d7c6eb452017b",
+      "context_embedding_tokens": 3579,
+      "context_reader_tokens": 3578,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_MISSING_ANSWER"
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "ingestion_latency_ms": 802241.0233999835,
+      "memory_system_diagnostics": null,
+      "prediction": "Based on the context provided, here are some accessories that would complement your current photography setup:\n\n1. **Camera Flash**: Consider upgrading to a high-quality flash like the Sony HVL-F60RM or HVL-F45RM for better lighting control and performance. Alternatively, third-party options such as the Godox V1 offer excellent value and advanced features.\n\n2. **Camera Bag**: A reliable camera bag is essential for carrying your gear. Brands like Think Tank Photo, Lowepro, F-Stop Gear, Peak Design, and MindShift Gear offer high-quality bags tailored for Sony cameras and additional accessories.\n\n3. **External Battery Packs**: For on-the-go charging, consider external battery packs such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, or Jackery Titan S 20000. These can charge your Sony A7R IV and other devices effectively.\n\n4. **Lens Cleaning Kit**: To maintain the quality and performance of your lenses, use a lens cleaning kit that includes a soft, dry cloth and appropriate cleaning solutions. Avoid touching the lens with bare hands and apply gentle pressure to prevent damage.\n\n5. **Tripod**: The Gitzo GT3543LS is",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_id": "06878be2",
+      "ranked_source_session_groups": [
+        [
+          "sharegpt_cn3iUbp_7"
+        ],
+        [
+          "3e9fce53_1"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "42165950_2"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "sharegpt_6Two42G_35"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "98a893d5"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "42165950_2"
+        ],
+        [
+          "ultrachat_31347"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "98a893d5"
+        ],
+        [
+          "sharegpt_5cxEGva_147"
+        ],
+        [
+          "ultrachat_448784"
+        ],
+        [
+          "ultrachat_22151"
+        ],
+        [
+          "sharegpt_InRLwN7_0"
+        ],
+        [
+          "sharegpt_i7JgvKp_0"
+        ],
+        [
+          "ultrachat_556731"
+        ],
+        [
+          "dc18f65b"
+        ],
+        [
+          "8fcfbe43_2"
+        ],
+        [
+          "a67c1862_4"
+        ],
+        [
+          "ultrachat_556731"
+        ],
+        [
+          "ultrachat_556731"
+        ],
+        [
+          "e58109ed_1"
+        ],
+        [
+          "42165950_2"
+        ],
+        [
+          "d75245ea"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3655,
+      "retrieval_latency_ms": 126.87810001079924,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.18791946308724833,
+        "normalized_exact_match": 0.0,
+        "precision": 0.11382113821138211,
+        "recall": 0.5384615384615384
+      }
+    },
+    {
+      "answer_session_ids": [
+        "answer_d3bf812b_1",
+        "answer_d3bf812b_2"
+      ],
+      "answer_session_mrr": 1.0,
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "baseline_warning_types": [],
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "category": "knowledge-update",
+      "context_bundle_sha256": "65fb6edd52f80112809344434d2da3660fabf0b4168ead7e7d121a3c35999e34",
+      "context_embedding_tokens": 3503,
+      "context_reader_tokens": 3502,
+      "failure_attribution_heuristic": true,
+      "failure_attribution_hint": [
+        "CONTEXT_HAS_ANSWER_READER_MISSED"
+      ],
+      "gold": "Yes",
+      "ingestion_latency_ms": 913643.3815000055,
+      "memory_system_diagnostics": null,
+      "prediction": "The user currently goes to the gym on Tuesdays, Thursdays, and Saturdays, which is three days per week. Previously, they mentioned going to the gym on Mondays, Wednesdays, and Fridays, which is also three days per week. Therefore, the frequency has not changed.",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_id": "c4ea545c",
+      "ranked_source_session_groups": [
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "answer_d3bf812b_2"
+        ],
+        [
+          "sharegpt_kRkQrRx_0"
+        ],
+        [
+          "493e23ac"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "ultrachat_92064"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "b2d284b1"
+        ],
+        [
+          "answer_d3bf812b_2"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [
+          "ea0e2434"
+        ],
+        [
+          "fcddf7d1_2"
+        ],
+        [
+          "ultrachat_92064"
+        ],
+        [
+          "answer_d3bf812b_2"
+        ],
+        [
+          "68d4de04_2"
+        ],
+        [
+          "answer_d3bf812b_2"
+        ],
+        [
+          "sharegpt_I0uNTjm_16"
+        ],
+        [
+          "sharegpt_CjsrxRQ_0"
+        ],
+        [
+          "ultrachat_21766"
+        ],
+        [
+          "ultrachat_369982"
+        ],
+        [
+          "2ad94e57_1"
+        ],
+        [
+          "ee7f5084_1"
+        ],
+        [
+          "ee7f5084_1"
+        ],
+        [
+          "a1f43f8d_2"
+        ],
+        [
+          "b2d284b1"
+        ],
+        [
+          "68d4de04_2"
+        ],
+        [
+          "answer_d3bf812b_1"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "reader_prompt_tokens": 3579,
+      "retrieval_latency_ms": 311.31799999275245,
+      "session_provenance_available": true,
+      "system": "propmem",
+      "token_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    }
+  ],
+  "run_id": "mem1d1-frozen-10-20260927",
+  "selection_manifest_sha256": "5a38ff79d79be6a9db531227d63d6dc22dc619d11d2c701b2b4cc0295f04c911",
+  "systems": [
+    "fullcontext",
+    "openclaw",
+    "mem0",
+    "simplemem",
+    "propmem"
+  ],
+  "test_access": false
+}

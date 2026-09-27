@@ -251,6 +251,7 @@ def finalize(run_dir: Path) -> tuple[Path, Path]:
         "- Case split: `1cea1afa` is KNOWN_GATE_CASE; the other nine are FRESH_DIAGNOSTIC_CASES.",
         "- The manifest contains no abstention cases; no abstention-performance claim is made.",
         "- Token F1 is deterministic lexical overlap, not semantic correctness. This small diagnostic is not a product ranking or benchmark claim.",
+        f"- Post-run finalization repair (`run_mem1.py` SHA256 `{run_mem1.sha256_file(run_mem1.__file__)}`) separated ContextBundle content validation from SHA-sidecar freezing. It did not modify the 50 prediction, bundle, call-ledger, or warning-ledger rows and made no model calls; it only validated/froze those artifacts and regenerated deterministic summaries.",
         "",
         "## Frozen Evidence",
         "",
@@ -318,7 +319,7 @@ def finalize(run_dir: Path) -> tuple[Path, Path]:
         f"Planning enabled for all cases: `{all(trace.get('planning_enabled') is True for trace in simplemem_traces)}`; reflection settings: `{sorted({str(trace.get('reflection_enabled')) for trace in simplemem_traces})}`.",
         "Per-question traces are retained in `predictions.jsonl` and `mem_1d1_case_review.json`; no individual lexical/structured result count is required to be nonzero.",
         "",
-        "| Semantic | Keyword | Structured | Merge/deduplicate | Reflection | Native answer head |",
+        "| Semantic | Keyword | Structured | Merge/deduplicate | Reflection | Native answer head calls all suppressed |",
         "|---:|---:|---:|---:|---:|---|",
         "| " + " | ".join(
             str(sum((trace.get("calls") or {}).get(key, 0) for trace in simplemem_traces))

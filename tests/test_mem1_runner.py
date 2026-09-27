@@ -133,6 +133,35 @@ def test_mem1d1_freeze_verifies_all_four_evidence_ledgers(tmp_path):
         mem1_runner._verify_frozen_evidence(tmp_path, require_ledgers=True)
 
 
+def test_context_bundle_validation_is_independent_of_sidecar_freezing(monkeypatch, tmp_path):
+    bundle = {"context_bundle_sha256": "bundle-sha"}
+    bundle_path = tmp_path / "context_bundles.jsonl"
+    bundle_path.write_text(
+        json.dumps({
+            "system": "openclaw",
+            "question_id": "q1",
+            "context_bundle": bundle,
+        }) + "\n",
+        encoding="utf-8",
+    )
+    prediction_rows = {
+        ("openclaw", "q1"): {"context_bundle_sha256": "bundle-sha"}
+    }
+    monkeypatch.setattr(mem1_runner, "verify_context_bundle", lambda value: True)
+
+    assert mem1_runner._context_bundle_rows_valid(
+        tmp_path, ["openclaw"], ["q1"], prediction_rows, freeze=False
+    ) is True
+    assert not (tmp_path / "context_bundles.sha256").exists()
+
+    assert mem1_runner._context_bundle_rows_valid(
+        tmp_path, ["openclaw"], ["q1"], prediction_rows, freeze=True
+    ) is True
+    assert mem1_runner.verify_hash_sidecar(
+        bundle_path, tmp_path / "context_bundles.sha256"
+    )
+
+
 def test_context_controlled_is_the_default_answer_track(monkeypatch, tmp_path):
     monkeypatch.setattr(
         sys,

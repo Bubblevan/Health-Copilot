@@ -1112,8 +1112,7 @@ def _context_bundle_rows_valid(
         return True
     if freeze:
         write_hash_sidecar(bundle_path, sidecar_path)
-        return True
-    return False
+    return True
 
 
 def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[str], question_ids: list[str], embedding_model: str | None) -> dict[str, Any]:
