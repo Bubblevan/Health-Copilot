@@ -1,0 +1,147 @@
+{
+  "code_patch_sha256": "99a9f9cb82ffb9420722ee20fcf3101ec2d67a8164e1dbba8567317409d304eb",
+  "created_at": "2026-09-27T06:35:04.631086+00:00",
+  "dataset": {
+    "dev_ids_sha256": "c6e0b423f720bcb06e1c571a8f6b0d018e0c1707d21fe17108349962d30f739f",
+    "id": "longmemeval_s",
+    "revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "test_access": false
+  },
+  "manifest_version": "mem1-run-v2-local-only",
+  "question_ids": [
+    "1cea1afa"
+  ],
+  "roles": {
+    "embedding_model": {
+      "batch_size": 8,
+      "cuda_version": "12.8",
+      "device": "cuda:0",
+      "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+      "dimensions": 1024,
+      "document_instruction": "",
+      "dtype": "float16",
+      "max_batch_tokens": 8192,
+      "max_length": 8192,
+      "model_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+      "normalized": true,
+      "provider": "local_transformers",
+      "query_instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+      "repo": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "runtime_settings": {
+        "batch_size": 8,
+        "cuda_version": "12.8",
+        "device": "cuda:0",
+        "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+        "dimensions": 1024,
+        "document_instruction": "",
+        "dtype": "float16",
+        "max_batch_tokens": 8192,
+        "max_length": 8192,
+        "model_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+        "normalized": true,
+        "query_instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+        "repo": "Qwen/Qwen3-Embedding-0.6B",
+        "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+        "torch_version": "2.10.0+cu128",
+        "truncation": true,
+        "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+      },
+      "torch_version": "2.10.0+cu128",
+      "truncation": true,
+      "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+    },
+    "judge_model": {
+      "model": null,
+      "provider": "none",
+      "used": false
+    },
+    "memory_internal_llm": {
+      "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "client_policy": {
+        "max_retries": 2,
+        "request_timeout_seconds": 3600.0
+      },
+      "endpoint": "http://127.0.0.1:8081/v1",
+      "generation": {
+        "default_max_new_tokens": 8192,
+        "seed": 42,
+        "system_explicit_budget_wins": true,
+        "temperature": 0
+      },
+      "model": "health-memory-qwen3-8b",
+      "provider": "local_qwen",
+      "same_artifact_as_reader": true
+    },
+    "memory_system": {
+      "display_names": {
+        "fullcontext": "full conversation in prompt (upper bound)",
+        "mem0": "memory extraction + vector search",
+        "openclaw": "hybrid BM25 + vector chunk retrieval",
+        "propmem": "proposition-based entity-centric retrieval",
+        "simplemem": "multi-round retrieval with parallel processing"
+      },
+      "prompt_source_sha256": "21eb4122c12d613f9c7d175bee09aa11be782796aa6be6d77f41ae20471b91cc",
+      "system_config_sha256": {
+        "fullcontext": "a54f1825c85e0829374edcef94a450a4efc8d7f31cc994a9d90019932b564885",
+        "mem0": "2ce53d4163670091636fdbb7791c8d8454045c60ae7726655e094c1713d4943c",
+        "openclaw": "9c71d8d1f783c0615780c2d113dbecd395ea30382e1b6fcd3b6ad0334e8c5d52",
+        "propmem": "712aeb3caeb8279fd0a494e2ef36d28f6ff8ad6324302da3fc4c6e5321ff3bb6",
+        "simplemem": "da861a52debda5dd327c0e4bb9f382a1c2ebe0bafdaed37973ffd3854bca685a"
+      },
+      "systems": [
+        "fullcontext",
+        "openclaw",
+        "mem0",
+        "simplemem",
+        "propmem"
+      ]
+    },
+    "reader_answer_model": {
+      "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "client_policy": {
+        "answer_max_new_tokens": 256,
+        "max_retries": 2,
+        "request_timeout_seconds": 3600.0
+      },
+      "endpoint": "http://127.0.0.1:8081/v1",
+      "endpoint_policy": "loopback only; trust_env=false; outbound request guard enabled",
+      "generation": {
+        "answer_max_new_tokens": 256,
+        "enable_thinking": false,
+        "seed": 42,
+        "temperature": 0
+      },
+      "model": "health-memory-qwen3-8b",
+      "provider": "local_qwen",
+      "runtime": {
+        "context_length": 131072,
+        "cuda_embedding_co_residency_verified": true,
+        "flash_attention": true,
+        "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU; 16376 MiB",
+        "gpu_layers": 99,
+        "kv_cache_offload": "GPU",
+        "kv_cache_type_k": "q4_0",
+        "kv_cache_type_v": "q4_0",
+        "rope_original_context": 32768,
+        "rope_scale": 4,
+        "rope_scaling": "yarn",
+        "server": "llama.cpp llama-server 10068 (571d0d540)",
+        "server_binary_policy": "fail closed unless exactly one WinGet llama-server.exe matches the frozen version, build and SHA256",
+        "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+        "server_bind": "127.0.0.1:8081",
+        "synthetic_long_context_output_reserve": 256,
+        "synthetic_long_context_prompt_tokens": 115000,
+        "synthetic_long_context_truncated": false
+      },
+      "slot_context_tokens": 131072
+    }
+  },
+  "run_id": "mem1c1_context_controlled_one_case_20260927",
+  "runner_code_sha256": "3d54374e3f191f986d7220b30a6af865f2b440668f60316864e9664f8e1820f1",
+  "split": "DEV",
+  "system_config_hash": "29c814d0749cbc321275b4c5181a88447453a2dd391bfa2492bd48235c151d27",
+  "test_access": false,
+  "track": "main_local_only_context_controlled"
+}

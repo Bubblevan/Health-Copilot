@@ -89,6 +89,9 @@
   "local_execution_constraints": {
     "reader_runtime": {
       "server": "llama.cpp llama-server 10068 (571d0d540)",
+      "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+      "server_binary_policy": "fail closed unless exactly one WinGet llama-server.exe matches the frozen version, build and SHA256",
+      "server_bind": "127.0.0.1:8081",
       "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU; 16376 MiB",
       "gpu_layers": 99,
       "flash_attention": true,
@@ -117,7 +120,7 @@
       "answer-session Recall@5",
       "answer-session Recall@10",
       "MRR",
-      "retrieved context tokens",
+      "context_reader_tokens (Qwen3-8B llama.cpp tokenizer)",
       "retrieval latency",
       "ingestion latency",
       "provenance coverage"
@@ -132,11 +135,12 @@
       "answer-session Recall@5",
       "answer-session Recall@10",
       "MRR",
-      "retrieved/context token count",
+      "context_reader_tokens (used for context-size comparisons)",
+      "context_embedding_tokens (Qwen3-Embedding tokenizer; diagnostic only)",
       "retrieval latency",
       "ingestion latency"
     ],
-    "abstention": "question_id.endswith('_abs'); preserve original question_type; report abstention_n and deterministic abstention_accuracy separately",
+    "abstention": "question_id.endswith('_abs'); one exact normalized refusal helper is shared by empty-gold token F1 and deterministic abstention_accuracy",
     "by_category": [
       "single-session-user",
       "single-session-assistant",
@@ -164,6 +168,11 @@
         "enable_thinking": false,
         "max_new_tokens": 256
       },
+      "context_token_metrics": {
+        "context_reader_tokens": "Qwen3-8B tokenizer served by pinned llama.cpp /tokenize with add_special=false; applied to serialized shared-reader context",
+        "context_embedding_tokens": "Qwen3-Embedding-0.6B tokenizer; diagnostic only",
+        "context_size_comparisons": "Use context_reader_tokens; never assume tokenizer parity"
+      },
       "bundle_artifact": "context_bundles.jsonl plus per-bundle SHA256 embedded in frozen predictions",
       "failure_taxonomy": [
         "INGEST_EXTRACTION_MISS",
@@ -177,6 +186,15 @@
         "SHOULD_ABSTAIN",
         "INFRA_FAILURE"
       ]
+    },
+    "context_controlled_one_case_gate": {
+      "question_id": "1cea1afa",
+      "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
+      "answer_track": "context_controlled",
+      "max_questions": 1,
+      "after_completion": "STOP; no 10-case, 102-DEV, TEST, M10-Flat or RevMem",
+      "status_output": "MEM1_CONTEXT_CONTROLLED_ONE_CASE=YES|NO",
+      "failure_attribution": "heuristic hint only; lexical overlap is not causal attribution"
     },
     "optional_local_judge": {
       "status": "OPTIONAL_POST_FREEZE_ONLY",

@@ -1,4 +1,5 @@
 import importlib.util
+import types
 import sys
 from pathlib import Path
 
@@ -221,6 +222,82 @@ def test_abstention_uses_question_id_suffix_and_preserves_category():
     assert summary["abstention_accuracy"] == 1.0
     assert summary["by_category"]["knowledge-update"]["n"] == 1
     assert summary["by_category"]["temporal-reasoning"]["n"] == 1
+
+
+def test_empty_gold_f1_and_abstention_accuracy_share_refusal_semantics():
+    for prediction, expected_score in (
+        ("None.", 1.0),
+        ("There is no evidence that this was discussed, but perhaps it happened.", 0.0),
+    ):
+        answer = mem1_runner._answer_metrics(prediction, "")
+        summary = mem1_runner._summarize_predictions(
+            [{
+                "system": "propmem",
+                "question_id": "question_abs",
+                "category": "knowledge-update",
+                "quality_status": "OK",
+                "predicted": prediction,
+                **answer,
+            }],
+            ["propmem"],
+            ["question_abs"],
+        )["propmem"]
+        assert answer["f1"] == expected_score
+        assert summary["abstention_accuracy"] == expected_score
+
+
+def test_reader_context_token_counter_uses_only_loopback_llama_tokenize(monkeypatch):
+    requests = []
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"tokens": [1, 2, 3]}
+
+    class FakeClient:
+        def __init__(self, *, timeout, trust_env):
+            assert timeout == 120
+            assert trust_env is False
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def post(self, url, *, json):
+            requests.append((url, json))
+            return FakeResponse()
+
+    monkeypatch.setitem(sys.modules, "httpx", types.SimpleNamespace(Client=FakeClient))
+    counter = mem1_runner._reader_context_token_counter(
+        types.SimpleNamespace(reader_base_url="http://127.0.0.1:8081/v1")
+    )
+    assert counter(["shared context"]) == 3
+    assert requests == [(
+        "http://127.0.0.1:8081/tokenize",
+        {"content": "shared context", "add_special": False},
+    )]
+    with pytest.raises(RuntimeError, match="loopback"):
+        mem1_runner._reader_context_token_counter(
+            types.SimpleNamespace(reader_base_url="https://api.example.com/v1")
+        )
+
+
+def test_failure_attribution_field_is_explicitly_a_heuristic_hint():
+    row = {
+        "system": "propmem",
+        "question_id": "question-1",
+        "quality_status": "OK",
+        "predicted": "answer",
+        "ground_truth": "answer",
+        "failure_attribution_hint": ["CONTEXT_HAS_ANSWER_READER_MISSED"],
+        "failure_attribution_heuristic": True,
+    }
+    assert row["failure_attribution_heuristic"] is True
+    assert "failure_attribution" not in row
 
 
 def test_missing_stream_usage_sums_to_null_not_zero():

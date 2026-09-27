@@ -1,0 +1,660 @@
+{
+  "context_bundles_frozen": true,
+  "fullcontext_validation": "PASS",
+  "memory_diagnostics": {
+    "fullcontext": {
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "by_category": {
+        "knowledge-update": {
+          "answer_session_recall_at_10": 1.0,
+          "answer_session_recall_at_5": 1.0,
+          "context_embedding_tokens": 108065.0,
+          "context_reader_tokens": 108064.0,
+          "ingestion_latency_ms": 0.0,
+          "mrr": 1.0,
+          "n": 1,
+          "retrieval_latency_ms": 0.0
+        },
+        "multi-session": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-assistant": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-preference": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-user": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "temporal-reasoning": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        }
+      },
+      "context_embedding_tokens": 108065.0,
+      "context_reader_tokens": 108064.0,
+      "embedding_prompt_tokens": null,
+      "ingestion_latency_ms": 0.0,
+      "mrr": 1.0,
+      "reader_calls": 1,
+      "reader_prompt_tokens": 108137.0,
+      "retrieval_latency_ms": 0.0
+    },
+    "mem0": {
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "by_category": {
+        "knowledge-update": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": 453.0,
+          "context_reader_tokens": 452.0,
+          "ingestion_latency_ms": 548119.296400022,
+          "mrr": null,
+          "n": 1,
+          "retrieval_latency_ms": 59.38099999912083
+        },
+        "multi-session": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-assistant": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-preference": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-user": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "temporal-reasoning": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        }
+      },
+      "context_embedding_tokens": 453.0,
+      "context_reader_tokens": 452.0,
+      "embedding_prompt_tokens": 8202,
+      "ingestion_latency_ms": 548119.296400022,
+      "mrr": null,
+      "reader_calls": 1,
+      "reader_prompt_tokens": 526.0,
+      "retrieval_latency_ms": 59.38099999912083
+    },
+    "openclaw": {
+      "answer_session_recall_at_10": 0.0,
+      "answer_session_recall_at_5": 0.0,
+      "by_category": {
+        "knowledge-update": {
+          "answer_session_recall_at_10": 0.0,
+          "answer_session_recall_at_5": 0.0,
+          "context_embedding_tokens": 7268.0,
+          "context_reader_tokens": 7267.0,
+          "ingestion_latency_ms": 7570.097399991937,
+          "mrr": 0.0,
+          "n": 1,
+          "retrieval_latency_ms": 84.89609998650849
+        },
+        "multi-session": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-assistant": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-preference": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-user": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "temporal-reasoning": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        }
+      },
+      "context_embedding_tokens": 7268.0,
+      "context_reader_tokens": 7267.0,
+      "embedding_prompt_tokens": 169773,
+      "ingestion_latency_ms": 7570.097399991937,
+      "mrr": 0.0,
+      "reader_calls": 1,
+      "reader_prompt_tokens": 7340.0,
+      "retrieval_latency_ms": 84.89609998650849
+    },
+    "propmem": {
+      "answer_session_recall_at_10": 1.0,
+      "answer_session_recall_at_5": 1.0,
+      "by_category": {
+        "knowledge-update": {
+          "answer_session_recall_at_10": 1.0,
+          "answer_session_recall_at_5": 1.0,
+          "context_embedding_tokens": 3315.0,
+          "context_reader_tokens": 3314.0,
+          "ingestion_latency_ms": 726760.6006999849,
+          "mrr": 1.0,
+          "n": 1,
+          "retrieval_latency_ms": 130.42969998787157
+        },
+        "multi-session": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-assistant": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-preference": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-user": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "temporal-reasoning": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        }
+      },
+      "context_embedding_tokens": 3315.0,
+      "context_reader_tokens": 3314.0,
+      "embedding_prompt_tokens": 200209,
+      "ingestion_latency_ms": 726760.6006999849,
+      "mrr": 1.0,
+      "reader_calls": 1,
+      "reader_prompt_tokens": 3387.0,
+      "retrieval_latency_ms": 130.42969998787157
+    },
+    "simplemem": {
+      "answer_session_recall_at_10": null,
+      "answer_session_recall_at_5": null,
+      "by_category": {
+        "knowledge-update": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": 1463.0,
+          "context_reader_tokens": 1462.0,
+          "ingestion_latency_ms": 515957.9517999955,
+          "mrr": null,
+          "n": 1,
+          "retrieval_latency_ms": 11681.75180000253
+        },
+        "multi-session": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-assistant": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-preference": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "single-session-user": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        },
+        "temporal-reasoning": {
+          "answer_session_recall_at_10": null,
+          "answer_session_recall_at_5": null,
+          "context_embedding_tokens": null,
+          "context_reader_tokens": null,
+          "ingestion_latency_ms": null,
+          "mrr": null,
+          "n": 0,
+          "retrieval_latency_ms": null
+        }
+      },
+      "context_embedding_tokens": 1463.0,
+      "context_reader_tokens": 1462.0,
+      "embedding_prompt_tokens": 7803,
+      "ingestion_latency_ms": 515957.9517999955,
+      "mrr": null,
+      "reader_calls": 1,
+      "reader_prompt_tokens": 1535.0,
+      "retrieval_latency_ms": 11681.75180000253
+    }
+  },
+  "prediction_frozen": true,
+  "prediction_sha256": "42d231228db11175e8676ef961dd8fe384cdc03a2712bd2afe128bb5a380cc03",
+  "systems": {
+    "fullcontext": {
+      "abstention_accuracy": null,
+      "abstention_n": 0,
+      "by_category": {
+        "knowledge-update": {
+          "n": 1,
+          "normalized_exact_match": 0.0,
+          "token_f1": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "multi-session": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-assistant": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-preference": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-user": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "temporal-reasoning": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        }
+      },
+      "completed": 1,
+      "f1_mean": 0.0,
+      "infra_failure_n": 0,
+      "normalized_exact_match_mean": 0.0,
+      "quality_n": 1,
+      "requested": 1,
+      "token_precision_mean": 0.0,
+      "token_recall_mean": 0.0
+    },
+    "mem0": {
+      "abstention_accuracy": null,
+      "abstention_n": 0,
+      "by_category": {
+        "knowledge-update": {
+          "n": 1,
+          "normalized_exact_match": 0.0,
+          "token_f1": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "multi-session": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-assistant": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-preference": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-user": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "temporal-reasoning": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        }
+      },
+      "completed": 1,
+      "f1_mean": 0.0,
+      "infra_failure_n": 0,
+      "normalized_exact_match_mean": 0.0,
+      "quality_n": 1,
+      "requested": 1,
+      "token_precision_mean": 0.0,
+      "token_recall_mean": 0.0
+    },
+    "openclaw": {
+      "abstention_accuracy": null,
+      "abstention_n": 0,
+      "by_category": {
+        "knowledge-update": {
+          "n": 1,
+          "normalized_exact_match": 0.0,
+          "token_f1": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "multi-session": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-assistant": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-preference": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-user": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "temporal-reasoning": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        }
+      },
+      "completed": 1,
+      "f1_mean": 0.0,
+      "infra_failure_n": 0,
+      "normalized_exact_match_mean": 0.0,
+      "quality_n": 1,
+      "requested": 1,
+      "token_precision_mean": 0.0,
+      "token_recall_mean": 0.0
+    },
+    "propmem": {
+      "abstention_accuracy": null,
+      "abstention_n": 0,
+      "by_category": {
+        "knowledge-update": {
+          "n": 1,
+          "normalized_exact_match": 0.0,
+          "token_f1": 0.33333333333333337,
+          "token_precision": 0.2,
+          "token_recall": 1.0
+        },
+        "multi-session": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-assistant": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-preference": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-user": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "temporal-reasoning": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        }
+      },
+      "completed": 1,
+      "f1_mean": 0.33333333333333337,
+      "infra_failure_n": 0,
+      "normalized_exact_match_mean": 0.0,
+      "quality_n": 1,
+      "requested": 1,
+      "token_precision_mean": 0.2,
+      "token_recall_mean": 1.0
+    },
+    "simplemem": {
+      "abstention_accuracy": null,
+      "abstention_n": 0,
+      "by_category": {
+        "knowledge-update": {
+          "n": 1,
+          "normalized_exact_match": 0.0,
+          "token_f1": 0.18181818181818182,
+          "token_precision": 0.1,
+          "token_recall": 1.0
+        },
+        "multi-session": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-assistant": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-preference": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "single-session-user": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        },
+        "temporal-reasoning": {
+          "n": 0,
+          "normalized_exact_match": null,
+          "token_f1": null,
+          "token_precision": null,
+          "token_recall": null
+        }
+      },
+      "completed": 1,
+      "f1_mean": 0.18181818181818182,
+      "infra_failure_n": 0,
+      "normalized_exact_match_mean": 0.0,
+      "quality_n": 1,
+      "requested": 1,
+      "token_precision_mean": 0.1,
+      "token_recall_mean": 1.0
+    }
+  }
+}

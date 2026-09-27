@@ -21,8 +21,10 @@ def test_context_bundle_serialization_and_hash_are_deterministic():
             {"text": "Swimming is preferred.", "kind": "chunk", "source_session_ids": ["s2", "s2"]},
             {"text": "The old preference was running.", "kind": "chunk", "source_session_ids": ["s1"]},
         ],
-        "token_counter": lambda values: sum(len(value.split()) for value in values),
-        "token_counter_name": "test-whitespace-v1",
+        "embedding_token_counter": lambda values: sum(len(value.split()) for value in values),
+        "embedding_tokenizer_name": "test-embedding-whitespace-v1",
+        "reader_token_counter": lambda values: sum(len(value.split()) + 1 for value in values),
+        "reader_tokenizer_name": "test-reader-whitespace-v1",
         "provenance_available": True,
         "retrieval_latency_ms": 2.5,
         "ingestion_latency_ms": 10.0,
@@ -33,7 +35,11 @@ def test_context_bundle_serialization_and_hash_are_deterministic():
     assert first == second
     assert first["items"][0]["rank"] == 1
     assert first["items"][0]["source_session_ids"] == ["s2"]
-    assert first["context_token_count"] == len(first["serialized_context"].split())
+    assert first["schema_version"] == 2
+    assert first["context_embedding_tokens"] == len(first["serialized_context"].split())
+    assert first["context_reader_tokens"] == first["context_embedding_tokens"] + 1
+    assert first["context_embedding_tokenizer"] == "test-embedding-whitespace-v1"
+    assert first["context_reader_tokenizer"] == "test-reader-whitespace-v1"
     assert context_bundle.verify_context_bundle(first)
     first["serialized_context"] += " changed"
     assert not context_bundle.verify_context_bundle(first)
@@ -53,8 +59,10 @@ def test_context_bundle_rejects_malformed_items(items):
             system="test",
             question_id="q1",
             items=items,
-            token_counter=lambda values: 0,
-            token_counter_name="test",
+            embedding_token_counter=lambda values: 0,
+            embedding_tokenizer_name="embedding-test",
+            reader_token_counter=lambda values: 0,
+            reader_tokenizer_name="reader-test",
             provenance_available=False,
             retrieval_latency_ms=None,
             ingestion_latency_ms=None,

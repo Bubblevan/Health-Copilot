@@ -14,6 +14,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from mem1_artifacts import (
     append_jsonl,
@@ -235,11 +236,43 @@ def _latest_predictions(rows: list[dict[str, Any]]) -> dict[tuple[str, str], dic
     return latest
 
 
-def _is_abstention(text: str | None) -> bool:
+_REFUSAL_PHRASES = {
+    "none",
+    "unknown",
+    "not mentioned",
+    "not stated",
+    "cannot be determined",
+    "cannot determine",
+    "not specified",
+    "not available",
+    "no information",
+    "no info",
+    "no evidence",
+    "not found",
+    "not provided",
+    "not addressed",
+    "no relevant information",
+    "no memory",
+    "no record",
+    "no data",
+    "i dont know",
+    "i do not know",
+    "i dont remember",
+    "i do not remember",
+}
+
+
+def _is_deterministic_refusal(text: str | None) -> bool:
     if text is None:
         return False
-    normalized = " ".join(text.lower().strip(" .!?\t\n").split())
-    return normalized in {"none", "unknown", "not mentioned", "not stated", "cannot be determined"}
+    import re
+
+    normalized = " ".join(re.findall(r"[a-z0-9]+", text.lower()))
+    return normalized in _REFUSAL_PHRASES
+
+
+def _is_abstention(text: str | None) -> bool:
+    return _is_deterministic_refusal(text)
 
 
 def _is_abstention_question(question_id: str) -> bool:
@@ -252,13 +285,7 @@ def _answer_metrics(predicted: str, expected: str) -> dict[str, float]:
     pred_tokens = set(re.findall(r"\w+", predicted.lower()))
     gold_tokens = set(re.findall(r"\w+", expected.lower()))
     if not gold_tokens:
-        refusal_markers = (
-            "no info", "not specified", "not mentioned", "no direct", "not available",
-            "no evidence", "none", "not found", "no relevant", "no data",
-            "cannot be determined", "not provided", "unknown", "i don't",
-            "no memory", "no record", "not addressed",
-        )
-        correct_refusal = any(marker in predicted.lower() for marker in refusal_markers)
+        correct_refusal = _is_deterministic_refusal(predicted)
         score = 1.0 if correct_refusal else 0.0
         return {
             "token_precision": score,
@@ -375,7 +402,8 @@ def _summarize_memory_diagnostics(rows: list[dict[str, Any]], systems: list[str]
                 "answer_session_recall_at_5": _mean_metric(group, "answer_session_recall_at_5"),
                 "answer_session_recall_at_10": _mean_metric(group, "answer_session_recall_at_10"),
                 "mrr": _mean_metric(group, "answer_session_mrr"),
-                "retrieved_context_tokens": _mean_metric(group, "retrieved_context_tokens"),
+                "context_reader_tokens": _mean_metric(group, "context_reader_tokens"),
+                "context_embedding_tokens": _mean_metric(group, "context_embedding_tokens"),
                 "retrieval_latency_ms": _mean_metric(group, "retrieval_latency_ms"),
                 "ingestion_latency_ms": _mean_metric(group, "ingestion_latency_ms"),
             }
@@ -383,7 +411,8 @@ def _summarize_memory_diagnostics(rows: list[dict[str, Any]], systems: list[str]
             "answer_session_recall_at_5": _mean_metric(selected, "answer_session_recall_at_5"),
             "answer_session_recall_at_10": _mean_metric(selected, "answer_session_recall_at_10"),
             "mrr": _mean_metric(selected, "answer_session_mrr"),
-            "retrieved_context_tokens": _mean_metric(selected, "retrieved_context_tokens"),
+            "context_reader_tokens": _mean_metric(selected, "context_reader_tokens"),
+            "context_embedding_tokens": _mean_metric(selected, "context_embedding_tokens"),
             "reader_prompt_tokens": _mean_metric(selected, "reader_prompt_tokens"),
             "retrieval_latency_ms": _mean_metric(selected, "retrieval_latency_ms"),
             "ingestion_latency_ms": _mean_metric(selected, "ingestion_latency_ms"),
@@ -495,15 +524,17 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
         "",
         "## Memory Diagnostics",
         "",
-        "| System | Recall@5 | Recall@10 | MRR | Retrieved tokens | Reader prompt tokens | Retrieval ms | Ingestion ms |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|",
+        "| System | Context reader tokens | Context embedding tokens | Recall@5 | Recall@10 | MRR | Reader prompt tokens | Retrieval ms | Ingestion ms |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ])
     for system in systems:
         diagnostic = metrics["memory_diagnostics"][system]
         lines.append(
-            f"| {system} | {_format_metric(diagnostic['answer_session_recall_at_5'])} | "
+            f"| {system} | {_format_metric(diagnostic['context_reader_tokens'])} | "
+            f"{_format_metric(diagnostic['context_embedding_tokens'])} | "
+            f"{_format_metric(diagnostic['answer_session_recall_at_5'])} | "
             f"{_format_metric(diagnostic['answer_session_recall_at_10'])} | "
-            f"{_format_metric(diagnostic['mrr'])} | {_format_metric(diagnostic['retrieved_context_tokens'])} | "
+            f"{_format_metric(diagnostic['mrr'])} | "
             f"{_format_metric(diagnostic['reader_prompt_tokens'])} | "
             f"{_format_metric(diagnostic['retrieval_latency_ms'])} | "
             f"{_format_metric(diagnostic['ingestion_latency_ms'])} |"
@@ -512,22 +543,24 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
         "",
         "## Retrieval Diagnostics by Category",
         "",
-        "| System | Category | Recall@5 | Recall@10 | MRR | Retrieved tokens | Retrieval ms | Ingestion ms |",
+        "| System | Category | Context reader tokens | Recall@5 | Recall@10 | MRR | Retrieval ms | Ingestion ms |",
         "|---|---|---:|---:|---:|---:|---:|---:|",
     ])
     for system in systems:
         for category in CATEGORIES:
             diagnostic = metrics["memory_diagnostics"][system]["by_category"][category]
             lines.append(
-                f"| {system} | {category} | {_format_metric(diagnostic['answer_session_recall_at_5'])} | "
+                f"| {system} | {category} | {_format_metric(diagnostic['context_reader_tokens'])} | "
+                f"{_format_metric(diagnostic['answer_session_recall_at_5'])} | "
                 f"{_format_metric(diagnostic['answer_session_recall_at_10'])} | "
-                f"{_format_metric(diagnostic['mrr'])} | {_format_metric(diagnostic['retrieved_context_tokens'])} | "
+                f"{_format_metric(diagnostic['mrr'])} | "
                 f"{_format_metric(diagnostic['retrieval_latency_ms'])} | "
                 f"{_format_metric(diagnostic['ingestion_latency_ms'])} |"
             )
     lines.extend([
         "",
         "Session-retrieval metrics are null when a baseline does not expose auditable source-session provenance; this is not scored as a retrieval miss.",
+        "Context reader tokens use the loaded frozen Qwen3-8B llama.cpp tokenizer; context embedding tokens use the frozen Qwen3-Embedding-0.6B tokenizer. Context-size comparisons use context reader tokens.",
     ])
     lines.extend([
         "",
@@ -688,7 +721,35 @@ def _shared_reader_messages(question: str, serialized_context: str) -> list[dict
     ]
 
 
-def _classify_context_failure(
+def _reader_context_token_counter(config):
+    parsed = urlsplit(config.reader_base_url)
+    if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1"}:
+        raise RuntimeError("Reader tokenizer must use the explicit loopback Qwen endpoint")
+    url = config.reader_base_url.removesuffix("/v1") + "/tokenize"
+
+    def count(texts: list[str]) -> int:
+        import httpx
+
+        total = 0
+        with httpx.Client(timeout=120, trust_env=False) as client:
+            for text in texts:
+                if not text:
+                    continue
+                response = client.post(
+                    url,
+                    json={"content": text, "add_special": False},
+                )
+                response.raise_for_status()
+                tokens = response.json().get("tokens")
+                if not isinstance(tokens, list):
+                    raise RuntimeError("llama.cpp /tokenize did not return token IDs")
+                total += len(tokens)
+        return total
+
+    return count
+
+
+def _failure_attribution_hint(
     question_id: str, predicted: str | None, expected: str, context: str,
 ) -> list[str]:
     import re
@@ -760,9 +821,11 @@ def _run_context_controlled(
 
     # Initialize once so every bundle uses the same frozen tokenizer/settings.
     embedding_runtime = provider.initialize_local_embedding(config)
-    token_counter_name = (
+    reader_token_counter = _reader_context_token_counter(config)
+    embedding_tokenizer_name = (
         f"{embedding_runtime.artifact.repo}@{embedding_runtime.artifact.revision}:tokenizer"
     )
+    reader_tokenizer_name = "frozen Qwen3-8B llama.cpp /tokenize; add_special=false"
     answer_budget = local_protocol["roles"]["reader_answer_model"]["generation"][
         "answer_max_new_tokens"
     ]
@@ -821,8 +884,10 @@ def _run_context_controlled(
                     system=system_name,
                     question_id=question_id,
                     items=context_row["context_items"],
-                    token_counter=embedding_runtime.count_tokens,
-                    token_counter_name=token_counter_name,
+                    embedding_token_counter=embedding_runtime.count_tokens,
+                    embedding_tokenizer_name=embedding_tokenizer_name,
+                    reader_token_counter=reader_token_counter,
+                    reader_tokenizer_name=reader_tokenizer_name,
                     provenance_available=context_row["provenance_available"],
                     retrieval_latency_ms=context_row["retrieval_latency_ms"],
                     ingestion_latency_ms=context_row["ingestion_latency_ms"],
@@ -841,6 +906,9 @@ def _run_context_controlled(
                 messages = _shared_reader_messages(
                     qa["question"], bundle["serialized_context"]
                 )
+                template_messages = _shared_reader_messages("<QUESTION>", "<CONTEXT>")
+                shared_template_sha = sha256_bytes(canonical_json(template_messages))
+                prompt_sha = sha256_bytes(canonical_json(messages))
                 if system_name == "fullcontext":
                     preflight = measure_full_context_prompt(
                         messages,
@@ -905,7 +973,8 @@ def _run_context_controlled(
                 "token_recall": answer_scores["token_recall"],
                 "normalized_exact_match": answer_scores["normalized_exact_match"],
                 "reader_prompt_tokens": prompt_tokens,
-                "retrieved_context_tokens": bundle_dict.get("context_token_count"),
+                "context_reader_tokens": bundle_dict.get("context_reader_tokens"),
+                "context_embedding_tokens": bundle_dict.get("context_embedding_tokens"),
                 "retrieval_latency_ms": bundle_dict.get("retrieval_latency_ms"),
                 "ingestion_latency_ms": bundle_dict.get("ingestion_latency_ms"),
                 "session_provenance_available": bundle_dict.get("provenance_available"),
@@ -914,11 +983,16 @@ def _run_context_controlled(
                     if bundle_dict.get("provenance_available") else None
                 ),
                 "context_bundle_sha256": bundle_dict.get("context_bundle_sha256"),
-                "failure_attribution": (
-                    _classify_context_failure(
+                "failure_attribution_hint": (
+                    _failure_attribution_hint(
                         question_id, predicted, qa["answer"], serialized_context
                     ) if predicted is not None else ["INFRA_FAILURE"]
                 ),
+                "failure_attribution_heuristic": True,
+                "shared_reader_template_sha256": (
+                    shared_template_sha if predicted is not None else None
+                ),
+                "shared_reader_prompt_sha256": prompt_sha if predicted is not None else None,
                 "cache_identity": cache_identity,
                 "system_wall_time_ms": round((time.perf_counter() - started) * 1000, 3),
                 "reader_error_type": type(error).__name__ if error is not None else None,

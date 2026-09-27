@@ -57,6 +57,7 @@
     },
     "main_reader_runtime": {
       "server": "llama.cpp llama-server 10068 (571d0d540)",
+      "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
       "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU; 16376 MiB",
       "gpu_layers": 99,
       "flash_attention": true,

@@ -18,9 +18,13 @@ extraction/classification remains part of the compared system and uses the
 same local Qwen3-8B artifact.
 
 The bundle artifact contains the system and question ID, ordered items with
-text/rank/kind/source session IDs, serialized context, Qwen3 tokenizer context
-count, provenance availability, retrieval/ingestion latency, and a canonical
-SHA256. The bundle JSONL and frozen prediction JSONL are retained independently.
+text/rank/kind/source session IDs, serialized context, separate
+`context_reader_tokens` and `context_embedding_tokens`, provenance availability,
+retrieval/ingestion latency, and a canonical SHA256. Reader context size is
+measured by the loaded Qwen3-8B llama.cpp `/tokenize` endpoint with
+`add_special=false`; embedding token count uses the Qwen3-Embedding-0.6B
+tokenizer and is diagnostic only. No tokenizer parity is assumed. The bundle
+JSONL and frozen prediction JSONL are retained independently.
 The prediction row embeds the bundle hash so a reader output cannot be replayed
 against a different context unnoticed.
 
@@ -56,7 +60,11 @@ frozen 10-case diagnostic. The opt-in command is
 its result manifest marks the metric ineligible for headline use until that
 calibration is completed.
 
-Failure attribution is limited to observable causes from the frozen taxonomy:
+Failure-attribution outputs are heuristic hints, not causal findings. In
+particular, lexical token-subset overlap between expected answer and context
+cannot establish that the context contained sufficient answer evidence. Outputs
+are explicitly stored as `failure_attribution_hint` with
+`failure_attribution_heuristic=true`. The frozen labels include:
 `INFRA_FAILURE`, `FALSE_ABSTENTION`, `SHOULD_ABSTAIN`,
 `CONTEXT_HAS_ANSWER_READER_MISSED`, and `CONTEXT_MISSING_ANSWER` in this stage.
 Revision/stale-state labels remain future RevMem diagnostics. No failures are

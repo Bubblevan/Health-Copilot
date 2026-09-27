@@ -1,0 +1,37 @@
+{
+  "api_cost": 0,
+  "by_system": {
+    "fullcontext": {
+      "calls": 0,
+      "failed_calls": 0,
+      "input_tokens": 0,
+      "local_wall_ms": 0
+    },
+    "mem0": {
+      "calls": 233,
+      "failed_calls": 0,
+      "input_tokens": 8202,
+      "local_wall_ms": 8405.062000000004
+    },
+    "openclaw": {
+      "calls": 64,
+      "failed_calls": 0,
+      "input_tokens": 169773,
+      "local_wall_ms": 7541.928000000001
+    },
+    "propmem": {
+      "calls": 214,
+      "failed_calls": 0,
+      "input_tokens": 200209,
+      "local_wall_ms": 11644.277999999998
+    },
+    "simplemem": {
+      "calls": 8,
+      "failed_calls": 0,
+      "input_tokens": 7803,
+      "local_wall_ms": 997.597
+    }
+  },
+  "model": "Qwen/Qwen3-Embedding-0.6B",
+  "provider": "local_transformers"
+}

@@ -21,6 +21,12 @@
 | Judge model | NONE in Main Track; an opt-in local Qwen semantic judge is separate and post-freeze only |
 | Hosted API / required key | NONE / NONE |
 
+The final-runtime pin is `llama-server 10068 (571d0d540)`, binary SHA256
+`3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb`; the
+launcher fails closed on any version, build or binary-hash mismatch. It binds
+only to `127.0.0.1:8081` with 99 GPU layers, Flash Attention, Q4_0 GPU KV and a
+131072-token context.
+
 The OpenAI-compatible SDK is a wire-protocol client only. Its transport disables environment proxies and blocks non-loopback hosts. No `OPENAI_API_KEY`, cloud endpoint variable, proprietary fallback, GPT-4.1 reader, GPT-4o judge, or hosted embedding endpoint is used or required. The adapter explicitly caps final reader answers at 256 for every system and applies an 8192-token default to memory-internal calls; an explicit per-system budget takes precedence. The larger shared answer cap is required for structured-answer baselines such as PropMem to finish valid JSON. Local requests use a 3600-second timeout and the SDK's explicit two retries so long structured extraction is not mistaken for a short reader timeout. No server-side generation default is relied upon.
 
 The embedding adapter loads only local Transformers files, verifies the pinned model revision and weights, returns 1024-dimensional L2-normalized vectors, uses the frozen query instruction and no document instruction, batches by 8 / at most 8192 input tokens, and records device, dtype, token limit and actual truncation. Every dense-compatible baseline receives this adapter; baseline memory/retrieval algorithms remain unchanged. The CUDA wheel is an ignored local runtime overlay; MemEval's pinned `uv.lock` remains untouched.
@@ -32,13 +38,14 @@ The isolated MemEval venv initially selected a CPU-only PyTorch wheel because it
 - `native` preserves the upstream answer heads for adapter/runtime audit only.
 - `context_controlled` asks each system for its native ContextBundle, then uses one shared Qwen3-8B answer prompt and generation config. Only the bundle content differs. Bundles are persisted and SHA-verified before the reader result can freeze.
 - FullContext preflight reserves the protocol's same 256 output tokens used by the actual answer request.
-- Abstention is identified by `question_id.endswith("_abs")`. It keeps its original question type and is also reported as `abstention_n` plus deterministic `abstention_accuracy`.
+- Abstention questions are identified by `question_id.endswith("_abs")`. A single exact normalized refusal helper defines both empty-gold token F1 and deterministic `abstention_accuracy`.
 
 ## Metrics and Claim Limits
 
-- Primary controlled-track metrics: answer-session Recall@5, Recall@10, MRR, context tokens, retrieval/ingestion latency and provenance coverage. Downstream answers report token precision, recall, F1 and normalized exact match.
+- Primary controlled-track metrics: answer-session Recall@5, Recall@10, MRR, `context_reader_tokens`, retrieval/ingestion latency and provenance coverage. Downstream answers report token precision, recall, F1 and normalized exact match.
+- `context_reader_tokens` is measured on serialized shared-reader context by the frozen Qwen3-8B llama.cpp `/tokenize` endpoint (`add_special=false`). `context_embedding_tokens` uses the embedding tokenizer and is diagnostic only; tokenizer equivalence is not assumed.
 - Retrieval: answer-session Recall@5, Recall@10 and MRR when source-session provenance is available; otherwise report `null`, not a fabricated miss.
-- Efficiency: retrieved/context token count, reader prompt tokens, retrieval latency, ingestion latency, local reader wall time, and local embedding wall time/token counts.
+- Efficiency: `context_reader_tokens`, reader prompt tokens, retrieval latency, ingestion latency, local reader wall time, and local embedding wall time/token counts.
 - Report each metric by the six LongMemEval-S question categories. Report deterministic abstention accuracy separately if abstention cases are present.
 - No LLM-as-judge runs in Main Track. An opt-in local Qwen judge reads only frozen predictions, uses separate cache/trace artifacts, and reports `local_qwen_judge_accuracy`; it is not official GPT-4o accuracy and is headline-ineligible until manual 10-case disagreement calibration.
 - FullContext requires an actual 131072-token slot. Measure the exact llama.cpp chat-template output with `/apply-template` and `/tokenize`; compare that count to successful server `usage.prompt_tokens`. Record `max_model_length=131072` and set `truncated=false` only when counts agree and prompt plus output reserve fits. Missing or mismatched evidence invalidates the item.
@@ -46,6 +53,7 @@ The isolated MemEval venv initially selected a CPU-only PyTorch wheel because it
 
 ## Failure and Resume Rules
 
+- `failure_attribution_hint` is a lexical heuristic with `failure_attribution_heuristic=true`, not a causal finding. Token-subset overlap cannot prove context sufficiency.
 - Reader, ingestion, embedding, schema, timeout and library errors are `INFRA_FAILURE`, have null prediction/F1 and are excluded from the quality denominator. They remain separately logged and retryable; embedding failure is never quality zero.
 - PropMem's local response adapter accepts only complete JSON or the one known case where a complete string-valued `answer` is the final member and only the outer brace is missing. Malformed, partial, duplicate, extra-field, or trailing-content forms remain infrastructure failures.
 - Missing SimpleMem streaming usage is `null` / `NOT_CAPTURED`, never numeric zero. Do not make total-token Pareto claims involving SimpleMem unless reliable usage becomes available without changing its algorithm.
@@ -54,17 +62,18 @@ The isolated MemEval venv initially selected a CPU-only PyTorch wheel because it
 - Cache identity includes system, question ID, dataset SHA, system config and prompt hashes, reader artifact SHA, embedding artifact hash when used, and adapter/patch code hash. Only exact-identity successful rows are reusable.
 - On successful generation, write `predictions.sha256` and verify it on resume. Context-controlled runs also freeze `context_bundles.sha256`. A frozen run resumed unchanged must not make new model calls.
 
-## MEM-1 One-Case Smoke Only
+## MEM-1C Final-Runtime One-Case Gate
 
-Run exactly DEV question `1cea1afa` through all five systems: FullContext, OpenClaw, Mem0 OSS, SimpleMem and PropMem. Verify:
+Run only the `context_controlled` answer track for DEV question `1cea1afa` through FullContext, OpenClaw, Mem0 OSS, SimpleMem and PropMem. Do not run the native answer track. Verify:
 
 1. Reader and all memory-internal generation use the frozen local Qwen3-8B artifact.
 2. Every dense operation uses the frozen local Qwen3-Embedding-0.6B artifact.
 3. No hosted request, OpenAI key, hidden fallback or outbound model call is possible.
 4. FullContext has actual prompt-token evidence, `max_model_length=131072`, and verified `truncated=false`.
-5. Deterministic metrics, prediction SHA freeze, cache/resume, and infra-versus-quality separation work.
+5. Both context tokenizer counts are explicit; shared reader prompt template and generation are identical, and no native answer head is called.
+6. Deterministic metrics, ContextBundle SHA freeze, prediction SHA binding/freeze, cache/resume, and infra-versus-quality separation work.
 
-Write `mem_1b_local_one_case_smoke.md` with `MEM1_LOCAL_ONE_CASE_SMOKE=YES|NO`. `YES` is allowed only if every gate passes. Then stop for human review. Do not run 10-case, 102 DEV or TEST.
+Write `mem_1c1_context_controlled_one_case.md` with `MEM1_CONTEXT_CONTROLLED_ONE_CASE=YES|NO`. `YES` is allowed only if every gate passes. Then stop. Do not run native, 10-case, 102 DEV, TEST, M10-Flat or RevMem.
 
 ## Cancelled Historical Proposal
 

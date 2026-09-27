@@ -9,19 +9,39 @@ $ErrorActionPreference = "Stop"
 
 $Model = "E:\Health-Copilot-Models\models\qwen3-8b\Qwen3-8B-Q4_K_M.gguf"
 $ExpectedSha256 = "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+$ExpectedServerVersion = "10068"
+$ExpectedServerBuild = "571d0d540"
+$ExpectedServerSha256 = "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb"
 $ModelHash = (Get-FileHash -LiteralPath $Model -Algorithm SHA256).Hash.ToLowerInvariant()
 if ($ModelHash -ne $ExpectedSha256) {
     throw "Local Qwen3-8B reader does not match the frozen MEM-1 artifact."
 }
 
 $PackageRoot = Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Packages"
-$Server = Get-ChildItem -LiteralPath $PackageRoot -Directory -Filter "ggml.llamacpp_*" |
+$Candidates = @(Get-ChildItem -LiteralPath $PackageRoot -Directory -Filter "ggml.llamacpp_*" |
     ForEach-Object { Join-Path $_.FullName "llama-server.exe" } |
-    Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } |
-    Select-Object -First 1
-if (-not $Server) {
+    Where-Object { Test-Path -LiteralPath $_ -PathType Leaf })
+if (-not $Candidates) {
     throw "The installed Windows llama.cpp server was not found."
 }
+$MatchingServers = @()
+foreach ($Candidate in $Candidates) {
+    $CandidateHash = (Get-FileHash -LiteralPath $Candidate -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($CandidateHash -ne $ExpectedServerSha256) {
+        continue
+    }
+    $VersionOutput = (& $Candidate --version 2>&1 | Out-String).Trim()
+    if ($LASTEXITCODE -ne 0 -or
+        $VersionOutput -notmatch "\b$ExpectedServerVersion\b" -or
+        $VersionOutput -notmatch [regex]::Escape($ExpectedServerBuild)) {
+        throw "Pinned llama-server.exe SHA256 matched, but its runtime version/build did not match $ExpectedServerVersion ($ExpectedServerBuild): $VersionOutput"
+    }
+    $MatchingServers += $Candidate
+}
+if ($MatchingServers.Count -ne 1) {
+    throw "Expected exactly one llama-server.exe with version $ExpectedServerVersion ($ExpectedServerBuild) and SHA256 $ExpectedServerSha256; found $($MatchingServers.Count)."
+}
+$Server = $MatchingServers[0]
 
 $Owned = Get-CimInstance Win32_Process -Filter "name='llama-server.exe'" |
     Where-Object {

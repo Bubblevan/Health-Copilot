@@ -1,0 +1,293 @@
+{
+  "fullcontext": {
+    "answer_latency_p50_ms": 254224.062,
+    "answer_latency_p95_ms": 254224.062,
+    "by_role": {
+      "embedding": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "judge_local": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_ingest": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_reasoning": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "reader_answer": {
+        "calls": 1,
+        "completion_tokens": 59,
+        "failed_calls": 0,
+        "prompt_tokens": 108137,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      }
+    },
+    "local_embedding_wall_ms": 0,
+    "local_reader_wall_ms": 254224.062
+  },
+  "mem0": {
+    "answer_latency_p50_ms": 411.781,
+    "answer_latency_p95_ms": 411.781,
+    "by_role": {
+      "embedding": {
+        "calls": 233,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": 8202,
+        "provider": [
+          "local_transformers"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "judge_local": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_ingest": {
+        "calls": 93,
+        "completion_tokens": 30528,
+        "failed_calls": 0,
+        "prompt_tokens": 243604,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "memory_reasoning": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "reader_answer": {
+        "calls": 1,
+        "completion_tokens": 3,
+        "failed_calls": 0,
+        "prompt_tokens": 526,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      }
+    },
+    "local_embedding_wall_ms": 8405.062000000004,
+    "local_reader_wall_ms": 534610.9800000001
+  },
+  "openclaw": {
+    "answer_latency_p50_ms": 2763.025,
+    "answer_latency_p95_ms": 2763.025,
+    "by_role": {
+      "embedding": {
+        "calls": 64,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": 169773,
+        "provider": [
+          "local_transformers"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "judge_local": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_ingest": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_reasoning": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "reader_answer": {
+        "calls": 1,
+        "completion_tokens": 19,
+        "failed_calls": 0,
+        "prompt_tokens": 7340,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      }
+    },
+    "local_embedding_wall_ms": 7541.928000000001,
+    "local_reader_wall_ms": 2763.025
+  },
+  "propmem": {
+    "answer_latency_p50_ms": 1596.18,
+    "answer_latency_p95_ms": 1596.18,
+    "by_role": {
+      "embedding": {
+        "calls": 214,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": 200209,
+        "provider": [
+          "local_transformers"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "judge_local": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_ingest": {
+        "calls": 49,
+        "completion_tokens": 43463,
+        "failed_calls": 0,
+        "prompt_tokens": 124520,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "memory_reasoning": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "reader_answer": {
+        "calls": 1,
+        "completion_tokens": 10,
+        "failed_calls": 0,
+        "prompt_tokens": 3387,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      }
+    },
+    "local_embedding_wall_ms": 11644.277999999998,
+    "local_reader_wall_ms": 715085.3400000003
+  },
+  "simplemem": {
+    "answer_latency_p50_ms": 758.767,
+    "answer_latency_p95_ms": 758.767,
+    "by_role": {
+      "embedding": {
+        "calls": 8,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": 7803,
+        "provider": [
+          "local_transformers"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      },
+      "judge_local": {
+        "calls": 0,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_ingest": {
+        "calls": 13,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "memory_reasoning": {
+        "calls": 6,
+        "completion_tokens": null,
+        "failed_calls": 0,
+        "prompt_tokens": null,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "NOT_CAPTURED"
+      },
+      "reader_answer": {
+        "calls": 1,
+        "completion_tokens": 15,
+        "failed_calls": 0,
+        "prompt_tokens": 1535,
+        "provider": [
+          "local_qwen"
+        ],
+        "truncated_calls": 0,
+        "usage_capture_status": "CAPTURED"
+      }
+    },
+    "local_embedding_wall_ms": 997.597,
+    "local_reader_wall_ms": 525630.636
+  }
+}

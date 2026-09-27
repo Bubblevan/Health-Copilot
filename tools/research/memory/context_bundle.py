@@ -23,8 +23,10 @@ class ContextBundle:
     question_id: str
     items: tuple[ContextItem, ...]
     serialized_context: str
-    context_token_count: int
-    token_counter: str
+    context_embedding_tokens: int
+    context_embedding_tokenizer: str
+    context_reader_tokens: int
+    context_reader_tokenizer: str
     provenance_available: bool
     retrieval_latency_ms: float | None
     ingestion_latency_ms: float | None
@@ -55,8 +57,10 @@ def build_context_bundle(
     system: str,
     question_id: str,
     items: list[dict],
-    token_counter: Callable[[list[str]], int],
-    token_counter_name: str,
+    embedding_token_counter: Callable[[list[str]], int],
+    embedding_tokenizer_name: str,
+    reader_token_counter: Callable[[list[str]], int],
+    reader_tokenizer_name: str,
     provenance_available: bool,
     retrieval_latency_ms: float | None,
     ingestion_latency_ms: float | None,
@@ -89,15 +93,16 @@ def build_context_bundle(
         f"[Context item {item.rank} | {item.kind}]\n{item.text}"
         for item in normalized_items
     )
-    token_count = int(token_counter([serialized])) if serialized else 0
-    if token_count < 0:
-        raise ValueError("context token count cannot be negative")
+    embedding_tokens = int(embedding_token_counter([serialized])) if serialized else 0
+    reader_tokens = int(reader_token_counter([serialized])) if serialized else 0
+    if embedding_tokens < 0 or reader_tokens < 0:
+        raise ValueError("context token counts cannot be negative")
     for value in (retrieval_latency_ms, ingestion_latency_ms):
         if value is not None and value < 0:
             raise ValueError("context latencies cannot be negative")
 
     base = {
-        "schema_version": 1,
+        "schema_version": 2,
         "system": system,
         "question_id": question_id,
         "items": [
@@ -105,20 +110,24 @@ def build_context_bundle(
             for item in normalized_items
         ],
         "serialized_context": serialized,
-        "context_token_count": token_count,
-        "token_counter": token_counter_name,
+        "context_embedding_tokens": embedding_tokens,
+        "context_embedding_tokenizer": embedding_tokenizer_name,
+        "context_reader_tokens": reader_tokens,
+        "context_reader_tokenizer": reader_tokenizer_name,
         "provenance_available": provenance_available,
         "retrieval_latency_ms": retrieval_latency_ms,
         "ingestion_latency_ms": ingestion_latency_ms,
     }
     return ContextBundle(
-        schema_version=1,
+        schema_version=2,
         system=system,
         question_id=question_id,
         items=tuple(normalized_items),
         serialized_context=serialized,
-        context_token_count=token_count,
-        token_counter=token_counter_name,
+        context_embedding_tokens=embedding_tokens,
+        context_embedding_tokenizer=embedding_tokenizer_name,
+        context_reader_tokens=reader_tokens,
+        context_reader_tokenizer=reader_tokenizer_name,
         provenance_available=provenance_available,
         retrieval_latency_ms=retrieval_latency_ms,
         ingestion_latency_ms=ingestion_latency_ms,
