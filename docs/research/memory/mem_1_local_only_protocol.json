@@ -1,0 +1,134 @@
+{
+  "protocol_version": "mem1-local-only-amendment-v1",
+  "amends": "MEM-1 protocol reviewed after MEM-0 freeze",
+  "effective_status": "ACTIVE_LOCAL_ONLY",
+  "research_positioning": "controlled re-evaluation of public memory architectures under a unified fully-local model stack",
+  "claim_guardrails": [
+    "Do not claim exact MemEval numerical reproduction.",
+    "Do not claim official LongMemEval GPT-4o accuracy reproduction.",
+    "Do not compare Main Track results directly with MemEval README GPT-4.1 numbers.",
+    "Published upstream results are external historical coordinates only."
+  ],
+  "roles": {
+    "reader_answer_model": {
+      "provider": "local_qwen",
+      "model": "health-memory-qwen3-8b",
+      "artifact": "E:/Health-Copilot-Models/models/qwen3-8b/Qwen3-8B-Q4_K_M.gguf",
+      "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "endpoint_env": "HC_LOCAL_READER_BASE_URL",
+      "endpoint_policy": "explicit loopback only; no environment/proxy/provider fallback",
+      "request_timeout_seconds": 3600,
+      "max_retries": 2,
+      "generation": {
+        "temperature": 0,
+        "seed": 42,
+        "answer_max_new_tokens": 256,
+        "enable_thinking": false
+      },
+      "long_context": {
+        "max_model_length": 131072,
+        "rope_scaling": "yarn",
+        "rope_scale": 4,
+        "full_context_requires_truncated_false": true
+      }
+    },
+    "memory_internal_llm": {
+      "provider": "local_qwen",
+      "same_artifact_as_reader_answer_model": true,
+      "model": "health-memory-qwen3-8b",
+      "endpoint_env": "HC_LOCAL_READER_BASE_URL",
+      "endpoint_policy": "explicit loopback only",
+      "request_timeout_seconds": 3600,
+      "max_retries": 2,
+      "generation": {
+        "temperature": 0,
+        "seed": 42,
+        "default_max_new_tokens": 8192,
+        "system_explicit_budget_wins": true
+      }
+    },
+    "memory_system": {
+      "definition": "baseline architecture under comparison: ingestion, storage, retrieval and context construction",
+      "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"]
+    },
+    "embedding_model": {
+      "provider": "local_transformers",
+      "repo": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+      "model_path_env": "HC_LOCAL_EMBEDDING_PATH",
+      "weights_file": "model.safetensors",
+      "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+      "dimensions": 1024,
+      "normalization": "L2",
+      "query_instruction": "Instruct: Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question\\nQuery:",
+      "document_instruction": "none",
+      "batch_size": 8,
+      "device": "cpu",
+      "dtype": "float32",
+      "max_input_tokens": 8192,
+      "truncation": "enabled; actual per-batch truncation recorded",
+      "loading": "local_files_only=true; no automatic download or fallback"
+    },
+    "judge_model": {
+      "provider": "none",
+      "model": null,
+      "used": false
+    }
+  },
+  "hosted_api": "NONE",
+  "required_api_key": "NONE",
+  "embedding_model_unification": "Every dense-compatible baseline receives this same local model through a minimal embedding-client adapter; native memory/retrieval algorithm is unchanged.",
+  "local_execution_constraints": {
+    "reader_inference_slots": 1,
+    "simplemem_parallel_window_workers": 1,
+    "simplemem_parallel_retrieval_workers": 1,
+    "propmem_parallel_extraction_workers": 1,
+    "mem0_qdrant_dimensions": 1024,
+    "mem0_qdrant_path": "run-scoped local directory under the active run artifact",
+    "reason": "Keep SimpleMem's upstream parallel-window code path while preventing queued local requests against the shared single-slot reader and embedding adapters."
+  },
+  "metrics": {
+    "primary": ["deterministic LongMemEval token F1"],
+    "memory_retrieval": [
+      "answer-session Recall@5",
+      "answer-session Recall@10",
+      "MRR",
+      "retrieved/context token count",
+      "retrieval latency",
+      "ingestion latency"
+    ],
+    "abstention": "deterministic abstention accuracy, separately reported when abstention cases are present",
+    "by_category": [
+      "single-session-user",
+      "single-session-assistant",
+      "single-session-preference",
+      "multi-session",
+      "temporal-reasoning",
+      "knowledge-update"
+    ],
+    "future_revmem_only": [
+      "stale-memory exposure rate",
+      "current-state conflict rate",
+      "revision resolution accuracy",
+      "historical/current-state accuracy"
+    ]
+  },
+  "tracks": {
+    "main": "Qwen3-8B reader/internal LLM + Qwen3-Embedding-0.6B local embedding + deterministic token F1; no LLM judge",
+    "upstream_parity_sanity": {
+      "status": "CANCELLED_BY_LOCAL_ONLY_AMENDMENT",
+      "historical_reader": "GPT-4.1",
+      "historical_judge": "GPT-4o",
+      "historical_case_count": 6,
+      "execution": "forbidden"
+    }
+  },
+  "smoke_gate": {
+    "question_id": "1cea1afa",
+    "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
+    "max_questions": 1,
+    "after_completion": "STOP; do not launch 10-case or 102-DEV run",
+    "status_output": "MEM1_LOCAL_ONE_CASE_SMOKE=YES|NO"
+  }
+}

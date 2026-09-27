@@ -63,7 +63,23 @@ def test_latency_percentiles_and_role_accounting():
     assert summary["by_role"]["reader_answer"]["failed_calls"] == 1
     assert summary["answer_latency_p50_ms"] == 10
     assert summary["answer_latency_p95_ms"] == 20
-    assert summary["local_qwen_call_wall_ms"] == 20
+    assert summary["local_reader_wall_ms"] == 20
+
+
+def test_exception_chain_records_types_without_error_bodies():
+    try:
+        try:
+            raise TimeoutError("private request payload must not be recorded")
+        except TimeoutError as inner:
+            raise RuntimeError("adapter failed") from inner
+    except RuntimeError as error:
+        chain = mem1_runner._exception_chain(error)
+
+    assert chain == [
+        {"type": "RuntimeError", "http_status": None},
+        {"type": "TimeoutError", "http_status": None},
+    ]
+    assert all("payload" not in str(item) for item in chain)
 
 
 def test_generation_freezes_predictions_before_writing_metrics(tmp_path):
@@ -82,12 +98,15 @@ def test_generation_freezes_predictions_before_writing_metrics(tmp_path):
         tmp_path / "call_ledger.jsonl",
         {
             "system": "fullcontext",
+            "question_id": "dev-a",
             "role": "reader_answer",
             "provider": "local_qwen",
             "latency_ms": 25,
             "prompt_tokens": 100,
             "completion_tokens": 4,
             "success": True,
+            "truncated": False,
+            "max_model_length": 131072,
         },
     )
     manifest = {
@@ -106,9 +125,47 @@ def test_generation_freezes_predictions_before_writing_metrics(tmp_path):
     sidecar = tmp_path / "predictions.sha256"
     assert mem1_runner.verify_hash_sidecar(predictions, sidecar)
     assert metrics["systems"]["fullcontext"]["f1_mean"] == 0.5
+    assert metrics["prediction_frozen"] is True
     assert (tmp_path / "token_efficiency.json").exists()
     assert (tmp_path / "report.md").exists()
 
     mem1_runner.append_jsonl(predictions, {"system": "fullcontext", "question_id": "dev-b"})
     with pytest.raises(RuntimeError, match="Frozen prediction hash mismatch"):
         mem1_runner._finalize_generation(tmp_path, manifest, ["fullcontext"], ["dev-a"], None)
+
+
+def test_retrieval_recall_is_null_without_session_provenance():
+    rows = [
+        {
+            "system": "mem0",
+            "question_id": "q1",
+            "category": "knowledge-update",
+            "answer_session_ids": ["s1"],
+            "ranked_session_groups": None,
+            "session_provenance_available": False,
+            "retrieved_context_tokens": 23,
+            "retrieval_latency_ms": 4.0,
+            "ingestion_latency_ms": 5.0,
+        }
+    ]
+    summary = mem1_runner._summarize_memory_diagnostics(rows, ["mem0"], ["q1"], [])
+    assert summary["mem0"]["answer_session_recall_at_5"] is None
+    assert summary["mem0"]["by_category"]["knowledge-update"]["mrr"] is None
+
+
+def test_retrieval_recall_uses_source_rank_groups():
+    rows = [
+        {
+            "system": "openclaw",
+            "question_id": "q1",
+            "category": "temporal-reasoning",
+            "answer_session_ids": ["s1", "s3"],
+            "ranked_session_groups": [["s2"], ["s1", "s3"]],
+            "retrieved_context_tokens": 23,
+            "retrieval_latency_ms": 4.0,
+            "ingestion_latency_ms": 5.0,
+        }
+    ]
+    summary = mem1_runner._summarize_memory_diagnostics(rows, ["openclaw"], ["q1"], [])
+    assert summary["openclaw"]["answer_session_recall_at_5"] == 1.0
+    assert summary["openclaw"]["mrr"] == 0.5

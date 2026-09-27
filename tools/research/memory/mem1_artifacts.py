@@ -44,6 +44,7 @@ def make_cache_identity(
     reader_artifact_sha256: str,
     embedding_model: str | None,
     code_patch_hash: str,
+    embedding_artifact_sha256: str | None = None,
 ) -> dict[str, Any]:
     identity = {
         "system": system,
@@ -53,6 +54,7 @@ def make_cache_identity(
         "prompt_hashes": dict(sorted(prompt_hashes.items())),
         "reader_artifact_sha256": reader_artifact_sha256,
         "embedding_model": embedding_model,
+        "embedding_artifact_sha256": embedding_artifact_sha256,
         "code_patch_hash": code_patch_hash,
     }
     return {**identity, "identity_sha256": identity_hash(identity)}
@@ -74,6 +76,7 @@ def write_run_manifest(
 ) -> dict[str, Any]:
     required_roles = {
         "reader_answer_model",
+        "memory_internal_llm",
         "memory_system",
         "embedding_model",
         "judge_model",
@@ -100,7 +103,7 @@ def write_run_manifest(
 
     reject_secrets(roles)
     manifest = {
-        "manifest_version": "mem1-run-v1",
+        "manifest_version": "mem1-run-v2-local-only",
         "run_id": run_id,
         "track": track,
         "created_at": created_at,

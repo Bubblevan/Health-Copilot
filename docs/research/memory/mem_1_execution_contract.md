@@ -1,76 +1,65 @@
 # MEM-1 Execution Contract
 
-**Scope:** MEM-1 controlled reproduction of five pinned MemEval baselines only. This document supplements, and does not rewrite, the frozen MEM-0 protocol.
+**Status:** The local-only amendment is normative. This supplements, but does not rewrite, the frozen MEM-0 audit. The amendment and its protocol JSON record the prior parity proposal as cancelled.
 
-## Frozen boundary
+## Stage Boundary
 
-- Dataset input is LongMemEval-S at the revision and SHA in `split_manifest.json`.
-- MEM-1 may read the 102 frozen DEV questions only. The 398-question TEST complement and its gold scorer are forbidden until method/configuration lock.
-- Systems are FullContext, OpenClaw, Mem0 OSS, SimpleMem and PropMem. No Health-Copilot M10-Flat/RevMem, FAMA, Multi-Agent or training work belongs in this stage.
-- Upstream MemEval stays pinned at `807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4`; Health-Copilot-specific changes are carried only by `tools/research/memory/patches/memeval_qwen_main_v1.patch`.
+- Research positioning: **controlled re-evaluation of public memory architectures under a unified fully-local model stack**.
+- Dataset is the frozen LongMemEval-S dataset. MEM-1 reads frozen DEV only; the 398-question process-level held-out public TEST is inaccessible until a later method lock.
+- Systems are FullContext, OpenClaw, Mem0 OSS, SimpleMem and PropMem. PropMem remains the strong primary comparator.
+- This stage does not implement M10-Flat, RevMem, FAMA, Multi-Agent or training.
+- Upstream MemEval remains pinned at `807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4`; local adapter changes are carried in the pinned patch.
 
-## Roles and provider routing
+## Local Model Roles
 
-Every run manifest must contain four distinct role entries:
+| Role | Main Track |
+|---|---|
+| Reader / answer model | Existing frozen Qwen3-8B Q4_K_M, alias `health-memory-qwen3-8b`; loopback llama.cpp only; temperature 0, seed 42, thinking disabled, answer cap 256 |
+| Memory-internal LLM | The same Qwen3-8B artifact and loopback endpoint; default budget 8192 new tokens, with explicit baseline budgets honored |
+| Memory system | Baseline architecture being evaluated: ingestion, storage, retrieval and context construction |
+| Embedding model | Local `Qwen/Qwen3-Embedding-0.6B`, frozen revision and weight hash from `mem_1_local_only_protocol.json` |
+| Judge model | NONE |
+| Hosted API / required key | NONE / NONE |
 
-| Role | Main Track | Upstream-parity sanity |
-|---|---|---|
-| Reader / answer model | Local Qwen3-8B Q4_K_M, protocol alias `health-memory-qwen3-8b`; temperature 0, seed 42, thinking disabled, output cap 64 | GPT-4.1 with the pinned upstream sampling settings |
-| Memory system | The baseline under test: ingestion/materialization, storage, retrieval and context construction | Same five pinned systems |
-| Embedding model | OpenAI `text-embedding-3-small`, 1536 dimensions | Same |
-| Judge model | OpenAI `gpt-4o`, temperature 0, max 10 output tokens | Same |
+The OpenAI-compatible SDK is a wire-protocol client only. Its transport disables environment proxies and blocks non-loopback hosts. No `OPENAI_API_KEY`, cloud endpoint variable, proprietary fallback, GPT-4.1 reader, GPT-4o judge, or hosted embedding endpoint is used or required. The adapter explicitly caps final reader answers at 256 for every system and applies an 8192-token default to memory-internal calls; an explicit per-system budget takes precedence. The larger shared answer cap is required for structured-answer baselines such as PropMem to finish valid JSON. Local requests use a 3600-second timeout and the SDK's explicit two retries so long structured extraction is not mistaken for a short reader timeout. No server-side generation default is relied upon.
 
-The deterministic token-F1 scorer is local code, not a model role. Main reader traffic must use an explicitly configured loopback endpoint. Embedding and judge clients must use their own explicit cloud endpoints and may never inherit the reader URL. A process-wide `OPENAI_BASE_URL` is not a routing control.
+The embedding adapter loads only local Transformers files, verifies the pinned model revision and weights, returns 1024-dimensional L2-normalized vectors, uses the frozen query instruction and no document instruction, batches by 8, and records device, dtype, token limit and actual truncation. Every dense-compatible baseline receives this adapter; baseline memory/retrieval algorithms remain unchanged.
 
-## Artifact and resume rules
+## Metrics and Claim Limits
 
-Each run directory follows this layout:
+- Primary quality: deterministic LongMemEval token F1.
+- Retrieval: answer-session Recall@5, Recall@10 and MRR when source-session provenance is available; otherwise report `null`, not a fabricated miss.
+- Efficiency: retrieved/context token count, reader prompt tokens, retrieval latency, ingestion latency, local reader wall time, and local embedding wall time/token counts.
+- Report each metric by the six LongMemEval-S question categories. Report deterministic abstention accuracy separately if abstention cases are present.
+- No LLM-as-judge runs. Prediction SHA is frozen before metrics are emitted; there is no judge stage.
+- FullContext requires an actual 131072-token slot. Measure the exact llama.cpp chat-template output with `/apply-template` and `/tokenize`; compare that count to successful server `usage.prompt_tokens`. Record `max_model_length=131072` and set `truncated=false` only when counts agree and prompt plus output reserve fits. Missing or mismatched evidence invalidates the item.
+- Do not claim exact MemEval numerical reproduction, official LongMemEval GPT-4o accuracy reproduction, or direct performance comparability with MemEval README GPT-4.1 values. Upstream numbers are external historical coordinates only.
 
-```text
-runs/memory/mem1/<run_id>/
-├── run_manifest.json
-├── predictions.jsonl
-├── predictions.sha256
-├── call_ledger.jsonl
-├── embeddings_usage.json
-├── token_efficiency.json
-├── failures.jsonl
-├── deterministic_metrics.json
-├── judge_results.jsonl
-├── judge_metrics.json
-└── report.md
-```
+## Failure and Resume Rules
 
-Generation is completed and `predictions.jsonl` is hashed before deterministic scoring or any judge calls. The prediction sidecar must verify before scoring. Judge outputs are stored separately and never mutate predictions.
+- Reader, ingestion, embedding, schema, timeout and library errors are `INFRA_FAILURE`, have null prediction/F1 and are excluded from the quality denominator. They remain separately logged and retryable; embedding failure is never quality zero.
+- PropMem's local response adapter accepts an otherwise incomplete JSON object only when its string-valued `answer` field is complete; malformed or partial answer values remain infrastructure failures.
+- Internal query planning/retrieval LLM calls use `memory_reasoning`; final answer-generation calls use the shared 256-token `reader_answer` budget.
+- No credential, request body or key is written to manifests or ledgers. Logs contain role, local provider, model, tokens, latency, retry/cache status, success and truncation metadata.
+- Cache identity includes system, question ID, dataset SHA, system config and prompt hashes, reader artifact SHA, embedding artifact hash when used, and adapter/patch code hash. Only exact-identity successful rows are reusable.
+- On successful generation, write `predictions.sha256` and verify it on resume. A frozen run resumed unchanged must not make new model calls.
 
-Checkpoint at question granularity. A prediction cache identity includes system, question ID, dataset SHA, system-config hash, hashes for all relevant prompts, reader artifact SHA, embedding model, and patch/code hash. Only an `OK` prediction with an exact, internally valid identity can be reused. Infra failures and judge results are not valid prediction cache entries. Any identity change is a cache miss.
+## MEM-1 One-Case Smoke Only
 
-Run manifests are immutable after creation, must mark `split=DEV` and `test_access=false`, must keep the four model/system roles separate, and must contain no credentials. Ledger rows contain role, provider, model, token usage where available, latency, retry count, success and truncation status, but never request bodies or keys. Network errors are logged as infrastructure failures with error type and null token usage.
+Run exactly DEV question `1cea1afa` through all five systems: FullContext, OpenClaw, Mem0 OSS, SimpleMem and PropMem. Verify:
 
-`tools/research/memory/run_mem1.py` is the controlled entrypoint. Generation accepts only question IDs present in frozen DEV or a selection manifest with the frozen dataset SHA; it validates the local dataset bytes and pinned MemEval patch. It checkpoints one LongMemEval question at a time using the cache identity above. Invoke `--stage generate` to produce and freeze predictions; a separate `--stage judge` verifies the frozen prediction SHA before calling GPT-4o. The judge stage cannot mutate prediction artifacts.
+1. Reader and all memory-internal generation use the frozen local Qwen3-8B artifact.
+2. Every dense operation uses the frozen local Qwen3-Embedding-0.6B artifact.
+3. No hosted request, OpenAI key, hidden fallback or outbound model call is possible.
+4. FullContext has actual prompt-token evidence, `max_model_length=131072`, and verified `truncated=false`.
+5. Deterministic metrics, prediction SHA freeze, cache/resume, and infra-versus-quality separation work.
 
-## Failure and denominator semantics
+Write `mem_1b_local_one_case_smoke.md` with `MEM1_LOCAL_ONE_CASE_SMOKE=YES|NO`. `YES` is allowed only if every gate passes. Then stop for human review. Do not run 10-case, 102 DEV or TEST.
 
-- Reader, ingestion, embedding, schema, timeout and library failures are `INFRA_FAILURE`, have null prediction/F1, and are excluded from the quality denominator. They are written to `failures.jsonl`; they are never converted to an empty answer or a zero score.
-- GPT-4o judge errors retain deterministic F1, use `judge_status=ERROR` and `longmemeval_correct=null`, retry at most three times, and are excluded from the judge denominator.
-- Report both quality and infrastructure counts. A missing judge result is not an incorrect answer.
-- For FullContext, every query must carry tokenizer prompt-token count, `max_model_length=131072`, output reserve and an explicit server truncation result. Missing or true truncation status invalidates that run item; it must not be represented as `truncated=false` by assumption.
+## Cancelled Historical Proposal
 
-## Staged execution and stop points
+The earlier draft proposed a six-case GPT-4.1 reader / GPT-4o judge upstream-parity stage, GPT-4o native judge for Main Track, and `text-embedding-3-small` API embedding. Those runtime stages are **`CANCELLED_BY_LOCAL_ONLY_AMENDMENT`** and must never execute under MEM-1. Their historical details remain in `model_protocol.json` and `mem_1_local_only_amendment.md` as audit records, not as active configuration. The first local smoke launch omitted a memory-internal output budget while using a 64-token server default; that attempt was stopped and is invalid, not a scored run.
 
-1. **MEM-1A offline readiness:** patch audit, provider boundary, compatibility/dependency audit, failure semantics, telemetry, immutable run manifest, cache/resume and fake-provider tests. No paid API calls.
-2. **Cost preflight:** project local GPU work, GPT-4o judging and embedding API separately, including ingestion model calls. Recheck current prices immediately before the first paid request. Do not start 10- or 102-case runs at this point.
-3. **MEM-1B one-case Main smoke:** only DEV question `1cea1afa`; run OpenClaw, FullContext, PropMem, Mem0 OSS, SimpleMem in that order, first without judging. Validate routing, full-context length/truncation, failure handling and resume, then judge the five frozen answers. Stop for review.
-4. **MEM-1C upstream-parity sanity:** six frozen DEV IDs, five systems, GPT-4.1 reader and GPT-4o judge. Report as directional adapter sanity only; never tune Main Track from it. Stop for review.
-5. **MEM-1D diagnostic smoke:** the frozen `main_smoke_10_manifest.json`, all five systems with Qwen3-8B. Scores are diagnostic only. Stop for review before 102 DEV.
-6. **MEM-1E full DEV:** all five systems × 102 DEV. Freeze all predictions, calculate token F1, then run native GPT-4o judge. Never access TEST during MEM-1.
+## Cost Accounting
 
-At each stage, retain per-question prediction/context artifacts and append-only call/failure ledgers. No later stage begins automatically after a stop point.
-
-## Cost accounting
-
-Report local Qwen GPU wall time/compute separately from cloud charges. Keep GPT-4o judge input/output and `text-embedding-3-small` input-token usage in separate buckets. Count all memory-ingestion and reasoning calls, not only final reader answers. The withdrawn GPT-4.1 Main Track token-cost estimate is not applicable. No fixed embedding dollar estimate is claimed until measured token receipts exist.
-
-## MEM-1A gate status
-
-`MEM1_EXECUTION_READY=YES` is allowed only after the pinned patch clean-applies, offline tests pass, role routing and failure semantics are exercised with fake providers, artifact identity/freeze and DEV-only runner tests pass, and the exact benchmark dependency environment is available. A lockfile resolving successfully is not proof that its packages are installed or importable.
+Report local Qwen GPU wall time/compute and local embedding CPU wall time/token counts separately. Judge cost and embedding API cost are both `NONE`; hosted API calls are zero. Do not reuse the prior 55M GPT-4.1-token / hosted-reader estimate for this local Main Track.

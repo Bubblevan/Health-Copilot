@@ -1,28 +1,36 @@
 {
-  "matrix_version": "mem1-baseline-compatibility-v1",
-  "status": "MEM1A_OFFLINE_EXECUTION_READY",
+  "matrix_version": "mem1-baseline-compatibility-v2-local-only",
+  "status": "MEM1_LOCAL_ONE_CASE_SMOKE_PASS_R7",
+  "effective_protocol": {
+    "name": "controlled re-evaluation of public memory architectures under a unified fully-local model stack",
+    "hosted_api": "NONE",
+    "required_api_key": "NONE",
+    "judge": "NONE",
+    "upstream_parity_sanity": "CANCELLED_BY_LOCAL_ONLY_AMENDMENT"
+  },
   "health_copilot_base_commit": "16e3d85b18eb802f28d61112deb7701fd2892ef7",
   "mem0_upstream_commit": "8d6c001966573786d36908bfe4dfd52935749200",
   "memeval_upstream_commit": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
   "patch_provenance": {
     "path": "tools/research/memory/patches/memeval_qwen_main_v1.patch",
     "upstream_sha": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
-    "patch_sha256": "d796f92fcf48c5bd20bfca95dc9bc03164b6c44e07f3f76cc7cea752ba0e5b1a",
-    "patched_tree_sha": "64e11aa771a04bedf403f595acfe425ff766dad8",
+    "patch_sha256": "34c2536a936139b2f0c62cb0520f3fd8b302f58a7da1294685187bc9d99c0815",
+    "patched_tree_sha": "c883ec78417224aa326d123817b8ce46a2f994d1eed3abe7bb85cc1ca3144240",
     "clean_apply_verified": true,
-    "external_checkout_restored_clean": true
+    "external_checkout_restored_clean": false
   },
   "dependency_audit": {
     "lockfile": "external/memory/MemEval/uv.lock",
     "uv_lock_check": "PASS",
     "isolated_environment": "external/memory/MemEval/.venv",
     "python": "3.11.15",
-    "openai": "2.16.0",
+    "openai_sdk_role": "local OpenAI-compatible protocol client only; endpoint guarded to loopback",
     "simplemem": "0.1.0",
     "mem0ai": "1.0.3",
     "benchmark_imports": "PASS",
     "resolution_conflicts": [],
-    "paid_api_calls": 0
+    "hosted_api_calls": 0,
+    "required_api_key": "NONE"
   },
   "dataset": {
     "id": "longmemeval_s",
@@ -39,35 +47,49 @@
       "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
       "temperature": 0,
       "seed": 42,
-      "max_new_tokens": 64,
+      "max_new_tokens": 256,
       "enable_thinking": false,
       "endpoint_env": "HC_LOCAL_READER_BASE_URL",
-      "endpoint_policy": "must be loopback; never falls back to OPENAI_BASE_URL"
+      "endpoint_policy": "must be loopback; never falls back to OPENAI_BASE_URL",
+      "request_timeout_seconds": 3600,
+      "max_retries": 2
+    },
+    "memory_internal_llm": {
+      "provider": "local_qwen",
+      "model": "health-memory-qwen3-8b",
+      "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "same_artifact_as_main_reader": true,
+      "endpoint_env": "HC_LOCAL_READER_BASE_URL",
+      "temperature": 0,
+      "seed": 42,
+      "default_max_new_tokens": 8192,
+      "system_explicit_budget_wins": true,
+      "request_timeout_seconds": 3600,
+      "max_retries": 2
     },
     "upstream_parity_reader_answer": {
-      "provider": "openai",
-      "model": "gpt-4.1",
-      "purpose": "six-case directional adapter sanity only",
-      "main_result": false
+      "status": "CANCELLED_BY_LOCAL_ONLY_AMENDMENT",
+      "historical_model": "gpt-4.1",
+      "historical_case_count": 6,
+      "runtime_dependency": false
     },
     "memory_system": {
       "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
       "meaning": "ingestion, storage, retrieval and context construction; not a model/provider role"
     },
     "embedding": {
-      "provider": "openai",
-      "model": "text-embedding-3-small",
-      "dimensions": 1536,
-      "endpoint_env": "HC_EMBEDDING_BASE_URL",
-      "main_reader_loopback_forbidden": true
+      "provider": "local_transformers",
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "dimensions": 1024,
+      "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+      "model_path_env": "HC_LOCAL_EMBEDDING_PATH",
+      "main_track_runtime": "local CPU Transformers; shared by every dense-compatible system"
     },
     "judge": {
-      "provider": "openai",
-      "model": "gpt-4o",
-      "temperature": 0,
-      "max_tokens": 10,
-      "endpoint_env": "HC_JUDGE_BASE_URL",
-      "main_reader_loopback_forbidden": true
+      "provider": "none",
+      "model": null,
+      "used": false
     },
     "deterministic_metric": "MemEval LongMemEval token F1; local, no model call"
   },
@@ -78,8 +100,8 @@
       "reader_endpoint": "configured reader only",
       "memory_ingestion_endpoint": null,
       "embedding_endpoint": null,
-      "judge_endpoint": "explicit OpenAI judge client",
-      "answer_max_tokens_main": 64,
+      "judge_endpoint": null,
+      "answer_max_tokens_main": 256,
       "answer_temperature_main": 0,
       "answer_seed_main": 42,
       "long_context_required": true,
@@ -90,8 +112,8 @@
       "module": "agents_memory.systems.openclaw",
       "reader_endpoint": "configured reader only",
       "memory_ingestion_endpoint": null,
-      "embedding_endpoint": "explicit OpenAI text-embedding-3-small client",
-      "judge_endpoint": "explicit OpenAI judge client",
+      "embedding_endpoint": "shared Qwen3-Embedding-0.6B local adapter",
+      "judge_endpoint": null,
       "retrieval": "pinned chunking and hybrid BM25/vector ranking unchanged"
     },
     {
@@ -99,19 +121,21 @@
       "module": "agents_memory.systems.mem0",
       "dependency": "mem0ai==1.0.3 (pinned in upstream uv.lock; installed in isolated benchmark .venv)",
       "reader_endpoint": "explicit reader client",
-      "memory_ingestion_endpoint": "explicit OpenAI-compatible provider config plus injected reader client",
-      "embedding_endpoint": "explicit embedding provider config plus injected OpenAI embedding client",
-      "judge_endpoint": "explicit OpenAI judge client",
-      "static_audit": "pinned Mem0 source exposes memory.llm.client and memory.embedding_model.client; adapter fails closed if not"
+      "memory_ingestion_endpoint": "injected frozen local Qwen3-8B reader client",
+      "embedding_endpoint": "injected shared local Qwen3-Embedding-0.6B client",
+      "judge_endpoint": null,
+      "static_audit": "pinned Mem0 source exposes memory.llm.client and memory.embedding_model.client; adapter fails closed if not",
+      "local_execution": "same upstream Qdrant backend, explicit 1024 dimensions for shared Qwen embedding, run-scoped local path"
     },
     {
       "name": "SimpleMem",
       "module": "agents_memory.systems.simplemem",
       "dependency": "simplemem==0.1.0 (pinned in upstream uv.lock)",
-      "reader_endpoint": "role-aware reader client; final ask capped at 64 tokens in Main Track",
-      "memory_ingestion_endpoint": "imported SimpleMem OpenAI aliases patched to reader client; endpoint env scoped and restored",
-      "embedding_endpoint": "explicit OpenAI client through the existing EmbeddingModel adapter",
-      "judge_endpoint": "explicit OpenAI judge client",
+      "reader_endpoint": "role-aware reader client; planner/retrieval uses memory_reasoning; final ask capped at shared 256 tokens",
+      "memory_ingestion_endpoint": "imported SimpleMem OpenAI aliases patched to loopback Qwen3-8B client",
+      "embedding_endpoint": "shared local Qwen3-Embedding-0.6B client through existing EmbeddingModel adapter",
+      "judge_endpoint": null,
+      "local_execution": "upstream parallel-window path retained; worker limits set to 1 to match the shared single-slot local reader and shared local embedding adapter; planner calls use memory_reasoning",
       "fail_closed": "requires at least one patchable sync OpenAI alias and rejects AsyncOpenAI",
       "runtime_audit": "simplemem==0.1.0 and mem0ai==1.0.3 installed from the pinned lock; exact imports passed"
     },
@@ -120,37 +144,59 @@
       "module": "agents_memory.systems.propmem",
       "reader_endpoint": "explicit reader client",
       "memory_ingestion_endpoint": "reader client; 8192-token extraction budget preserved, temperature 0 and seed 42 in Main Track",
-      "embedding_endpoint": "explicit OpenAI text-embedding-3-small client injected into PropMemSystem",
-      "judge_endpoint": "explicit OpenAI judge client",
+      "embedding_endpoint": "shared local Qwen3-Embedding-0.6B client injected into PropMemSystem",
+      "judge_endpoint": null,
+      "local_execution": "upstream per-session extraction path retained with one worker to match the shared single-slot local reader and embedding adapters; local request timeout is 3600s",
       "algorithm_changes": false,
       "failure_handling": "extraction/schema/provider failures propagate as infrastructure failures instead of empty propositions"
     }
   ],
   "telemetry": {
-    "roles": ["reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge"],
+    "roles": ["reader_answer", "memory_ingest", "memory_reasoning", "embedding"],
     "recorded": ["question_id", "system", "provider", "model", "prompt_tokens", "completion_tokens", "latency_ms", "retry_count", "cache_hit", "success", "truncated"],
     "prompt_and_key_logging": false,
     "provider_failure_is_quality_zero": false,
-    "judge_failure_is_incorrect": false
+    "judge_calls": 0,
+    "api_key_required": false
   },
   "offline_verification": {
-    "provider_and_failure_tests": 11,
+    "provider_and_failure_tests": 13,
     "artifact_cache_manifest_tests": 7,
-    "dev_only_runner_tests": 4,
+    "dev_only_runner_tests": 6,
     "pinned_lock_environment_imports": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
     "ruff": "PASS",
     "patch_clean_apply": "PASS",
-    "paid_api_calls": 0,
+    "hosted_api_calls": 0,
+    "invalid_smoke_attempts": [
+      "stopped before freeze; llama.cpp server default n_predict=64 truncated memory-internal structured output",
+      "stopped before freeze; SimpleMem's 16 workers queued long generations on the shared single-slot endpoint, causing read timeouts; Mem0's default Qdrant dimensions (1536) mismatched the shared 1024-dimensional embedder and surfaced an infrastructure ValueError",
+      "partial run stopped before freeze after identifying the Mem0 Qdrant dimension mismatch; outputs retained as diagnostic only so the official smoke uses one final patch SHA",
+      "r4 one-case attempt: SimpleMem planner inherited the 64-token answer cap and failed with TypeError; PropMem had two 600s local SDK ReadTimeouts on one long session; both are infrastructure failures, not quality scores",
+      "r5 full five-system attempt: PropMem's 64-token final-answer cap produced incomplete JSON. No hosted calls; run retained as infra-failure diagnostic, not scored.",
+      "r6 full five-system attempt: the shared 256-token budget was active, but Qwen ended its PropMem JSON answer after a complete answer string and omitted the outer closing brace. The PropMem adapter's strict parser reported INFRA_FAILURE; all other systems completed. Run retained as diagnostic, not scored."
+    ],
     "benchmark_answers": 0,
     "test_split_accessed": false,
-    "status": "PASS",
-    "gate": "MEM1_EXECUTION_READY=YES",
+    "status": "OFFLINE_ADAPTER_TESTS_PASS; LOCAL_ONE_CASE_R7_PASS",
+    "gate": "MEM1_LOCAL_ONE_CASE_SMOKE=YES",
+    "smoke_run": "runs/memory/mem1/local-one-case-20260927-r7",
+    "prediction_sha256": "7a056209a4397d4c16a8eb6c2e84d080ff2aef3831b32c23f1d762d6886e3999",
+    "successful_systems": ["fullcontext", "openclaw", "mem0", "simplemem", "propmem"],
+    "infra_failures": 0,
+    "cache_resume_verified": true,
     "controlled_entrypoint": "tools/research/memory/run_mem1.py",
-    "generation_and_judge_are_separate_stages": true
+    "generation_directly_computes_deterministic_metrics": true,
+    "judge_stage": "CANCELLED_BY_LOCAL_ONLY_AMENDMENT"
   },
   "next_stage_gates": [
-    "Configure an active loopback llama.cpp endpoint before MEM-1B.",
-    "Revalidate 131072 context length and explicit truncated=false on the actual MEM-1B FullContext response.",
-    "Complete the separate API/GPU cost preflight before the first paid request."
-  ]
+    "MEM1_LOCAL_ONE_CASE_SMOKE=YES; see docs/research/memory/mem_1b_local_one_case_smoke.md.",
+    "Stop after this smoke. Do not start 10 or 102 DEV or TEST runs without a separate reviewed instruction."
+  ],
+  "historical_pre_amendment_protocol": {
+    "status": "SUPERSEDED_BY_LOCAL_ONLY_AMENDMENT; RETAINED_FOR_AUDIT",
+    "reader_parity": "GPT-4.1 six-case upstream sanity proposal, cancelled",
+    "embedding": "text-embedding-3-small API, cancelled",
+    "judge": "GPT-4o API, cancelled",
+    "no_historical_cloud_track_may_execute": true
+  }
 }

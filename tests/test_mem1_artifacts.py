@@ -112,9 +112,10 @@ def run_manifest_values():
         "question_ids": ["1cea1afa"],
         "roles": {
             "reader_answer_model": {"model": "Qwen3-8B", "artifact_sha256": "reader"},
+            "memory_internal_llm": {"model": "Qwen3-8B", "artifact_sha256": "reader"},
             "memory_system": {"name": "PropMem", "config_sha256": "config"},
-            "embedding_model": {"model": "text-embedding-3-small"},
-            "judge_model": {"model": "gpt-4o"},
+            "embedding_model": {"model": "Qwen/Qwen3-Embedding-0.6B"},
+            "judge_model": {"provider": "none", "model": None, "used": False},
         },
         "system_config_hash": "config",
         "code_patch_sha256": "patch",
@@ -129,6 +130,7 @@ def test_run_manifest_keeps_roles_separate_and_is_immutable(tmp_path):
     manifest = mem1_artifacts.write_run_manifest(path, **values)
     assert set(manifest["roles"]) == {
         "reader_answer_model",
+        "memory_internal_llm",
         "memory_system",
         "embedding_model",
         "judge_model",
@@ -152,6 +154,6 @@ def test_run_manifest_refuses_test_access_and_credentials(tmp_path):
     with pytest.raises(ValueError, match="DEV only"):
         mem1_artifacts.write_run_manifest(tmp_path / "test.json", **{**values, "split": "TEST"})
 
-    roles = {**values["roles"], "judge_model": {"model": "gpt-4o", "api_key": "secret"}}
+    roles = {**values["roles"], "judge_model": {"model": None, "api_key": "secret"}}
     with pytest.raises(ValueError, match="credentials"):
         mem1_artifacts.write_run_manifest(tmp_path / "secret.json", **{**values, "roles": roles})
