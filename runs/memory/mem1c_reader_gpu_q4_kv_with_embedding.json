@@ -1,0 +1,76 @@
+{
+  "embedding_probe": {
+    "batch_items": 8,
+    "device": "cuda:0",
+    "dtype": "float16",
+    "encode_latency_ms": 945.51,
+    "gpu_memory_after_load_and_encode_mib": 12324,
+    "input_tokens": 4024,
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "truncated": false
+  },
+  "embedding_resident_during_reader": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "fixed_length_measurement_valid": true,
+  "generation_truncated": true,
+  "gpu_memory_peak_mib": 12682,
+  "kv_cache_type": "q4_0",
+  "max_model_length": 131072,
+  "measured_runs": 2,
+  "median_generation_tokens_per_second": 56.977999999999994,
+  "median_total_ms": 3095.4575,
+  "median_ttft_ms": 1408.0140000000001,
+  "mode": "gpu-kv-q4",
+  "output_length_cap_tokens": 96,
+  "prompt": "synthetic; no benchmark question or user data",
+  "prompt_tokens": 4088,
+  "prompt_tokens_per_run": [
+    4088,
+    4088,
+    4088
+  ],
+  "runs": [
+    {
+      "completion_tokens": 96,
+      "finish_reason": "length",
+      "generation_tokens_per_second": 60.18,
+      "generation_truncated": true,
+      "prompt_tokens": 4088,
+      "run": 0,
+      "text": "Swimming is a beneficial and enjoyable activity that promotes physical fitness, mental relaxation, and overall well-being, but it also requires adherence to healthy swimming habits to ensure safety and prevent injury. Before entering the water, swimmers should always check the conditions of the pool or natural body of water, including water temperature, cleanliness, and depth, to avoid potential hazards. It is important to warm up properly with light exercises and stretches to prepare muscles and joints for the physical demands of swimming,",
+      "token_usage_source": "llama.cpp usage",
+      "total_ms": 4736.85,
+      "ttft_ms": 3141.646,
+      "warmup": true
+    },
+    {
+      "completion_tokens": 96,
+      "finish_reason": "length",
+      "generation_tokens_per_second": 54.748,
+      "generation_truncated": true,
+      "prompt_tokens": 4088,
+      "run": 1,
+      "text": "Swimming is a beneficial and enjoyable activity that promotes physical fitness, mental relaxation, and overall well-being, but it also requires adherence to safe and healthy practices to prevent injuries and ensure a positive experience. To maintain a healthy swimming habit, it is essential to warm up before entering the water, which can include light stretching and dynamic exercises to prepare muscles and joints for the physical demands of swimming. Staying hydrated is crucial, as swimming can lead to fluid loss through sweat and respiration",
+      "token_usage_source": "llama.cpp usage",
+      "total_ms": 3163.206,
+      "ttft_ms": 1409.723,
+      "warmup": false
+    },
+    {
+      "completion_tokens": 96,
+      "finish_reason": "length",
+      "generation_tokens_per_second": 59.208,
+      "generation_truncated": true,
+      "prompt_tokens": 4088,
+      "run": 2,
+      "text": "Swimming is a beneficial activity for physical fitness, mental relaxation, and overall well-being, but it requires adherence to healthy swimming habits to ensure safety and prevent injury. Before entering the water, swimmers should always check the water conditions, such as temperature, clarity, and presence of contaminants, to avoid health risks like hypothermia or waterborne illnesses. It is important to warm up properly with light exercises to prepare muscles and joints for the physical demands of swimming. Using proper technique",
+      "token_usage_source": "llama.cpp usage",
+      "total_ms": 3027.709,
+      "ttft_ms": 1406.305,
+      "warmup": false
+    }
+  ],
+  "schema_version": 1,
+  "truncated": false,
+  "warmup_runs": 1
+}

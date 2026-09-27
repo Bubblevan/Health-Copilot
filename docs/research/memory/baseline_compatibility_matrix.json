@@ -14,10 +14,11 @@
   "patch_provenance": {
     "path": "tools/research/memory/patches/memeval_qwen_main_v1.patch",
     "upstream_sha": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
-    "patch_sha256": "34c2536a936139b2f0c62cb0520f3fd8b302f58a7da1294685187bc9d99c0815",
-    "patched_tree_sha": "c883ec78417224aa326d123817b8ce46a2f994d1eed3abe7bb85cc1ca3144240",
+    "patch_sha256": "99a9f9cb82ffb9420722ee20fcf3101ec2d67a8164e1dbba8567317409d304eb",
+    "patched_tree_sha": "760db4e71f58b840c3ea3413bd4c8d734190fd20",
+    "patched_tree_sha_algorithm": "git write-tree SHA-1",
     "clean_apply_verified": true,
-    "external_checkout_restored_clean": false
+    "external_checkout_restored_clean": true
   },
   "dependency_audit": {
     "lockfile": "external/memory/MemEval/uv.lock",
@@ -54,6 +55,16 @@
       "request_timeout_seconds": 3600,
       "max_retries": 2
     },
+    "main_reader_runtime": {
+      "server": "llama.cpp llama-server 10068 (571d0d540)",
+      "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU; 16376 MiB",
+      "gpu_layers": 99,
+      "flash_attention": true,
+      "kv_cache_k_v": "q4_0 on GPU",
+      "context_length": 131072,
+      "rope_scaling": "yarn, scale=4, original_context=32768",
+      "synthetic_115k_context_fit": "PASS; 256-token output reserve; truncated=false"
+    },
     "memory_internal_llm": {
       "provider": "local_qwen",
       "model": "health-memory-qwen3-8b",
@@ -84,14 +95,36 @@
       "dimensions": 1024,
       "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
       "model_path_env": "HC_LOCAL_EMBEDDING_PATH",
-      "main_track_runtime": "local CPU Transformers; shared by every dense-compatible system"
+      "main_track_runtime": "local CUDA Transformers on cuda:0 / float16; shared by every dense-compatible system",
+      "batch_size": 8,
+      "max_batch_tokens": 8192,
+      "torch_overlay": "2.10.0+cu128 from the official PyTorch CUDA 12.8 wheel index; local overlay only, uv.lock unchanged",
+      "normalization": "L2",
+      "query_instruction": "Instruct: Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.\\nQuery:",
+      "document_instruction": "none",
+      "max_input_tokens": 8192,
+      "truncation": "enabled and observed per batch"
     },
     "judge": {
       "provider": "none",
       "model": null,
       "used": false
     },
-    "deterministic_metric": "MemEval LongMemEval token F1; local, no model call"
+    "deterministic_metric": "LongMemEval token precision/recall/F1 and normalized exact match; local, no model call",
+    "context_controlled_track": {
+      "status": "ADDED_BY_MEM1C",
+      "shared_reader": "frozen local Qwen3-8B; same prompt, temperature 0, seed 42, thinking=false, max_new_tokens=256",
+      "bundle_artifact": "context_bundles.jsonl with immutable prediction-bound SHA256",
+      "primary_metrics": ["answer-session Recall@5", "answer-session Recall@10", "MRR", "context tokens", "latency", "provenance coverage"]
+    },
+    "optional_post_freeze_judge": {
+      "metric": "local_qwen_judge_accuracy",
+      "provider": "local_qwen",
+      "stage": "separate; requires frozen prediction hash",
+      "headline_eligible": false,
+      "manual_calibration_required": true,
+      "official_gpt4o_accuracy": false
+    }
   },
   "systems": [
     {
@@ -102,6 +135,7 @@
       "embedding_endpoint": null,
       "judge_endpoint": null,
       "answer_max_tokens_main": 256,
+      "controlled_context_only_adapter": true,
       "answer_temperature_main": 0,
       "answer_seed_main": 42,
       "long_context_required": true,
@@ -152,7 +186,7 @@
     }
   ],
   "telemetry": {
-    "roles": ["reader_answer", "memory_ingest", "memory_reasoning", "embedding"],
+    "roles": ["reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge_local"],
     "recorded": ["question_id", "system", "provider", "model", "prompt_tokens", "completion_tokens", "latency_ms", "retry_count", "cache_hit", "success", "truncated"],
     "prompt_and_key_logging": false,
     "provider_failure_is_quality_zero": false,

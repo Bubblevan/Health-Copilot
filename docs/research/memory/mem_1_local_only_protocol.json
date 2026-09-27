@@ -64,8 +64,15 @@
       "query_instruction": "Instruct: Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question\\nQuery:",
       "document_instruction": "none",
       "batch_size": 8,
-      "device": "cpu",
-      "dtype": "float32",
+      "max_batch_tokens": 8192,
+      "device": "cuda:0",
+      "dtype": "float16",
+      "local_runtime_overlay": {
+        "framework": "PyTorch",
+        "version": "2.10.0+cu128",
+        "wheel_index": "https://download.pytorch.org/whl/cu128",
+        "not_in_upstream_uv_lock": true
+      },
       "max_input_tokens": 8192,
       "truncation": "enabled; actual per-batch truncation recorded",
       "loading": "local_files_only=true; no automatic download or fallback"
@@ -80,6 +87,23 @@
   "required_api_key": "NONE",
   "embedding_model_unification": "Every dense-compatible baseline receives this same local model through a minimal embedding-client adapter; native memory/retrieval algorithm is unchanged.",
   "local_execution_constraints": {
+    "reader_runtime": {
+      "server": "llama.cpp llama-server 10068 (571d0d540)",
+      "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU; 16376 MiB",
+      "gpu_layers": 99,
+      "flash_attention": true,
+      "kv_cache_type_k": "q4_0",
+      "kv_cache_type_v": "q4_0",
+      "kv_cache_offload": "GPU",
+      "context_length": 131072,
+      "rope_scaling": "yarn",
+      "rope_scale": 4,
+      "rope_original_context": 32768,
+      "cuda_embedding_co_residency_verified": true,
+      "synthetic_long_context_prompt_tokens": 115000,
+      "synthetic_long_context_output_reserve": 256,
+      "synthetic_long_context_truncated": false
+    },
     "reader_inference_slots": 1,
     "simplemem_parallel_window_workers": 1,
     "simplemem_parallel_retrieval_workers": 1,
@@ -89,7 +113,21 @@
     "reason": "Keep SimpleMem's upstream parallel-window code path while preventing queued local requests against the shared single-slot reader and embedding adapters."
   },
   "metrics": {
-    "primary": ["deterministic LongMemEval token F1"],
+    "primary": [
+      "answer-session Recall@5",
+      "answer-session Recall@10",
+      "MRR",
+      "retrieved context tokens",
+      "retrieval latency",
+      "ingestion latency",
+      "provenance coverage"
+    ],
+    "downstream_answer": [
+      "deterministic token F1",
+      "token precision",
+      "token recall",
+      "normalized exact match"
+    ],
     "memory_retrieval": [
       "answer-session Recall@5",
       "answer-session Recall@10",
@@ -98,7 +136,7 @@
       "retrieval latency",
       "ingestion latency"
     ],
-    "abstention": "deterministic abstention accuracy, separately reported when abstention cases are present",
+    "abstention": "question_id.endswith('_abs'); preserve original question_type; report abstention_n and deterministic abstention_accuracy separately",
     "by_category": [
       "single-session-user",
       "single-session-assistant",
@@ -115,7 +153,40 @@
     ]
   },
   "tracks": {
-    "main": "Qwen3-8B reader/internal LLM + Qwen3-Embedding-0.6B local embedding + deterministic token F1; no LLM judge",
+    "main": "controlled re-evaluation of public memory architectures under a unified fully-local model stack; Qwen3-8B reader/internal LLM + Qwen3-Embedding-0.6B CUDA local embedding; deterministic metrics; no hosted API or judge",
+    "native_system_audit": "Existing upstream answer heads/prompts, retained only as a runtime/adapter audit; not the primary architecture comparison",
+    "context_controlled": {
+      "status": "ACTIVE_AFTER_MEM1C",
+      "answer_head": "one shared Qwen3-8B prompt and generation configuration; only ContextBundle content varies",
+      "reader_generation": {
+        "temperature": 0,
+        "seed": 42,
+        "enable_thinking": false,
+        "max_new_tokens": 256
+      },
+      "bundle_artifact": "context_bundles.jsonl plus per-bundle SHA256 embedded in frozen predictions",
+      "failure_taxonomy": [
+        "INGEST_EXTRACTION_MISS",
+        "RETRIEVAL_MISS",
+        "STALE_STATE_SELECTED",
+        "OLD_NEW_CONFLICT",
+        "TEMPORAL_RESOLUTION_ERROR",
+        "CONTEXT_HAS_ANSWER_READER_MISSED",
+        "CONTEXT_MISSING_ANSWER",
+        "FALSE_ABSTENTION",
+        "SHOULD_ABSTAIN",
+        "INFRA_FAILURE"
+      ]
+    },
+    "optional_local_judge": {
+      "status": "OPTIONAL_POST_FREEZE_ONLY",
+      "command": "python tools/research/memory/run_mem1_local_judge.py --run-dir <frozen-run-dir>",
+      "metric": "local_qwen_judge_accuracy",
+      "model": "same frozen local Qwen3-8B artifact",
+      "cache_and_trace": "separate artifacts; cannot mutate predictions",
+      "headline_eligible": false,
+      "gate": "manual disagreement calibration on the reviewed 10-case diagnostic required before headline use"
+    },
     "upstream_parity_sanity": {
       "status": "CANCELLED_BY_LOCAL_ONLY_AMENDMENT",
       "historical_reader": "GPT-4.1",
@@ -129,6 +200,7 @@
     "systems": ["FullContext", "OpenClaw", "Mem0 OSS", "SimpleMem", "PropMem"],
     "max_questions": 1,
     "after_completion": "STOP; do not launch 10-case or 102-DEV run",
-    "status_output": "MEM1_LOCAL_ONE_CASE_SMOKE=YES|NO"
+    "status_output": "MEM1_LOCAL_ONE_CASE_SMOKE=YES|NO",
+    "after_mem1c": "Do not start the 10-case diagnostic until human review. No 102 DEV or TEST before the next approved stage."
   }
 }

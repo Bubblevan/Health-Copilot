@@ -59,14 +59,15 @@ index 4307ee3..567ea3e 100644
  def evaluate_with_judge(question: str, expected: str, predicted: str) -> dict:
 diff --git a/src/agents_memory/healthcopilot_embedding.py b/src/agents_memory/healthcopilot_embedding.py
 new file mode 100644
-index 0000000..7aa0e34
+index 0000000..fd5be41
 --- /dev/null
 +++ b/src/agents_memory/healthcopilot_embedding.py
-@@ -0,0 +1,244 @@
+@@ -0,0 +1,305 @@
 +"""Local, pinned Qwen3 embedding adapter used by every MEM-1 system."""
 +
 +from __future__ import annotations
 +
++import gc
 +import hashlib
 +import json
 +import time
@@ -85,6 +86,9 @@ index 0000000..7aa0e34
 +DIMENSIONS = 1024
 +BATCH_SIZE = 8
 +MAX_LENGTH = 8192
++MAX_BATCH_TOKENS = 8192
++DEFAULT_DEVICE = "cuda:0"
++DEFAULT_DTYPE = "float16"
 +QUERY_INSTRUCTION = (
 +    "Given a conversation-history question, retrieve memory passages that "
 +    "provide evidence needed to answer the question."
@@ -120,14 +124,18 @@ index 0000000..7aa0e34
 +    query_instruction: str
 +    document_instruction: str
 +    batch_size: int
++    max_batch_tokens: int
 +    device: str
 +    dtype: str
++    torch_version: str
++    cuda_version: str
++    device_name: str
 +    max_length: int
 +    truncation: bool
 +
 +
 +class LocalEmbeddingRuntime:
-+    def __init__(self, model_path: str | Path):
++    def __init__(self, model_path: str | Path, device: str, dtype: str):
 +        path = Path(model_path).expanduser().resolve()
 +        required = ("model.safetensors", "config.json", "tokenizer.json", "tokenizer_config.json")
 +        missing = [name for name in required if not (path / name).is_file()]
@@ -155,16 +163,24 @@ index 0000000..7aa0e34
 +        self._path = path
 +        transformers_logging.disable_progress_bar()
 +        transformers_logging.set_verbosity_error()
-+        self.device = "cpu"
-+        self.dtype = "float32"
++        if not device.startswith("cuda") or not torch.cuda.is_available():
++            raise RuntimeError("Frozen MEM-1 embedding runtime requires an available CUDA device")
++        if device == "cuda":
++            device = "cuda:0"
++        if dtype != "float16":
++            raise RuntimeError("Frozen MEM-1 embedding dtype must be float16")
++        self.device = device
++        self.dtype = dtype
++        self.torch_dtype = torch.float16
 +        self.batch_size = BATCH_SIZE
++        self.max_batch_tokens = MAX_BATCH_TOKENS
 +        self.max_length = MAX_LENGTH
 +        self.tokenizer = AutoTokenizer.from_pretrained(
 +            str(path), local_files_only=True, padding_side="left", trust_remote_code=False
 +        )
 +        self.tokenizer.padding_side = "left"
 +        self.model = AutoModel.from_pretrained(
-+            str(path), local_files_only=True, trust_remote_code=False, dtype=torch.float32
++            str(path), local_files_only=True, trust_remote_code=False, dtype=self.torch_dtype
 +        ).to(self.device)
 +        self.model.eval()
 +        dimension = int(self.model.config.hidden_size)
@@ -180,8 +196,12 @@ index 0000000..7aa0e34
 +            query_instruction=QUERY_INSTRUCTION,
 +            document_instruction="",
 +            batch_size=BATCH_SIZE,
++            max_batch_tokens=MAX_BATCH_TOKENS,
 +            device=self.device,
 +            dtype=self.dtype,
++            torch_version=torch.__version__,
++            cuda_version=str(torch.version.cuda),
++            device_name=torch.cuda.get_device_name(self.device),
 +            max_length=MAX_LENGTH,
 +            truncation=True,
 +        )
@@ -191,6 +211,23 @@ index 0000000..7aa0e34
 +            len(self.tokenizer(text, add_special_tokens=True, truncation=False)["input_ids"])
 +            for text in texts
 +        )
++
++    def _batch_slices(self, token_counts: list[int]) -> list[tuple[int, int]]:
++        slices = []
++        start = 0
++        token_total = 0
++        for index, token_count in enumerate(token_counts):
++            if index > start and (
++                index - start >= self.batch_size
++                or token_total + token_count > self.max_batch_tokens
++            ):
++                slices.append((start, index))
++                start = index
++                token_total = 0
++            token_total += min(token_count, self.max_length)
++        if start < len(token_counts):
++            slices.append((start, len(token_counts)))
++        return slices
 +
 +    def encode(
 +        self,
@@ -208,8 +245,8 @@ index 0000000..7aa0e34
 +        outputs: list[list[float]] = []
 +        retained_tokens = 0
 +        try:
-+            for start in range(0, len(prepared), self.batch_size):
-+                batch = prepared[start : start + self.batch_size]
++            for start, end in self._batch_slices(full_token_counts):
++                batch = prepared[start:end]
 +                tokens = self.tokenizer(
 +                    batch,
 +                    padding=True,
@@ -243,26 +280,50 @@ index 0000000..7aa0e34
 +            )
 +            raise RuntimeError("Local Qwen3 embedding inference failed") from error
 +
++    def close(self) -> None:
++        model = getattr(self, "model", None)
++        if model is None:
++            return
++        self._torch.cuda.synchronize(self.device)
++        self.model = None
++        del model
++        gc.collect()
++        self._torch.cuda.empty_cache()
 +
-+_RUNTIMES: dict[str, LocalEmbeddingRuntime] = {}
++
++_RUNTIMES: dict[tuple[str, str, str], LocalEmbeddingRuntime] = {}
 +
 +
-+def get_local_embedding_runtime(model_path: str | Path) -> LocalEmbeddingRuntime:
++def get_local_embedding_runtime(
++    model_path: str | Path,
++    device: str = DEFAULT_DEVICE,
++    dtype: str = DEFAULT_DTYPE,
++) -> LocalEmbeddingRuntime:
 +    resolved = str(Path(model_path).expanduser().resolve())
-+    if resolved not in _RUNTIMES:
-+        _RUNTIMES[resolved] = LocalEmbeddingRuntime(resolved)
-+    return _RUNTIMES[resolved]
++    key = (resolved, device, dtype)
++    if key not in _RUNTIMES:
++        _RUNTIMES[key] = LocalEmbeddingRuntime(resolved, device, dtype)
++    return _RUNTIMES[key]
++
++
++def release_local_embedding_runtimes() -> None:
++    runtimes = list(_RUNTIMES.values())
++    _RUNTIMES.clear()
++    for runtime in runtimes:
++        runtime.close()
 +
 +
 +class LocalEmbeddingClient:
-+    def __init__(self, model_path: str, system: str, question_id: str):
++    def __init__(self, model_path: str, system: str, question_id: str, device: str, dtype: str):
 +        self.model_path = model_path
 +        self.system = system
 +        self.question_id = question_id
++        self.device = device
++        self.dtype = dtype
 +        self.embeddings = self
 +
 +    def count_tokens(self, texts: list[str]) -> int:
-+        return get_local_embedding_runtime(self.model_path).count_tokens(texts)
++        return get_local_embedding_runtime(self.model_path, self.device, self.dtype).count_tokens(texts)
 +
 +    def create(
 +        self,
@@ -281,7 +342,7 @@ index 0000000..7aa0e34
 +        )
 +        if resolved_type not in {"query", "document"}:
 +            raise ValueError(f"Unsupported embedding input type: {resolved_type}")
-+        runtime = get_local_embedding_runtime(self.model_path)
++        runtime = get_local_embedding_runtime(self.model_path, self.device, self.dtype)
 +        try:
 +            vectors, tokens, truncated, latency = runtime.encode(texts, resolved_type)
 +        except Exception:
@@ -309,10 +370,10 @@ index 0000000..7aa0e34
 +        return None
 diff --git a/src/agents_memory/healthcopilot_provider.py b/src/agents_memory/healthcopilot_provider.py
 new file mode 100644
-index 0000000..55cecff
+index 0000000..c1fdbcd
 --- /dev/null
 +++ b/src/agents_memory/healthcopilot_provider.py
-@@ -0,0 +1,514 @@
+@@ -0,0 +1,548 @@
 +"""Fail-closed local provider routing and call telemetry for MEM-1."""
 +
 +from __future__ import annotations
@@ -339,7 +400,9 @@ index 0000000..55cecff
 +LOCAL_REQUEST_MAX_RETRIES = 2
 +READER_ANSWER_MAX_NEW_TOKENS = 256
 +
-+Role = Literal["reader_answer", "memory_ingest", "memory_reasoning", "embedding"]
++Role = Literal[
++    "reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge_local"
++]
 +
 +
 +@dataclass(frozen=True)
@@ -351,6 +414,8 @@ index 0000000..55cecff
 +    reader_model: str
 +    embedding_model: str = EMBEDDING_MODEL
 +    embedding_path: str = ""
++    embedding_device: str = "cuda:0"
++    embedding_dtype: str = "float16"
 +    request_timeout_seconds: float = LOCAL_REQUEST_TIMEOUT_SECONDS
 +    max_retries: int = LOCAL_REQUEST_MAX_RETRIES
 +    reader_answer_max_new_tokens: int = READER_ANSWER_MAX_NEW_TOKENS
@@ -371,6 +436,10 @@ index 0000000..55cecff
 +        embedding_path = os.environ.get("HC_LOCAL_EMBEDDING_PATH", "")
 +        if not embedding_path:
 +            raise RuntimeError("HC_LOCAL_EMBEDDING_PATH must point to the frozen local model")
++        embedding_device = os.environ.get("HC_LOCAL_EMBEDDING_DEVICE", "cuda:0")
++        embedding_dtype = os.environ.get("HC_LOCAL_EMBEDDING_DTYPE", "float16")
++        if embedding_device != "cuda:0" or embedding_dtype != "float16":
++            raise RuntimeError("MEM-1 embedding is frozen to cuda:0 / float16")
 +        answer_budget = int(os.environ.get(
 +            "HC_READER_ANSWER_MAX_NEW_TOKENS",
 +            str(READER_ANSWER_MAX_NEW_TOKENS),
@@ -385,6 +454,8 @@ index 0000000..55cecff
 +            reader_model=model,
 +            embedding_model=embedding_model,
 +            embedding_path=embedding_path,
++            embedding_device=embedding_device,
++            embedding_dtype=embedding_dtype,
 +            reader_answer_max_new_tokens=answer_budget,
 +        )
 +
@@ -694,15 +765,27 @@ index 0000000..55cecff
 +        "reader_prompt_tokens": token_count,
 +        "full_context_max_model_length": max_model_length,
 +        "full_context_tokenizer": "llama.cpp /apply-template + /tokenize",
-+        "full_context_preflight_fits": token_count + output_reserve <= max_model_length,
++        "full_context_preflight_fits": full_context_fits(
++            token_count, max_model_length, output_reserve
++        ),
 +    })
 +    _QUESTION_METRICS.set(metrics)
 +    return {
 +        "prompt_tokens": token_count,
 +        "max_model_length": max_model_length,
 +        "output_reserve": output_reserve,
-+        "truncated": token_count + output_reserve > max_model_length,
++        "truncated": not full_context_fits(token_count, max_model_length, output_reserve),
 +    }
++
++
++def full_context_fits(
++    prompt_tokens: int,
++    max_model_length: int,
++    output_reserve: int,
++) -> bool:
++    if prompt_tokens < 0 or max_model_length < 1 or output_reserve < 1:
++        raise ValueError("FullContext token counts and limits must be positive")
++    return prompt_tokens + output_reserve <= max_model_length
 +
 +
 +def validate_reader_model(config: ProviderConfig, requested_model: str) -> None:
@@ -754,7 +837,7 @@ index 0000000..55cecff
 +
 +
 +def reader_client(
-+    role: Literal["reader_answer", "memory_ingest", "memory_reasoning"],
++    role: Literal["reader_answer", "memory_ingest", "memory_reasoning", "judge_local"],
 +    system: str,
 +    question_id: str,
 +    config: ProviderConfig | None = None,
@@ -779,13 +862,25 @@ index 0000000..55cecff
 +        model_path=config.embedding_path,
 +        system=system,
 +        question_id=question_id,
++        device=config.embedding_device,
++        dtype=config.embedding_dtype,
 +    )
 +
 +
 +def initialize_local_embedding(config: ProviderConfig):
 +    from agents_memory.healthcopilot_embedding import get_local_embedding_runtime
 +
-+    return get_local_embedding_runtime(config.embedding_path)
++    return get_local_embedding_runtime(
++        config.embedding_path,
++        config.embedding_device,
++        config.embedding_dtype,
++    )
++
++
++def release_local_embedding_runtimes() -> None:
++    from agents_memory.healthcopilot_embedding import release_local_embedding_runtimes as release
++
++    release()
 +
 +
 +def patch_openai_aliases(
@@ -819,7 +914,7 @@ index 0000000..55cecff
 +    request["temperature"] = 0
 +    request["seed"] = 42
 +    request.pop("max_completion_tokens", None)
-+    request.setdefault("max_tokens", READER_ANSWER_MAX_NEW_TOKENS)
++    request.setdefault("max_tokens", config.reader_answer_max_new_tokens)
 +    extra_body = request.get("extra_body")
 +    extra_body = copy.deepcopy(extra_body) if isinstance(extra_body, dict) else {}
 +    template_kwargs = extra_body.get("chat_template_kwargs", {})
@@ -948,7 +1043,7 @@ index cb3ca16..6b3bd20 100644
              embeddings.append(item.embedding)
  
 diff --git a/src/agents_memory/propmem.py b/src/agents_memory/propmem.py
-index 8c27e78..8d631c2 100644
+index 8c27e78..b65f269 100644
 --- a/src/agents_memory/propmem.py
 +++ b/src/agents_memory/propmem.py
 @@ -11,6 +11,7 @@ import json
@@ -988,25 +1083,42 @@ index 8c27e78..8d631c2 100644
      if not date_str:
          return 0
      from datetime import datetime
-@@ -284,6 +296,25 @@ def _parse_date_ordinal(date_str: str) -> int:
+@@ -284,6 +296,42 @@ def _parse_date_ordinal(date_str: str) -> int:
      return 0
  
  
 +def _answer_from_json_content(content: str) -> str:
 +    """Read PropMem's answer, tolerating Qwen's missing final object brace."""
++    def unique_object(pairs):
++        result = {}
++        for key, value in pairs:
++            if key in result:
++                raise ValueError(f"Duplicate PropMem answer JSON field: {key}")
++            result[key] = value
++        return result
++
 +    try:
-+        payload = json.loads(content)
-+    except json.JSONDecodeError as parse_error:
-+        if not content.lstrip().startswith("{"):
++        payload = json.loads(content, object_pairs_hook=unique_object)
++    except json.JSONDecodeError:
++        # Accept only the single known truncation: a complete JSON object body
++        # with its final outer brace omitted. Strict parsing rejects partial
++        # strings, missing fields, malformed values, and trailing text.
++        candidate = content.rstrip()
++        if not candidate.startswith("{") or candidate.endswith("}"):
 +            raise
-+        match = re.search(r'"answer"\s*:\s*("(?:\\.|[^"\\])*")', content)
-+        if match is None:
-+            raise parse_error
-+        answer = json.loads(match.group(1))
-+        if not isinstance(answer, str):
-+            raise parse_error
-+        return answer.strip()
-+    if not isinstance(payload, dict) or not isinstance(payload.get("answer"), str):
++        final_string = re.search(r'("(?:\\.|[^"\\])*")\s*$', candidate)
++        if final_string is None or re.search(
++            r'"answer"\s*:\s*$', candidate[:final_string.start()]
++        ) is None:
++            raise
++        payload = json.loads(candidate + "}", object_pairs_hook=unique_object)
++        if not isinstance(payload, dict) or payload.get("answer") != json.loads(final_string.group(1)):
++            raise
++    if (
++        not isinstance(payload, dict)
++        or not set(payload).issubset({"reasoning", "answer"})
++        or not isinstance(payload.get("answer"), str)
++    ):
 +        raise ValueError("PropMem answer JSON must contain a string answer field")
 +    return payload["answer"].strip()
 +
@@ -1014,7 +1126,7 @@ index 8c27e78..8d631c2 100644
  # ---------------------------------------------------------------------------
  # PropMemSystem
  # ---------------------------------------------------------------------------
-@@ -306,6 +337,7 @@ class PropMemSystem:
+@@ -306,6 +354,7 @@ class PropMemSystem:
      """
  
      embedding_model: str = "text-embedding-3-small"
@@ -1022,17 +1134,18 @@ index 8c27e78..8d631c2 100644
      top_k_props: int = 30
      top_k_chunks: int = 3
  
-@@ -334,6 +366,9 @@ class PropMemSystem:
+@@ -334,6 +383,10 @@ class PropMemSystem:
      _cluster_to_indices: dict[int, list[int]] = field(
          default_factory=dict, init=False
      )
 +    _last_retrieved_texts: list[str] = field(default_factory=list, init=False, repr=False)
 +    _last_retrieved_session_ids: list[str] = field(default_factory=list, init=False, repr=False)
 +    _last_retrieval_latency_ms: float = field(default=0.0, init=False, repr=False)
++    _last_context_items: list[dict[str, Any]] = field(default_factory=list, init=False, repr=False)
  
      # ------------------------------------------------------------------
      # Ingestion
-@@ -346,6 +381,7 @@ class PropMemSystem:
+@@ -346,6 +399,7 @@ class PropMemSystem:
          llm_model: str | None = None,
      ) -> dict:
          """Ingest a LoCoMo conversation with proposition extraction."""
@@ -1040,7 +1153,7 @@ index 8c27e78..8d631c2 100644
          if llm_client is None:
              llm_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
          if not llm_model:
-@@ -358,12 +394,18 @@ class PropMemSystem:
+@@ -358,12 +412,18 @@ class PropMemSystem:
  
          # 1. Raw chunks (OpenClaw) for fallback
          dialogues = extract_dialogues(conv)
@@ -1062,7 +1175,7 @@ index 8c27e78..8d631c2 100644
                  )
  
          # 2. Extract propositions per session
-@@ -388,11 +430,15 @@ class PropMemSystem:
+@@ -388,11 +448,15 @@ class PropMemSystem:
                  if not isinstance(turns, list) or not turns:
                      continue
  
@@ -1081,7 +1194,7 @@ index 8c27e78..8d631c2 100644
                      futures = {
                          pool.submit(
                              self._extract_propositions,
-@@ -405,12 +451,17 @@ class PropMemSystem:
+@@ -405,12 +469,17 @@ class PropMemSystem:
                              props = future.result()
                              self.propositions.extend(props)
                          except Exception as err:
@@ -1101,7 +1214,7 @@ index 8c27e78..8d631c2 100644
                  )
  
                  # Parse date ordinals for temporal boosting
-@@ -423,6 +474,8 @@ class PropMemSystem:
+@@ -423,6 +492,8 @@ class PropMemSystem:
          if self.use_clustering and self.proposition_embeddings:
              n_clusters = self._cluster_propositions()
  
@@ -1110,7 +1223,7 @@ index 8c27e78..8d631c2 100644
          return {
              "num_turns": len(dialogues),
              "num_chunks": len(self.chunks),
-@@ -434,7 +487,10 @@ class PropMemSystem:
+@@ -434,7 +505,10 @@ class PropMemSystem:
      @staticmethod
      def _recover_partial_json(content: str) -> list[dict]:
          """Extract complete {"entity": ..., "fact": ...} objects from truncated JSON."""
@@ -1122,7 +1235,7 @@ index 8c27e78..8d631c2 100644
          items = []
          for m in re.finditer(pattern, content):
              entity = m.group(1).replace('\\"', '"').replace("\\n", " ")
-@@ -467,11 +523,14 @@ class PropMemSystem:
+@@ -467,11 +541,14 @@ class PropMemSystem:
  
          try:
              response = client.chat.completions.create(
@@ -1142,7 +1255,7 @@ index 8c27e78..8d631c2 100644
              )
              content = response.choices[0].message.content or ""
              finish_reason = response.choices[0].finish_reason
-@@ -520,8 +579,7 @@ class PropMemSystem:
+@@ -520,8 +597,7 @@ class PropMemSystem:
              return propositions
  
          except Exception as err:
@@ -1152,7 +1265,7 @@ index 8c27e78..8d631c2 100644
  
      # ------------------------------------------------------------------
      # Question type detection
-@@ -583,7 +641,12 @@ class PropMemSystem:
+@@ -583,7 +659,12 @@ class PropMemSystem:
      def _embed_query(self, text: str) -> list[float]:
          if text in self._embedding_cache:
              return self._embedding_cache[text]
@@ -1166,7 +1279,7 @@ index 8c27e78..8d631c2 100644
          self._embedding_cache[text] = emb
          return emb
  
-@@ -905,18 +968,19 @@ class PropMemSystem:
+@@ -905,18 +986,19 @@ class PropMemSystem:
  
          try:
              response = client.chat.completions.create(
@@ -1196,7 +1309,7 @@ index 8c27e78..8d631c2 100644
  
      # ------------------------------------------------------------------
      # v4: unified question classifier
-@@ -937,11 +1001,14 @@ class PropMemSystem:
+@@ -937,11 +1019,14 @@ class PropMemSystem:
  
          try:
              response = client.chat.completions.create(
@@ -1216,7 +1329,7 @@ index 8c27e78..8d631c2 100644
              )
              content = response.choices[0].message.content or ""
              result = json.loads(content)
-@@ -961,12 +1028,7 @@ class PropMemSystem:
+@@ -961,12 +1046,7 @@ class PropMemSystem:
                  "is_temporal": bool(result.get("is_temporal", False)),
              }
          except Exception as err:
@@ -1230,7 +1343,7 @@ index 8c27e78..8d631c2 100644
  
      # ------------------------------------------------------------------
      # v4: knowledge update handling (contradiction detection)
-@@ -987,7 +1049,9 @@ class PropMemSystem:
+@@ -987,7 +1067,9 @@ class PropMemSystem:
  
          # Build local embeddings for the retrieved props
          texts = [p.text for p, _ in props]
@@ -1241,7 +1354,7 @@ index 8c27e78..8d631c2 100644
  
          penalties: dict[int, float] = {}
          for i in range(len(props)):
-@@ -1103,18 +1167,19 @@ class PropMemSystem:
+@@ -1103,18 +1185,19 @@ class PropMemSystem:
  
          try:
              response = client.chat.completions.create(
@@ -1271,7 +1384,16 @@ index 8c27e78..8d631c2 100644
  
      # ------------------------------------------------------------------
      # Main pipeline
-@@ -1142,6 +1207,8 @@ class PropMemSystem:
+@@ -1125,6 +1208,8 @@ class PropMemSystem:
+         question: str,
+         llm_client: OpenAI | None = None,
+         llm_model: str | None = None,
++        *,
++        context_only: bool = False,
+     ) -> dict[str, Any]:
+         """Answer with entity-centric proposition retrieval + CoT.
+ 
+@@ -1142,6 +1227,8 @@ class PropMemSystem:
                  "num_chunks": 0,
              }
  
@@ -1280,12 +1402,27 @@ index 8c27e78..8d631c2 100644
          if llm_client is None:
              llm_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
          if not llm_model:
-@@ -1191,6 +1258,29 @@ class PropMemSystem:
+@@ -1191,6 +1278,55 @@ class PropMemSystem:
          if self.use_chunks:
              chunks = self._retrieve_chunks(question, top_k=chunk_k, entity=entity)
  
 +        retrieved_texts = [p.text for p, _score in props]
 +        retrieved_texts.extend(c.text for c, _score in chunks)
++        self._last_context_items = [
++            {
++                "text": p.text,
++                "kind": "proposition",
++                "source_session_ids": [p.session_id] if p.session_id else [],
++            }
++            for p, _score in props
++        ] + [
++            {
++                "text": c.text,
++                "kind": "fallback_chunk",
++                "source_session_ids": list(c.source_session_ids),
++            }
++            for c, _score in chunks
++        ]
 +        retrieved_sessions = [p.session_id for p, _score in props]
 +        retrieved_sessions.extend(
 +            session_id
@@ -1306,6 +1443,17 @@ index 8c27e78..8d631c2 100644
 +                    + [list(c.source_session_ids) for c, _score in chunks]
 +                ),
 +            )
++
++        if context_only:
++            return {
++                "answer": None,
++                "entity": entity,
++                "num_propositions": len(props),
++                "num_chunks": len(chunks),
++                "is_inferential": inferential,
++                "context_items": list(self._last_context_items),
++                "retrieval_latency_ms": self._last_retrieval_latency_ms,
++            }
 +
          # Step 4: Generate answer (route to appropriate prompt)
          if self.use_llm_classifier:
@@ -1337,7 +1485,7 @@ index 645b255..d7010d8 100644
      if hasattr(mod, "SYSTEM_INFO") and hasattr(mod, "run"):
          info = mod.SYSTEM_INFO.copy()
 diff --git a/src/agents_memory/systems/_helpers.py b/src/agents_memory/systems/_helpers.py
-index 3c00634..6295f09 100644
+index 3c00634..ff39ab7 100644
 --- a/src/agents_memory/systems/_helpers.py
 +++ b/src/agents_memory/systems/_helpers.py
 @@ -9,6 +9,13 @@ from agents_memory.evaluation import (
@@ -1444,7 +1592,7 @@ index 3c00634..6295f09 100644
  ) -> list[dict]:
      """Sync wrapper around _qa_results_async."""
      return asyncio.run(
-@@ -93,6 +114,7 @@ def _qa_results(
+@@ -93,10 +114,41 @@ def _qa_results(
              conv, answer_fn, run_judge,
              category_names=category_names,
              judge_fn=judge_fn,
@@ -1452,11 +1600,45 @@ index 3c00634..6295f09 100644
          )
      )
  
+ 
++def _context_result(
++    conv: dict,
++    qa: dict,
++    items: list[dict],
++    *,
++    retrieval_latency_ms: float | None,
++    ingestion_latency_ms: float | None,
++    provenance_available: bool,
++) -> dict:
++    """Return an adapter's native context without invoking its answer head."""
++    ranked_session_groups = [
++        list(dict.fromkeys(str(value) for value in item.get("source_session_ids", []) if value))
++        for item in items
++    ]
++    return {
++        "sample_id": conv.get("sample_id", "unknown"),
++        "question_id": qa.get("question_id", ""),
++        "category": qa.get("category", "unknown"),
++        "question": qa.get("question", ""),
++        "ground_truth": qa.get("answer", ""),
++        "answer_session_ids": qa.get("answer_session_ids", []),
++        "context_items": items,
++        "retrieval_latency_ms": retrieval_latency_ms,
++        "ingestion_latency_ms": ingestion_latency_ms,
++        "provenance_available": provenance_available,
++        "ranked_session_groups": ranked_session_groups if provenance_available else None,
++        "quality_status": "OK",
++    }
++
++
+ def run_async(async_fn):
+     """Wrap an async adapter into the sync signature the runner expects."""
+     def wrapper(
 diff --git a/src/agents_memory/systems/fullcontext.py b/src/agents_memory/systems/fullcontext.py
-index b2afe4c..d33187d 100644
+index b2afe4c..97702dd 100644
 --- a/src/agents_memory/systems/fullcontext.py
 +++ b/src/agents_memory/systems/fullcontext.py
-@@ -1,9 +1,12 @@
+@@ -1,11 +1,15 @@
  """Full context baseline: entire conversation in prompt."""
  
 -import os
@@ -1472,10 +1654,15 @@ index b2afe4c..d33187d 100644
 +)
  from agents_memory.locomo import extract_dialogues
  from agents_memory.systems._helpers import _qa_results
++from agents_memory.systems._helpers import _context_result
  
-@@ -17,7 +20,10 @@ def run(
+ SYSTEM_INFO = {
+     "architecture": "full conversation in prompt (upper bound)",
+@@ -16,8 +20,12 @@ SYSTEM_INFO = {
+ def run(
      conv: dict, llm_model: str, run_judge: bool,
      category_names: dict | None = None, judge_fn: str | None = None,
++    context_only: bool = False,
  ) -> list[dict]:
 -    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 +    config = ProviderConfig.from_env()
@@ -1485,7 +1672,31 @@ index b2afe4c..d33187d 100644
      dialogues = extract_dialogues(conv)
  
      # Format conversation
-@@ -59,23 +65,31 @@ def run(
+@@ -31,6 +39,23 @@ def run(
+     conversation_text = "\n".join(lines)
+     print(f"    Context: ~{len(conversation_text) // 4} tokens")
+ 
++    if context_only:
++        qa = conv.get("qa", [])[0]
++        return [_context_result(
++            conv,
++            qa,
++            [{
++                "text": conversation_text,
++                "kind": "full_history",
++                "source_session_ids": list(dict.fromkeys(
++                    d["session_id"] for d in dialogues if d.get("session_id")
++                )),
++            }],
++            retrieval_latency_ms=0.0,
++            ingestion_latency_ms=0.0,
++            provenance_available=True,
++        )]
++
+     if judge_fn == "longmemeval":
+         prompt_template = (
+             "You are answering questions about a conversation between two people.\n"
+@@ -59,23 +84,29 @@ def run(
          )
  
      def answer_fn(question: str) -> str:
@@ -1500,7 +1711,7 @@ index b2afe4c..d33187d 100644
 +            messages,
 +            config,
 +            max_model_length=131072,
-+            output_reserve=64,
++            output_reserve=config.reader_answer_max_new_tokens,
 +        )
 +        if measured["truncated"]:
 +            raise RuntimeError("FullContext prompt exceeds the frozen 131072-token limit")
@@ -1515,9 +1726,9 @@ index b2afe4c..d33187d 100644
 -                    ),
 -                }
 -            ],
+-            max_tokens=50,
+-            temperature=0.1,
 +            **answer_request_kwargs(config,
-             max_tokens=50,
-             temperature=0.1,
 +            messages=messages,
 +            ),
          )
@@ -1529,10 +1740,10 @@ index b2afe4c..d33187d 100644
 +        category_names=category_names, judge_fn=judge_fn, system_name="FullContext",
      )
 diff --git a/src/agents_memory/systems/mem0.py b/src/agents_memory/systems/mem0.py
-index daf20da..d8015fe 100644
+index daf20da..ad6d991 100644
 --- a/src/agents_memory/systems/mem0.py
 +++ b/src/agents_memory/systems/mem0.py
-@@ -1,9 +1,19 @@
+@@ -1,11 +1,21 @@
  """Mem0: memory extraction + vector search."""
  
  import os
@@ -1553,9 +1764,16 @@ index daf20da..d8015fe 100644
 +    validate_reader_model,
 +)
  from agents_memory.locomo import extract_dialogues
- from agents_memory.systems._helpers import _qa_results
+-from agents_memory.systems._helpers import _qa_results
++from agents_memory.systems._helpers import _context_result, _qa_results
  
-@@ -28,31 +38,58 @@ def run(
+ SYSTEM_INFO = {
+     "architecture": "memory extraction + vector search",
+@@ -25,34 +35,62 @@ _ANSWER_PROMPT_NATURAL = (
+ def run(
+     conv: dict, llm_model: str, run_judge: bool,
+     category_names: dict | None = None, judge_fn: str | None = None,
++    context_only: bool = False,
  ) -> list[dict]:
      from mem0 import Memory
  
@@ -1613,17 +1831,17 @@ index daf20da..d8015fe 100644
      }
 -    memory = Memory.from_config(config)
 +    memory = Memory.from_config(memory_config)
-+
+ 
 +    if not hasattr(memory.llm, "client") or not hasattr(memory.embedding_model, "client"):
 +        raise RuntimeError("Pinned Mem0 OpenAI adapters no longer expose injectable clients")
 +    memory.llm.client = reader_client("memory_ingest", "Mem0 OSS", sample_id, provider_config)
 +    memory.embedding_model.client = embed_client
- 
++
 +    ingestion_started = time.perf_counter()
      # Add dialogues in batches
      batch_size = 10
      for i in range(0, len(dialogues), batch_size):
-@@ -65,11 +102,13 @@ def run(
+@@ -65,32 +103,74 @@ def run(
              for d in batch
          ]
          try:
@@ -1635,37 +1853,71 @@ index daf20da..d8015fe 100644
 +            raise RuntimeError(f"Mem0 ingestion failed for batch {i // batch_size}") from e
  
      print(f"    Dialogues ingested: {len(dialogues)}")
-+    record_ingestion_latency((time.perf_counter() - ingestion_started) * 1000)
++    ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
++    record_ingestion_latency(ingestion_latency)
  
-     sys_prompt = (
-         _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
-@@ -77,7 +116,9 @@ def run(
-     )
- 
-     def answer_fn(question: str) -> str:
+-    sys_prompt = (
+-        _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
+-        else _ANSWER_PROMPT_SHORT
+-    )
+-
+-    def answer_fn(question: str) -> str:
 -        search_results = memory.search(query=question, user_id=user_id, limit=20)
++    def retrieve_context(question: str) -> tuple[list[dict], float]:
 +        retrieval_started = time.perf_counter()
 +        with call_context("Mem0 OSS", sample_id, "memory_reasoning"):
 +            search_results = memory.search(query=question, user_id=user_id, limit=20)
          memories_list = (
              search_results.get("results", [])
              if isinstance(search_results, dict)
-@@ -87,10 +128,25 @@ def run(
-             m.get("memory", "") if isinstance(m, dict) else str(m)
-             for m in memories_list[:20]
+             else search_results
          )
-+        retrieved_texts = [
-+            m.get("memory", "") if isinstance(m, dict) else str(m)
-+            for m in memories_list[:20]
-+        ]
+-        memory_text = "\n".join(
+-            m.get("memory", "") if isinstance(m, dict) else str(m)
+-            for m in memories_list[:20]
++        items = [{
++            "text": m.get("memory", "") if isinstance(m, dict) else str(m),
++            "kind": "memory_fact",
++            "source_session_ids": [],
++        } for m in memories_list[:20]]
++        texts = [item["text"] for item in items]
++        latency = (time.perf_counter() - retrieval_started) * 1000
 +        record_retrieval_metrics(
-+            texts=retrieved_texts,
++            texts=texts,
 +            session_ids=[],
-+            latency_ms=(time.perf_counter() - retrieval_started) * 1000,
-+            context_tokens=embed_client.count_tokens(retrieved_texts),
++            latency_ms=latency,
++            context_tokens=embed_client.count_tokens(texts),
 +            session_provenance_available=False,
 +            ranked_session_groups=None,
-+        )
+         )
++        return items, latency
++
++    if context_only:
++        qa = conv.get("qa", [])[0]
++        try:
++            items, latency = retrieve_context(qa["question"])
++            return [_context_result(
++                conv,
++                qa,
++                items,
++                retrieval_latency_ms=latency,
++                ingestion_latency_ms=ingestion_latency,
++                provenance_available=False,
++            )]
++        finally:
++            try:
++                memory.delete_all(user_id=user_id)
++            except Exception as e:
++                raise RuntimeError("Mem0 cleanup failed; refusing to continue with retained state") from e
++
++    sys_prompt = (
++        _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
++        else _ANSWER_PROMPT_SHORT
++    )
++
++    def answer_fn(question: str) -> str:
++        items, _latency = retrieve_context(question)
++        memory_text = "\n".join(item["text"] for item in items)
          if not memory_text.strip():
              return "None"
 -        response = client.chat.completions.create(
@@ -1678,7 +1930,7 @@ index daf20da..d8015fe 100644
              messages=[
                  {"role": "system", "content": sys_prompt},
                  {
-@@ -98,20 +154,19 @@ def run(
+@@ -98,20 +178,19 @@ def run(
                      "content": f"Memories:\n{memory_text}\n\nQuestion: {question}",
                  },
              ],
@@ -1704,10 +1956,10 @@ index daf20da..d8015fe 100644
  
      return results
 diff --git a/src/agents_memory/systems/openclaw.py b/src/agents_memory/systems/openclaw.py
-index 04831eb..71fab1e 100644
+index 04831eb..5dee3df 100644
 --- a/src/agents_memory/systems/openclaw.py
 +++ b/src/agents_memory/systems/openclaw.py
-@@ -1,10 +1,17 @@
+@@ -1,12 +1,19 @@
  """OpenClaw: hybrid BM25 + vector chunk retrieval."""
  
 -import os
@@ -1727,11 +1979,16 @@ index 04831eb..71fab1e 100644
 +)
 +from agents_memory.locomo import extract_dialogues, format_as_markdown_with_session_map
  from agents_memory.openclaw import chunk_markdown, embed_texts, hybrid_search
- from agents_memory.systems._helpers import _qa_results
+-from agents_memory.systems._helpers import _qa_results
++from agents_memory.systems._helpers import _context_result, _qa_results
  
-@@ -27,15 +34,29 @@ def run(
+ SYSTEM_INFO = {
+     "architecture": "hybrid BM25 + vector chunk retrieval",
+@@ -26,24 +33,41 @@ _ANSWER_PROMPT_NATURAL = (
+ def run(
      conv: dict, llm_model: str, run_judge: bool,
      category_names: dict | None = None, judge_fn: str | None = None,
++    context_only: bool = False,
  ) -> list[dict]:
 -    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 +    config = ProviderConfig.from_env()
@@ -1759,15 +2016,17 @@ index 04831eb..71fab1e 100644
 +        input_type="document",
      )
      print(f"    Chunks: {len(chunks)}")
-+    record_ingestion_latency((time.perf_counter() - ingestion_started) * 1000)
++    ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
++    record_ingestion_latency(ingestion_latency)
  
-     sys_prompt = (
-         _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
-@@ -43,7 +64,13 @@ def run(
-     )
- 
-     def answer_fn(question: str) -> str:
+-    sys_prompt = (
+-        _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
+-        else _ANSWER_PROMPT_SHORT
+-    )
+-
+-    def answer_fn(question: str) -> str:
 -        query_emb = embed_texts([question], model="text-embedding-3-small")[0]
++    def retrieve_context(question: str) -> tuple[list[dict], float]:
 +        retrieval_started = time.perf_counter()
 +        query_emb = embed_texts(
 +            [question],
@@ -1778,12 +2037,17 @@ index 04831eb..71fab1e 100644
          search_results = hybrid_search(
              query=question,
              chunks=chunks,
-@@ -53,11 +80,29 @@ def run(
+@@ -53,11 +77,57 @@ def run(
              vector_weight=0.7,
              text_weight=0.3,
          )
 -        memory_text = "\n---\n".join(c.text for c, _s in search_results)
 +        retrieved_texts = [chunk.text for chunk, _score in search_results]
++        items = [{
++            "text": chunk.text,
++            "kind": "chunk",
++            "source_session_ids": list(chunk.source_session_ids),
++        } for chunk, _score in search_results]
 +        retrieved_sessions = [
 +            session_id
 +            for chunk, _score in search_results
@@ -1792,13 +2056,36 @@ index 04831eb..71fab1e 100644
 +        ranked_session_groups = [
 +            list(chunk.source_session_ids) for chunk, _score in search_results
 +        ]
++        latency = (time.perf_counter() - retrieval_started) * 1000
 +        record_retrieval_metrics(
 +            texts=retrieved_texts,
 +            session_ids=retrieved_sessions,
-+            latency_ms=(time.perf_counter() - retrieval_started) * 1000,
++            latency_ms=latency,
 +            context_tokens=embed_client.count_tokens(retrieved_texts),
 +            ranked_session_groups=ranked_session_groups,
 +        )
++        return items, latency
++
++    if context_only:
++        qa = conv.get("qa", [])[0]
++        items, latency = retrieve_context(qa["question"])
++        return [_context_result(
++            conv,
++            qa,
++            items,
++            retrieval_latency_ms=latency,
++            ingestion_latency_ms=ingestion_latency,
++            provenance_available=True,
++        )]
++
++    sys_prompt = (
++        _ANSWER_PROMPT_NATURAL if judge_fn == "longmemeval"
++        else _ANSWER_PROMPT_SHORT
++    )
++
++    def answer_fn(question: str) -> str:
++        items, _latency = retrieve_context(question)
++        retrieved_texts = [item["text"] for item in items]
 +        memory_text = "\n---\n".join(retrieved_texts)
          if not memory_text.strip():
              return "None"
@@ -1810,7 +2097,7 @@ index 04831eb..71fab1e 100644
              messages=[
                  {"role": "system", "content": sys_prompt},
                  {
-@@ -65,12 +110,11 @@ def run(
+@@ -65,12 +135,11 @@ def run(
                      "content": f"Memories:\n{memory_text}\n\nQuestion: {question}",
                  },
              ],
@@ -1826,10 +2113,10 @@ index 04831eb..71fab1e 100644
 +        category_names=category_names, judge_fn=judge_fn, system_name="OpenClaw",
      )
 diff --git a/src/agents_memory/systems/propmem.py b/src/agents_memory/systems/propmem.py
-index c1dec49..8056f46 100644
+index c1dec49..1694e7b 100644
 --- a/src/agents_memory/systems/propmem.py
 +++ b/src/agents_memory/systems/propmem.py
-@@ -1,9 +1,12 @@
+@@ -1,11 +1,14 @@
  """PropMem: proposition-based entity-centric retrieval."""
  
 -import os
@@ -1844,11 +2131,16 @@ index c1dec49..8056f46 100644
 +    validate_reader_model,
 +)
  from agents_memory.propmem import PropMemSystem
- from agents_memory.systems._helpers import _qa_results
+-from agents_memory.systems._helpers import _qa_results
++from agents_memory.systems._helpers import _context_result, _qa_results
  
-@@ -17,19 +20,32 @@ def run(
+ SYSTEM_INFO = {
+     "architecture": "proposition-based entity-centric retrieval",
+@@ -16,20 +19,53 @@ SYSTEM_INFO = {
+ def run(
      conv: dict, llm_model: str, run_judge: bool,
      category_names: dict | None = None, judge_fn: str | None = None,
++    context_only: bool = False,
  ) -> list[dict]:
 -    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 -    system = PropMemSystem()
@@ -1863,14 +2155,33 @@ index c1dec49..8056f46 100644
 +        embedding_model=config.embedding_model,
 +        embedding_client=embed_client,
 +    )
++    import time
++    ingestion_started = time.perf_counter()
 +    with call_context("PropMem", sample_id, "memory_ingest"):
 +        ingest = system.ingest_conversation(conv, ingest_client, config.reader_model)
++    ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
      print(
          f"    Ingested: chunks={ingest['num_chunks']}, "
          f"propositions={ingest['num_propositions']}, "
          f"clusters={ingest.get('num_clusters', 0)}"
      )
  
++    if context_only:
++        qa = conv.get("qa", [])[0]
++        with call_context("PropMem", qa["question_id"], "memory_reasoning"):
++            result = system.answer_question(
++                qa["question"], answer_client, config.reader_model, context_only=True
++            )
++        items = result["context_items"]
++        return [_context_result(
++            conv,
++            qa,
++            items,
++            retrieval_latency_ms=result["retrieval_latency_ms"],
++            ingestion_latency_ms=ingestion_latency,
++            provenance_available=True,
++        )]
++
 +    def answer_fn(question: str) -> str:
 +        return system.answer_question(question, answer_client, config.reader_model)["answer"]
 +
@@ -1884,10 +2195,10 @@ index c1dec49..8056f46 100644
 +        system_name="PropMem",
      )
 diff --git a/src/agents_memory/systems/simplemem.py b/src/agents_memory/systems/simplemem.py
-index 054c218..dded787 100644
+index 054c218..d65e22b 100644
 --- a/src/agents_memory/systems/simplemem.py
 +++ b/src/agents_memory/systems/simplemem.py
-@@ -1,11 +1,18 @@
+@@ -1,13 +1,20 @@
  """SimpleMem: multi-round retrieval with parallel processing."""
  
 -import os
@@ -1907,9 +2218,12 @@ index 054c218..dded787 100644
 +    validate_reader_model,
 +)
  from agents_memory.locomo import extract_dialogues
- from agents_memory.systems._helpers import _qa_results
+-from agents_memory.systems._helpers import _qa_results
++from agents_memory.systems._helpers import _context_result, _qa_results
  
-@@ -15,79 +22,158 @@ SYSTEM_INFO = {
+ SYSTEM_INFO = {
+     "architecture": "multi-round retrieval with parallel processing",
+@@ -15,79 +22,199 @@ SYSTEM_INFO = {
  }
  
  # ---------------------------------------------------------------------------
@@ -1984,6 +2298,7 @@ index 054c218..dded787 100644
  def run(
      conv: dict, llm_model: str, run_judge: bool,
      category_names: dict | None = None, judge_fn: str | None = None,
++    context_only: bool = False,
  ) -> list[dict]:
 +    global _embed_client
      from simplemem import SimpleMemConfig, SimpleMemSystem, set_config
@@ -2069,8 +2384,48 @@ index 054c218..dded787 100644
 +        raise RuntimeError(
 +            f"SimpleMem ingestion produced empty memory for windows: {failed_windows}"
 +        )
-+    record_ingestion_latency((time.perf_counter() - ingestion_started) * 1000)
++    ingestion_latency = (time.perf_counter() - ingestion_started) * 1000
++    record_ingestion_latency(ingestion_latency)
 +    print(f"    Dialogues ingested: {len(dialogue_objects)}; patched clients={patched}")
++
++    def retrieve_context(question: str) -> tuple[list[dict], float]:
++        retrieval_started = time.perf_counter()
++        with call_context("SimpleMem", sample_id, "memory_reasoning"):
++            retrieved = memory.hybrid_retriever.retrieve(question)
++        memory._healthcopilot_retrieved_contexts = retrieved
++        texts = [
++            str(getattr(item, "lossless_restatement", item)) for item in retrieved
++        ]
++        latency = (time.perf_counter() - retrieval_started) * 1000
++        record_retrieval_metrics(
++            texts=texts,
++            session_ids=[],
++            latency_ms=latency,
++            context_tokens=_get_embed_client().count_tokens(texts),
++            session_provenance_available=False,
++            ranked_session_groups=None,
++        )
++        return [{
++            "text": text,
++            "kind": "retrieved_context",
++            "source_session_ids": [],
++        } for text in texts], latency
++
++    if context_only:
++        qa = conv.get("qa", [])[0]
++        try:
++            items, latency = retrieve_context(qa["question"])
++            return [_context_result(
++                conv,
++                qa,
++                items,
++                retrieval_latency_ms=latency,
++                ingestion_latency_ms=ingestion_latency,
++                provenance_available=False,
++            )]
++        finally:
++            _embed_client.close()
++            _embed_client = None
 +
 +    def answer_fn(question: str) -> str:
 +        retrieval_started = time.perf_counter()
@@ -2165,10 +2520,10 @@ index 0000000..5bb210c
 +    assert not hasattr(config, "judge_model")
 diff --git a/tests/test_healthcopilot_propmem.py b/tests/test_healthcopilot_propmem.py
 new file mode 100644
-index 0000000..a27b569
+index 0000000..d2a6898
 --- /dev/null
 +++ b/tests/test_healthcopilot_propmem.py
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,39 @@
 +import json
 +
 +import pytest
@@ -2191,12 +2546,29 @@ index 0000000..a27b569
 +def test_propmem_answer_parser_rejects_incomplete_answer_string():
 +    with pytest.raises(json.JSONDecodeError):
 +        _answer_from_json_content('{"reasoning":"ok","answer":"600 followers')
++
++
++@pytest.mark.parametrize(
++    "content",
++    [
++        '{"reasoning":"ok"}',
++        '{"reasoning":"ok","answer":17}',
++        '{"reasoning":"ok","answer":null}',
++        '{"reasoning":"ok","answer":"new answer","extra":"changed semantics"',
++        '{"reasoning":"ok","answer":"new answer"} arbitrary trailing content',
++        '{"reasoning":"ok","answer":"safe","answer":"changed semantics"}',
++        '{"reasoning":"ok","answer":"safe","extra":"changed semantics"}',
++    ],
++)
++def test_propmem_answer_parser_rejects_unapproved_partial_or_trailing_forms(content):
++    with pytest.raises((json.JSONDecodeError, ValueError)):
++        _answer_from_json_content(content)
 diff --git a/tests/test_healthcopilot_provider.py b/tests/test_healthcopilot_provider.py
 new file mode 100644
-index 0000000..9da362a
+index 0000000..ffe3533
 --- /dev/null
 +++ b/tests/test_healthcopilot_provider.py
-@@ -0,0 +1,148 @@
+@@ -0,0 +1,158 @@
 +import json
 +
 +import httpx
@@ -2301,6 +2673,16 @@ index 0000000..9da362a
 +        Raw(), config, "memory_reasoning"
 +    ).create(model="ignored", max_tokens=256, messages=[])
 +    assert reasoning["max_tokens"] == 256
++
++
++def test_fullcontext_fit_reserves_the_same_budget_as_the_reader_request():
++    config = main_config()
++    budget = config.reader_answer_max_new_tokens
++    actual_reader_request = provider.answer_request_kwargs(config, messages=[])
++
++    assert actual_reader_request["max_tokens"] == budget == 256
++    assert provider.full_context_fits(131072 - budget, 131072, budget)
++    assert not provider.full_context_fits(131072 - budget + 1, 131072, budget)
 +
 +
 +def test_loopback_telemetry_records_usage_and_full_context_truncation(tmp_path):

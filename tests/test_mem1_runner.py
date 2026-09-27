@@ -31,6 +31,22 @@ def test_runner_allows_frozen_dev_and_rejects_every_non_dev_id():
         )
 
 
+def test_context_controlled_is_the_default_answer_track(monkeypatch, tmp_path):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "run_mem1.py",
+            "--stage", "generate",
+            "--memeval-root", str(tmp_path / "MemEval"),
+            "--run-dir", str(tmp_path / "run"),
+            "--system", "fullcontext",
+        ],
+    )
+
+    assert mem1_runner._parse_args().answer_track == "context_controlled"
+
+
 def test_record_selection_only_normalizes_requested_questions():
     normalized = mem1_runner.select_records(
         [
@@ -169,3 +185,60 @@ def test_retrieval_recall_uses_source_rank_groups():
     summary = mem1_runner._summarize_memory_diagnostics(rows, ["openclaw"], ["q1"], [])
     assert summary["openclaw"]["answer_session_recall_at_5"] == 1.0
     assert summary["openclaw"]["mrr"] == 0.5
+
+
+def test_abstention_uses_question_id_suffix_and_preserves_category():
+    summary = mem1_runner._summarize_predictions(
+        [
+            {
+                "system": "propmem",
+                "question_id": "question_abs",
+                "category": "knowledge-update",
+                "quality_status": "OK",
+                "predicted": "None",
+                "f1": 1.0,
+                "token_precision": 1.0,
+                "token_recall": 1.0,
+                "normalized_exact_match": 1.0,
+            },
+            {
+                "system": "propmem",
+                "question_id": "question_regular",
+                "category": "temporal-reasoning",
+                "quality_status": "OK",
+                "predicted": "None",
+                "f1": 0.0,
+                "token_precision": 0.0,
+                "token_recall": 0.0,
+                "normalized_exact_match": 0.0,
+            },
+        ],
+        ["propmem"],
+        ["question_abs", "question_regular"],
+    )["propmem"]
+
+    assert summary["abstention_n"] == 1
+    assert summary["abstention_accuracy"] == 1.0
+    assert summary["by_category"]["knowledge-update"]["n"] == 1
+    assert summary["by_category"]["temporal-reasoning"]["n"] == 1
+
+
+def test_missing_stream_usage_sums_to_null_not_zero():
+    summary = mem1_runner._summarize_calls(
+        [
+            {
+                "system": "simplemem",
+                "role": "reader_answer",
+                "provider": "local_qwen",
+                "prompt_tokens": None,
+                "completion_tokens": None,
+                "latency_ms": 100,
+                "success": True,
+            }
+        ],
+        ["simplemem"],
+    )["simplemem"]["by_role"]["reader_answer"]
+
+    assert summary["prompt_tokens"] is None
+    assert summary["completion_tokens"] is None
+    assert summary["usage_capture_status"] == "NOT_CAPTURED"

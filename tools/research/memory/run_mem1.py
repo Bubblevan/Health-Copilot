@@ -27,6 +27,7 @@ from mem1_artifacts import (
     write_hash_sidecar,
     write_run_manifest,
 )
+from context_bundle import build_context_bundle, verify_context_bundle
 
 ROOT = Path(__file__).resolve().parents[3]
 SPLIT_PATH = ROOT / "docs" / "research" / "memory" / "split_manifest.json"
@@ -133,6 +134,12 @@ def _load_system_registry(memeval_root: Path, selected: list[str]):
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=("generate",), required=True)
+    parser.add_argument(
+        "--answer-track",
+        choices=("native", "context_controlled"),
+        default="context_controlled",
+        help="Use the shared reader head by default; select native only for an audit.",
+    )
     parser.add_argument("--memeval-root", type=Path, required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--selection-manifest", type=Path)
@@ -178,7 +185,7 @@ def _load_locked_inputs(args: argparse.Namespace):
 
 def _provider_manifest(
     config, selected_systems, system_info, reader_sha, embedding_artifact,
-    slot_context, memory_internal_generation,
+    slot_context, memory_internal_generation, reader_runtime,
 ):
     return {
         "reader_answer_model": {
@@ -193,6 +200,7 @@ def _provider_manifest(
                 "answer_max_new_tokens": config.reader_answer_max_new_tokens,
             },
             "slot_context_tokens": slot_context,
+            "runtime": reader_runtime,
         },
         "memory_internal_llm": {
             "provider": "local_qwen",
@@ -234,6 +242,56 @@ def _is_abstention(text: str | None) -> bool:
     return normalized in {"none", "unknown", "not mentioned", "not stated", "cannot be determined"}
 
 
+def _is_abstention_question(question_id: str) -> bool:
+    return question_id.endswith("_abs")
+
+
+def _answer_metrics(predicted: str, expected: str) -> dict[str, float]:
+    import re
+
+    pred_tokens = set(re.findall(r"\w+", predicted.lower()))
+    gold_tokens = set(re.findall(r"\w+", expected.lower()))
+    if not gold_tokens:
+        refusal_markers = (
+            "no info", "not specified", "not mentioned", "no direct", "not available",
+            "no evidence", "none", "not found", "no relevant", "no data",
+            "cannot be determined", "not provided", "unknown", "i don't",
+            "no memory", "no record", "not addressed",
+        )
+        correct_refusal = any(marker in predicted.lower() for marker in refusal_markers)
+        score = 1.0 if correct_refusal else 0.0
+        return {
+            "token_precision": score,
+            "token_recall": score,
+            "f1": score,
+            "normalized_exact_match": score,
+        }
+    if not pred_tokens:
+        return {
+            "token_precision": 0.0,
+            "token_recall": 0.0,
+            "f1": 0.0,
+            "normalized_exact_match": 0.0,
+        }
+    common = pred_tokens & gold_tokens
+    precision = len(common) / len(pred_tokens)
+    recall = len(common) / len(gold_tokens)
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    normalized_prediction = " ".join(re.findall(r"\w+", predicted.lower()))
+    normalized_expected = " ".join(re.findall(r"\w+", expected.lower()))
+    return {
+        "token_precision": precision,
+        "token_recall": recall,
+        "f1": f1,
+        "normalized_exact_match": float(normalized_prediction == normalized_expected),
+    }
+
+
+def _sum_captured(rows: list[dict[str, Any]], key: str) -> int | None:
+    values = [row[key] for row in rows if isinstance(row.get(key), (int, float))]
+    return int(sum(values)) if values else None
+
+
 def _summarize_predictions(rows: list[dict[str, Any]], systems: list[str], ids: list[str]) -> dict:
     latest = _latest_predictions(rows)
     output = {}
@@ -246,10 +304,13 @@ def _summarize_predictions(rows: list[dict[str, Any]], systems: list[str], ids: 
             category_metrics[category] = {
                 "n": len(group),
                 "token_f1": sum(row["f1"] for row in group) / len(group) if group else None,
+                "token_precision": _mean_metric(group, "token_precision"),
+                "token_recall": _mean_metric(group, "token_recall"),
+                "normalized_exact_match": _mean_metric(group, "normalized_exact_match"),
             }
         abstention_rows = [
             row for row in quality
-            if "abstention" in str(row.get("category", "")).lower()
+            if _is_abstention_question(str(row.get("question_id", "")))
         ]
         output[system] = {
             "requested": len(ids),
@@ -257,6 +318,9 @@ def _summarize_predictions(rows: list[dict[str, Any]], systems: list[str], ids: 
             "quality_n": len(quality),
             "infra_failure_n": sum(row.get("quality_status") != "OK" for row in selected),
             "f1_mean": sum(row["f1"] for row in quality) / len(quality) if quality else None,
+            "token_precision_mean": _mean_metric(quality, "token_precision"),
+            "token_recall_mean": _mean_metric(quality, "token_recall"),
+            "normalized_exact_match_mean": _mean_metric(quality, "normalized_exact_match"),
             "by_category": category_metrics,
             "abstention_accuracy": (
                 sum(_is_abstention(row.get("predicted")) for row in abstention_rows)
@@ -324,9 +388,9 @@ def _summarize_memory_diagnostics(rows: list[dict[str, Any]], systems: list[str]
             "retrieval_latency_ms": _mean_metric(selected, "retrieval_latency_ms"),
             "ingestion_latency_ms": _mean_metric(selected, "ingestion_latency_ms"),
             "by_category": by_category,
-            "embedding_prompt_tokens": sum(
-                row.get("prompt_tokens") or 0 for row in system_calls
-                if row.get("role") == "embedding" and row.get("success") is True
+            "embedding_prompt_tokens": _sum_captured(
+                [row for row in system_calls if row.get("role") == "embedding" and row.get("success") is True],
+                "prompt_tokens",
             ),
             "reader_calls": len(reader_rows),
         }
@@ -347,7 +411,7 @@ def _percentile(values: list[float], fraction: float) -> float | None:
 
 def _summarize_calls(call_rows: list[dict[str, Any]], systems: list[str]) -> dict:
     output = {}
-    roles = ("reader_answer", "memory_ingest", "memory_reasoning", "embedding")
+    roles = ("reader_answer", "memory_ingest", "memory_reasoning", "embedding", "judge_local")
     for system in systems:
         rows = [row for row in call_rows if row.get("system") == system]
         role_usage = {}
@@ -356,8 +420,12 @@ def _summarize_calls(call_rows: list[dict[str, Any]], systems: list[str]) -> dic
             role_usage[role] = {
                 "provider": sorted({row["provider"] for row in role_rows if row.get("provider")}),
                 "calls": len(role_rows),
-                "prompt_tokens": sum(row.get("prompt_tokens") or 0 for row in role_rows),
-                "completion_tokens": sum(row.get("completion_tokens") or 0 for row in role_rows),
+                "prompt_tokens": _sum_captured(role_rows, "prompt_tokens"),
+                "completion_tokens": _sum_captured(role_rows, "completion_tokens"),
+                "usage_capture_status": (
+                    "CAPTURED" if any(row.get("prompt_tokens") is not None or row.get("completion_tokens") is not None for row in role_rows)
+                    else "NOT_CAPTURED"
+                ),
                 "failed_calls": sum(row.get("success") is False for row in role_rows),
                 "truncated_calls": sum(row.get("truncated") is True for row in role_rows),
             }
@@ -394,21 +462,35 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
         "- TEST access: `false`",
         "- Hosted API: `NONE`; judge: `NONE`; required API key: `NONE`",
         "",
-        "| System | Quality N | Infra failures | Deterministic token F1 | Abstention N | Abstention accuracy |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| System | Quality N | Infra failures | Token F1 | Precision | Recall | Norm. EM | Abstention N | Abstention accuracy |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for system in systems:
         prediction = metrics["systems"][system]
         lines.append(
             f"| {system} | {prediction['quality_n']} | {prediction['infra_failure_n']} | "
-            f"{_format_metric(prediction['f1_mean'])} | {prediction['abstention_n']} | "
+            f"{_format_metric(prediction['f1_mean'])} | "
+            f"{_format_metric(prediction['token_precision_mean'])} | "
+            f"{_format_metric(prediction['token_recall_mean'])} | "
+            f"{_format_metric(prediction['normalized_exact_match_mean'])} | "
+            f"{prediction['abstention_n']} | "
             f"{_format_metric(prediction['abstention_accuracy'])} |"
         )
-    lines.extend(["", "## Category F1", "", "| System | Category | N | Token F1 |", "|---|---|---:|---:|"])
+    lines.extend([
+        "", "## Category Metrics", "",
+        "| System | Category | N | Token F1 | Precision | Recall | Norm. EM |",
+        "|---|---|---:|---:|---:|---:|---:|",
+    ])
     for system in systems:
         for category in CATEGORIES:
             summary = metrics["systems"][system]["by_category"][category]
-            lines.append(f"| {system} | {category} | {summary['n']} | {_format_metric(summary['token_f1'])} |")
+            lines.append(
+                f"| {system} | {category} | {summary['n']} | "
+                f"{_format_metric(summary['token_f1'])} | "
+                f"{_format_metric(summary['token_precision'])} | "
+                f"{_format_metric(summary['token_recall'])} | "
+                f"{_format_metric(summary['normalized_exact_match'])} |"
+            )
     lines.extend([
         "",
         "## Memory Diagnostics",
@@ -482,6 +564,44 @@ def _fullcontext_is_valid(rows: dict[tuple[str, str], dict[str, Any]], ids: list
     return True
 
 
+def _context_bundle_rows_valid(
+    run_dir: Path,
+    systems: list[str],
+    question_ids: list[str],
+    predictions: dict[tuple[str, str], dict[str, Any]],
+    *,
+    freeze: bool,
+) -> bool:
+    bundle_path = run_dir / "context_bundles.jsonl"
+    sidecar_path = run_dir / "context_bundles.sha256"
+    if not bundle_path.exists():
+        return False
+    if sidecar_path.exists() and not verify_hash_sidecar(bundle_path, sidecar_path):
+        raise RuntimeError("Frozen ContextBundle hash mismatch; refusing to score")
+    latest: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in read_jsonl(bundle_path):
+        latest[(row.get("system"), row.get("question_id"))] = row
+    expected = {(system, qid) for system in systems for qid in question_ids}
+    if set(latest) != expected:
+        return False
+    for key, row in latest.items():
+        bundle = row.get("context_bundle")
+        prediction = predictions.get(key)
+        if (
+            not isinstance(bundle, dict)
+            or not verify_context_bundle(bundle)
+            or prediction is None
+            or prediction.get("context_bundle_sha256") != bundle.get("context_bundle_sha256")
+        ):
+            return False
+    if sidecar_path.exists():
+        return True
+    if freeze:
+        write_hash_sidecar(bundle_path, sidecar_path)
+        return True
+    return False
+
+
 def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[str], question_ids: list[str], embedding_model: str | None) -> dict[str, Any]:
     predictions_path = run_dir / "predictions.jsonl"
     sidecar_path = run_dir / "predictions.sha256"
@@ -497,8 +617,16 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
     call_rows = read_jsonl(run_dir / "call_ledger.jsonl")
     every_answer_valid = all(latest[key].get("quality_status") == "OK" for key in expected)
     long_context_valid = "fullcontext" not in systems or _fullcontext_is_valid(latest, question_ids, call_rows)
+    context_track = manifest.get("track") == "main_local_only_context_controlled"
+    context_valid = (
+        _context_bundle_rows_valid(
+            run_dir, systems, question_ids, latest,
+            freeze=every_answer_valid and long_context_valid,
+        )
+        if context_track else True
+    )
     frozen = sidecar_path.exists()
-    if not frozen and every_answer_valid and long_context_valid:
+    if not frozen and every_answer_valid and long_context_valid and context_valid:
         digest = write_hash_sidecar(predictions_path, sidecar_path)
     elif frozen:
         digest = sidecar_path.read_text(encoding="ascii").split()[0]
@@ -508,6 +636,7 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
     metrics = {
         "prediction_sha256": digest,
         "prediction_frozen": digest is not None,
+        "context_bundles_frozen": context_valid if context_track else None,
         "fullcontext_validation": "PASS" if long_context_valid else "FAIL_OR_MISSING_TRUNCATION_TELEMETRY",
         "systems": _summarize_predictions(rows, systems, question_ids),
         "memory_diagnostics": _summarize_memory_diagnostics(rows, systems, question_ids, call_rows),
@@ -538,6 +667,287 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
         encoding="utf-8",
     )
     _write_report(run_dir, manifest, metrics)
+    return metrics
+
+
+def _shared_reader_messages(question: str, serialized_context: str) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": (
+                "Answer questions using only the supplied conversation memory context. "
+                "Answer concisely but completely, using exact wording when possible. "
+                "If the requested information is not present, answer None. "
+                "Do not guess or add unsupported facts."
+            ),
+        },
+        {
+            "role": "user",
+            "content": f"Memory context:\n{serialized_context}\n\nQuestion: {question}",
+        },
+    ]
+
+
+def _classify_context_failure(
+    question_id: str, predicted: str | None, expected: str, context: str,
+) -> list[str]:
+    import re
+
+    if predicted is None:
+        return ["INFRA_FAILURE"]
+    labels = []
+    is_abstention = _is_abstention(predicted)
+    if _is_abstention_question(question_id) and not is_abstention:
+        labels.append("SHOULD_ABSTAIN")
+    elif not _is_abstention_question(question_id) and is_abstention:
+        labels.append("FALSE_ABSTENTION")
+    expected_tokens = set(re.findall(r"\w+", expected.lower()))
+    context_tokens = set(re.findall(r"\w+", context.lower()))
+    predicted_tokens = set(re.findall(r"\w+", predicted.lower()))
+    if expected_tokens and not expected_tokens.issubset(predicted_tokens):
+        labels.append(
+            "CONTEXT_HAS_ANSWER_READER_MISSED"
+            if expected_tokens.issubset(context_tokens)
+            else "CONTEXT_MISSING_ANSWER"
+        )
+    return labels
+
+
+def _run_context_controlled(
+    *,
+    args: argparse.Namespace,
+    manifest: dict[str, Any],
+    systems: dict[str, Any],
+    conversations: list[dict[str, Any]],
+    question_ids: list[str],
+    split: dict[str, Any],
+    source_hash: str,
+    cache_code_hash: str,
+    config_hashes: dict[str, str],
+    config,
+    reader_sha: str,
+    embedding_artifact: dict[str, Any],
+    local_protocol: dict[str, Any],
+    category_names: dict[str, str],
+) -> dict[str, Any]:
+    from agents_memory.healthcopilot_provider import (
+        answer_request_kwargs,
+        call_context,
+        clear_question_metrics,
+        configure_call_ledger,
+        measure_full_context_prompt,
+        reader_client,
+    )
+
+    run_dir = args.run_dir
+    predictions_path = run_dir / "predictions.jsonl"
+    bundles_path = run_dir / "context_bundles.jsonl"
+    sidecar_path = run_dir / "predictions.sha256"
+    if sidecar_path.exists():
+        return _finalize_generation(
+            run_dir, manifest, list(systems), question_ids, config.embedding_model
+        )
+
+    configure_call_ledger(run_dir / "call_ledger.jsonl")
+    bundle_rows = read_jsonl(bundles_path)
+    latest_bundles = {
+        (row.get("system"), row.get("question_id")): row
+        for row in bundle_rows
+    }
+    source_prompt_hash = {"memory_system_and_prompts": source_hash}
+    provider = importlib.import_module("agents_memory.healthcopilot_provider")
+    from context_bundle import build_context_bundle
+
+    # Initialize once so every bundle uses the same frozen tokenizer/settings.
+    embedding_runtime = provider.initialize_local_embedding(config)
+    token_counter_name = (
+        f"{embedding_runtime.artifact.repo}@{embedding_runtime.artifact.revision}:tokenizer"
+    )
+    answer_budget = local_protocol["roles"]["reader_answer_model"]["generation"][
+        "answer_max_new_tokens"
+    ]
+    for system_name, system in systems.items():
+        for conversation in conversations:
+            qa = conversation["qa"][0]
+            question_id = qa["question_id"]
+            embedding_model = config.embedding_model if system_name != "fullcontext" else None
+            cache_identity = make_cache_identity(
+                system=system_name,
+                question_id=question_id,
+                dataset_sha256=split["dataset_sha256"],
+                system_config_hash=config_hashes[system_name],
+                prompt_hashes=source_prompt_hash,
+                reader_artifact_sha256=reader_sha,
+                embedding_model=embedding_model,
+                embedding_artifact_sha256=(
+                    embedding_artifact["model_sha256"] if embedding_model else None
+                ),
+                code_patch_hash=cache_code_hash,
+            )
+            cached_prediction = find_cached_prediction(predictions_path, cache_identity)
+            cached_bundle = latest_bundles.get((system_name, question_id))
+            if cached_prediction is not None:
+                if (
+                    cached_bundle is None
+                    or cached_prediction.get("context_bundle_sha256")
+                    != cached_bundle.get("context_bundle", {}).get("context_bundle_sha256")
+                    or not verify_context_bundle(cached_bundle.get("context_bundle", {}))
+                ):
+                    raise RuntimeError(
+                        f"Cached prediction for {system_name}/{question_id} lacks its valid ContextBundle"
+                    )
+                continue
+
+            clear_question_metrics()
+            call_count_before = len(read_jsonl(run_dir / "call_ledger.jsonl"))
+            started = time.perf_counter()
+            bundle = None
+            predicted = None
+            error: BaseException | None = None
+            try:
+                with_qa = {**conversation, "qa": [qa]}
+                context_rows = system["fn"](
+                    with_qa,
+                    config.reader_model,
+                    False,
+                    category_names=category_names,
+                    judge_fn="longmemeval",
+                    context_only=True,
+                )
+                if len(context_rows) != 1 or context_rows[0].get("quality_status") != "OK":
+                    raise RuntimeError("Adapter did not return exactly one valid ContextBundle input")
+                context_row = context_rows[0]
+                bundle = build_context_bundle(
+                    system=system_name,
+                    question_id=question_id,
+                    items=context_row["context_items"],
+                    token_counter=embedding_runtime.count_tokens,
+                    token_counter_name=token_counter_name,
+                    provenance_available=context_row["provenance_available"],
+                    retrieval_latency_ms=context_row["retrieval_latency_ms"],
+                    ingestion_latency_ms=context_row["ingestion_latency_ms"],
+                ).to_dict()
+                if not verify_context_bundle(bundle):
+                    raise RuntimeError("ContextBundle canonical hash verification failed")
+                bundle_row = {
+                    "system": system_name,
+                    "question_id": question_id,
+                    "cache_identity": cache_identity,
+                    "context_bundle": bundle,
+                }
+                append_jsonl(bundles_path, bundle_row)
+                latest_bundles[(system_name, question_id)] = bundle_row
+
+                messages = _shared_reader_messages(
+                    qa["question"], bundle["serialized_context"]
+                )
+                if system_name == "fullcontext":
+                    preflight = measure_full_context_prompt(
+                        messages,
+                        config,
+                        max_model_length=local_protocol["roles"]["reader_answer_model"][
+                            "long_context"
+                        ]["max_model_length"],
+                        output_reserve=answer_budget,
+                    )
+                    if preflight["truncated"]:
+                        raise RuntimeError("FullContext shared-reader prompt exceeds its 131072-token limit")
+
+                client = reader_client(
+                    "reader_answer", system_name, question_id, config
+                )
+                with call_context(system_name, question_id, "reader_answer"):
+                    response = client.chat.completions.create(
+                        **answer_request_kwargs(
+                            config,
+                            messages=messages,
+                            max_tokens=answer_budget,
+                        )
+                    )
+                content = response.choices[0].message.content
+                if not isinstance(content, str):
+                    raise RuntimeError("Shared reader returned no text answer")
+                predicted = content.strip()
+            except Exception as caught:
+                error = caught
+
+            call_rows = read_jsonl(run_dir / "call_ledger.jsonl")
+            new_calls = call_rows[call_count_before:]
+            quality_status = "OK" if predicted is not None else "INFRA_FAILURE"
+            answer_scores = (
+                _answer_metrics(predicted, qa["answer"])
+                if predicted is not None else {
+                    "token_precision": None,
+                    "token_recall": None,
+                    "normalized_exact_match": None,
+                }
+            )
+            answer_call_rows = [
+                row for row in new_calls
+                if row.get("role") == "reader_answer" and row.get("success") is True
+            ]
+            prompt_tokens = _sum_captured(answer_call_rows, "prompt_tokens")
+            bundle_dict = bundle if bundle is not None else {}
+            serialized_context = bundle_dict.get("serialized_context", "")
+            row = {
+                "system": system_name,
+                "question_id": question_id,
+                "sample_id": question_id,
+                "question": qa["question"],
+                "ground_truth": qa["answer"],
+                "predicted": predicted,
+                "category": qa["category"],
+                "category_name": qa["category"],
+                "answer_session_ids": qa.get("answer_session_ids", []),
+                "quality_status": quality_status,
+                "f1": answer_scores.get("f1"),
+                "token_precision": answer_scores["token_precision"],
+                "token_recall": answer_scores["token_recall"],
+                "normalized_exact_match": answer_scores["normalized_exact_match"],
+                "reader_prompt_tokens": prompt_tokens,
+                "retrieved_context_tokens": bundle_dict.get("context_token_count"),
+                "retrieval_latency_ms": bundle_dict.get("retrieval_latency_ms"),
+                "ingestion_latency_ms": bundle_dict.get("ingestion_latency_ms"),
+                "session_provenance_available": bundle_dict.get("provenance_available"),
+                "ranked_session_groups": (
+                    [item.get("source_session_ids", []) for item in bundle_dict.get("items", [])]
+                    if bundle_dict.get("provenance_available") else None
+                ),
+                "context_bundle_sha256": bundle_dict.get("context_bundle_sha256"),
+                "failure_attribution": (
+                    _classify_context_failure(
+                        question_id, predicted, qa["answer"], serialized_context
+                    ) if predicted is not None else ["INFRA_FAILURE"]
+                ),
+                "cache_identity": cache_identity,
+                "system_wall_time_ms": round((time.perf_counter() - started) * 1000, 3),
+                "reader_error_type": type(error).__name__ if error is not None else None,
+                "reader_error_chain": _exception_chain(error) if error is not None else [],
+            }
+            append_jsonl(predictions_path, row)
+            if error is not None:
+                failures = read_jsonl(run_dir / "failures.jsonl")
+                embedding_failed = any(
+                    call.get("role") == "embedding" and call.get("success") is False
+                    for call in new_calls
+                )
+                append_jsonl(run_dir / "failures.jsonl", {
+                    "question_id": question_id,
+                    "system": system_name,
+                    "failure_type": "INFRA_EMBEDDING" if embedding_failed else "INFRA_FAILURE",
+                    "exception_chain": _exception_chain(error),
+                    "quality_status": "INFRA_FAILURE",
+                    "prior_failure_count": len(failures),
+                })
+
+    metrics = _finalize_generation(
+        run_dir,
+        json.loads((run_dir / "run_manifest.json").read_text(encoding="utf-8")),
+        list(systems),
+        question_ids,
+        config.embedding_model,
+    )
+    print(f"Prediction artifact frozen: {metrics['prediction_frozen']}")
     return metrics
 
 
@@ -583,6 +993,7 @@ def generate(args: argparse.Namespace) -> None:
     roles = _provider_manifest(
         config, system_names, systems, reader_sha, embedding_artifact, slot_context,
         local_protocol["roles"]["memory_internal_llm"]["generation"],
+        local_protocol["local_execution_constraints"]["reader_runtime"],
     )
     runner_code_sha = sha256_bytes(canonical_json({
         "runner": sha256_file(__file__),
@@ -596,10 +1007,12 @@ def generate(args: argparse.Namespace) -> None:
     config_hashes = {
         name: sha256_bytes(canonical_json({
             "system": name,
+            "answer_track": args.answer_track,
             "architecture": systems[name].get("architecture"),
             "infrastructure": systems[name].get("infrastructure"),
             "reader_model": config.reader_model,
             "reader_generation": local_protocol["roles"]["reader_answer_model"]["generation"],
+            "reader_runtime": local_protocol["local_execution_constraints"]["reader_runtime"],
             "memory_internal_generation": local_protocol["roles"]["memory_internal_llm"]["generation"],
             "embedding_model": config.embedding_model if name != "fullcontext" else None,
             "embedding_artifact_sha256": embedding_artifact["model_sha256"] if name != "fullcontext" else None,
@@ -613,14 +1026,19 @@ def generate(args: argparse.Namespace) -> None:
         key: embedding_artifact[key] for key in (
             "repo", "revision", "model_sha256", "weights_sha256", "dimensions",
             "normalized", "query_instruction", "document_instruction", "batch_size",
-            "device", "dtype", "max_length", "truncation",
+            "max_batch_tokens", "device", "dtype", "torch_version", "cuda_version",
+            "device_name", "max_length", "truncation",
         )
     }
     run_config_hash = sha256_bytes(canonical_json(config_hashes))
     manifest = write_run_manifest(
         args.run_dir / "run_manifest.json",
         run_id=args.run_dir.name,
-        track="main_local_only",
+        track=(
+            "main_local_only_context_controlled"
+            if args.answer_track == "context_controlled"
+            else "main_local_only_native_audit"
+        ),
         dataset={
             "id": split["dataset_id"],
             "revision": split["dataset_revision"],
@@ -641,6 +1059,30 @@ def generate(args: argparse.Namespace) -> None:
     sidecar_path = args.run_dir / "predictions.sha256"
     if sidecar_path.exists():
         _finalize_generation(args.run_dir, manifest, system_names, question_ids, config.embedding_model)
+        from agents_memory.healthcopilot_provider import release_local_embedding_runtimes
+        release_local_embedding_runtimes()
+        return
+    if args.answer_track == "context_controlled":
+        try:
+            _run_context_controlled(
+                args=args,
+                manifest=manifest,
+                systems=systems,
+                conversations=conversations,
+                question_ids=question_ids,
+                split=split,
+                source_hash=source_hash,
+                cache_code_hash=cache_code_hash,
+                config_hashes=config_hashes,
+                config=config,
+                reader_sha=reader_sha,
+                embedding_artifact=embedding_artifact,
+                local_protocol=local_protocol,
+                category_names=CATEGORY_NAMES,
+            )
+        finally:
+            from agents_memory.healthcopilot_provider import release_local_embedding_runtimes
+            release_local_embedding_runtimes()
         return
     configure_call_ledger(args.run_dir / "call_ledger.jsonl")
     source_prompt_hash = {"memory_system_and_prompts": source_hash}
@@ -715,7 +1157,13 @@ def generate(args: argparse.Namespace) -> None:
                 and row.get("success") is True
             ]
             if answer_calls:
-                result["reader_prompt_tokens"] = sum(row.get("prompt_tokens") or 0 for row in answer_calls)
+                result["reader_prompt_tokens"] = _sum_captured(answer_calls, "prompt_tokens")
+            if isinstance(result.get("predicted"), str):
+                extra_metrics = _answer_metrics(
+                    result["predicted"], str(result.get("ground_truth", ""))
+                )
+                extra_metrics.pop("f1")
+                result.update(extra_metrics)
             if system_name == "fullcontext" and result.get("reader_prompt_tokens") is not None:
                 result["retrieved_context_tokens"] = result["reader_prompt_tokens"]
             result.setdefault("answer_session_ids", qa.get("answer_session_ids", []))
@@ -750,6 +1198,8 @@ def generate(args: argparse.Namespace) -> None:
         config.embedding_model,
     )
     print(f"Prediction artifact frozen: {metrics['prediction_frozen']}")
+    from agents_memory.healthcopilot_provider import release_local_embedding_runtimes
+    release_local_embedding_runtimes()
 
 
 def main() -> None:

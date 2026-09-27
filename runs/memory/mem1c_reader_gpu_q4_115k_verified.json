@@ -1,0 +1,52 @@
+{
+  "embedding_probe": {
+    "batch_items": 8,
+    "device": "cuda:0",
+    "dtype": "float16",
+    "encode_latency_ms": 758.363,
+    "gpu_memory_after_load_and_encode_mib": 12682,
+    "input_tokens": 4024,
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "truncated": false
+  },
+  "embedding_resident_during_reader": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "fixed_length_measurement_valid": true,
+  "generation_truncated": true,
+  "gpu_memory_peak_mib": 12682,
+  "kv_cache_type": "q4_0",
+  "max_model_length": 131072,
+  "max_prompt_plus_output_tokens": 115256,
+  "measured_runs": 1,
+  "median_generation_tokens_per_second": 17.368,
+  "median_total_ms": 16448.573,
+  "median_ttft_ms": 1708.891,
+  "mode": "gpu-kv-q4",
+  "output_length_cap_tokens": 256,
+  "prompt": "synthetic; no benchmark question or user data",
+  "prompt_counts_verified": true,
+  "prompt_tokens": 115000,
+  "prompt_tokens_per_run": [
+    115000
+  ],
+  "runs": [
+    {
+      "completion_tokens": 256,
+      "finish_reason": "length",
+      "generation_tokens_per_second": 17.368,
+      "generation_truncated": true,
+      "prompt_token_count_matches_server": true,
+      "prompt_tokens": 115000,
+      "run": 0,
+      "server_reported_prompt_tokens": 115000,
+      "text": "Swimming is a great form of exercise, but it's important to follow safe and healthy practices to avoid injuries and ensure a positive experience. First, always warm up before entering the water, as cold muscles are more prone to strains. A simple 5-10 minute warm-up, such as light jogging or dynamic stretches, can help prepare your body for the physical demands of swimming. Next, choose the right swimming technique for your skill level and the type of stroke you're practicing. Proper form reduces the risk of overexertion and injury, and it also improves efficiency in the water. For example, in freestyle, keep your head above water and use a steady, rhythmic breathing pattern to maintain balance and reduce fatigue. \n\nWhen swimming, it's crucial to stay hydrated, especially if you're training for an extended period. Drink water before, during, and after your session to replace fluids lost through sweat. However, avoid overhydration, as it can lead to discomfort. Also, be mindful of the water temperature. Cold water can cause muscle cramps, so if the water is too cold, consider wearing a wetsuit or warming up more thoroughly. Conversely, if the water is too warm, it may lead to overheating, so take breaks and",
+      "token_usage_source": "llama.cpp usage",
+      "total_ms": 16448.573,
+      "ttft_ms": 1708.891,
+      "warmup": false
+    }
+  ],
+  "schema_version": 1,
+  "truncated": false,
+  "warmup_runs": 0
+}
