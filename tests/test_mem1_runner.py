@@ -162,6 +162,20 @@ def test_context_bundle_validation_is_independent_of_sidecar_freezing(monkeypatc
     )
 
 
+def test_context_bundle_content_and_hash_status_are_independent(tmp_path):
+    bundle_path = tmp_path / "context_bundles.jsonl"
+    sidecar_path = tmp_path / "context_bundles.sha256"
+    bundle_path.write_text("{}\n", encoding="utf-8")
+
+    assert mem1_runner._context_bundle_hash_frozen(tmp_path) is False
+
+    mem1_runner.write_hash_sidecar(bundle_path, sidecar_path)
+    assert mem1_runner._context_bundle_hash_frozen(tmp_path) is True
+
+    bundle_path.write_text("{\"changed\": true}\n", encoding="utf-8")
+    assert mem1_runner._context_bundle_hash_frozen(tmp_path) is False
+
+
 def test_context_controlled_is_the_default_answer_track(monkeypatch, tmp_path):
     monkeypatch.setattr(
         sys,

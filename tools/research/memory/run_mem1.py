@@ -790,6 +790,8 @@ def _write_report(run_dir: Path, manifest: dict[str, Any], metrics: dict[str, An
         f"- Split: `{manifest['split']}` ({len(manifest['question_ids'])} frozen DEV questions)",
         f"- Dataset SHA256: `{manifest['dataset']['sha256']}`",
         f"- Prediction SHA256: `{metrics.get('prediction_sha256') or 'NOT_FROZEN_INFRA_FAILURE'}`",
+        f"- ContextBundle content valid: `{metrics.get('context_bundle_content_valid')}`",
+        f"- ContextBundle hash frozen: `{metrics.get('context_bundle_hash_frozen')}`",
         "- TEST access: `false`",
         "- Hosted API: `NONE`; judge: `NONE`; required API key: `NONE`",
         "",
@@ -1115,6 +1117,12 @@ def _context_bundle_rows_valid(
     return True
 
 
+def _context_bundle_hash_frozen(run_dir: Path) -> bool:
+    bundle_path = run_dir / "context_bundles.jsonl"
+    sidecar_path = run_dir / "context_bundles.sha256"
+    return sidecar_path.is_file() and verify_hash_sidecar(bundle_path, sidecar_path)
+
+
 def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[str], question_ids: list[str], embedding_model: str | None) -> dict[str, Any]:
     predictions_path = run_dir / "predictions.jsonl"
     sidecar_path = run_dir / "predictions.sha256"
@@ -1179,7 +1187,10 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
     metrics = {
         "prediction_sha256": digest,
         "prediction_frozen": digest is not None,
-        "context_bundles_frozen": context_valid if context_track else None,
+        "context_bundle_content_valid": context_valid if context_track else None,
+        "context_bundle_hash_frozen": (
+            _context_bundle_hash_frozen(run_dir) if context_track else None
+        ),
         "fullcontext_validation": "PASS" if long_context_valid else "FAIL_OR_MISSING_TRUNCATION_TELEMETRY",
         "systems": _summarize_predictions(rows, systems, question_ids),
         "memory_diagnostics": _summarize_memory_diagnostics(rows, systems, question_ids, call_rows),
