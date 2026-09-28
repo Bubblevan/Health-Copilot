@@ -5,7 +5,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[3]
 SPLIT_MANIFEST = ROOT / "docs" / "research" / "memory" / "split_manifest.json"
 MODEL_PROTOCOL = ROOT / "docs" / "research" / "memory" / "model_protocol.json"
@@ -29,7 +28,7 @@ def build_manifest() -> dict:
     extra_ids = sorted(
         remaining,
         key=lambda question_id: hashlib.sha256(
-            f"memeval_main_smoke_v1:{question_id}".encode("utf-8")
+            f"memeval_main_smoke_v1:{question_id}".encode()
         ).hexdigest(),
     )[:4]
     if len(extra_ids) != 4:

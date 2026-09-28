@@ -4,7 +4,6 @@ from pathlib import Path
 
 import pytest
 
-
 _tools_path = Path(__file__).parents[1] / "tools" / "research" / "memory"
 sys.path.insert(0, str(_tools_path))
 _spec = importlib.util.spec_from_file_location(

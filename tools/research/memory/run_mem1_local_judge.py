@@ -13,7 +13,6 @@ from mem1_artifacts import (
     append_jsonl,
     canonical_json,
     read_jsonl,
-    sha256_file,
     verify_hash_sidecar,
     write_hash_sidecar,
 )
@@ -105,10 +104,6 @@ def _identity(prediction_sha256: str, row: dict[str, Any], prompt_sha256: str) -
 
 
 def run(run_dir: Path) -> dict[str, Any]:
-    from dotenv import load_dotenv
-
-    load_dotenv()
-    os.environ.pop("OPENAI_API_KEY", None)
     manifest_path = run_dir / "run_manifest.json"
     prediction_path = run_dir / "predictions.jsonl"
     prediction_sidecar = run_dir / "predictions.sha256"
@@ -140,6 +135,10 @@ def run(run_dir: Path) -> dict[str, Any]:
     ):
         raise RuntimeError("Local judge requires a complete, successful frozen prediction matrix")
 
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    os.environ.pop("OPENAI_API_KEY", None)
     model_protocol = json.loads((ROOT / "docs/research/memory/model_protocol.json").read_text(encoding="utf-8"))
     reader_sha = model_protocol["main_track"]["sha256"]
     from agents_memory.healthcopilot_provider import (
@@ -220,12 +219,13 @@ def run(run_dir: Path) -> dict[str, Any]:
                 )
             content = response.choices[0].message.content
             if not isinstance(content, str):
-                raise RuntimeError("Local judge returned no text")
+                raise TypeError("Local judge returned no text")
             first = content.strip().lower().split(maxsplit=1)[0].strip(".,!?:;")
             if first not in {"yes", "no"}:
                 raise RuntimeError("Local judge response was not a binary yes/no")
             result = first == "yes"
-        except Exception as caught:
+        # Keep provider failures attributable per prediction instead of aborting the batch.
+        except Exception as caught:  # noqa: BLE001
             error = caught
         row = {
             "system": prediction["system"],

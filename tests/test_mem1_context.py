@@ -4,7 +4,6 @@ from pathlib import Path
 
 import pytest
 
-
 _module_path = Path(__file__).parents[1] / "tools" / "research" / "memory" / "context_bundle.py"
 _spec = importlib.util.spec_from_file_location("mem1_context_bundle_test", _module_path)
 context_bundle = importlib.util.module_from_spec(_spec)

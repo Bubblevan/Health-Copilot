@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 
-
 _module_path = Path(__file__).parents[1] / "tools" / "research" / "memory" / "mem1_artifacts.py"
 _spec = importlib.util.spec_from_file_location("mem1_artifacts_test", _module_path)
 mem1_artifacts = importlib.util.module_from_spec(_spec)
