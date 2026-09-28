@@ -1,0 +1,12 @@
+{
+  "human_review_complete": false,
+  "review_schema": {
+    "assistant_hypothetical_leak": null,
+    "durable": null,
+    "notes": null,
+    "overgeneralized": null,
+    "semantically_supported": null,
+    "transient_request": null
+  },
+  "sessions": []
+}

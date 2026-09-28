@@ -1,0 +1,113 @@
+{
+  "contract_id": "flat-proposition-extractor-v2",
+  "stage": "MEM-3A.1",
+  "purpose": "Qualify a provenance-by-reference proposition writer over frozen MEM-2C RawSpan sessions.",
+  "prompt_file": "flat_proposition_extractor_v2.txt",
+  "writer_input": {
+    "root_fields": ["session_date", "source_spans"],
+    "source_span_fields": ["evidence_ref", "role", "content"],
+    "forbidden_fields": [
+      "question_id",
+      "question",
+      "question_date",
+      "answer",
+      "answer_session_ids",
+      "question_type",
+      "has_answer",
+      "retrieval_results",
+      "prediction_correctness",
+      "source_turn_index",
+      "source_span_index",
+      "char_start",
+      "char_end"
+    ]
+  },
+  "output": {
+    "root_fields": ["propositions"],
+    "proposition_fields": [
+      "proposition_text",
+      "memory_kind",
+      "entity_key_candidate",
+      "attribute_key_candidate",
+      "value_text",
+      "evidence_refs"
+    ],
+    "memory_kind_enum": [
+      "user_fact",
+      "user_preference",
+      "user_event",
+      "user_plan",
+      "task_decision",
+      "assistant_recommendation"
+    ],
+    "candidate_key_pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$",
+    "additional_properties": false,
+    "evidence_refs_enum": "exact session-local catalog IDs; dynamic per request"
+  },
+  "provenance": {
+    "model_generates_source_locations": false,
+    "harness_generates_role_quote_and_offsets": true,
+    "rawspan_representation": "raw-span-v1",
+    "resegmentation": false,
+    "content_sha256_verified": true,
+    "char_offsets_verified": true,
+    "exact_quote_copy_from_frozen_span": true,
+    "role_constraints": {
+      "user_fact": "all evidence refs resolve to user spans",
+      "user_preference": "all evidence refs resolve to user spans",
+      "user_event": "all evidence refs resolve to user spans",
+      "user_plan": "all evidence refs resolve to user spans",
+      "task_decision": "at least one evidence ref resolves to a user span",
+      "assistant_recommendation": "all evidence refs resolve to assistant spans"
+    }
+  },
+  "revision_semantics": false,
+  "dynamic_json_schema": {
+    "strict": true,
+    "evidence_refs_items_enum": "exact IDs present in this request's source_spans",
+    "full_schema_in_request_identity": true
+  },
+  "runtime": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "model_alias": "health-memory-qwen3-8b",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "llama_cpp_build": "10068 (571d0d540)",
+    "temperature": 0,
+    "seed": 42,
+    "max_output_tokens": 4096,
+    "thinking": false,
+    "hosted_calls": 0
+  },
+  "preflight": {
+    "source_session_count": 477,
+    "context_limit": 131072,
+    "reserved_output_tokens": 4096,
+    "required_fit": "prompt_tokens + 4096 <= 131072",
+    "truncations_allowed": false
+  },
+  "qualification": {
+    "calls": 12,
+    "retries": 0,
+    "full_corpus_extraction": false,
+    "materialization": false,
+    "embedding": false,
+    "retrieval": false,
+    "reader_calls": 0,
+    "label_access": false,
+    "test_access": false
+  },
+  "reproducibility_mode": "ARTIFACT_FROZEN_NOT_BITWISE_REPLAY",
+  "raw_response_policy": {
+    "local_only": true,
+    "git_ignored_cache": ".cache/health-copilot/mem3a1-writer",
+    "write_ahead_capture_before_validation": true,
+    "persisted_raw_response_is_committed": false
+  },
+  "failure_policy": {
+    "retry": false,
+    "stop_at_first_failure": true,
+    "started_only_recovery": "fail closed without provider call",
+    "response_captured_recovery": "validate frozen raw bytes without provider call",
+    "complete_failure_recovery": "remain failed without provider call"
+  }
+}

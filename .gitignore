@@ -13,6 +13,7 @@ __pycache__/
 !.env.example
 artifacts/
 .health-bench-data/
+/.cache/health-copilot/mem3a1-writer/
 data/raw/
 data/processed/
 *.db
