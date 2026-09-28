@@ -109,6 +109,30 @@ class ComponentIdentity:
 
 
 @dataclass(frozen=True)
+class CapabilityContractRef:
+    """Immutable manifest reference to a canonical worker capability contract."""
+
+    capability_id: str
+    contract_hash: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.capability_id, str) or not self.capability_id.strip():
+            raise ValueError("capability_id must be non-empty")
+        if (
+            not isinstance(self.contract_hash, str)
+            or len(self.contract_hash) != 64
+            or any(char not in "0123456789abcdef" for char in self.contract_hash)
+        ):
+            raise ValueError("contract_hash must be a lowercase SHA-256 digest")
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "capability_id": self.capability_id,
+            "contract_hash": self.contract_hash,
+        }
+
+
+@dataclass(frozen=True)
 class ComponentManifest:
     """Canonical provenance for one built runtime profile."""
 
@@ -118,6 +142,8 @@ class ComponentManifest:
     knowledge_scope_version: str | None = None
     profile_config_hash: str | None = None
     code_commit: str | None = None
+    capability_contracts: tuple[CapabilityContractRef, ...] = ()
+    source_catalog_hash: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.profile_id, str) or not self.profile_id.strip():
@@ -130,13 +156,27 @@ class ComponentManifest:
             not isinstance(self.code_commit, str) or not self.code_commit.strip()
         ):
             raise ValueError("code_commit must be a non-empty string or null")
+        if self.source_catalog_hash is not None and (
+            not isinstance(self.source_catalog_hash, str)
+            or len(self.source_catalog_hash) != 64
+            or any(char not in "0123456789abcdef" for char in self.source_catalog_hash)
+        ):
+            raise ValueError("source_catalog_hash must be a lowercase SHA-256 digest or null")
         ordered = tuple(sorted(self.components, key=lambda item: item.identity_key))
         if len({item.identity_key for item in ordered}) != len(ordered):
             raise ValueError("manifest contains duplicate component identities")
         object.__setattr__(self, "components", ordered)
+        capabilities = tuple(
+            sorted(self.capability_contracts, key=lambda item: item.capability_id)
+        )
+        if not all(isinstance(item, CapabilityContractRef) for item in capabilities):
+            raise TypeError("capability_contracts must contain CapabilityContractRef values")
+        if len({item.capability_id for item in capabilities}) != len(capabilities):
+            raise ValueError("manifest contains duplicate capability contracts")
+        object.__setattr__(self, "capability_contracts", capabilities)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        result = {
             "profile_id": self.profile_id,
             "components": [item.to_dict() for item in self.components],
             "knowledge_pack_version": self.knowledge_pack_version,
@@ -144,6 +184,15 @@ class ComponentManifest:
             "profile_config_hash": self.profile_config_hash,
             "code_commit": self.code_commit,
         }
+        # Omitting this key for legacy profiles preserves their canonical bytes
+        # and frozen manifest hashes exactly.
+        if self.capability_contracts:
+            result["capability_contracts"] = [
+                item.to_dict() for item in self.capability_contracts
+            ]
+        if self.source_catalog_hash is not None:
+            result["source_catalog_hash"] = self.source_catalog_hash
+        return result
 
     @property
     def build_commit(self) -> str | None:

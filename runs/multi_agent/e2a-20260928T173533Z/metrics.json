@@ -1,0 +1,367 @@
+{
+  "case_c_complementary_workers": {
+    "DelegationPrecision": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "EvidenceGroupCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "InputTokens": {
+      "value": 20,
+      "version": "e2-metrics-v1"
+    },
+    "OutputTokens": {
+      "value": 12,
+      "version": "e2-metrics-v1"
+    },
+    "ProductiveWorkerRate": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "ProviderCalls": {
+      "value": 4,
+      "version": "e2-metrics-v1"
+    },
+    "SourceFamilyCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "SumWorkerExecutionMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "ToolExecutions": {
+      "value": 2,
+      "version": "e2-metrics-v1"
+    },
+    "WallClockLatencyMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerCompletionRate": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerEvidenceOverlap": {
+      "denominator": null,
+      "numerator": null,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerUniqueEvidenceContribution": {
+      "denominator": null,
+      "numerator": null,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "schema_version": "e2-metrics-v1"
+  },
+  "case_d_duplicate_evidence": {
+    "DelegationPrecision": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "EvidenceGroupCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "InputTokens": {
+      "value": 20,
+      "version": "e2-metrics-v1"
+    },
+    "OutputTokens": {
+      "value": 12,
+      "version": "e2-metrics-v1"
+    },
+    "ProductiveWorkerRate": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "ProviderCalls": {
+      "value": 4,
+      "version": "e2-metrics-v1"
+    },
+    "SourceFamilyCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "SumWorkerExecutionMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "ToolExecutions": {
+      "value": 2,
+      "version": "e2-metrics-v1"
+    },
+    "WallClockLatencyMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerCompletionRate": {
+      "denominator": 2,
+      "numerator": 2,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerEvidenceOverlap": {
+      "denominator": null,
+      "numerator": null,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerUniqueEvidenceContribution": {
+      "denominator": null,
+      "numerator": null,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "schema_version": "e2-metrics-v1"
+  },
+  "case_e_failure_containment": {
+    "DelegationPrecision": {
+      "denominator": 2,
+      "numerator": 1,
+      "value": 0.5,
+      "version": "e2-metrics-v1"
+    },
+    "EvidenceGroupCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "InputTokens": {
+      "value": 15,
+      "version": "e2-metrics-v1"
+    },
+    "OutputTokens": {
+      "value": 9,
+      "version": "e2-metrics-v1"
+    },
+    "ProductiveWorkerRate": {
+      "denominator": 1,
+      "numerator": 1,
+      "value": 1.0,
+      "version": "e2-metrics-v1"
+    },
+    "ProviderCalls": {
+      "value": 3,
+      "version": "e2-metrics-v1"
+    },
+    "SourceFamilyCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "SumWorkerExecutionMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "ToolExecutions": {
+      "value": 1,
+      "version": "e2-metrics-v1"
+    },
+    "WallClockLatencyMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerCompletionRate": {
+      "denominator": 2,
+      "numerator": 1,
+      "value": 0.5,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerEvidenceOverlap": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerUniqueEvidenceContribution": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "schema_version": "e2-metrics-v1"
+  },
+  "case_f_parent_budget": {
+    "DelegationPrecision": {
+      "denominator": 2,
+      "numerator": 0,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "EvidenceGroupCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "InputTokens": {
+      "value": 5,
+      "version": "e2-metrics-v1"
+    },
+    "OutputTokens": {
+      "value": 3,
+      "version": "e2-metrics-v1"
+    },
+    "ProductiveWorkerRate": {
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "ProviderCalls": {
+      "value": 1,
+      "version": "e2-metrics-v1"
+    },
+    "SourceFamilyCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "SumWorkerExecutionMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "ToolExecutions": {
+      "value": 1,
+      "version": "e2-metrics-v1"
+    },
+    "WallClockLatencyMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerCompletionRate": {
+      "denominator": 2,
+      "numerator": 0,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerEvidenceOverlap": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerUniqueEvidenceContribution": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "schema_version": "e2-metrics-v1"
+  },
+  "case_g_forged_provenance": {
+    "DelegationPrecision": {
+      "denominator": 1,
+      "numerator": 0,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "EvidenceGroupCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "InputTokens": {
+      "value": 5,
+      "version": "e2-metrics-v1"
+    },
+    "OutputTokens": {
+      "value": 3,
+      "version": "e2-metrics-v1"
+    },
+    "ProductiveWorkerRate": {
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "ProviderCalls": {
+      "value": 1,
+      "version": "e2-metrics-v1"
+    },
+    "SourceFamilyCoverage": {
+      "annotation_source": "evaluation_only",
+      "denominator": 0,
+      "numerator": 0,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "SumWorkerExecutionMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "ToolExecutions": {
+      "value": 0,
+      "version": "e2-metrics-v1"
+    },
+    "WallClockLatencyMs": {
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerCompletionRate": {
+      "denominator": 1,
+      "numerator": 0,
+      "value": 0.0,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerEvidenceOverlap": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "WorkerUniqueEvidenceContribution": {
+      "denominator": null,
+      "numerator": null,
+      "value": null,
+      "version": "e2-metrics-v1"
+    },
+    "schema_version": "e2-metrics-v1"
+  },
+  "schema_version": "e2-metrics-v1",
+  "source_isolation": {
+    "A_public_health_visible_source_ids": [
+      "public-source"
+    ],
+    "B_guideline_visible_source_ids": [
+      "guideline-source"
+    ]
+  },
+  "synthetic_only": true
+}

@@ -1,0 +1,297 @@
+{
+  "capabilities": [
+    {
+      "allowed_capability_domains": [
+        "care_management",
+        "complications",
+        "definition_thresholds",
+        "diagnostic_confirmation",
+        "home_monitoring",
+        "lifestyle_prevention",
+        "measurement",
+        "medication_safety",
+        "risk_factors",
+        "symptoms"
+      ],
+      "allowed_source_families": [
+        "public_health"
+      ],
+      "authority_scope": "Reviewed WHO, CDC, and NHC patient-education sources only. Report public information and its jurisdiction; do not synthesize clinical guidelines, prescribe, diagnose, or extend beyond observed sources.",
+      "capability_id": "e2-public-health-v1",
+      "contract_hash": "14b7877394ce0d305a5b21b7ebe315acca9e321254d8b9b002e8714946c1ce9b",
+      "eligibility": "ELIGIBLE",
+      "eligibility_reason": null,
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-public-health-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "public_health",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    },
+    {
+      "allowed_capability_domains": [
+        "population_jurisdiction",
+        "recommendation_scope"
+      ],
+      "allowed_source_families": [
+        "reviewed_guideline"
+      ],
+      "authority_scope": "Only reviewed guideline and recommendation records may support claims. Preserve publisher, jurisdiction, population, date, and recommendation scope; do not generalize outside those boundaries.",
+      "capability_id": "e2-guideline-v1",
+      "contract_hash": "8f0eecf104a1b3cb54203f5c9eeede68251a2adf1a2d558913b1df17cc696087",
+      "eligibility": "NOT_YET_ELIGIBLE",
+      "eligibility_reason": "No reviewed guideline/recommendation corpus is present in the active retriever.",
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-guideline-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "guideline",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    },
+    {
+      "allowed_capability_domains": [
+        "literature_findings",
+        "study_design",
+        "study_population"
+      ],
+      "allowed_source_families": [
+        "scholarly_literature"
+      ],
+      "authority_scope": "Use only an approved closed scholarly-literature corpus. Identify study type, population, and limitations; do not turn observational results into guidance.",
+      "capability_id": "e2-literature-v1",
+      "contract_hash": "1faf0d268dddfd899335cd28a755a9e11282a298e09bd56f9140e666dc4a8910",
+      "eligibility": "NOT_YET_ELIGIBLE",
+      "eligibility_reason": "No approved scholarly-paper corpus is connected to the active retriever; raw textbook files do not satisfy this boundary.",
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-literature-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "literature",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    }
+  ],
+  "schema_version": "e2-worker-capabilities-v1",
+  "source_catalog": {
+    "sources": [
+      {
+        "capability_domains": [
+          "definition_thresholds"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-about-01-us-threshold"
+      },
+      {
+        "capability_domains": [
+          "symptoms"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-about-02-symptoms"
+      },
+      {
+        "capability_domains": [
+          "complications"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-about-03-organ-risks"
+      },
+      {
+        "capability_domains": [
+          "care_management"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-managing-01-monitoring"
+      },
+      {
+        "capability_domains": [
+          "care_management"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-managing-02-care-plan"
+      },
+      {
+        "capability_domains": [
+          "medication_safety"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-managing-03-medicine-safety"
+      },
+      {
+        "capability_domains": [
+          "medication_safety"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-managing-04-otc"
+      },
+      {
+        "capability_domains": [
+          "home_monitoring"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-measuring-01-home"
+      },
+      {
+        "capability_domains": [
+          "home_monitoring"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-measuring-02-repeat"
+      },
+      {
+        "capability_domains": [
+          "measurement"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-measuring-03-before-reading"
+      },
+      {
+        "capability_domains": [
+          "measurement"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-measuring-04-position"
+      },
+      {
+        "capability_domains": [
+          "measurement"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-measuring-05-white-coat"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-prevention-01-diet"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-prevention-02-dash"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-prevention-03-activity"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-prevention-04-sleep"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-risk-01-sodium"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-risk-02-inactivity"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-risk-03-alcohol"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-risk-04-tobacco"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "cdc-high-blood-pressure-risk-05-overweight"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "nhc-hypertension-day-01-salt"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "nhc-hypertension-day-02-weight"
+      },
+      {
+        "capability_domains": [
+          "home_monitoring"
+        ],
+        "source_family": "public_health",
+        "source_id": "nhc-hypertension-day-03-home-monitoring"
+      },
+      {
+        "capability_domains": [
+          "home_monitoring"
+        ],
+        "source_family": "public_health",
+        "source_id": "nhc-hypertension-day-04-adult-screening"
+      },
+      {
+        "capability_domains": [
+          "definition_thresholds"
+        ],
+        "source_family": "public_health",
+        "source_id": "who-hypertension-01-definition"
+      },
+      {
+        "capability_domains": [
+          "diagnostic_confirmation"
+        ],
+        "source_family": "public_health",
+        "source_id": "who-hypertension-02-confirmation"
+      },
+      {
+        "capability_domains": [
+          "symptoms"
+        ],
+        "source_family": "public_health",
+        "source_id": "who-hypertension-03-silent"
+      },
+      {
+        "capability_domains": [
+          "risk_factors"
+        ],
+        "source_family": "public_health",
+        "source_id": "who-hypertension-04-risk-factors"
+      },
+      {
+        "capability_domains": [
+          "lifestyle_prevention"
+        ],
+        "source_family": "public_health",
+        "source_id": "who-hypertension-05-lifestyle"
+      }
+    ]
+  },
+  "source_catalog_hash": "7cef21fceb5c04577fed2541dbefd2798900299825b711ab06c8c14e41b29c19",
+  "status": "CAPABILITY_CONTRACTS_FROZEN",
+  "test_accessed": false
+}

@@ -1,0 +1,107 @@
+{
+  "architecture_id": "L3_HETEROGENEOUS_SEQUENTIAL",
+  "benchmark_rows_loaded": 0,
+  "case_results": {
+    "A": true,
+    "B": true,
+    "C": true,
+    "D": true,
+    "E": true,
+    "F": true,
+    "G": true
+  },
+  "cases": {
+    "C": {
+      "capability_manifest_hash": "f4136f33c1c51ec8c4ad97bec53e3000efad9f10911830ecf0dbf2b15cc1e2d4",
+      "component_manifest_hash": "d1cf73e0b2974ec37f68b6d3c2dd1687716e9c6096fa1481ff71b478ef1348bb",
+      "source_catalog_hash": "96bbfb61bda0950c97aa9d330324cfd3816bea694d6361b02452a529f2bbb3a5"
+    },
+    "D": {
+      "capability_manifest_hash": "7967b23dc2a4e9662053c0d8822a4715fcf774bb6f3498c34e941d4bedb8fc7a",
+      "component_manifest_hash": "275e6213e6ceee83529fc51800e1402ce7deab79e8cecf61835448d30510576f",
+      "source_catalog_hash": "53a82703fd587a6d7c38f35ee46db611335ab43207ef369d3dbd82853eb7b26f"
+    }
+  },
+  "memory_policy": "OFF",
+  "production_capability_contracts": [
+    {
+      "allowed_capability_domains": [
+        "care_management",
+        "complications",
+        "definition_thresholds",
+        "diagnostic_confirmation",
+        "home_monitoring",
+        "lifestyle_prevention",
+        "measurement",
+        "medication_safety",
+        "risk_factors",
+        "symptoms"
+      ],
+      "allowed_source_families": [
+        "public_health"
+      ],
+      "authority_scope": "Reviewed WHO, CDC, and NHC patient-education sources only. Report public information and its jurisdiction; do not synthesize clinical guidelines, prescribe, diagnose, or extend beyond observed sources.",
+      "capability_id": "e2-public-health-v1",
+      "contract_hash": "14b7877394ce0d305a5b21b7ebe315acca9e321254d8b9b002e8714946c1ce9b",
+      "eligibility": "ELIGIBLE",
+      "eligibility_reason": null,
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-public-health-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "public_health",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    },
+    {
+      "allowed_capability_domains": [
+        "population_jurisdiction",
+        "recommendation_scope"
+      ],
+      "allowed_source_families": [
+        "reviewed_guideline"
+      ],
+      "authority_scope": "Only reviewed guideline and recommendation records may support claims. Preserve publisher, jurisdiction, population, date, and recommendation scope; do not generalize outside those boundaries.",
+      "capability_id": "e2-guideline-v1",
+      "contract_hash": "8f0eecf104a1b3cb54203f5c9eeede68251a2adf1a2d558913b1df17cc696087",
+      "eligibility": "NOT_YET_ELIGIBLE",
+      "eligibility_reason": "No reviewed guideline/recommendation corpus is present in the active retriever.",
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-guideline-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "guideline",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    },
+    {
+      "allowed_capability_domains": [
+        "literature_findings",
+        "study_design",
+        "study_population"
+      ],
+      "allowed_source_families": [
+        "scholarly_literature"
+      ],
+      "authority_scope": "Use only an approved closed scholarly-literature corpus. Identify study type, population, and limitations; do not turn observational results into guidance.",
+      "capability_id": "e2-literature-v1",
+      "contract_hash": "1faf0d268dddfd899335cd28a755a9e11282a298e09bd56f9140e666dc4a8910",
+      "eligibility": "NOT_YET_ELIGIBLE",
+      "eligibility_reason": "No approved scholarly-paper corpus is connected to the active retriever; raw textbook files do not satisfy this boundary.",
+      "max_model_turns": 2,
+      "max_tool_calls": 1,
+      "objective_contract_id": "e2-literature-objective-v1",
+      "retriever_profile_id": "bm25-v1",
+      "role": "literature",
+      "tool_ids": [
+        "search_knowledge"
+      ]
+    }
+  ],
+  "run_id": "20260928T173533Z",
+  "run_type": "synthetic_smoke_only",
+  "scheduler": "sequential-v1",
+  "test_accessed": false
+}
