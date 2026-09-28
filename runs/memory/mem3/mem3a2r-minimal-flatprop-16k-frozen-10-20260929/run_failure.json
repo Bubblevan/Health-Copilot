@@ -1,0 +1,35 @@
+{
+  "102_dev_access": false,
+  "attempted_unique_source_sessions": 102,
+  "completed_unique_source_sessions": 101,
+  "completion_gate_marker": "MEM3A2R_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "error": "MEM3A2R_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO; writer stopped before downstream: {'session_identity_sha256': '545f7c68c72c33db6a9a523c6d82f070b8827da187ad8d199a91d0b59adc4902', 'session_index': 102, 'code': 'DUPLICATE_EVIDENCE_REF', 'detail': {'code': 'DUPLICATE_EVIDENCE_REF', 'proposition_index': 10, 'field': 'evidence_refs', 'evidence_ref': 'S0070', 'detail': ''}}",
+  "error_type": "RuntimeError",
+  "failure_classification": "DUPLICATE_EVIDENCE_REF",
+  "failure_details": {
+    "code": "DUPLICATE_EVIDENCE_REF",
+    "completion_tokens": 3350,
+    "duplicate_evidence_ref": "S0070",
+    "field": "evidence_refs",
+    "finish_reason": "stop",
+    "http_envelope_sha256": "1789f1ffecdf67f83e726a3c6b44382c39e811747dfdd955f3e66eec11d65d98",
+    "local_envelope_retained": true,
+    "prompt_tokens": 9852,
+    "proposition_index": 10,
+    "provider_calls_for_identity": 1,
+    "request_sha256": "a85b6c54c96d8b90543dcc6409e572023f7b4228bc3d46332bf781689ae0e321",
+    "retry_count": 0,
+    "session_identity_sha256": "545f7c68c72c33db6a9a523c6d82f070b8827da187ad8d199a91d0b59adc4902",
+    "session_index": 102,
+    "source_session_ids": [
+      "35201d43"
+    ]
+  },
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "retries": 0,
+  "stage": "mem3a2r-minimal-flatprop-16k-frozen-10-20260929",
+  "status": "FAILED",
+  "test_access": false,
+  "writer_max_tokens": 16384
+}

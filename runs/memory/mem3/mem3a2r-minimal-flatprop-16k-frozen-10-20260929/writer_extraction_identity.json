@@ -1,0 +1,24 @@
+{
+  "identity": {
+    "base_commit_sha": "f2c448c20be6321f66e90511e325611c1c37e4fc",
+    "contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+    "dense_embedding_adapter_source_sha256": "3f6ba58de6f41deb3d4e7b67fbabaee09d20a789ff89c97d258fbaa9daa3d5e1",
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "execution_order_sha256": "2bf0ae826f0762d78fabb3a9192fff51ea79b50e2ab1c98a64a7ab7246b4069e",
+    "flatprop_runtime_source_sha256": "709b3589ed24b749a8013625d3d223419a214177e4f1f95a8091dd66ab6d79de",
+    "output_reserve": 16384,
+    "preflight_request_root_sha256": "041461dee1a9d4295f4eae1074b5c5b705742f7ac9fa223021ff891f28df099a",
+    "prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+    "runner_source_sha256": "113a9b5cebdb506c99564a3cb82fddfbd66b6f019045e634a1dc5a01732eb054",
+    "runtime_contract_sha256": "4854e07c2cfbb9f567f5988fbef0cef2a02d2662f7819538f8aa0c1079ed71c6",
+    "runtime_props_sha256": "3842a26b19d18343b3a0525f15d01e80228a2b2a07e020414cfb41c5d2bd355b",
+    "source_count": 477,
+    "stage": "mem3a2r-minimal-flatprop-16k-frozen-10-20260929",
+    "transport_unwrap_source_sha256": "57d33ab389c64a8f9c873d25e38dae0c952cc728fde3dcbf37c10984d184cec9",
+    "writer_max_tokens": 16384,
+    "writer_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "writer_request_source_sha256": "3d43937fa5a287637793b5b0207b5ba78f6a431d12ec08152adb78e01f7fba3d",
+    "writer_validator_source_sha256": "3d43937fa5a287637793b5b0207b5ba78f6a431d12ec08152adb78e01f7fba3d"
+  },
+  "identity_sha256": "c691ecbba38a7ce392a800c9ebc22aa50007b93b5d621abbd8768cd37213c0c7"
+}

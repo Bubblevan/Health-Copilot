@@ -18,6 +18,7 @@ artifacts/
 /.cache/health-copilot/mem3a2-memory/
 /.cache/health-copilot/mem3a2-embedding/
 /.cache/health-copilot/mem3a2-minimal-flatprop-v3-writer/
+/.cache/health-copilot/mem3a2r-minimal-flatprop-v3-16k-writer/
 data/raw/
 data/processed/
 *.db

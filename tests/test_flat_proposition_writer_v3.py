@@ -57,6 +57,20 @@ def test_v3_generated_schema_has_only_text_and_evidence_refs():
     ]
 
 
+def test_v3_writer_capacity_is_explicit_and_default_remains_historical_4k():
+    catalog = _catalog()
+    kwargs = {
+        "session_date": "2026-09-29",
+        "catalog": catalog,
+        "system_prompt": "frozen v3 prompt",
+        "model_alias": "local-qwen",
+    }
+    assert v3.writer_request(**kwargs)["max_tokens"] == 4096
+    assert v3.writer_request(**kwargs, max_tokens=16384)["max_tokens"] == 16384
+    with pytest.raises(ValueError, match="frozen supported capacity"):
+        v3.writer_request(**kwargs, max_tokens=32768)
+
+
 @pytest.mark.parametrize(
     "legacy_field",
     ["memory_kind", "entity_key_candidate", "attribute_key_candidate", "value_text"],
