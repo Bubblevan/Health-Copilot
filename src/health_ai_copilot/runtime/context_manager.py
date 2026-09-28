@@ -286,6 +286,7 @@ class ContextManager:
         retrieval_query: str | None = None,
         extra_items: Sequence[ContextItem] = (),
         priority_hints: Mapping[str, ContextPriority | str] | None = None,
+        selection_rank_hints: Mapping[str, int] | None = None,
     ) -> ContextPlan:
         items: list[ContextItem] = []
         items.extend(system_pins)
@@ -322,6 +323,11 @@ class ContextManager:
         items.extend(extra_items)
         if priority_hints:
             items = self._apply_priority_hints(items, priority_hints)
+        normalized_ranks = (
+            self._validate_selection_rank_hints(items, selection_rank_hints)
+            if selection_rank_hints is not None
+            else None
+        )
         self._validate_groups(history_items)
 
         units: list[list[ContextItem]] = []
@@ -358,6 +364,26 @@ class ContextManager:
             ContextPriority.PROTECTED: -1,
         }
         remaining_units.sort(key=lambda unit: (priority_order[min(item.priority for item in unit)], unit[0].item_id))
+        if normalized_ranks is not None:
+            # Preserve legacy slots/fallback ordering while replacing only the
+            # order of ranked memory units within each existing priority class.
+            for priority in ContextPriority:
+                ranked_positions = [
+                    index
+                    for index, unit in enumerate(remaining_units)
+                    if min(item.priority for item in unit) == priority
+                    and any(item.category == ContextItemCategory.MEMORY for item in unit)
+                ]
+                ranked_units = sorted(
+                    (remaining_units[index] for index in ranked_positions),
+                    key=lambda unit: min(
+                        normalized_ranks[item.item_id]
+                        for item in unit
+                        if item.category == ContextItemCategory.MEMORY
+                    ),
+                )
+                for index, unit in zip(ranked_positions, ranked_units, strict=True):
+                    remaining_units[index] = unit
         for unit in remaining_units:
             unit_tokens = sum(item.estimated_tokens for item in unit)
             if (
@@ -487,6 +513,42 @@ class ContextManager:
             else item
             for item in items
         ]
+
+    @staticmethod
+    def _validate_selection_rank_hints(
+        items: Sequence[ContextItem],
+        selection_rank_hints: Mapping[str, int],
+    ) -> dict[str, int]:
+        normalized: dict[str, int] = {}
+        for item_id, rank in selection_rank_hints.items():
+            if not isinstance(item_id, str):
+                raise TypeError("selection rank hint item IDs must be strings")
+            if type(rank) is not int or rank <= 0:
+                raise ValueError("selection rank hints must be positive integers")
+            normalized[item_id] = rank
+        if len(set(normalized.values())) != len(normalized):
+            raise ValueError("selection rank hints must have unique ranks")
+
+        by_id = {item.item_id: item for item in items}
+        unknown = set(normalized) - set(by_id)
+        if unknown:
+            raise ValueError(f"selection rank hints refer to unknown context items: {sorted(unknown)}")
+        for item_id in normalized:
+            item = by_id[item_id]
+            if (
+                item.category != ContextItemCategory.MEMORY
+                or item.protected
+                or item.priority == ContextPriority.PROTECTED
+            ):
+                raise ValueError(f"selection rank hints only apply to eligible memory items: {item_id}")
+
+        memory_ids = {
+            item.item_id for item in items if item.category == ContextItemCategory.MEMORY
+        }
+        if set(normalized) != memory_ids:
+            missing = sorted(memory_ids - set(normalized))
+            raise ValueError(f"selection rank hints must cover every memory item: {missing}")
+        return normalized
 
     def _history_item(self, value: SessionEvent | ContextItem) -> ContextItem:
         if isinstance(value, ContextItem):

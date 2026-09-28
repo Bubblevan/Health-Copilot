@@ -1,0 +1,49 @@
+{
+  "current_projection_diagnostics_sha256": "a36be3ec78283a7472165d4ed07743d0cf12d89408939faf9d85eac94a1a0c7a",
+  "current_projection_frozen_manifest_sha256": "3c5ed255fb88aa14dbdf4436064dd97d80a33e631471b8ed731fff6168a5ec10",
+  "revisions": [
+    {
+      "benchmark_labels_accessed": false,
+      "corrected_source": "frozen MEM-2A context_bundles.jsonl native_retrieval_rank order",
+      "new_projection_diagnostics_sha256": "dbccc174e4e8bf35338ab55a96477ae6a375ace78576abac70ffa305cd9cd68f",
+      "new_projection_frozen_manifest_sha256": "f35f38f97e8760a1363af0bddc1d6b2029b56db09f8a5397ee86aeb9c4b2304d",
+      "prediction_cache_exists": false,
+      "previous_projection_diagnostics_sha256": "0e643c6a277af1e0f688276add5d314ec836a5268a06fc9defdc24d1a1f3448b",
+      "previous_projection_frozen_manifest_sha256": "2e8d23fea57dd142c34198c59d7d4edb41e4a0f2a84db0e2fc14bd381455b29a",
+      "reader_calls_before_refresh": 0,
+      "reason": "legacy projected order was initially read from native retrieval sequence rather than the frozen MEM-2A ContextBundle item sequence",
+      "schema_version": 1
+    },
+    {
+      "benchmark_labels_accessed": false,
+      "corrected_source": "frozen MEM-2A context_bundles.jsonl native_retrieval_rank order",
+      "new_projection_diagnostics_sha256": "c8d515e01d783fcc6ad7024b20bec03731aafd91cebef72040aace5f15f5ea7d",
+      "prediction_cache_exists": false,
+      "previous_projection_diagnostics_sha256": "dbccc174e4e8bf35338ab55a96477ae6a375ace78576abac70ffa305cd9cd68f",
+      "previous_projection_frozen_manifest_sha256": "f35f38f97e8760a1363af0bddc1d6b2029b56db09f8a5397ee86aeb9c4b2304d",
+      "reader_calls_before_refresh": 0,
+      "reason": "corrected diagnostic calculation to use the actual frozen MEM-2A ContextBundle item order and include explicit inversion-case counts"
+    },
+    {
+      "benchmark_labels_accessed": false,
+      "corrected_source": "frozen MEM-2A context_bundles.jsonl native_retrieval_rank order",
+      "new_projection_diagnostics_sha256": "3293d4a5e11adc97534bdc1aa8cecf10c5f03a8020291f325935d8097a10405f",
+      "prediction_cache_exists": false,
+      "previous_projection_diagnostics_sha256": "c8d515e01d783fcc6ad7024b20bec03731aafd91cebef72040aace5f15f5ea7d",
+      "previous_projection_frozen_manifest_sha256": "f9717c1b1a03f910625488322da45703d307d2f4219c3a393aab242d96b0a1d0",
+      "reader_calls_before_refresh": 0,
+      "reason": "corrected diagnostic calculation to use the actual frozen MEM-2A ContextBundle item order and include explicit inversion-case counts"
+    },
+    {
+      "benchmark_labels_accessed": false,
+      "corrected_source": "frozen MEM-2A context_bundles.jsonl native_retrieval_rank order",
+      "new_projection_diagnostics_sha256": "a36be3ec78283a7472165d4ed07743d0cf12d89408939faf9d85eac94a1a0c7a",
+      "prediction_cache_exists": false,
+      "previous_projection_diagnostics_sha256": "3293d4a5e11adc97534bdc1aa8cecf10c5f03a8020291f325935d8097a10405f",
+      "previous_projection_frozen_manifest_sha256": "3db2e9a59af8693b47000cd7578939f86b4bc90f58123dd0c06de500c35c5ce3",
+      "reader_calls_before_refresh": 0,
+      "reason": "corrected diagnostic calculation to use the actual frozen MEM-2A ContextBundle item order and include explicit inversion-case counts"
+    }
+  ],
+  "schema_version": 2
+}

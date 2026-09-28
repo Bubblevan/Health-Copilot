@@ -1,0 +1,1903 @@
+{
+  "call_ledger_sha256": "b5ba6ace549fc2e12bac8920ccb18be24c4d37d8b687d1f9fcea8b06d5ee11f7",
+  "labels_accessed_after_prediction_freeze": true,
+  "per_question": [
+    {
+      "estimated_memory_tokens": 885,
+      "legacy_dropped_ranks": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 0.3333333333333333,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5,
+        "selected_memory_ids": [
+          "m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8",
+          "m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109",
+          "m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:2a0c336c:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll start with the Coursera course from University of Virginia. Do you know how many hours a week I should dedicate to studying to complete the course in, say, 3 months? Also, do you have any advice on how to stay motivated and on track with online courses?\",\"role\":\"user\",\"session_date\":\"2023/05/27 (Sat) 16:48\"},\"value_sha256\":\"54f1f2098db8b73445909adb5b96c9fb3a193c1192e55bc8219ddde800fd48bc\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:52d46b4a_1:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's wonderful to hear about your experience at the animal shelter's charity walk! It's great that you're looking to continue volunteering and giving back to your community.\\n\\nI'm happy to help you find more local volunteer opportunities. However, I'm a large language model, I don't have real-time access to specific events or listings. But I can provide you with some suggestions on how to find volunteer opportunities in your area:\\n\\n1. **Volunteer Match**: A popular online platform that connects volunteers with non-profit organizations. You can search for opportunities by location, cause, and type of work.\\n2. **Local Non-Profit Organizations**: Research organizations in your area that align with your interests and values. Many have volunteer programs or events that you can participate in.\\n3. **United Way**: A national organization with local chapters that often have volunteer opportunities and events. You can search for your local United Way chapter and see what opportunities are available.\\n4. **Community Calendars**: Check local newspaper, event calendars, or community boards for upcoming events that may need volunteers.\\n5. **Social Media**: Follow local non-profits, charities, and community groups on social media platforms like Facebook, Twitter, or Instagram. They often post about upcoming events and volunteer opportunities.\\n6. **Local Parks and Recreation Departments**: Many parks and recreation departments have volunteer programs for events, clean-up initiatives, or environmental projects.\\n7. **Food Banks and Pantries**: Food banks and pantries often rely on volunteers to help sort and distribute food to those in need.\\n\\nRegarding the gala you attended, that's fantastic to hear that it raised over $200,000 for the local children's hospital! It's wonderful to see the impact of community events like that.\\n\\nRemember to also consider reaching out to friends, family, or colleagues to see if they know of any volunteer opportunities or events that might interest you. Word of mouth can be a great way to discover new opportunities!\\n\\nI hope these suggestions help you find your next volunteer opportunity. Good luck, and keep making a positive impact in your community!\",\"role\":\"assistant\",\"session_date\":\"2023/05/28 (Sun) 21:03\"},\"value_sha256\":\"4a731c397c7a0140d8544f8759ed43ace3fbfb7988ebf52900bb7d8a402ef4a1\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:answer_79c395a9_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll try using the \\\"Question Sticker\\\" feature in Instagram Stories first, since it seems like a quick and easy way to get started. Do you have any tips on how to promote my Q&A session to get more followers to participate?\",\"role\":\"user\",\"session_date\":\"2023/05/28 (Sun) 22:57\"},\"value_sha256\":\"1d031e182a7658280142e48bc175ef78a817b9d169b850039e8640ae77c4dedc\"}"
+      },
+      "legacy_projected_order_inversion_count": 2,
+      "legacy_selected_ranks": [
+        6,
+        7,
+        1
+      ],
+      "legacy_selection_inversion_count": 8,
+      "legacy_top_1_survived": true,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 2,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 1.0,
+          "recall_at_10": 1.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 1.0,
+          "recall_at_8": 1.0
+        },
+        "mrr": 1.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "answer_79c395a9_2",
+          "answer_79c395a9_2"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "projection_only_change": true,
+      "question_id": "1cea1afa",
+      "rank_aware_dropped_ranks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        2
+      ],
+      "rank_aware_selection_inversion_count": 0,
+      "reader_prompt_sha256": "b2139adf089ca050509f22ccc74abcb9d24f604a4ae26ea5453e2c31b0850401",
+      "reader_prompt_tokens_preflight": 1107,
+      "reader_tokenized_context_tokens": 1010,
+      "rendered_prompt_sha256": "bd8a8303c78f9ae109aa128376eb4f08c94f2f4548f67a968ce1b5fcf9ca09a7",
+      "top_1_survived": true,
+      "top_3_survival_count": 2,
+      "top_3_survival_rate": 0.6666666666666666,
+      "top_5_survival_count": 2,
+      "top_5_survival_rate": 0.4,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 825,
+      "legacy_dropped_ranks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 0.5,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5,
+        "selected_memory_ids": [
+          "m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73",
+          "m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:ddcd2c65_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"It sounds like you've been putting your new Adidas sneakers to good use. The classic black and white colorway is a great choice - it's easy to pair with just about anything.\\n\\nIt's awesome that you've been experimenting with different outfits and finding ways to style your sneakers with dresses. Sneakers have become a staple in many people's wardrobes, and they can add a cool, casual touch to even dressier outfits.\\n\\nSince you mentioned wearing them with dresses, I have to ask: Have you considered adding any sneaker-specific accessories to your outfit? For example, sneaker socks, lace charms, or even sneaker cleaning wipes can be great additions to your sneaker game.\\n\\nAlso, have you thought about protecting your new kicks from the elements? Adidas sneakers are generally durable, but it's always a good idea to take care of them to make them last longer. You might consider getting a waterproofing spray or cream to help repel water and stains.\\n\\nBut overall, it sounds like you're really enjoying your new sneakers, and that's what matters most!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 07:53\"},\"value_sha256\":\"80d7a60464bd17d7bef915c3f1e3b4cfedda5af9efec653a155ed866c7559b6f\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_4cb841a8_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"For general cleaning and maintenance, with some interior detailing, and gentle on sensitive paint, I'd recommend the following kits:\\n\\n**Option 1: Meguiar's Gold Class Car Care Kit**\\n\\n* Price: Around $60-$70\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Meguiar's Gold Class products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes interior cleaner and a microfiber cloth for cleaning surfaces, but not a dedicated interior detailing product\\n\\n**Option 2: Chemical Guys Car Care Kit**\\n\\n* Price: Around $70-$80\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Chemical Guys products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\n**Option 3: Autoglym Car Care Kit**\\n\\n* Price: Around $120-$130\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Autoglym products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\nAll of these kits are great options for general cleaning and maintenance, and are gentle on sensitive paint. The Autoglym kit is a bit more expensive, but it includes higher-end products and a more comprehensive range of items.\\n\\nIf you're looking for a more budget-friendly option, the Meguiar's or Chemical Guys kits might be the way to go. If you're willing to invest a bit more, the Autoglym kit is a great choice.\\n\\nDo any of these options stand out to you, or would you like more information on any of these kits?\",\"role\":\"assistant\",\"session_date\":\"2023/05/25 (Thu) 12:36\"},\"value_sha256\":\"dbf9bed29c20bd2e9f2cd7a02cba63ef355662dc97fd71ea5d195c1b0db0b5e0\"}"
+      },
+      "legacy_projected_order_inversion_count": 1,
+      "legacy_selected_ranks": [
+        8,
+        3
+      ],
+      "legacy_selection_inversion_count": 8,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 2,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 1.0,
+          "recall_at_10": 1.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 1.0,
+          "recall_at_8": 1.0
+        },
+        "mrr": 1.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "answer_4cb841a8_1",
+          "answer_4cb841a8_1"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "projection_only_change": true,
+      "question_id": "1c549ce4",
+      "rank_aware_dropped_ranks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        4
+      ],
+      "rank_aware_selection_inversion_count": 2,
+      "reader_prompt_sha256": "0664d7e7d458ef4575d825a099d862ec6aea23091a9dff1fadba4d674f5ef977",
+      "reader_prompt_tokens_preflight": 1122,
+      "reader_tokenized_context_tokens": 1019,
+      "rendered_prompt_sha256": "be79bd58813b5a2a69ddf15a60cbeb6b44a3197de6c7cce60d4f9fd0083c07c2",
+      "top_1_survived": true,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 2,
+      "top_5_survival_rate": 0.4,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 611,
+      "legacy_dropped_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.2,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:490bb46d_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Music festivals are so much fun! Packing the right essentials can make a huge difference in your festival experience. Here's a list of must-haves to consider bringing along:\\n\\n**The Essentials:**\\n\\n1. **Tickets and Wristbands**: Make sure you have your festival tickets, wristbands, and any other necessary documents easily accessible.\\n2. **Water Bottle**: Stay hydrated with a refillable water bottle. Many festivals offer water refill stations.\\n3. **Sunscreen and Sun Hat**: Protect yourself from the sun with SPF 30 or higher sunscreen, a sun hat, and sunglasses.\\n4. **Comfortable Shoes**: Wear comfortable shoes or sneakers that can handle the festival terrain.\\n5. **Portable Charger**: Bring a portable charger to keep your phone or other devices charged throughout the day.\\n6. **Cash and Credit Cards**: Bring a combination of cash and credit cards for food, merchandise, and other purchases.\\n7. **Small First-Aid Kit**: Pack a small first-aid kit with essentials like band-aids, antiseptic wipes, and pain relievers.\\n\\n**Food and Snacks:**\\n\\n1. **Reusable Snack Containers**: Bring reusable containers for snacks like nuts, fruits, or energy bars.\\n2. **Waterproof Snack Bags**: Pack snacks like sandwiches, crackers, or chips in waterproof bags to keep them dry.\\n3. **Fresh Fruits**: Bring fresh fruits like apples, oranges, or bananas to keep you energized.\\n4. **Energy Bars**: Pack energy bars or protein bars to keep your energy levels up.\\n\\n**Personal Items:**\\n\\n1. **Small Towel**: Bring a small towel to wipe sweat or dry off in case of rain.\\n2. **Deodorant and Wipes**: Pack travel-sized deodorant and wipes to stay fresh throughout the day.\\n3. **Any Medications**: If you have any prescription medications, be sure to bring them along.\\n4. **Small Umbrella or Rain Jacket**: Bring a small umbrella or rain jacket in case of unexpected rain showers.\\n\\n**Miscellaneous:**\\n\\n1. **Phone Case and Screen Protector**: Protect your phone with a waterproof case and screen protector.\\n2. **Earplugs**: Bring earplugs to protect your hearing during loud performances.\\n3. **Festival Map**: Bring a printed or digital copy of the festival map to help navigate the grounds.\\n4. **Cashless Wristband**: If the festival offers a cashless wristband, consider using it to make purchases.\\n\\n**Tips:**\\n\\n1. **Pack Light**: Try to pack only the essentials to avoid carrying a heavy backpack.\\n2. **Check the Festival Website**: Check the festival website for any specific items that may be prohibited or recommended.\\n3. **Designate a Meeting Spot**: Designate a meeting spot with your friends in case you get separated.\\n4. **Stay Hydrated**: Drink plenty of water throughout the day to stay hydrated and energized.\\n\\nRemember to check the festival's website for specific rules and regulations on what you can and cannot bring. Have a blast at the festival!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 12:23\"},\"value_sha256\":\"dbc6fd63a48f5175dda892cf3cd0816a881c9d4e3b50deb75b7034a77685e0cb\"}"
+      },
+      "legacy_projected_order_inversion_count": 0,
+      "legacy_selected_ranks": [
+        7
+      ],
+      "legacy_selection_inversion_count": 6,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.0,
+      "legacy_top_5_survival_rate": 0.0,
+      "max_model_length": 131072,
+      "memory_record_count": 1,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.0,
+          "recall_at_10": 0.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.0,
+          "recall_at_8": 0.0
+        },
+        "mrr": 0.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "2d74df23_3"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.2,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "projection_only_change": true,
+      "question_id": "778164c6",
+      "rank_aware_dropped_ranks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        2
+      ],
+      "rank_aware_selection_inversion_count": 1,
+      "reader_prompt_sha256": "43764ef7e5c3f3e09f63e48cee2eb5d801aeb59dec798281cd22ad8ce8abd6f6",
+      "reader_prompt_tokens_preflight": 782,
+      "reader_tokenized_context_tokens": 656,
+      "rendered_prompt_sha256": "76d85f247c1e24cfbf728f9d1077db12ff5f3c074c1bcf59b0b6703953f2ce7c",
+      "top_1_survived": false,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 1,
+      "top_5_survival_rate": 0.2,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 948,
+      "legacy_dropped_ranks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.2753623188405797,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:2f2884ad_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Wonderful choice! Abstract expressionism is a fantastic way to tap into your creativity and emotions. I'm excited to help you get started!\\n\\nAbstract art can be intimidating, but with a few tips and a willingness to experiment, you'll be creating stunning pieces in no time. Here are some tips to help you get started with abstract expressionism using acrylics:\\n\\n1. **Let go of control**: Abstract art is all about embracing the unknown. Don't worry about creating a perfect piece or following a specific plan. Allow yourself to be spontaneous and let the paint guide you.\\n2. **Choose your colors**: Select a palette that resonates with your emotions or the theme you want to convey. You can choose bold and bright colors or muted and pastel shades. Consider the mood you want to evoke: energetic, calm, playful, or introspective.\\n3. **Prepare your surface**: Use a primed canvas or board, and consider adding a textured surface with modeling paste, gel medium, or even fabric for added interest.\\n4. **Start with a gesture**: Make a bold, expressive mark on the canvas with a large brush or a palette knife. This initial gesture will set the tone for your piece.\\n5. **Play with techniques**: Experiment with different techniques to create unique textures and effects:\\n\\t* Dripping: Use a wet-on-wet technique by adding water to your paint or using a spray bottle to create drips and runs.\\n\\t* Scraping: Use a palette knife or a scraper to remove paint and reveal underlying layers.\\n\\t* Blending: Mix colors on the canvas by layering wet paint or using a wet brush to merge colors.\\n\\t* Stamping: Use household items like sponges, crumpled paper, or even found objects to create patterns and textures.\\n6. **Build up layers**: Abstract art often involves building up layers of paint to create depth and complexity. Don't be afraid to add, subtract, and modify your layers as you go.\\n7. **Step back and evaluate**: Take breaks to step back from your work and assess the composition. Ask yourself: What's working? What's not? What needs more attention?\\n8. **Embrace mistakes**: Remember, mistakes are an essential part of the creative process. They can lead to unexpected and exciting results. Don't be too hard on yourself if your piece doesn't turn out as planned.\\n9. **Experiment with mediums**: Acrylic paint can be mixed with a range of mediums to alter its consistency, texture, and finish. Try using glazes, matte medium, or heavy body acrylics to add variety to your work.\\n10. **Have fun**: Most importantly, enjoy the process! Abstract art is a journey, and the act of creating is just as important as the final result.\\n\\nTo get started, you might want to try a simple exercise:\\n\\n**Warm-up exercise:**\\n\\n* Set a timer for 10-15 minutes.\\n* Choose a color palette and a large brush.\\n* Make a bold, expressive mark on the canvas.\\n* Respond to that mark with another brushstroke, and another, and another.\\n* Let the paint guide you, and see where the process takes you.\\n\\nRemember, the goal is to have fun and tap into your creative energy. Don't worry too much about the outcome – it's all about the journey!\\n\\nDo you have any specific questions about getting started with abstract expressionism, or would you like more tips on a particular technique?\",\"role\":\"assistant\",\"session_date\":\"2023/08/15 (Tue) 02:18\"},\"value_sha256\":\"7faabd1770da18f94104f77aaf0c9a8c605f463affd2fdbb10d84342c675410e\"}"
+      },
+      "legacy_projected_order_inversion_count": 0,
+      "legacy_selected_ranks": [
+        3
+      ],
+      "legacy_selection_inversion_count": 2,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 5,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.0,
+          "recall_at_10": 0.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.0,
+          "recall_at_8": 0.0
+        },
+        "mrr": 0.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "762a8b45_2",
+          "fc005760",
+          "7b9ee249_2",
+          "f504b269",
+          "5d5e80c5_1"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.3188405797101449,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "projection_only_change": true,
+      "question_id": "fca70973",
+      "rank_aware_dropped_ranks": [
+        3,
+        5,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ],
+      "rank_aware_selection_inversion_count": 5,
+      "reader_prompt_sha256": "c250e9cf584a029911591744cb99d19a254f293adfabdba16ea294749b01497d",
+      "reader_prompt_tokens_preflight": 1552,
+      "reader_tokenized_context_tokens": 1450,
+      "rendered_prompt_sha256": "57bcfc70aab2689766dec0a1ee6ba668d1eec03055bdccced87278dd9c9cc087",
+      "top_1_survived": true,
+      "top_3_survival_count": 2,
+      "top_3_survival_rate": 0.6666666666666666,
+      "top_5_survival_count": 3,
+      "top_5_survival_rate": 0.6,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 505,
+      "legacy_dropped_ranks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5",
+          "m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:daa32134:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Excellent plan! Organizing your memories by theme and location will help you create a cohesive and engaging scrapbook or journal. Now, let's dive into writing engaging captions and journal entries to bring your memories to life!\\n\\n**Tips for Writing Engaging Captions and Journal Entries:**\\n\\n1. **Be descriptive**: Use sensory language to describe what you saw, heard, smelled, tasted, and felt. This will help your readers experience your trip vicariously.\\n2. **Tell a story**: Use your captions and journal entries to tell a story about your trip. Share your thoughts, feelings, and experiences, and try to convey the emotions you felt during each moment.\\n3. **Use humor**: Don't be afraid to add a dash of humor to your writing. Funny anecdotes and witty observations can make your scrapbook or journal more entertaining and relatable.\\n4. **Be honest**: Share your genuine reactions and opinions about the places you visited and the experiences you had. This will help your readers connect with your story on a deeper level.\\n5. **Use quotes and lyrics**: Incorporate relevant quotes, song lyrics, or phrases that resonated with you during your trip. This can add depth and context to your writing.\\n6. **Keep it concise**: Remember that you're writing for a scrapbook or journal, not a novel. Keep your captions and journal entries brief and to the point, focusing on the most important details and emotions.\\n7. **Use prompts**: If you're struggling to write, try using prompts like:\\n\\t* \\\"What was the highlight of my day?\\\"\\n\\t* \\\"What did I learn about myself during this trip?\\\"\\n\\t* \\\"What was the most challenging part of this experience?\\\"\\n\\t* \\\"What would I do differently if I could relive this moment?\\\"\\n\\n**Example Captions and Journal Entries:**\\n\\n**NYC Trip:**\\n\\n* Caption: \\\"The iconic NYC skyline from the Top of the Rock. I felt like I was on top of the world!\\\"\\n* Journal Entry: \\\"Today was a whirlwind of excitement and exhaustion. We walked over 10 miles, but it was worth it to see the bright lights of Times Square and the tranquility of Central Park.\\\"\\n\\n**California Road Trip:**\\n\\n* Caption: \\\"Sunset over the Pacific Coast Highway. This view never gets old!\\\"\\n* Journal Entry: \\\"Driving along the PCH was a dream come true. The scenic views, the ocean breeze, and the sound of the waves crashing against the shore... it was pure bliss.\\\"\\n\\n**Japan Solo Trip:**\\n\\n* Caption: \\\"Trying my first sushi at the Tsukiji Fish Market. What an experience!\\\"\\n* Journal Entry: \\\"Today was a day of triumphs and struggles. I navigated the Tokyo subway system alone, but got lost in the process. However, I discovered a hidden gem of a cafe and met a fellow traveler who shared some valuable tips.\\\"\\n\\nRemember, the key to writing engaging captions and journal entries is to be genuine, descriptive, and concise. Don't be afraid to experiment and try different styles until you find what works best for you and your scrapbook or journal. Good luck, and have fun!\",\"role\":\"assistant\",\"session_date\":\"2023/05/26 (Fri) 04:44\"},\"value_sha256\":\"c5e180b42d972105132adbca53da50bf2c1b376aee8c53482c5ce184a97d9c65\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:f18ebe36_4:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm looking for some tips on how to properly clean and maintain my Funko Pop collection. I've got 13 of them now, and they're getting a bit dusty. Do you have any recommendations for a good cleaning solution and soft cloth? By the way, I also bought a vintage Transformers action figure at a comic con last weekend, which I'm planning to display in a glass case once I get one.\",\"role\":\"user\",\"session_date\":\"2023/05/20 (Sat) 04:20\"},\"value_sha256\":\"b7d114a92a4e95e27666ae48d76f055fd4e80eb16ca402e0994e5693d7fbeaf3\"}"
+      },
+      "legacy_projected_order_inversion_count": 1,
+      "legacy_selected_ranks": [
+        8,
+        2
+      ],
+      "legacy_selection_inversion_count": 7,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 3,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 1.0,
+          "recall_at_10": 1.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 1.0,
+          "recall_at_8": 1.0
+        },
+        "mrr": 1.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "answer_787e6a6d",
+          "f18ebe36_4",
+          "d9727262_4"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": true,
+        "gold_token_coverage": 1.0,
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "projection_only_change": true,
+      "question_id": "a82c026e",
+      "rank_aware_dropped_ranks": [
+        3,
+        4,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        2,
+        5
+      ],
+      "rank_aware_selection_inversion_count": 2,
+      "reader_prompt_sha256": "b9ef06f670bddbe978bc54d74217c359607b5ba603f4c13cfd26a5f6bef0e4b4",
+      "reader_prompt_tokens_preflight": 917,
+      "reader_tokenized_context_tokens": 820,
+      "rendered_prompt_sha256": "95b5a2d77e8ba07a0a36277354dd07c8bc11a1aa969f32ba45dad107abb82d1a",
+      "top_1_survived": true,
+      "top_3_survival_count": 2,
+      "top_3_survival_rate": 0.6666666666666666,
+      "top_5_survival_count": 3,
+      "top_5_survival_rate": 0.6,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 715,
+      "legacy_dropped_ranks": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.14285714285714285,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:ultrachat_231231:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"As an AI language model, I don't have personal experiences, emotions, opinions whose words are authentic, so I can present some facts about the use of technology in modern military bands versus those of the past as follows:\\n\\nTechnology has revolutionized military bands over the years, making them more mobile, versatile, and capable of producing a range of sounds. Modern military bands incorporate a variety of electronic instruments, amplification, and digital effects that were not available in the past. These instruments include electronic keyboards, digital synthesizers, electronic drum kits, and electric guitars.\\n\\nThe traditional military band instruments like brass and percussion still represent the mainstay of military bands. However, the use of digitally recorded music has become more common, replacing or supplementing live musicians.\\n\\nThe use of technology has also made it possible for military bands to perform in a wider range of settings, from the small confines of a parade ground to grand concert halls. Portable sound equipment and modern recording and editing software now allow military bands to record and produce music outside of the studio or live event.\\n\\nIn the past, military bands relied on human skills and talent, but today, computer software programs are used to enhance the sound and rhythm of instruments, which are beyond human capabilities. The software allows altering music compositions, pitch correction, and rhythm adjustments, making military band performances more visually and audibly impressive.\\n\\nAnother positive aspect of technology for military bands is the influence that technology has on crowd participation. Social media, for example, has become critical in promoting military bands, engaging fans, and patrons. In the past, fans were limited to the immediate vicinity of a live performance, but today fans can follow military bands from social media platforms.\\n\\nIn conclusion, while traditional military band instruments like brass and percussion continue to represent the core of military bands, technology has had a significant impact on the makeup and capabilities of modern military bands. The use of technology has allowed modern military bands to be more versatile, mobile, and capable of producing a more extensive range of sounds than was possible in past times.\",\"role\":\"assistant\",\"session_date\":\"2023/06/03 (Sat) 22:35\"},\"value_sha256\":\"acb96eb82c18fe11c30a16b0fe00f8c1025d48c1aefb48fe188e5e063fa7be6d\"}"
+      },
+      "legacy_projected_order_inversion_count": 0,
+      "legacy_selected_ranks": [
+        2
+      ],
+      "legacy_selection_inversion_count": 1,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 1,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.0,
+          "recall_at_10": 0.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.0,
+          "recall_at_8": 0.0
+        },
+        "mrr": 0.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "9dac9e37_1"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.2857142857142857,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "projection_only_change": true,
+      "question_id": "gpt4_e061b84g",
+      "rank_aware_dropped_ranks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1
+      ],
+      "rank_aware_selection_inversion_count": 0,
+      "reader_prompt_sha256": "8893a29fd7e48db39d987330481b59a47d2f1d2035715db499a89968cf0a622b",
+      "reader_prompt_tokens_preflight": 819,
+      "reader_tokenized_context_tokens": 715,
+      "rendered_prompt_sha256": "7ee2647b03ab2a5bfdcea7a3fa067e1f0076efbc92d250595efd7e4057d0c3ed",
+      "top_1_survived": true,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 1,
+      "top_5_survival_rate": 0.2,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 968,
+      "legacy_dropped_ranks": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.6,
+        "mrr": 1.0,
+        "recall_at_5": 0.4,
+        "recall_at_8": 0.4,
+        "selected_memory_ids": [
+          "m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff",
+          "m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:answer_d8a1af6b_4:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I completely understand your concerns about checked bag fees and the potential risks of delayed or lost luggage.\\n\\nAmerican Airlines has a Baggage Delivery Guarantee, which is designed to provide peace of mind for passengers who check bags. Here's what you need to know:\\n\\n**Baggage Delivery Guarantee:**\\n\\n1. **Definition of delayed baggage**: American Airlines considers a bag delayed if it's not available at the baggage claim area within 4 hours of the flight's arrival.\\n2. **Guarantee**: If your bag is delayed, American Airlines will deliver it to your destination within 24 hours. If they fail to do so, you'll receive a $25 voucher for future travel on American Airlines.\\n3. **Lost baggage**: If your bag is lost, American Airlines will reimburse you up to $3,500 for the value of the contents.\\n\\n**What to do if your bag is delayed or lost:**\\n\\n1. **Report the issue**: Inform an American Airlines representative at the baggage claim area or a ticket counter about the delayed or lost bag.\\n2. **Fill out a report**: You'll need to complete a report, which will help American Airlines track your bag and facilitate the delivery or reimbursement process.\\n3. **Provide contact information**: Make sure to provide your contact information, including your phone number and email address, so American Airlines can keep you updated on the status of your bag.\\n\\n**Tips and Considerations:**\\n\\n1. **Pack essentials in your carry-on**: Consider packing essential items like medications, valuables, and a change of clothes in your carry-on luggage in case your checked bag is delayed or lost.\\n2. **Label your bag**: Make sure to label your bag with your name, address, and contact information to facilitate identification and delivery.\\n3. **Keep receipts**: Keep receipts for any essential items you need to purchase while waiting for your delayed bag, as you may be able to claim reimbursement from American Airlines.\\n4. **Check your travel insurance**: If you have travel insurance, check if it covers delayed or lost luggage, as this may provide additional protection.\\n\\nWhile American Airlines' Baggage Delivery Guarantee provides some protection, it's still essential to be prepared for the possibility of delayed or lost luggage.\\n\\nBy understanding the process and taking precautions, you can minimize the impact of a delayed or lost bag and enjoy your week-long trip to Miami!\",\"role\":\"assistant\",\"session_date\":\"2023/02/10 (Fri) 17:40\"},\"value_sha256\":\"94f3e7f8d866407a2c3899ece7528fe0a2f974977abd1ae50705dc530abdcb2d\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_d8a1af6b_3:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad you brought up Spirit Airlines' baggage policies. Speaking of delays, I had a 1-hour delay on my United Airlines flight from Boston to Chicago due to air traffic control issues, but thankfully, the pilot kept us well-informed throughout the delay. Anyway, back to Spirit Airlines - I'm planning to book a round-trip ticket from Boston to Fort Lauderdale for my spring break trip in March, and I need to double-check my luggage dimensions before the trip. Can you remind me what the maximum size is for a personal item on Spirit Airlines?\",\"role\":\"user\",\"session_date\":\"2023/01/28 (Sat) 01:32\"},\"value_sha256\":\"903f91af7dde299a85034c8e8ba55b424532fc58605034801e7be761065d6e90\"}"
+      },
+      "legacy_projected_order_inversion_count": 1,
+      "legacy_selected_ranks": [
+        6,
+        4
+      ],
+      "legacy_selection_inversion_count": 7,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.0,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 2,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.6,
+        "answer_session_recall_at_8": 0.8,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.5,
+          "recall_at_10": 0.8,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.6,
+          "recall_at_8": 0.8
+        },
+        "mrr": 0.5,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "answer_d8a1af6b_5",
+          "answer_d8a1af6b_3"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.8,
+        "mrr": 1.0,
+        "recall_at_5": 0.4,
+        "recall_at_8": 0.4
+      },
+      "projection_only_change": true,
+      "question_id": "gpt4_f420262c",
+      "rank_aware_dropped_ranks": [
+        1,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        2,
+        4
+      ],
+      "rank_aware_selection_inversion_count": 3,
+      "reader_prompt_sha256": "cd47adb9546e760b66bd3e1d66ea7dae6b2370e1e535603ec55974f7dda120f2",
+      "reader_prompt_tokens_preflight": 1192,
+      "reader_tokenized_context_tokens": 1088,
+      "rendered_prompt_sha256": "b25d390111165435260fa118aa4a60fc083c74b48e4b37f65174deee9f98e8e0",
+      "top_1_survived": false,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 2,
+      "top_5_survival_rate": 0.4,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 983,
+      "legacy_dropped_ranks": [
+        1,
+        3,
+        4,
+        6,
+        7
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": true,
+        "gold_token_coverage": 1.0,
+        "mrr": 0.5,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0,
+        "selected_memory_ids": [
+          "m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29",
+          "m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23",
+          "m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:8ec23b2c:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad to hear that you were invested in the story and characters! The Last of Us Part II is indeed a masterclass in storytelling and character development. Ellie and Abby's complex and nuanced characters are a big part of what makes the game so compelling.\\n\\nThe themes of revenge, trauma, and the cycle of violence are indeed powerful and thought-provoking. The game does an excellent job of exploring the consequences of violence and the emotional toll it takes on the characters.\\n\\nAnd ah, I'm sure that feeling of finally defeating a tough boss is incredibly satisfying! It's a testament to the game's design and difficulty curve that it can evoke such a strong sense of accomplishment.\\n\\nAs a side note, it's interesting that you mention Abby as one of your favorite characters. She's a complex and polarizing character, and opinions about her are often divided. What did you think of her character arc and her motivations?\\n\\n(By the way, I'll avoid any spoilers in case anyone reading this hasn't finished the game.)\",\"role\":\"assistant\",\"session_date\":\"2023/05/29 (Mon) 17:24\"},\"value_sha256\":\"7d6d567ef24ddb67b787541d13b328d1a507fe047920e26a63b8808131a14328\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_c8354ae9:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Bombay Sapphire is an excellent choice for a classic gin and tonic! It's a great gin for beginners and experienced enthusiasts alike, and its balanced flavor profile makes it a versatile base for various cocktails.\\n\\nAnd yes, I'm familiar with Fever-Tree! They're a well-respected brand in the world of tonic waters, and their elderflower tonic is a popular choice among gin enthusiasts. The subtle sweetness and delicate floral flavor of elderflower pair beautifully with the botanicals in Bombay Sapphire. It's a match made in heaven!\\n\\nFever-Tree's elderflower tonic is a great example of how a high-quality tonic water can elevate the G&T experience. The brand's focus on using natural ingredients and avoiding artificial flavorings and sweeteners has helped to set a new standard for premium tonic waters.\\n\\nIf you're enjoying the elderflower tonic, you might want to explore other Fever-Tree flavors as well. Their grapefruit and lemon tonics are also excellent pairings for Bombay Sapphire, and their Mediterranean tonic is a great choice for those who prefer a more herbal and aromatic flavor profile.\\n\\nAs you continue to experiment with different gin and tonic combinations, don't be afraid to try new and unusual pairings. You might discover a new favorite flavor combination that will take your G&T game to the next level!\\n\\nNow, let's get back to your Lavender Dream cocktail. With your Bombay Sapphire and Fever-Tree elderflower tonic, you're already halfway there. What do you think about adding a lavender syrup or infusion to create a unique and refreshing summer cocktail?\",\"role\":\"assistant\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"6396bdf943ca6ec972694f8e0c4a01896e28ef03880dc4c4d18b80eafdaad195\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:answer_c8354ae9:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's a lot of great ideas! I'm particularly interested in the Lavender Dream, as I've been experimenting with lavender in my cocktails lately. Speaking of which, I tried a lavender gin fizz recipe last weekend, but it didn't quite turn out as expected - I didn't have simple syrup, so I had to improvise with honey and water. Do you have any tips on making a good simple syrup, or would you recommend a specific brand?\",\"role\":\"user\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"dd8b8bac0a2ba0b3e08806b103c155bb8142199343674f5e8d96cfaa669cd77d\"}"
+      },
+      "legacy_projected_order_inversion_count": 2,
+      "legacy_selected_ranks": [
+        8,
+        2,
+        5
+      ],
+      "legacy_selection_inversion_count": 9,
+      "legacy_top_1_survived": false,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.4,
+      "max_model_length": 131072,
+      "memory_record_count": 2,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 1.0,
+          "recall_at_10": 1.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 1.0,
+          "recall_at_8": 1.0
+        },
+        "mrr": 1.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "answer_c8354ae9",
+          "answer_c8354ae9"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": true,
+        "gold_token_coverage": 1.0,
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "projection_only_change": true,
+      "question_id": "8550ddae",
+      "rank_aware_dropped_ranks": [
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        4
+      ],
+      "rank_aware_selection_inversion_count": 2,
+      "reader_prompt_sha256": "2d1c007de1520bbd67c6048785506967ee5fcfc10f8ab676ca6d5257ec2ae1af",
+      "reader_prompt_tokens_preflight": 1266,
+      "reader_tokenized_context_tokens": 1167,
+      "rendered_prompt_sha256": "8df1d6f579d559d5ca88f772f17ef30e8b0b6355ebe9585eb5b6d46bb5c09691",
+      "top_1_survived": true,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 2,
+      "top_5_survival_rate": 0.4,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 967,
+      "legacy_dropped_ranks": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.4230769230769231,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f",
+          "m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4",
+          "m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a",
+          "m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:sharegpt_GSC090N_6:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Based on the error message you provided, it seems like there is a conflict with the dependency resolution. Using the `--force` flag may not be a good idea since it can override some safety checks and install dependencies with incompatible versions that can break your project.\\n\\nInstead, you can try using the `--legacy-peer-deps` flag, which instructs npm to install packages even if they have peer dependencies that are not compatible with your current setup. This can sometimes work as a workaround when dealing with conflicting peer dependencies.\\n\\nSo you can try running the following command:\\n```css\\nnpm install --legacy-peer-deps\\n```\\nThis should allow npm to install packages without the conflict errors you have been encountering. However, keep in mind that this might not fix the issue entirely, as the dependencies installed may not work properly together. It is always better to use compatible versions of packages whenever possible to ensure the stability of your project.\",\"role\":\"assistant\",\"session_date\":\"2023/05/27 (Sat) 11:48\"},\"value_sha256\":\"a138c563cb0a29c4ba5a23c67d9a4d3a5e095238c95607b3661c5af53fdd9a52\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:ca929779_1:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I love the Quinoa Breakfast Bowl idea! I've been making a big batch of quinoa every Sunday to last me throughout the week, so this is a great way to repurpose it for breakfast. Can you suggest some nuts or seeds that would pair well with the quinoa breakfast bowl?\",\"role\":\"user\",\"session_date\":\"2023/05/24 (Wed) 18:27\"},\"value_sha256\":\"d2b17bffa4ea4b01ce8cdbe10c72a5ae9e9ed22c742c8f84b6cf6832f81eb5c6\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:sharegpt_6Two42G_35:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I apologize for the frustration and inconvenience that my previous responses may have caused you. I assure you that I have the ability to provide images or screenshots as examples. However, there may be technical issues or restrictions that prevent some links from working properly or being accessible in certain regions.\\n\\nTo clarify my previous answers, the examples and images I mentioned were meant to illustrate certain features and aspects of the shop page and collection system in Hearthstone. While I can't guarantee that the specific links I provided will work for you, I hope that my descriptions and explanations were helpful in answering your questions.\\n\\nIf you have any further questions or concerns, please don't hesitate to let me know.\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 05:26\"},\"value_sha256\":\"eebd9692c87129e5535b733ffe858bb5e6c4bf4303584af880c3693e8bcdc493\"}\n\n[Context item 4 | memory]\n{\"key\":\"raw_turn:8fcfbe43_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'd like to know more about how to style the scene for my candle photos. Can you give me some specific ideas for props and backdrops that would complement my eco-friendly candles?\",\"role\":\"user\",\"session_date\":\"2023/05/21 (Sun) 20:15\"},\"value_sha256\":\"0d50c7ab6c8d1229559abf602aeda73c039f36981ef6a29842a447ab016ab17e\"}"
+      },
+      "legacy_projected_order_inversion_count": 4,
+      "legacy_selected_ranks": [
+        5,
+        4,
+        8,
+        1
+      ],
+      "legacy_selection_inversion_count": 8,
+      "legacy_top_1_survived": true,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.6,
+      "max_model_length": 131072,
+      "memory_record_count": 2,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.0,
+          "recall_at_10": 0.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.0,
+          "recall_at_8": 0.0
+        },
+        "mrr": 0.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "8fcfbe43_2",
+          "a67c1862_4"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.34615384615384615,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "projection_only_change": true,
+      "question_id": "06878be2",
+      "rank_aware_dropped_ranks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1,
+        2
+      ],
+      "rank_aware_selection_inversion_count": 0,
+      "reader_prompt_sha256": "7bc0c4b87425226f968d6ce3041d74f0b4fcfe7d09c38d3a6c9bc842fd040541",
+      "reader_prompt_tokens_preflight": 1214,
+      "reader_tokenized_context_tokens": 1113,
+      "rendered_prompt_sha256": "6eb0ebfcc23ac9e5530f54c9cea820a0429267a87c83ca6bb6b59b654eb52317",
+      "top_1_survived": true,
+      "top_3_survival_count": 2,
+      "top_3_survival_rate": 0.6666666666666666,
+      "top_5_survival_count": 2,
+      "top_5_survival_rate": 0.4,
+      "truncated": false
+    },
+    {
+      "estimated_memory_tokens": 874,
+      "legacy_dropped_ranks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "legacy_projected_context": {
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0,
+        "selected_memory_ids": [
+          "m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18"
+        ],
+        "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:a2a8e2c9:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Exciting travel plans!\\n\\nAs a general rule, citizens of many countries don't need a visa to enter Japan as a tourist or for business stays of up to 90 days. However, if you're a citizen of a country that requires a visa or if you plan to stay in Japan for more than 90 days, you'll need to apply for a visa.\\n\\nTo determine if you need a visa, check the Japanese government's official website or consult with the Japanese embassy or consulate in your home country.\\n\\nAssuming you do need a visa, here are the common documents required for a Japanese visa application:\\n\\n**Basic Documents:**\\n\\n1. **Valid passport**: Your passport should be valid for at least six months beyond your planned departure date from Japan.\\n2. **Completed visa application form**: You can download and print the application form from the Japanese embassy or consulate's website or obtain it in person.\\n3. **One recent passport-sized photo**: Attach a 2x2 inch (45x45 mm) photo with a white background to the application form.\\n\\n**Additional Documents (may vary depending on your purpose and nationality):**\\n\\n**Tourist Visa:**\\n\\n* **Flight itinerary or travel plans**: Proof of your travel arrangements, such as a flight booking or a detailed itinerary.\\n* **Hotel reservation or accommodation proof**: A confirmation letter from your hotel or a copy of your accommodation booking.\\n* **Proof of sufficient funds**: Bank statements, traveler's checks, or cash to demonstrate you have enough money to support yourself during your stay.\\n\\n**Business Visa:**\\n\\n* **Invitation letter**: A letter from your Japanese business partner or host company, explaining the purpose and duration of your visit.\\n* **Company documents**: Copies of your company's registration, business license, and other relevant documents.\\n* **Proof of business activities**: Documents showing your company's business activities, such as contracts, invoices, or certificates.\\n\\n**Student Visa:**\\n\\n* **Admission letter**: A letter from your Japanese university or language school, confirming your acceptance.\\n* **Certificate of enrollment**: A document from your current school or university, stating your enrollment status.\\n* **Proof of financial resources**: Bank statements or scholarship award letters to demonstrate you can support yourself during your studies.\\n\\n**Other Documents (if applicable):**\\n\\n* **Guarantee letter**: If someone is sponsoring your trip, they may need to provide a guarantee letter and proof of their financial resources.\\n* **Birth certificate and marriage certificate (if applicable)**: If you're applying for a visa as a family member of a Japanese citizen or resident.\\n\\n**Additional Tips:**\\n\\n* Ensure all documents are original and not photocopied.\\n* Translate any documents not in Japanese or English into one of these languages.\\n* Check the Japanese embassy or consulate's website for specific requirements, as they may vary depending on your country of residence or purpose of travel.\\n\\nRemember to apply for your visa well in advance of your trip to allow for processing time. Good luck with your application, and I hope you have a wonderful trip to Tokyo!\",\"role\":\"assistant\",\"session_date\":\"2023/05/21 (Sun) 05:58\"},\"value_sha256\":\"499864537e0bcd59651f2a989194b15b75d55688aaaa2c77279cb86e863d9e7b\"}"
+      },
+      "legacy_projected_order_inversion_count": 0,
+      "legacy_selected_ranks": [
+        1
+      ],
+      "legacy_selection_inversion_count": 0,
+      "legacy_top_1_survived": true,
+      "legacy_top_3_survival_rate": 0.3333333333333333,
+      "legacy_top_5_survival_rate": 0.2,
+      "max_model_length": 131072,
+      "memory_record_count": 1,
+      "native_retrieval": {
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "mem2a_answer_session_metrics": {
+          "mrr": 0.0,
+          "recall_at_10": 0.0,
+          "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+          "recall_at_5": 0.0,
+          "recall_at_8": 0.0
+        },
+        "mrr": 0.0,
+        "unchanged_from_mem2a": true
+      },
+      "native_retrieval_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "output_reserve": 256,
+      "projected_context": {
+        "answer_session_provenance": [
+          "a2a8e2c9"
+        ],
+        "answer_session_recall_at_5": null,
+        "answer_session_recall_at_8": null,
+        "exact_normalized_gold_sequence_present": false,
+        "gold_token_coverage": 0.0,
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "projection_only_change": true,
+      "question_id": "c4ea545c",
+      "rank_aware_dropped_ranks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rank_aware_projected_order_inversion_count": 0,
+      "rank_aware_selected_ranks": [
+        1
+      ],
+      "rank_aware_selection_inversion_count": 0,
+      "reader_prompt_sha256": "d61958a03e5875cc12a1f714c3fe3c957805d330bd6d153c828fda6cc39a3d85",
+      "reader_prompt_tokens_preflight": 968,
+      "reader_tokenized_context_tokens": 867,
+      "rendered_prompt_sha256": "08284198c5f99296b03a4a626631bf052ea294c0a99639f68c74f38e2b748164",
+      "top_1_survived": true,
+      "top_3_survival_count": 1,
+      "top_3_survival_rate": 0.3333333333333333,
+      "top_5_survival_count": 1,
+      "top_5_survival_rate": 0.2,
+      "truncated": false
+    }
+  ],
+  "pre_reader_summary": {
+    "context_bundles_sha256": "04ecf8f537368e52bc6de93617c4827b804189cf9f73fc504207be53ee0da31e",
+    "context_plans_sha256": "7829149cf71cb75f4f6951f01e41392eff66d1ce6801029371d2ff3990d4e8df",
+    "labels_accessed": false,
+    "legacy_projected_order_inversion_cases": 6,
+    "legacy_projected_order_inversion_pair_count": 11,
+    "legacy_selection_inversion_cases": 9,
+    "legacy_selection_inversion_pair_count": 56,
+    "mean_rank_survival": {
+      "top_1": 0.8,
+      "top_3": 0.4666666666666667,
+      "top_5": 0.38
+    },
+    "per_question": [
+      {
+        "estimated_memory_tokens": 885,
+        "legacy_dropped_ranks": [
+          2,
+          3,
+          4,
+          5,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8",
+            "m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109",
+            "m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:2a0c336c:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll start with the Coursera course from University of Virginia. Do you know how many hours a week I should dedicate to studying to complete the course in, say, 3 months? Also, do you have any advice on how to stay motivated and on track with online courses?\",\"role\":\"user\",\"session_date\":\"2023/05/27 (Sat) 16:48\"},\"value_sha256\":\"54f1f2098db8b73445909adb5b96c9fb3a193c1192e55bc8219ddde800fd48bc\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:52d46b4a_1:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's wonderful to hear about your experience at the animal shelter's charity walk! It's great that you're looking to continue volunteering and giving back to your community.\\n\\nI'm happy to help you find more local volunteer opportunities. However, I'm a large language model, I don't have real-time access to specific events or listings. But I can provide you with some suggestions on how to find volunteer opportunities in your area:\\n\\n1. **Volunteer Match**: A popular online platform that connects volunteers with non-profit organizations. You can search for opportunities by location, cause, and type of work.\\n2. **Local Non-Profit Organizations**: Research organizations in your area that align with your interests and values. Many have volunteer programs or events that you can participate in.\\n3. **United Way**: A national organization with local chapters that often have volunteer opportunities and events. You can search for your local United Way chapter and see what opportunities are available.\\n4. **Community Calendars**: Check local newspaper, event calendars, or community boards for upcoming events that may need volunteers.\\n5. **Social Media**: Follow local non-profits, charities, and community groups on social media platforms like Facebook, Twitter, or Instagram. They often post about upcoming events and volunteer opportunities.\\n6. **Local Parks and Recreation Departments**: Many parks and recreation departments have volunteer programs for events, clean-up initiatives, or environmental projects.\\n7. **Food Banks and Pantries**: Food banks and pantries often rely on volunteers to help sort and distribute food to those in need.\\n\\nRegarding the gala you attended, that's fantastic to hear that it raised over $200,000 for the local children's hospital! It's wonderful to see the impact of community events like that.\\n\\nRemember to also consider reaching out to friends, family, or colleagues to see if they know of any volunteer opportunities or events that might interest you. Word of mouth can be a great way to discover new opportunities!\\n\\nI hope these suggestions help you find your next volunteer opportunity. Good luck, and keep making a positive impact in your community!\",\"role\":\"assistant\",\"session_date\":\"2023/05/28 (Sun) 21:03\"},\"value_sha256\":\"4a731c397c7a0140d8544f8759ed43ace3fbfb7988ebf52900bb7d8a402ef4a1\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:answer_79c395a9_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll try using the \\\"Question Sticker\\\" feature in Instagram Stories first, since it seems like a quick and easy way to get started. Do you have any tips on how to promote my Q&A session to get more followers to participate?\",\"role\":\"user\",\"session_date\":\"2023/05/28 (Sun) 22:57\"},\"value_sha256\":\"1d031e182a7658280142e48bc175ef78a817b9d169b850039e8640ae77c4dedc\"}"
+        },
+        "legacy_projected_order_inversion_count": 2,
+        "legacy_selected_ranks": [
+          6,
+          7,
+          1
+        ],
+        "legacy_selection_inversion_count": 8,
+        "legacy_top_1_survived": true,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 2,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "answer_79c395a9_2",
+            "answer_79c395a9_2"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "1cea1afa",
+        "rank_aware_dropped_ranks": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          2
+        ],
+        "rank_aware_selection_inversion_count": 0,
+        "reader_prompt_sha256": "b2139adf089ca050509f22ccc74abcb9d24f604a4ae26ea5453e2c31b0850401",
+        "reader_prompt_tokens_preflight": 1107,
+        "reader_tokenized_context_tokens": 1010,
+        "rendered_prompt_sha256": "bd8a8303c78f9ae109aa128376eb4f08c94f2f4548f67a968ce1b5fcf9ca09a7",
+        "top_1_survived": true,
+        "top_3_survival_count": 2,
+        "top_3_survival_rate": 0.6666666666666666,
+        "top_5_survival_count": 2,
+        "top_5_survival_rate": 0.4,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 825,
+        "legacy_dropped_ranks": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          7
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73",
+            "m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:ddcd2c65_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"It sounds like you've been putting your new Adidas sneakers to good use. The classic black and white colorway is a great choice - it's easy to pair with just about anything.\\n\\nIt's awesome that you've been experimenting with different outfits and finding ways to style your sneakers with dresses. Sneakers have become a staple in many people's wardrobes, and they can add a cool, casual touch to even dressier outfits.\\n\\nSince you mentioned wearing them with dresses, I have to ask: Have you considered adding any sneaker-specific accessories to your outfit? For example, sneaker socks, lace charms, or even sneaker cleaning wipes can be great additions to your sneaker game.\\n\\nAlso, have you thought about protecting your new kicks from the elements? Adidas sneakers are generally durable, but it's always a good idea to take care of them to make them last longer. You might consider getting a waterproofing spray or cream to help repel water and stains.\\n\\nBut overall, it sounds like you're really enjoying your new sneakers, and that's what matters most!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 07:53\"},\"value_sha256\":\"80d7a60464bd17d7bef915c3f1e3b4cfedda5af9efec653a155ed866c7559b6f\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_4cb841a8_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"For general cleaning and maintenance, with some interior detailing, and gentle on sensitive paint, I'd recommend the following kits:\\n\\n**Option 1: Meguiar's Gold Class Car Care Kit**\\n\\n* Price: Around $60-$70\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Meguiar's Gold Class products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes interior cleaner and a microfiber cloth for cleaning surfaces, but not a dedicated interior detailing product\\n\\n**Option 2: Chemical Guys Car Care Kit**\\n\\n* Price: Around $70-$80\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Chemical Guys products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\n**Option 3: Autoglym Car Care Kit**\\n\\n* Price: Around $120-$130\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Autoglym products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\nAll of these kits are great options for general cleaning and maintenance, and are gentle on sensitive paint. The Autoglym kit is a bit more expensive, but it includes higher-end products and a more comprehensive range of items.\\n\\nIf you're looking for a more budget-friendly option, the Meguiar's or Chemical Guys kits might be the way to go. If you're willing to invest a bit more, the Autoglym kit is a great choice.\\n\\nDo any of these options stand out to you, or would you like more information on any of these kits?\",\"role\":\"assistant\",\"session_date\":\"2023/05/25 (Thu) 12:36\"},\"value_sha256\":\"dbf9bed29c20bd2e9f2cd7a02cba63ef355662dc97fd71ea5d195c1b0db0b5e0\"}"
+        },
+        "legacy_projected_order_inversion_count": 1,
+        "legacy_selected_ranks": [
+          8,
+          3
+        ],
+        "legacy_selection_inversion_count": 8,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 2,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "answer_4cb841a8_1",
+            "answer_4cb841a8_1"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "1c549ce4",
+        "rank_aware_dropped_ranks": [
+          2,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          4
+        ],
+        "rank_aware_selection_inversion_count": 2,
+        "reader_prompt_sha256": "0664d7e7d458ef4575d825a099d862ec6aea23091a9dff1fadba4d674f5ef977",
+        "reader_prompt_tokens_preflight": 1122,
+        "reader_tokenized_context_tokens": 1019,
+        "rendered_prompt_sha256": "be79bd58813b5a2a69ddf15a60cbeb6b44a3197de6c7cce60d4f9fd0083c07c2",
+        "top_1_survived": true,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 2,
+        "top_5_survival_rate": 0.4,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 611,
+        "legacy_dropped_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:490bb46d_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Music festivals are so much fun! Packing the right essentials can make a huge difference in your festival experience. Here's a list of must-haves to consider bringing along:\\n\\n**The Essentials:**\\n\\n1. **Tickets and Wristbands**: Make sure you have your festival tickets, wristbands, and any other necessary documents easily accessible.\\n2. **Water Bottle**: Stay hydrated with a refillable water bottle. Many festivals offer water refill stations.\\n3. **Sunscreen and Sun Hat**: Protect yourself from the sun with SPF 30 or higher sunscreen, a sun hat, and sunglasses.\\n4. **Comfortable Shoes**: Wear comfortable shoes or sneakers that can handle the festival terrain.\\n5. **Portable Charger**: Bring a portable charger to keep your phone or other devices charged throughout the day.\\n6. **Cash and Credit Cards**: Bring a combination of cash and credit cards for food, merchandise, and other purchases.\\n7. **Small First-Aid Kit**: Pack a small first-aid kit with essentials like band-aids, antiseptic wipes, and pain relievers.\\n\\n**Food and Snacks:**\\n\\n1. **Reusable Snack Containers**: Bring reusable containers for snacks like nuts, fruits, or energy bars.\\n2. **Waterproof Snack Bags**: Pack snacks like sandwiches, crackers, or chips in waterproof bags to keep them dry.\\n3. **Fresh Fruits**: Bring fresh fruits like apples, oranges, or bananas to keep you energized.\\n4. **Energy Bars**: Pack energy bars or protein bars to keep your energy levels up.\\n\\n**Personal Items:**\\n\\n1. **Small Towel**: Bring a small towel to wipe sweat or dry off in case of rain.\\n2. **Deodorant and Wipes**: Pack travel-sized deodorant and wipes to stay fresh throughout the day.\\n3. **Any Medications**: If you have any prescription medications, be sure to bring them along.\\n4. **Small Umbrella or Rain Jacket**: Bring a small umbrella or rain jacket in case of unexpected rain showers.\\n\\n**Miscellaneous:**\\n\\n1. **Phone Case and Screen Protector**: Protect your phone with a waterproof case and screen protector.\\n2. **Earplugs**: Bring earplugs to protect your hearing during loud performances.\\n3. **Festival Map**: Bring a printed or digital copy of the festival map to help navigate the grounds.\\n4. **Cashless Wristband**: If the festival offers a cashless wristband, consider using it to make purchases.\\n\\n**Tips:**\\n\\n1. **Pack Light**: Try to pack only the essentials to avoid carrying a heavy backpack.\\n2. **Check the Festival Website**: Check the festival website for any specific items that may be prohibited or recommended.\\n3. **Designate a Meeting Spot**: Designate a meeting spot with your friends in case you get separated.\\n4. **Stay Hydrated**: Drink plenty of water throughout the day to stay hydrated and energized.\\n\\nRemember to check the festival's website for specific rules and regulations on what you can and cannot bring. Have a blast at the festival!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 12:23\"},\"value_sha256\":\"dbc6fd63a48f5175dda892cf3cd0816a881c9d4e3b50deb75b7034a77685e0cb\"}"
+        },
+        "legacy_projected_order_inversion_count": 0,
+        "legacy_selected_ranks": [
+          7
+        ],
+        "legacy_selection_inversion_count": 6,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.0,
+        "legacy_top_5_survival_rate": 0.0,
+        "max_model_length": 131072,
+        "memory_record_count": 1,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "2d74df23_3"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "778164c6",
+        "rank_aware_dropped_ranks": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          2
+        ],
+        "rank_aware_selection_inversion_count": 1,
+        "reader_prompt_sha256": "43764ef7e5c3f3e09f63e48cee2eb5d801aeb59dec798281cd22ad8ce8abd6f6",
+        "reader_prompt_tokens_preflight": 782,
+        "reader_tokenized_context_tokens": 656,
+        "rendered_prompt_sha256": "76d85f247c1e24cfbf728f9d1077db12ff5f3c074c1bcf59b0b6703953f2ce7c",
+        "top_1_survived": false,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 1,
+        "top_5_survival_rate": 0.2,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 948,
+        "legacy_dropped_ranks": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:2f2884ad_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Wonderful choice! Abstract expressionism is a fantastic way to tap into your creativity and emotions. I'm excited to help you get started!\\n\\nAbstract art can be intimidating, but with a few tips and a willingness to experiment, you'll be creating stunning pieces in no time. Here are some tips to help you get started with abstract expressionism using acrylics:\\n\\n1. **Let go of control**: Abstract art is all about embracing the unknown. Don't worry about creating a perfect piece or following a specific plan. Allow yourself to be spontaneous and let the paint guide you.\\n2. **Choose your colors**: Select a palette that resonates with your emotions or the theme you want to convey. You can choose bold and bright colors or muted and pastel shades. Consider the mood you want to evoke: energetic, calm, playful, or introspective.\\n3. **Prepare your surface**: Use a primed canvas or board, and consider adding a textured surface with modeling paste, gel medium, or even fabric for added interest.\\n4. **Start with a gesture**: Make a bold, expressive mark on the canvas with a large brush or a palette knife. This initial gesture will set the tone for your piece.\\n5. **Play with techniques**: Experiment with different techniques to create unique textures and effects:\\n\\t* Dripping: Use a wet-on-wet technique by adding water to your paint or using a spray bottle to create drips and runs.\\n\\t* Scraping: Use a palette knife or a scraper to remove paint and reveal underlying layers.\\n\\t* Blending: Mix colors on the canvas by layering wet paint or using a wet brush to merge colors.\\n\\t* Stamping: Use household items like sponges, crumpled paper, or even found objects to create patterns and textures.\\n6. **Build up layers**: Abstract art often involves building up layers of paint to create depth and complexity. Don't be afraid to add, subtract, and modify your layers as you go.\\n7. **Step back and evaluate**: Take breaks to step back from your work and assess the composition. Ask yourself: What's working? What's not? What needs more attention?\\n8. **Embrace mistakes**: Remember, mistakes are an essential part of the creative process. They can lead to unexpected and exciting results. Don't be too hard on yourself if your piece doesn't turn out as planned.\\n9. **Experiment with mediums**: Acrylic paint can be mixed with a range of mediums to alter its consistency, texture, and finish. Try using glazes, matte medium, or heavy body acrylics to add variety to your work.\\n10. **Have fun**: Most importantly, enjoy the process! Abstract art is a journey, and the act of creating is just as important as the final result.\\n\\nTo get started, you might want to try a simple exercise:\\n\\n**Warm-up exercise:**\\n\\n* Set a timer for 10-15 minutes.\\n* Choose a color palette and a large brush.\\n* Make a bold, expressive mark on the canvas.\\n* Respond to that mark with another brushstroke, and another, and another.\\n* Let the paint guide you, and see where the process takes you.\\n\\nRemember, the goal is to have fun and tap into your creative energy. Don't worry too much about the outcome – it's all about the journey!\\n\\nDo you have any specific questions about getting started with abstract expressionism, or would you like more tips on a particular technique?\",\"role\":\"assistant\",\"session_date\":\"2023/08/15 (Tue) 02:18\"},\"value_sha256\":\"7faabd1770da18f94104f77aaf0c9a8c605f463affd2fdbb10d84342c675410e\"}"
+        },
+        "legacy_projected_order_inversion_count": 0,
+        "legacy_selected_ranks": [
+          3
+        ],
+        "legacy_selection_inversion_count": 2,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 5,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "762a8b45_2",
+            "fc005760",
+            "7b9ee249_2",
+            "f504b269",
+            "5d5e80c5_1"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "fca70973",
+        "rank_aware_dropped_ranks": [
+          3,
+          5,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          2,
+          4,
+          6,
+          7
+        ],
+        "rank_aware_selection_inversion_count": 5,
+        "reader_prompt_sha256": "c250e9cf584a029911591744cb99d19a254f293adfabdba16ea294749b01497d",
+        "reader_prompt_tokens_preflight": 1552,
+        "reader_tokenized_context_tokens": 1450,
+        "rendered_prompt_sha256": "57bcfc70aab2689766dec0a1ee6ba668d1eec03055bdccced87278dd9c9cc087",
+        "top_1_survived": true,
+        "top_3_survival_count": 2,
+        "top_3_survival_rate": 0.6666666666666666,
+        "top_5_survival_count": 3,
+        "top_5_survival_rate": 0.6,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 505,
+        "legacy_dropped_ranks": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5",
+            "m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:daa32134:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Excellent plan! Organizing your memories by theme and location will help you create a cohesive and engaging scrapbook or journal. Now, let's dive into writing engaging captions and journal entries to bring your memories to life!\\n\\n**Tips for Writing Engaging Captions and Journal Entries:**\\n\\n1. **Be descriptive**: Use sensory language to describe what you saw, heard, smelled, tasted, and felt. This will help your readers experience your trip vicariously.\\n2. **Tell a story**: Use your captions and journal entries to tell a story about your trip. Share your thoughts, feelings, and experiences, and try to convey the emotions you felt during each moment.\\n3. **Use humor**: Don't be afraid to add a dash of humor to your writing. Funny anecdotes and witty observations can make your scrapbook or journal more entertaining and relatable.\\n4. **Be honest**: Share your genuine reactions and opinions about the places you visited and the experiences you had. This will help your readers connect with your story on a deeper level.\\n5. **Use quotes and lyrics**: Incorporate relevant quotes, song lyrics, or phrases that resonated with you during your trip. This can add depth and context to your writing.\\n6. **Keep it concise**: Remember that you're writing for a scrapbook or journal, not a novel. Keep your captions and journal entries brief and to the point, focusing on the most important details and emotions.\\n7. **Use prompts**: If you're struggling to write, try using prompts like:\\n\\t* \\\"What was the highlight of my day?\\\"\\n\\t* \\\"What did I learn about myself during this trip?\\\"\\n\\t* \\\"What was the most challenging part of this experience?\\\"\\n\\t* \\\"What would I do differently if I could relive this moment?\\\"\\n\\n**Example Captions and Journal Entries:**\\n\\n**NYC Trip:**\\n\\n* Caption: \\\"The iconic NYC skyline from the Top of the Rock. I felt like I was on top of the world!\\\"\\n* Journal Entry: \\\"Today was a whirlwind of excitement and exhaustion. We walked over 10 miles, but it was worth it to see the bright lights of Times Square and the tranquility of Central Park.\\\"\\n\\n**California Road Trip:**\\n\\n* Caption: \\\"Sunset over the Pacific Coast Highway. This view never gets old!\\\"\\n* Journal Entry: \\\"Driving along the PCH was a dream come true. The scenic views, the ocean breeze, and the sound of the waves crashing against the shore... it was pure bliss.\\\"\\n\\n**Japan Solo Trip:**\\n\\n* Caption: \\\"Trying my first sushi at the Tsukiji Fish Market. What an experience!\\\"\\n* Journal Entry: \\\"Today was a day of triumphs and struggles. I navigated the Tokyo subway system alone, but got lost in the process. However, I discovered a hidden gem of a cafe and met a fellow traveler who shared some valuable tips.\\\"\\n\\nRemember, the key to writing engaging captions and journal entries is to be genuine, descriptive, and concise. Don't be afraid to experiment and try different styles until you find what works best for you and your scrapbook or journal. Good luck, and have fun!\",\"role\":\"assistant\",\"session_date\":\"2023/05/26 (Fri) 04:44\"},\"value_sha256\":\"c5e180b42d972105132adbca53da50bf2c1b376aee8c53482c5ce184a97d9c65\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:f18ebe36_4:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm looking for some tips on how to properly clean and maintain my Funko Pop collection. I've got 13 of them now, and they're getting a bit dusty. Do you have any recommendations for a good cleaning solution and soft cloth? By the way, I also bought a vintage Transformers action figure at a comic con last weekend, which I'm planning to display in a glass case once I get one.\",\"role\":\"user\",\"session_date\":\"2023/05/20 (Sat) 04:20\"},\"value_sha256\":\"b7d114a92a4e95e27666ae48d76f055fd4e80eb16ca402e0994e5693d7fbeaf3\"}"
+        },
+        "legacy_projected_order_inversion_count": 1,
+        "legacy_selected_ranks": [
+          8,
+          2
+        ],
+        "legacy_selection_inversion_count": 7,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 3,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "answer_787e6a6d",
+            "f18ebe36_4",
+            "d9727262_4"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "a82c026e",
+        "rank_aware_dropped_ranks": [
+          3,
+          4,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          2,
+          5
+        ],
+        "rank_aware_selection_inversion_count": 2,
+        "reader_prompt_sha256": "b9ef06f670bddbe978bc54d74217c359607b5ba603f4c13cfd26a5f6bef0e4b4",
+        "reader_prompt_tokens_preflight": 917,
+        "reader_tokenized_context_tokens": 820,
+        "rendered_prompt_sha256": "95b5a2d77e8ba07a0a36277354dd07c8bc11a1aa969f32ba45dad107abb82d1a",
+        "top_1_survived": true,
+        "top_3_survival_count": 2,
+        "top_3_survival_rate": 0.6666666666666666,
+        "top_5_survival_count": 3,
+        "top_5_survival_rate": 0.6,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 715,
+        "legacy_dropped_ranks": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:ultrachat_231231:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"As an AI language model, I don't have personal experiences, emotions, opinions whose words are authentic, so I can present some facts about the use of technology in modern military bands versus those of the past as follows:\\n\\nTechnology has revolutionized military bands over the years, making them more mobile, versatile, and capable of producing a range of sounds. Modern military bands incorporate a variety of electronic instruments, amplification, and digital effects that were not available in the past. These instruments include electronic keyboards, digital synthesizers, electronic drum kits, and electric guitars.\\n\\nThe traditional military band instruments like brass and percussion still represent the mainstay of military bands. However, the use of digitally recorded music has become more common, replacing or supplementing live musicians.\\n\\nThe use of technology has also made it possible for military bands to perform in a wider range of settings, from the small confines of a parade ground to grand concert halls. Portable sound equipment and modern recording and editing software now allow military bands to record and produce music outside of the studio or live event.\\n\\nIn the past, military bands relied on human skills and talent, but today, computer software programs are used to enhance the sound and rhythm of instruments, which are beyond human capabilities. The software allows altering music compositions, pitch correction, and rhythm adjustments, making military band performances more visually and audibly impressive.\\n\\nAnother positive aspect of technology for military bands is the influence that technology has on crowd participation. Social media, for example, has become critical in promoting military bands, engaging fans, and patrons. In the past, fans were limited to the immediate vicinity of a live performance, but today fans can follow military bands from social media platforms.\\n\\nIn conclusion, while traditional military band instruments like brass and percussion continue to represent the core of military bands, technology has had a significant impact on the makeup and capabilities of modern military bands. The use of technology has allowed modern military bands to be more versatile, mobile, and capable of producing a more extensive range of sounds than was possible in past times.\",\"role\":\"assistant\",\"session_date\":\"2023/06/03 (Sat) 22:35\"},\"value_sha256\":\"acb96eb82c18fe11c30a16b0fe00f8c1025d48c1aefb48fe188e5e063fa7be6d\"}"
+        },
+        "legacy_projected_order_inversion_count": 0,
+        "legacy_selected_ranks": [
+          2
+        ],
+        "legacy_selection_inversion_count": 1,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 1,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "9dac9e37_1"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "gpt4_e061b84g",
+        "rank_aware_dropped_ranks": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1
+        ],
+        "rank_aware_selection_inversion_count": 0,
+        "reader_prompt_sha256": "8893a29fd7e48db39d987330481b59a47d2f1d2035715db499a89968cf0a622b",
+        "reader_prompt_tokens_preflight": 819,
+        "reader_tokenized_context_tokens": 715,
+        "rendered_prompt_sha256": "7ee2647b03ab2a5bfdcea7a3fa067e1f0076efbc92d250595efd7e4057d0c3ed",
+        "top_1_survived": true,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 1,
+        "top_5_survival_rate": 0.2,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 968,
+        "legacy_dropped_ranks": [
+          1,
+          2,
+          3,
+          5,
+          7,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff",
+            "m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:answer_d8a1af6b_4:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I completely understand your concerns about checked bag fees and the potential risks of delayed or lost luggage.\\n\\nAmerican Airlines has a Baggage Delivery Guarantee, which is designed to provide peace of mind for passengers who check bags. Here's what you need to know:\\n\\n**Baggage Delivery Guarantee:**\\n\\n1. **Definition of delayed baggage**: American Airlines considers a bag delayed if it's not available at the baggage claim area within 4 hours of the flight's arrival.\\n2. **Guarantee**: If your bag is delayed, American Airlines will deliver it to your destination within 24 hours. If they fail to do so, you'll receive a $25 voucher for future travel on American Airlines.\\n3. **Lost baggage**: If your bag is lost, American Airlines will reimburse you up to $3,500 for the value of the contents.\\n\\n**What to do if your bag is delayed or lost:**\\n\\n1. **Report the issue**: Inform an American Airlines representative at the baggage claim area or a ticket counter about the delayed or lost bag.\\n2. **Fill out a report**: You'll need to complete a report, which will help American Airlines track your bag and facilitate the delivery or reimbursement process.\\n3. **Provide contact information**: Make sure to provide your contact information, including your phone number and email address, so American Airlines can keep you updated on the status of your bag.\\n\\n**Tips and Considerations:**\\n\\n1. **Pack essentials in your carry-on**: Consider packing essential items like medications, valuables, and a change of clothes in your carry-on luggage in case your checked bag is delayed or lost.\\n2. **Label your bag**: Make sure to label your bag with your name, address, and contact information to facilitate identification and delivery.\\n3. **Keep receipts**: Keep receipts for any essential items you need to purchase while waiting for your delayed bag, as you may be able to claim reimbursement from American Airlines.\\n4. **Check your travel insurance**: If you have travel insurance, check if it covers delayed or lost luggage, as this may provide additional protection.\\n\\nWhile American Airlines' Baggage Delivery Guarantee provides some protection, it's still essential to be prepared for the possibility of delayed or lost luggage.\\n\\nBy understanding the process and taking precautions, you can minimize the impact of a delayed or lost bag and enjoy your week-long trip to Miami!\",\"role\":\"assistant\",\"session_date\":\"2023/02/10 (Fri) 17:40\"},\"value_sha256\":\"94f3e7f8d866407a2c3899ece7528fe0a2f974977abd1ae50705dc530abdcb2d\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_d8a1af6b_3:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad you brought up Spirit Airlines' baggage policies. Speaking of delays, I had a 1-hour delay on my United Airlines flight from Boston to Chicago due to air traffic control issues, but thankfully, the pilot kept us well-informed throughout the delay. Anyway, back to Spirit Airlines - I'm planning to book a round-trip ticket from Boston to Fort Lauderdale for my spring break trip in March, and I need to double-check my luggage dimensions before the trip. Can you remind me what the maximum size is for a personal item on Spirit Airlines?\",\"role\":\"user\",\"session_date\":\"2023/01/28 (Sat) 01:32\"},\"value_sha256\":\"903f91af7dde299a85034c8e8ba55b424532fc58605034801e7be761065d6e90\"}"
+        },
+        "legacy_projected_order_inversion_count": 1,
+        "legacy_selected_ranks": [
+          6,
+          4
+        ],
+        "legacy_selection_inversion_count": 7,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.0,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 2,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "answer_d8a1af6b_5",
+            "answer_d8a1af6b_3"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "gpt4_f420262c",
+        "rank_aware_dropped_ranks": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          2,
+          4
+        ],
+        "rank_aware_selection_inversion_count": 3,
+        "reader_prompt_sha256": "cd47adb9546e760b66bd3e1d66ea7dae6b2370e1e535603ec55974f7dda120f2",
+        "reader_prompt_tokens_preflight": 1192,
+        "reader_tokenized_context_tokens": 1088,
+        "rendered_prompt_sha256": "b25d390111165435260fa118aa4a60fc083c74b48e4b37f65174deee9f98e8e0",
+        "top_1_survived": false,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 2,
+        "top_5_survival_rate": 0.4,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 983,
+        "legacy_dropped_ranks": [
+          1,
+          3,
+          4,
+          6,
+          7
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29",
+            "m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23",
+            "m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:8ec23b2c:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad to hear that you were invested in the story and characters! The Last of Us Part II is indeed a masterclass in storytelling and character development. Ellie and Abby's complex and nuanced characters are a big part of what makes the game so compelling.\\n\\nThe themes of revenge, trauma, and the cycle of violence are indeed powerful and thought-provoking. The game does an excellent job of exploring the consequences of violence and the emotional toll it takes on the characters.\\n\\nAnd ah, I'm sure that feeling of finally defeating a tough boss is incredibly satisfying! It's a testament to the game's design and difficulty curve that it can evoke such a strong sense of accomplishment.\\n\\nAs a side note, it's interesting that you mention Abby as one of your favorite characters. She's a complex and polarizing character, and opinions about her are often divided. What did you think of her character arc and her motivations?\\n\\n(By the way, I'll avoid any spoilers in case anyone reading this hasn't finished the game.)\",\"role\":\"assistant\",\"session_date\":\"2023/05/29 (Mon) 17:24\"},\"value_sha256\":\"7d6d567ef24ddb67b787541d13b328d1a507fe047920e26a63b8808131a14328\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:answer_c8354ae9:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Bombay Sapphire is an excellent choice for a classic gin and tonic! It's a great gin for beginners and experienced enthusiasts alike, and its balanced flavor profile makes it a versatile base for various cocktails.\\n\\nAnd yes, I'm familiar with Fever-Tree! They're a well-respected brand in the world of tonic waters, and their elderflower tonic is a popular choice among gin enthusiasts. The subtle sweetness and delicate floral flavor of elderflower pair beautifully with the botanicals in Bombay Sapphire. It's a match made in heaven!\\n\\nFever-Tree's elderflower tonic is a great example of how a high-quality tonic water can elevate the G&T experience. The brand's focus on using natural ingredients and avoiding artificial flavorings and sweeteners has helped to set a new standard for premium tonic waters.\\n\\nIf you're enjoying the elderflower tonic, you might want to explore other Fever-Tree flavors as well. Their grapefruit and lemon tonics are also excellent pairings for Bombay Sapphire, and their Mediterranean tonic is a great choice for those who prefer a more herbal and aromatic flavor profile.\\n\\nAs you continue to experiment with different gin and tonic combinations, don't be afraid to try new and unusual pairings. You might discover a new favorite flavor combination that will take your G&T game to the next level!\\n\\nNow, let's get back to your Lavender Dream cocktail. With your Bombay Sapphire and Fever-Tree elderflower tonic, you're already halfway there. What do you think about adding a lavender syrup or infusion to create a unique and refreshing summer cocktail?\",\"role\":\"assistant\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"6396bdf943ca6ec972694f8e0c4a01896e28ef03880dc4c4d18b80eafdaad195\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:answer_c8354ae9:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's a lot of great ideas! I'm particularly interested in the Lavender Dream, as I've been experimenting with lavender in my cocktails lately. Speaking of which, I tried a lavender gin fizz recipe last weekend, but it didn't quite turn out as expected - I didn't have simple syrup, so I had to improvise with honey and water. Do you have any tips on making a good simple syrup, or would you recommend a specific brand?\",\"role\":\"user\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"dd8b8bac0a2ba0b3e08806b103c155bb8142199343674f5e8d96cfaa669cd77d\"}"
+        },
+        "legacy_projected_order_inversion_count": 2,
+        "legacy_selected_ranks": [
+          8,
+          2,
+          5
+        ],
+        "legacy_selection_inversion_count": 9,
+        "legacy_top_1_survived": false,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.4,
+        "max_model_length": 131072,
+        "memory_record_count": 2,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "answer_c8354ae9",
+            "answer_c8354ae9"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "8550ddae",
+        "rank_aware_dropped_ranks": [
+          2,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          4
+        ],
+        "rank_aware_selection_inversion_count": 2,
+        "reader_prompt_sha256": "2d1c007de1520bbd67c6048785506967ee5fcfc10f8ab676ca6d5257ec2ae1af",
+        "reader_prompt_tokens_preflight": 1266,
+        "reader_tokenized_context_tokens": 1167,
+        "rendered_prompt_sha256": "8df1d6f579d559d5ca88f772f17ef30e8b0b6355ebe9585eb5b6d46bb5c09691",
+        "top_1_survived": true,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 2,
+        "top_5_survival_rate": 0.4,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 967,
+        "legacy_dropped_ranks": [
+          2,
+          3,
+          6,
+          7
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f",
+            "m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4",
+            "m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a",
+            "m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:sharegpt_GSC090N_6:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Based on the error message you provided, it seems like there is a conflict with the dependency resolution. Using the `--force` flag may not be a good idea since it can override some safety checks and install dependencies with incompatible versions that can break your project.\\n\\nInstead, you can try using the `--legacy-peer-deps` flag, which instructs npm to install packages even if they have peer dependencies that are not compatible with your current setup. This can sometimes work as a workaround when dealing with conflicting peer dependencies.\\n\\nSo you can try running the following command:\\n```css\\nnpm install --legacy-peer-deps\\n```\\nThis should allow npm to install packages without the conflict errors you have been encountering. However, keep in mind that this might not fix the issue entirely, as the dependencies installed may not work properly together. It is always better to use compatible versions of packages whenever possible to ensure the stability of your project.\",\"role\":\"assistant\",\"session_date\":\"2023/05/27 (Sat) 11:48\"},\"value_sha256\":\"a138c563cb0a29c4ba5a23c67d9a4d3a5e095238c95607b3661c5af53fdd9a52\"}\n\n[Context item 2 | memory]\n{\"key\":\"raw_turn:ca929779_1:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I love the Quinoa Breakfast Bowl idea! I've been making a big batch of quinoa every Sunday to last me throughout the week, so this is a great way to repurpose it for breakfast. Can you suggest some nuts or seeds that would pair well with the quinoa breakfast bowl?\",\"role\":\"user\",\"session_date\":\"2023/05/24 (Wed) 18:27\"},\"value_sha256\":\"d2b17bffa4ea4b01ce8cdbe10c72a5ae9e9ed22c742c8f84b6cf6832f81eb5c6\"}\n\n[Context item 3 | memory]\n{\"key\":\"raw_turn:sharegpt_6Two42G_35:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I apologize for the frustration and inconvenience that my previous responses may have caused you. I assure you that I have the ability to provide images or screenshots as examples. However, there may be technical issues or restrictions that prevent some links from working properly or being accessible in certain regions.\\n\\nTo clarify my previous answers, the examples and images I mentioned were meant to illustrate certain features and aspects of the shop page and collection system in Hearthstone. While I can't guarantee that the specific links I provided will work for you, I hope that my descriptions and explanations were helpful in answering your questions.\\n\\nIf you have any further questions or concerns, please don't hesitate to let me know.\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 05:26\"},\"value_sha256\":\"eebd9692c87129e5535b733ffe858bb5e6c4bf4303584af880c3693e8bcdc493\"}\n\n[Context item 4 | memory]\n{\"key\":\"raw_turn:8fcfbe43_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'd like to know more about how to style the scene for my candle photos. Can you give me some specific ideas for props and backdrops that would complement my eco-friendly candles?\",\"role\":\"user\",\"session_date\":\"2023/05/21 (Sun) 20:15\"},\"value_sha256\":\"0d50c7ab6c8d1229559abf602aeda73c039f36981ef6a29842a447ab016ab17e\"}"
+        },
+        "legacy_projected_order_inversion_count": 4,
+        "legacy_selected_ranks": [
+          5,
+          4,
+          8,
+          1
+        ],
+        "legacy_selection_inversion_count": 8,
+        "legacy_top_1_survived": true,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.6,
+        "max_model_length": 131072,
+        "memory_record_count": 2,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "8fcfbe43_2",
+            "a67c1862_4"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "06878be2",
+        "rank_aware_dropped_ranks": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1,
+          2
+        ],
+        "rank_aware_selection_inversion_count": 0,
+        "reader_prompt_sha256": "7bc0c4b87425226f968d6ce3041d74f0b4fcfe7d09c38d3a6c9bc842fd040541",
+        "reader_prompt_tokens_preflight": 1214,
+        "reader_tokenized_context_tokens": 1113,
+        "rendered_prompt_sha256": "6eb0ebfcc23ac9e5530f54c9cea820a0429267a87c83ca6bb6b59b654eb52317",
+        "top_1_survived": true,
+        "top_3_survival_count": 2,
+        "top_3_survival_rate": 0.6666666666666666,
+        "top_5_survival_count": 2,
+        "top_5_survival_rate": 0.4,
+        "truncated": false
+      },
+      {
+        "estimated_memory_tokens": 874,
+        "legacy_dropped_ranks": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "legacy_projected_context": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "selected_memory_ids": [
+            "m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18"
+          ],
+          "serialized_context": "[Context item 1 | memory]\n{\"key\":\"raw_turn:a2a8e2c9:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Exciting travel plans!\\n\\nAs a general rule, citizens of many countries don't need a visa to enter Japan as a tourist or for business stays of up to 90 days. However, if you're a citizen of a country that requires a visa or if you plan to stay in Japan for more than 90 days, you'll need to apply for a visa.\\n\\nTo determine if you need a visa, check the Japanese government's official website or consult with the Japanese embassy or consulate in your home country.\\n\\nAssuming you do need a visa, here are the common documents required for a Japanese visa application:\\n\\n**Basic Documents:**\\n\\n1. **Valid passport**: Your passport should be valid for at least six months beyond your planned departure date from Japan.\\n2. **Completed visa application form**: You can download and print the application form from the Japanese embassy or consulate's website or obtain it in person.\\n3. **One recent passport-sized photo**: Attach a 2x2 inch (45x45 mm) photo with a white background to the application form.\\n\\n**Additional Documents (may vary depending on your purpose and nationality):**\\n\\n**Tourist Visa:**\\n\\n* **Flight itinerary or travel plans**: Proof of your travel arrangements, such as a flight booking or a detailed itinerary.\\n* **Hotel reservation or accommodation proof**: A confirmation letter from your hotel or a copy of your accommodation booking.\\n* **Proof of sufficient funds**: Bank statements, traveler's checks, or cash to demonstrate you have enough money to support yourself during your stay.\\n\\n**Business Visa:**\\n\\n* **Invitation letter**: A letter from your Japanese business partner or host company, explaining the purpose and duration of your visit.\\n* **Company documents**: Copies of your company's registration, business license, and other relevant documents.\\n* **Proof of business activities**: Documents showing your company's business activities, such as contracts, invoices, or certificates.\\n\\n**Student Visa:**\\n\\n* **Admission letter**: A letter from your Japanese university or language school, confirming your acceptance.\\n* **Certificate of enrollment**: A document from your current school or university, stating your enrollment status.\\n* **Proof of financial resources**: Bank statements or scholarship award letters to demonstrate you can support yourself during your studies.\\n\\n**Other Documents (if applicable):**\\n\\n* **Guarantee letter**: If someone is sponsoring your trip, they may need to provide a guarantee letter and proof of their financial resources.\\n* **Birth certificate and marriage certificate (if applicable)**: If you're applying for a visa as a family member of a Japanese citizen or resident.\\n\\n**Additional Tips:**\\n\\n* Ensure all documents are original and not photocopied.\\n* Translate any documents not in Japanese or English into one of these languages.\\n* Check the Japanese embassy or consulate's website for specific requirements, as they may vary depending on your country of residence or purpose of travel.\\n\\nRemember to apply for your visa well in advance of your trip to allow for processing time. Good luck with your application, and I hope you have a wonderful trip to Tokyo!\",\"role\":\"assistant\",\"session_date\":\"2023/05/21 (Sun) 05:58\"},\"value_sha256\":\"499864537e0bcd59651f2a989194b15b75d55688aaaa2c77279cb86e863d9e7b\"}"
+        },
+        "legacy_projected_order_inversion_count": 0,
+        "legacy_selected_ranks": [
+          1
+        ],
+        "legacy_selection_inversion_count": 0,
+        "legacy_top_1_survived": true,
+        "legacy_top_3_survival_rate": 0.3333333333333333,
+        "legacy_top_5_survival_rate": 0.2,
+        "max_model_length": 131072,
+        "memory_record_count": 1,
+        "native_retrieval": {
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null,
+          "unchanged_from_mem2a": true
+        },
+        "native_retrieval_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "output_reserve": 256,
+        "projected_context": {
+          "answer_session_provenance": [
+            "a2a8e2c9"
+          ],
+          "answer_session_recall_at_5": null,
+          "answer_session_recall_at_8": null,
+          "mrr": null
+        },
+        "projection_only_change": true,
+        "question_id": "c4ea545c",
+        "rank_aware_dropped_ranks": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "rank_aware_projected_order_inversion_count": 0,
+        "rank_aware_selected_ranks": [
+          1
+        ],
+        "rank_aware_selection_inversion_count": 0,
+        "reader_prompt_sha256": "d61958a03e5875cc12a1f714c3fe3c957805d330bd6d153c828fda6cc39a3d85",
+        "reader_prompt_tokens_preflight": 968,
+        "reader_tokenized_context_tokens": 867,
+        "rendered_prompt_sha256": "08284198c5f99296b03a4a626631bf052ea294c0a99639f68c74f38e2b748164",
+        "top_1_survived": true,
+        "top_3_survival_count": 1,
+        "top_3_survival_rate": 0.3333333333333333,
+        "top_5_survival_count": 1,
+        "top_5_survival_rate": 0.2,
+        "truncated": false
+      }
+    ],
+    "question_count": 10,
+    "rank_aware_projected_order_inversion_cases": 0,
+    "rank_aware_projected_order_inversion_pair_count": 0,
+    "rank_aware_selected_worse_while_better_dropped_cases": 6,
+    "rank_aware_selection_inversion_pair_count": 15,
+    "retrieval_parity_sha256": "537bdb5354f23cff386934706f8d109dde29fe19b57f49c70ee5038f3775b30b",
+    "schema_version": 1
+  },
+  "predictions_sha256": "de5d8f637fef278c94fdbcf4d655a9ac69e65734730b686eb9bd2b4bc1037201",
+  "question_count": 10,
+  "rank_order_inversion_definitions": {
+    "projected_order_inversion": "a worse-ranked selected item precedes a better-ranked selected item in reader context",
+    "selection_inversion": "selected worse-ranked item while a better-ranked item was dropped (greedy skip may cause this)"
+  },
+  "schema_version": 1,
+  "summary": {
+    "descriptive_only_no_ranking_claim": true,
+    "means": {
+      "estimated_memory_tokens": 828.1,
+      "f1": 0.12453248505880084,
+      "legacy_gold_token_coverage": 0.26412963847746457,
+      "legacy_projected_answer_session_recall_at_5": 0.24,
+      "legacy_projected_answer_session_recall_at_8": 0.24,
+      "legacy_projected_mrr": 0.2333333333333333,
+      "legacy_projected_order_inversion_count": 1.1,
+      "legacy_selection_inversion_count": 5.6,
+      "mem2a_f1": 0.05952380952380952,
+      "mem2a_normalized_exact_match": 0.0,
+      "mem2a_token_precision": 0.03958333333333333,
+      "mem2a_token_recall": 0.12,
+      "native_answer_session_recall_at_5": 0.45999999999999996,
+      "native_answer_session_recall_at_8": 0.48,
+      "normalized_exact_match": 0.0,
+      "rank_aware_gold_token_coverage": 0.39507087115782774,
+      "rank_aware_projected_answer_session_recall_at_5": 0.33999999999999997,
+      "rank_aware_projected_answer_session_recall_at_8": 0.33999999999999997,
+      "rank_aware_projected_mrr": 0.5,
+      "rank_aware_projected_order_inversion_count": 0.0,
+      "rank_aware_selection_inversion_count": 1.5,
+      "reader_context_tokens": 990.5,
+      "token_precision": 0.10513888888888889,
+      "token_recall": 0.20871794871794874,
+      "top_1_survival_rate": 0.8,
+      "top_3_survival_rate": 0.4666666666666667,
+      "top_5_survival_rate": 0.38
+    },
+    "n": 10,
+    "projection_policy_selected_by_protocol_not_dev_score": true,
+    "rank_order_preserved_for_selected_memories": true
+  }
+}

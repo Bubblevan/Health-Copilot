@@ -1,0 +1,26 @@
+{
+  "algorithm_version": "priority-slots-rank-memory-greedy-skip-v1",
+  "context_manager_source_sha256": "e90ce22e4e8a5b6a8ab888080a1f9f21b64749478b613f1584f414eb91c6e4b8",
+  "greedy_skip_behavior": "visit ranked memory candidates in ascending native retrieval rank; skip a candidate that does not fit and continue evaluating later smaller candidates",
+  "legacy_behavior_when_no_hints": "selection_rank_hints=None preserves the frozen priority then item_id ordering, candidate selection, projection, and ContextPlan hash",
+  "memory_budget_tokens": 1024,
+  "no_partial_truncation_or_knapsack": true,
+  "policy_id": "m10-rank-aware-projection-v1",
+  "priority_order": [
+    "protected",
+    "high",
+    "normal",
+    "low"
+  ],
+  "rank_hint_validation": {
+    "adapter_ranks_contiguous_1_to_n": true,
+    "allowed_category": "memory only",
+    "complete_for_memory_candidates": true,
+    "keys": "ContextItem.item_id strings",
+    "positive_integer": true,
+    "reject_unknown_protected_system_current_user": true,
+    "unique_within_candidates": true
+  },
+  "reader_visible_rank_annotation": false,
+  "tie_fallback_behavior": "ranks are unique; non-memory units and any unranked units retain deterministic legacy priority/item_id fallback positions"
+}
