@@ -1,0 +1,100 @@
+{
+  "contract_id": "flat-proposition-extractor-v1",
+  "version": 1,
+  "prompt_path": "docs/research/memory/flat_proposition_extractor_v1.txt",
+  "input_contract": {
+    "one_source_session_per_request": true,
+    "fields_available_to_writer": [
+      "session_date",
+      "ordered_turns[].turn_index",
+      "ordered_turns[].role",
+      "ordered_turns[].content"
+    ],
+    "question_independent": true,
+    "forbidden_fields": [
+      "question_id",
+      "question",
+      "question_date",
+      "answer",
+      "answer_session_ids",
+      "question_type",
+      "has_answer",
+      "retrieval_results",
+      "previous_prediction_correctness"
+    ]
+  },
+  "model": {
+    "role": "memory_write_extract",
+    "provider": "local_qwen",
+    "model": "Qwen3-8B Q4_K_M",
+    "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "llama_cpp_version": 10068,
+    "llama_cpp_build": "571d0d540",
+    "temperature": 0,
+    "seed": 42,
+    "enable_thinking": false,
+    "max_output_tokens": 4096,
+    "hosted_fallback": false,
+    "retry_policy": "one initial call per unique source-session content identity; no silent retry"
+  },
+  "session_identity": {
+    "algorithm": "SHA256 of canonical UTF-8 JSON containing exact session_date and ordered turns with turn_index, role, and exact content",
+    "canonical_json": "ensure_ascii=false, sort_keys=true, separators=(',', ':')",
+    "question_id_in_identity": false
+  },
+  "output_schema": {
+    "type": "object",
+    "required": ["propositions"],
+    "additionalProperties": false,
+    "properties": {
+      "propositions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "proposition_text",
+            "entity_key_candidate",
+            "attribute_key_candidate",
+            "value_text",
+            "source_role",
+            "source_turn_indices",
+            "evidence_quotes"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "proposition_text": {"type": "string", "minLength": 1},
+            "entity_key_candidate": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+            "attribute_key_candidate": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+            "value_text": {"type": "string", "minLength": 1},
+            "source_role": {"type": "string", "enum": ["user", "assistant", "mixed"]},
+            "source_turn_indices": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+            "evidence_quotes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+          }
+        }
+      }
+    }
+  },
+  "provenance_validation": {
+    "quote_must_be_exact_substring_of_declared_turn": true,
+    "turn_indices_must_exist_in_same_session": true,
+    "source_role_must_match_cited_turn_roles": true,
+    "semantic_correctness_is_not_guaranteed_by_quote_match": true
+  },
+  "materialization": {
+    "operation": "ADD only",
+    "kind": "SESSION_NOTE",
+    "source_type": "SESSION_DERIVED",
+    "status": "ACTIVE",
+    "version": 1,
+    "valid_from": "source session datetime",
+    "valid_until": null,
+    "expires_at": null,
+    "supersedes_id": null,
+    "revision_semantics": false
+  },
+  "failure_policy": {
+    "malformed_json_or_schema_or_provenance_or_length_finish": "EXTRACTION_FAILURE and stop before retrieval/comparison",
+    "retry": false,
+    "drop_failed_session": false
+  }
+}

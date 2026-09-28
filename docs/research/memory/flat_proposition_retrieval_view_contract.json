@@ -1,0 +1,47 @@
+{
+  "contract_id": "flat_proposition_retrieval_view_v1",
+  "representation": "M10-FlatProp",
+  "document_text": "exact proposition_text only",
+  "excluded_from_document": [
+    "memory_id",
+    "record key",
+    "entity_key_candidate",
+    "attribute_key_candidate",
+    "value_text",
+    "evidence_quotes",
+    "source turn indices",
+    "source session id",
+    "benchmark metadata",
+    "timestamps"
+  ],
+  "embedding": {
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+    "adapter": "tools/research/memory/local_qwen3_embedding.py",
+    "document_instruction": "none",
+    "query_instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+    "query_rendering": "Instruct: {query_instruction}\nQuery:{question}",
+    "dimensions": 1024,
+    "pooling": "true final non-padding token under left padding",
+    "normalization": "L2 normalization in float32",
+    "device": "cuda:0",
+    "dtype": "float16",
+    "max_length": 8192,
+    "truncation": "record and fail if any proposition or query is truncated"
+  },
+  "retrieval": {
+    "scope_and_temporal_eligibility": "M10 MemoryStore.matches with frozen question scope and query_now; no revision/current-state policy",
+    "scorer": "cosine similarity over normalized Qwen3 embedding vectors",
+    "sort": ["cosine_similarity_descending", "memory_id_ascending"],
+    "native_top_k": 8,
+    "lexical_fusion": false,
+    "reranking": false,
+    "recency_scoring": false,
+    "candidate_key_matching": false,
+    "diversity_penalty": false
+  },
+  "selection_basis": "DENSE_SELECTED_AS_MEM3_DEVELOPMENT_BACKBONE_FROM_DEV_DIAGNOSTIC=YES",
+  "selection_claim_boundary": "Development backbone only; not TEST-selected, not a public superiority claim, and not evidence that Dense is universally best."
+}

@@ -1,0 +1,11 @@
+{
+  "completion_gate_marker": "MEM3A_FLAT_PROPOSITION_FROZEN_10_DIAGNOSTIC=NO",
+  "failure": "EXTRACTION_FAILURE for source session 25267ea359060788693f6abf37b1731af749145149afb1927a3f39f538ff19a1: ValueError; no retry issued",
+  "failure_type": "RuntimeError",
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "schema_version": 1,
+  "stage": "mem3a-flat-proposition-10-20260928",
+  "status": "FAILED",
+  "test_access": false
+}

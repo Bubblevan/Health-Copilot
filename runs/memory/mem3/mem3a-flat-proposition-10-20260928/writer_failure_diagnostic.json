@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "stage": "mem3a-flat-proposition-10-20260928",
+  "status": "HALTED_EXTRACTION_FAILURE",
+  "completion_gate_marker": "MEM3A_FLAT_PROPOSITION_FROZEN_10_DIAGNOSTIC=NO",
+  "base_commit_sha": "14d8c3ff9bf127d10ecb25cf5bdd30d949d7a5f4",
+  "scope": "frozen ten DEV questions only",
+  "unique_source_sessions_preflighted": 477,
+  "preflight": {
+    "all_prompt_tokens_plus_reserve_fit": true,
+    "max_prompt_tokens": 6429,
+    "output_reserve": 4096,
+    "max_context_tokens": 131072,
+    "truncated_sessions": 0
+  },
+  "writer_calls": {
+    "attempted": 3,
+    "successful": 2,
+    "failed": 1,
+    "not_attempted": 474,
+    "retries": 0,
+    "hosted_calls": 0,
+    "judge_calls": 0
+  },
+  "failed_session": {
+    "session_identity_sha256": "25267ea359060788693f6abf37b1731af749145149afb1927a3f39f538ff19a1",
+    "failure_status": "EXTRACTION_FAILURE",
+    "captured_exception_type": "ValueError",
+    "validation_subtype": "not retained; unavailable from frozen journal",
+    "finish_reason": "stop",
+    "prompt_tokens": 4625,
+    "completion_tokens": 1103,
+    "latency_ms": 20319.931,
+    "raw_response_sha256": "470744fbe9aefa27d582680729913046b631828078e3d15f4dface3d7771f399",
+    "raw_response_retained": false,
+    "retry_count": 0
+  },
+  "downstream_execution": {
+    "materialization": false,
+    "embedding": false,
+    "retrieval": false,
+    "projection": false,
+    "reader_calls": 0,
+    "label_access": false,
+    "metrics": false,
+    "test_access": false
+  },
+  "interpretation": "The model returned a completed response, but strict extraction validation failed. The run stopped as specified; no benchmark quality or performance result is available."
+}
