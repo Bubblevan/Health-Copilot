@@ -1,0 +1,201 @@
+{
+  "config_version": "mem1d3-reader-only-v1",
+  "configuration_sha256": "ae854e6fcf342b67d7e323e0a0d5153cebad3b9fb0c77d54f0938a06f0f8fca2",
+  "context_bundles": {
+    "copied_or_rebuilt": false,
+    "source_jsonl_sha256": "18f38700f7cc0b3b44ab45c8c29007a21c44b79e600c07254665cebb9bb9e26c",
+    "source_run_id": "mem1d1-frozen-10-20260927",
+    "verified_count": 50
+  },
+  "dataset": {
+    "id": "longmemeval_s",
+    "question_ids": [
+      "1cea1afa",
+      "1c549ce4",
+      "778164c6",
+      "fca70973",
+      "a82c026e",
+      "gpt4_e061b84g",
+      "gpt4_f420262c",
+      "8550ddae",
+      "06878be2",
+      "c4ea545c"
+    ],
+    "revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "split": "DEV",
+    "test_access": false
+  },
+  "embedding": {
+    "calls": 0,
+    "loaded": false,
+    "model": null
+  },
+  "expected_reader_calls": 50,
+  "fullcontext_prompt_preflight": [
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 108199,
+      "question_id": "1cea1afa",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 106197,
+      "question_id": "1c549ce4",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 103534,
+      "question_id": "778164c6",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 107580,
+      "question_id": "fca70973",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 107751,
+      "question_id": "a82c026e",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 105343,
+      "question_id": "gpt4_e061b84g",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 106767,
+      "question_id": "gpt4_f420262c",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 107887,
+      "question_id": "8550ddae",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 106775,
+      "question_id": "06878be2",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens": 106233,
+      "question_id": "c4ea545c",
+      "truncated": false
+    }
+  ],
+  "hosted_api": {
+    "calls": 0,
+    "required_api_key": null
+  },
+  "judge": {
+    "calls": 0,
+    "model": null
+  },
+  "memory_system": {
+    "ingestion_calls": 0,
+    "memory_internal_llm_calls": 0,
+    "operation": "reuse frozen ContextBundles only",
+    "retrieval_calls": 0,
+    "systems": [
+      "fullcontext",
+      "openclaw",
+      "mem0",
+      "simplemem",
+      "propmem"
+    ]
+  },
+  "reader": {
+    "artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "generation": {
+      "enable_thinking": false,
+      "max_new_tokens": 256,
+      "seed": 42,
+      "temperature": 0
+    },
+    "model": "health-memory-qwen3-8b",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+  },
+  "run_id": "mem1d3-reader-v2-20260928",
+  "runtime": {
+    "embedding_model": null,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "endpoint_loopback_only": true,
+    "flash_attention": true,
+    "generation": {
+      "enable_thinking": false,
+      "max_new_tokens": 256,
+      "seed": 42,
+      "temperature": 0
+    },
+    "historic_reader_template_sha256": "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b",
+    "hosted_api_calls": 0,
+    "judge_model": null,
+    "kv_cache_offload": "GPU",
+    "memory_internal_llm_calls": 0,
+    "model": "health-memory-qwen3-8b",
+    "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "official_question_dates_required": true,
+    "provider": "local_qwen",
+    "proxy_environment_used": false,
+    "server_arguments": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn"
+    },
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_pid": 61296,
+    "server_version_output": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64",
+    "slot_context_tokens": 131072
+  },
+  "template": {
+    "file": "docs/research/memory/shared_reader_v2_question_date.txt",
+    "file_sha256": "2419137d93616a3eecf621337abc81c69fd0572a8a1fa825aaf067187fa7458b",
+    "message_template_sha256": "a06cf171967ade9e8b3b2b90525ea635e538ed4383c31d2f3d64a28d135d2041",
+    "name": "shared_reader_v2_question_date",
+    "question_date_source": "official LongMemEval record question_date; copied exactly",
+    "question_type_in_prompt": false,
+    "task_specific_hints": false,
+    "v1_template_sha256": "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b"
+  },
+  "tokenizer_preflight_only": true
+}

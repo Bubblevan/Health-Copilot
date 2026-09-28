@@ -1,0 +1,3185 @@
+{
+  "artifact_version": "mem1d3-reader-counterfactual-v1",
+  "comparison_basis": "deterministic token metrics only; semantic review pending",
+  "no_automatic_improvement_claim": true,
+  "non_temporal_cases": {
+    "answer_text_changed_count": 23,
+    "interpretation": "descriptive lexical delta only; not an improvement claim",
+    "mean_raw_f1_delta": -0.027233760452040172,
+    "paired_rows": 40
+  },
+  "non_temporal_question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "paired_design": "same five systems and ten questions; v1/v2 share each immutable ContextBundle",
+  "rows": [
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "09af7ffe30c8df3a987d7117c118d1475565e773e5b40d8c7f3b802c8b625c16",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1cea1afa",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "You currently have **600 Instagram followers**, which is a nice milestone! 🎉 It's great that you're building your presence and engaging with your audience. Keep up the awesome work, and I'm sure you'll continue to grow your following! 🌟",
+      "diagnostic_only": true,
+      "gold_answer": "600",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.05405405405405406,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.027777777777777776,
+        "token_recall": 1.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.05405405405405406,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.027777777777777776,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "904c97755d0425811812401430b08c0d8452e3d4dee4d33dae35610fb2913708",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "I'm sorry, but I don't have access to your Instagram follower count or any personal data about your social media accounts. You'll need to check your Instagram profile or app to see your current follower count. If you'd like help with anything else, feel free to ask! 😊",
+      "old_prompt_sha256": "0ab98ecc3ceb1c223073bc2ff54e33fbf706ef8bfbad6631e3343fabd3abaff1",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "01f87f7b8b3f09b3a1807a2411f36459da2694c8a6e876e14f9cc94ae84f5d73",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1c549ce4",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "The total cost of the car cover and detailing spray you purchased is $120 + $20 = $140.",
+      "diagnostic_only": true,
+      "gold_answer": "$140",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.125,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.06666666666666667,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "191dc161894ad310c0c55da283de203c17264c0996f067fa235c14ffa4d75b89",
+      "old_lexical_metrics": {
+        "f1": 0.125,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.06666666666666667,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The total cost of the car cover and detailing spray you purchased is $120 + $20 = $140.",
+      "old_prompt_sha256": "7a1a2ec3cecf82086b7e8d0c49000582fe4d2c54a4d5a2d964dbdbe04679b540",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "6fff48a13674d510175888d15fb4c0c70a15a5db0450ee76714a3c4937be0be3",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "778164c6",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "The Jamaican dish you asked about, which features snapper and includes fruit, is called **\"Escovitch Fish\"**. This dish is a classic in Jamaican cuisine and is often served with a spicy and tangy pickled vegetable sauce. While it primarily uses snapper, it can also be made with other types of fish, and the dish is known for its bold flavors and vibrant ingredients.",
+      "diagnostic_only": true,
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.00419580419580419,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0025531914893617003,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.07692307692307691,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0425531914893617,
+        "token_recall": 0.4
+      },
+      "new_prompt_sha256": "694d1de1ef0d8bc4f395b3c33fb07a3ea0292eec5be231a1742762d3d521b46b",
+      "old_lexical_metrics": {
+        "f1": 0.07272727272727272,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.04,
+        "token_recall": 0.4
+      },
+      "old_prediction_v1": "The Jamaican dish you were referring to is **\"Escovitch Fish\"**. It is a traditional dish that features fried snapper or other fish, typically served with a spicy and tangy pickled vegetable sauce. The sauce is made with ingredients like carrots, bell peppers, onions, and vinegar, giving it a bold, acidic, and spicy flavor profile. It is a popular dish in Jamaica and is often enjoyed with rice or as a standalone meal.",
+      "old_prompt_sha256": "69f59ff558566a79f495012305e21705445023878a0d63f4dec11eedc23690b6",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e5afcd2f09f85155937e2e41968f65fad1282cdf7e1f69e5d1c546e778856b91",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "fca70973",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "I'm planning another theme park weekend; do you have any suggestions?",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.07407407407407408,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.25,
+        "token_recall": 0.043478260869565216
+      },
+      "new_prompt_sha256": "e05315f93a53330d202e294a0f8730cf05e88bc676ec7e2771285ea8d9cf243a",
+      "old_lexical_metrics": {
+        "f1": 0.07407407407407408,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.25,
+        "token_recall": 0.043478260869565216
+      },
+      "old_prediction_v1": "I'm planning another theme park weekend; do you have any suggestions?",
+      "old_prompt_sha256": "b31851907ed78c13f4ecf427b9bccc96dbb90cff6d3b1030179885fa1c22c849",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7c57d2bef964cd59418574f78839853d2467c5f371b13ba08ae7c6b0cdfb605e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "a82c026e",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "You finally beat **Dark Souls 3** last weekend! That's a huge accomplishment, and I'm sure it felt amazing to see the game's challenging bosses and difficult sections finally fall to your skill and perseverance. Dark Souls is known for its tough difficulty and complex world, so beating the final boss, Noelle, must have been a rewarding experience. I'm glad to hear you were able to complete the game and enjoy the journey! 🎮🔥",
+      "diagnostic_only": true,
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.011228385358185489,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.005339435545385206,
+        "token_recall": -0.25
+      },
+      "new_lexical_metrics": {
+        "f1": 0.09836065573770492,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.05263157894736842,
+        "token_recall": 0.75
+      },
+      "new_prompt_sha256": "ce7509ea3088fd70bce56374741d006d864f2984d9422dd543f755bd49a58a3e",
+      "old_lexical_metrics": {
+        "f1": 0.1095890410958904,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.057971014492753624,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The game you finally beat last weekend was **Dark Souls 3**, specifically the **DLC** (Downloadable Content) that includes the challenging boss and areas. It's a highly regarded game known for its difficulty and immersive world, and beating it is a significant achievement! 🎮🔥\n\nIf you're looking for more games to tackle or want tips on how to approach future challenges, feel free to ask! I'm here to help. What's your favorite part about beating that boss? The sense of accomplishment, the lore, or something else?",
+      "old_prompt_sha256": "a82f942b8a192e8822270a2e58effed979d78882bdf0b365217113433baeb660",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "90b78a98d2dc93a62750ff2461a769a54407de51b7e467237b271d4d023edb12",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_e061b84g",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "The event you mentioned was a charity soccer tournament. You shared that you were participating in it, and it was a great opportunity to connect with friends and enjoy a fun, competitive game. It was a positive experience that allowed you to showcase your skills and support a good cause.",
+      "diagnostic_only": true,
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.12596006144393238,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.07940199335548173,
+        "token_recall": 0.14285714285714285
+      },
+      "new_lexical_metrics": {
+        "f1": 0.19047619047619044,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.11428571428571428,
+        "token_recall": 0.5714285714285714
+      },
+      "new_prompt_sha256": "ea7d078955508d1559a16be30ddaa26eec9cbd78a2e49b126897d73f6d130582",
+      "old_lexical_metrics": {
+        "f1": 0.06451612903225806,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.03488372093023256,
+        "token_recall": 0.42857142857142855
+      },
+      "old_prediction_v1": "The event you participated in two weeks ago was the **Midsummer 5K Run**, where you achieved a personal best time of **27 minutes and 42 seconds**. This event is a popular annual race that brings together runners of all levels, and it's known for its scenic routes and community spirit. You mentioned that you've been using your new **Lenovo Yoga 7i** laptop to stay connected and manage your training, which is a great way to stay organized and focused. The **5K** is a great way to stay active, and it's a fantastic way to meet other runners and stay motivated. It's also a great way to stay healthy and improve your fitness level. I'm glad to hear that you're enjoying your new laptop and that it's helping you stay connected and focused on your training. Keep up the good work!",
+      "old_prompt_sha256": "855f25156c78838701828f85d364314365b680c74a224b85123aefd8a8427044",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "47028fe760531641c0765af3a7de4eca27b5adde12c3f33d8442b4d8f263d9d9",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_f420262c",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "505b2c13b1e2efeba8c876653ca91b14d79ef04685701dd8de6233ced1d02eeb",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "90beca85650ef46902b1145b8af1d2fa4bb0ea751fa790fc034d08573008b2f2",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "3d9a00d699d87c7f8be8edb6f951f4b43cf4e0e830d73357ec61f44dbb00548d",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "8550ddae",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**. This cocktail combines the bold flavors of mango and the smoky, spicy notes from smoked paprika, making it a unique and flavorful twist on the classic Moscow Mule. It's a great choice for those who enjoy a mix of sweet, tangy, and smoky flavors.",
+      "diagnostic_only": true,
+      "gold_answer": "lavender gin fizz",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "91fb6301caaf21fd689265ca3faa6b5b2d559b6bf6493176f7858a05fde55c83",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**. It combines tequila, mango puree, lime juice, ginger beer, and a dash of smoked paprika for a unique and flavorful twist on the classic Moscow Mule. This recipe is a great example of how you're experimenting with different flavors and ingredients to create something new and exciting. It's a perfect match for your love of citrus and bold, smoky flavors. Keep up the great work! 🍸",
+      "old_prompt_sha256": "c5be39a7e0f975c102872a3368a85f41fc6ca6df1bb3e4399f9155c6f3f09d0d",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "80587cafe02f10cac1c2b04db5803afed1e19767e90d3ce68fdbde93ce234d33",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "06878be2",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "Absolutely! To complement your current photography setup, I'd be happy to suggest some accessories that can enhance your workflow, improve your photos, and make your photography sessions more efficient. Here are some essential accessories to consider:\n\n**1. Tripod:**\n* A sturdy tripod can help you capture sharp, stable images, especially when shooting in low light or using long exposures.\n* Look for a tripod that's compatible with your camera and offers good stability and portability.\n\n**2. Camera Bag:**\n* A camera bag can help you carry your gear safely and efficiently. Look for a bag that's designed for your specific camera and lens setup.\n* Consider a bag with padded compartments, a rain cover, and a shoulder strap for easy carrying.\n\n**3. Lens Cleaning Kit:**\n* A lens cleaning kit can help you keep your lenses clean and free from smudges and dust.\n* Look for a kit that includes lens cleaning solution, microfiber cloths, and a lens pen.\n\n**4. Memory Cards:**\n* High-capacity, fast-speed memory cards are essential for capturing high-resolution images and videos.\n* Look for cards that are compatible with your camera and offer good performance and reliability.\n\n**5. Remote Shutter:**\n* A remote shutter can help",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.045112781954887216,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.028037383177570097,
+        "token_recall": -0.11538461538461536
+      },
+      "new_lexical_metrics": {
+        "f1": 0.15037593984962405,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.09345794392523364,
+        "token_recall": 0.38461538461538464
+      },
+      "new_prompt_sha256": "e92c58c7bd57671d802b62cba7ea4c6f67e9d7e98028868f2e8cf808e6c10faf",
+      "old_lexical_metrics": {
+        "f1": 0.19548872180451127,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.12149532710280374,
+        "token_recall": 0.5
+      },
+      "old_prediction_v1": "Certainly! If you're looking to enhance your current photography setup, there are several accessories that can help improve your workflow, image quality, and overall experience. Here are some suggestions:\n\n### **1. Tripod**\n- **Purpose:** Provides stability for long exposures, low-light photography, and landscape shots.\n- **Recommendations:** \n  - **Gitzo GT3543LS:** A lightweight, durable tripod with a G-Lock Ultra system for easy adjustments.\n  - **Manfrotto MT055XPRO:** A professional-grade tripod with a robust build and reliable performance.\n  - **Peak Design Travel Tripod:** A compact and portable option for on-the-go photography.\n\n### **2. Camera Bag**\n- **Purpose:** Keeps your gear organized, protected, and easily accessible.\n- **Recommendations:**\n  - **Think Tank Photo 20\" Camera Bag:** A durable, well-organized bag with padded compartments and a secure closure.\n  - **Lowepro HPC 550:** A high-capacity bag with a focus on durability and organization.\n  - **Peak Design Everyday Backpack:** A versatile, lightweight bag that can carry your camera and other gear for daily use.\n\n### **3. Lens Cleaning Kit",
+      "old_prompt_sha256": "e3b4afcfe4c401a3846511d002b3dee92828db0ee5c7998b4e041a8c5f09ce18",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d08be76a2f9b902306581fca9218c23df5319ebb7ea6055c3dc5c1aea881ae33",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "c4ea545c",
+        "system": "fullcontext"
+      },
+      "date_anchored_prediction_v2": "The question is not directly related to the previous conversation about songwriting and perseverance. However, I can provide a general answer based on the information given.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It's common for people to increase their physical activity when they're also engaging in creative or mental activities, as both can be demanding and require a balance of physical and mental energy.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It's common for people to increase their physical activity when they're also engaging in creative or mental activities, as both can be demanding and require a balance of physical and mental energy.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It",
+      "diagnostic_only": true,
+      "gold_answer": "Yes",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.010811913504691961,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.005520833333333334,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.02631578947368421,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.013333333333333334,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "3ab3b50b35557e318bee32d0daa2e3590988d1b0e09cabea0d86a602e1ba443b",
+      "old_lexical_metrics": {
+        "f1": 0.015503875968992248,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0078125,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "Yes, you go to the gym more frequently than you did previously. This is a positive change that can have a significant impact on your fitness journey. Increased frequency of gym visits can lead to greater consistency, which is key to building strength, improving endurance, and achieving your fitness goals. It also allows for more opportunities to work on different aspects of your fitness, such as strength training, cardio, and flexibility.\n\nIf you're going to the gym more often, you might want to consider the following to make the most of your increased frequency:\n\n1. **Variety in workouts**: To avoid plateaus and keep your routine engaging, consider varying your workouts. This can include trying new exercises, changing your routine, or focusing on different muscle groups each session.\n2. **Progressive overload**: Gradually increase the intensity of your workouts to continue challenging your body and promoting growth.\n3. **Rest and recovery**: With more frequent gym visits, it's important to ensure you're giving your body enough time to rest and recover. This can include taking rest days, getting enough sleep, and incorporating recovery techniques like stretching or foam rolling.\n4. **Tracking progress**: Keep a record of your workouts, including the exercises, sets, reps, and weights you're using. This can help",
+      "old_prompt_sha256": "4967d988d30736db865099a44fbf3f551dc8c666f9f48522e2ab84ab41cc64bd",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "fullcontext"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "dbb149e5e3bc5683e62188744c2c22e79fdb0f87f0ac6b1fde8d6cd81f69185c",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1cea1afa",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "600",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "5efdf60895fee74951f46c8c7e30415620a79fb1dc2969e1c18d3fa414be8767",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None. The question about the number of Instagram followers is not addressed in the provided context.",
+      "old_prompt_sha256": "3f590b63f6f09f5ce276add87d8d15968f668679046c279f196081f7668fcb76",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0ba709d36b409cb9f83d0554de157bacf146fd59e26aa91aeee3e8961b0b563b",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1c549ce4",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "$140",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "44dcf86ed0f61787e360a48fc8fb44b5330b8f78b2c80951c1b12fd60f6710be",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "31727d1f76b00ef4a6f6c15ffce5274383583e69ca45c99bbf3bca961bf2224c",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "a8aec9fdf057c182f51f5d45c83352b07eba83ebd47bd0486ba5eea9be2c2de4",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "778164c6",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "The Jamaican dish you were recommended to try with snapper that has fruit in it is **Grilled Snapper with Mango Salsa**.",
+      "diagnostic_only": true,
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.08333333333333331,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.07017543859649122,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.4166666666666667,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.2631578947368421,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "f3e33a137d9e27f79cd25fae30a79ddd30484be63d7811defd667b659ac9846d",
+      "old_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "old_prompt_sha256": "43ce3254065d26eaebdac8b86b95df00d27aa60aa7b86875ff65f69c4f44e5d1",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7d2d6ee0295a061b556bed87a18d40166cbd01259c32a1105b411b255cb29ea2",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "fca70973",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "837bb5714bb07e55a12be559a9e440666d54b5505ddc50031fc0666302402c15",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "45566322ac02989e31593dd0a4c438795f70c1c342c09d3f6685e117e1981d4d",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ed5a1f681d7d823e717131462f5937ee559d91bcc7769dd23e586a203f7ed8be",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "a82c026e",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "The game you finally beat last weekend was Dark Souls 3 DLC.",
+      "diagnostic_only": true,
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.10000000000000003,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.06060606060606061,
+        "token_recall": 0.25
+      },
+      "new_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "f826c7d670f2ab51f8f8eff2f0d6f7d3883e807f75aae5d7e92087383945ef27",
+      "old_lexical_metrics": {
+        "f1": 0.39999999999999997,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.2727272727272727,
+        "token_recall": 0.75
+      },
+      "old_prediction_v1": "The game you finally beat last weekend was Dark Souls 3.",
+      "old_prompt_sha256": "2e39e92c5490aee8ead454210e3a0ce7999d587a9c23e32960537bb675adb259",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "f152ed1cee94ed020edd8c502b2c9cd8411117e2fa9870ad96bc57b8b435bb7a",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_e061b84g",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "97f0f435f5ef1f42842fb539b085a508188e461229a7ae686ff06c365bd58dbb",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "2fc58d8b963594fb7857c178aa0642afe21a9f6c5fc300f2d2720095360d3d38",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "eafa0a79a12c1c50b1b6b0d03f4fe81b4e26d89cbee52972fead78974649330f",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_f420262c",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "511a7fb9915f41a7f8f49d36f81d708d70a682e6ac4e9f31ab5f0dc4d5877b2e",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "328ffa5f9e52370c83c35920a876797e467483288b0283b152be3c0759c2a4e7",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7189a772a35a01937f9005fba9b4c6559340616c77ee7eff57003de4ed25f95d",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "8550ddae",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "The cocktail recipe you tried last weekend was the Lavender Gin Fizz. You mentioned that you used honey and water as an improvised substitute for simple syrup and that it didn't turn out as expected.",
+      "diagnostic_only": true,
+      "gold_answer": "lavender gin fizz",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.2797202797202797,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.19999999999999998,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.18181818181818182,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.1,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "19899d72a6ae238ca66afcee07c3e971b04ee437093b1297b28399970de9c1e8",
+      "old_lexical_metrics": {
+        "f1": 0.4615384615384615,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The user tried a lavender gin fizz recipe last weekend.",
+      "old_prompt_sha256": "f0ad2d7fc385a4af6120d877bade5b42b4e6cc342236ae42887514f6cbf93cf3",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "89e6583db3bde410065330f096f27bd48dded3e3d67b2855e8056265f279f66d",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "06878be2",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "aa1b51264bce8faa13b5f53e3a9fd2038462b6f11e355526cc918ac389fe5ebb",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "4bbb398f5a0f01e84cea8a964f35303bd5081a615e4c310a43c2e2866f5e2f9b",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "be312826c9f6ec91ca9520568325568c356739c585352f237429d4ac5baa3fe8",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "c4ea545c",
+        "system": "openclaw"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "Yes",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "79841236bd5bc127801a2daa2f0560f5a726fba75e8fbe0ee67fc0279824403b",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "9cef1365edf50658147fc4027a850f04bf57e72258c02590766c00a98abf8904",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "openclaw"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ca833a8c73b76a10a354e33663fe737a299888daac46a6269ad4f3aa65d03fea",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1cea1afa",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "600",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "0a2272e2dbf5e430f245e571def43e6534c8c205be4bc88e5fc8cf885de3d669",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "60ade81b984ef908f5a2d9cebe7a0180298634c3cc7458e877a2c268c6496f92",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e99a4c988e2c638941e37a52b2d79f4074a9b127607874a7e7f1fe459ddbc09e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1c549ce4",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "$140",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "33a34c124b1013e5586a8f6bd1a2fecc49534c256f414d14253b16e787a52eaa",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "c2972b0444b6965702928c91bd06387fe57170852d9a43e777faf791be48bc9b",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "77bcfcc336adf7f6fcb47b41fb4605a74b289bc2c0aafa2aa55b5e0fdc7344b6",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "778164c6",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "6eb3eefff2aaa1c34378be85aae88629fe31cf3bf0b4feda308a198ffee07df9",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "3cee7a0f2e96c5e8377ed685e1a1144104957a14805d5e1525278998e705ecb5",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ff1ed347e2cb69ec995abfb8f2aea90951737abf1ca48ad0648a3c51e67021c2",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "fca70973",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "f6f826da784fe0029c9f8d110c6f3606a0b1ce5e7a6d69e30359599216df2cba",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "2671ab065ad5f1931f536b231ba5c883be08cbb30f8c389617de1afffd68ee2c",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0d4a7da53655a04dc324fe8d5c12843a4ef7d161307b5e0b672a2173d8791951",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "a82c026e",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "The game you finally beat last weekend is Dark Souls 3 DLC.",
+      "diagnostic_only": true,
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.16666666666666663,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.16666666666666669,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "885888d9ab92f8e977453f429c2b565619b0aaad5330f3e974701b7872071dc4",
+      "old_lexical_metrics": {
+        "f1": 0.6666666666666666,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.5,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The last boss in Dark Souls 3 DLC.",
+      "old_prompt_sha256": "f978a7fc7b871746ab2e5bd08202222f12bb841789b0c4ee9b33fef97bc0668a",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "75f7f5fb314bfbbadf08b12f0b19067156fc074c10a1f930cf430de480f8bf15",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_e061b84g",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "e5338c42b69ce647517b2398b2ae8cc6a160702380e7b8a16d0b26b62405acf9",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "8ff1483837fab2c413f4ae67c6a6f11f79210624d571250c8b5a128139baca86",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "19d7d1dedfdafe327faca444750a1197dbf28b85d91c54c883b0b48a636c188e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_f420262c",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.3157894736842105,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.21428571428571427,
+        "token_recall": -0.6
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "7b0eef64dfc6ac3516456b00afcd93e22300832b1a3d702c6db1885a3ed518e5",
+      "old_lexical_metrics": {
+        "f1": 0.3157894736842105,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.21428571428571427,
+        "token_recall": 0.6
+      },
+      "old_prediction_v1": "The order of airlines flown with from earliest to latest is: American Airlines, Delta, Spirit Airlines.",
+      "old_prompt_sha256": "0b7136a129f15195a829501001f07dad8f6e0307ae9647e41618893da24b80d2",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "01fbb3130184104819b05aebb0b1f949275aa3b8e524979300a616e00e1f4f30",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "8550ddae",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "lavender gin fizz",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "98441c78d4959284a67b2b8577f160dd792f2550765bd62d2556a8d87c70f135",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "5e101c9062d4358c4e07a7a88277c9018423b15e76cf456d8b9100d1c49566ae",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e212985cceb9685fe5508c493323ac3cbd9a8d988173ce3bfff38714a1fed9f4",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "06878be2",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "Based on your context, here are some accessories that would complement your current photography setup:\n\n1. **Camera Bag**: Consider upgrading to a durable and comfortable camera bag designed for Sony cameras, such as the Godox V1-compatible options or specialized Sony bags for better protection and organization.\n\n2. **External Battery Pack**: A good external battery pack would be useful for charging your Sony A7R IV and other devices on the go, ensuring you stay powered during long shoots or travel.\n\n3. **Camera Flash Case or Pouch**: Since you're considering the Godox V1, you might want a protective case or pouch to safeguard it, especially if you're comparing it to the Sony HVL-F60RM for durability.\n\n4. **Memory Card Organizer**: To keep your memory cards secure and organized, especially if you're frequently handling them during shoots or travel.\n\n5. **Lens Cleaning Kit**: A dedicated lens cleaning kit would be helpful for maintaining your Sony 24-70mm f/2.8 lens, ensuring optimal performance and clarity.\n\n6. **Tripod or Monopod**: If you haven't already, a sturdy tripod or monopod can enhance your setup for stable shots, particularly during travel or outdoor photography.\n\n7. **Camera Strap",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.00860710389138078,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.011781609195402304,
+        "token_recall": 0.07692307692307693
+      },
+      "new_lexical_metrics": {
+        "f1": 0.1506849315068493,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.09166666666666666,
+        "token_recall": 0.4230769230769231
+      },
+      "new_prompt_sha256": "6f958afca274298372a1f7e6e29ce4fd576c1b79bda189049ed2c724ace98e4a",
+      "old_lexical_metrics": {
+        "f1": 0.1592920353982301,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.10344827586206896,
+        "token_recall": 0.34615384615384615
+      },
+      "old_prediction_v1": "Based on your interests and needs, here are some accessories that could complement your current photography setup:\n\n- **Camera Bags**: Consider upgrading to a camera bag designed for Sony cameras, focusing on comfort and durability.\n- **Camera Flash**: You are looking at the Godox V1, so you might want a case or pouch to protect it.\n- **External Battery Packs**: A good external battery pack would help charge your Sony A7R IV and other devices on the go.\n- **Lens Cleaning Kit**: For cleaning your Sony 24-70mm f/2.8 lens, a proper cleaning kit is essential.\n- **Props and Backdrops**: If you're planning to take photos of eco-friendly candles, consider using sunflowers, zinnias, bell peppers, and eggplants as props and backdrops.",
+      "old_prompt_sha256": "37a15d8f8149b1c17e90375156cbe3b6aea45ddd1a55845e1671ab6fa3513355",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d5c6a7ec1f26d75be18d385da3027ba7f74be4d6205c53e2bc5e7e88ecb93708",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "c4ea545c",
+        "system": "mem0"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "Yes",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "ea737d39eb754a26e21fdaf85aed544022cca86635377cbe769923c4293951a3",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "b40cb07bf63626b124d5ab30f65d7f0d6df0c20d96a808b1970ec8d90e236f44",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "mem0"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "9ef3ab6f45d6a888454f727c60c8c0fb8a78ea877c816d8ca1f655d4987c79fb",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1cea1afa",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "600",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "3923a7cb97f2237e8ad3efbd54ded278a54291aeb357ad43f1a691211075f568",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "eb4deb07e623b6ea976ec11027b6d33bfc3bee27204da19a5e99bed47d7f6d90",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "536ed8fe036003d1dc8836d8d33fe9f0c1cac51326d6848fc1b4a359519d90fb",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1c549ce4",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "$140",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "21a27c1e9824abbecbfb710408aaa598d127a9b9a3c0cf534ab505f8750c7fce",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "b8c55287090a983355006fec84c4f94be51ee37fd0d13c95777db7ae4c7303ce",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "c06848bf1911a8ba29d2f7f4357bdd19ca2d1c50529cac8272e6617589d8b59e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "778164c6",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "The Jamaican dish recommended was Escovitch Fish, which features crispy fried snapper and a spicy pickled vegetable sauce. There is no mention of a dish with fruit in the context provided.",
+      "diagnostic_only": true,
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.3333333333333333,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.22268907563025211,
+        "token_recall": -0.6
+      },
+      "new_lexical_metrics": {
+        "f1": 0.12121212121212122,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.07142857142857142,
+        "token_recall": 0.4
+      },
+      "new_prompt_sha256": "e5468f5f2d7b4d51ac7f6744126091338452c5a3ac73a83880b9d327279d3d8e",
+      "old_lexical_metrics": {
+        "f1": 0.45454545454545453,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.29411764705882354,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The Jamaican dish recommended to try with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "old_prompt_sha256": "f5598f595fe0734b9cdd4c8fda8064c1e9d855413e8210158d38d3cda5309afc",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "2171c5e066b3ec0e8d91a0e43e4caaffdbb9b40316908678d41dba2a41819e5e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "fca70973",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "892a09ee6b408e5019c1f221f61261c6b25ed164981f194b08e633e3fc2ae4ae",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "7f0264fc66ae387b491c8e6269bda9645003a8fa959a295c381bd2278038a5e4",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "3fec2cd4bece334002ed14e3f2953aa250cb2a4644bf7ff67775e9d21d109922",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "a82c026e",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "fbf2eaf233347d655c656d554931afba7867ac13e05cf6a36b026d2e04b3a27c",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "f7e602f46a131570d01eacd393d4cd5bffe8d1b4fba65b7f37c46fa99287557c",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "cd012668c584cd1070d6d13af54aa9966433ae95dffd2329352a16f115e27747",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_e061b84g",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.125,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.1111111111111111,
+        "token_recall": -0.14285714285714285
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "8a8021654b080ec8a73e76518e1d05c1ee0be8527bf7274ea2b4ecd8fd07f4f0",
+      "old_lexical_metrics": {
+        "f1": 0.125,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.1111111111111111,
+        "token_recall": 0.14285714285714285
+      },
+      "old_prediction_v1": "The event you mentioned was a volleyball league game.",
+      "old_prompt_sha256": "f03c47f8d9503623485b0baf60cf7e6e9f8d1c8217280da7202eabdc8ff6ffe0",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "46c1620899b23a461868779f7908a4e497175620f441cf6f8f88ebfb784067dd",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_f420262c",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None",
+      "diagnostic_only": true,
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "29d8d40a486f27e1bf0051e42b45d2650a81f4ad06dde4d75cd04ca27542a215",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "54eda9270b08ccacbb25976562d2a9a31c610a8bdad3d76918ba84cfb6326d38",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0c633ad23597c5087a4bff5f0aaf3f4d34945c902f562821c1a079d9b16b388b",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "8550ddae",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "lavender gin fizz",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "f88f96f389911f77a25fe99cf52f1e38fdfcf27a19424f188f122307e8933c6d",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "8ab7f71c7feda4cb91a078799c5b50a54e19f2938c14c84d5ef8ff5e41d7ef0c",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "6ad227836be8364d7bb19ed4dd92cea7d85eba1a11519b0eaeda60c103bb23db",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "06878be2",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "31125708393c0421c94e3ca518f023b6382438af5cec48a4da6ac0379aa5634a",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "464e1e976536dc1174f78b811b1707aba5886598f594ce7383c71d070fdfa42a",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7cedc5a6da334678be92a671663aeb34352ce4baae13a0ca62364dbeb4c43409",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "c4ea545c",
+        "system": "simplemem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "Yes",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "12c3706a388aa8c869571d689dd42d2fecd1a9d59a8529e15298d2a58afc49a8",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "8a2f40f37fdcf8df6d41b75fae11b2be0644c78ada6d810300d6de18a942104f",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "simplemem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "008f8dd37997652caa111260e8183481fca476faa49f06ff7fdeb257a11f4bb6",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1cea1afa",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "You currently have 600 Instagram followers.",
+      "diagnostic_only": true,
+      "gold_answer": "600",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.04761904761904767,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.033333333333333354,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.2857142857142857,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.16666666666666666,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "e64c6d6403e3b581d50b988b76e830c30bccc419fee4d4386bdec50d281d4add",
+      "old_lexical_metrics": {
+        "f1": 0.33333333333333337,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.2,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "You currently have 600 followers.",
+      "old_prompt_sha256": "f8180d573b405531c1d1a872bee68c634f3154a581d5d35014a835864e55d116",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "c092975d6581dd3903a04f1999a9d7300e21e4d2b96d73f3987c167fca123055",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "1c549ce4",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "$140",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "c25a94dc62aa2d142037e4c57ab1905d5ed5fa99f210e069882cda51b5fa18c6",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "06ccef80a772513dc70ffde46cf02c30f3778b0d3c334d25a116b294e5308cfa",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "a1db70223655371218206a39c149776456ebebd5173ba4c2e4a0e77bcfea77d8",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "778164c6",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "The Jamaican dish recommended that features snapper and includes fruit is Fish and Fungi.",
+      "diagnostic_only": true,
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.3888888888888889,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.2564102564102564,
+        "token_recall": -0.8
+      },
+      "new_lexical_metrics": {
+        "f1": 0.1111111111111111,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.07692307692307693,
+        "token_recall": 0.2
+      },
+      "new_prompt_sha256": "ace337fa07054cc2685e0d6cf1302669ffb4cada4e397122fabbca71501c8b7c",
+      "old_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+      "old_prompt_sha256": "2a99e63b4de3e15eb9cbd4b21d151ceedcf20041200d4f72f7bd808ef9d4c049",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "76c498c4d65203bfa0b3432238fc567c34811ff73f0797dbd4d21d28be49b18e",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "fca70973",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "d2332f2a57e7b958bab9cf1e4ee0a44e74b6347d60fb64b52b385510b2d3a87e",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None.",
+      "old_prompt_sha256": "8383eeb69d0189dab30faf2801e94095628a557b909176bb54a4255f53c0af21",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "41bc11a36866bc16e12e095fe5b2e7bd3adfafb6a25eff7723713d2bad0bef50",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "a82c026e",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "The game you finally beat last weekend was Dark Souls 3 DLC.",
+      "diagnostic_only": true,
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.055555555555555525,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.047619047619047616,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "4c2ba42bb90bc48bd0a8911ee87d9e6498a70bb216e9bfeff53ef72079e17b97",
+      "old_lexical_metrics": {
+        "f1": 0.4444444444444445,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.2857142857142857,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The user mentioned they finally beat the last boss in the Dark Souls 3 DLC last weekend.",
+      "old_prompt_sha256": "5264be22a1f7c83761f46c1ae503c59b79bb5d36f0f5aff616247f18266ea898",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0bfa47150cb957fe98115e39274fb237e55e0c812f9bab341f5dab77df62f91c",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_e061b84g",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "The event you mentioned participating in two weeks ago was the Midsummer 5K Run on June 10, 2023.",
+      "diagnostic_only": true,
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.08333333333333333,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.058823529411764705,
+        "token_recall": 0.14285714285714285
+      },
+      "new_lexical_metrics": {
+        "f1": 0.08333333333333333,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.058823529411764705,
+        "token_recall": 0.14285714285714285
+      },
+      "new_prompt_sha256": "620eb173f61a515b28a20b55dd8287c8d5b3d5bf2f146a8a33bea3b7353dd4e9",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "None",
+      "old_prompt_sha256": "cf5eecd84898dd7dc4b370127d0d112eebd71fcfb69ad34dca5581ada7298903",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d972d7add3330f9e40e5889488e75ca69f888d467a27e3640fa8ed953a865115",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "gpt4_f420262c",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "None. The required information about the order of airlines flown with is absent in the provided memory context.",
+      "diagnostic_only": true,
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": -0.01002506265664159,
+        "normalized_exact_match": 0.0,
+        "token_precision": -0.008928571428571425,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.09523809523809523,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0625,
+        "token_recall": 0.2
+      },
+      "new_prompt_sha256": "cec5b2641ce462ba92c98bffa27654563ef3a7019ac30674a33a799e48901e1e",
+      "old_lexical_metrics": {
+        "f1": 0.10526315789473682,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.07142857142857142,
+        "token_recall": 0.2
+      },
+      "old_prediction_v1": "None. The order of airlines you flew with is not mentioned in the provided context.",
+      "old_prompt_sha256": "6cb9392965a0859a3334c65bd978305a961db31cd889cf71116399691dd05a7d",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "9a3a70cb30c0dbfa150ba0b5be668c3feb7334a91384483d3fc0dfcda8e64bca",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "8550ddae",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "You tried a lavender gin fizz recipe last weekend.",
+      "diagnostic_only": true,
+      "gold_answer": "lavender gin fizz",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.03846153846153849,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.033333333333333326,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "new_prompt_sha256": "640bf6ee1e2e7ddf7ff0363e0a336106a15b4329e61e36e8f97b3b8e816e7b13",
+      "old_lexical_metrics": {
+        "f1": 0.4615384615384615,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3,
+        "token_recall": 1.0
+      },
+      "old_prediction_v1": "The user tried a lavender gin fizz recipe last weekend.",
+      "old_prompt_sha256": "d47477721b55e790116b51b41c7170d6b1b88c2b90b20fa559a2a3783b3aa57a",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "62e4c2c574da7c179cc0be0d242b61931314b4021a5a17a4b38d7c6eb452017b",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "06878be2",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "Based on the context, here are some accessories that would complement your current photography setup:\n\n1. **Camera Flash**: Consider upgrading to a high-quality flash like the Sony HVL-F60RM or Godox V1 for better lighting control and versatility.\n2. **Camera Bag**: A durable and well-organized camera bag from brands like Think Tank Photo, Lowepro, or Peak Design can help carry your gear safely and efficiently.\n3. **External Battery Pack**: An external battery pack such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, or Jackery Titan S 20000 can provide additional power for your Sony A7R IV and other devices on the go.\n4. **Lens Cleaning Kit**: A lens cleaning kit with a soft cloth and appropriate cleaning solution can help maintain the quality and performance of your lenses.\n5. **Tripod**: The Gitzo GT3543LS is a high-end tripod that offers excellent stability and versatility for various shooting situations.\n6. **Lens Case or Pouch**: A protective case or pouch for your lenses, such as the Lowepro Flash Pouch or Vello Flash Pouch, can help prevent damage and keep your gear organized",
+      "diagnostic_only": true,
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.012080536912751655,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.008985879332477534,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.19999999999999998,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.12280701754385964,
+        "token_recall": 0.5384615384615384
+      },
+      "new_prompt_sha256": "a3aa34a8c8045b0559e2d2e8c561c08b7b3c1fc7905d5e0ceb2df439ae5b33a2",
+      "old_lexical_metrics": {
+        "f1": 0.18791946308724833,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.11382113821138211,
+        "token_recall": 0.5384615384615384
+      },
+      "old_prediction_v1": "Based on the context provided, here are some accessories that would complement your current photography setup:\n\n1. **Camera Flash**: Consider upgrading to a high-quality flash like the Sony HVL-F60RM or HVL-F45RM for better lighting control and performance. Alternatively, third-party options such as the Godox V1 offer excellent value and advanced features.\n\n2. **Camera Bag**: A reliable camera bag is essential for carrying your gear. Brands like Think Tank Photo, Lowepro, F-Stop Gear, Peak Design, and MindShift Gear offer high-quality bags tailored for Sony cameras and additional accessories.\n\n3. **External Battery Packs**: For on-the-go charging, consider external battery packs such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, or Jackery Titan S 20000. These can charge your Sony A7R IV and other devices effectively.\n\n4. **Lens Cleaning Kit**: To maintain the quality and performance of your lenses, use a lens cleaning kit that includes a soft, dry cloth and appropriate cleaning solutions. Avoid touching the lens with bare hands and apply gentle pressure to prevent damage.\n\n5. **Tripod**: The Gitzo GT3543LS is",
+      "old_prompt_sha256": "3ed92b3a86bdc232de638e7ec58bb95cf72937b2acad7c222a0f465f9692713b",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "65fb6edd52f80112809344434d2da3660fabf0b4168ead7e7d121a3c35999e34",
+      "d1d2_evidence_packet_pointer": {
+        "artifact": "docs/research/memory/mem_1d2_reflection_packet.json",
+        "question_id": "c4ea545c",
+        "system": "propmem"
+      },
+      "date_anchored_prediction_v2": "None.",
+      "diagnostic_only": true,
+      "gold_answer": "Yes",
+      "human_reflection_labels": {
+        "allowed_failure_loci": [
+          "WRITE_OR_COMPRESSION_LOSS",
+          "RETRIEVAL_SESSION_MISS",
+          "SESSION_HIT_EVIDENCE_ITEM_MISS",
+          "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+          "MULTI_SESSION_COMPOSITION_FAIL",
+          "TEMPORAL_ANCHOR_MISSING",
+          "TEMPORAL_ORDERING_FAIL",
+          "CURRENT_STATE_RESOLUTION_FAIL",
+          "CHANGE_REASONING_FAIL",
+          "PREFERENCE_SYNTHESIS_FAIL",
+          "UNKNOWN"
+        ],
+        "allowed_outcomes": [
+          "ANSWER_CORRECT",
+          "ANSWER_PARTIAL",
+          "ANSWER_WRONG",
+          "ABSTAINED"
+        ],
+        "failure_loci": null,
+        "outcome": null
+      },
+      "lexical_metric_delta_new_minus_old": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "new_prompt_sha256": "ad028b3f0543998f18d595b8932751f2f78b86cb98aadad0675f13563a321710",
+      "old_lexical_metrics": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "old_prediction_v1": "The user currently goes to the gym on Tuesdays, Thursdays, and Saturdays, which is three days per week. Previously, they mentioned going to the gym on Mondays, Wednesdays, and Fridays, which is also three days per week. Therefore, the frequency has not changed.",
+      "old_prompt_sha256": "e36e95e828d64a9d46d51e9a3b1752533ef296f9d297b3fbbe477afffc1f2b0b",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "same_context_bundle_sha256": true,
+      "semantic_review_status": "PENDING_HUMAN_REVIEW",
+      "system": "propmem"
+    }
+  ],
+  "run_id": "mem1d3-reader-v2-20260928",
+  "temporal_cases": {
+    "answer_text_changed_count": 8,
+    "interpretation": "descriptive lexical delta only; not an improvement claim",
+    "mean_raw_f1_delta": -0.024152114156358644,
+    "paired_rows": 10
+  },
+  "temporal_question_ids": [
+    "gpt4_e061b84g",
+    "gpt4_f420262c"
+  ]
+}

@@ -343,7 +343,20 @@ def _verify_frozen_evidence(run_dir: Path, *, require_ledgers: bool) -> bool:
 
 def select_records(raw_items: list[dict[str, Any]], question_ids: list[str], normalize):
     wanted = set(question_ids)
-    records = [normalize(item) for item in raw_items if item.get("question_id") in wanted]
+    records = []
+    for item in raw_items:
+        if item.get("question_id") not in wanted:
+            continue
+        question_date = item.get("question_date")
+        if not isinstance(question_date, str) or not question_date:
+            raise ValueError(
+                f"LongMemEval record {item.get('question_id')} lacks an official question_date"
+            )
+        record = normalize(item)
+        if not record.get("qa") or not isinstance(record["qa"][0], dict):
+            raise ValueError("LongMemEval normalizer did not return a QA object")
+        record["qa"][0]["question_date"] = question_date
+        records.append(record)
     observed = [record["qa"][0]["question_id"] for record in records]
     if set(observed) != wanted or len(observed) != len(wanted):
         raise ValueError("Dataset does not contain exactly the requested DEV questions")

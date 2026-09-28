@@ -195,8 +195,8 @@ def test_context_controlled_is_the_default_answer_track(monkeypatch, tmp_path):
 def test_record_selection_only_normalizes_requested_questions():
     normalized = mem1_runner.select_records(
         [
-            {"question_id": "dev-a", "payload": "allowed"},
-            {"question_id": "test-a", "payload": "never selected"},
+            {"question_id": "dev-a", "question_date": "2026-01-02", "payload": "allowed"},
+            {"question_id": "test-a", "question_date": "2026-02-03", "payload": "never selected"},
         ],
         ["dev-a"],
         lambda row: {
@@ -204,9 +204,21 @@ def test_record_selection_only_normalizes_requested_questions():
             "payload": row["payload"],
         },
     )
-    assert normalized == [{"qa": [{"question_id": "dev-a"}], "payload": "allowed"}]
+    assert normalized == [{
+        "qa": [{"question_id": "dev-a", "question_date": "2026-01-02"}],
+        "payload": "allowed",
+    }]
     with pytest.raises(ValueError, match="exactly the requested"):
         mem1_runner.select_records([], ["dev-a"], lambda row: row)
+
+
+def test_record_selection_fails_closed_without_official_question_date():
+    with pytest.raises(ValueError, match="lacks an official question_date"):
+        mem1_runner.select_records(
+            [{"question_id": "dev-a"}],
+            ["dev-a"],
+            lambda row: {"qa": [{"question_id": row["question_id"]}]},
+        )
 
 
 def test_latency_percentiles_and_role_accounting():

@@ -1,0 +1,22 @@
+You are answering using supplied conversation-memory context.
+Question date: <<QUESTION_DATE>>
+
+Treat this as the time at which the user asks the question.
+Resolve relative expressions such as:
+- today
+- yesterday
+- last week
+- two weeks ago
+- before today
+
+against this question date.
+
+Use only supplied memory context.
+Answer concisely but completely.
+If the required information is absent, answer None.
+Do not guess.
+---USER---
+Memory context:
+<<MEMORY_CONTEXT>>
+
+Question: <<QUESTION>>

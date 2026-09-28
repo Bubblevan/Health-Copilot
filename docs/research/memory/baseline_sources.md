@@ -10,6 +10,16 @@ The official source is integrated through a Health-Copilot compatibility adapter
 
 The active MEM-1 protocol is fully local with judge `NONE`; historical GPT-4.1/GPT-4o and hosted embedding details further below describe the original pre-amendment audit only. For active runtime settings, use `mem_1_local_only_protocol.json` and `mem_1_local_only_amendment.md`.
 
+The remaining MEM-0 reader, long-context, model, and cost sections below are retained as historical audit evidence. They are not the current executable Main Track configuration; later MEM-1 amendments supersede those values.
+
+## MEM-1D3 temporal-contract and literature positioning
+
+MEM-1D3 repairs a benchmark-input contract: the pinned LongMemEval normalizer had dropped the official `question_date`, so the MEM-1 shared reader could not resolve relative-time questions against the benchmark's query-time anchor. This is a protocol-completeness correction, not a temporal-memory contribution. The D1 predictions remain immutable historical artifacts, but their temporal causal interpretation is invalidated; temporal interpretation must use the date-anchored reader-v2 comparison.
+
+The surrounding research is materially adjacent and must be acknowledged before making any architecture or novelty claim. [LongMemEval](https://arxiv.org/abs/2410.10813) explicitly evaluates temporal reasoning and knowledge updates, and studies time-aware indexing/query expansion. [Memory-R1](https://arxiv.org/abs/2508.19828) learns memory ADD/UPDATE/DELETE/NOOP decisions with a separate answer agent and policy optimization; no such training is part of this stage. [Memory-as-Action](https://arxiv.org/abs/2510.12635) treats working-memory edits as actions and optimizes them for long-horizon agentic tasks, an adjacent but different setup. [APEX-MEM](https://aclanthology.org/2026.acl-long.749/) is particularly close: its entity-centric temporal property graph retains append-only history and resolves conflicts at query time. The [STALE preprint](https://arxiv.org/abs/2605.06527) probes stale implicit state, while [Temporal Validity in Retrieval Memory / MemStrata](https://arxiv.org/abs/2606.26511) describes deterministic supersession with a bi-temporal ledger. These works overlap directly with stale-fact suppression, temporal validity, and historical retention; their results are not Health-Copilot results.
+
+Accordingly, `RevMem` remains only a working label. Any later implementation and evaluation should be described as a **Harness-native revision-aware memory experiment**, with claims limited to measured deltas against explicitly named baselines. Do not call it a novel temporal memory architecture or claim SOTA on the basis of the current protocol repair or diagnostic runs.
+
 ## Repository identity and role
 
 | Local directory | Remote / upstream | Checked-out SHA | Observed remote HEAD | Frozen role |
