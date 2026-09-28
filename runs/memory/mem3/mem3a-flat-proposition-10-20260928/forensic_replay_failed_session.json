@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "diagnostic_only": true,
+  "stage": "mem3a-flat-proposition-10-20260928",
+  "not_part_of_benchmark_writer_ledger": true,
+  "requested_by_user_after_main_run_halted": true,
+  "source_session_identity_sha256": "25267ea359060788693f6abf37b1731af749145149afb1927a3f39f538ff19a1",
+  "request_identity": {
+    "prompt_sha256_matches_original": true,
+    "prompt_sha256": "8536e495b31d4337db8a85893f37a510f011399ac1bb625887eae7e41e3dfa9e",
+    "request_sha256_matches_original": true,
+    "request_sha256": "a445603e4c43ef75ce6f485f6d69e612c5d8b0ddf592e57c22cd1eabb17bda03"
+  },
+  "original_call": {
+    "response_sha256": "470744fbe9aefa27d582680729913046b631828078e3d15f4dface3d7771f399",
+    "response_body_retained": false,
+    "captured_exception_type": "ValueError",
+    "finish_reason": "stop",
+    "prompt_tokens": 4625,
+    "completion_tokens": 1103
+  },
+  "forensic_replay": {
+    "provider": "local_qwen",
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_call": false,
+    "reader_or_judge_call": false,
+    "response_sha256": "f234c0199f4712e772947f5b8559d087e99938761250deb1c0dd01ceac46941f",
+    "response_sha256_matches_original": false,
+    "response_body_retained": false,
+    "finish_reason": "stop",
+    "prompt_tokens": 4625,
+    "completion_tokens": 1290,
+    "json_parse": "PASS",
+    "proposition_objects": 10,
+    "validator": "FAIL",
+    "validator_error": "evidence_quote_not_exact_source_substring:1"
+  },
+  "observed_mismatches": [
+    {
+      "type": "punctuation_copy_drift",
+      "source_turn_index": 0,
+      "source_excerpt": "... a vineyard last weekend, and seeing her so happy ...",
+      "replay_quote_excerpt": "... a vineyard last weekend.",
+      "assessment": "The replay changed the comma to a period. A strict byte/sub-string gate rejects it, although the semantic content is otherwise supported."
+    },
+    {
+      "type": "cross_role_and_turn_misbinding",
+      "replay_quote": "I've noticed that you both seem a bit stressed/tense/distant lately, and I want to make sure everything is okay.",
+      "replay_declared_source_role": "user",
+      "replay_declared_source_turn_indices": [4, 6],
+      "actual_source_role_and_turn": "assistant turn 3 provides this as example dialogue",
+      "assessment": "This was not asserted by the user. The exact provenance gate correctly blocks it from becoming a user memory."
+    },
+    {
+      "type": "turn_index_misbinding",
+      "replay_quote_excerpt": "I'll try to follow up with them in a gentle and non-judgmental way ...",
+      "replay_declared_source_turn_indices": [8],
+      "actual_matching_user_turn_index": 10,
+      "assessment": "The text occurs in user turn 10, not the cited turn 8."
+    }
+  ],
+  "contract_assessment": {
+    "strict_json_and_exact_fields": "Appropriate; replay produced the expected JSON-shaped objects.",
+    "lower_snake_case_candidate_keys": "All visibly emitted candidate keys followed the frozen pattern; not the observed failure.",
+    "exact_quote_requirement": "Semantically necessary for auditable provenance, but asking a generative model to reproduce exact punctuation is brittle. Do not loosen it to fuzzy matching because that would accept the observed cross-role/turn misbindings.",
+    "source_turn_indices_and_quotes_as_separate_arrays": "Ambiguous pairing likely contributes to misbinding; a future version should pair each evidence item with its source reference or use harness-issued source-span IDs.",
+    "durability_policy": "The replay also emitted several overlapping advice-seeking/session-intent propositions. A future version should explicitly exclude one-off requests and hypothetical assistant-authored dialogue unless the user states a durable fact, decision, or plan."
+  },
+  "benchmark_effect": "None. No materialization, embedding, retrieval, reader call, label access, metrics, or gate change resulted from this diagnostic replay."
+}
