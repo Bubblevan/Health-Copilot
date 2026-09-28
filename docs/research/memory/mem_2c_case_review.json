@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "review_group": "knowledge_update"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "review_group": "multi_session"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "review_group": "single_session_factual"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "review_group": "preference"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "review_group": "single_session_factual"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "review_group": "temporal"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "review_group": "temporal"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "review_group": "single_session_factual"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "review_group": "preference"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "review_group": "knowledge_update"
+    }
+  ],
+  "schema_version": 1,
+  "stage": "MEM-2C frozen-ten case packet; human Reflection not yet performed"
+}

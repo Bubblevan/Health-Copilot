@@ -1,0 +1,61 @@
+{
+  "contract_version": "raw-span-segmenter-v1",
+  "representation_version": "raw-span-v1",
+  "input": "one exact user or assistant turn content string; no question or benchmark labels",
+  "boundary_hierarchy": [
+    "newline-delimited text blocks",
+    "sentence punctuation within a block",
+    "end of turn"
+  ],
+  "newline_policy": {
+    "line_ending": "LF newline belongs to the block before it",
+    "blank_lines": "whitespace-only blocks join the preceding text block; leading whitespace-only blocks join the following text block",
+    "other_whitespace": "preserved exactly"
+  },
+  "sentence_policy": {
+    "terminators": [".", "?", "!"],
+    "boundary_condition": "terminator followed by whitespace or end-of-block",
+    "terminator_and_following_whitespace": "retained in the preceding span",
+    "ordered_list_marker": "a period directly after a line-leading digit sequence, optionally preceded by spaces or tabs, and followed by whitespace is not a sentence boundary",
+    "abbreviations": "no abbreviation lexicon; e.g. Dr. Smith splits after Dr.",
+    "unicode_punctuation": "preserved; only ASCII period, question mark, and exclamation mark are sentence terminators",
+    "decimal_points": "not a boundary when the next character is not whitespace"
+  },
+  "preservation": {
+    "strip_or_normalize": false,
+    "markdown_or_content_rewrite": false,
+    "all_characters_exactly_once": true,
+    "ordered_non_overlapping_spans": true,
+    "required_reconstruction": "concatenate span content in span-index order and compare exactly to source turn content",
+    "offset_convention": "zero-based Python Unicode code-point offsets; half-open [char_start, char_end)"
+  },
+  "empty_content": {
+    "empty_turn": "zero spans and zero MemoryRecords",
+    "empty_span": "forbidden",
+    "whitespace_only_nonempty_turn": "one or more exact non-empty spans; whitespace is not discarded"
+  },
+  "identity_fields": [
+    "dataset_sha256",
+    "question_id",
+    "source_session_id",
+    "turn_index",
+    "span_index",
+    "role",
+    "char_start",
+    "char_end",
+    "span_content_sha256"
+  ],
+  "memory_key_template": "raw_span:<source_session_id>:<turn_index>:<span_index>",
+  "forbidden_semantics": [
+    "facts",
+    "propositions",
+    "entities",
+    "attributes",
+    "summaries",
+    "duplicate collapse",
+    "contradiction detection",
+    "revision inference"
+  ],
+  "model_calls": 0,
+  "benchmark_label_access": false
+}

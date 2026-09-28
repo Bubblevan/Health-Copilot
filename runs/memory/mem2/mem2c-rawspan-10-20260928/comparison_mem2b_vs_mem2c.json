@@ -1,0 +1,1184 @@
+{
+  "comparison": "MEM-2B M10-Base RawTurn vs MEM-2C M10-RawSpan",
+  "controlled_components_identical": [
+    "dataset and exact frozen ten DEV question IDs",
+    "question text and official question_date",
+    "user/assistant inclusion policy",
+    "M10 SQLiteMemoryStore and ADD-only semantics",
+    "native lexical score, exact-key behavior, and top_k=8",
+    "M10 ContextManager budget and rank-aware greedy-skip projection contract",
+    "shared local Qwen3-8B reader, prompt contract, generation settings, output cap"
+  ],
+  "diagnostic_only_no_performance_ranking_claim": true,
+  "interpretation_boundary": [
+    "higher native answer-session recall supports only finer textual units improving lexical discrimination",
+    "higher projected coverage supports only smaller units using the fixed Memory budget more efficiently",
+    "answer metrics are downstream deterministic diagnostics, not the selection criterion",
+    "no validation claim for proposition memory, semantic extraction, or RevMem"
+  ],
+  "inventory": {
+    "expansion_factor": 10.857643180881746,
+    "m2b_median_p95_estimated_tokens_per_unit": {
+      "median": 198.5,
+      "p95": 813.0
+    },
+    "m2b_raw_turn_count": 4854,
+    "m2c_median_p95_estimated_tokens_per_unit": {
+      "median": 118,
+      "p95": 142.0
+    },
+    "m2c_raw_span_count": 52703
+  },
+  "mem2b_run_manifest_sha256": "ea7e7c36f6e9a630dc7246e57653383a74a8f3484a7245f25d0f0ba6a902dd7e",
+  "overall_metrics": {
+    "m2b_context_item_count": 2.1,
+    "m2b_estimated_memory_tokens": 828.1,
+    "m2b_exact_gold_sequence_present": 0.2,
+    "m2b_gold_token_coverage": 0.39507087115782774,
+    "m2b_native_mrr": 0.45,
+    "m2b_native_recall_at_5": 0.45999999999999996,
+    "m2b_native_recall_at_8": 0.48,
+    "m2b_normalized_em": 0.0,
+    "m2b_projected_mrr": 0.5,
+    "m2b_projected_recall_at_5": 0.33999999999999997,
+    "m2b_projected_recall_at_8": 0.33999999999999997,
+    "m2b_reader_context_tokens": 990.5,
+    "m2b_selected_worse_better_dropped_pair_count": 1.5,
+    "m2b_token_f1": 0.12453248505880084,
+    "m2b_token_precision": 0.10513888888888889,
+    "m2b_token_recall": 0.20871794871794874,
+    "m2b_top_1_survival": 0.8,
+    "m2b_top_3_survival": 0.4666666666666667,
+    "m2b_top_5_survival": 0.38,
+    "m2c_context_item_count": 7.2,
+    "m2c_estimated_memory_tokens": 955.6,
+    "m2c_exact_gold_sequence_present": 0.2,
+    "m2c_gold_token_coverage": 0.38305781175346393,
+    "m2c_native_mrr": 0.5666666666666667,
+    "m2c_native_recall_at_5": 0.49000000000000005,
+    "m2c_native_recall_at_8": 0.5599999999999999,
+    "m2c_normalized_em": 0.0,
+    "m2c_projected_mrr": 0.5666666666666667,
+    "m2c_projected_recall_at_5": 0.49000000000000005,
+    "m2c_projected_recall_at_8": 0.54,
+    "m2c_reader_context_tokens": 1768.6,
+    "m2c_selected_worse_better_dropped_pair_count": 0.5,
+    "m2c_token_f1": 0.11563025210084033,
+    "m2c_token_precision": 0.07451923076923077,
+    "m2c_token_recall": 0.26,
+    "m2c_top_1_survival": 1.0,
+    "m2c_top_3_survival": 0.9666666666666668,
+    "m2c_top_5_survival": 0.96
+  },
+  "paired_mean_delta_m2c_minus_m2b": {
+    "exact_gold_sequence_present": 0.0,
+    "gold_token_coverage": -0.012013059404363813,
+    "native_mrr": 0.11666666666666664,
+    "native_recall_at_5": 0.030000000000000082,
+    "native_recall_at_8": 0.07999999999999996,
+    "normalized_em": 0.0,
+    "projected_mrr": 0.06666666666666665,
+    "projected_recall_at_5": 0.15000000000000008,
+    "projected_recall_at_8": 0.20000000000000007,
+    "token_f1": -0.008902232957960513,
+    "token_precision": -0.030619658119658125,
+    "token_recall": 0.051282051282051266
+  },
+  "per_question": [
+    {
+      "answer_session_count": 2,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2b_context_item_count": 2,
+      "m2b_estimated_memory_tokens": 885,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.0,
+      "m2b_native_mrr": 1.0,
+      "m2b_native_recall_at_5": 1.0,
+      "m2b_native_recall_at_8": 1.0,
+      "m2b_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2b_projected_gold_token_coverage": 0.0,
+      "m2b_projected_mrr": 1.0,
+      "m2b_projected_recall_at_5": 0.5,
+      "m2b_projected_recall_at_8": 0.5,
+      "m2b_prompt_tokens": 1107,
+      "m2b_reader_context_tokens": 1010,
+      "m2b_selected_native_ranks": [
+        1,
+        2
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 0,
+      "m2b_token_f1": 0.0,
+      "m2b_token_precision": 0.0,
+      "m2b_token_recall": 0.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.6666666666666666,
+      "m2b_top_5_survival": 0.4,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.6666666666666666,
+        "top_5_survival": 0.4
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 8,
+      "m2c_estimated_memory_tokens": 1019,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.0,
+      "m2c_native_mrr": 1.0,
+      "m2c_native_recall_at_5": 0.5,
+      "m2c_native_recall_at_8": 1.0,
+      "m2c_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 1.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 1.0
+      },
+      "m2c_projected_gold_token_coverage": 0.0,
+      "m2c_projected_mrr": 1.0,
+      "m2c_projected_recall_at_5": 0.5,
+      "m2c_projected_recall_at_8": 1.0,
+      "m2c_prompt_tokens": 2029,
+      "m2c_reader_context_tokens": 1932,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 2,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2b_context_item_count": 2,
+      "m2b_estimated_memory_tokens": 825,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.0,
+      "m2b_native_mrr": 1.0,
+      "m2b_native_recall_at_5": 1.0,
+      "m2b_native_recall_at_8": 1.0,
+      "m2b_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2b_projected_gold_token_coverage": 0.0,
+      "m2b_projected_mrr": 1.0,
+      "m2b_projected_recall_at_5": 0.5,
+      "m2b_projected_recall_at_8": 0.5,
+      "m2b_prompt_tokens": 1122,
+      "m2b_reader_context_tokens": 1019,
+      "m2b_selected_native_ranks": [
+        1,
+        4
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 2,
+      "m2b_token_f1": 0.0,
+      "m2b_token_precision": 0.0,
+      "m2b_token_recall": 0.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.4,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.4
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 7,
+      "m2c_estimated_memory_tokens": 923,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.0,
+      "m2c_native_mrr": 1.0,
+      "m2c_native_recall_at_5": 0.5,
+      "m2c_native_recall_at_8": 0.5,
+      "m2c_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2c_projected_gold_token_coverage": 0.0,
+      "m2c_projected_mrr": 1.0,
+      "m2c_projected_recall_at_5": 0.5,
+      "m2c_projected_recall_at_8": 0.5,
+      "m2c_prompt_tokens": 1830,
+      "m2c_reader_context_tokens": 1727,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 1,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.09523809523809523,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0625,
+        "token_recall": 0.2
+      },
+      "m2b_context_item_count": 1,
+      "m2b_estimated_memory_tokens": 611,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.2,
+      "m2b_native_mrr": 0.0,
+      "m2b_native_recall_at_5": 0.0,
+      "m2b_native_recall_at_8": 0.0,
+      "m2b_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_projected_gold_token_coverage": 0.2,
+      "m2b_projected_mrr": 0.0,
+      "m2b_projected_recall_at_5": 0.0,
+      "m2b_projected_recall_at_8": 0.0,
+      "m2b_prompt_tokens": 782,
+      "m2b_reader_context_tokens": 656,
+      "m2b_selected_native_ranks": [
+        2
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 1,
+      "m2b_token_f1": 0.09523809523809523,
+      "m2b_token_precision": 0.0625,
+      "m2b_token_recall": 0.2,
+      "m2b_top_1_survival": 0.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.2,
+      "m2b_top_survival": {
+        "top_1_survival": 0.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.2
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 4,
+      "m2c_estimated_memory_tokens": 907,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.2,
+      "m2c_native_mrr": 0.0,
+      "m2c_native_recall_at_5": 0.0,
+      "m2c_native_recall_at_8": 0.0,
+      "m2c_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_projected_gold_token_coverage": 0.2,
+      "m2c_projected_mrr": 0.0,
+      "m2c_projected_recall_at_5": 0.0,
+      "m2c_projected_recall_at_8": 0.0,
+      "m2c_prompt_tokens": 1467,
+      "m2c_reader_context_tokens": 1341,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 0.8,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 0.8
+      },
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 1,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2b_context_item_count": 5,
+      "m2b_estimated_memory_tokens": 948,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.3188405797101449,
+      "m2b_native_mrr": 0.0,
+      "m2b_native_recall_at_5": 0.0,
+      "m2b_native_recall_at_8": 0.0,
+      "m2b_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_projected_gold_token_coverage": 0.3188405797101449,
+      "m2b_projected_mrr": 0.0,
+      "m2b_projected_recall_at_5": 0.0,
+      "m2b_projected_recall_at_8": 0.0,
+      "m2b_prompt_tokens": 1552,
+      "m2b_reader_context_tokens": 1450,
+      "m2b_selected_native_ranks": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 5,
+      "m2b_token_f1": 0.0,
+      "m2b_token_precision": 0.0,
+      "m2b_token_recall": 0.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.6666666666666666,
+      "m2b_top_5_survival": 0.6,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.6666666666666666,
+        "top_5_survival": 0.6
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 8,
+      "m2c_estimated_memory_tokens": 952,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.21739130434782608,
+      "m2c_native_mrr": 0.0,
+      "m2c_native_recall_at_5": 0.0,
+      "m2c_native_recall_at_8": 0.0,
+      "m2c_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_projected_gold_token_coverage": 0.21739130434782608,
+      "m2c_projected_mrr": 0.0,
+      "m2c_projected_recall_at_5": 0.0,
+      "m2c_projected_recall_at_8": 0.0,
+      "m2c_prompt_tokens": 1958,
+      "m2c_reader_context_tokens": 1856,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 1,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.5,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "m2b_context_item_count": 3,
+      "m2b_estimated_memory_tokens": 505,
+      "m2b_exact_gold_sequence_present": true,
+      "m2b_exact_normalized_gold_sequence_present": true,
+      "m2b_gold_token_coverage": 1.0,
+      "m2b_native_mrr": 1.0,
+      "m2b_native_recall_at_5": 1.0,
+      "m2b_native_recall_at_8": 1.0,
+      "m2b_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_projected_gold_token_coverage": 1.0,
+      "m2b_projected_mrr": 1.0,
+      "m2b_projected_recall_at_5": 1.0,
+      "m2b_projected_recall_at_8": 1.0,
+      "m2b_prompt_tokens": 917,
+      "m2b_reader_context_tokens": 820,
+      "m2b_selected_native_ranks": [
+        1,
+        2,
+        5
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 2,
+      "m2b_token_f1": 0.5,
+      "m2b_token_precision": 0.3333333333333333,
+      "m2b_token_recall": 1.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.6666666666666666,
+      "m2b_top_5_survival": 0.6,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.6666666666666666,
+        "top_5_survival": 0.6
+      },
+      "m2c_answer": {
+        "f1": 0.47058823529411764,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3076923076923077,
+        "token_recall": 1.0
+      },
+      "m2c_context_item_count": 7,
+      "m2c_estimated_memory_tokens": 818,
+      "m2c_exact_gold_sequence_present": true,
+      "m2c_exact_normalized_gold_sequence_present": true,
+      "m2c_gold_token_coverage": 1.0,
+      "m2c_native_mrr": 1.0,
+      "m2c_native_recall_at_5": 1.0,
+      "m2c_native_recall_at_8": 1.0,
+      "m2c_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_projected_gold_token_coverage": 1.0,
+      "m2c_projected_mrr": 1.0,
+      "m2c_projected_recall_at_5": 1.0,
+      "m2c_projected_recall_at_8": 1.0,
+      "m2c_prompt_tokens": 1725,
+      "m2c_reader_context_tokens": 1628,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 5,
+      "m2c_token_f1": 0.47058823529411764,
+      "m2c_token_precision": 0.3076923076923077,
+      "m2c_token_recall": 1.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 0.6666666666666666,
+      "m2c_top_5_survival": 0.8,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.6666666666666666,
+        "top_5_survival": 0.8
+      },
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 3,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2b_context_item_count": 1,
+      "m2b_estimated_memory_tokens": 715,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.2857142857142857,
+      "m2b_native_mrr": 0.0,
+      "m2b_native_recall_at_5": 0.0,
+      "m2b_native_recall_at_8": 0.0,
+      "m2b_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_projected_gold_token_coverage": 0.2857142857142857,
+      "m2b_projected_mrr": 0.0,
+      "m2b_projected_recall_at_5": 0.0,
+      "m2b_projected_recall_at_8": 0.0,
+      "m2b_prompt_tokens": 819,
+      "m2b_reader_context_tokens": 715,
+      "m2b_selected_native_ranks": [
+        1
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 0,
+      "m2b_token_f1": 0.0,
+      "m2b_token_precision": 0.0,
+      "m2b_token_recall": 0.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.2,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.2
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 7,
+      "m2c_estimated_memory_tokens": 960,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.42857142857142855,
+      "m2c_native_mrr": 0.0,
+      "m2c_native_recall_at_5": 0.0,
+      "m2c_native_recall_at_8": 0.0,
+      "m2c_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2c_projected_gold_token_coverage": 0.42857142857142855,
+      "m2c_projected_mrr": 0.0,
+      "m2c_projected_recall_at_5": 0.0,
+      "m2c_projected_recall_at_8": 0.0,
+      "m2c_prompt_tokens": 1851,
+      "m2c_reader_context_tokens": 1747,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 5,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.2857142857142857,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.2222222222222222,
+        "token_recall": 0.4
+      },
+      "m2b_context_item_count": 2,
+      "m2b_estimated_memory_tokens": 968,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.8,
+      "m2b_native_mrr": 0.5,
+      "m2b_native_recall_at_5": 0.6,
+      "m2b_native_recall_at_8": 0.8,
+      "m2b_native_retrieval": {
+        "mrr": 0.5,
+        "recall_at_5": 0.6,
+        "recall_at_8": 0.8
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.4,
+        "recall_at_8": 0.4
+      },
+      "m2b_projected_gold_token_coverage": 0.8,
+      "m2b_projected_mrr": 1.0,
+      "m2b_projected_recall_at_5": 0.4,
+      "m2b_projected_recall_at_8": 0.4,
+      "m2b_prompt_tokens": 1192,
+      "m2b_reader_context_tokens": 1088,
+      "m2b_selected_native_ranks": [
+        2,
+        4
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 3,
+      "m2b_token_f1": 0.2857142857142857,
+      "m2b_token_precision": 0.2222222222222222,
+      "m2b_token_recall": 0.4,
+      "m2b_top_1_survival": 0.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.4,
+      "m2b_top_survival": {
+        "top_1_survival": 0.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.4
+      },
+      "m2c_answer": {
+        "f1": 0.2857142857142857,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.1875,
+        "token_recall": 0.6
+      },
+      "m2c_context_item_count": 7,
+      "m2c_estimated_memory_tokens": 1003,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.6,
+      "m2c_native_mrr": 0.3333333333333333,
+      "m2c_native_recall_at_5": 0.4,
+      "m2c_native_recall_at_8": 0.6,
+      "m2c_native_retrieval": {
+        "mrr": 0.3333333333333333,
+        "recall_at_5": 0.4,
+        "recall_at_8": 0.6
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 0.3333333333333333,
+        "recall_at_5": 0.4,
+        "recall_at_8": 0.4
+      },
+      "m2c_projected_gold_token_coverage": 0.6,
+      "m2c_projected_mrr": 0.3333333333333333,
+      "m2c_projected_recall_at_5": 0.4,
+      "m2c_projected_recall_at_8": 0.4,
+      "m2c_prompt_tokens": 1883,
+      "m2c_reader_context_tokens": 1779,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.2857142857142857,
+      "m2c_token_precision": 0.1875,
+      "m2c_token_recall": 0.6,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 1,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.15384615384615383,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.1,
+        "token_recall": 0.3333333333333333
+      },
+      "m2b_context_item_count": 2,
+      "m2b_estimated_memory_tokens": 983,
+      "m2b_exact_gold_sequence_present": true,
+      "m2b_exact_normalized_gold_sequence_present": true,
+      "m2b_gold_token_coverage": 1.0,
+      "m2b_native_mrr": 1.0,
+      "m2b_native_recall_at_5": 1.0,
+      "m2b_native_recall_at_8": 1.0,
+      "m2b_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2b_projected_gold_token_coverage": 1.0,
+      "m2b_projected_mrr": 1.0,
+      "m2b_projected_recall_at_5": 1.0,
+      "m2b_projected_recall_at_8": 1.0,
+      "m2b_prompt_tokens": 1266,
+      "m2b_reader_context_tokens": 1167,
+      "m2b_selected_native_ranks": [
+        1,
+        4
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 2,
+      "m2b_token_f1": 0.15384615384615383,
+      "m2b_token_precision": 0.1,
+      "m2b_token_recall": 0.3333333333333333,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.4,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.4
+      },
+      "m2c_answer": {
+        "f1": 0.4,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.25,
+        "token_recall": 1.0
+      },
+      "m2c_context_item_count": 8,
+      "m2c_estimated_memory_tokens": 1019,
+      "m2c_exact_gold_sequence_present": true,
+      "m2c_exact_normalized_gold_sequence_present": true,
+      "m2c_gold_token_coverage": 1.0,
+      "m2c_native_mrr": 1.0,
+      "m2c_native_recall_at_5": 1.0,
+      "m2c_native_recall_at_8": 1.0,
+      "m2c_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_projected_gold_token_coverage": 1.0,
+      "m2c_projected_mrr": 1.0,
+      "m2c_projected_recall_at_5": 1.0,
+      "m2c_projected_recall_at_8": 1.0,
+      "m2c_prompt_tokens": 2022,
+      "m2c_reader_context_tokens": 1923,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.4,
+      "m2c_token_precision": 0.25,
+      "m2c_token_recall": 1.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 1,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.21052631578947367,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 0.15384615384615385
+      },
+      "m2b_context_item_count": 2,
+      "m2b_estimated_memory_tokens": 967,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.34615384615384615,
+      "m2b_native_mrr": 0.0,
+      "m2b_native_recall_at_5": 0.0,
+      "m2b_native_recall_at_8": 0.0,
+      "m2b_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_projected_gold_token_coverage": 0.34615384615384615,
+      "m2b_projected_mrr": 0.0,
+      "m2b_projected_recall_at_5": 0.0,
+      "m2b_projected_recall_at_8": 0.0,
+      "m2b_prompt_tokens": 1214,
+      "m2b_reader_context_tokens": 1113,
+      "m2b_selected_native_ranks": [
+        1,
+        2
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 0,
+      "m2b_token_f1": 0.21052631578947367,
+      "m2b_token_precision": 0.3333333333333333,
+      "m2b_token_recall": 0.15384615384615385,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.6666666666666666,
+      "m2b_top_5_survival": 0.4,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.6666666666666666,
+        "top_5_survival": 0.4
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 8,
+      "m2c_estimated_memory_tokens": 968,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.38461538461538464,
+      "m2c_native_mrr": 0.3333333333333333,
+      "m2c_native_recall_at_5": 1.0,
+      "m2c_native_recall_at_8": 1.0,
+      "m2c_native_retrieval": {
+        "mrr": 0.3333333333333333,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 0.3333333333333333,
+        "recall_at_5": 1.0,
+        "recall_at_8": 1.0
+      },
+      "m2c_projected_gold_token_coverage": 0.38461538461538464,
+      "m2c_projected_mrr": 0.3333333333333333,
+      "m2c_projected_recall_at_5": 1.0,
+      "m2c_projected_recall_at_8": 1.0,
+      "m2c_prompt_tokens": 1974,
+      "m2c_reader_context_tokens": 1873,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    },
+    {
+      "answer_session_count": 2,
+      "controlled_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "has_answer": null,
+      "m2b_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2b_context_item_count": 1,
+      "m2b_estimated_memory_tokens": 874,
+      "m2b_exact_gold_sequence_present": false,
+      "m2b_exact_normalized_gold_sequence_present": false,
+      "m2b_gold_token_coverage": 0.0,
+      "m2b_native_mrr": 0.0,
+      "m2b_native_recall_at_5": 0.0,
+      "m2b_native_recall_at_8": 0.0,
+      "m2b_native_retrieval": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_normalized_em": 0.0,
+      "m2b_prediction_status": "OK",
+      "m2b_projected_context": {
+        "mrr": 0.0,
+        "recall_at_5": 0.0,
+        "recall_at_8": 0.0
+      },
+      "m2b_projected_gold_token_coverage": 0.0,
+      "m2b_projected_mrr": 0.0,
+      "m2b_projected_recall_at_5": 0.0,
+      "m2b_projected_recall_at_8": 0.0,
+      "m2b_prompt_tokens": 968,
+      "m2b_reader_context_tokens": 867,
+      "m2b_selected_native_ranks": [
+        1
+      ],
+      "m2b_selected_worse_better_dropped_pair_count": 0,
+      "m2b_token_f1": 0.0,
+      "m2b_token_precision": 0.0,
+      "m2b_token_recall": 0.0,
+      "m2b_top_1_survival": 1.0,
+      "m2b_top_3_survival": 0.3333333333333333,
+      "m2b_top_5_survival": 0.2,
+      "m2b_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 0.3333333333333333,
+        "top_5_survival": 0.2
+      },
+      "m2c_answer": {
+        "f1": 0.0,
+        "normalized_exact_match": 0.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "m2c_context_item_count": 8,
+      "m2c_estimated_memory_tokens": 987,
+      "m2c_exact_gold_sequence_present": false,
+      "m2c_exact_normalized_gold_sequence_present": false,
+      "m2c_gold_token_coverage": 0.0,
+      "m2c_native_mrr": 1.0,
+      "m2c_native_recall_at_5": 0.5,
+      "m2c_native_recall_at_8": 0.5,
+      "m2c_native_retrieval": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2c_normalized_em": 0.0,
+      "m2c_prediction_status": "OK",
+      "m2c_projected_context": {
+        "mrr": 1.0,
+        "recall_at_5": 0.5,
+        "recall_at_8": 0.5
+      },
+      "m2c_projected_gold_token_coverage": 0.0,
+      "m2c_projected_mrr": 1.0,
+      "m2c_projected_recall_at_5": 0.5,
+      "m2c_projected_recall_at_8": 0.5,
+      "m2c_prompt_tokens": 1981,
+      "m2c_reader_context_tokens": 1880,
+      "m2c_selected_native_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "m2c_selected_worse_better_dropped_pair_count": 0,
+      "m2c_token_f1": 0.0,
+      "m2c_token_precision": 0.0,
+      "m2c_token_recall": 0.0,
+      "m2c_top_1_survival": 1.0,
+      "m2c_top_3_survival": 1.0,
+      "m2c_top_5_survival": 1.0,
+      "m2c_top_survival": {
+        "top_1_survival": 1.0,
+        "top_3_survival": 1.0,
+        "top_5_survival": 1.0
+      },
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "sole_intended_intervention": "MemoryRecord granularity: raw turn vs exact raw span"
+    }
+  ],
+  "schema_version": 1,
+  "sole_intended_intervention": "MemoryRecord granularity: one raw turn vs deterministic lossless text spans"
+}
