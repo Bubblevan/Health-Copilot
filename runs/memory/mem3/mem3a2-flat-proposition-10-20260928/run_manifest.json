@@ -1,0 +1,19 @@
+{
+  "completion_gate_marker": "MEM3A2_FLAT_PROPOSITION_FROZEN_10_DIAGNOSTIC=NOT_RUN",
+  "embedding": false,
+  "extraction_identity_sha256": "c6cb9312e671cf0ad1410a73eba2f4735f9db104abd958dcda13659aa3ffc4db",
+  "full_extraction_started": false,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "labels_loaded": false,
+  "qualification_gate": "MEM3A1R_EXTRACTOR_V2_QUALIFIED=NO",
+  "qualification_run_manifest_sha256": "9e125b240997998429e78e2d266de52cf6d79b5b2728f32061096a00082c5826",
+  "reader_calls": 0,
+  "reason_not_started": "MEM3A1R_EXTRACTOR_V2_QUALIFIED=NO",
+  "retrieval": false,
+  "run_id": "mem3a2-flat-proposition-10-20260928",
+  "stage": "MEM-3A.2 FlatProp full extraction and ten-case diagnostic",
+  "status": "NOT_STARTED",
+  "test_access": false,
+  "writer_calls": 0
+}

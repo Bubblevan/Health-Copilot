@@ -1,0 +1,60 @@
+{
+  "auto_advanced_to_full_extraction": false,
+  "base_commit_sha": "3d04255bae39cb51ab80a8837f7335c2b408748e",
+  "completion_gate_marker": "MEM3A1R_EXTRACTOR_V2_QUALIFIED=NO",
+  "contract_sha256": "fee5ae49c13d7b55d75c29af38146c2a9e079ac7ca24e5aeff151dee7a31b666",
+  "envelope_failures": 0,
+  "extraction_identity_sha256": "c6cb9312e671cf0ad1410a73eba2f4735f9db104abd958dcda13659aa3ffc4db",
+  "extractor_failures": 1,
+  "failure": {
+    "code": "MEMORY_KIND_ROLE_MISMATCH",
+    "detail": "user_fact requires user-only evidence; got ['assistant']",
+    "evidence_ref": null,
+    "field": "memory_kind",
+    "proposition_index": 0,
+    "session_identity_sha256": "111015b58514849de9f6b2ce0f0c1355f14ce4d9dcf536a2a0adf444735a1b93"
+  },
+  "failure_diagnostic_summary": {
+    "evidence": [
+      {
+        "evidence_ref": "S0447",
+        "source_role": "assistant",
+        "source_turn_index": 1
+      }
+    ],
+    "memory_kind": "user_fact",
+    "proposition_index": 0,
+    "proposition_text": "The first dataset shows that calls containing the keyword \"Error\" were very few until June and August of 2020, with one error each month."
+  },
+  "failure_diagnostics_sha256": "9d84b03ee7705384ef6ef1bd667470969fef5555f868044d897be76ea62ffcb9",
+  "full_extraction_started": false,
+  "historical_assistant_content_sha256": "76b8ce570cd635d6cc30b603eb1d5f45ed7f88a1d227cf06035f3b8770ebd639",
+  "historical_envelope_sha256": "9c9357dac3b12665b5410973ca77b2e8888d188eae0abb45109257219d7b5d0b",
+  "historical_import": {
+    "assistant_content_sha256": "76b8ce570cd635d6cc30b603eb1d5f45ed7f88a1d227cf06035f3b8770ebd639",
+    "http_envelope_sha256": "9c9357dac3b12665b5410973ca77b2e8888d188eae0abb45109257219d7b5d0b",
+    "http_status": 200,
+    "import_reason": "HARNESS_RESPONSE_UNWRAPPING_DEFECT",
+    "imported_from_stage": "mem3a1-extractor-v2-qualification-20260928",
+    "provider_calls_this_run": 0,
+    "request_sha256": "020470756be4bb697252958bc98a0ca0238f3f576f18a84ed5e7586254593f5a",
+    "session_identity_sha256": "25267ea359060788693f6abf37b1731af749145149afb1927a3f39f538ff19a1"
+  },
+  "historical_original_provider_call": 1,
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "preflight_sha256": "26f07682a4a4944f0de17b16125480d4d240441b6aa68455cc155eefe5491c22",
+  "prompt_sha256": "0aea4338d5de1e8dac753e3aae98caf36461cc15b1cf8d782a36f298f63cf627",
+  "provenance_failures": 0,
+  "provider_calls_this_run": 1,
+  "provider_calls_unique_new": 1,
+  "qualification_attempted_outcomes": 2,
+  "retries": 0,
+  "reused_historical_captured_envelope": true,
+  "run_id": "mem3a1r-extractor-v2-repaired-20260928",
+  "selection_sha256": "369bc2828acc9198fdf4af741d424303ed002c58691fe62c1a169599da4c8ddd",
+  "status": "FAILED",
+  "successful_packets": 1,
+  "test_access": false,
+  "unique_historical_outcomes": 2
+}

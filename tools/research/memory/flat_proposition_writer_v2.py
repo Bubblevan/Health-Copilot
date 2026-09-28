@@ -8,6 +8,7 @@ import os
 import re
 import tempfile
 from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -20,9 +21,7 @@ MEMORY_KINDS = (
     "task_decision",
     "assistant_recommendation",
 )
-USER_ONLY_KINDS = frozenset(
-    {"user_fact", "user_preference", "user_event", "user_plan"}
-)
+USER_ONLY_KINDS = frozenset({"user_fact", "user_preference", "user_event", "user_plan"})
 KEY_PATTERN = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
 FORBIDDEN_FIELDS = frozenset(
     {
@@ -52,9 +51,9 @@ PROPOSITION_FIELDS = frozenset(
 
 
 def canonical_json(value: Any) -> bytes:
-    return json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False
-    ).encode("utf-8")
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
+        "utf-8"
+    )
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -97,6 +96,78 @@ class WriterQualificationFailure(RuntimeError):
         self.ledger = ledger
         self.error = error
         super().__init__(ledger.get("failure_code", "writer_qualification_failure"))
+
+
+class CompletionEnvelopeError(RuntimeError):
+    def __init__(self, code: str, detail: str):
+        self.code = code
+        self.detail = detail
+        super().__init__(f"{code}: {detail}")
+
+
+@dataclass(frozen=True)
+class UnwrappedCompletion:
+    assistant_content_bytes: bytes
+    assistant_content_sha256: str
+    finish_reason: str | None
+    prompt_tokens: int
+    completion_tokens: int
+    model: str
+
+
+def unwrap_chat_completion_response(raw_http_body: bytes) -> UnwrappedCompletion:
+    """Parse a complete OpenAI-compatible completion envelope without packet validation."""
+    try:
+        payload = json.loads(raw_http_body.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise CompletionEnvelopeError("COMPLETION_ENVELOPE_MALFORMED", str(exc)) from exc
+    if not isinstance(payload, dict):
+        raise CompletionEnvelopeError("COMPLETION_ENVELOPE_MALFORMED", "root must be an object")
+    choices = payload.get("choices")
+    if not isinstance(choices, list) or len(choices) != 1:
+        raise CompletionEnvelopeError(
+            "COMPLETION_ENVELOPE_MALFORMED", "choices must contain exactly one item"
+        )
+    choice = choices[0]
+    if not isinstance(choice, dict):
+        raise CompletionEnvelopeError("COMPLETION_ENVELOPE_MALFORMED", "choice must be an object")
+    message = choice.get("message")
+    if not isinstance(message, dict):
+        raise CompletionEnvelopeError("COMPLETION_ENVELOPE_MALFORMED", "message must be an object")
+    content = message.get("content")
+    if not isinstance(content, str):
+        raise CompletionEnvelopeError(
+            "COMPLETION_CONTENT_MISSING", "message.content must be a string"
+        )
+    finish_reason = choice.get("finish_reason")
+    if finish_reason is not None and not isinstance(finish_reason, str):
+        raise CompletionEnvelopeError(
+            "COMPLETION_ENVELOPE_MALFORMED", "finish_reason must be a string or null"
+        )
+    usage = payload.get("usage")
+    if not isinstance(usage, dict):
+        raise CompletionEnvelopeError("COMPLETION_ENVELOPE_MALFORMED", "usage must be an object")
+    prompt_tokens = usage.get("prompt_tokens")
+    completion_tokens = usage.get("completion_tokens")
+    if any(type(value) is not int or value < 0 for value in (prompt_tokens, completion_tokens)):
+        raise CompletionEnvelopeError(
+            "COMPLETION_ENVELOPE_MALFORMED",
+            "usage.prompt_tokens and usage.completion_tokens must be non-negative integers",
+        )
+    model = payload.get("model")
+    if not isinstance(model, str) or not model:
+        raise CompletionEnvelopeError(
+            "COMPLETION_ENVELOPE_MALFORMED", "model must be a non-empty string"
+        )
+    content_bytes = content.encode("utf-8")
+    return UnwrappedCompletion(
+        assistant_content_bytes=content_bytes,
+        assistant_content_sha256=sha256_bytes(content_bytes),
+        finish_reason=finish_reason,
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+        model=model,
+    )
 
 
 def build_source_span_catalog(raw_spans: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -268,7 +339,7 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
         text = raw_bytes.decode("utf-8")
         payload = json.loads(text)
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise _error("MALFORMED_JSON", detail=str(exc)) from exc
+        raise _error("MALFORMED_PROPOSITION_JSON", detail=str(exc)) from exc
     if not isinstance(payload, dict):
         raise _error("INVALID_ROOT", field="root", detail="expected object")
     extra_root = set(payload) - {"propositions"}
@@ -277,7 +348,9 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
         code = "FORBIDDEN_OUTPUT_FIELD" if field in FORBIDDEN_FIELDS else "UNEXPECTED_OUTPUT_FIELD"
         raise _error(code, field=field, detail="unexpected root field")
     if set(payload) != {"propositions"} or not isinstance(payload["propositions"], list):
-        raise _error("INVALID_ROOT", field="propositions", detail="expected propositions array only")
+        raise _error(
+            "INVALID_ROOT", field="propositions", detail="expected propositions array only"
+        )
 
     spans = {span["evidence_ref"]: span for span in catalog}
     output: list[dict[str, Any]] = []
@@ -287,13 +360,22 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
         extra = set(proposition) - PROPOSITION_FIELDS
         if extra:
             field = min(extra)
-            code = "FORBIDDEN_OUTPUT_FIELD" if field in FORBIDDEN_FIELDS else "UNEXPECTED_OUTPUT_FIELD"
-            raise _error(code, proposition_index=index, field=field, detail="field is not in v2 contract")
+            code = (
+                "FORBIDDEN_OUTPUT_FIELD" if field in FORBIDDEN_FIELDS else "UNEXPECTED_OUTPUT_FIELD"
+            )
+            raise _error(
+                code, proposition_index=index, field=field, detail="field is not in v2 contract"
+            )
         missing = PROPOSITION_FIELDS - set(proposition)
         if missing:
             field = min(missing)
             raise _error("MISSING_FIELD", proposition_index=index, field=field)
-        for field in ("proposition_text", "entity_key_candidate", "attribute_key_candidate", "value_text"):
+        for field in (
+            "proposition_text",
+            "entity_key_candidate",
+            "attribute_key_candidate",
+            "value_text",
+        ):
             value = proposition[field]
             if not isinstance(value, str) or not value.strip():
                 raise _error("EMPTY_PROPOSITION", proposition_index=index, field=field)
@@ -445,14 +527,17 @@ class _Journal:
 
 
 def _check_journal(events: list[dict[str, Any]], identity_sha: str) -> None:
-    allowed = ["STARTED", "RESPONSE_CAPTURED", "COMPLETE_SUCCESS", "COMPLETE_FAILURE"]
     states = [event.get("state") for event in events]
-    if not states or states[0] != "STARTED" or states != allowed[: len(states)]:
+    legal = {
+        ("STARTED",),
+        ("STARTED", "RESPONSE_CAPTURED"),
+        ("STARTED", "RESPONSE_CAPTURED", "COMPLETE_SUCCESS"),
+        ("STARTED", "RESPONSE_CAPTURED", "COMPLETE_FAILURE"),
+    }
+    if tuple(states) not in legal:
         raise WriterRecoveryError("journal_state_transition_invalid")
     if any(event.get("cache_identity_sha256") != identity_sha for event in events):
         raise WriterRecoveryError("journal_cache_identity_mismatch")
-    if len(states) > len(allowed) or states[-1] in {"COMPLETE_SUCCESS", "COMPLETE_FAILURE"} and len(states) != 3:
-        raise WriterRecoveryError("journal_terminal_state_invalid")
 
 
 def execute_or_resume(
@@ -464,16 +549,25 @@ def execute_or_resume(
     contract_sha256: str,
     local_cache_root: Path,
     provider: Callable[[dict[str, Any]], tuple[int, bytes, str | None]],
+    stage_identity: str = "MEM-3A.1",
+    model_sha256: str | None = None,
+    dynamic_schema_sha256: str | None = None,
+    unwrap_source_sha256: str | None = None,
+    imported_capture: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Run once, or recover only from the exact frozen raw response."""
     request_sha = sha256_bytes(canonical_json(request))
     identity_body = {
-        "stage": "MEM-3A.1",
+        "stage": stage_identity,
         "contract_sha256": contract_sha256,
         "prompt_sha256": prompt_sha256,
         "session_identity_sha256": session_identity_sha256,
         "catalog_sha256": catalog_sha256(catalog),
         "request_sha256": request_sha,
+        "model_sha256": model_sha256,
+        "dynamic_schema_sha256": dynamic_schema_sha256
+        or sha256_bytes(canonical_json(request.get("response_format", {}))),
+        "unwrap_source_sha256": unwrap_source_sha256,
     }
     cache_identity_sha = sha256_bytes(canonical_json(identity_body))
     cache_dir = local_cache_root / contract_sha256 / cache_identity_sha
@@ -506,10 +600,18 @@ def execute_or_resume(
                 "started_at_utc": datetime.now(UTC).isoformat(),
             }
         )
+        is_import = imported_capture is not None
         try:
-            status_code, raw_body, content_type = provider(request)
+            if is_import:
+                status_code = imported_capture["http_status"]
+                raw_body = imported_capture["raw_http_body"]
+                content_type = imported_capture.get("content_type")
+            else:
+                status_code, raw_body, content_type = provider(request)
         except Exception as exc:
-            raise WriterRecoveryError(f"provider_failed_after_started:{type(exc).__name__}") from exc
+            raise WriterRecoveryError(
+                f"provider_failed_after_started:{type(exc).__name__}"
+            ) from exc
         if not isinstance(raw_body, bytes):
             raise WriterRecoveryError("provider_returned_non_bytes_response")
         raw_sha = sha256_bytes(raw_body)
@@ -517,18 +619,26 @@ def execute_or_resume(
         meta_path = cache_dir / "response_meta.json"
         atomic_write_bytes(raw_path, raw_body)
         metadata = {
-            "response_sha256": raw_sha,
+            "http_envelope_sha256": raw_sha,
             "http_status": status_code,
             "content_type": content_type,
             "captured_at_utc": datetime.now(UTC).isoformat(),
+            "provider_calls": 0 if is_import else 1,
+            "imported_from_stage": imported_capture.get("imported_from_stage")
+            if is_import
+            else None,
+            "import_reason": imported_capture.get("import_reason") if is_import else None,
         }
         atomic_write_bytes(meta_path, canonical_json(metadata) + b"\n")
         captured = {
             "state": "RESPONSE_CAPTURED",
             "cache_identity_sha256": cache_identity_sha,
             "request_sha256": request_sha,
-            "response_sha256": raw_sha,
+            "http_envelope_sha256": raw_sha,
             "http_status": status_code,
+            "provider_calls": 0 if is_import else 1,
+            "imported_from_stage": metadata["imported_from_stage"],
+            "import_reason": metadata["import_reason"],
         }
         journal.append(captured)
 
@@ -540,24 +650,31 @@ def execute_or_resume(
     except (OSError, json.JSONDecodeError) as exc:
         raise WriterRecoveryError("captured_response_artifact_missing_or_corrupt") from exc
     raw_sha = sha256_bytes(raw_body)
-    if raw_sha != metadata.get("response_sha256") or raw_sha != captured.get("response_sha256"):
+    if raw_sha != metadata.get("http_envelope_sha256") or raw_sha != captured.get(
+        "http_envelope_sha256"
+    ):
         raise WriterRecoveryError("captured_response_hash_mismatch")
 
     base_ledger = {
         "session_identity_sha256": session_identity_sha256,
         "cache_identity_sha256": cache_identity_sha,
         "request_sha256": request_sha,
-        "response_sha256": raw_sha,
+        "http_envelope_sha256": raw_sha,
         "local_response_retained": True,
         "response_cache_path": str(raw_path),
+        "assistant_content_sha256": None,
         "http_status": metadata.get("http_status"),
-        "provider_calls": 1,
+        "provider_calls": metadata.get("provider_calls", 1),
         "reused_frozen_result": False,
-        "provider_calls_this_resume": 0 if provider_called_before else 1,
+        "provider_calls_this_resume": 0
+        if provider_called_before or metadata.get("provider_calls") == 0
+        else 1,
+        "imported_from_stage": metadata.get("imported_from_stage"),
+        "import_reason": metadata.get("import_reason"),
     }
     if metadata.get("http_status") != 200:
         error = {
-            "code": "HTTP_STATUS_FAILURE",
+            "code": "TRANSPORT_HTTP_FAILURE",
             "proposition_index": None,
             "field": None,
             "evidence_ref": None,
@@ -574,7 +691,48 @@ def execute_or_resume(
         )
         raise WriterQualificationFailure(ledger, error)
     try:
-        packet = validate_packet(raw_body, catalog)
+        unwrapped = unwrap_chat_completion_response(raw_body)
+        content_path = cache_dir / "assistant_content.txt"
+        atomic_write_bytes(content_path, unwrapped.assistant_content_bytes)
+        metadata.update(
+            {
+                "assistant_content_sha256": unwrapped.assistant_content_sha256,
+                "finish_reason": unwrapped.finish_reason,
+                "prompt_tokens": unwrapped.prompt_tokens,
+                "completion_tokens": unwrapped.completion_tokens,
+                "model": unwrapped.model,
+            }
+        )
+        atomic_write_bytes(meta_path, canonical_json(metadata) + b"\n")
+        base_ledger.update(
+            {
+                "assistant_content_sha256": unwrapped.assistant_content_sha256,
+                "finish_reason": unwrapped.finish_reason,
+                "prompt_tokens": unwrapped.prompt_tokens,
+                "completion_tokens": unwrapped.completion_tokens,
+                "model": unwrapped.model,
+                "assistant_content_cache_path": str(content_path),
+            }
+        )
+        if unwrapped.finish_reason == "length":
+            raise CompletionEnvelopeError("COMPLETION_TRUNCATED", "finish_reason=length")
+        packet = validate_packet(unwrapped.assistant_content_bytes, catalog)
+    except CompletionEnvelopeError as exc:
+        error = {"code": exc.code, "detail": exc.detail}
+        ledger = {
+            **base_ledger,
+            "validation": "failed",
+            "failure_code": exc.code,
+        }
+        journal.append(
+            {
+                "state": "COMPLETE_FAILURE",
+                "cache_identity_sha256": cache_identity_sha,
+                "error": error,
+                "ledger": ledger,
+            }
+        )
+        raise WriterQualificationFailure(ledger, error) from exc
     except ExtractionValidationError as exc:
         error = exc.as_dict()
         ledger = {**base_ledger, "validation": "failed", "failure_code": exc.code}

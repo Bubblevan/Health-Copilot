@@ -17,8 +17,16 @@ def _raw_spans() -> list[dict[str, object]]:
             {
                 "source_turn_index": 0,
                 "source_span_index": index,
-                "char_start": sum(len(value) for value in ["intro", "middle", "example", "text", "other", "turn"][:index]),
-                "char_end": sum(len(value) for value in ["intro", "middle", "example", "text", "other", "turn"][: index + 1]),
+                "char_start": sum(
+                    len(value)
+                    for value in ["intro", "middle", "example", "text", "other", "turn"][:index]
+                ),
+                "char_end": sum(
+                    len(value)
+                    for value in ["intro", "middle", "example", "text", "other", "turn"][
+                        : index + 1
+                    ]
+                ),
                 "role": "user",
                 "content": content,
             }
@@ -77,6 +85,31 @@ def _packet(
     ).encode("utf-8")
 
 
+def _envelope(
+    content: bytes,
+    *,
+    finish_reason: str | None = "stop",
+    prompt_tokens: int = 12,
+    completion_tokens: int = 3,
+) -> bytes:
+    return json.dumps(
+        {
+            "choices": [
+                {
+                    "message": {"content": content.decode("utf-8")},
+                    "finish_reason": finish_reason,
+                }
+            ],
+            "usage": {
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+                "total_tokens": prompt_tokens + completion_tokens,
+            },
+            "model": "local-qwen",
+        }
+    ).encode("utf-8")
+
+
 def test_punctuation_is_harness_copied_from_exact_frozen_span(catalog):
     normalized = writer.validate_packet(_packet("user_fact", "S0008"), catalog)
     evidence = normalized["propositions"][0]["evidence"][0]
@@ -130,7 +163,9 @@ def test_transient_request_exclusion_is_explicit_in_frozen_prompt():
 
 def test_dynamic_schema_enumerates_only_the_current_catalog(catalog):
     schema = writer.dynamic_output_schema(catalog)
-    enum = schema["properties"]["propositions"]["items"]["properties"]["evidence_refs"]["items"]["enum"]
+    enum = schema["properties"]["propositions"]["items"]["properties"]["evidence_refs"]["items"][
+        "enum"
+    ]
     assert enum == [row["evidence_ref"] for row in catalog]
     assert "S9999" not in enum
 
@@ -143,6 +178,11 @@ def _cache_identity(request, catalog, session_id, prompt_sha, contract_sha):
         "session_identity_sha256": session_id,
         "catalog_sha256": writer.catalog_sha256(catalog),
         "request_sha256": writer.sha256_bytes(writer.canonical_json(request)),
+        "model_sha256": None,
+        "dynamic_schema_sha256": writer.sha256_bytes(
+            writer.canonical_json(request.get("response_format", {}))
+        ),
+        "unwrap_source_sha256": None,
     }
     return writer.sha256_bytes(writer.canonical_json(identity))
 
@@ -152,12 +192,15 @@ def test_response_captured_crash_recovers_without_provider_call(tmp_path, catalo
     session_id, prompt_sha, contract_sha = "session-1", "prompt-1", "contract-1"
     cache_identity = _cache_identity(request, catalog, session_id, prompt_sha, contract_sha)
     cache_dir = tmp_path / contract_sha / cache_identity
-    raw = _packet("user_fact", "S0008")
+    raw = _envelope(_packet("user_fact", "S0008"))
     raw_sha = hashlib.sha256(raw).hexdigest()
     writer.atomic_write_bytes(cache_dir / "raw_response.txt", raw)
     writer.atomic_write_bytes(
         cache_dir / "response_meta.json",
-        writer.canonical_json({"response_sha256": raw_sha, "http_status": 200}) + b"\n",
+        writer.canonical_json(
+            {"http_envelope_sha256": raw_sha, "http_status": 200, "provider_calls": 1}
+        )
+        + b"\n",
     )
     journal = writer._Journal(cache_dir / "journal.jsonl")
     journal.append({"state": "STARTED", "cache_identity_sha256": cache_identity})
@@ -165,7 +208,7 @@ def test_response_captured_crash_recovers_without_provider_call(tmp_path, catalo
         {
             "state": "RESPONSE_CAPTURED",
             "cache_identity_sha256": cache_identity,
-            "response_sha256": raw_sha,
+            "http_envelope_sha256": raw_sha,
         }
     )
 
@@ -199,7 +242,11 @@ def test_validation_error_subtype_survives_complete_failure_journal(tmp_path, ca
             prompt_sha256="prompt",
             contract_sha256="contract",
             local_cache_root=tmp_path,
-            provider=lambda _request: (200, _packet("user_fact", "S0009"), "application/json"),
+            provider=lambda _request: (
+                200,
+                _envelope(_packet("user_fact", "S0009")),
+                "application/json",
+            ),
         )
     assert error.value.error["code"] == "MEMORY_KIND_ROLE_MISMATCH"
     cache_dirs = list((tmp_path / "contract").iterdir())
@@ -223,20 +270,199 @@ def test_frozen_response_is_authoritative_if_provider_would_drift(tmp_path, cata
     def first(_request):
         nonlocal calls
         calls += 1
-        return 200, _packet("user_fact", "S0008", text="Frozen first response."), "application/json"
+        return (
+            200,
+            _envelope(_packet("user_fact", "S0008", text="Frozen first response.")),
+            "application/json",
+        )
 
     original, _ = writer.execute_or_resume(**args, provider=first)
 
     def would_drift(_request):
         nonlocal calls
         calls += 1
-        return 200, _packet("user_fact", "S0008", text="Different later output."), "application/json"
+        return (
+            200,
+            _envelope(_packet("user_fact", "S0008", text="Different later output.")),
+            "application/json",
+        )
 
     resumed, ledger = writer.execute_or_resume(**args, provider=would_drift)
     assert calls == 1
     assert resumed == original
     assert resumed["propositions"][0]["proposition_text"] == "Frozen first response."
     assert ledger["provider_calls_this_resume"] == 0
+
+
+def test_envelope_unwrap_separates_http_and_assistant_hashes(catalog):
+    content = _packet("user_fact", "S0008")
+    envelope = _envelope(content)
+    result = writer.unwrap_chat_completion_response(envelope)
+    assert result.assistant_content_bytes == content
+    assert result.assistant_content_sha256 == hashlib.sha256(content).hexdigest()
+    assert hashlib.sha256(envelope).hexdigest() != result.assistant_content_sha256
+    assert (result.finish_reason, result.prompt_tokens, result.completion_tokens, result.model) == (
+        "stop",
+        12,
+        3,
+        "local-qwen",
+    )
+
+
+@pytest.mark.parametrize(
+    "envelope",
+    [
+        b"{}",
+        _envelope(b"{}")[:-1],
+        json.dumps({"choices": [{}, {}]}).encode(),
+        json.dumps({"choices": [{"message": {"content": 1}, "finish_reason": "stop"}]}).encode(),
+    ],
+)
+def test_malformed_completion_envelopes_fail_structurally(envelope):
+    with pytest.raises(writer.CompletionEnvelopeError):
+        writer.unwrap_chat_completion_response(envelope)
+
+
+def test_missing_completion_content_is_a_structured_envelope_failure():
+    envelope = json.dumps(
+        {
+            "choices": [{"message": {}, "finish_reason": "stop"}],
+            "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+            "model": "local-qwen",
+        }
+    ).encode()
+    with pytest.raises(writer.CompletionEnvelopeError) as error:
+        writer.unwrap_chat_completion_response(envelope)
+    assert error.value.code == "COMPLETION_CONTENT_MISSING"
+
+
+def test_full_envelope_never_reaches_packet_validator(tmp_path, catalog, monkeypatch):
+    request = {"model": "local", "schema": writer.dynamic_output_schema(catalog)}
+    content = _packet("user_fact", "S0008")
+    envelope = _envelope(content)
+    seen = []
+    actual_validator = writer.validate_packet
+
+    def checking_validator(raw_bytes, current_catalog):
+        seen.append(raw_bytes)
+        assert raw_bytes != envelope
+        return actual_validator(raw_bytes, current_catalog)
+
+    monkeypatch.setattr(writer, "validate_packet", checking_validator)
+    packet, ledger = writer.execute_or_resume(
+        request=request,
+        catalog=catalog,
+        session_identity_sha256="envelope-boundary",
+        prompt_sha256="prompt",
+        contract_sha256="contract",
+        local_cache_root=tmp_path,
+        provider=lambda _request: (200, envelope, "application/json"),
+    )
+    assert packet["propositions"]
+    assert seen == [content]
+    assert ledger["http_envelope_sha256"] == hashlib.sha256(envelope).hexdigest()
+    assert ledger["assistant_content_sha256"] == hashlib.sha256(content).hexdigest()
+    metadata = json.loads(
+        Path(ledger["response_cache_path"]).with_name("response_meta.json").read_text()
+    )
+    assert metadata["http_envelope_sha256"] == ledger["http_envelope_sha256"]
+    assert metadata["assistant_content_sha256"] == ledger["assistant_content_sha256"]
+
+
+def test_length_finish_reason_fails_before_packet_validation(tmp_path, catalog, monkeypatch):
+    request = {"model": "local", "schema": writer.dynamic_output_schema(catalog)}
+    monkeypatch.setattr(
+        writer,
+        "validate_packet",
+        lambda *_args: pytest.fail("truncated assistant content reached proposition validation"),
+    )
+    with pytest.raises(writer.WriterQualificationFailure) as error:
+        writer.execute_or_resume(
+            request=request,
+            catalog=catalog,
+            session_identity_sha256="truncated",
+            prompt_sha256="prompt",
+            contract_sha256="contract",
+            local_cache_root=tmp_path,
+            provider=lambda _request: (
+                200,
+                _envelope(_packet("user_fact", "S0008"), finish_reason="length"),
+                "application/json",
+            ),
+        )
+    assert error.value.error["code"] == "COMPLETION_TRUNCATED"
+    assert error.value.ledger["assistant_content_sha256"] is not None
+
+
+@pytest.mark.parametrize(
+    "states",
+    [
+        ["STARTED", "COMPLETE_SUCCESS"],
+        ["STARTED", "COMPLETE_FAILURE"],
+        ["RESPONSE_CAPTURED"],
+        ["STARTED", "RESPONSE_CAPTURED", "COMPLETE_SUCCESS", "COMPLETE_FAILURE"],
+        ["STARTED", "RESPONSE_CAPTURED", "COMPLETE_FAILURE", "COMPLETE_FAILURE"],
+    ],
+)
+def test_journal_rejects_illegal_transitions(states):
+    events = [{"state": state, "cache_identity_sha256": "identity"} for state in states]
+    with pytest.raises(writer.WriterRecoveryError, match="journal_state_transition_invalid"):
+        writer._check_journal(events, "identity")
+
+
+@pytest.mark.parametrize("terminal", ["COMPLETE_SUCCESS", "COMPLETE_FAILURE"])
+def test_journal_accepts_only_legal_terminal_branches(terminal):
+    events = [
+        {"state": state, "cache_identity_sha256": "identity"}
+        for state in ("STARTED", "RESPONSE_CAPTURED", terminal)
+    ]
+    writer._check_journal(events, "identity")
+
+
+def test_imported_historical_capture_makes_zero_provider_calls(tmp_path, catalog):
+    request = {"model": "local", "schema": writer.dynamic_output_schema(catalog)}
+    raw = _envelope(_packet("user_fact", "S0008"))
+    packet, ledger = writer.execute_or_resume(
+        request=request,
+        catalog=catalog,
+        session_identity_sha256="historical-import",
+        prompt_sha256="prompt",
+        contract_sha256="contract",
+        local_cache_root=tmp_path,
+        provider=lambda _request: pytest.fail("historical import called provider"),
+        imported_capture={
+            "http_status": 200,
+            "raw_http_body": raw,
+            "content_type": "application/json",
+            "imported_from_stage": "old-stage",
+            "import_reason": "HARNESS_RESPONSE_UNWRAPPING_DEFECT",
+        },
+    )
+    assert packet["propositions"]
+    assert ledger["provider_calls"] == 0
+    assert ledger["provider_calls_this_resume"] == 0
+    assert ledger["imported_from_stage"] == "old-stage"
+    assert ledger["http_envelope_sha256"] == hashlib.sha256(raw).hexdigest()
+
+
+def test_http_status_failure_precedes_envelope_validation(tmp_path, catalog, monkeypatch):
+    request = {"model": "local", "schema": writer.dynamic_output_schema(catalog)}
+    monkeypatch.setattr(
+        writer,
+        "unwrap_chat_completion_response",
+        lambda *_args: pytest.fail("non-200 body reached completion-envelope validation"),
+    )
+    with pytest.raises(writer.WriterQualificationFailure) as error:
+        writer.execute_or_resume(
+            request=request,
+            catalog=catalog,
+            session_identity_sha256="http-failure",
+            prompt_sha256="prompt",
+            contract_sha256="contract",
+            local_cache_root=tmp_path,
+            provider=lambda _request: (503, b"upstream failed", "text/plain"),
+        )
+    assert error.value.error["code"] == "TRANSPORT_HTTP_FAILURE"
 
 
 def test_writer_input_hides_raw_location_metadata(catalog):
@@ -250,5 +476,7 @@ def test_writer_input_hides_raw_location_metadata(catalog):
     assert set(payload) == {"session_date", "source_spans"}
     assert set(payload["source_spans"][0]) == {"evidence_ref", "role", "content"}
     assert "source_turn_index" not in request["messages"][1]["content"]
-    schema_refs = request["response_format"]["json_schema"]["schema"]["properties"]["propositions"]["items"]["properties"]["evidence_refs"]["items"]["enum"]
+    schema_refs = request["response_format"]["json_schema"]["schema"]["properties"]["propositions"][
+        "items"
+    ]["properties"]["evidence_refs"]["items"]["enum"]
     assert schema_refs == [row["evidence_ref"] for row in catalog]

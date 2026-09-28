@@ -1,0 +1,28 @@
+{
+  "base_commit_sha": "3d04255bae39cb51ab80a8837f7335c2b408748e",
+  "contract_sha256": "fee5ae49c13d7b55d75c29af38146c2a9e079ac7ca24e5aeff151dee7a31b666",
+  "labels_loaded": false,
+  "local_only": true,
+  "model_runtime": {
+    "answer_calls": "exactly one per frozen question ID",
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "loopback_only": true,
+    "model_alias": "health-memory-qwen3-8b",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "runtime_props_sha256": "3842a26b19d18343b3a0525f15d01e80228a2b2a07e020414cfb41c5d2bd355b",
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_build": "llama.cpp 10068 (571d0d540)"
+  },
+  "preflight_sha256": "26f07682a4a4944f0de17b16125480d4d240441b6aa68455cc155eefe5491c22",
+  "prompt_sha256": "0aea4338d5de1e8dac753e3aae98caf36461cc15b1cf8d782a36f298f63cf627",
+  "response_unwrapper_source_sha256": "80a9f91ffcef66422f52369901cd00b7c459f01bbdb81d796c2a6379b4feeb7f",
+  "schema_version": 1,
+  "selection_sha256": "369bc2828acc9198fdf4af741d424303ed002c58691fe62c1a169599da4c8ddd",
+  "session_count": 477,
+  "source_span_catalog_algorithm_sha256": "80a9f91ffcef66422f52369901cd00b7c459f01bbdb81d796c2a6379b4feeb7f",
+  "stage": "MEM-3A.1R to MEM-3A.2",
+  "test_access": false,
+  "writer_endpoint": "http://127.0.0.1:8081/v1",
+  "writer_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+}
