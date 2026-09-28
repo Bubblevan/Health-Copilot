@@ -94,7 +94,7 @@ def test_contract_and_sidecar_cannot_be_changed_together(tmp_path, monkeypatch):
 
 
 def test_missing_question_date_is_rejected():
-    contract, _, system_template, user_template = reader_contract.load_final_reader_contract()
+    _, _, system_template, user_template = reader_contract.load_final_reader_contract()
     with pytest.raises(ValueError, match="official question_date"):
         reader_contract.build_reader_messages(
             "Question?", "", "Context", system_template=system_template, user_template=user_template

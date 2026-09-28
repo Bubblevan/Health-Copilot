@@ -20,6 +20,14 @@ from typing import Any
 from urllib.parse import urlsplit
 
 from context_bundle import verify_context_bundle
+from final_reader_contract import (
+    build_reader_messages as build_final_reader_messages,
+)
+from final_reader_contract import (
+    contract_binding,
+    load_final_reader_contract,
+    verify_contract_binding,
+)
 from mem1_artifacts import (
     append_jsonl,
     canonical_json,
@@ -32,12 +40,6 @@ from mem1_artifacts import (
     verify_hash_sidecar,
     write_hash_sidecar,
     write_run_manifest,
-)
-from final_reader_contract import (
-    build_reader_messages as build_final_reader_messages,
-    contract_binding,
-    load_final_reader_contract,
-    verify_contract_binding,
 )
 
 ROOT = Path(__file__).resolve().parents[3]

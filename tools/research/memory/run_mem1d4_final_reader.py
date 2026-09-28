@@ -16,8 +16,8 @@ ROOT = Path(__file__).resolve().parents[3]
 TOOLS_DIR = ROOT / "tools" / "research" / "memory"
 sys.path.insert(0, str(TOOLS_DIR))
 
-import run_mem1d3_reader as d3  # noqa: E402
-from final_reader_contract import (  # noqa: E402
+import run_mem1d3_reader as d3
+from final_reader_contract import (
     build_reader_messages,
     load_final_reader_contract,
 )
@@ -128,7 +128,7 @@ def _snapshot_frozen_inputs() -> dict[str, str]:
 def _assert_same_metrics(run_mem1: Any, row: dict[str, Any], label: str) -> dict[str, float]:
     prediction = row.get("predicted")
     if not isinstance(prediction, str):
-        raise RuntimeError(f"Historical {label} prediction is not a successful text answer")
+        raise TypeError(f"Historical {label} prediction is not a successful text answer")
     metrics = run_mem1._answer_metrics(prediction, str(row["ground_truth"]))
     for key, value in metrics.items():
         if not math.isclose(float(row[key]), value, rel_tol=0.0, abs_tol=1e-12):
@@ -387,9 +387,9 @@ def run() -> dict[str, Any]:
     contract, contract_sha, system_template, user_template = load_final_reader_contract()
     source_before = _snapshot_frozen_inputs()
     sys.path.insert(0, str(TOOLS_DIR))
-    import run_mem1  # noqa: PLC0415
+    import run_mem1
 
-    d1_manifest, d3_manifest, date_table, prepared, source_hashes_before = _load_frozen_rows(run_mem1)
+    d1_manifest, _, _, prepared, source_hashes_before = _load_frozen_rows(run_mem1)
     if source_hashes_before != source_before:
         raise RuntimeError("Historical source evidence changed while D4 inputs were being verified")
 
