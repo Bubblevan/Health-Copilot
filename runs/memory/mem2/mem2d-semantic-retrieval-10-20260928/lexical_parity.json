@@ -1,0 +1,127 @@
+{
+  "all_ten_exact": true,
+  "exact_field_pairs": [
+    [
+      "memory_id",
+      "memory_id"
+    ],
+    [
+      "rank",
+      "rank"
+    ],
+    [
+      "score",
+      "score"
+    ],
+    [
+      "source_session_id",
+      "source_session_id"
+    ],
+    [
+      "source_turn_key",
+      "source_turn_id"
+    ],
+    [
+      "source_span_key",
+      "source_span_id"
+    ]
+  ],
+  "expected_records": 80,
+  "fields_per_record": 6,
+  "gate": "MEM2D_LEXICAL_TOP8_PARITY_WITH_MEM2C=YES",
+  "matched_records": 80,
+  "questions": [
+    {
+      "candidate_count_after_m10_scope_time_validity": 5221,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 309.63,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "1cea1afa"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5220,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 164.594,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "1c549ce4"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5092,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 173.036,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "778164c6"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5327,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 327.487,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "fca70973"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5324,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 166.888,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "a82c026e"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5272,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 173.971,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "gpt4_e061b84g"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5191,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 166.323,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "gpt4_f420262c"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5216,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 166.879,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "8550ddae"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5569,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 177.371,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "06878be2"
+    },
+    {
+      "candidate_count_after_m10_scope_time_validity": 5271,
+      "exact_top8": true,
+      "expected_top_k": 8,
+      "lexical_scoring_latency_ms": 366.432,
+      "matched_fields_per_rank": 6,
+      "matched_records": 8,
+      "question_id": "c4ea545c"
+    }
+  ],
+  "schema_version": 1,
+  "scorer": "M10 _MemoryStoreCore._matches unchanged; all valid candidates, including zero-score matches"
+}

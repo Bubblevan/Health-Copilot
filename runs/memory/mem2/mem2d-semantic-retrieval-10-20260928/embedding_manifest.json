@@ -1,0 +1,88 @@
+{
+  "adapter_source_sha256": "3f6ba58de6f41deb3d4e7b67fbabaee09d20a789ff89c97d258fbaa9daa3d5e1",
+  "cache": {
+    "batches_computed": 0,
+    "hits": 52703,
+    "misses": 0,
+    "path_outside_repository": true
+  },
+  "corpus": {
+    "cache_identity_sha256": "b85885ad12833e4127e12e6ff843bda7a3ff62642c89661928d5d1d284d81de3",
+    "inventory_records": 52703,
+    "ordered_corpus_identity_root": "71c08ac222223efc1be1861b121fa1ad7289d00a3f2ad1418549cf7408b5065a",
+    "unique_retrieval_documents": 52703,
+    "vector_hash_root": "075f1a060dafcb7aabe5e7c24f5ff6ec5ac1621692899f0437d3e929b99c7c01"
+  },
+  "gpu": {
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "free_bytes_before_embedding": 14589886464,
+    "peak_allocated_bytes": 1269282816,
+    "peak_reserved_bytes": 1281359872,
+    "total_bytes": 17170956288
+  },
+  "input_tokens": {
+    "query_token_counts": {
+      "06878be2": 37,
+      "1c549ce4": 39,
+      "1cea1afa": 33,
+      "778164c6": 61,
+      "8550ddae": 35,
+      "a82c026e": 33,
+      "c4ea545c": 37,
+      "fca70973": 37,
+      "gpt4_e061b84g": 39,
+      "gpt4_f420262c": 40
+    },
+    "query_tokens": 391,
+    "unique_document_tokens": 4781476
+  },
+  "local_only": true,
+  "model": {
+    "batch_size": 8,
+    "device": "cuda:0",
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "dimensions": 1024,
+    "document_instruction": "none",
+    "dtype": "float16",
+    "hosted_embedding_calls": 0,
+    "local_files_only": true,
+    "max_batch_tokens": 8192,
+    "max_length": 8192,
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "normalization": "float32 L2 after final-non-padding-token pooling",
+    "pooling_indexing_audit": {
+      "implementation": "maximum sequence position with attention_mask=1",
+      "padding_side": "left",
+      "reason": "sum(attention_mask)-1 is a count, not the attended index, under left padding",
+      "same_adapter_for_all_dense_arms": true,
+      "unit_tested_variable_length_batch": true
+    },
+    "query_instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+    "query_instruction_sha256": "702546a6d6cdb501fb808cd92b014950362d1845a6b8dc3413e21e04a0af87d0",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "tokenizer_truncation": "right truncation at 8192; required observed truncation count 0",
+    "transformers_offline": true,
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "queries": {
+    "count": 10,
+    "document_instruction": "none",
+    "instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+    "instruction_sha256": "702546a6d6cdb501fb808cd92b014950362d1845a6b8dc3413e21e04a0af87d0"
+  },
+  "query_batches": 2,
+  "raw_vectors_committed": false,
+  "retrieval_view_contract_sha256": "33a0736fed45b6bb9c7b44cfebec8d1535dd1cd5d447cd175c254ba27eb2152d",
+  "schema_version": 1,
+  "timing_ms": {
+    "dense_similarity_wall": 217.345,
+    "document_embedding_wall": 483.533,
+    "query_embedding_wall": 343.77
+  },
+  "truncations": {
+    "documents": 0,
+    "gate_zero": true,
+    "queries": 0
+  }
+}

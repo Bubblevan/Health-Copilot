@@ -1,0 +1,22 @@
+{
+  "contract_id": "rawspan-retrieval-view-v1",
+  "source": "src/health_ai_copilot/runtime/memory.py::_MemoryStoreCore._matches",
+  "value_template": "f\"{record.key} {record.value if isinstance(record.value, str) else json.dumps(record.value, ensure_ascii=False)}\"",
+  "encoding": "UTF-8",
+  "json_dumps": {
+    "ensure_ascii": false,
+    "sort_keys": false,
+    "separators": "Python json.dumps defaults"
+  },
+  "fields_included": [
+    "opaque raw-span key",
+    "role",
+    "session_date",
+    "source_turn_index",
+    "source_span_index",
+    "content"
+  ],
+  "content_only_view": false,
+  "known_limitation": "The frozen M10 lexical representation includes structural metadata and the opaque raw-span key. MEM-2D preserves it byte-for-byte; this is not claimed to be the optimal semantic retrieval view.",
+  "scope": "Retrieval-only view over the frozen MEM-2C RawSpan inventory; no memory representation or projection change."
+}

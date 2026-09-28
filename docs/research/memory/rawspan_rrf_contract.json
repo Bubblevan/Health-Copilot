@@ -1,0 +1,19 @@
+{
+  "policy_id": "rawspan-lexical-dense-rrf-v1",
+  "protocol_selected_before_result_inspection": true,
+  "selection_marker": "RRF_K_SELECTED_BY_PROTOCOL_NOT_DEV_SCORE=YES",
+  "lexical_source_depth": 50,
+  "dense_source_depth": 50,
+  "rank_constant_k": 60,
+  "lexical_weight": 1,
+  "dense_weight": 1,
+  "final_top_k": 8,
+  "score": "I[d in lexical50]/(60+rank_lexical(d)) + I[d in dense50]/(60+rank_dense(d))",
+  "score_normalization": false,
+  "learned_weights": false,
+  "tie_break": [
+    "rrf_score_descending",
+    "memory_id_ascending"
+  ],
+  "scope": "Retrieval-only fusion over frozen RawSpan records; no tuning on the frozen ten cases."
+}

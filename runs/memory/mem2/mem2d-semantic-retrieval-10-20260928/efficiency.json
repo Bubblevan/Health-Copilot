@@ -1,0 +1,143 @@
+{
+  "context": {
+    "content_only_reader_tokens": {
+      "dense": [
+        161,
+        206,
+        162,
+        145,
+        170,
+        128,
+        92,
+        208,
+        161,
+        157
+      ],
+      "historical_rawspan_lexical": [
+        216,
+        226,
+        466,
+        158,
+        139,
+        257,
+        299,
+        236,
+        165,
+        189
+      ],
+      "hybrid_rrf": [
+        214,
+        217,
+        330,
+        168,
+        186,
+        210,
+        241,
+        199,
+        178,
+        151
+      ]
+    },
+    "ingestion_latency_ms": 0,
+    "mean_estimated_memory_tokens": {
+      "dense": 957.5,
+      "historical_rawspan_lexical": 955.6,
+      "hybrid_rrf": 966.9
+    },
+    "mean_reader_context_tokens": {
+      "dense": 1875.5,
+      "historical_rawspan_lexical": 1768.6,
+      "hybrid_rrf": 1831.1
+    },
+    "mean_reader_to_estimated_ratio": {
+      "dense": 1.959811535170325,
+      "historical_rawspan_lexical": 1.850564361796911,
+      "hybrid_rrf": 1.8937819315643067
+    }
+  },
+  "embedding": {
+    "batches_computed": 0,
+    "cache_hits": 52703,
+    "cache_misses": 0,
+    "cache_validation_wall_ms": 483.533,
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "document_embedding_wall_ms": null,
+    "document_input_tokens": 4781476,
+    "duration_semantics": "The retained 483.533 ms measurement was a complete-cache verification pass. The first full embedding pass completed all documents but stopped at a later repeatability probe before timing was persisted; its duration is unknown.",
+    "gpu": {
+      "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+      "free_bytes_before_embedding": 14589886464,
+      "peak_allocated_bytes": 1269282816,
+      "peak_reserved_bytes": 1281359872,
+      "total_bytes": 17170956288
+    },
+    "initial_full_corpus_embedding_duration_recorded": false,
+    "initial_full_corpus_embedding_wall_ms": null,
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "query_batches": 2,
+    "query_embedding_wall_ms": 343.77,
+    "query_input_tokens": 391,
+    "query_repeatability_audit": {
+      "same_frozen_batch_shape": {
+        "query_count": 10,
+        "top50_max_absolute_score_difference": 0.0,
+        "top50_memory_ids_exact": true,
+        "top50_probe_question_id": "1cea1afa",
+        "vector_max_absolute_difference": 0.0,
+        "vectors_allclose_atol_rtol_1e_6": true
+      },
+      "singleton_vs_batched_shape_spot_check": {
+        "question_id": "1cea1afa",
+        "top50_memory_ids_equal": false,
+        "used_for_frozen_retrieval": false,
+        "vector_cosine_similarity": 0.9999964237213135,
+        "vector_max_absolute_difference": 0.0002902466803789139
+      }
+    },
+    "truncated_documents": 0,
+    "truncated_queries": 0,
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "no_quality_cost_winner_claim": true,
+  "reader": {
+    "answer_calls": 20,
+    "hosted_calls": 0,
+    "judge_calls": 0,
+    "latency_ms_by_arm": {
+      "dense": [
+        956.008,
+        641.383,
+        943.476,
+        2512.956,
+        790.674,
+        892.305,
+        595.618,
+        1384.109,
+        660.46,
+        630.393
+      ],
+      "hybrid_rrf": [
+        659.389,
+        593.374,
+        582.604,
+        1860.965,
+        822.592,
+        642.7,
+        906.866,
+        786.808,
+        599.482,
+        631.033
+      ]
+    },
+    "memory_internal_llm_calls": 0
+  },
+  "retrieval": {
+    "dense_similarity_wall_ms": 217.345,
+    "dense_top50_mean_latency_ms": 21.1544,
+    "lexical_top50_mean_latency_ms": 219.2611,
+    "rrf_top8_mean_latency_ms": 0.09529999999999998
+  },
+  "schema_version": 1
+}

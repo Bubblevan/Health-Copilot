@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "knowledge_update_instagram_followers",
+      "notes": null,
+      "outcome": null,
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "multi_session_car_cover_detailing_spray",
+      "notes": null,
+      "outcome": null,
+      "question_id": "1c549ce4",
+      "question_type": "multi-session"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "semantic_factual_miss_caribbean_snapper_fruit",
+      "notes": null,
+      "outcome": null,
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "preference_theme_park",
+      "notes": null,
+      "outcome": null,
+      "question_id": "fca70973",
+      "question_type": "single-session-preference"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "a82c026e",
+      "question_type": "single-session-user"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "relative_time_sports_event_two_weeks_ago",
+      "notes": null,
+      "outcome": null,
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": null,
+      "notes": null,
+      "outcome": null,
+      "question_id": "8550ddae",
+      "question_type": "single-session-user"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "preference_photography_accessories",
+      "notes": null,
+      "outcome": null,
+      "question_id": "06878be2",
+      "question_type": "single-session-preference"
+    },
+    {
+      "causal_attribution": null,
+      "failure_loci": null,
+      "focus": "knowledge_update_gym_frequency",
+      "notes": null,
+      "outcome": null,
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update"
+    }
+  ],
+  "run_id": "mem2d-semantic-retrieval-10-20260928",
+  "schema_version": 1
+}
