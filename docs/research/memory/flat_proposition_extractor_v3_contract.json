@@ -1,0 +1,33 @@
+{
+  "contract_id": "flat-proposition-extractor-v3-minimal",
+  "schema_version": 1,
+  "purpose": "Extract durable source-supported propositions only; Harness owns provenance and authority.",
+  "generated_packet": {
+    "type": "object",
+    "required": ["propositions"],
+    "additionalProperties": false,
+    "properties": {
+      "propositions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["proposition_text", "evidence_refs"],
+          "additionalProperties": false,
+          "properties": {
+            "proposition_text": {"type": "string", "minLength": 1},
+            "evidence_refs": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "evidence_ref_enum": "Exact session-local frozen RawSpan refs are supplied as a per-session enum in the runtime JSON Schema.",
+  "authority": "Derived only by Harness from evidence span roles.",
+  "revision_semantics": false,
+  "semantic_quality_is_gate": false
+}

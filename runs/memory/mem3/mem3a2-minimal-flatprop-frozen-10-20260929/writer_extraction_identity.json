@@ -1,0 +1,20 @@
+{
+  "identity": {
+    "base_commit_sha": "165e0b123552e19e6aa2469a36a89dde944e9524",
+    "contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+    "dense_embedding_adapter_source_sha256": "3f6ba58de6f41deb3d4e7b67fbabaee09d20a789ff89c97d258fbaa9daa3d5e1",
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "flatprop_runtime_source_sha256": "709b3589ed24b749a8013625d3d223419a214177e4f1f95a8091dd66ab6d79de",
+    "preflight_request_root_sha256": "479d5816bc841d655592dfa1291fd695c9b511a21eb8f3511ad1dc6ee299f4d4",
+    "prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+    "runner_source_sha256": "3e82d413c3598e73ef0f3079fefbc6b83034ea9bc65070223733c828d12d60ae",
+    "runtime_props_sha256": "3842a26b19d18343b3a0525f15d01e80228a2b2a07e020414cfb41c5d2bd355b",
+    "source_count": 477,
+    "stage": "mem3a2-minimal-flatprop-frozen-10-20260929",
+    "transport_unwrap_source_sha256": "57d33ab389c64a8f9c873d25e38dae0c952cc728fde3dcbf37c10984d184cec9",
+    "writer_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "writer_request_source_sha256": "82172258755e411aa6dc327b93c354568935fca64d6b6312c29438ab14018f76",
+    "writer_validator_source_sha256": "82172258755e411aa6dc327b93c354568935fca64d6b6312c29438ab14018f76"
+  },
+  "identity_sha256": "f717c40f2e174a8a918364de02a32e89a790e4219b850a78c485afc4df9253be"
+}

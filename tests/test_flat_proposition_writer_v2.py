@@ -183,6 +183,7 @@ def _cache_identity(request, catalog, session_id, prompt_sha, contract_sha):
             writer.canonical_json(request.get("response_format", {}))
         ),
         "unwrap_source_sha256": None,
+        "packet_validator_sha256": None,
     }
     return writer.sha256_bytes(writer.canonical_json(identity))
 

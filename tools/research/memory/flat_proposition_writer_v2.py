@@ -553,6 +553,8 @@ def execute_or_resume(
     model_sha256: str | None = None,
     dynamic_schema_sha256: str | None = None,
     unwrap_source_sha256: str | None = None,
+    packet_validator: Callable[[bytes, list[dict[str, Any]]], dict[str, Any]] | None = None,
+    packet_validator_sha256: str | None = None,
     imported_capture: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Run once, or recover only from the exact frozen raw response."""
@@ -568,6 +570,7 @@ def execute_or_resume(
         "dynamic_schema_sha256": dynamic_schema_sha256
         or sha256_bytes(canonical_json(request.get("response_format", {}))),
         "unwrap_source_sha256": unwrap_source_sha256,
+        "packet_validator_sha256": packet_validator_sha256,
     }
     cache_identity_sha = sha256_bytes(canonical_json(identity_body))
     cache_dir = local_cache_root / contract_sha256 / cache_identity_sha
@@ -576,6 +579,7 @@ def execute_or_resume(
     if events:
         _check_journal(events, cache_identity_sha)
         state = events[-1]["state"]
+        started_at_utc = events[0].get("started_at_utc")
         provider_called_before = True
         if state == "STARTED":
             raise WriterRecoveryError("STARTED_without_response_capture_unknown_outcome")
@@ -592,12 +596,13 @@ def execute_or_resume(
         captured = events[-1]
     else:
         provider_called_before = False
+        started_at_utc = datetime.now(UTC).isoformat()
         journal.append(
             {
                 "state": "STARTED",
                 "cache_identity_sha256": cache_identity_sha,
                 "request_sha256": request_sha,
-                "started_at_utc": datetime.now(UTC).isoformat(),
+                "started_at_utc": started_at_utc,
             }
         )
         is_import = imported_capture is not None
@@ -615,6 +620,17 @@ def execute_or_resume(
         if not isinstance(raw_body, bytes):
             raise WriterRecoveryError("provider_returned_non_bytes_response")
         raw_sha = sha256_bytes(raw_body)
+        response_received_at_utc = datetime.now(UTC).isoformat()
+        provider_duration_ms = None
+        if not is_import:
+            provider_duration_ms = round(
+                (
+                    datetime.fromisoformat(response_received_at_utc)
+                    - datetime.fromisoformat(started_at_utc)
+                ).total_seconds()
+                * 1000,
+                3,
+            )
         raw_path = cache_dir / "raw_response.txt"
         meta_path = cache_dir / "response_meta.json"
         atomic_write_bytes(raw_path, raw_body)
@@ -623,6 +639,9 @@ def execute_or_resume(
             "http_status": status_code,
             "content_type": content_type,
             "captured_at_utc": datetime.now(UTC).isoformat(),
+            "request_started_at_utc": started_at_utc,
+            "response_received_at_utc": response_received_at_utc,
+            "provider_duration_ms": provider_duration_ms,
             "provider_calls": 0 if is_import else 1,
             "imported_from_stage": imported_capture.get("imported_from_stage")
             if is_import
@@ -636,6 +655,8 @@ def execute_or_resume(
             "request_sha256": request_sha,
             "http_envelope_sha256": raw_sha,
             "http_status": status_code,
+            "response_received_at_utc": response_received_at_utc,
+            "provider_duration_ms": provider_duration_ms,
             "provider_calls": 0 if is_import else 1,
             "imported_from_stage": metadata["imported_from_stage"],
             "import_reason": metadata["import_reason"],
@@ -669,6 +690,7 @@ def execute_or_resume(
         "provider_calls_this_resume": 0
         if provider_called_before or metadata.get("provider_calls") == 0
         else 1,
+        "provider_duration_ms": metadata.get("provider_duration_ms"),
         "imported_from_stage": metadata.get("imported_from_stage"),
         "import_reason": metadata.get("import_reason"),
     }
@@ -716,7 +738,7 @@ def execute_or_resume(
         )
         if unwrapped.finish_reason == "length":
             raise CompletionEnvelopeError("COMPLETION_TRUNCATED", "finish_reason=length")
-        packet = validate_packet(unwrapped.assistant_content_bytes, catalog)
+        packet = (packet_validator or validate_packet)(unwrapped.assistant_content_bytes, catalog)
     except CompletionEnvelopeError as exc:
         error = {"code": exc.code, "detail": exc.detail}
         ledger = {

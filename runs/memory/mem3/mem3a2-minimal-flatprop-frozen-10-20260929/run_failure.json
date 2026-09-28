@@ -1,0 +1,21 @@
+{
+  "102_dev_access": false,
+  "completion_gate_marker": "MEM3A2_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "error": "MEM3A2_MINIMAL_FLATPROP_WRITER=NO; downstream not started",
+  "error_type": "RuntimeError",
+  "failure": {
+    "code": "COMPLETION_TRUNCATED",
+    "session_index": 55,
+    "session_identity_sha256": "7dcf35e1722f16d214f5fe14fd59bc198cd73d0c35ec9858300f0b348e30cb15",
+    "http_status": 200,
+    "finish_reason": "length",
+    "completion_tokens": 4096,
+    "retry_count": 0,
+    "completed_structurally_valid_sessions": 54
+  },
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "stage": "mem3a2-minimal-flatprop-frozen-10-20260929",
+  "status": "FAILED",
+  "test_access": false
+}

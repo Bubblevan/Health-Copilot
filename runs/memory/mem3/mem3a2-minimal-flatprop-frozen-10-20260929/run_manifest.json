@@ -1,0 +1,24 @@
+{
+  "102_dev_access": false,
+  "base_commit_sha": "165e0b123552e19e6aa2469a36a89dde944e9524",
+  "completed_unique_source_sessions": 54,
+  "completion_gate_marker": "MEM3A2_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "expected_unique_source_sessions": 477,
+  "failure": {
+    "code": "COMPLETION_TRUNCATED",
+    "detail": {
+      "code": "COMPLETION_TRUNCATED",
+      "detail": "finish_reason=length"
+    },
+    "session_identity_sha256": "7dcf35e1722f16d214f5fe14fd59bc198cd73d0c35ec9858300f0b348e30cb15",
+    "session_index": 55
+  },
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "provider_calls_this_process": 55,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a2-minimal-flatprop-frozen-10-20260929",
+  "status": "FAILED",
+  "test_access": false
+}

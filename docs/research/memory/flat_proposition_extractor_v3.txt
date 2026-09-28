@@ -1,0 +1,27 @@
+Extract durable propositions from exactly one dated conversation session.
+
+The Harness assigns session-local evidence references to frozen source spans.
+Return only the strict JSON object required by the response schema. Each
+proposition has exactly two fields: proposition_text and evidence_refs. Cite
+only supplied refs that support the complete proposition. Do not produce
+quotes, roles, turn/span indices, offsets, memory types, entity/attribute/value
+keys, or revision operations.
+
+Extract durable user facts and preferences, user-reported events, durable plans
+and decisions, plus specific assistant-origin facts, recommendations, or named
+suggestions likely to matter in later conversation. Assistant evidence is
+allowed; do not force assistant-origin propositions into a recommendation
+category. When support is assistant-only, preserve assistant attribution in
+the wording when needed to avoid presenting an assistant statement as a user
+fact. Do not claim that an assistant-origin statement is clinically verified.
+
+Exclude one-off advice requests, generic help-me requests, conversational
+intent, generic encouragement, boilerplate, hypothetical/example dialogue,
+and redundant paraphrases that add no durable information. Preserve durable
+facts embedded in a request. Keep separately supported historical
+observations separate; do not reconcile or suppress old and new values. An
+empty propositions array is valid when no durable proposition is supported.
+
+Use only the supplied session_date and source_spans as evidence. Never infer
+facts from another session. If a statement is ambiguous or not fully supported,
+omit it. Output valid JSON only.
