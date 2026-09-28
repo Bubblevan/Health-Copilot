@@ -1,0 +1,2557 @@
+{
+  "artifact_version": "mem1d4-reader-review-v1",
+  "automatic_answer_or_failure_labels_assigned": false,
+  "rows": [
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "09af7ffe30c8df3a987d7117c118d1475565e773e5b40d8c7f3b802c8b625c16",
+      "gold_answer": "600",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.05405405405405406,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.027777777777777776,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.05405405405405406,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.027777777777777776,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "I'm sorry, but I don't have access to your Instagram follower count or any personal data about your social media accounts. You'll need to check your Instagram profile or app to see your current follower count. If you'd like help with anything else, feel free to ask! 😊",
+        "v2": "You currently have **600 Instagram followers**, which is a nice milestone! 🎉 It's great that you're building your presence and engaging with your audience. Keep up the awesome work, and I'm sure you'll continue to grow your following! 🌟",
+        "v3": "You currently have 600 Instagram followers. That's a great milestone! 🎉 You're on the right track with your Q&A session and other engaging content. Keep up the awesome work, and I'm sure you'll continue to grow your following! 🤝"
+      },
+      "prompt_sha256": {
+        "v1": "0ab98ecc3ceb1c223073bc2ff54e33fbf706ef8bfbad6631e3343fabd3abaff1",
+        "v2": "904c97755d0425811812401430b08c0d8452e3d4dee4d33dae35610fb2913708",
+        "v3": "9aa40410fbe144df370a7481c1977409bdb8676924198dd66dd91329f8bde18b"
+      },
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "01f87f7b8b3f09b3a1807a2411f36459da2694c8a6e876e14f9cc94ae84f5d73",
+      "gold_answer": "$140",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.125,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.06666666666666667,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.125,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.06666666666666667,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.125,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.06666666666666667,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The total cost of the car cover and detailing spray you purchased is $120 + $20 = $140.",
+        "v2": "The total cost of the car cover and detailing spray you purchased is $120 + $20 = $140.",
+        "v3": "The total cost of the car cover and detailing spray you purchased is $120 (car cover) + $20 (detailing spray) = $140."
+      },
+      "prompt_sha256": {
+        "v1": "7a1a2ec3cecf82086b7e8d0c49000582fe4d2c54a4d5a2d964dbdbe04679b540",
+        "v2": "191dc161894ad310c0c55da283de203c17264c0996f067fa235c14ffa4d75b89",
+        "v3": "a85aedf8c09fa0de381f222bc4f2816eeab489ce61e0e38ac659d2bb9892664f"
+      },
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "6fff48a13674d510175888d15fb4c0c70a15a5db0450ee76714a3c4937be0be3",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.07272727272727272,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.04,
+          "token_recall": 0.4
+        },
+        "v2": {
+          "f1": 0.07692307692307691,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0425531914893617,
+          "token_recall": 0.4
+        },
+        "v3": {
+          "f1": 0.06557377049180328,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.03571428571428571,
+          "token_recall": 0.4
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The Jamaican dish you were referring to is **\"Escovitch Fish\"**. It is a traditional dish that features fried snapper or other fish, typically served with a spicy and tangy pickled vegetable sauce. The sauce is made with ingredients like carrots, bell peppers, onions, and vinegar, giving it a bold, acidic, and spicy flavor profile. It is a popular dish in Jamaica and is often enjoyed with rice or as a standalone meal.",
+        "v2": "The Jamaican dish you asked about, which features snapper and includes fruit, is called **\"Escovitch Fish\"**. This dish is a classic in Jamaican cuisine and is often served with a spicy and tangy pickled vegetable sauce. While it primarily uses snapper, it can also be made with other types of fish, and the dish is known for its bold flavors and vibrant ingredients.",
+        "v3": "The Jamaican dish you were referring to is called **\"Fish and Fungi\"**. It is a popular dish in the Caribbean, particularly in the Virgin Islands, and it typically features a combination of snapper (or other fish) with a vegetable-based dish made from cornmeal, often seasoned with spices and served as a side. The name \"Fish and Fungi\" is a playful and colloquial way to describe the dish, as \"fungi\" is a Jamaican term for a type of cornmeal-based dish, similar to polenta. It's a hearty and flavorful dish that pairs well with the spiciness of the fish."
+      },
+      "prompt_sha256": {
+        "v1": "69f59ff558566a79f495012305e21705445023878a0d63f4dec11eedc23690b6",
+        "v2": "694d1de1ef0d8bc4f395b3c33fb07a3ea0292eec5be231a1742762d3d521b46b",
+        "v3": "2e68b6f471c5369587ed42473076d793dd4a978c6781d3f33eee3722ca140136"
+      },
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e5afcd2f09f85155937e2e41968f65fad1282cdf7e1f69e5d1c546e778856b91",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.07407407407407408,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.25,
+          "token_recall": 0.043478260869565216
+        },
+        "v2": {
+          "f1": 0.07407407407407408,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.25,
+          "token_recall": 0.043478260869565216
+        },
+        "v3": {
+          "f1": 0.27835051546391754,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.216,
+          "token_recall": 0.391304347826087
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "I'm planning another theme park weekend; do you have any suggestions?",
+        "v2": "I'm planning another theme park weekend; do you have any suggestions?",
+        "v3": "I'm excited to hear you're planning another theme park weekend! It's a fantastic way to enjoy the magic and excitement of these amazing places. Here are some suggestions to make your trip even more memorable:\n\n**1. Explore New Attractions:**\n- **Universal Studios Hollywood** is constantly adding new rides and attractions. Check their website or social media for any new openings or special events. For example, the **Harry Potter and the Forbidden Journey** ride is a must-see if you're a fan of the wizarding world.\n- **Disneyland** has new attractions like **Star Wars: Galaxy's Edge** and **Fantasmic** show. These are great for first-time visitors or those who want to experience the latest in immersive storytelling and technology.\n- **Six Flags Magic Mountain** has new rides like **The Twilight Zone: Tower of Terror** and **Fright Fest** special events. These are perfect for thrill-seekers and horror fans.\n\n**2. Try New Food Experiences:**\n- **Universal Studios Hollywood's Halloween Horror Nights** offers a wide range of themed food, including the **VIP Gourmet Buffet** and **specialty cocktails**. These are a great way to enjoy the event in style.\n- **Disneyland's E"
+      },
+      "prompt_sha256": {
+        "v1": "b31851907ed78c13f4ecf427b9bccc96dbb90cff6d3b1030179885fa1c22c849",
+        "v2": "e05315f93a53330d202e294a0f8730cf05e88bc676ec7e2771285ea8d9cf243a",
+        "v3": "43277ed70853667798ee4ff4bfb045f63aebdb00e7ebd54d90c555aedf90225c"
+      },
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7c57d2bef964cd59418574f78839853d2467c5f371b13ba08ae7c6b0cdfb605e",
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.1095890410958904,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.057971014492753624,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.09836065573770492,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.05263157894736842,
+          "token_recall": 0.75
+        },
+        "v3": {
+          "f1": 0.163265306122449,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.08888888888888889,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The game you finally beat last weekend was **Dark Souls 3**, specifically the **DLC** (Downloadable Content) that includes the challenging boss and areas. It's a highly regarded game known for its difficulty and immersive world, and beating it is a significant achievement! 🎮🔥\n\nIf you're looking for more games to tackle or want tips on how to approach future challenges, feel free to ask! I'm here to help. What's your favorite part about beating that boss? The sense of accomplishment, the lore, or something else?",
+        "v2": "You finally beat **Dark Souls 3** last weekend! That's a huge accomplishment, and I'm sure it felt amazing to see the game's challenging bosses and difficult sections finally fall to your skill and perseverance. Dark Souls is known for its tough difficulty and complex world, so beating the final boss, Noelle, must have been a rewarding experience. I'm glad to hear you were able to complete the game and enjoy the journey! 🎮🔥",
+        "v3": "The game you finally beat last weekend was **Dark Souls 3**, specifically the **DLC** (Downloadable Content) that includes the **\"Snatch\"** card. You mentioned that you were able to catch a few waves while surfing and that you were still working on your **\"Snatch\"** card, which is a reference to the game **Dark Souls 3** and its **DLC** content. The **\"Snatch\"** card is a reference to the game's **\"Snatch\"** card, which is a **\"Snatch\"** card that allows you to **\"snatch\"** items from other players. \n\nThe **\"Snatch\"** card is a **\"Snatch\"** card that allows you to **\"snatch\"** items from other players. It's a **\"Snatch\"** card that allows you to **\"snatch\"** items from other players. The **\"Snatch\"** card is a **\"Snatch\"** card that allows you to **\"snatch\"** items from other players. It's a **\"Snatch\"** card that allows you to **\"snatch\"** items from other players. The **\"Snatch\"**"
+      },
+      "prompt_sha256": {
+        "v1": "a82f942b8a192e8822270a2e58effed979d78882bdf0b365217113433baeb660",
+        "v2": "ce7509ea3088fd70bce56374741d006d864f2984d9422dd543f755bd49a58a3e",
+        "v3": "090274176ad98a94fae0fdf59d515bb012b1af1e349cae9b211c08ff7ec85344"
+      },
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "90b78a98d2dc93a62750ff2461a769a54407de51b7e467237b271d4d023edb12",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.06451612903225806,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.03488372093023256,
+          "token_recall": 0.42857142857142855
+        },
+        "v2": {
+          "f1": 0.19047619047619044,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.11428571428571428,
+          "token_recall": 0.5714285714285714
+        },
+        "v3": {
+          "f1": 0.05882352941176471,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.03278688524590164,
+          "token_recall": 0.2857142857142857
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The event you participated in two weeks ago was the **Midsummer 5K Run**, where you achieved a personal best time of **27 minutes and 42 seconds**. This event is a popular annual race that brings together runners of all levels, and it's known for its scenic routes and community spirit. You mentioned that you've been using your new **Lenovo Yoga 7i** laptop to stay connected and manage your training, which is a great way to stay organized and focused. The **5K** is a great way to stay active, and it's a fantastic way to meet other runners and stay motivated. It's also a great way to stay healthy and improve your fitness level. I'm glad to hear that you're enjoying your new laptop and that it's helping you stay connected and focused on your training. Keep up the good work!",
+        "v2": "The event you mentioned was a charity soccer tournament. You shared that you were participating in it, and it was a great opportunity to connect with friends and enjoy a fun, competitive game. It was a positive experience that allowed you to showcase your skills and support a good cause.",
+        "v3": "The event you mentioned was the Midsummer 5K Run, where you participated and achieved a personal best time of 27 minutes and 42 seconds. This event is a popular summer running event that brings together runners of all levels. It's a great way to stay active, meet other runners, and challenge yourself. You've been an excellent participant, and I'm sure you'll have many more opportunities to participate in similar events in the future."
+      },
+      "prompt_sha256": {
+        "v1": "855f25156c78838701828f85d364314365b680c74a224b85123aefd8a8427044",
+        "v2": "ea7d078955508d1559a16be30ddaa26eec9cbd78a2e49b126897d73f6d130582",
+        "v3": "b4dc19008a587f409040d5c9c65d1403cb892c9b325031926e7b18df63b1c396"
+      },
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "47028fe760531641c0765af3a7de4eca27b5adde12c3f33d8442b4d8f263d9d9",
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "90beca85650ef46902b1145b8af1d2fa4bb0ea751fa790fc034d08573008b2f2",
+        "v2": "505b2c13b1e2efeba8c876653ca91b14d79ef04685701dd8de6233ced1d02eeb",
+        "v3": "22d13681c1f83881deb4b38f4c17b20b8878a1e7de2c38b5c49c21e0a3236f15"
+      },
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "3d9a00d699d87c7f8be8edb6f951f4b43cf4e0e830d73357ec61f44dbb00548d",
+      "gold_answer": "lavender gin fizz",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**. It combines tequila, mango puree, lime juice, ginger beer, and a dash of smoked paprika for a unique and flavorful twist on the classic Moscow Mule. This recipe is a great example of how you're experimenting with different flavors and ingredients to create something new and exciting. It's a perfect match for your love of citrus and bold, smoky flavors. Keep up the great work! 🍸",
+        "v2": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**. This cocktail combines the bold flavors of mango and the smoky, spicy notes from smoked paprika, making it a unique and flavorful twist on the classic Moscow Mule. It's a great choice for those who enjoy a mix of sweet, tangy, and smoky flavors.",
+        "v3": "The cocktail recipe you tried last weekend was the **Smokey Mango Mule**, which incorporates a mix of tequila, mango puree, ginger beer, and a dash of smoked paprika. It's a unique and flavorful twist on the classic Moscow Mule, with a tropical and spicy profile that complements the vibrant and energetic nature of Azonto dance. The smoky flavor from the smoked paprika adds a distinctive and memorable element to the drink, making it a great match for the lively atmosphere of your dance sessions."
+      },
+      "prompt_sha256": {
+        "v1": "c5be39a7e0f975c102872a3368a85f41fc6ca6df1bb3e4399f9155c6f3f09d0d",
+        "v2": "91fb6301caaf21fd689265ca3faa6b5b2d559b6bf6493176f7858a05fde55c83",
+        "v3": "335833e45b1f4f1b8b745e9fd8471f9de2ab1b89330221866e5f1221d5497d9f"
+      },
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "80587cafe02f10cac1c2b04db5803afed1e19767e90d3ce68fdbde93ce234d33",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.19548872180451127,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.12149532710280374,
+          "token_recall": 0.5
+        },
+        "v2": {
+          "f1": 0.15037593984962405,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.09345794392523364,
+          "token_recall": 0.38461538461538464
+        },
+        "v3": {
+          "f1": 0.192,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.12121212121212122,
+          "token_recall": 0.46153846153846156
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "Certainly! If you're looking to enhance your current photography setup, there are several accessories that can help improve your workflow, image quality, and overall experience. Here are some suggestions:\n\n### **1. Tripod**\n- **Purpose:** Provides stability for long exposures, low-light photography, and landscape shots.\n- **Recommendations:** \n  - **Gitzo GT3543LS:** A lightweight, durable tripod with a G-Lock Ultra system for easy adjustments.\n  - **Manfrotto MT055XPRO:** A professional-grade tripod with a robust build and reliable performance.\n  - **Peak Design Travel Tripod:** A compact and portable option for on-the-go photography.\n\n### **2. Camera Bag**\n- **Purpose:** Keeps your gear organized, protected, and easily accessible.\n- **Recommendations:**\n  - **Think Tank Photo 20\" Camera Bag:** A durable, well-organized bag with padded compartments and a secure closure.\n  - **Lowepro HPC 550:** A high-capacity bag with a focus on durability and organization.\n  - **Peak Design Everyday Backpack:** A versatile, lightweight bag that can carry your camera and other gear for daily use.\n\n### **3. Lens Cleaning Kit",
+        "v2": "Absolutely! To complement your current photography setup, I'd be happy to suggest some accessories that can enhance your workflow, improve your photos, and make your photography sessions more efficient. Here are some essential accessories to consider:\n\n**1. Tripod:**\n* A sturdy tripod can help you capture sharp, stable images, especially when shooting in low light or using long exposures.\n* Look for a tripod that's compatible with your camera and offers good stability and portability.\n\n**2. Camera Bag:**\n* A camera bag can help you carry your gear safely and efficiently. Look for a bag that's designed for your specific camera and lens setup.\n* Consider a bag with padded compartments, a rain cover, and a shoulder strap for easy carrying.\n\n**3. Lens Cleaning Kit:**\n* A lens cleaning kit can help you keep your lenses clean and free from smudges and dust.\n* Look for a kit that includes lens cleaning solution, microfiber cloths, and a lens pen.\n\n**4. Memory Cards:**\n* High-capacity, fast-speed memory cards are essential for capturing high-resolution images and videos.\n* Look for cards that are compatible with your camera and offer good performance and reliability.\n\n**5. Remote Shutter:**\n* A remote shutter can help",
+        "v3": "Absolutely! If you're looking to enhance your current photography setup, there are several accessories that can help you capture better images, improve your workflow, and protect your gear. Here are some suggestions:\n\n### 1. **Camera Bag**\n- **Recommendation:** A durable, well-organized camera bag is essential for carrying your gear. Look for a bag with padded compartments, a rain cover, and a comfortable strap.\n- **Popular Brands:** Think Tank, Lowepro, and Peak Design offer high-quality camera bags that are both functional and stylish.\n\n### 2. **Lens Cleaning Kit**\n- **Recommendation:** A good lens cleaning kit with microfiber cloths, lens cleaning solution, and a blower brush will help you keep your lenses clean and free from smudges.\n- **Popular Brands:** LensPen, Microfiber Cleaning Cloths, and LensPen's \"All-in-One\" kit are great options.\n\n### 3. **Camera Strap**\n- **Recommendation:** A camera strap can help you carry your camera more comfortably, especially if you're using a DSLR or mirrorless camera.\n- **Popular Brands:** Peak Design, Think Tank, and Sony offer high-quality camera straps that are both durable and comfortable.\n\n### 4. **Lens"
+      },
+      "prompt_sha256": {
+        "v1": "e3b4afcfe4c401a3846511d002b3dee92828db0ee5c7998b4e041a8c5f09ce18",
+        "v2": "e92c58c7bd57671d802b62cba7ea4c6f67e9d7e98028868f2e8cf808e6c10faf",
+        "v3": "a9725dc33d756b0a7052701908f95248de5a988b2ca83c0b45d88c4a717aba22"
+      },
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d08be76a2f9b902306581fca9218c23df5319ebb7ea6055c3dc5c1aea881ae33",
+      "gold_answer": "Yes",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.015503875968992248,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0078125,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.02631578947368421,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.013333333333333334,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.018691588785046728,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.009433962264150943,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "Yes, you go to the gym more frequently than you did previously. This is a positive change that can have a significant impact on your fitness journey. Increased frequency of gym visits can lead to greater consistency, which is key to building strength, improving endurance, and achieving your fitness goals. It also allows for more opportunities to work on different aspects of your fitness, such as strength training, cardio, and flexibility.\n\nIf you're going to the gym more often, you might want to consider the following to make the most of your increased frequency:\n\n1. **Variety in workouts**: To avoid plateaus and keep your routine engaging, consider varying your workouts. This can include trying new exercises, changing your routine, or focusing on different muscle groups each session.\n2. **Progressive overload**: Gradually increase the intensity of your workouts to continue challenging your body and promoting growth.\n3. **Rest and recovery**: With more frequent gym visits, it's important to ensure you're giving your body enough time to rest and recover. This can include taking rest days, getting enough sleep, and incorporating recovery techniques like stretching or foam rolling.\n4. **Tracking progress**: Keep a record of your workouts, including the exercises, sets, reps, and weights you're using. This can help",
+        "v2": "The question is not directly related to the previous conversation about songwriting and perseverance. However, I can provide a general answer based on the information given.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It's common for people to increase their physical activity when they're also engaging in creative or mental activities, as both can be demanding and require a balance of physical and mental energy.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It's common for people to increase their physical activity when they're also engaging in creative or mental activities, as both can be demanding and require a balance of physical and mental energy.\n\nIf you're asking whether you go to the gym more frequently than you did previously, the answer is likely yes. You've mentioned that you've been practicing your ukulele every day, and you've been working on your songwriting and perseverance theme. It",
+        "v3": "Yes, you are going to the gym more frequently than you did previously. This is a positive change that can have a significant impact on your fitness journey. Increased frequency of workouts can lead to greater consistency, which is key to building strength, improving endurance, and achieving your fitness goals. It also helps to build a habit, making it more likely that you'll continue to prioritize your health and well-being.\n\nThe increased frequency of your gym visits is a great sign of your dedication and commitment to your fitness goals. It's important to maintain this momentum and continue to challenge yourself, whether it's by increasing the intensity of your workouts, trying new exercises, or focusing on specific areas of your body.\n\nRemember to also prioritize rest and recovery, as overtraining can lead to burnout or injury. It's important to balance your workouts with adequate rest and proper nutrition to ensure that you're able to continue your fitness journey in a sustainable and healthy way.\n\nKeep up the great work, and I'm sure you'll see continued progress!"
+      },
+      "prompt_sha256": {
+        "v1": "4967d988d30736db865099a44fbf3f551dc8c666f9f48522e2ab84ab41cc64bd",
+        "v2": "3ab3b50b35557e318bee32d0daa2e3590988d1b0e09cabea0d86a602e1ba443b",
+        "v3": "d8410181f4b27c1a69a1a92c75cabf0abd667ce9ef2c86d442ff87d4bd0c9d73"
+      },
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "system": "fullcontext",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "dbb149e5e3bc5683e62188744c2c22e79fdb0f87f0ac6b1fde8d6cd81f69185c",
+      "gold_answer": "600",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None. The question about the number of Instagram followers is not addressed in the provided context.",
+        "v2": "None",
+        "v3": "The current number of Instagram followers is not provided in the context. Please check your Instagram insights or account statistics for the most up-to-date information."
+      },
+      "prompt_sha256": {
+        "v1": "3f590b63f6f09f5ce276add87d8d15968f668679046c279f196081f7668fcb76",
+        "v2": "5efdf60895fee74951f46c8c7e30415620a79fb1dc2969e1c18d3fa414be8767",
+        "v3": "b2386181117b0c39d48ffd2a7857dee0764931c90d196da440691a44cc304d54"
+      },
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0ba709d36b409cb9f83d0554de157bacf146fd59e26aa91aeee3e8961b0b563b",
+      "gold_answer": "$140",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "None",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "31727d1f76b00ef4a6f6c15ffce5274383583e69ca45c99bbf3bca961bf2224c",
+        "v2": "44dcf86ed0f61787e360a48fc8fb44b5330b8f78b2c80951c1b12fd60f6710be",
+        "v3": "7b46e228c1a55fcc45b5bea0add9efc2cad3ce511cf63c7342f5c83936ed868b"
+      },
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "a8aec9fdf057c182f51f5d45c83352b07eba83ebd47bd0486ba5eea9be2c2de4",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.4166666666666667,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.2631578947368421,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.5555555555555556,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.38461538461538464,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+        "v2": "The Jamaican dish you were recommended to try with snapper that has fruit in it is **Grilled Snapper with Mango Salsa**.",
+        "v3": "The Jamaican dish you are referring to is Grilled Snapper with Mango Salsa."
+      },
+      "prompt_sha256": {
+        "v1": "43ce3254065d26eaebdac8b86b95df00d27aa60aa7b86875ff65f69c4f44e5d1",
+        "v2": "f3e33a137d9e27f79cd25fae30a79ddd30484be63d7811defd667b659ac9846d",
+        "v3": "1d6ec4684f446fdd2818653a24f85120bf38f3b3f9bfe70395d6962b349481b2"
+      },
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7d2d6ee0295a061b556bed87a18d40166cbd01259c32a1105b411b255cb29ea2",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "45566322ac02989e31593dd0a4c438795f70c1c342c09d3f6685e117e1981d4d",
+        "v2": "837bb5714bb07e55a12be559a9e440666d54b5505ddc50031fc0666302402c15",
+        "v3": "d3a676e39f5916b7fedf35c3b52c8700a1c82b8091b1b549369302c19de49777"
+      },
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ed5a1f681d7d823e717131462f5937ee559d91bcc7769dd23e586a203f7ed8be",
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.39999999999999997,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.2727272727272727,
+          "token_recall": 0.75
+        },
+        "v2": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 1.0,
+          "normalized_exact_match": 1.0,
+          "token_precision": 1.0,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The game you finally beat last weekend was Dark Souls 3.",
+        "v2": "The game you finally beat last weekend was Dark Souls 3 DLC.",
+        "v3": "Dark Souls 3 DLC."
+      },
+      "prompt_sha256": {
+        "v1": "2e39e92c5490aee8ead454210e3a0ce7999d587a9c23e32960537bb675adb259",
+        "v2": "f826c7d670f2ab51f8f8eff2f0d6f7d3883e807f75aae5d7e92087383945ef27",
+        "v3": "dd8c1d5b381ea0a724047f85020cd31dc78b3806008c1a9fc0896b84cc76dc94"
+      },
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "f152ed1cee94ed020edd8c502b2c9cd8411117e2fa9870ad96bc57b8b435bb7a",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "2fc58d8b963594fb7857c178aa0642afe21a9f6c5fc300f2d2720095360d3d38",
+        "v2": "97f0f435f5ef1f42842fb539b085a508188e461229a7ae686ff06c365bd58dbb",
+        "v3": "90d17ed586b59fef36e6b00eacbfc09a2aebb1ee07ebf5a793543602035ecdf6"
+      },
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "eafa0a79a12c1c50b1b6b0d03f4fe81b4e26d89cbee52972fead78974649330f",
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "328ffa5f9e52370c83c35920a876797e467483288b0283b152be3c0759c2a4e7",
+        "v2": "511a7fb9915f41a7f8f49d36f81d708d70a682e6ac4e9f31ab5f0dc4d5877b2e",
+        "v3": "ae5b62453a4eaa7c6f66e0bb906edbabc8adf14830a82e8de79979b15aff8550"
+      },
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7189a772a35a01937f9005fba9b4c6559340616c77ee7eff57003de4ed25f95d",
+      "gold_answer": "lavender gin fizz",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.4615384615384615,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.18181818181818182,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.1,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.4615384615384615,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The user tried a lavender gin fizz recipe last weekend.",
+        "v2": "The cocktail recipe you tried last weekend was the Lavender Gin Fizz. You mentioned that you used honey and water as an improvised substitute for simple syrup and that it didn't turn out as expected.",
+        "v3": "The user tried a lavender gin fizz recipe last weekend."
+      },
+      "prompt_sha256": {
+        "v1": "f0ad2d7fc385a4af6120d877bade5b42b4e6cc342236ae42887514f6cbf93cf3",
+        "v2": "19899d72a6ae238ca66afcee07c3e971b04ee437093b1297b28399970de9c1e8",
+        "v3": "46d952ba6c29c6570a2f06592b50114f63da4fb747c4c4dff9974ff3c676b2bf"
+      },
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "89e6583db3bde410065330f096f27bd48dded3e3d67b2855e8056265f279f66d",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "4bbb398f5a0f01e84cea8a964f35303bd5081a615e4c310a43c2e2866f5e2f9b",
+        "v2": "aa1b51264bce8faa13b5f53e3a9fd2038462b6f11e355526cc918ac389fe5ebb",
+        "v3": "4797034af64f21f0ea7195ff53605bc9c607e1962963645943cc62e3d6e3b204"
+      },
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "be312826c9f6ec91ca9520568325568c356739c585352f237429d4ac5baa3fe8",
+      "gold_answer": "Yes",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "9cef1365edf50658147fc4027a850f04bf57e72258c02590766c00a98abf8904",
+        "v2": "79841236bd5bc127801a2daa2f0560f5a726fba75e8fbe0ee67fc0279824403b",
+        "v3": "2895e3bd28cf096567e78b2ea3ef4df85fcae9a5dd04df169e26e414e66a5b94"
+      },
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "system": "openclaw",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ca833a8c73b76a10a354e33663fe737a299888daac46a6269ad4f3aa65d03fea",
+      "gold_answer": "600",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "60ade81b984ef908f5a2d9cebe7a0180298634c3cc7458e877a2c268c6496f92",
+        "v2": "0a2272e2dbf5e430f245e571def43e6534c8c205be4bc88e5fc8cf885de3d669",
+        "v3": "4d2569b934343dbc0370b880fad5d56d8600d01ceec863fdbaa6adda41911736"
+      },
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e99a4c988e2c638941e37a52b2d79f4074a9b127607874a7e7f1fe459ddbc09e",
+      "gold_answer": "$140",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "c2972b0444b6965702928c91bd06387fe57170852d9a43e777faf791be48bc9b",
+        "v2": "33a34c124b1013e5586a8f6bd1a2fecc49534c256f414d14253b16e787a52eaa",
+        "v3": "15f66d7fa5380424ed3c667cec8896eebb71044ca2c2e5bc15ed37e192073a61"
+      },
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "77bcfcc336adf7f6fcb47b41fb4605a74b289bc2c0aafa2aa55b5e0fdc7344b6",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "3cee7a0f2e96c5e8377ed685e1a1144104957a14805d5e1525278998e705ecb5",
+        "v2": "6eb3eefff2aaa1c34378be85aae88629fe31cf3bf0b4feda308a198ffee07df9",
+        "v3": "b489164b977999f206d3c8e1aa5f994a26bbcb524d7fc8733b98945717c59f76"
+      },
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "ff1ed347e2cb69ec995abfb8f2aea90951737abf1ca48ad0648a3c51e67021c2",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.09876543209876544,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 0.057971014492753624
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None of the provided context directly addresses planning another theme park weekend."
+      },
+      "prompt_sha256": {
+        "v1": "2671ab065ad5f1931f536b231ba5c883be08cbb30f8c389617de1afffd68ee2c",
+        "v2": "f6f826da784fe0029c9f8d110c6f3606a0b1ce5e7a6d69e30359599216df2cba",
+        "v3": "b5f7d472017419dba7dfd5ec23468e6ec1ccff4093364b049c5a5e1b21c3fae7"
+      },
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0d4a7da53655a04dc324fe8d5c12843a4ef7d161307b5e0b672a2173d8791951",
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.6666666666666666,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.5,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "The last boss in Dark Souls 3 DLC.",
+        "v2": "The game you finally beat last weekend is Dark Souls 3 DLC.",
+        "v3": "The game you finally beat last weekend is Dark Souls 3 DLC."
+      },
+      "prompt_sha256": {
+        "v1": "f978a7fc7b871746ab2e5bd08202222f12bb841789b0c4ee9b33fef97bc0668a",
+        "v2": "885888d9ab92f8e977453f429c2b565619b0aaad5330f3e974701b7872071dc4",
+        "v3": "00b5800a8f56f7197cb3a90d3a29fad328d39406c0a563089f3402f661263cbe"
+      },
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "75f7f5fb314bfbbadf08b12f0b19067156fc074c10a1f930cf430de480f8bf15",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "None.",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "8ff1483837fab2c413f4ae67c6a6f11f79210624d571250c8b5a128139baca86",
+        "v2": "e5338c42b69ce647517b2398b2ae8cc6a160702380e7b8a16d0b26b62405acf9",
+        "v3": "94a1e2bd6ec79aca6ffa612b6dd9077c4d5258b0121881f7b89a9e5c8de7b566"
+      },
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "19d7d1dedfdafe327faca444750a1197dbf28b85d91c54c883b0b48a636c188e",
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.3157894736842105,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.21428571428571427,
+          "token_recall": 0.6
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "The order of airlines flown with from earliest to latest is: American Airlines, Delta, Spirit Airlines.",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "0b7136a129f15195a829501001f07dad8f6e0307ae9647e41618893da24b80d2",
+        "v2": "7b0eef64dfc6ac3516456b00afcd93e22300832b1a3d702c6db1885a3ed518e5",
+        "v3": "a783f8ae698a50e57fb775172b84639f24610321ddd697e413e9a5e1a7138234"
+      },
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "01fbb3130184104819b05aebb0b1f949275aa3b8e524979300a616e00e1f4f30",
+      "gold_answer": "lavender gin fizz",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "None",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "5e101c9062d4358c4e07a7a88277c9018423b15e76cf456d8b9100d1c49566ae",
+        "v2": "98441c78d4959284a67b2b8577f160dd792f2550765bd62d2556a8d87c70f135",
+        "v3": "bc292b1b05cfb5516dac63d4f4d8160cda034214e51a694bc46c9f4658ea1a7a"
+      },
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "e212985cceb9685fe5508c493323ac3cbd9a8d988173ce3bfff38714a1fed9f4",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.1592920353982301,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.10344827586206896,
+          "token_recall": 0.34615384615384615
+        },
+        "v2": {
+          "f1": 0.1506849315068493,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.09166666666666666,
+          "token_recall": 0.4230769230769231
+        },
+        "v3": {
+          "f1": 0.12765957446808512,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.08823529411764706,
+          "token_recall": 0.23076923076923078
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "Based on your interests and needs, here are some accessories that could complement your current photography setup:\n\n- **Camera Bags**: Consider upgrading to a camera bag designed for Sony cameras, focusing on comfort and durability.\n- **Camera Flash**: You are looking at the Godox V1, so you might want a case or pouch to protect it.\n- **External Battery Packs**: A good external battery pack would help charge your Sony A7R IV and other devices on the go.\n- **Lens Cleaning Kit**: For cleaning your Sony 24-70mm f/2.8 lens, a proper cleaning kit is essential.\n- **Props and Backdrops**: If you're planning to take photos of eco-friendly candles, consider using sunflowers, zinnias, bell peppers, and eggplants as props and backdrops.",
+        "v2": "Based on your context, here are some accessories that would complement your current photography setup:\n\n1. **Camera Bag**: Consider upgrading to a durable and comfortable camera bag designed for Sony cameras, such as the Godox V1-compatible options or specialized Sony bags for better protection and organization.\n\n2. **External Battery Pack**: A good external battery pack would be useful for charging your Sony A7R IV and other devices on the go, ensuring you stay powered during long shoots or travel.\n\n3. **Camera Flash Case or Pouch**: Since you're considering the Godox V1, you might want a protective case or pouch to safeguard it, especially if you're comparing it to the Sony HVL-F60RM for durability.\n\n4. **Memory Card Organizer**: To keep your memory cards secure and organized, especially if you're frequently handling them during shoots or travel.\n\n5. **Lens Cleaning Kit**: A dedicated lens cleaning kit would be helpful for maintaining your Sony 24-70mm f/2.8 lens, ensuring optimal performance and clarity.\n\n6. **Tripod or Monopod**: If you haven't already, a sturdy tripod or monopod can enhance your setup for stable shots, particularly during travel or outdoor photography.\n\n7. **Camera Strap",
+        "v3": "Based on the provided context, you are using a Sony A7R IV camera and a Godox V1 flash. To complement your current photography setup, you might consider the following accessories:  \n- A durable camera bag for comfort and protection, as you are looking to upgrade your camera bag.  \n- A good case or pouch to protect the Godox V1 flash, as you are considering this.  \n- External battery packs to charge your Sony A7R IV and other devices on the go.  \n- Cleaning accessories for your Sony 24-70mm f/2.8 lens.  \n- Props and backdrops for eco-friendly candles, as you are interested in styling scenes for candle photos with eco-friendly candles."
+      },
+      "prompt_sha256": {
+        "v1": "37a15d8f8149b1c17e90375156cbe3b6aea45ddd1a55845e1671ab6fa3513355",
+        "v2": "6f958afca274298372a1f7e6e29ce4fd576c1b79bda189049ed2c724ace98e4a",
+        "v3": "9d0bed1fbfb4aed8f4e1a1cab317ee586104cae68da1e3821bd783f96aae9150"
+      },
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d5c6a7ec1f26d75be18d385da3027ba7f74be4d6205c53e2bc5e7e88ecb93708",
+      "gold_answer": "Yes",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "b40cb07bf63626b124d5ab30f65d7f0d6df0c20d96a808b1970ec8d90e236f44",
+        "v2": "ea737d39eb754a26e21fdaf85aed544022cca86635377cbe769923c4293951a3",
+        "v3": "e8fab3bd6006c001cacebc20b447fefb6024c7e75b252a3f6d91c8afde4a9a81"
+      },
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "system": "mem0",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "9ef3ab6f45d6a888454f727c60c8c0fb8a78ea877c816d8ca1f655d4987c79fb",
+      "gold_answer": "600",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "eb4deb07e623b6ea976ec11027b6d33bfc3bee27204da19a5e99bed47d7f6d90",
+        "v2": "3923a7cb97f2237e8ad3efbd54ded278a54291aeb357ad43f1a691211075f568",
+        "v3": "35fdd7153610f00be911b8bb4b6162190c91c955703812e1a88e5286c4a99ae2"
+      },
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "536ed8fe036003d1dc8836d8d33fe9f0c1cac51326d6848fc1b4a359519d90fb",
+      "gold_answer": "$140",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "b8c55287090a983355006fec84c4f94be51ee37fd0d13c95777db7ae4c7303ce",
+        "v2": "21a27c1e9824abbecbfb710408aaa598d127a9b9a3c0cf534ab505f8750c7fce",
+        "v3": "f00033c491456d9cfb1776806c98d5758148447a4cef10ec57358d72b871e788"
+      },
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "c06848bf1911a8ba29d2f7f4357bdd19ca2d1c50529cac8272e6617589d8b59e",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.45454545454545453,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.29411764705882354,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.12121212121212122,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.07142857142857142,
+          "token_recall": 0.4
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The Jamaican dish recommended to try with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+        "v2": "The Jamaican dish recommended was Escovitch Fish, which features crispy fried snapper and a spicy pickled vegetable sauce. There is no mention of a dish with fruit in the context provided.",
+        "v3": "The Jamaican dish recommended was Fish and Fungi."
+      },
+      "prompt_sha256": {
+        "v1": "f5598f595fe0734b9cdd4c8fda8064c1e9d855413e8210158d38d3cda5309afc",
+        "v2": "e5468f5f2d7b4d51ac7f6744126091338452c5a3ac73a83880b9d327279d3d8e",
+        "v3": "8092687e0be140e1cad5e94b9aa9fbfbbadf03f7f3e044d27d2e3c9c5eb92c39"
+      },
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "2171c5e066b3ec0e8d91a0e43e4caaffdbb9b40316908678d41dba2a41819e5e",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "7f0264fc66ae387b491c8e6269bda9645003a8fa959a295c381bd2278038a5e4",
+        "v2": "892a09ee6b408e5019c1f221f61261c6b25ed164981f194b08e633e3fc2ae4ae",
+        "v3": "f56a34814f0688604bbaa3cc5d1625f57263b3fe56831a29adea78aaeb7edb9f"
+      },
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "3fec2cd4bece334002ed14e3f2953aa250cb2a4644bf7ff67775e9d21d109922",
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "f7e602f46a131570d01eacd393d4cd5bffe8d1b4fba65b7f37c46fa99287557c",
+        "v2": "fbf2eaf233347d655c656d554931afba7867ac13e05cf6a36b026d2e04b3a27c",
+        "v3": "170f1a25110f17a5fba36cf030d73518869a90be0a820d0b457d54dd7e6a033e"
+      },
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "cd012668c584cd1070d6d13af54aa9966433ae95dffd2329352a16f115e27747",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.125,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.1111111111111111,
+          "token_recall": 0.14285714285714285
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.125,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.1111111111111111,
+          "token_recall": 0.14285714285714285
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The event you mentioned was a volleyball league game.",
+        "v2": "None.",
+        "v3": "The event you mentioned was a volleyball league game."
+      },
+      "prompt_sha256": {
+        "v1": "f03c47f8d9503623485b0baf60cf7e6e9f8d1c8217280da7202eabdc8ff6ffe0",
+        "v2": "8a8021654b080ec8a73e76518e1d05c1ee0be8527bf7274ea2b4ecd8fd07f4f0",
+        "v3": "c751676ea35b4a99622db7acc4a57a8e733dd838cf3a53988cfd4af4953f3840"
+      },
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "46c1620899b23a461868779f7908a4e497175620f441cf6f8f88ebfb784067dd",
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "54eda9270b08ccacbb25976562d2a9a31c610a8bdad3d76918ba84cfb6326d38",
+        "v2": "29d8d40a486f27e1bf0051e42b45d2650a81f4ad06dde4d75cd04ca27542a215",
+        "v3": "5f4dbc341d79f64a99679e51d57c358c1cad392f59888922330e04a5bd5fb575"
+      },
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0c633ad23597c5087a4bff5f0aaf3f4d34945c902f562821c1a079d9b16b388b",
+      "gold_answer": "lavender gin fizz",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None"
+      },
+      "prompt_sha256": {
+        "v1": "8ab7f71c7feda4cb91a078799c5b50a54e19f2938c14c84d5ef8ff5e41d7ef0c",
+        "v2": "f88f96f389911f77a25fe99cf52f1e38fdfcf27a19424f188f122307e8933c6d",
+        "v3": "f3f229773e3a497d8c115bef312a1f0c10434c0964a071837a251dbf0398de23"
+      },
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "6ad227836be8364d7bb19ed4dd92cea7d85eba1a11519b0eaeda60c103bb23db",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "464e1e976536dc1174f78b811b1707aba5886598f594ce7383c71d070fdfa42a",
+        "v2": "31125708393c0421c94e3ca518f023b6382438af5cec48a4da6ac0379aa5634a",
+        "v3": "29255e366ed9baa98c12bdbe56dfe940e47087eeeff753fdb0f06d126aa12b7b"
+      },
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "7cedc5a6da334678be92a671663aeb34352ce4baae13a0ca62364dbeb4c43409",
+      "gold_answer": "Yes",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "8a2f40f37fdcf8df6d41b75fae11b2be0644c78ada6d810300d6de18a942104f",
+        "v2": "12c3706a388aa8c869571d689dd42d2fecd1a9d59a8529e15298d2a58afc49a8",
+        "v3": "42b9b49f5e28cf4eb63cda1440210c3026d7b01f473e6157f6ce555760db6331"
+      },
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "system": "simplemem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "008f8dd37997652caa111260e8183481fca476faa49f06ff7fdeb257a11f4bb6",
+      "gold_answer": "600",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.33333333333333337,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.2,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.2857142857142857,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.16666666666666666,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.2857142857142857,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.16666666666666666,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "You currently have 600 followers.",
+        "v2": "You currently have 600 Instagram followers.",
+        "v3": "You currently have 600 Instagram followers."
+      },
+      "prompt_sha256": {
+        "v1": "f8180d573b405531c1d1a872bee68c634f3154a581d5d35014a835864e55d116",
+        "v2": "e64c6d6403e3b581d50b988b76e830c30bccc419fee4d4386bdec50d281d4add",
+        "v3": "1c67b496d40f4b1101a970b3a07819a51b9d344d91e8647326f6d4e46638dc3b"
+      },
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "question_type": "knowledge-update",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "c092975d6581dd3903a04f1999a9d7300e21e4d2b96d73f3987c167fca123055",
+      "gold_answer": "$140",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "06ccef80a772513dc70ffde46cf02c30f3778b0d3c334d25a116b294e5308cfa",
+        "v2": "c25a94dc62aa2d142037e4c57ab1905d5ed5fa99f210e069882cda51b5fa18c6",
+        "v3": "2906edd3d9d2f8300061b255406169f340bbf3b915c7b368cd7eb2f2836d9ac5"
+      },
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "question_type": "multi-session",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "a1db70223655371218206a39c149776456ebebd5173ba4c2e4a0e77bcfea77d8",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.1111111111111111,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.07692307692307693,
+          "token_recall": 0.2
+        },
+        "v3": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa.",
+        "v2": "The Jamaican dish recommended that features snapper and includes fruit is Fish and Fungi.",
+        "v3": "The Jamaican dish recommended with snapper that has fruit in it is Grilled Snapper with Mango Salsa."
+      },
+      "prompt_sha256": {
+        "v1": "2a99e63b4de3e15eb9cbd4b21d151ceedcf20041200d4f72f7bd808ef9d4c049",
+        "v2": "ace337fa07054cc2685e0d6cf1302669ffb4cada4e397122fabbca71501c8b7c",
+        "v3": "d6d30d6a59489029b07d862b7a48a166c7c34bf1abb51ffdca285af6c8ed0871"
+      },
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "question_type": "single-session-assistant",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "76c498c4d65203bfa0b3432238fc567c34811ff73f0797dbd4d21d28be49b18e",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": false,
+        "v1_vs_v3": false,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "None.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "8383eeb69d0189dab30faf2801e94095628a557b909176bb54a4255f53c0af21",
+        "v2": "d2332f2a57e7b958bab9cf1e4ee0a44e74b6347d60fb64b52b385510b2d3a87e",
+        "v3": "2d62777a658d3d3dc80d947f930370098a980ca4dc3e21e5b59a894c28a49e02"
+      },
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "question_type": "single-session-preference",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "41bc11a36866bc16e12e095fe5b2e7bd3adfafb6a25eff7723713d2bad0bef50",
+      "gold_answer": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.4444444444444445,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.2857142857142857,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.4210526315789474,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.26666666666666666,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The user mentioned they finally beat the last boss in the Dark Souls 3 DLC last weekend.",
+        "v2": "The game you finally beat last weekend was Dark Souls 3 DLC.",
+        "v3": "The user mentioned they finally beat that last boss in the Dark Souls 3 DLC last weekend."
+      },
+      "prompt_sha256": {
+        "v1": "5264be22a1f7c83761f46c1ae503c59b79bb5d36f0f5aff616247f18266ea898",
+        "v2": "4c2ba42bb90bc48bd0a8911ee87d9e6498a70bb216e9bfeff53ef72079e17b97",
+        "v3": "835b4ee2dc2d616b77b63c162536b8a2e27010dcfa1fd11eee5724add8710b7c"
+      },
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "question_type": "single-session-user",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "0bfa47150cb957fe98115e39274fb237e55e0c812f9bab341f5dab77df62f91c",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.08333333333333333,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.058823529411764705,
+          "token_recall": 0.14285714285714285
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None",
+        "v2": "The event you mentioned participating in two weeks ago was the Midsummer 5K Run on June 10, 2023.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "cf5eecd84898dd7dc4b370127d0d112eebd71fcfb69ad34dca5581ada7298903",
+        "v2": "620eb173f61a515b28a20b55dd8287c8d5b3d5bf2f146a8a33bea3b7353dd4e9",
+        "v3": "bc6e388428bec8df520d6f4ea12767044f1fb691b1c09ba79c0193f59b42c4c6"
+      },
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "question_type": "temporal-reasoning",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "d972d7add3330f9e40e5889488e75ca69f888d467a27e3640fa8ed953a865115",
+      "gold_answer": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.10526315789473682,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.07142857142857142,
+          "token_recall": 0.2
+        },
+        "v2": {
+          "f1": 0.09523809523809523,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0625,
+          "token_recall": 0.2
+        },
+        "v3": {
+          "f1": 0.10526315789473682,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.07142857142857142,
+          "token_recall": 0.2
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "None. The order of airlines you flew with is not mentioned in the provided context.",
+        "v2": "None. The required information about the order of airlines flown with is absent in the provided memory context.",
+        "v3": "None. The context does not provide information about the order of airlines the user flew with."
+      },
+      "prompt_sha256": {
+        "v1": "6cb9392965a0859a3334c65bd978305a961db31cd889cf71116399691dd05a7d",
+        "v2": "cec5b2641ce462ba92c98bffa27654563ef3a7019ac30674a33a799e48901e1e",
+        "v3": "dc3609aba4a0daf47e6ba3994270ab3742282944c9bbef371753ada080886bea"
+      },
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "question_type": "temporal-reasoning",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "9a3a70cb30c0dbfa150ba0b5be668c3feb7334a91384483d3fc0dfcda8e64bca",
+      "gold_answer": "lavender gin fizz",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.4615384615384615,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3,
+          "token_recall": 1.0
+        },
+        "v2": {
+          "f1": 0.5,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3333333333333333,
+          "token_recall": 1.0
+        },
+        "v3": {
+          "f1": 0.4615384615384615,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.3,
+          "token_recall": 1.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": false,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "The user tried a lavender gin fizz recipe last weekend.",
+        "v2": "You tried a lavender gin fizz recipe last weekend.",
+        "v3": "The user tried a lavender gin fizz recipe last weekend."
+      },
+      "prompt_sha256": {
+        "v1": "d47477721b55e790116b51b41c7170d6b1b88c2b90b20fa559a2a3783b3aa57a",
+        "v2": "640bf6ee1e2e7ddf7ff0363e0a336106a15b4329e61e36e8f97b3b8e816e7b13",
+        "v3": "1c2a6c22fd47c541d48e5006717a958e37481351565a551ff32b12081085f2c2"
+      },
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "question_type": "single-session-user",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "62e4c2c574da7c179cc0be0d242b61931314b4021a5a17a4b38d7c6eb452017b",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.18791946308724833,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.11382113821138211,
+          "token_recall": 0.5384615384615384
+        },
+        "v2": {
+          "f1": 0.19999999999999998,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.12280701754385964,
+          "token_recall": 0.5384615384615384
+        },
+        "v3": {
+          "f1": 0.163265306122449,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.1111111111111111,
+          "token_recall": 0.3076923076923077
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": true
+      },
+      "predictions": {
+        "v1": "Based on the context provided, here are some accessories that would complement your current photography setup:\n\n1. **Camera Flash**: Consider upgrading to a high-quality flash like the Sony HVL-F60RM or HVL-F45RM for better lighting control and performance. Alternatively, third-party options such as the Godox V1 offer excellent value and advanced features.\n\n2. **Camera Bag**: A reliable camera bag is essential for carrying your gear. Brands like Think Tank Photo, Lowepro, F-Stop Gear, Peak Design, and MindShift Gear offer high-quality bags tailored for Sony cameras and additional accessories.\n\n3. **External Battery Packs**: For on-the-go charging, consider external battery packs such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, or Jackery Titan S 20000. These can charge your Sony A7R IV and other devices effectively.\n\n4. **Lens Cleaning Kit**: To maintain the quality and performance of your lenses, use a lens cleaning kit that includes a soft, dry cloth and appropriate cleaning solutions. Avoid touching the lens with bare hands and apply gentle pressure to prevent damage.\n\n5. **Tripod**: The Gitzo GT3543LS is",
+        "v2": "Based on the context, here are some accessories that would complement your current photography setup:\n\n1. **Camera Flash**: Consider upgrading to a high-quality flash like the Sony HVL-F60RM or Godox V1 for better lighting control and versatility.\n2. **Camera Bag**: A durable and well-organized camera bag from brands like Think Tank Photo, Lowepro, or Peak Design can help carry your gear safely and efficiently.\n3. **External Battery Pack**: An external battery pack such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, or Jackery Titan S 20000 can provide additional power for your Sony A7R IV and other devices on the go.\n4. **Lens Cleaning Kit**: A lens cleaning kit with a soft cloth and appropriate cleaning solution can help maintain the quality and performance of your lenses.\n5. **Tripod**: The Gitzo GT3543LS is a high-end tripod that offers excellent stability and versatility for various shooting situations.\n6. **Lens Case or Pouch**: A protective case or pouch for your lenses, such as the Lowepro Flash Pouch or Vello Flash Pouch, can help prevent damage and keep your gear organized",
+        "v3": "The assistant recommended several accessories that could complement a photography setup, including camera flashes, external battery packs, and camera bags. Specifically, they mentioned camera flash options like the Sony HVL-F60RM, Godox V1, and third-party alternatives. They also suggested external battery packs such as the Anker PowerCore 20000 PD, Mophie Powerstation XXL, and Jackery Titan S 20000, and camera bags from brands like Think Tank Photo, Lowepro, F-Stop Gear, Peak Design, and MindShift Gear. Additionally, they provided tips on cleaning camera lenses and maintaining a consistent visual brand identity for product photography."
+      },
+      "prompt_sha256": {
+        "v1": "3ed92b3a86bdc232de638e7ec58bb95cf72937b2acad7c222a0f465f9692713b",
+        "v2": "a3aa34a8c8045b0559e2d2e8c561c08b7b3c1fc7905d5e0ceb2df439ae5b33a2",
+        "v3": "32413a268c14435706945d35570e261fa78cc38ab629f94c802825b460146325"
+      },
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "question_type": "single-session-preference",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    },
+    {
+      "automatic_semantic_or_failure_labels": [],
+      "context_bundle_sha256": "65fb6edd52f80112809344434d2da3660fabf0b4168ead7e7d121a3c35999e34",
+      "gold_answer": "Yes",
+      "human_review": {
+        "failure_locus": null,
+        "notes": null,
+        "outcome": null
+      },
+      "human_review_status": "PENDING_HUMAN_REVIEW",
+      "lexical_metrics": {
+        "v1": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v2": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        },
+        "v3": {
+          "f1": 0.0,
+          "normalized_exact_match": 0.0,
+          "token_precision": 0.0,
+          "token_recall": 0.0
+        }
+      },
+      "prediction_string_changed": {
+        "v1_vs_v2": true,
+        "v1_vs_v3": true,
+        "v2_vs_v3": false
+      },
+      "predictions": {
+        "v1": "The user currently goes to the gym on Tuesdays, Thursdays, and Saturdays, which is three days per week. Previously, they mentioned going to the gym on Mondays, Wednesdays, and Fridays, which is also three days per week. Therefore, the frequency has not changed.",
+        "v2": "None.",
+        "v3": "None."
+      },
+      "prompt_sha256": {
+        "v1": "e36e95e828d64a9d46d51e9a3b1752533ef296f9d297b3fbbe477afffc1f2b0b",
+        "v2": "ad028b3f0543998f18d595b8932751f2f78b86cb98aadad0675f13563a321710",
+        "v3": "013023bfa34bac3964b129bde7e2ed11ba502b1201730fc6c211dbf60b0336d7"
+      },
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "question_type": "knowledge-update",
+      "system": "propmem",
+      "v3_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+    }
+  ],
+  "semantic_review_status": "PENDING_HUMAN_REVIEW"
+}

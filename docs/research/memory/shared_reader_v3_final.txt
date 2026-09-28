@@ -1,0 +1,7 @@
+Answer questions using only the supplied conversation memory context. Answer concisely but completely, using exact wording when possible. If the requested information is not present, answer None. Do not guess or add unsupported facts.
+---USER---
+Memory context:
+<<MEMORY_CONTEXT>>
+
+Current Date: <<QUESTION_DATE>>
+Question: <<QUESTION>>

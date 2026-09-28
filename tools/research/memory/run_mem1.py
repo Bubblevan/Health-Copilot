@@ -33,6 +33,12 @@ from mem1_artifacts import (
     write_hash_sidecar,
     write_run_manifest,
 )
+from final_reader_contract import (
+    build_reader_messages as build_final_reader_messages,
+    contract_binding,
+    load_final_reader_contract,
+    verify_contract_binding,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 SPLIT_PATH = ROOT / "docs" / "research" / "memory" / "split_manifest.json"
@@ -1240,22 +1246,19 @@ def _finalize_generation(run_dir: Path, manifest: dict[str, Any], systems: list[
     return metrics
 
 
-def _shared_reader_messages(question: str, serialized_context: str) -> list[dict[str, str]]:
-    return [
-        {
-            "role": "system",
-            "content": (
-                "Answer questions using only the supplied conversation memory context. "
-                "Answer concisely but completely, using exact wording when possible. "
-                "If the requested information is not present, answer None. "
-                "Do not guess or add unsupported facts."
-            ),
-        },
-        {
-            "role": "user",
-            "content": f"Memory context:\n{serialized_context}\n\nQuestion: {question}",
-        },
-    ]
+def _shared_reader_messages(
+    question: str,
+    serialized_context: str,
+    question_date: str,
+) -> list[dict[str, str]]:
+    _, _, system_template, user_template = load_final_reader_contract()
+    return build_final_reader_messages(
+        question,
+        question_date,
+        serialized_context,
+        system_template=system_template,
+        user_template=user_template,
+    )
 
 
 def _reader_context_token_counter(config):
@@ -1338,10 +1341,18 @@ def _run_context_controlled(
     )
 
     run_dir = args.run_dir
+    contract, contract_sha, system_template, user_template = load_final_reader_contract()
+    verify_contract_binding(manifest.get("final_reader_contract"), contract, contract_sha)
     predictions_path = run_dir / "predictions.jsonl"
     bundles_path = run_dir / "context_bundles.jsonl"
     sidecar_path = run_dir / "predictions.sha256"
     if sidecar_path.exists():
+        frozen_rows = read_jsonl(predictions_path)
+        if not frozen_rows or any(
+            row.get("final_reader_contract_sha256") != contract_sha
+            for row in frozen_rows
+        ):
+            raise RuntimeError("Frozen predictions do not match the final reader contract SHA")
         return _finalize_generation(
             run_dir,
             manifest,
@@ -1358,7 +1369,10 @@ def _run_context_controlled(
         (row.get("system"), row.get("question_id")): row
         for row in bundle_rows
     }
-    source_prompt_hash = {"memory_system_and_prompts": source_hash}
+    source_prompt_hash = {
+        "memory_system_and_prompts": source_hash,
+        "final_reader_contract_sha256": contract_sha,
+    }
     provider = importlib.import_module("agents_memory.healthcopilot_provider")
     from context_bundle import build_context_bundle
 
@@ -1451,11 +1465,16 @@ def _run_context_controlled(
                 append_jsonl(bundles_path, bundle_row)
                 latest_bundles[(system_name, question_id)] = bundle_row
 
-                messages = _shared_reader_messages(
-                    qa["question"], bundle["serialized_context"]
+                messages = build_final_reader_messages(
+                    qa["question"],
+                    qa["question_date"],
+                    bundle["serialized_context"],
+                    system_template=system_template,
+                    user_template=user_template,
                 )
-                template_messages = _shared_reader_messages("<QUESTION>", "<CONTEXT>")
-                shared_template_sha = sha256_bytes(canonical_json(template_messages))
+                shared_template_sha = contract["template"][
+                    "canonical_message_template_sha256"
+                ]
                 prompt_sha = sha256_bytes(canonical_json(messages))
                 if system_name == "fullcontext":
                     preflight = measure_full_context_prompt(
@@ -1519,6 +1538,7 @@ def _run_context_controlled(
                 "question_id": question_id,
                 "sample_id": question_id,
                 "question": qa["question"],
+                "question_date": qa["question_date"],
                 "ground_truth": qa["answer"],
                 "predicted": predicted,
                 "category": qa["category"],
@@ -1553,6 +1573,7 @@ def _run_context_controlled(
                 "shared_reader_template_sha256": (
                     shared_template_sha if predicted is not None else None
                 ),
+                "final_reader_contract_sha256": contract_sha,
                 "shared_reader_prompt_sha256": prompt_sha if predicted is not None else None,
                 "cache_identity": cache_identity,
                 "system_wall_time_ms": round((time.perf_counter() - started) * 1000, 3),
@@ -1622,6 +1643,10 @@ def generate(args: argparse.Namespace) -> None:
     os.environ["HC_MEMORY_TRACK"] = "main_local_only"
     os.environ["HC_MEM1_RUN_DIR"] = str(args.run_dir.resolve())
     split, model_protocol, local_protocol, question_ids = _load_locked_inputs(args)
+    final_reader_contract_binding = None
+    if args.answer_track == "context_controlled":
+        contract, contract_sha, _, _ = load_final_reader_contract()
+        final_reader_contract_binding = contract_binding(contract, contract_sha)
     if args.mem1d1_frozen_10:
         _verify_frozen_evidence(args.run_dir, require_ledgers=True)
         if not (args.run_dir / "predictions.sha256").exists():
@@ -1682,6 +1707,7 @@ def generate(args: argparse.Namespace) -> None:
     runner_code_sha = sha256_bytes(canonical_json({
         "runner": sha256_file(__file__),
         "artifact_helpers": sha256_file(Path(__file__).with_name("mem1_artifacts.py")),
+        "reader_contract_module": sha256_file(Path(__file__).with_name("final_reader_contract.py")),
         "local_protocol": sha256_file(LOCAL_PROTOCOL_PATH),
     }))
     cache_code_hash = sha256_bytes(canonical_json({
@@ -1701,6 +1727,10 @@ def generate(args: argparse.Namespace) -> None:
             "embedding_model": config.embedding_model if name != "fullcontext" else None,
             "embedding_artifact_sha256": embedding_artifact["model_sha256"] if name != "fullcontext" else None,
             "architecture_source": simplemem_source if name == "simplemem" else None,
+            "final_reader_contract_sha256": (
+                final_reader_contract_binding["sha256"]
+                if final_reader_contract_binding is not None else None
+            ),
         }))
         for name in system_names
     }
@@ -1741,11 +1771,20 @@ def generate(args: argparse.Namespace) -> None:
         runner_code_sha256=runner_code_sha,
         created_at=datetime.now(UTC).isoformat(),
         selection_manifest_sha256=args.d1_selection_sha256,
+        final_reader_contract=final_reader_contract_binding,
     )
 
     predictions_path = args.run_dir / "predictions.jsonl"
     sidecar_path = args.run_dir / "predictions.sha256"
     if sidecar_path.exists():
+        if final_reader_contract_binding is not None:
+            frozen_rows = read_jsonl(predictions_path)
+            if not frozen_rows or any(
+                row.get("final_reader_contract_sha256")
+                != final_reader_contract_binding["sha256"]
+                for row in frozen_rows
+            ):
+                raise RuntimeError("Frozen predictions do not match the locked final reader contract")
         _finalize_generation(args.run_dir, manifest, system_names, question_ids, config.embedding_model)
         from agents_memory.healthcopilot_provider import release_local_embedding_runtimes
         release_local_embedding_runtimes()

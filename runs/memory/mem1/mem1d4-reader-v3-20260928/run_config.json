@@ -1,0 +1,203 @@
+{
+  "calls": {
+    "embedding": 0,
+    "hosted_api": 0,
+    "judge": 0,
+    "memory_system": 0,
+    "reader_answer": 50
+  },
+  "config_version": "mem1d4-reader-only-v1",
+  "configuration_sha256": "f69d4e7bf0320caf69649296c68b80004d1127b1b2ac9c54f0f745e82c5e402c",
+  "context_bundles": {
+    "copied_or_rebuilt": false,
+    "source_jsonl_sha256": "18f38700f7cc0b3b44ab45c8c29007a21c44b79e600c07254665cebb9bb9e26c",
+    "source_run_id": "mem1d1-frozen-10-20260927",
+    "verified_count": 50
+  },
+  "fullcontext_preflight": [
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 108161,
+      "prompt_tokens_server": null,
+      "question_id": "1cea1afa",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 106159,
+      "prompt_tokens_server": null,
+      "question_id": "1c549ce4",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 103496,
+      "prompt_tokens_server": null,
+      "question_id": "778164c6",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 107542,
+      "prompt_tokens_server": null,
+      "question_id": "fca70973",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 107713,
+      "prompt_tokens_server": null,
+      "question_id": "a82c026e",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 105305,
+      "prompt_tokens_server": null,
+      "question_id": "gpt4_e061b84g",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 106729,
+      "prompt_tokens_server": null,
+      "question_id": "gpt4_f420262c",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 107849,
+      "prompt_tokens_server": null,
+      "question_id": "8550ddae",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 106737,
+      "prompt_tokens_server": null,
+      "question_id": "06878be2",
+      "system": "fullcontext",
+      "truncated": false
+    },
+    {
+      "fits": true,
+      "max_model_length": 131072,
+      "output_reserve": 256,
+      "prompt_tokens_preflight": 106195,
+      "prompt_tokens_server": null,
+      "question_id": "c4ea545c",
+      "system": "fullcontext",
+      "truncated": false
+    }
+  ],
+  "official_source": {
+    "evidence_role": "source-alignment only; Health-Copilot retains its own shared context-controlled answer head and does not claim exact official prompt reproduction",
+    "file": "src/generation/run_generation.py",
+    "non_cot_prompt_shape": "History Chats: {history}; Current Date: {question_date}; Question: {question}; Answer:",
+    "pinned_url": "https://raw.githubusercontent.com/xiaowu0162/LongMemEval/9e0b455f4ef0e2ab8f2e582289761153549043fc/src/generation/run_generation.py",
+    "raw_file_sha256_utf8": "4f1eb3c69d7ad40f04065b9c0bc86f6582441018fc6ff751d162d66c95baf672",
+    "repository": "xiaowu0162/LongMemEval",
+    "revision": "9e0b455f4ef0e2ab8f2e582289761153549043fc"
+  },
+  "question_dates_sha256": "b84ba479d91c8e1b3ad0f5f2e05b2b6ac819e6dae44cb734011bb32843ae2345",
+  "question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "reader": {
+    "model": "health-memory-qwen3-8b",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "runtime": {
+      "embedding_model": null,
+      "endpoint": "http://127.0.0.1:8081/v1",
+      "endpoint_loopback_only": true,
+      "flash_attention": true,
+      "generation": {
+        "enable_thinking": false,
+        "max_new_tokens": 256,
+        "seed": 42,
+        "temperature": 0
+      },
+      "historic_reader_template_sha256": "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b",
+      "hosted_api_calls": 0,
+      "judge_model": null,
+      "kv_cache_offload": "GPU",
+      "memory_internal_llm_calls": 0,
+      "model": "health-memory-qwen3-8b",
+      "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+      "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "official_question_dates_required": true,
+      "provider": "local_qwen",
+      "proxy_environment_used": false,
+      "server_arguments": {
+        "--cache-type-k": "q4_0",
+        "--cache-type-v": "q4_0",
+        "--ctx-size": "131072",
+        "--flash-attn": "on",
+        "--host": "127.0.0.1",
+        "--n-gpu-layers": "99",
+        "--parallel": "1",
+        "--port": "8081",
+        "--rope-scale": "4",
+        "--rope-scaling": "yarn"
+      },
+      "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+      "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+      "server_pid": 61296,
+      "server_version_output": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64",
+      "slot_context_tokens": 131072
+    }
+  },
+  "run_id": "mem1d4-reader-v3-20260928",
+  "split": "DEV",
+  "systems": [
+    "fullcontext",
+    "openclaw",
+    "mem0",
+    "simplemem",
+    "propmem"
+  ],
+  "template": {
+    "canonical_message_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd",
+    "date_field_only_delta_from_v1": true,
+    "final_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+    "path": "docs/research/memory/shared_reader_v3_final.txt",
+    "raw_sha256": "1c123f04a21fa3bb58a4ce3c2bbfad0347501e9f9ee9d561d0ee16de3468a510",
+    "selected_by_protocol_not_dev_score": true
+  },
+  "test_access": false
+}

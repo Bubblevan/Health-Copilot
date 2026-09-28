@@ -75,6 +75,7 @@ def write_run_manifest(
     runner_code_sha256: str,
     created_at: str,
     selection_manifest_sha256: str | None = None,
+    final_reader_contract: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     required_roles = {
         "reader_answer_model",
@@ -120,6 +121,8 @@ def write_run_manifest(
     }
     if selection_manifest_sha256 is not None:
         manifest["selection_manifest_sha256"] = selection_manifest_sha256
+    if final_reader_contract is not None:
+        manifest["final_reader_contract"] = final_reader_contract
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n"

@@ -1,0 +1,80 @@
+{
+  "artifact_version": "mem1d4-three-way-reader-comparison-v1",
+  "groups": {
+    "non_temporal_40": {
+      "mean_token_f1_by_version": {
+        "v1": 0.12904153265557602,
+        "v2": 0.10180777220353585,
+        "v3": 0.13680062358830705
+      },
+      "prediction_change_counts": {
+        "v1_vs_v2": 23,
+        "v1_vs_v3": 25,
+        "v2_vs_v3": 25
+      },
+      "question_ids": [
+        "1cea1afa",
+        "1c549ce4",
+        "778164c6",
+        "fca70973",
+        "a82c026e",
+        "8550ddae",
+        "06878be2",
+        "c4ea545c"
+      ],
+      "row_count": 40
+    },
+    "temporal_10": {
+      "mean_token_f1_by_version": {
+        "v1": 0.061056876061120535,
+        "v2": 0.0369047619047619,
+        "v3": 0.028908668730650157
+      },
+      "prediction_change_counts": {
+        "v1_vs_v2": 8,
+        "v1_vs_v3": 6,
+        "v2_vs_v3": 5
+      },
+      "question_ids": [
+        "gpt4_e061b84g",
+        "gpt4_f420262c"
+      ],
+      "row_count": 10
+    }
+  },
+  "interpretation": "descriptive prompt-sensitivity diagnostics only; no reader ranking or selection by score",
+  "prompt_change_counts": {
+    "v1_vs_v2": 31,
+    "v1_vs_v3": 31,
+    "v2_vs_v3": 30
+  },
+  "row_count": 50,
+  "source_reader_template_sha256": {
+    "v1": "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b",
+    "v2": "a06cf171967ade9e8b3b2b90525ea635e538ed4383c31d2f3d64a28d135d2041",
+    "v3": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd"
+  },
+  "version_metrics": {
+    "v1": {
+      "mean_token_f1": 0.11544460133668492,
+      "mean_token_precision": 0.08024299824516706,
+      "mean_token_recall": 0.29899044433827043,
+      "normalized_exact_match_rate": 0.0,
+      "scored_rows": 50
+    },
+    "v2": {
+      "mean_token_f1": 0.08882717014378105,
+      "mean_token_precision": 0.060160259262724745,
+      "mean_token_recall": 0.2810783564261825,
+      "normalized_exact_match_rate": 0.0,
+      "scored_rows": 50
+    },
+    "v3": {
+      "mean_token_f1": 0.11522223261677567,
+      "mean_token_precision": 0.08796630786973904,
+      "mean_token_recall": 0.2895569358178054,
+      "normalized_exact_match_rate": 0.02,
+      "scored_rows": 50
+    }
+  }
+}

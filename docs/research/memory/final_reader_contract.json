@@ -1,0 +1,93 @@
+{
+  "contract_version": "shared_reader_v3_minimal_current_date",
+  "research_positioning": "controlled re-evaluation of public memory architectures under a unified fully-local model stack",
+  "decision": {
+    "selected_by_protocol_not_dev_score": true,
+    "basis": [
+      "date-complete using the official LongMemEval question_date",
+      "minimal extension of the original Health-Copilot v1 answering policy",
+      "shared identically across all systems",
+      "not category-aware and not tuned to observed DEV failures",
+      "source-aligned with the official benchmark Current Date field"
+    ],
+    "permanent_for_mem2_plus": true,
+    "reopen_only_for": "demonstrable infrastructure or benchmark-contract defect"
+  },
+  "template": {
+    "path": "docs/research/memory/shared_reader_v3_final.txt",
+    "raw_sha256": "1c123f04a21fa3bb58a4ce3c2bbfad0347501e9f9ee9d561d0ee16de3468a510",
+    "canonical_message_template_sha256": "8e44fc1461529a8e421da5a3e9744a8f84ab1fd280e1b2e1f3e369a1351948dd",
+    "canonicalization": "UTF-8 JSON with ensure_ascii=false, sorted keys, compact separators; messages are system then user with the literal template placeholders",
+    "system_message": "Answer questions using only the supplied conversation memory context. Answer concisely but completely, using exact wording when possible. If the requested information is not present, answer None. Do not guess or add unsupported facts.",
+    "user_message_template": "Memory context:\n<<MEMORY_CONTEXT>>\n\nCurrent Date: <<QUESTION_DATE>>\nQuestion: <<QUESTION>>",
+    "v1_canonical_message_template_sha256": "0ff70b000bd4b43db85ae587731fea35b691febc815cfbb57c2acb1c8b295b2b",
+    "v1_equivalence_rule": "Removing the exact Current Date line from the v3 user template yields the v1 user template; the system message is unchanged."
+  },
+  "official_source_alignment": {
+    "repository": "xiaowu0162/LongMemEval",
+    "revision": "9e0b455f4ef0e2ab8f2e582289761153549043fc",
+    "file": "src/generation/run_generation.py",
+    "raw_file_sha256_utf8": "4f1eb3c69d7ad40f04065b9c0bc86f6582441018fc6ff751d162d66c95baf672",
+    "pinned_url": "https://raw.githubusercontent.com/xiaowu0162/LongMemEval/9e0b455f4ef0e2ab8f2e582289761153549043fc/src/generation/run_generation.py",
+    "non_cot_prompt_shape": "History Chats: {history}; Current Date: {question_date}; Question: {question}; Answer:",
+    "evidence_role": "source-alignment only; Health-Copilot retains its own shared context-controlled answer head and does not claim exact official prompt reproduction"
+  },
+  "question_date_policy": {
+    "required": true,
+    "source": "exact official LongMemEval-S record question_date copied from the hash-verified MEM-1D3 date table",
+    "format": "preserve source string byte-for-byte after JSON decoding; do not parse, infer, normalize, or replace with runtime date",
+    "missing_or_mismatched": "fail closed"
+  },
+  "reader": {
+    "role": "reader_answer_model",
+    "provider": "local_qwen",
+    "model": "Qwen3-8B Q4_K_M",
+    "model_alias": "health-memory-qwen3-8b",
+    "artifact": "E:/Health-Copilot-Models/models/qwen3-8b/Qwen3-8B-Q4_K_M.gguf",
+    "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "runtime": {
+      "server": "llama.cpp llama-server 10068 (571d0d540)",
+      "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+      "gpu_layers": 99,
+      "flash_attention": true,
+      "kv_cache": "Q4_0 GPU",
+      "context_tokens": 131072,
+      "rope_scaling": "YaRN",
+      "rope_scale": 4,
+      "rope_original_context_tokens": 32768
+    },
+    "generation": {
+      "temperature": 0,
+      "seed": 42,
+      "thinking": false,
+      "max_new_tokens": 256
+    }
+  },
+  "prompt_preflight": {
+    "renderer": "frozen llama.cpp /apply-template with enable_thinking=false",
+    "tokenizer": "same running frozen llama.cpp /tokenize endpoint, add_special=false",
+    "fullcontext_gate": "server prompt token usage must equal tokenizer preflight; prompt_tokens + 256 <= 131072; truncated=false"
+  },
+  "d4_execution_scope": {
+    "dataset_id": "longmemeval_s",
+    "dataset_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+    "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "split": "DEV",
+    "question_ids_source": "exact MEM-1D1 frozen ten-question selection and MEM-1D3 question-date table",
+    "systems": ["fullcontext", "openclaw", "mem0", "simplemem", "propmem"],
+    "context_bundles": "read-only reuse of all 50 MEM-1D1 bundles; no copy, reconstruction, or reorder",
+    "memory_system_calls": 0,
+    "embedding_calls": 0,
+    "judge_calls": 0,
+    "hosted_api_calls": 0,
+    "test_access": false
+  },
+  "future_binding": {
+    "required_for": ["M10-Base", "RevMem", "LongMemEval-S 102 DEV", "LongMemEval-S process-level held-out TEST"],
+    "identity": "SHA256 of the exact final_reader_contract.json bytes, verified against final_reader_contract.json.sha256",
+    "mismatch_behavior": "fail closed before cache lookup or reader call",
+    "shared_cache_identity_field": "final_reader_contract_sha256"
+  },
+  "locked_for_mem2_plus": true
+}
