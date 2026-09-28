@@ -1,0 +1,3347 @@
+{
+  "artifact_version": "mem2a-m10-base-case-review-v1",
+  "automatic_failure_labels_assigned": false,
+  "human_review_status": "PENDING_HUMAN_REVIEW",
+  "rows": [
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "KNOWN_GATE_CASE",
+      "context_bundle_sha256": "3a30d5c44f9cfd557c0c40519f98d5fa1372be13b6f451a53fd52ca3664ed945",
+      "context_projection": [
+        {
+          "context_plan_position": 4,
+          "drop_reason": null,
+          "m10_estimated_tokens": 142,
+          "memory_id": "m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.75,
+          "selected": true,
+          "source_session_id": "answer_79c395a9_2",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 743,
+          "memory_id": "m10b-3ffc1a71b40a6d7b39887753158e0d3c88dd9a692380c76cca732fa84278e782",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.75,
+          "selected": false,
+          "source_session_id": "answer_79c395a9_2",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 460,
+          "memory_id": "m10b-d0bad45a481bb4fbbdacf37a7bf7a7b208ef4e92eb06f508645e42d6829e7f65",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.75,
+          "selected": false,
+          "source_session_id": "answer_79c395a9_2",
+          "turn_index": 11
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 901,
+          "memory_id": "m10b-c00763c8cb5b1fc55d2382dded4c8248dc85f10a832db8003bbff62c373c3938",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": false,
+          "source_session_id": "answer_79c395a9_1",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 625,
+          "memory_id": "m10b-63c330cbc8cc4a2e5202efc6e52a3454c2670ec0d924e0199b0585b885015b8a",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": false,
+          "source_session_id": "7af38385_1",
+          "turn_index": 5
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 148,
+          "memory_id": "m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": true,
+          "source_session_id": "2a0c336c",
+          "turn_index": 2
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 637,
+          "memory_id": "m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": true,
+          "source_session_id": "52d46b4a_1",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 238,
+          "memory_id": "m10b-2393fd778f9b07445a9e0999d972d97e603a2295afa53bc0dc351a6561aa76d0",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": false,
+          "source_session_id": "answer_79c395a9_2",
+          "turn_index": 10
+        }
+      ],
+      "gold": "600",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_79c395a9_1",
+          "answer_79c395a9_2"
+        ],
+        "answer_session_mrr": 1.0,
+        "answer_session_recall_at_10": 1.0,
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "context_bundle_sha256": "3a30d5c44f9cfd557c0c40519f98d5fa1372be13b6f451a53fd52ca3664ed945",
+        "context_reader_tokens": 1147,
+        "dropped_records": 5,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 927,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.0,
+        "plan_estimated_total_tokens": 1196,
+        "projected_answer_session_recall_at_8": 0.5,
+        "projected_records": 3,
+        "quality_status": "OK",
+        "question_id": "1cea1afa",
+        "question_type": "knowledge-update",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8",
+          "native_retrieval_rank": 6,
+          "rank": 1,
+          "retrieval_score": 0.625,
+          "source_session_ids": [
+            "2a0c336c"
+          ],
+          "source_turn_id": "raw_turn:2a0c336c:2",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:2a0c336c:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll start with the Coursera course from University of Virginia. Do you know how many hours a week I should dedicate to studying to complete the course in, say, 3 months? Also, do you have any advice on how to stay motivated and on track with online courses?\",\"role\":\"user\",\"session_date\":\"2023/05/27 (Sat) 16:48\"},\"value_sha256\":\"54f1f2098db8b73445909adb5b96c9fb3a193c1192e55bc8219ddde800fd48bc\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109",
+          "native_retrieval_rank": 7,
+          "rank": 2,
+          "retrieval_score": 0.625,
+          "source_session_ids": [
+            "52d46b4a_1"
+          ],
+          "source_turn_id": "raw_turn:52d46b4a_1:1",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:52d46b4a_1:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's wonderful to hear about your experience at the animal shelter's charity walk! It's great that you're looking to continue volunteering and giving back to your community.\\n\\nI'm happy to help you find more local volunteer opportunities. However, I'm a large language model, I don't have real-time access to specific events or listings. But I can provide you with some suggestions on how to find volunteer opportunities in your area:\\n\\n1. **Volunteer Match**: A popular online platform that connects volunteers with non-profit organizations. You can search for opportunities by location, cause, and type of work.\\n2. **Local Non-Profit Organizations**: Research organizations in your area that align with your interests and values. Many have volunteer programs or events that you can participate in.\\n3. **United Way**: A national organization with local chapters that often have volunteer opportunities and events. You can search for your local United Way chapter and see what opportunities are available.\\n4. **Community Calendars**: Check local newspaper, event calendars, or community boards for upcoming events that may need volunteers.\\n5. **Social Media**: Follow local non-profits, charities, and community groups on social media platforms like Facebook, Twitter, or Instagram. They often post about upcoming events and volunteer opportunities.\\n6. **Local Parks and Recreation Departments**: Many parks and recreation departments have volunteer programs for events, clean-up initiatives, or environmental projects.\\n7. **Food Banks and Pantries**: Food banks and pantries often rely on volunteers to help sort and distribute food to those in need.\\n\\nRegarding the gala you attended, that's fantastic to hear that it raised over $200,000 for the local children's hospital! It's wonderful to see the impact of community events like that.\\n\\nRemember to also consider reaching out to friends, family, or colleagues to see if they know of any volunteer opportunities or events that might interest you. Word of mouth can be a great way to discover new opportunities!\\n\\nI hope these suggestions help you find your next volunteer opportunity. Good luck, and keep making a positive impact in your community!\",\"role\":\"assistant\",\"session_date\":\"2023/05/28 (Sun) 21:03\"},\"value_sha256\":\"4a731c397c7a0140d8544f8759ed43ace3fbfb7988ebf52900bb7d8a402ef4a1\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0",
+          "native_retrieval_rank": 1,
+          "rank": 3,
+          "retrieval_score": 0.75,
+          "source_session_ids": [
+            "answer_79c395a9_2"
+          ],
+          "source_turn_id": "raw_turn:answer_79c395a9_2:4",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_79c395a9_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I think I'll try using the \\\"Question Sticker\\\" feature in Instagram Stories first, since it seems like a quick and easy way to get started. Do you have any tips on how to promote my Q&A session to get more followers to participate?\",\"role\":\"user\",\"session_date\":\"2023/05/28 (Sun) 22:57\"},\"value_sha256\":\"1d031e182a7658280142e48bc175ef78a817b9d169b850039e8640ae77c4dedc\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "How many Instagram followers do I currently have?",
+      "question_date": "2023/06/14 (Wed) 13:43",
+      "question_id": "1cea1afa",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-17e8ed6c1da9e3f3a8a8deff53ca9ec93b9ea4766633a161347e7312b995b1c0",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.75,
+          "source_session_id": "answer_79c395a9_2",
+          "source_turn_key": "raw_turn:answer_79c395a9_2:4",
+          "turn_index": 4,
+          "valid_from": "2023-05-28T22:57:00Z"
+        },
+        {
+          "memory_id": "m10b-3ffc1a71b40a6d7b39887753158e0d3c88dd9a692380c76cca732fa84278e782",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.75,
+          "source_session_id": "answer_79c395a9_2",
+          "source_turn_key": "raw_turn:answer_79c395a9_2:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-28T22:57:00Z"
+        },
+        {
+          "memory_id": "m10b-d0bad45a481bb4fbbdacf37a7bf7a7b208ef4e92eb06f508645e42d6829e7f65",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.75,
+          "source_session_id": "answer_79c395a9_2",
+          "source_turn_key": "raw_turn:answer_79c395a9_2:11",
+          "turn_index": 11,
+          "valid_from": "2023-05-28T22:57:00Z"
+        },
+        {
+          "memory_id": "m10b-c00763c8cb5b1fc55d2382dded4c8248dc85f10a832db8003bbff62c373c3938",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "answer_79c395a9_1",
+          "source_turn_key": "raw_turn:answer_79c395a9_1:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-27T07:39:00Z"
+        },
+        {
+          "memory_id": "m10b-63c330cbc8cc4a2e5202efc6e52a3454c2670ec0d924e0199b0585b885015b8a",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "7af38385_1",
+          "source_turn_key": "raw_turn:7af38385_1:5",
+          "turn_index": 5,
+          "valid_from": "2023-05-27T08:54:00Z"
+        },
+        {
+          "memory_id": "m10b-04c11e9616df50504b176f4d7b6f1ddf47c681c2296cce194375c69619886dc8",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "2a0c336c",
+          "source_turn_key": "raw_turn:2a0c336c:2",
+          "turn_index": 2,
+          "valid_from": "2023-05-27T16:48:00Z"
+        },
+        {
+          "memory_id": "m10b-115eeffcd669506ba1582ab8ab3f360aadd750b210d92369e6bed9e359e50109",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "52d46b4a_1",
+          "source_turn_key": "raw_turn:52d46b4a_1:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-28T21:03:00Z"
+        },
+        {
+          "memory_id": "m10b-2393fd778f9b07445a9e0999d972d97e603a2295afa53bc0dc351a6561aa76d0",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "answer_79c395a9_2",
+          "source_turn_key": "raw_turn:answer_79c395a9_2:10",
+          "turn_index": 10,
+          "valid_from": "2023-05-28T22:57:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "60c4e3ad82fb4fbe5940e75e4581fd476544dd9cc34145f24c97ccae212b9bc1",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 637,
+          "memory_id": "m10b-32aa42649f5d20a3d4536d4d9816ecc43cfce6a61e9758804fab96c7a2b5bb7b",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6923076923076923,
+          "selected": false,
+          "source_session_id": "answer_4cb841a8_1",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 788,
+          "memory_id": "m10b-cb8f9b5676b25983ec00aeb5b7368bf6c659363ea5a8c8f8ab76037cd85014c4",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6923076923076923,
+          "selected": false,
+          "source_session_id": "answer_4cb841a8_2",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 577,
+          "memory_id": "m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6153846153846154,
+          "selected": true,
+          "source_session_id": "answer_4cb841a8_1",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 188,
+          "memory_id": "m10b-2aa7061a77a2b1c4bbc8b857df64dffc38e1eb09b25ab70a65207bfe9d5df432",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6153846153846154,
+          "selected": false,
+          "source_session_id": "answer_4cb841a8_1",
+          "turn_index": 10
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 469,
+          "memory_id": "m10b-f503b6c45bc4b7525110836e436230046212a7aa72816f0bea17b7d88ee55d02",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6153846153846154,
+          "selected": false,
+          "source_session_id": "answer_4cb841a8_1",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 585,
+          "memory_id": "m10b-6219fbc4c6209e057c7a6cd9d0056b8e5f08adb4023c07b1380c66cb69254e73",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6153846153846154,
+          "selected": false,
+          "source_session_id": "answer_4cb841a8_2",
+          "turn_index": 11
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 895,
+          "memory_id": "m10b-f6dce33ac5ecc15919cd9ac3acf89651d23b379dcb58e63d1fd660825d061839",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5384615384615384,
+          "selected": false,
+          "source_session_id": "809cbce9_1",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 349,
+          "memory_id": "m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5384615384615384,
+          "selected": true,
+          "source_session_id": "ddcd2c65_1",
+          "turn_index": 7
+        }
+      ],
+      "gold": "$140",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_4cb841a8_1",
+          "answer_4cb841a8_2"
+        ],
+        "answer_session_mrr": 1.0,
+        "answer_session_recall_at_10": 1.0,
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "context_bundle_sha256": "60c4e3ad82fb4fbe5940e75e4581fd476544dd9cc34145f24c97ccae212b9bc1",
+        "context_reader_tokens": 1073,
+        "dropped_records": 6,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 926,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.0,
+        "plan_estimated_total_tokens": 1200,
+        "projected_answer_session_recall_at_8": 0.5,
+        "projected_records": 2,
+        "quality_status": "OK",
+        "question_id": "1c549ce4",
+        "question_type": "multi-session",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73",
+          "native_retrieval_rank": 8,
+          "rank": 1,
+          "retrieval_score": 0.5384615384615384,
+          "source_session_ids": [
+            "ddcd2c65_1"
+          ],
+          "source_turn_id": "raw_turn:ddcd2c65_1:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:ddcd2c65_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"It sounds like you've been putting your new Adidas sneakers to good use. The classic black and white colorway is a great choice - it's easy to pair with just about anything.\\n\\nIt's awesome that you've been experimenting with different outfits and finding ways to style your sneakers with dresses. Sneakers have become a staple in many people's wardrobes, and they can add a cool, casual touch to even dressier outfits.\\n\\nSince you mentioned wearing them with dresses, I have to ask: Have you considered adding any sneaker-specific accessories to your outfit? For example, sneaker socks, lace charms, or even sneaker cleaning wipes can be great additions to your sneaker game.\\n\\nAlso, have you thought about protecting your new kicks from the elements? Adidas sneakers are generally durable, but it's always a good idea to take care of them to make them last longer. You might consider getting a waterproofing spray or cream to help repel water and stains.\\n\\nBut overall, it sounds like you're really enjoying your new sneakers, and that's what matters most!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 07:53\"},\"value_sha256\":\"80d7a60464bd17d7bef915c3f1e3b4cfedda5af9efec653a155ed866c7559b6f\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2",
+          "native_retrieval_rank": 3,
+          "rank": 2,
+          "retrieval_score": 0.6153846153846154,
+          "source_session_ids": [
+            "answer_4cb841a8_1"
+          ],
+          "source_turn_id": "raw_turn:answer_4cb841a8_1:3",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_4cb841a8_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"For general cleaning and maintenance, with some interior detailing, and gentle on sensitive paint, I'd recommend the following kits:\\n\\n**Option 1: Meguiar's Gold Class Car Care Kit**\\n\\n* Price: Around $60-$70\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Meguiar's Gold Class products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes interior cleaner and a microfiber cloth for cleaning surfaces, but not a dedicated interior detailing product\\n\\n**Option 2: Chemical Guys Car Care Kit**\\n\\n* Price: Around $70-$80\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Chemical Guys products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\n**Option 3: Autoglym Car Care Kit**\\n\\n* Price: Around $120-$130\\n* Includes: Gentle wash soap, microfiber wash mitt, detail spray, glass cleaner, tire cleaner, interior cleaner, and more\\n* Gentle on paint: Yes, Autoglym products are known for being gentle on sensitive paint finishes\\n* Interior detailing: Includes a dedicated interior detailing product, as well as microfiber cloths and a brush for cleaning surfaces\\n\\nAll of these kits are great options for general cleaning and maintenance, and are gentle on sensitive paint. The Autoglym kit is a bit more expensive, but it includes higher-end products and a more comprehensive range of items.\\n\\nIf you're looking for a more budget-friendly option, the Meguiar's or Chemical Guys kits might be the way to go. If you're willing to invest a bit more, the Autoglym kit is a great choice.\\n\\nDo any of these options stand out to you, or would you like more information on any of these kits?\",\"role\":\"assistant\",\"session_date\":\"2023/05/25 (Thu) 12:36\"},\"value_sha256\":\"dbf9bed29c20bd2e9f2cd7a02cba63ef355662dc97fd71ea5d195c1b0db0b5e0\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "What is the total cost of the car cover and detailing spray I purchased?",
+      "question_date": "2023/05/30 (Tue) 23:21",
+      "question_id": "1c549ce4",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-32aa42649f5d20a3d4536d4d9816ecc43cfce6a61e9758804fab96c7a2b5bb7b",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6923076923076923,
+          "source_session_id": "answer_4cb841a8_1",
+          "source_turn_key": "raw_turn:answer_4cb841a8_1:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-25T12:36:00Z"
+        },
+        {
+          "memory_id": "m10b-cb8f9b5676b25983ec00aeb5b7368bf6c659363ea5a8c8f8ab76037cd85014c4",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6923076923076923,
+          "source_session_id": "answer_4cb841a8_2",
+          "source_turn_key": "raw_turn:answer_4cb841a8_2:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-28T14:56:00Z"
+        },
+        {
+          "memory_id": "m10b-16e0b8a8cfa3194a747946f84b311ad68c45d1b9c083a764d4d552113d7559c2",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6153846153846154,
+          "source_session_id": "answer_4cb841a8_1",
+          "source_turn_key": "raw_turn:answer_4cb841a8_1:3",
+          "turn_index": 3,
+          "valid_from": "2023-05-25T12:36:00Z"
+        },
+        {
+          "memory_id": "m10b-2aa7061a77a2b1c4bbc8b857df64dffc38e1eb09b25ab70a65207bfe9d5df432",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6153846153846154,
+          "source_session_id": "answer_4cb841a8_1",
+          "source_turn_key": "raw_turn:answer_4cb841a8_1:10",
+          "turn_index": 10,
+          "valid_from": "2023-05-25T12:36:00Z"
+        },
+        {
+          "memory_id": "m10b-f503b6c45bc4b7525110836e436230046212a7aa72816f0bea17b7d88ee55d02",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6153846153846154,
+          "source_session_id": "answer_4cb841a8_1",
+          "source_turn_key": "raw_turn:answer_4cb841a8_1:9",
+          "turn_index": 9,
+          "valid_from": "2023-05-25T12:36:00Z"
+        },
+        {
+          "memory_id": "m10b-6219fbc4c6209e057c7a6cd9d0056b8e5f08adb4023c07b1380c66cb69254e73",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6153846153846154,
+          "source_session_id": "answer_4cb841a8_2",
+          "source_turn_key": "raw_turn:answer_4cb841a8_2:11",
+          "turn_index": 11,
+          "valid_from": "2023-05-28T14:56:00Z"
+        },
+        {
+          "memory_id": "m10b-f6dce33ac5ecc15919cd9ac3acf89651d23b379dcb58e63d1fd660825d061839",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5384615384615384,
+          "source_session_id": "809cbce9_1",
+          "source_turn_key": "raw_turn:809cbce9_1:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-20T04:12:00Z"
+        },
+        {
+          "memory_id": "m10b-0bd8c6fa50761c14bdaf8c26714e923ebecb152be350b8508d72de7ef3035a73",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5384615384615384,
+          "source_session_id": "ddcd2c65_1",
+          "source_turn_key": "raw_turn:ddcd2c65_1:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-20T07:53:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "05059e31dbac7e78054897ef5bd79f6429698ec9375affbc7615e8435e473156",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 2872,
+          "memory_id": "m10b-bef1dc418b751d1ca4ac8970df558426d9ff5c35626ec4ecaf38c4bfd8eedc9e",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6206896551724138,
+          "selected": false,
+          "source_session_id": "sharegpt_ki9IVDq_6",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 611,
+          "memory_id": "m10b-b4fa5c18a0f9cec755c26a4782e1ac073ad698e7958ef0097bb4a4778c0dbac2",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4482758620689655,
+          "selected": false,
+          "source_session_id": "2d74df23_3",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 786,
+          "memory_id": "m10b-ed34d4f107c0c61b0e14e7db7764f76fc3c15398044e2b26e4931cf4d92dfe13",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4482758620689655,
+          "selected": false,
+          "source_session_id": "2d74df23_3",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 1010,
+          "memory_id": "m10b-5c869b4bdc259d69a3d960d3a5926615b236354e6a007673871de45796f1f7ee",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4482758620689655,
+          "selected": false,
+          "source_session_id": "eccc6e84_3",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 429,
+          "memory_id": "m10b-d9b790f08f539cd427cf57631846f47871a51046a5ba72b4722d881935c875df",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4482758620689655,
+          "selected": false,
+          "source_session_id": "ultrachat_346016",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 595,
+          "memory_id": "m10b-43e3f59e51c9ac2310caca608535800f6322f5d3f3d277180f5f2c6f23dc8cb5",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4482758620689655,
+          "selected": false,
+          "source_session_id": "483ddd90",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 803,
+          "memory_id": "m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.41379310344827586,
+          "selected": true,
+          "source_session_id": "490bb46d_1",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 673,
+          "memory_id": "m10b-f73eabbd82df16b68cd64a3d2a92e39bb2571c60d28526638096a564f22be384",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.41379310344827586,
+          "selected": false,
+          "source_session_id": "2d74df23_3",
+          "turn_index": 5
+        }
+      ],
+      "gold": "Grilled Snapper with Mango Salsa",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_ultrachat_399000"
+        ],
+        "answer_session_mrr": 0.0,
+        "answer_session_recall_at_10": 0.0,
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "context_bundle_sha256": "05059e31dbac7e78054897ef5bd79f6429698ec9375affbc7615e8435e473156",
+        "context_reader_tokens": 862,
+        "dropped_records": 7,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.09523809523809523,
+        "m10_estimated_memory_tokens": 803,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.2,
+        "plan_estimated_total_tokens": 1106,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 1,
+        "quality_status": "OK",
+        "question_id": "778164c6",
+        "question_type": "single-session-assistant",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0625,
+        "token_recall": 0.2
+      },
+      "prediction": "None. The provided memory context does not mention any specific Jamaican dish with fruit in it.",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa",
+          "native_retrieval_rank": 7,
+          "rank": 1,
+          "retrieval_score": 0.41379310344827586,
+          "source_session_ids": [
+            "490bb46d_1"
+          ],
+          "source_turn_id": "raw_turn:490bb46d_1:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:490bb46d_1:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Music festivals are so much fun! Packing the right essentials can make a huge difference in your festival experience. Here's a list of must-haves to consider bringing along:\\n\\n**The Essentials:**\\n\\n1. **Tickets and Wristbands**: Make sure you have your festival tickets, wristbands, and any other necessary documents easily accessible.\\n2. **Water Bottle**: Stay hydrated with a refillable water bottle. Many festivals offer water refill stations.\\n3. **Sunscreen and Sun Hat**: Protect yourself from the sun with SPF 30 or higher sunscreen, a sun hat, and sunglasses.\\n4. **Comfortable Shoes**: Wear comfortable shoes or sneakers that can handle the festival terrain.\\n5. **Portable Charger**: Bring a portable charger to keep your phone or other devices charged throughout the day.\\n6. **Cash and Credit Cards**: Bring a combination of cash and credit cards for food, merchandise, and other purchases.\\n7. **Small First-Aid Kit**: Pack a small first-aid kit with essentials like band-aids, antiseptic wipes, and pain relievers.\\n\\n**Food and Snacks:**\\n\\n1. **Reusable Snack Containers**: Bring reusable containers for snacks like nuts, fruits, or energy bars.\\n2. **Waterproof Snack Bags**: Pack snacks like sandwiches, crackers, or chips in waterproof bags to keep them dry.\\n3. **Fresh Fruits**: Bring fresh fruits like apples, oranges, or bananas to keep you energized.\\n4. **Energy Bars**: Pack energy bars or protein bars to keep your energy levels up.\\n\\n**Personal Items:**\\n\\n1. **Small Towel**: Bring a small towel to wipe sweat or dry off in case of rain.\\n2. **Deodorant and Wipes**: Pack travel-sized deodorant and wipes to stay fresh throughout the day.\\n3. **Any Medications**: If you have any prescription medications, be sure to bring them along.\\n4. **Small Umbrella or Rain Jacket**: Bring a small umbrella or rain jacket in case of unexpected rain showers.\\n\\n**Miscellaneous:**\\n\\n1. **Phone Case and Screen Protector**: Protect your phone with a waterproof case and screen protector.\\n2. **Earplugs**: Bring earplugs to protect your hearing during loud performances.\\n3. **Festival Map**: Bring a printed or digital copy of the festival map to help navigate the grounds.\\n4. **Cashless Wristband**: If the festival offers a cashless wristband, consider using it to make purchases.\\n\\n**Tips:**\\n\\n1. **Pack Light**: Try to pack only the essentials to avoid carrying a heavy backpack.\\n2. **Check the Festival Website**: Check the festival website for any specific items that may be prohibited or recommended.\\n3. **Designate a Meeting Spot**: Designate a meeting spot with your friends in case you get separated.\\n4. **Stay Hydrated**: Drink plenty of water throughout the day to stay hydrated and energized.\\n\\nRemember to check the festival's website for specific rules and regulations on what you can and cannot bring. Have a blast at the festival!\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 12:23\"},\"value_sha256\":\"dbc6fd63a48f5175dda892cf3cd0816a881c9d4e3b50deb75b7034a77685e0cb\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "question_date": "2023/05/30 (Tue) 20:36",
+      "question_id": "778164c6",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-bef1dc418b751d1ca4ac8970df558426d9ff5c35626ec4ecaf38c4bfd8eedc9e",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6206896551724138,
+          "source_session_id": "sharegpt_ki9IVDq_6",
+          "source_turn_key": "raw_turn:sharegpt_ki9IVDq_6:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-25T19:15:00Z"
+        },
+        {
+          "memory_id": "m10b-b4fa5c18a0f9cec755c26a4782e1ac073ad698e7958ef0097bb4a4778c0dbac2",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4482758620689655,
+          "source_session_id": "2d74df23_3",
+          "source_turn_key": "raw_turn:2d74df23_3:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-20T19:05:00Z"
+        },
+        {
+          "memory_id": "m10b-ed34d4f107c0c61b0e14e7db7764f76fc3c15398044e2b26e4931cf4d92dfe13",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4482758620689655,
+          "source_session_id": "2d74df23_3",
+          "source_turn_key": "raw_turn:2d74df23_3:3",
+          "turn_index": 3,
+          "valid_from": "2023-05-20T19:05:00Z"
+        },
+        {
+          "memory_id": "m10b-5c869b4bdc259d69a3d960d3a5926615b236354e6a007673871de45796f1f7ee",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4482758620689655,
+          "source_session_id": "eccc6e84_3",
+          "source_turn_key": "raw_turn:eccc6e84_3:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-21T20:11:00Z"
+        },
+        {
+          "memory_id": "m10b-d9b790f08f539cd427cf57631846f47871a51046a5ba72b4722d881935c875df",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4482758620689655,
+          "source_session_id": "ultrachat_346016",
+          "source_turn_key": "raw_turn:ultrachat_346016:3",
+          "turn_index": 3,
+          "valid_from": "2023-05-25T13:44:00Z"
+        },
+        {
+          "memory_id": "m10b-43e3f59e51c9ac2310caca608535800f6322f5d3f3d277180f5f2c6f23dc8cb5",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4482758620689655,
+          "source_session_id": "483ddd90",
+          "source_turn_key": "raw_turn:483ddd90:9",
+          "turn_index": 9,
+          "valid_from": "2023-05-27T05:07:00Z"
+        },
+        {
+          "memory_id": "m10b-34f818972f514f893b861b55b737dc5e47b49abbe2561e02959a8c13a3c7abfa",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.41379310344827586,
+          "source_session_id": "490bb46d_1",
+          "source_turn_key": "raw_turn:490bb46d_1:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-20T12:23:00Z"
+        },
+        {
+          "memory_id": "m10b-f73eabbd82df16b68cd64a3d2a92e39bb2571c60d28526638096a564f22be384",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.41379310344827586,
+          "source_session_id": "2d74df23_3",
+          "source_turn_key": "raw_turn:2d74df23_3:5",
+          "turn_index": 5,
+          "valid_from": "2023-05-20T19:05:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "d7d277786f3b17f8146fe41e0db9ac9ba9e67d230f10a9bba1aaa0c44c1e632b",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 223,
+          "memory_id": "m10b-11b72da5edb67bd11fc7e49b1b48dcb90cba706d3386db8903f775bb5957cb74",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5833333333333334,
+          "selected": false,
+          "source_session_id": "762a8b45_2",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 275,
+          "memory_id": "m10b-bfe2d4cec8a01c8ba3e83892d3bc27809870aaaa7305d98f4c5d852fe9fb95c8",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5833333333333334,
+          "selected": false,
+          "source_session_id": "fc005760",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 904,
+          "memory_id": "m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "2f2884ad_1",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 174,
+          "memory_id": "m10b-5552626a1611c937ee47d1b5a1e254f139d1c85e91c730162d9813ce3676f4f9",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "7b9ee249_2",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 1329,
+          "memory_id": "m10b-8b76baa7510edd667ca432b3fe14c14ee9dd320eabd9afd4fec58be9f2d8849b",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "sharegpt_NMLgKqu_0",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 133,
+          "memory_id": "m10b-1b569a89f067055a25f0a82ae9d6cdb242a179497272bf4ebfef4145e83f9938",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "f504b269",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 143,
+          "memory_id": "m10b-25f0aeae4817659f036340f8480e771ef803e4b76754aa6f1e8b583928a099ec",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "5d5e80c5_1",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 157,
+          "memory_id": "m10b-099a78a17260279f27e4458ad40bf77da3b06a0b64614a1d19678fc874ae6f33",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "cfcf5340_1",
+          "turn_index": 0
+        }
+      ],
+      "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_a1e169b1"
+        ],
+        "answer_session_mrr": 0.0,
+        "answer_session_recall_at_10": 0.0,
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "context_bundle_sha256": "d7d277786f3b17f8146fe41e0db9ac9ba9e67d230f10a9bba1aaa0c44c1e632b",
+        "context_reader_tokens": 932,
+        "dropped_records": 7,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 904,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.2753623188405797,
+        "plan_estimated_total_tokens": 1178,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 1,
+        "quality_status": "OK",
+        "question_id": "fca70973",
+        "question_type": "single-session-preference",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None.",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093",
+          "native_retrieval_rank": 3,
+          "rank": 1,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "2f2884ad_1"
+          ],
+          "source_turn_id": "raw_turn:2f2884ad_1:3",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:2f2884ad_1:3\",\"kind\":\"session_note\",\"memory_id\":\"m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Wonderful choice! Abstract expressionism is a fantastic way to tap into your creativity and emotions. I'm excited to help you get started!\\n\\nAbstract art can be intimidating, but with a few tips and a willingness to experiment, you'll be creating stunning pieces in no time. Here are some tips to help you get started with abstract expressionism using acrylics:\\n\\n1. **Let go of control**: Abstract art is all about embracing the unknown. Don't worry about creating a perfect piece or following a specific plan. Allow yourself to be spontaneous and let the paint guide you.\\n2. **Choose your colors**: Select a palette that resonates with your emotions or the theme you want to convey. You can choose bold and bright colors or muted and pastel shades. Consider the mood you want to evoke: energetic, calm, playful, or introspective.\\n3. **Prepare your surface**: Use a primed canvas or board, and consider adding a textured surface with modeling paste, gel medium, or even fabric for added interest.\\n4. **Start with a gesture**: Make a bold, expressive mark on the canvas with a large brush or a palette knife. This initial gesture will set the tone for your piece.\\n5. **Play with techniques**: Experiment with different techniques to create unique textures and effects:\\n\\t* Dripping: Use a wet-on-wet technique by adding water to your paint or using a spray bottle to create drips and runs.\\n\\t* Scraping: Use a palette knife or a scraper to remove paint and reveal underlying layers.\\n\\t* Blending: Mix colors on the canvas by layering wet paint or using a wet brush to merge colors.\\n\\t* Stamping: Use household items like sponges, crumpled paper, or even found objects to create patterns and textures.\\n6. **Build up layers**: Abstract art often involves building up layers of paint to create depth and complexity. Don't be afraid to add, subtract, and modify your layers as you go.\\n7. **Step back and evaluate**: Take breaks to step back from your work and assess the composition. Ask yourself: What's working? What's not? What needs more attention?\\n8. **Embrace mistakes**: Remember, mistakes are an essential part of the creative process. They can lead to unexpected and exciting results. Don't be too hard on yourself if your piece doesn't turn out as planned.\\n9. **Experiment with mediums**: Acrylic paint can be mixed with a range of mediums to alter its consistency, texture, and finish. Try using glazes, matte medium, or heavy body acrylics to add variety to your work.\\n10. **Have fun**: Most importantly, enjoy the process! Abstract art is a journey, and the act of creating is just as important as the final result.\\n\\nTo get started, you might want to try a simple exercise:\\n\\n**Warm-up exercise:**\\n\\n* Set a timer for 10-15 minutes.\\n* Choose a color palette and a large brush.\\n* Make a bold, expressive mark on the canvas.\\n* Respond to that mark with another brushstroke, and another, and another.\\n* Let the paint guide you, and see where the process takes you.\\n\\nRemember, the goal is to have fun and tap into your creative energy. Don't worry too much about the outcome – it's all about the journey!\\n\\nDo you have any specific questions about getting started with abstract expressionism, or would you like more tips on a particular technique?\",\"role\":\"assistant\",\"session_date\":\"2023/08/15 (Tue) 02:18\"},\"value_sha256\":\"7faabd1770da18f94104f77aaf0c9a8c605f463affd2fdbb10d84342c675410e\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "question_date": "2023/08/15 (Tue) 23:59",
+      "question_id": "fca70973",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-11b72da5edb67bd11fc7e49b1b48dcb90cba706d3386db8903f775bb5957cb74",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5833333333333334,
+          "source_session_id": "762a8b45_2",
+          "source_turn_key": "raw_turn:762a8b45_2:9",
+          "turn_index": 9,
+          "valid_from": "2023-08-15T13:02:00Z"
+        },
+        {
+          "memory_id": "m10b-bfe2d4cec8a01c8ba3e83892d3bc27809870aaaa7305d98f4c5d852fe9fb95c8",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5833333333333334,
+          "source_session_id": "fc005760",
+          "source_turn_key": "raw_turn:fc005760:1",
+          "turn_index": 1,
+          "valid_from": "2023-08-15T23:12:00Z"
+        },
+        {
+          "memory_id": "m10b-001dc140ca4a4ddef6c6769dedef9a8937b3ccae27054fb95c8d55fae3e7f093",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "2f2884ad_1",
+          "source_turn_key": "raw_turn:2f2884ad_1:3",
+          "turn_index": 3,
+          "valid_from": "2023-08-15T02:18:00Z"
+        },
+        {
+          "memory_id": "m10b-5552626a1611c937ee47d1b5a1e254f139d1c85e91c730162d9813ce3676f4f9",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "7b9ee249_2",
+          "source_turn_key": "raw_turn:7b9ee249_2:0",
+          "turn_index": 0,
+          "valid_from": "2023-08-15T05:57:00Z"
+        },
+        {
+          "memory_id": "m10b-8b76baa7510edd667ca432b3fe14c14ee9dd320eabd9afd4fec58be9f2d8849b",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "sharegpt_NMLgKqu_0",
+          "source_turn_key": "raw_turn:sharegpt_NMLgKqu_0:0",
+          "turn_index": 0,
+          "valid_from": "2023-08-15T06:50:00Z"
+        },
+        {
+          "memory_id": "m10b-1b569a89f067055a25f0a82ae9d6cdb242a179497272bf4ebfef4145e83f9938",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "f504b269",
+          "source_turn_key": "raw_turn:f504b269:4",
+          "turn_index": 4,
+          "valid_from": "2023-08-15T19:40:00Z"
+        },
+        {
+          "memory_id": "m10b-25f0aeae4817659f036340f8480e771ef803e4b76754aa6f1e8b583928a099ec",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "5d5e80c5_1",
+          "source_turn_key": "raw_turn:5d5e80c5_1:4",
+          "turn_index": 4,
+          "valid_from": "2023-08-15T20:28:00Z"
+        },
+        {
+          "memory_id": "m10b-099a78a17260279f27e4458ad40bf77da3b06a0b64614a1d19678fc874ae6f33",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "cfcf5340_1",
+          "source_turn_key": "raw_turn:cfcf5340_1:0",
+          "turn_index": 0,
+          "valid_from": "2023-08-15T21:23:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "033a07ca28e4228bdeb7481560a780ca5a1cc981725a68447c0011fdce7e7120",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 147,
+          "memory_id": "m10b-f23775f80ba41600ddd4f15bb2fceb5bc4f69b8b165d5d350d025cd86ba1e341",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.625,
+          "selected": false,
+          "source_session_id": "answer_787e6a6d",
+          "turn_index": 2
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 177,
+          "memory_id": "m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": true,
+          "source_session_id": "f18ebe36_4",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 2835,
+          "memory_id": "m10b-bdc94e5f568f0a905089e5de34fe05660547af4d42b4c0d4603ad1ac912839e5",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": false,
+          "source_session_id": "sharegpt_vIkUTvg_0",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 1533,
+          "memory_id": "m10b-c6a76cba1d5ff4eb7e224b97d0d22c02f59220f1aac36a4efc798c984c8eee30",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": false,
+          "source_session_id": "sharegpt_gvFtSPH_0",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 181,
+          "memory_id": "m10b-709232e70c35ff6fe4acfcf2e2e2136dbf2bac6564689412505b46e66082df51",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": false,
+          "source_session_id": "d9727262_4",
+          "turn_index": 2
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 674,
+          "memory_id": "m10b-4e0de7f3815a585e99d8d3025ba9b05eaacc2ccfa2bea1071d335ded94fd60f9",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": false,
+          "source_session_id": "3009ba66_2",
+          "turn_index": 11
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 835,
+          "memory_id": "m10b-5f0d3a95467c20db852d83affa307e1fc02060f6bd9b375225a7c0c5ff0a5951",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": false,
+          "source_session_id": "3009ba66_2",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 832,
+          "memory_id": "m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.375,
+          "selected": true,
+          "source_session_id": "daa32134",
+          "turn_index": 7
+        }
+      ],
+      "gold": "Dark Souls 3 DLC",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_787e6a6d"
+        ],
+        "answer_session_mrr": 1.0,
+        "answer_session_recall_at_10": 1.0,
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "context_bundle_sha256": "033a07ca28e4228bdeb7481560a780ca5a1cc981725a68447c0011fdce7e7120",
+        "context_reader_tokens": 1164,
+        "dropped_records": 6,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 1009,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.0,
+        "plan_estimated_total_tokens": 1276,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 2,
+        "quality_status": "OK",
+        "question_id": "a82c026e",
+        "question_type": "single-session-user",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5",
+          "native_retrieval_rank": 8,
+          "rank": 1,
+          "retrieval_score": 0.375,
+          "source_session_ids": [
+            "daa32134"
+          ],
+          "source_turn_id": "raw_turn:daa32134:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:daa32134:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Excellent plan! Organizing your memories by theme and location will help you create a cohesive and engaging scrapbook or journal. Now, let's dive into writing engaging captions and journal entries to bring your memories to life!\\n\\n**Tips for Writing Engaging Captions and Journal Entries:**\\n\\n1. **Be descriptive**: Use sensory language to describe what you saw, heard, smelled, tasted, and felt. This will help your readers experience your trip vicariously.\\n2. **Tell a story**: Use your captions and journal entries to tell a story about your trip. Share your thoughts, feelings, and experiences, and try to convey the emotions you felt during each moment.\\n3. **Use humor**: Don't be afraid to add a dash of humor to your writing. Funny anecdotes and witty observations can make your scrapbook or journal more entertaining and relatable.\\n4. **Be honest**: Share your genuine reactions and opinions about the places you visited and the experiences you had. This will help your readers connect with your story on a deeper level.\\n5. **Use quotes and lyrics**: Incorporate relevant quotes, song lyrics, or phrases that resonated with you during your trip. This can add depth and context to your writing.\\n6. **Keep it concise**: Remember that you're writing for a scrapbook or journal, not a novel. Keep your captions and journal entries brief and to the point, focusing on the most important details and emotions.\\n7. **Use prompts**: If you're struggling to write, try using prompts like:\\n\\t* \\\"What was the highlight of my day?\\\"\\n\\t* \\\"What did I learn about myself during this trip?\\\"\\n\\t* \\\"What was the most challenging part of this experience?\\\"\\n\\t* \\\"What would I do differently if I could relive this moment?\\\"\\n\\n**Example Captions and Journal Entries:**\\n\\n**NYC Trip:**\\n\\n* Caption: \\\"The iconic NYC skyline from the Top of the Rock. I felt like I was on top of the world!\\\"\\n* Journal Entry: \\\"Today was a whirlwind of excitement and exhaustion. We walked over 10 miles, but it was worth it to see the bright lights of Times Square and the tranquility of Central Park.\\\"\\n\\n**California Road Trip:**\\n\\n* Caption: \\\"Sunset over the Pacific Coast Highway. This view never gets old!\\\"\\n* Journal Entry: \\\"Driving along the PCH was a dream come true. The scenic views, the ocean breeze, and the sound of the waves crashing against the shore... it was pure bliss.\\\"\\n\\n**Japan Solo Trip:**\\n\\n* Caption: \\\"Trying my first sushi at the Tsukiji Fish Market. What an experience!\\\"\\n* Journal Entry: \\\"Today was a day of triumphs and struggles. I navigated the Tokyo subway system alone, but got lost in the process. However, I discovered a hidden gem of a cafe and met a fellow traveler who shared some valuable tips.\\\"\\n\\nRemember, the key to writing engaging captions and journal entries is to be genuine, descriptive, and concise. Don't be afraid to experiment and try different styles until you find what works best for you and your scrapbook or journal. Good luck, and have fun!\",\"role\":\"assistant\",\"session_date\":\"2023/05/26 (Fri) 04:44\"},\"value_sha256\":\"c5e180b42d972105132adbca53da50bf2c1b376aee8c53482c5ce184a97d9c65\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a",
+          "native_retrieval_rank": 2,
+          "rank": 2,
+          "retrieval_score": 0.375,
+          "source_session_ids": [
+            "f18ebe36_4"
+          ],
+          "source_turn_id": "raw_turn:f18ebe36_4:0",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:f18ebe36_4:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm looking for some tips on how to properly clean and maintain my Funko Pop collection. I've got 13 of them now, and they're getting a bit dusty. Do you have any recommendations for a good cleaning solution and soft cloth? By the way, I also bought a vintage Transformers action figure at a comic con last weekend, which I'm planning to display in a glass case once I get one.\",\"role\":\"user\",\"session_date\":\"2023/05/20 (Sat) 04:20\"},\"value_sha256\":\"b7d114a92a4e95e27666ae48d76f055fd4e80eb16ca402e0994e5693d7fbeaf3\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "What game did I finally beat last weekend?",
+      "question_date": "2023/05/30 (Tue) 21:26",
+      "question_id": "a82c026e",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-f23775f80ba41600ddd4f15bb2fceb5bc4f69b8b165d5d350d025cd86ba1e341",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.625,
+          "source_session_id": "answer_787e6a6d",
+          "source_turn_key": "raw_turn:answer_787e6a6d:2",
+          "turn_index": 2,
+          "valid_from": "2023-05-26T22:24:00Z"
+        },
+        {
+          "memory_id": "m10b-554a01d312895e2d80dbbb80e16b12b52d69d424f5e9fc82dd03c22fa8f26a5a",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "f18ebe36_4",
+          "source_turn_key": "raw_turn:f18ebe36_4:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-20T04:20:00Z"
+        },
+        {
+          "memory_id": "m10b-bdc94e5f568f0a905089e5de34fe05660547af4d42b4c0d4603ad1ac912839e5",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "sharegpt_vIkUTvg_0",
+          "source_turn_key": "raw_turn:sharegpt_vIkUTvg_0:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-21T21:39:00Z"
+        },
+        {
+          "memory_id": "m10b-c6a76cba1d5ff4eb7e224b97d0d22c02f59220f1aac36a4efc798c984c8eee30",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "sharegpt_gvFtSPH_0",
+          "source_turn_key": "raw_turn:sharegpt_gvFtSPH_0:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-22T21:32:00Z"
+        },
+        {
+          "memory_id": "m10b-709232e70c35ff6fe4acfcf2e2e2136dbf2bac6564689412505b46e66082df51",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "d9727262_4",
+          "source_turn_key": "raw_turn:d9727262_4:2",
+          "turn_index": 2,
+          "valid_from": "2023-05-25T18:15:00Z"
+        },
+        {
+          "memory_id": "m10b-4e0de7f3815a585e99d8d3025ba9b05eaacc2ccfa2bea1071d335ded94fd60f9",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "3009ba66_2",
+          "source_turn_key": "raw_turn:3009ba66_2:11",
+          "turn_index": 11,
+          "valid_from": "2023-05-26T00:56:00Z"
+        },
+        {
+          "memory_id": "m10b-5f0d3a95467c20db852d83affa307e1fc02060f6bd9b375225a7c0c5ff0a5951",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "3009ba66_2",
+          "source_turn_key": "raw_turn:3009ba66_2:9",
+          "turn_index": 9,
+          "valid_from": "2023-05-26T00:56:00Z"
+        },
+        {
+          "memory_id": "m10b-426ab55bc0ee6e01d1b229937974af6e2fee7c63fe954da9241f05bd77492df5",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.375,
+          "source_session_id": "daa32134",
+          "source_turn_key": "raw_turn:daa32134:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-26T04:44:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "67c04d0470d02d5ba69ac4d3cca97ffe966db1108dc254ed2361371afd4372cc",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 715,
+          "memory_id": "m10b-b03be5b856831a1d97f8b12f543e57e7a533fef8fd2b8bde1c1a6a17ccb91b2b",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5384615384615384,
+          "selected": false,
+          "source_session_id": "9dac9e37_1",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 670,
+          "memory_id": "m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": true,
+          "source_session_id": "ultrachat_231231",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 892,
+          "memory_id": "m10b-f1b0b7c7d50bdb3b34fad38a906cdea8d9268a007342e0b6fde55bd4a695aef9",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "09d021e7_2",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 521,
+          "memory_id": "m10b-d2017444c5d3b52a14f6d1d04b02b1381fa73239e097a62ed9bb92b22baabc7a",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "2640c1b0",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 411,
+          "memory_id": "m10b-3d0429243a951864cc80f5153cf868ee8d8074e3ef19de0f49a2c1aaaf1855d4",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "sharegpt_HOO59Ue_99",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 837,
+          "memory_id": "m10b-cdd39235c47920a04769d91bd5483b67669f0eeb3641c141ac6b676d578de20f",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "sharegpt_HOO59Ue_99",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 396,
+          "memory_id": "m10b-b366ad984393559461d71de4209e5e5c69bd94b390f51130c198d4aa03c5df28",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "sharegpt_i33zh1e_15",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 746,
+          "memory_id": "m10b-3e5f3f31dd73b1422e5536ba5ab880659b5da259a3386390627098962f473788",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.46153846153846156,
+          "selected": false,
+          "source_session_id": "68705467_1",
+          "turn_index": 3
+        }
+      ],
+      "gold": "The company's annual charity soccer tournament.",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_8c64ce26_1",
+          "answer_8c64ce26_2",
+          "answer_8c64ce26_3"
+        ],
+        "answer_session_mrr": 0.0,
+        "answer_session_recall_at_10": 0.0,
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "context_bundle_sha256": "67c04d0470d02d5ba69ac4d3cca97ffe966db1108dc254ed2361371afd4372cc",
+        "context_reader_tokens": 619,
+        "dropped_records": 7,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 670,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.14285714285714285,
+        "plan_estimated_total_tokens": 946,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 1,
+        "quality_status": "OK",
+        "question_id": "gpt4_e061b84g",
+        "question_type": "temporal-reasoning",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None.",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79",
+          "native_retrieval_rank": 2,
+          "rank": 1,
+          "retrieval_score": 0.46153846153846156,
+          "source_session_ids": [
+            "ultrachat_231231"
+          ],
+          "source_turn_id": "raw_turn:ultrachat_231231:1",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:ultrachat_231231:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"As an AI language model, I don't have personal experiences, emotions, opinions whose words are authentic, so I can present some facts about the use of technology in modern military bands versus those of the past as follows:\\n\\nTechnology has revolutionized military bands over the years, making them more mobile, versatile, and capable of producing a range of sounds. Modern military bands incorporate a variety of electronic instruments, amplification, and digital effects that were not available in the past. These instruments include electronic keyboards, digital synthesizers, electronic drum kits, and electric guitars.\\n\\nThe traditional military band instruments like brass and percussion still represent the mainstay of military bands. However, the use of digitally recorded music has become more common, replacing or supplementing live musicians.\\n\\nThe use of technology has also made it possible for military bands to perform in a wider range of settings, from the small confines of a parade ground to grand concert halls. Portable sound equipment and modern recording and editing software now allow military bands to record and produce music outside of the studio or live event.\\n\\nIn the past, military bands relied on human skills and talent, but today, computer software programs are used to enhance the sound and rhythm of instruments, which are beyond human capabilities. The software allows altering music compositions, pitch correction, and rhythm adjustments, making military band performances more visually and audibly impressive.\\n\\nAnother positive aspect of technology for military bands is the influence that technology has on crowd participation. Social media, for example, has become critical in promoting military bands, engaging fans, and patrons. In the past, fans were limited to the immediate vicinity of a live performance, but today fans can follow military bands from social media platforms.\\n\\nIn conclusion, while traditional military band instruments like brass and percussion continue to represent the core of military bands, technology has had a significant impact on the makeup and capabilities of modern military bands. The use of technology has allowed modern military bands to be more versatile, mobile, and capable of producing a more extensive range of sounds than was possible in past times.\",\"role\":\"assistant\",\"session_date\":\"2023/06/03 (Sat) 22:35\"},\"value_sha256\":\"acb96eb82c18fe11c30a16b0fe00f8c1025d48c1aefb48fe188e5e063fa7be6d\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "question_date": "2023/07/01 (Sat) 13:38",
+      "question_id": "gpt4_e061b84g",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-b03be5b856831a1d97f8b12f543e57e7a533fef8fd2b8bde1c1a6a17ccb91b2b",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5384615384615384,
+          "source_session_id": "9dac9e37_1",
+          "source_turn_key": "raw_turn:9dac9e37_1:1",
+          "turn_index": 1,
+          "valid_from": "2023-06-17T20:20:00Z"
+        },
+        {
+          "memory_id": "m10b-3cc6c6b5daf2f3a7e2b05b072c9530ba6c2a9b29094be2b69c53434c23849d79",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "ultrachat_231231",
+          "source_turn_key": "raw_turn:ultrachat_231231:1",
+          "turn_index": 1,
+          "valid_from": "2023-06-03T22:35:00Z"
+        },
+        {
+          "memory_id": "m10b-f1b0b7c7d50bdb3b34fad38a906cdea8d9268a007342e0b6fde55bd4a695aef9",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "09d021e7_2",
+          "source_turn_key": "raw_turn:09d021e7_2:9",
+          "turn_index": 9,
+          "valid_from": "2023-06-07T14:20:00Z"
+        },
+        {
+          "memory_id": "m10b-d2017444c5d3b52a14f6d1d04b02b1381fa73239e097a62ed9bb92b22baabc7a",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "2640c1b0",
+          "source_turn_key": "raw_turn:2640c1b0:3",
+          "turn_index": 3,
+          "valid_from": "2023-06-07T22:21:00Z"
+        },
+        {
+          "memory_id": "m10b-3d0429243a951864cc80f5153cf868ee8d8074e3ef19de0f49a2c1aaaf1855d4",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "sharegpt_HOO59Ue_99",
+          "source_turn_key": "raw_turn:sharegpt_HOO59Ue_99:0",
+          "turn_index": 0,
+          "valid_from": "2023-06-17T02:10:00Z"
+        },
+        {
+          "memory_id": "m10b-cdd39235c47920a04769d91bd5483b67669f0eeb3641c141ac6b676d578de20f",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "sharegpt_HOO59Ue_99",
+          "source_turn_key": "raw_turn:sharegpt_HOO59Ue_99:1",
+          "turn_index": 1,
+          "valid_from": "2023-06-17T02:10:00Z"
+        },
+        {
+          "memory_id": "m10b-b366ad984393559461d71de4209e5e5c69bd94b390f51130c198d4aa03c5df28",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "sharegpt_i33zh1e_15",
+          "source_turn_key": "raw_turn:sharegpt_i33zh1e_15:0",
+          "turn_index": 0,
+          "valid_from": "2023-06-17T03:03:00Z"
+        },
+        {
+          "memory_id": "m10b-3e5f3f31dd73b1422e5536ba5ab880659b5da259a3386390627098962f473788",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.46153846153846156,
+          "source_session_id": "68705467_1",
+          "source_turn_key": "raw_turn:68705467_1:3",
+          "turn_index": 3,
+          "valid_from": "2023-06-17T11:56:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "123d888a8129226170f27798ce465e52ad27d228dc887438e52751fef9033d53",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 2937,
+          "memory_id": "m10b-a3eb8ebe4e914442de34ffa140d605490c1da0ef22fe8301a8c7cf261b114e0c",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6666666666666666,
+          "selected": false,
+          "source_session_id": "sharegpt_B0riiep_0",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 747,
+          "memory_id": "m10b-b39ce74e9bb20ba385a169eecb555f5bb3a33fe13b1630705cce308183031db9",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6666666666666666,
+          "selected": false,
+          "source_session_id": "answer_d8a1af6b_5",
+          "turn_index": 5
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 433,
+          "memory_id": "m10b-5820dc5180cb99fe006ab1ca8350da6deaf1cb5a715861f05500c3a217d36130",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": false,
+          "source_session_id": "answer_d8a1af6b_2",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 221,
+          "memory_id": "m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": true,
+          "source_session_id": "answer_d8a1af6b_3",
+          "turn_index": 6
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 569,
+          "memory_id": "m10b-d525a67fbd8e3d45c223b69e168e907ad402960eac0659dd3709041f21dc6f89",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": false,
+          "source_session_id": "answer_d8a1af6b_3",
+          "turn_index": 11
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 685,
+          "memory_id": "m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": true,
+          "source_session_id": "answer_d8a1af6b_4",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 194,
+          "memory_id": "m10b-6e3f2824dc1649926f695e099166a87571872f541a0d33c8d7676d2b08235cd7",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": false,
+          "source_session_id": "answer_d8a1af6b_5",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 354,
+          "memory_id": "m10b-e3b95ebe96eb25903f01a0a9d5f684a55819680a97a652b59a66e92edc02c222",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5333333333333333,
+          "selected": false,
+          "source_session_id": "116bae09",
+          "turn_index": 11
+        }
+      ],
+      "gold": "JetBlue, Delta, United, American Airlines",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_d8a1af6b_1",
+          "answer_d8a1af6b_2",
+          "answer_d8a1af6b_3",
+          "answer_d8a1af6b_4",
+          "answer_d8a1af6b_5"
+        ],
+        "answer_session_mrr": 0.5,
+        "answer_session_recall_at_10": 0.8,
+        "answer_session_recall_at_5": 0.6,
+        "answer_session_recall_at_8": 0.8,
+        "context_bundle_sha256": "123d888a8129226170f27798ce465e52ad27d228dc887438e52751fef9033d53",
+        "context_reader_tokens": 1014,
+        "dropped_records": 6,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 906,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.6,
+        "plan_estimated_total_tokens": 1182,
+        "projected_answer_session_recall_at_8": 0.4,
+        "projected_records": 2,
+        "quality_status": "OK",
+        "question_id": "gpt4_f420262c",
+        "question_type": "temporal-reasoning",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff",
+          "native_retrieval_rank": 6,
+          "rank": 1,
+          "retrieval_score": 0.6,
+          "source_session_ids": [
+            "answer_d8a1af6b_4"
+          ],
+          "source_turn_id": "raw_turn:answer_d8a1af6b_4:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_d8a1af6b_4:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I completely understand your concerns about checked bag fees and the potential risks of delayed or lost luggage.\\n\\nAmerican Airlines has a Baggage Delivery Guarantee, which is designed to provide peace of mind for passengers who check bags. Here's what you need to know:\\n\\n**Baggage Delivery Guarantee:**\\n\\n1. **Definition of delayed baggage**: American Airlines considers a bag delayed if it's not available at the baggage claim area within 4 hours of the flight's arrival.\\n2. **Guarantee**: If your bag is delayed, American Airlines will deliver it to your destination within 24 hours. If they fail to do so, you'll receive a $25 voucher for future travel on American Airlines.\\n3. **Lost baggage**: If your bag is lost, American Airlines will reimburse you up to $3,500 for the value of the contents.\\n\\n**What to do if your bag is delayed or lost:**\\n\\n1. **Report the issue**: Inform an American Airlines representative at the baggage claim area or a ticket counter about the delayed or lost bag.\\n2. **Fill out a report**: You'll need to complete a report, which will help American Airlines track your bag and facilitate the delivery or reimbursement process.\\n3. **Provide contact information**: Make sure to provide your contact information, including your phone number and email address, so American Airlines can keep you updated on the status of your bag.\\n\\n**Tips and Considerations:**\\n\\n1. **Pack essentials in your carry-on**: Consider packing essential items like medications, valuables, and a change of clothes in your carry-on luggage in case your checked bag is delayed or lost.\\n2. **Label your bag**: Make sure to label your bag with your name, address, and contact information to facilitate identification and delivery.\\n3. **Keep receipts**: Keep receipts for any essential items you need to purchase while waiting for your delayed bag, as you may be able to claim reimbursement from American Airlines.\\n4. **Check your travel insurance**: If you have travel insurance, check if it covers delayed or lost luggage, as this may provide additional protection.\\n\\nWhile American Airlines' Baggage Delivery Guarantee provides some protection, it's still essential to be prepared for the possibility of delayed or lost luggage.\\n\\nBy understanding the process and taking precautions, you can minimize the impact of a delayed or lost bag and enjoy your week-long trip to Miami!\",\"role\":\"assistant\",\"session_date\":\"2023/02/10 (Fri) 17:40\"},\"value_sha256\":\"94f3e7f8d866407a2c3899ece7528fe0a2f974977abd1ae50705dc530abdcb2d\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37",
+          "native_retrieval_rank": 4,
+          "rank": 2,
+          "retrieval_score": 0.6,
+          "source_session_ids": [
+            "answer_d8a1af6b_3"
+          ],
+          "source_turn_id": "raw_turn:answer_d8a1af6b_3:6",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_d8a1af6b_3:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad you brought up Spirit Airlines' baggage policies. Speaking of delays, I had a 1-hour delay on my United Airlines flight from Boston to Chicago due to air traffic control issues, but thankfully, the pilot kept us well-informed throughout the delay. Anyway, back to Spirit Airlines - I'm planning to book a round-trip ticket from Boston to Fort Lauderdale for my spring break trip in March, and I need to double-check my luggage dimensions before the trip. Can you remind me what the maximum size is for a personal item on Spirit Airlines?\",\"role\":\"user\",\"session_date\":\"2023/01/28 (Sat) 01:32\"},\"value_sha256\":\"903f91af7dde299a85034c8e8ba55b424532fc58605034801e7be761065d6e90\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "What is the order of airlines I flew with from earliest to latest before today?",
+      "question_date": "2023/03/02 (Thu) 06:11",
+      "question_id": "gpt4_f420262c",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-a3eb8ebe4e914442de34ffa140d605490c1da0ef22fe8301a8c7cf261b114e0c",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6666666666666666,
+          "source_session_id": "sharegpt_B0riiep_0",
+          "source_turn_key": "raw_turn:sharegpt_B0riiep_0:0",
+          "turn_index": 0,
+          "valid_from": "2022-11-16T05:50:00Z"
+        },
+        {
+          "memory_id": "m10b-b39ce74e9bb20ba385a169eecb555f5bb3a33fe13b1630705cce308183031db9",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6666666666666666,
+          "source_session_id": "answer_d8a1af6b_5",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_5:5",
+          "turn_index": 5,
+          "valid_from": "2023-02-14T13:31:00Z"
+        },
+        {
+          "memory_id": "m10b-5820dc5180cb99fe006ab1ca8350da6deaf1cb5a715861f05500c3a217d36130",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_d8a1af6b_2",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_2:3",
+          "turn_index": 3,
+          "valid_from": "2023-01-15T22:07:00Z"
+        },
+        {
+          "memory_id": "m10b-52c6132551bc708299d5e160bc8fd099270403c9e84aa06b8010c6e9cdc22a37",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_d8a1af6b_3",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_3:6",
+          "turn_index": 6,
+          "valid_from": "2023-01-28T01:32:00Z"
+        },
+        {
+          "memory_id": "m10b-d525a67fbd8e3d45c223b69e168e907ad402960eac0659dd3709041f21dc6f89",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_d8a1af6b_3",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_3:11",
+          "turn_index": 11,
+          "valid_from": "2023-01-28T01:32:00Z"
+        },
+        {
+          "memory_id": "m10b-3c98862035e87a69c420edaedfb1789d12532fef64a3e4042c1d949dfa600bff",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_d8a1af6b_4",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_4:7",
+          "turn_index": 7,
+          "valid_from": "2023-02-10T17:40:00Z"
+        },
+        {
+          "memory_id": "m10b-6e3f2824dc1649926f695e099166a87571872f541a0d33c8d7676d2b08235cd7",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_d8a1af6b_5",
+          "source_turn_key": "raw_turn:answer_d8a1af6b_5:4",
+          "turn_index": 4,
+          "valid_from": "2023-02-14T13:31:00Z"
+        },
+        {
+          "memory_id": "m10b-e3b95ebe96eb25903f01a0a9d5f684a55819680a97a652b59a66e92edc02c222",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5333333333333333,
+          "source_session_id": "116bae09",
+          "source_turn_key": "raw_turn:116bae09:11",
+          "turn_index": 11,
+          "valid_from": "2022-10-25T04:55:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "eabcb5899e36fe38ddc8ca2d266e38a18554a31fac14ba4e50c68d75072ef7e9",
+      "context_projection": [
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 780,
+          "memory_id": "m10b-3584265280e64eeac66e9fbc91289095d5d3b83a62348d9424bb487e95960471",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.6,
+          "selected": false,
+          "source_session_id": "answer_c8354ae9",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 484,
+          "memory_id": "m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "answer_c8354ae9",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 693,
+          "memory_id": "m10b-58fd583d326683fcd8f5e31828ac75474b7151b870ab5d0faddb251694c95492",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "answer_c8354ae9",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 203,
+          "memory_id": "m10b-bb9412fa29dbd2309c9512e9c4eb5c53df629282d4164fd4410e512162dc1458",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "answer_c8354ae9",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": 4,
+          "drop_reason": null,
+          "m10_estimated_tokens": 189,
+          "memory_id": "m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "answer_c8354ae9",
+          "turn_index": 2
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 675,
+          "memory_id": "m10b-b01a27883daa853d2a34e4412e461ba8a8396bc7833259d912a5822aa48e45b5",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "295dc1ab_1",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 1018,
+          "memory_id": "m10b-c9223621284dead77655af9612f779600a59c30a4b2271dbe84202d86dbc8643",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "d7e234e5",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 340,
+          "memory_id": "m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "8ec23b2c",
+          "turn_index": 7
+        }
+      ],
+      "gold": "lavender gin fizz",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_c8354ae9"
+        ],
+        "answer_session_mrr": 1.0,
+        "answer_session_recall_at_10": 1.0,
+        "answer_session_recall_at_5": 1.0,
+        "answer_session_recall_at_8": 1.0,
+        "context_bundle_sha256": "eabcb5899e36fe38ddc8ca2d266e38a18554a31fac14ba4e50c68d75072ef7e9",
+        "context_reader_tokens": 1225,
+        "dropped_records": 5,
+        "exact_normalized_gold_token_sequence_present": true,
+        "f1": 0.5,
+        "m10_estimated_memory_tokens": 1013,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 1.0,
+        "plan_estimated_total_tokens": 1282,
+        "projected_answer_session_recall_at_8": 1.0,
+        "projected_records": 3,
+        "quality_status": "OK",
+        "question_id": "8550ddae",
+        "question_type": "single-session-user",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.3333333333333333,
+        "token_recall": 1.0
+      },
+      "prediction": "You tried a lavender gin fizz recipe last weekend.",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29",
+          "native_retrieval_rank": 8,
+          "rank": 1,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "8ec23b2c"
+          ],
+          "source_turn_id": "raw_turn:8ec23b2c:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:8ec23b2c:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'm glad to hear that you were invested in the story and characters! The Last of Us Part II is indeed a masterclass in storytelling and character development. Ellie and Abby's complex and nuanced characters are a big part of what makes the game so compelling.\\n\\nThe themes of revenge, trauma, and the cycle of violence are indeed powerful and thought-provoking. The game does an excellent job of exploring the consequences of violence and the emotional toll it takes on the characters.\\n\\nAnd ah, I'm sure that feeling of finally defeating a tough boss is incredibly satisfying! It's a testament to the game's design and difficulty curve that it can evoke such a strong sense of accomplishment.\\n\\nAs a side note, it's interesting that you mention Abby as one of your favorite characters. She's a complex and polarizing character, and opinions about her are often divided. What did you think of her character arc and her motivations?\\n\\n(By the way, I'll avoid any spoilers in case anyone reading this hasn't finished the game.)\",\"role\":\"assistant\",\"session_date\":\"2023/05/29 (Mon) 17:24\"},\"value_sha256\":\"7d6d567ef24ddb67b787541d13b328d1a507fe047920e26a63b8808131a14328\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23",
+          "native_retrieval_rank": 2,
+          "rank": 2,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "answer_c8354ae9"
+          ],
+          "source_turn_id": "raw_turn:answer_c8354ae9:7",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_c8354ae9:7\",\"kind\":\"session_note\",\"memory_id\":\"m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Bombay Sapphire is an excellent choice for a classic gin and tonic! It's a great gin for beginners and experienced enthusiasts alike, and its balanced flavor profile makes it a versatile base for various cocktails.\\n\\nAnd yes, I'm familiar with Fever-Tree! They're a well-respected brand in the world of tonic waters, and their elderflower tonic is a popular choice among gin enthusiasts. The subtle sweetness and delicate floral flavor of elderflower pair beautifully with the botanicals in Bombay Sapphire. It's a match made in heaven!\\n\\nFever-Tree's elderflower tonic is a great example of how a high-quality tonic water can elevate the G&T experience. The brand's focus on using natural ingredients and avoiding artificial flavorings and sweeteners has helped to set a new standard for premium tonic waters.\\n\\nIf you're enjoying the elderflower tonic, you might want to explore other Fever-Tree flavors as well. Their grapefruit and lemon tonics are also excellent pairings for Bombay Sapphire, and their Mediterranean tonic is a great choice for those who prefer a more herbal and aromatic flavor profile.\\n\\nAs you continue to experiment with different gin and tonic combinations, don't be afraid to try new and unusual pairings. You might discover a new favorite flavor combination that will take your G&T game to the next level!\\n\\nNow, let's get back to your Lavender Dream cocktail. With your Bombay Sapphire and Fever-Tree elderflower tonic, you're already halfway there. What do you think about adding a lavender syrup or infusion to create a unique and refreshing summer cocktail?\",\"role\":\"assistant\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"6396bdf943ca6ec972694f8e0c4a01896e28ef03880dc4c4d18b80eafdaad195\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b",
+          "native_retrieval_rank": 5,
+          "rank": 3,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "answer_c8354ae9"
+          ],
+          "source_turn_id": "raw_turn:answer_c8354ae9:2",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:answer_c8354ae9:2\",\"kind\":\"session_note\",\"memory_id\":\"m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"That's a lot of great ideas! I'm particularly interested in the Lavender Dream, as I've been experimenting with lavender in my cocktails lately. Speaking of which, I tried a lavender gin fizz recipe last weekend, but it didn't quite turn out as expected - I didn't have simple syrup, so I had to improvise with honey and water. Do you have any tips on making a good simple syrup, or would you recommend a specific brand?\",\"role\":\"user\",\"session_date\":\"2023/05/22 (Mon) 08:41\"},\"value_sha256\":\"dd8b8bac0a2ba0b3e08806b103c155bb8142199343674f5e8d96cfaa669cd77d\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "question_date": "2023/05/30 (Tue) 23:51",
+      "question_id": "8550ddae",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-3584265280e64eeac66e9fbc91289095d5d3b83a62348d9424bb487e95960471",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.6,
+          "source_session_id": "answer_c8354ae9",
+          "source_turn_key": "raw_turn:answer_c8354ae9:3",
+          "turn_index": 3,
+          "valid_from": "2023-05-22T08:41:00Z"
+        },
+        {
+          "memory_id": "m10b-57433c284336582faf47b4177dca0761290801b38b90af7c507eebdec25ddd23",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "answer_c8354ae9",
+          "source_turn_key": "raw_turn:answer_c8354ae9:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-22T08:41:00Z"
+        },
+        {
+          "memory_id": "m10b-58fd583d326683fcd8f5e31828ac75474b7151b870ab5d0faddb251694c95492",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "answer_c8354ae9",
+          "source_turn_key": "raw_turn:answer_c8354ae9:9",
+          "turn_index": 9,
+          "valid_from": "2023-05-22T08:41:00Z"
+        },
+        {
+          "memory_id": "m10b-bb9412fa29dbd2309c9512e9c4eb5c53df629282d4164fd4410e512162dc1458",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "answer_c8354ae9",
+          "source_turn_key": "raw_turn:answer_c8354ae9:4",
+          "turn_index": 4,
+          "valid_from": "2023-05-22T08:41:00Z"
+        },
+        {
+          "memory_id": "m10b-f30e1aa89cf40915f3c6cb0e7d18e1339ae8ef4b026c6b533e390956e7001e8b",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "answer_c8354ae9",
+          "source_turn_key": "raw_turn:answer_c8354ae9:2",
+          "turn_index": 2,
+          "valid_from": "2023-05-22T08:41:00Z"
+        },
+        {
+          "memory_id": "m10b-b01a27883daa853d2a34e4412e461ba8a8396bc7833259d912a5822aa48e45b5",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "295dc1ab_1",
+          "source_turn_key": "raw_turn:295dc1ab_1:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-28T10:46:00Z"
+        },
+        {
+          "memory_id": "m10b-c9223621284dead77655af9612f779600a59c30a4b2271dbe84202d86dbc8643",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "d7e234e5",
+          "source_turn_key": "raw_turn:d7e234e5:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-29T10:32:00Z"
+        },
+        {
+          "memory_id": "m10b-1abea3738b8530312ce15541833292d3c15cf17db38c752d5d8286d43dc35d29",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "8ec23b2c",
+          "source_turn_key": "raw_turn:8ec23b2c:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-29T17:24:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "112f7cd8b6135a23ba997ae2a588a37e7b547b1ba62ca1bcc7edfbbd54e6f8db",
+      "context_projection": [
+        {
+          "context_plan_position": 5,
+          "drop_reason": null,
+          "m10_estimated_tokens": 127,
+          "memory_id": "m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5833333333333334,
+          "selected": true,
+          "source_session_id": "8fcfbe43_2",
+          "turn_index": 4
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 840,
+          "memory_id": "m10b-f5aa7d556bb243a29f5158f191094cdf7525bf9350f4019a54493e8b27463aec",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "a67c1862_4",
+          "turn_index": 5
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 786,
+          "memory_id": "m10b-5056fa8e4437fda638c8b39e9e3ac2e8577e7f6cee74b8007a8ab9d9892aa1c3",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": false,
+          "source_session_id": "8fcfbe43_2",
+          "turn_index": 5
+        },
+        {
+          "context_plan_position": 3,
+          "drop_reason": null,
+          "m10_estimated_tokens": 148,
+          "memory_id": "m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "ca929779_1",
+          "turn_index": 6
+        },
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 333,
+          "memory_id": "m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5,
+          "selected": true,
+          "source_session_id": "sharegpt_GSC090N_6",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 744,
+          "memory_id": "m10b-209d649cdf13eea0135fe1834e83fb8dad0126d30c61be692e55cfa3be40a960",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4166666666666667,
+          "selected": false,
+          "source_session_id": "sharegpt_cn3iUbp_7",
+          "turn_index": 2
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 710,
+          "memory_id": "m10b-edec5d0e86f6a8c88a20d703e84e095bff5e0eefe82d110dd8e30bad9b826c09",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4166666666666667,
+          "selected": false,
+          "source_session_id": "sharegpt_cn3iUbp_7",
+          "turn_index": 0
+        },
+        {
+          "context_plan_position": 4,
+          "drop_reason": null,
+          "m10_estimated_tokens": 274,
+          "memory_id": "m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.4166666666666667,
+          "selected": true,
+          "source_session_id": "sharegpt_6Two42G_35",
+          "turn_index": 0
+        }
+      ],
+      "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_555dfb94"
+        ],
+        "answer_session_mrr": 0.0,
+        "answer_session_recall_at_10": 0.0,
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "context_bundle_sha256": "112f7cd8b6135a23ba997ae2a588a37e7b547b1ba62ca1bcc7edfbbd54e6f8db",
+        "context_reader_tokens": 1223,
+        "dropped_records": 4,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 882,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.4230769230769231,
+        "plan_estimated_total_tokens": 1159,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 4,
+        "quality_status": "OK",
+        "question_id": "06878be2",
+        "question_type": "single-session-preference",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None.",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f",
+          "native_retrieval_rank": 5,
+          "rank": 1,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "sharegpt_GSC090N_6"
+          ],
+          "source_turn_id": "raw_turn:sharegpt_GSC090N_6:1",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:sharegpt_GSC090N_6:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Based on the error message you provided, it seems like there is a conflict with the dependency resolution. Using the `--force` flag may not be a good idea since it can override some safety checks and install dependencies with incompatible versions that can break your project.\\n\\nInstead, you can try using the `--legacy-peer-deps` flag, which instructs npm to install packages even if they have peer dependencies that are not compatible with your current setup. This can sometimes work as a workaround when dealing with conflicting peer dependencies.\\n\\nSo you can try running the following command:\\n```css\\nnpm install --legacy-peer-deps\\n```\\nThis should allow npm to install packages without the conflict errors you have been encountering. However, keep in mind that this might not fix the issue entirely, as the dependencies installed may not work properly together. It is always better to use compatible versions of packages whenever possible to ensure the stability of your project.\",\"role\":\"assistant\",\"session_date\":\"2023/05/27 (Sat) 11:48\"},\"value_sha256\":\"a138c563cb0a29c4ba5a23c67d9a4d3a5e095238c95607b3661c5af53fdd9a52\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4",
+          "native_retrieval_rank": 4,
+          "rank": 2,
+          "retrieval_score": 0.5,
+          "source_session_ids": [
+            "ca929779_1"
+          ],
+          "source_turn_id": "raw_turn:ca929779_1:6",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:ca929779_1:6\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I love the Quinoa Breakfast Bowl idea! I've been making a big batch of quinoa every Sunday to last me throughout the week, so this is a great way to repurpose it for breakfast. Can you suggest some nuts or seeds that would pair well with the quinoa breakfast bowl?\",\"role\":\"user\",\"session_date\":\"2023/05/24 (Wed) 18:27\"},\"value_sha256\":\"d2b17bffa4ea4b01ce8cdbe10c72a5ae9e9ed22c742c8f84b6cf6832f81eb5c6\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a",
+          "native_retrieval_rank": 8,
+          "rank": 3,
+          "retrieval_score": 0.4166666666666667,
+          "source_session_ids": [
+            "sharegpt_6Two42G_35"
+          ],
+          "source_turn_id": "raw_turn:sharegpt_6Two42G_35:0",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:sharegpt_6Two42G_35:0\",\"kind\":\"session_note\",\"memory_id\":\"m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I apologize for the frustration and inconvenience that my previous responses may have caused you. I assure you that I have the ability to provide images or screenshots as examples. However, there may be technical issues or restrictions that prevent some links from working properly or being accessible in certain regions.\\n\\nTo clarify my previous answers, the examples and images I mentioned were meant to illustrate certain features and aspects of the shop page and collection system in Hearthstone. While I can't guarantee that the specific links I provided will work for you, I hope that my descriptions and explanations were helpful in answering your questions.\\n\\nIf you have any further questions or concerns, please don't hesitate to let me know.\",\"role\":\"assistant\",\"session_date\":\"2023/05/20 (Sat) 05:26\"},\"value_sha256\":\"eebd9692c87129e5535b733ffe858bb5e6c4bf4303584af880c3693e8bcdc493\"}",
+          "version": 1
+        },
+        {
+          "kind": "memory",
+          "memory_id": "m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f",
+          "native_retrieval_rank": 1,
+          "rank": 4,
+          "retrieval_score": 0.5833333333333334,
+          "source_session_ids": [
+            "8fcfbe43_2"
+          ],
+          "source_turn_id": "raw_turn:8fcfbe43_2:4",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:8fcfbe43_2:4\",\"kind\":\"session_note\",\"memory_id\":\"m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"I'd like to know more about how to style the scene for my candle photos. Can you give me some specific ideas for props and backdrops that would complement my eco-friendly candles?\",\"role\":\"user\",\"session_date\":\"2023/05/21 (Sun) 20:15\"},\"value_sha256\":\"0d50c7ab6c8d1229559abf602aeda73c039f36981ef6a29842a447ab016ab17e\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "question_date": "2023/05/30 (Tue) 16:40",
+      "question_id": "06878be2",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-fa755af9ee58ed7380801b2d07689cf2101671448ba14d302caa5c21dc4ff49f",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5833333333333334,
+          "source_session_id": "8fcfbe43_2",
+          "source_turn_key": "raw_turn:8fcfbe43_2:4",
+          "turn_index": 4,
+          "valid_from": "2023-05-21T20:15:00Z"
+        },
+        {
+          "memory_id": "m10b-f5aa7d556bb243a29f5158f191094cdf7525bf9350f4019a54493e8b27463aec",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "a67c1862_4",
+          "source_turn_key": "raw_turn:a67c1862_4:5",
+          "turn_index": 5,
+          "valid_from": "2023-05-21T00:57:00Z"
+        },
+        {
+          "memory_id": "m10b-5056fa8e4437fda638c8b39e9e3ac2e8577e7f6cee74b8007a8ab9d9892aa1c3",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "8fcfbe43_2",
+          "source_turn_key": "raw_turn:8fcfbe43_2:5",
+          "turn_index": 5,
+          "valid_from": "2023-05-21T20:15:00Z"
+        },
+        {
+          "memory_id": "m10b-2c3ba37e3bb40069a690db7895e101877bfdd9d5fb32e592c0e4ca8117d969e4",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "ca929779_1",
+          "source_turn_key": "raw_turn:ca929779_1:6",
+          "turn_index": 6,
+          "valid_from": "2023-05-24T18:27:00Z"
+        },
+        {
+          "memory_id": "m10b-0e9ad106f33c361790bf7d142a0a1f655fe1c89b7b5e98563c15bdbea538ee3f",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5,
+          "source_session_id": "sharegpt_GSC090N_6",
+          "source_turn_key": "raw_turn:sharegpt_GSC090N_6:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-27T11:48:00Z"
+        },
+        {
+          "memory_id": "m10b-209d649cdf13eea0135fe1834e83fb8dad0126d30c61be692e55cfa3be40a960",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4166666666666667,
+          "source_session_id": "sharegpt_cn3iUbp_7",
+          "source_turn_key": "raw_turn:sharegpt_cn3iUbp_7:2",
+          "turn_index": 2,
+          "valid_from": "2023-05-20T00:29:00Z"
+        },
+        {
+          "memory_id": "m10b-edec5d0e86f6a8c88a20d703e84e095bff5e0eefe82d110dd8e30bad9b826c09",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4166666666666667,
+          "source_session_id": "sharegpt_cn3iUbp_7",
+          "source_turn_key": "raw_turn:sharegpt_cn3iUbp_7:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-20T00:29:00Z"
+        },
+        {
+          "memory_id": "m10b-2cd56dd78d7621834c69c2e2bdd7fb11790b3548be5a4a47f2b54d47765e5e0a",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.4166666666666667,
+          "source_session_id": "sharegpt_6Two42G_35",
+          "source_turn_key": "raw_turn:sharegpt_6Two42G_35:0",
+          "turn_index": 0,
+          "valid_from": "2023-05-20T05:26:00Z"
+        }
+      ]
+    },
+    {
+      "allowed_failure_loci": [
+        "WRITE_REPRESENTATION_LOSS",
+        "RETRIEVAL_SESSION_MISS",
+        "SESSION_HIT_EVIDENCE_ITEM_MISS",
+        "CONTEXT_BUDGET_DROP",
+        "CONTEXT_HAS_EVIDENCE_READER_FAIL",
+        "MULTI_SESSION_COMPOSITION_FAIL",
+        "TEMPORAL_ORDERING_FAIL",
+        "CURRENT_STATE_RESOLUTION_FAIL",
+        "CHANGE_REASONING_FAIL",
+        "PREFERENCE_SYNTHESIS_FAIL",
+        "UNKNOWN"
+      ],
+      "automatic_failure_locus": null,
+      "case_status": "FRESH_DIAGNOSTIC_CASES",
+      "context_bundle_sha256": "c0e2393a5515206b0c638aa3cacc858bcc2f705cd4491312714c7b36f05e08d9",
+      "context_projection": [
+        {
+          "context_plan_position": 2,
+          "drop_reason": null,
+          "m10_estimated_tokens": 874,
+          "memory_id": "m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18",
+          "retrieval_rank": 1,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5454545454545454,
+          "selected": true,
+          "source_session_id": "a2a8e2c9",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 718,
+          "memory_id": "m10b-db4fc47841390a6c003643e8c98ac1b12b06f7132be6b6f9630bb0c5073a5427",
+          "retrieval_rank": 2,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5454545454545454,
+          "selected": false,
+          "source_session_id": "a2a8e2c9",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 606,
+          "memory_id": "m10b-763240dcfaa9cdc534f282d0b1b067712bc306861d3e3f6a091befc81acf33c9",
+          "retrieval_rank": 3,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5454545454545454,
+          "selected": false,
+          "source_session_id": "508d552e_5",
+          "turn_index": 3
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 723,
+          "memory_id": "m10b-7ebecec9c30b465382337286e79597147cacbd242f0fcfdd53ac334b877ef54f",
+          "retrieval_rank": 4,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5454545454545454,
+          "selected": false,
+          "source_session_id": "sharegpt_CPzL3ju_0",
+          "turn_index": 1
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 351,
+          "memory_id": "m10b-34fc933a22c894db17be22b88f1b493929f21cd7545c6c7c7eb66dbe11922066",
+          "retrieval_rank": 5,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.5454545454545454,
+          "selected": false,
+          "source_session_id": "b2d284b1",
+          "turn_index": 7
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 311,
+          "memory_id": "m10b-6ad132b378041b53e6d96a69513cfd69a7933d2ab7e1e45546b34769db473caf",
+          "retrieval_rank": 6,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.45454545454545453,
+          "selected": false,
+          "source_session_id": "sharegpt_JJu53iW_0",
+          "turn_index": 9
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 299,
+          "memory_id": "m10b-6af49a0b56e53892f598de2b97dc0c5e0b54455ba86fe09db7407e09c2d30124",
+          "retrieval_rank": 7,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.45454545454545453,
+          "selected": false,
+          "source_session_id": "sharegpt_JJu53iW_0",
+          "turn_index": 11
+        },
+        {
+          "context_plan_position": null,
+          "drop_reason": "context_manager_budget_or_total_budget",
+          "m10_estimated_tokens": 718,
+          "memory_id": "m10b-6bd8f2c685a66790d37c4c0c89256e7dbf077100e4fcd4d91a47b6619dff1ad2",
+          "retrieval_rank": 8,
+          "retrieval_reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "retrieval_score": 0.45454545454545453,
+          "selected": false,
+          "source_session_id": "60fdb334_2",
+          "turn_index": 7
+        }
+      ],
+      "gold": "Yes",
+      "human_review": {
+        "failure_loci": null,
+        "notes": null,
+        "outcome": null
+      },
+      "metrics": {
+        "abstention_accuracy": null,
+        "abstention_case": false,
+        "answer_session_ids": [
+          "answer_d3bf812b_1",
+          "answer_d3bf812b_2"
+        ],
+        "answer_session_mrr": 0.0,
+        "answer_session_recall_at_10": 0.0,
+        "answer_session_recall_at_5": 0.0,
+        "answer_session_recall_at_8": 0.0,
+        "context_bundle_sha256": "c0e2393a5515206b0c638aa3cacc858bcc2f705cd4491312714c7b36f05e08d9",
+        "context_reader_tokens": 867,
+        "dropped_records": 7,
+        "exact_normalized_gold_token_sequence_present": false,
+        "f1": 0.0,
+        "m10_estimated_memory_tokens": 874,
+        "normalized_exact_match": 0.0,
+        "normalized_gold_token_coverage": 0.0,
+        "plan_estimated_total_tokens": 1145,
+        "projected_answer_session_recall_at_8": 0.0,
+        "projected_records": 1,
+        "quality_status": "OK",
+        "question_id": "c4ea545c",
+        "question_type": "knowledge-update",
+        "recall_at_10_annotation": "NATIVE_TOP_K_8; value equals Recall@8",
+        "retrieved_records": 8,
+        "source_session_provenance_coverage": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0
+      },
+      "prediction": "None",
+      "projected_context_items": [
+        {
+          "kind": "memory",
+          "memory_id": "m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18",
+          "native_retrieval_rank": 1,
+          "rank": 1,
+          "retrieval_score": 0.5454545454545454,
+          "source_session_ids": [
+            "a2a8e2c9"
+          ],
+          "source_turn_id": "raw_turn:a2a8e2c9:1",
+          "status": "active",
+          "text": "{\"key\":\"raw_turn:a2a8e2c9:1\",\"kind\":\"session_note\",\"memory_id\":\"m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18\",\"source_type\":\"session_derived\",\"value\":{\"content\":\"Exciting travel plans!\\n\\nAs a general rule, citizens of many countries don't need a visa to enter Japan as a tourist or for business stays of up to 90 days. However, if you're a citizen of a country that requires a visa or if you plan to stay in Japan for more than 90 days, you'll need to apply for a visa.\\n\\nTo determine if you need a visa, check the Japanese government's official website or consult with the Japanese embassy or consulate in your home country.\\n\\nAssuming you do need a visa, here are the common documents required for a Japanese visa application:\\n\\n**Basic Documents:**\\n\\n1. **Valid passport**: Your passport should be valid for at least six months beyond your planned departure date from Japan.\\n2. **Completed visa application form**: You can download and print the application form from the Japanese embassy or consulate's website or obtain it in person.\\n3. **One recent passport-sized photo**: Attach a 2x2 inch (45x45 mm) photo with a white background to the application form.\\n\\n**Additional Documents (may vary depending on your purpose and nationality):**\\n\\n**Tourist Visa:**\\n\\n* **Flight itinerary or travel plans**: Proof of your travel arrangements, such as a flight booking or a detailed itinerary.\\n* **Hotel reservation or accommodation proof**: A confirmation letter from your hotel or a copy of your accommodation booking.\\n* **Proof of sufficient funds**: Bank statements, traveler's checks, or cash to demonstrate you have enough money to support yourself during your stay.\\n\\n**Business Visa:**\\n\\n* **Invitation letter**: A letter from your Japanese business partner or host company, explaining the purpose and duration of your visit.\\n* **Company documents**: Copies of your company's registration, business license, and other relevant documents.\\n* **Proof of business activities**: Documents showing your company's business activities, such as contracts, invoices, or certificates.\\n\\n**Student Visa:**\\n\\n* **Admission letter**: A letter from your Japanese university or language school, confirming your acceptance.\\n* **Certificate of enrollment**: A document from your current school or university, stating your enrollment status.\\n* **Proof of financial resources**: Bank statements or scholarship award letters to demonstrate you can support yourself during your studies.\\n\\n**Other Documents (if applicable):**\\n\\n* **Guarantee letter**: If someone is sponsoring your trip, they may need to provide a guarantee letter and proof of their financial resources.\\n* **Birth certificate and marriage certificate (if applicable)**: If you're applying for a visa as a family member of a Japanese citizen or resident.\\n\\n**Additional Tips:**\\n\\n* Ensure all documents are original and not photocopied.\\n* Translate any documents not in Japanese or English into one of these languages.\\n* Check the Japanese embassy or consulate's website for specific requirements, as they may vary depending on your country of residence or purpose of travel.\\n\\nRemember to apply for your visa well in advance of your trip to allow for processing time. Good luck with your application, and I hope you have a wonderful trip to Tokyo!\",\"role\":\"assistant\",\"session_date\":\"2023/05/21 (Sun) 05:58\"},\"value_sha256\":\"499864537e0bcd59651f2a989194b15b75d55688aaaa2c77279cb86e863d9e7b\"}",
+          "version": 1
+        }
+      ],
+      "quality_status": "OK",
+      "question": "Do I go to the gym more frequently than I did previously?",
+      "question_date": "2023/09/01 (Fri) 19:15",
+      "question_id": "c4ea545c",
+      "top_native_matches": [
+        {
+          "memory_id": "m10b-1ae1f3918f2234b334e0a1d834689d061b2070a525b5489eca9f02b0671d5a18",
+          "rank": 1,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5454545454545454,
+          "source_session_id": "a2a8e2c9",
+          "source_turn_key": "raw_turn:a2a8e2c9:1",
+          "turn_index": 1,
+          "valid_from": "2023-05-21T05:58:00Z"
+        },
+        {
+          "memory_id": "m10b-db4fc47841390a6c003643e8c98ac1b12b06f7132be6b6f9630bb0c5073a5427",
+          "rank": 2,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5454545454545454,
+          "source_session_id": "a2a8e2c9",
+          "source_turn_key": "raw_turn:a2a8e2c9:3",
+          "turn_index": 3,
+          "valid_from": "2023-05-21T05:58:00Z"
+        },
+        {
+          "memory_id": "m10b-763240dcfaa9cdc534f282d0b1b067712bc306861d3e3f6a091befc81acf33c9",
+          "rank": 3,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5454545454545454,
+          "source_session_id": "508d552e_5",
+          "source_turn_key": "raw_turn:508d552e_5:3",
+          "turn_index": 3,
+          "valid_from": "2023-06-17T08:28:00Z"
+        },
+        {
+          "memory_id": "m10b-7ebecec9c30b465382337286e79597147cacbd242f0fcfdd53ac334b877ef54f",
+          "rank": 4,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5454545454545454,
+          "source_session_id": "sharegpt_CPzL3ju_0",
+          "source_turn_key": "raw_turn:sharegpt_CPzL3ju_0:1",
+          "turn_index": 1,
+          "valid_from": "2023-08-15T18:09:00Z"
+        },
+        {
+          "memory_id": "m10b-34fc933a22c894db17be22b88f1b493929f21cd7545c6c7c7eb66dbe11922066",
+          "rank": 5,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.5454545454545454,
+          "source_session_id": "b2d284b1",
+          "source_turn_key": "raw_turn:b2d284b1:7",
+          "turn_index": 7,
+          "valid_from": "2023-08-18T09:12:00Z"
+        },
+        {
+          "memory_id": "m10b-6ad132b378041b53e6d96a69513cfd69a7933d2ab7e1e45546b34769db473caf",
+          "rank": 6,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.45454545454545453,
+          "source_session_id": "sharegpt_JJu53iW_0",
+          "source_turn_key": "raw_turn:sharegpt_JJu53iW_0:9",
+          "turn_index": 9,
+          "valid_from": "2023-05-15T16:13:00Z"
+        },
+        {
+          "memory_id": "m10b-6af49a0b56e53892f598de2b97dc0c5e0b54455ba86fe09db7407e09c2d30124",
+          "rank": 7,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.45454545454545453,
+          "source_session_id": "sharegpt_JJu53iW_0",
+          "source_turn_key": "raw_turn:sharegpt_JJu53iW_0:11",
+          "turn_index": 11,
+          "valid_from": "2023-05-15T16:13:00Z"
+        },
+        {
+          "memory_id": "m10b-6bd8f2c685a66790d37c4c0c89256e7dbf077100e4fcd4d91a47b6619dff1ad2",
+          "rank": 8,
+          "reasons": [
+            "scope",
+            "active",
+            "time_valid"
+          ],
+          "score": 0.45454545454545453,
+          "source_session_id": "60fdb334_2",
+          "source_turn_key": "raw_turn:60fdb334_2:7",
+          "turn_index": 7,
+          "valid_from": "2023-05-31T21:13:00Z"
+        }
+      ]
+    }
+  ],
+  "run_id": "mem2a-m10-base-10-20260928"
+}

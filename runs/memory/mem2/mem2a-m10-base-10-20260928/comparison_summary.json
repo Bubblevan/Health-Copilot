@@ -1,0 +1,56 @@
+{
+  "fullcontext": {
+    "mean_token_f1": 0.09557587643290352,
+    "mean_token_precision": 0.05984805877697928,
+    "mean_token_recall": 0.5538557095078834,
+    "normalized_em_rate": 0.0,
+    "question_count": 10,
+    "source": "frozen MEM-1D4 v3; not rerun"
+  },
+  "m10_base": {
+    "mean_token_f1": 0.05952380952380952,
+    "mean_token_precision": 0.03958333333333333,
+    "mean_token_recall": 0.12,
+    "normalized_em_rate": 0.0,
+    "question_count": 10,
+    "source": "MEM-2A local run; descriptive diagnostic only"
+  },
+  "mem0": {
+    "mean_token_f1": 0.07264250065668505,
+    "mean_token_precision": 0.07549019607843137,
+    "mean_token_recall": 0.12887402452619845,
+    "normalized_em_rate": 0.0,
+    "question_count": 10,
+    "source": "frozen MEM-1D4 v3; not rerun"
+  },
+  "openclaw": {
+    "mean_token_f1": 0.20170940170940171,
+    "mean_token_precision": 0.16846153846153847,
+    "mean_token_recall": 0.3,
+    "normalized_em_rate": 0.1,
+    "question_count": 10,
+    "source": "frozen MEM-1D4 v3; not rerun"
+  },
+  "propmem": {
+    "mean_token_f1": 0.19368338428488802,
+    "mean_token_precision": 0.12492063492063492,
+    "mean_token_recall": 0.45076923076923076,
+    "normalized_em_rate": 0.0,
+    "question_count": 10,
+    "source": "frozen MEM-1D4 v3; not rerun"
+  },
+  "simplemem": {
+    "mean_token_f1": 0.0125,
+    "mean_token_precision": 0.01111111111111111,
+    "mean_token_recall": 0.014285714285714285,
+    "normalized_em_rate": 0.0,
+    "question_count": 10,
+    "source": "frozen MEM-1D4 v3; not rerun"
+  },
+  "source_artifacts": {
+    "mem1d4_fullcontext_10_of_10_fit_untruncated": true,
+    "mem1d4_predictions_sidecar_verified": true,
+    "mem1d4_predictions_v3_sha256": "641b55568cb763688f7fc3af37eeb5bf338664707f5178437864e48966432ec5",
+    "mem1d4_run_id": "mem1d4-reader-v3-20260928"
+  }
+}

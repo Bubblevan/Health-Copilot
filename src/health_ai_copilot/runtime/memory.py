@@ -238,7 +238,7 @@ class MemoryRecord:
         **kwargs: Any,
     ) -> MemoryRecord:
         return cls(
-            memory_id=memory_id or f"memory-{uuid4().hex}",
+            memory_id=memory_id if memory_id is not None else f"memory-{uuid4().hex}",
             scope_id=scope_id,
             key=key,
             kind=MemoryKind(kind),
@@ -577,6 +577,12 @@ class _MemoryStoreCore:
 
     def _apply_unlocked(self, request: MemoryOperation, *, now: datetime | str | None = None) -> MemoryRecord | None:
         current = self._current(request)
+        if (
+            request.operation == MemoryOperationType.ADD
+            and request.memory_id is not None
+            and request.memory_id in self._records
+        ):
+            raise MemoryVersionConflict(f"memory ID already exists: {request.memory_id}")
         self.policy.validate(request, current)
         operation = request.operation
         timestamp = _iso(now or self.clock.now()) or utc_now_iso()
@@ -662,6 +668,7 @@ class _MemoryStoreCore:
             source_type=request.source_type,
             sensitivity=request.sensitivity,
             version=1,
+            memory_id=request.memory_id,
             created_at=timestamp,
             valid_from=request.valid_from,
             valid_until=request.valid_until,
@@ -864,22 +871,41 @@ class SQLiteMemoryStore(_MemoryStoreCore):
         with self._lock:
             current = self._current(request)
             self.policy.validate(request, current)
-            with self._transaction():
-                before = len(self._history)
-                record = self._apply_unlocked(request, now=now)
-                for item in self._history[before:]:
-                    self._persist_event(item)
-                if record is not None and request.operation != MemoryOperationType.NOOP:
-                    self._persist_record(record)
-                    if request.operation == MemoryOperationType.UPDATE and record.supersedes_id:
-                        self._persist_record(self._records[record.supersedes_id])
-                return record
+            explicit_add = request.operation == MemoryOperationType.ADD and request.memory_id is not None
+            active_key = (request.scope_id, request.key)
+            previous_record = self._records.get(request.memory_id) if explicit_add else None
+            previous_active_id = self._active_by_key.get(active_key) if explicit_add else None
+            history_length = len(self._history)
+            try:
+                with self._transaction():
+                    before = len(self._history)
+                    record = self._apply_unlocked(request, now=now)
+                    for item in self._history[before:]:
+                        self._persist_event(item)
+                    if record is not None and request.operation != MemoryOperationType.NOOP:
+                        self._persist_record(record, replace=not explicit_add)
+                        if request.operation == MemoryOperationType.UPDATE and record.supersedes_id:
+                            self._persist_record(self._records[record.supersedes_id])
+                    return record
+            except sqlite3.IntegrityError:
+                if explicit_add:
+                    if previous_record is None:
+                        self._records.pop(request.memory_id, None)
+                    else:
+                        self._records[request.memory_id] = previous_record
+                    if previous_active_id is None:
+                        self._active_by_key.pop(active_key, None)
+                    else:
+                        self._active_by_key[active_key] = previous_active_id
+                    del self._history[history_length:]
+                raise
 
     write = apply
 
-    def _persist_record(self, record: MemoryRecord) -> None:
+    def _persist_record(self, record: MemoryRecord, *, replace: bool = True) -> None:
+        insert = "INSERT OR REPLACE" if replace else "INSERT"
         self._connection.execute(
-            """INSERT OR REPLACE INTO memory_records VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            f"""{insert} INTO memory_records VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 record.memory_id, record.scope_id, record.key, record.kind.value,
                 None if record.status == MemoryStatus.DELETED else _json_value(record.value),
