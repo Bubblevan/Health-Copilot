@@ -15,11 +15,13 @@ from health_ai_copilot.research.integration.owned_universe.diagnostics import (
 from health_ai_copilot.research.integration.owned_universe.evaluator_truth import (
     evaluate_structured,
 )
+from health_ai_copilot.research.integration.owned_universe.grammar import QueryTemplate
 from health_ai_copilot.research.integration.owned_universe.lineage import lineage_row
 from health_ai_copilot.research.integration.owned_universe.realization import materialize
 from health_ai_copilot.research.integration.owned_universe.scale import (
     _balance_query_surface,
     _numeric_or_boolean_world,
+    _required_key,
     _revision_world,
     build_u2f_worlds,
 )
@@ -185,7 +187,13 @@ def test_u2f_insufficient_worlds_keep_wrong_or_conflicting_evidence_unanswerable
 
 def test_u2f_query_shell_is_common_and_matched_surfaces_remain_equal():
     _, _, worlds, _ = _small_worlds()
-    assert all("include the item indexed by" in world.query.casefold() for world in worlds)
+    assert all("  " not in world.query for world in worlds)
+    assert all(
+        "return the requested synthetic result." in world.query.casefold()
+        or "provide the requested synthetic result." in world.query.casefold()
+        for world in worlds
+    )
+    assert all("guideline-related value" not in world.query.casefold() for world in worlds)
     same_surface_groups = {}
     for world in worlds:
         if dict(world.structural_metadata).get("same_surface_stress_group"):
@@ -193,6 +201,24 @@ def test_u2f_query_shell_is_common_and_matched_surfaces_remain_equal():
     assert same_surface_groups
     assert all(len({world.query for world in group}) == 1
                for group in same_surface_groups.values())
+
+
+def test_u2f_templates_reject_missing_answer_slots_and_revision_key_tracks_truth():
+    template = QueryTemplate("TEST", "01", "The answer is {value} for {key}.")
+    try:
+        template.render("SYNKEY-00000000")
+    except ValueError as exc:
+        assert "requires an answer value" in str(exc)
+    else:
+        raise AssertionError("value-bearing query templates must reject an omitted answer")
+
+    world = _revision_fixture(1_500_001)
+    required_records = [
+        record for record in world.patient_records
+        if set(world.graph.required_fact_ids).intersection(record.latent_fact_ids)
+    ]
+    assert required_records
+    assert _required_key(world) == required_records[0].retrieval_terms[0]
 
 
 def test_u2f_numeric_surface_variant_preserves_tool_partition_contract():

@@ -12,6 +12,8 @@ class QueryTemplate:
     text: str
 
     def render(self, key: str, answer_value: str | None = None) -> str:
+        if "{value}" in self.text and not answer_value:
+            raise ValueError(f"query template {self.template_family}/{self.surface_variant} requires an answer value")
         values = {"key": key, "value": answer_value or ""}
         return self.text.format(**values)
 
@@ -46,80 +48,80 @@ QUERY_TEMPLATES: dict[str, tuple[QueryTemplate, ...]] = {
         QueryTemplate("TRAIN_LOOKUP", "02", "What value is associated with {key}?"),
     ),
     "TRAIN_TEMPORAL": (
-        QueryTemplate("TRAIN_TEMPORAL", "01", "Compare the earlier and later entries for {key}."),
-        QueryTemplate("TRAIN_TEMPORAL", "02", "At the requested time, which value for {key} applies?"),
+        QueryTemplate("TRAIN_TEMPORAL", "01", "At the query time, return the supported result for {key}."),
+        QueryTemplate("TRAIN_TEMPORAL", "02", "What result is supported for {key} at the requested time?"),
     ),
     "TRAIN_UPDATE": (
-        QueryTemplate("TRAIN_UPDATE", "01", "After the latest synthetic update, what is stored for {key}?"),
-        QueryTemplate("TRAIN_UPDATE", "02", "Report the current state associated with {key}."),
+        QueryTemplate("TRAIN_UPDATE", "01", "What synthetic result is supported for {key}?"),
+        QueryTemplate("TRAIN_UPDATE", "02", "Report the supported value associated with {key}."),
     ),
     "TRAIN_AGGREGATE": (
-        QueryTemplate("TRAIN_AGGREGATE", "01", "Aggregate the synthetic entries indexed by {key}."),
-        QueryTemplate("TRAIN_AGGREGATE", "02", "Combine the matching records for {key} and return the result."),
+        QueryTemplate("TRAIN_AGGREGATE", "01", "Resolve the requested result from the synthetic entries indexed by {key}."),
+        QueryTemplate("TRAIN_AGGREGATE", "02", "Return the result supported by the matching records for {key}."),
     ),
     "TRAIN_SOURCE": (
-        QueryTemplate("TRAIN_SOURCE", "01", "Within the named synthetic source family, resolve {key}."),
-        QueryTemplate("TRAIN_SOURCE", "02", "Using the permitted evidence sources, return the entry for {key}."),
+        QueryTemplate("TRAIN_SOURCE", "01", "Using the available evidence, return the entry for {key}."),
+        QueryTemplate("TRAIN_SOURCE", "02", "What result is supported by the records for {key}?"),
     ),
     "TRAIN_BOOLEAN": (
-        QueryTemplate("TRAIN_BOOLEAN", "01", "Verify whether the synthetic condition indexed by {key} is present."),
-        QueryTemplate("TRAIN_BOOLEAN", "02", "Does the record for {key} satisfy the stated condition?"),
+        QueryTemplate("TRAIN_BOOLEAN", "01", "Check the available records for {key} and return the supported result."),
+        QueryTemplate("TRAIN_BOOLEAN", "02", "What result is supported by the evidence for {key}?"),
     ),
     "TRAIN_SEQUENCE": (
-        QueryTemplate("TRAIN_SEQUENCE", "01", "List the values for {key} in chronological order."),
-        QueryTemplate("TRAIN_SEQUENCE", "02", "Return the ordered sequence associated with {key}."),
+        QueryTemplate("TRAIN_SEQUENCE", "01", "Return the requested information associated with {key}."),
+        QueryTemplate("TRAIN_SEQUENCE", "02", "What result is supported for {key}?"),
     ),
     "TRAIN_NUMERIC": (
-        QueryTemplate("TRAIN_NUMERIC", "01", "Compute the requested arithmetic result for synthetic values at {key}."),
-        QueryTemplate("TRAIN_NUMERIC", "02", "Calculate the numeric aggregate from entries indexed by {key}."),
+        QueryTemplate("TRAIN_NUMERIC", "01", "Resolve the requested result from the synthetic entries indexed by {key}."),
+        QueryTemplate("TRAIN_NUMERIC", "02", "Return the supported result associated with {key}."),
     ),
     "TRAIN_ABSTAIN": (
-        QueryTemplate("TRAIN_ABSTAIN", "01", "Using records valid at the requested time, determine the value for {key}."),
-        QueryTemplate("TRAIN_ABSTAIN", "02", "Can the available synthetic sources support a value for {key}?"),
+        QueryTemplate("TRAIN_ABSTAIN", "01", "Using evidence valid at the requested time, report the result for {key}."),
+        QueryTemplate("TRAIN_ABSTAIN", "02", "What synthetic result is supported for {key}?"),
     ),
     "TRAIN_COMPOSE": (
-        QueryTemplate("TRAIN_COMPOSE", "01", "Compose the related personal and external entries for {key}."),
-        QueryTemplate("TRAIN_COMPOSE", "02", "Join the requested synthetic records associated with {key}."),
+        QueryTemplate("TRAIN_COMPOSE", "01", "Resolve the relevant synthetic evidence associated with {key}."),
+        QueryTemplate("TRAIN_COMPOSE", "02", "Return the requested result from the available records for {key}."),
     ),
     "TRAIN_CONVERSATION": (
-        QueryTemplate("TRAIN_CONVERSATION", "01", "Apply the user-confirmed preference linked to {key}."),
-        QueryTemplate("TRAIN_CONVERSATION", "02", "Which prior user-confirmed instruction is indexed by {key}?"),
+        QueryTemplate("TRAIN_CONVERSATION", "01", "Return the synthetic item associated with {key}."),
+        QueryTemplate("TRAIN_CONVERSATION", "02", "What result is linked to {key}?"),
     ),
     "TRAIN_TREND": (
-        QueryTemplate("TRAIN_TREND", "01", "Determine the direction of change in the values for {key}."),
-        QueryTemplate("TRAIN_TREND", "02", "Summarize the ordered measurements associated with {key}."),
+        QueryTemplate("TRAIN_TREND", "01", "Determine the supported result for the synthetic entries associated with {key}."),
+        QueryTemplate("TRAIN_TREND", "02", "Summarize the synthetic evidence associated with {key}."),
     ),
     "TRAIN_CURRENT": (
-        QueryTemplate("TRAIN_CURRENT", "01", "The current synthetic note states {value} for {key}; return that value."),
-        QueryTemplate("TRAIN_CURRENT", "02", "Given the current context value {value} for {key}, report it."),
+        QueryTemplate("TRAIN_CURRENT", "01", "Return the synthetic value associated with {key}."),
+        QueryTemplate("TRAIN_CURRENT", "02", "What result is associated with {key}?"),
     ),
     "DEV_STRUCTURAL_ORDER": (
-        QueryTemplate("DEV_STRUCTURAL_ORDER", "01", "Starting with {key}, arrange the related synthetic entries by their dependency order."),
-        QueryTemplate("DEV_STRUCTURAL_ORDER", "02", "Resolve the linked records for {key}, preserving the requested sequence."),
+        QueryTemplate("DEV_STRUCTURAL_ORDER", "01", "Resolve the synthetic records linked to {key} and return the requested result."),
+        QueryTemplate("DEV_STRUCTURAL_ORDER", "02", "What result is supported by the linked records for {key}?"),
     ),
     "DEV_STRUCTURAL_COMPOSE": (
-        QueryTemplate("DEV_STRUCTURAL_COMPOSE", "01", "Combine the independently described records that refer to {key}."),
-        QueryTemplate("DEV_STRUCTURAL_COMPOSE", "02", "Across the available synthetic sources, assemble the required result for {key}."),
+        QueryTemplate("DEV_STRUCTURAL_COMPOSE", "01", "Resolve the synthetic records that refer to {key} and report the supported result."),
+        QueryTemplate("DEV_STRUCTURAL_COMPOSE", "02", "Return the requested result from the available synthetic evidence for {key}."),
     ),
     "DEV_STRUCTURAL_CONDITION": (
-        QueryTemplate("DEV_STRUCTURAL_CONDITION", "01", "Given the stated condition, verify the record selected by {key}."),
+        QueryTemplate("DEV_STRUCTURAL_CONDITION", "01", "Check the linked synthetic evidence for {key} and report the supported result."),
         QueryTemplate("DEV_STRUCTURAL_CONDITION", "02", "Check the linked synthetic facts for {key} and report the supported result."),
     ),
     "DEV_STRUCTURAL_CONTRAST": (
-        QueryTemplate("DEV_STRUCTURAL_CONTRAST", "01", "Contrast the time-qualified entries associated with {key}."),
-        QueryTemplate("DEV_STRUCTURAL_CONTRAST", "02", "Which of the linked records for {key} remains valid at the query time?"),
+        QueryTemplate("DEV_STRUCTURAL_CONTRAST", "01", "Compare the linked synthetic evidence for {key} and report the supported result."),
+        QueryTemplate("DEV_STRUCTURAL_CONTRAST", "02", "What result is supported by the linked records for {key}?"),
     ),
 }
 
 CURRENT_CONTEXT_CUES = (
     QueryTemplate("CURRENT_CUE_LAST", "01",
-                  "The current note from the last visit states {value}; report this value."),
+                  "The current note from the last visit states {value} for {key}; return that value."),
     QueryTemplate("CURRENT_CUE_GUIDELINE", "01",
-                  "The current packet already gives {value}. What is the guideline-related value?"),
+                  "The current packet already gives {value} for {key}; return that value."),
     QueryTemplate("CURRENT_CUE_EVIDENCE", "01",
-                  "This request's current note says {value}; what is the evidence-associated field?"),
+                  "This request's current note says {value} for {key}; return that value."),
     QueryTemplate("CURRENT_CUE_SOURCE", "01",
-                  "The current text carries {value}; return the source-labeled field."),
+                  "The current text carries {value} for {key}; return that value."),
 )
 
 
