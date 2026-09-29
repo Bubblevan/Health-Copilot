@@ -1,0 +1,80 @@
+{
+  "schema_version": "u2f-scale-profile-v1",
+  "dataset_id": "health-copilot-owned-longitudinal-v1",
+  "generator_version": "u2f-generator-v1.0.0",
+  "global_seed": 20260930,
+  "audit_seed": 2026093001,
+  "notice": "SYNTHETIC_RESEARCH_WORLD; NOT_CLINICAL_GUIDANCE",
+  "content_origin": "PROJECT_OWNED_SYNTHETIC",
+  "targets": {
+    "TRAIN": {"episode_count": 4096, "subject_count": 320},
+    "DEV_IID": {"episode_count": 512, "subject_count": 64},
+    "DEV_STRUCTURAL": {"episode_count": 512, "subject_count": 64}
+  },
+  "scenario_family_weights": {
+    "CURRENT_ONLY": 0.18,
+    "MEMORY_LOOKUP": 0.10,
+    "MEMORY_REVISION": 0.06,
+    "MEMORY_TEMPORAL_COMPARE": 0.04,
+    "MEMORY_MULTI_RECORD": 0.04,
+    "EXTERNAL_LOOKUP": 0.08,
+    "EXTERNAL_VERSIONED": 0.06,
+    "EXTERNAL_MULTI_SOURCE": 0.06,
+    "MEMORY_EXTERNAL_JOIN": 0.10,
+    "MEMORY_EXTERNAL_CONFLICT": 0.06,
+    "INSUFFICIENT_EVIDENCE": 0.05,
+    "DISTRACTOR_HEAVY": 0.06,
+    "TEMPORAL_BOUNDARY": 0.04,
+    "COMPOSITIONAL_MULTI_FACT": 0.07
+  },
+  "same_surface_pair_count": {"TRAIN": 260, "DEV_IID": 64, "DEV_STRUCTURAL": 64},
+  "history_regime_target_weights": {
+    "SHORT": 0.23,
+    "MEDIUM": 0.31,
+    "LONG": 0.31,
+    "SATURATED": 0.15
+  },
+  "history_regime_ranges": {
+    "SHORT": {"records": [2, 6], "days": [1, 14]},
+    "MEDIUM": {"records": [8, 24], "days": [30, 120]},
+    "LONG": {"records": [24, 64], "days": [120, 365]},
+    "SATURATED": {"records": [64, 128], "days": [365, 730]}
+  },
+  "evidence_world_regimes": {
+    "SMALL": {"records": [4, 8]},
+    "MEDIUM": {"records": [9, 24]},
+    "LARGE": {"records": [25, 64]}
+  },
+  "distractor_regimes": {
+    "LOW": [2, 5],
+    "MEDIUM": [6, 15],
+    "HIGH": [16, 40],
+    "EXTREME": [41, 100]
+  },
+  "required_thresholds": {
+    "same_surface_episode_fraction_min": 0.10,
+    "different_surface_same_graph_episode_fraction_min": 0.20,
+    "single_feature_accuracy_max": 0.80,
+    "single_feature_lift_over_majority_max": 0.15,
+    "combined_probe_review_threshold": 0.90,
+    "counterfactual_mismatch_max": 0,
+    "temporal_failure_max": 0,
+    "revision_failure_max": 0
+  },
+  "answer_types": ["EXACT_TOKEN", "EXACT_SET", "ORDERED_SEQUENCE", "NUMERIC", "BOOLEAN", "ABSTAIN"],
+  "record_types": ["PROFILE", "MEASUREMENT", "EXAM", "EVENT", "CONVERSATION"],
+  "external_families": ["PUBLIC_HEALTH", "GUIDELINE", "LITERATURE"],
+  "forbidden_generated_identifiers": [
+    "ESL-Bench", "MedMemoryBench", "MedAgentBoard", "MIMIC", "PubMedQA",
+    "R2MED", "MIRAGE", "NFCorpus", "WHO", "CDC"
+  ],
+  "reserved_compositions": [
+    "deep MEMORY→RAG serial chains",
+    "multi-source RAG plus memory revision",
+    "three-branch compositional tasks",
+    "long-history plus versioned external evidence"
+  ],
+  "architecture_supervision": "UNRESOLVED",
+  "budget_supervision": "UNRESOLVED",
+  "post_train_ready": false
+}

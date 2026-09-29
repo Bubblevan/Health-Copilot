@@ -35,9 +35,16 @@ def evaluate_structured(case: MaterializedCase, answer: str,
         return StructuredEvaluation(success, (), (), (), False)
 
     expected = scenario.answer_values
-    tokens = VALUE_TOKEN.findall(answer)
-    if any(value.isdigit() for value in expected):
-        tokens.extend(NUMBER_TOKEN.findall(answer))
+    if scenario.world.answer_type == StructuredAnswerType.BOOLEAN:
+        tokens = re.findall(r"\b(?:TRUE|FALSE)\b", answer, flags=re.IGNORECASE)
+        tokens = [item.upper() for item in tokens]
+    elif expected and all(value in {"UP", "DOWN", "STABLE"} for value in expected):
+        tokens = re.findall(r"\b(?:UP|DOWN|STABLE)\b", answer, flags=re.IGNORECASE)
+        tokens = [item.upper() for item in tokens]
+    else:
+        tokens = VALUE_TOKEN.findall(answer)
+        if any(value.isdigit() for value in expected):
+            tokens.extend(NUMBER_TOKEN.findall(answer))
     observed = tuple(tokens)
     if scenario.world.answer_type == StructuredAnswerType.ORDERED_SEQUENCE:
         success = len(observed) == len(expected) and observed == expected

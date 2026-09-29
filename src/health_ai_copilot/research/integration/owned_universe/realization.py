@@ -92,9 +92,11 @@ def materialize(world: LatentWorld) -> MaterializedCase:
         publication_time=row.publication_time, effective_time=row.effective_time,
         authority_metadata=(("authority", "project-owned synthetic namespace"),),
         content=row.natural_language_content, retrieval_terms=row.retrieval_terms,
+        effective_until=row.effective_until,
     ) for row in world.evidence_records)
     evidence_world = ExternalEvidenceWorld.from_records(
-        f"EXT-{world.world_id}", "owned-evidence-v1", evidence_rows
+        f"EXT-{stable_hash([row.to_dict() for row in evidence_rows])[:20]}",
+        "owned-evidence-v1", evidence_rows
     )
 
     all_record_types = tuple(sorted({row.record_type for row in world.patient_records}))
@@ -110,12 +112,18 @@ def materialize(world: LatentWorld) -> MaterializedCase:
     )
     world_ref = ExternalEvidenceWorldRef(evidence_world.world_id, evidence_world.version, families)
     tool_surface = ToolSurfaceRef(
-        f"surface-{world.split_role}-{world.template_family}", "u2e-shared-tools-v1",
+        "u2f-shared-tools-v1", "u2f-shared-tools-v1",
         tool_ids, workers,
     )
     observable = ObservableState(
         history_exists=bool(visible_rows),
-        history_length_bucket="0" if not visible_rows else ("1-4" if len(visible_rows) <= 4 else "5+"),
+        history_length_bucket=(
+            "0" if not visible_rows else
+            "1-4" if len(visible_rows) <= 4 else
+            "5-7" if len(visible_rows) <= 7 else
+            "8-23" if len(visible_rows) <= 23 else
+            "24-63" if len(visible_rows) <= 63 else "64+"
+        ),
         history_time_span=(None if len(visible_rows) < 2 else
                            _history_span(visible_rows[0].timestamp, visible_rows[-1].timestamp)),
         available_personal_state_types=visible_types,
@@ -129,7 +137,7 @@ def materialize(world: LatentWorld) -> MaterializedCase:
     )
     episode = IntegrationEpisode(
         episode_id=f"{world.world_id.removeprefix('LW-')}",
-        environment_version="u2e-owned-environment-v1",
+        environment_version="u2f-owned-environment-v1",
         source_provenance=WORLD_NOTICE, decision_time=world.decision_time,
         subject_id=world.subject_id, query=world.query, observable_state=observable,
         patient_state_ref=patient_ref, external_world_ref=world_ref,
@@ -174,8 +182,12 @@ def materialize(world: LatentWorld) -> MaterializedCase:
 
 def _history_span(start, end) -> str:
     days = max(0, (end - start).days)
-    if days < 7:
-        return "synthetic-under-7-days"
-    if days < 30:
-        return "synthetic-7-to-29-days"
-    return "synthetic-30-plus-days"
+    if days <= 14:
+        return "synthetic-1-to-14-days"
+    if days <= 29:
+        return "synthetic-15-to-29-days"
+    if days <= 119:
+        return "synthetic-30-to-119-days"
+    if days <= 364:
+        return "synthetic-120-to-364-days"
+    return "synthetic-365-plus-days"

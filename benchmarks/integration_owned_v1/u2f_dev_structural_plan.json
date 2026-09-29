@@ -1,0 +1,14 @@
+{
+  "schema_version": "u2f-split-plan-v1",
+  "split_role": "DEV_STRUCTURAL",
+  "episode_count": 512,
+  "subject_count": 64,
+  "persona_seed_range": [430000, 430063],
+  "scenario_seed_range": [3000000, 3000255],
+  "template_families": [
+    "DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE",
+    "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"
+  ],
+  "same_surface_pair_count": 64,
+  "iid_lexical_augmentation": false
+}

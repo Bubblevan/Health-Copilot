@@ -192,10 +192,30 @@ class DeterministicIntegrationExecutor:
         query_tool_observations = [item for item in observations
                                    if item.tool_id not in {"memory_read", "external_retrieval"}]
         query_facts = [item.output for item in query_tool_observations if item.output]
-        if query_facts and "sum" in episode.query.casefold():
+        query_text = episode.query.casefold()
+        numeric_operation = next((name for name in (
+            "greater_than", "difference", "minimum", "maximum", "count", "trend", "sum"
+        ) if name in query_text), None)
+        if query_facts and numeric_operation:
             numbers = [int(value) for item in query_facts for value in _integer_strings(item)]
             if len(numbers) >= 2:
-                query_facts = [str(sum(numbers))]
+                if numeric_operation == "sum":
+                    computed: str | int = sum(numbers)
+                elif numeric_operation == "difference":
+                    computed = abs(numbers[0] - numbers[1])
+                elif numeric_operation == "count":
+                    computed = len(numbers)
+                elif numeric_operation == "minimum":
+                    computed = min(numbers)
+                elif numeric_operation == "maximum":
+                    computed = max(numbers)
+                elif numeric_operation == "trend":
+                    computed = "UP" if numbers[1] > numbers[0] else (
+                        "DOWN" if numbers[1] < numbers[0] else "STABLE"
+                    )
+                else:
+                    computed = "TRUE" if numbers[0] > numbers[1] else "FALSE"
+                query_facts = [str(computed)]
 
         materials = []
         if memory_observation and memory_observation.output:

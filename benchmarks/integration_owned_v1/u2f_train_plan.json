@@ -1,0 +1,16 @@
+{
+  "schema_version": "u2f-split-plan-v1",
+  "split_role": "TRAIN",
+  "episode_count": 4096,
+  "subject_count": 320,
+  "persona_seed_range": [410000, 410319],
+  "scenario_seed_range": [1000000, 1002047],
+  "template_families": [
+    "TRAIN_LOOKUP", "TRAIN_TEMPORAL", "TRAIN_UPDATE", "TRAIN_AGGREGATE",
+    "TRAIN_SOURCE", "TRAIN_BOOLEAN", "TRAIN_SEQUENCE", "TRAIN_NUMERIC",
+    "TRAIN_ABSTAIN", "TRAIN_COMPOSE", "TRAIN_CONVERSATION", "TRAIN_TREND",
+    "TRAIN_CURRENT"
+  ],
+  "same_surface_pair_count": 260,
+  "iid_lexical_augmentation": false
+}

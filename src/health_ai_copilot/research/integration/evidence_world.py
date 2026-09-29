@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime
@@ -20,6 +21,7 @@ class ExternalEvidenceRecord:
     authority_metadata: tuple[tuple[str, str], ...]
     content: str
     retrieval_terms: tuple[str, ...] = ()
+    effective_until: datetime | None = None
 
     def __post_init__(self) -> None:
         for name in ("source_id", "source_family", "content"):
@@ -29,6 +31,10 @@ class ExternalEvidenceRecord:
         _aware(self.publication_time, "publication_time")
         if self.effective_time:
             _aware(self.effective_time, "effective_time")
+        if self.effective_until:
+            _aware(self.effective_until, "effective_until")
+            if self.effective_time is None or self.effective_until <= self.effective_time:
+                raise ValueError("effective_until must follow effective_time")
         object.__setattr__(self, "authority_metadata", tuple(sorted(tuple(x) for x in self.authority_metadata)))
         object.__setattr__(self, "retrieval_terms", tuple(sorted({x.casefold() for x in self.retrieval_terms})))
 
@@ -36,6 +42,8 @@ class ExternalEvidenceRecord:
         return {"source_id": self.source_id, "source_family": self.source_family,
                 "publication_time": self.publication_time.isoformat(),
                 "effective_time": self.effective_time.isoformat() if self.effective_time else None,
+                "effective_until": (self.effective_until.isoformat()
+                                    if self.effective_until else None),
                 "authority_metadata": dict(self.authority_metadata), "content": self.content,
                 "retrieval_terms": list(self.retrieval_terms)}
 
@@ -70,7 +78,8 @@ class ExternalEvidenceWorld:
         rows = [row.to_dict() for row in self.records
                 if row.source_family in families
                 and row.publication_time <= as_of_time
-                and (row.effective_time is None or row.effective_time <= as_of_time)]
+                and (row.effective_time is None or row.effective_time <= as_of_time)
+                and (row.effective_until is None or as_of_time < row.effective_until)]
         return stable_hash({"world_id": self.world_id, "version": self.version, "records": rows})
 
     def retrieve(
@@ -80,9 +89,15 @@ class ExternalEvidenceWorld:
         _aware(as_of_time, "as_of_time")
         text = query.casefold()
         families = set(source_families)
+        approved = re.search(
+            r"approved family\s*:\s*(public_health|guideline|literature)", text
+        )
+        if approved:
+            families.intersection_update({approved.group(1).upper()})
         hits = [row for row in self.records
                 if row.source_family in families
                 and row.publication_time <= as_of_time
                 and (row.effective_time is None or row.effective_time <= as_of_time)
+                and (row.effective_until is None or as_of_time < row.effective_until)
                 and (not row.retrieval_terms or any(term in text for term in row.retrieval_terms))]
         return tuple(hits)
