@@ -1,0 +1,101 @@
+{
+  "batch": {
+    "initial_size": 32,
+    "on_finish_reason_length": "discard incomplete parent output and recursively bisect contiguously, left before right",
+    "order": "scope_id then memory_id ascending",
+    "response_id_enum": "exact IDs from the current batch",
+    "retry_policy": "zero retries; subdivision is not a retry",
+    "single_item_length": "fatal IRREDUCIBLE_IDENTITY_OUTPUT_FAILURE"
+  },
+  "calls_forbidden": [
+    "embedding",
+    "retrieval",
+    "reader_answer",
+    "judge",
+    "hosted_api"
+  ],
+  "candidate_grouping": {
+    "all_source_memories_remain_active_version_1": true,
+    "key": [
+      "scope_id",
+      "subject_key",
+      "attribute_key"
+    ],
+    "kinds": [
+      "SINGLETON_STATE"
+    ],
+    "materialization_side_effects": false
+  },
+  "contract_id": "revision-identity-v1",
+  "diagnostic_heuristics": {
+    "collision_similarity": "content-token Jaccard over proposition text for distinct values in one exact group",
+    "collision_threshold_at_or_below": 0.08,
+    "fragmentation_threshold": 0.82,
+    "heuristic_only_no_automatic_merge_or_split": true,
+    "slot_fragmentation_similarity": "difflib.SequenceMatcher over subject_key + attribute_key within same scope"
+  },
+  "forbidden_input_metadata": [
+    "benchmark_question",
+    "question_date",
+    "gold_answer",
+    "answer_session_ids",
+    "question_type",
+    "reader_prediction",
+    "retrieval_rank",
+    "correctness",
+    "observed_at"
+  ],
+  "input_fields": [
+    "memory_id",
+    "proposition_text",
+    "source_authority",
+    "scope_id"
+  ],
+  "key_normalization": {
+    "alias_dictionary": false,
+    "forbidden_temporal_key_tokens": [
+      "delete",
+      "latest",
+      "new",
+      "noop",
+      "old",
+      "previous",
+      "stale",
+      "superseded",
+      "update"
+    ],
+    "fuzzy_merge": false,
+    "surface": "strip, lowercase, whitespace and hyphens to underscore, collapse repeated underscores",
+    "syntax": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$",
+    "unicode": "NFKC"
+  },
+  "model": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_fallback": false,
+    "max_tokens": 8192,
+    "model": "Qwen3-8B Q4_K_M frozen local artifact",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "role": "identity proposer",
+    "seed": 42,
+    "temperature": 0,
+    "thinking": false
+  },
+  "output_fields": [
+    "memory_id",
+    "revision_kind",
+    "subject_key",
+    "attribute_key",
+    "value_text"
+  ],
+  "research_question": "Can a query-independent semantic identity layer identify candidate mutable state slots in frozen FlatProp?",
+  "revision_kinds": [
+    "SINGLETON_STATE",
+    "SET_STATE",
+    "EVENT",
+    "NON_REVISIONAL",
+    "UNKNOWN"
+  ],
+  "schema_version": 1,
+  "system_prompt": "You assign semantic identity to each proposition in a memory system.\n\nFor each supplied memory, return exactly one row with the same memory_id.\nUse only the supplied scope_id, source_authority, and proposition_text. Do not infer\nchronology, validity, or which observation should be preferred. The input contains\nno timestamps by design. Do not emit current/old/new/stale/previous/latest status,\nsupersession, UPDATE, DELETE, NOOP, or any revision decision.\n\nrevision_kind meanings:\n- SINGLETON_STATE: a mutable attribute normally has one value at a time for a subject\n  (for example employer, home city, follower count, body weight, gym frequency).\n- SET_STATE: multiple members can coexist; adding one does not replace another\n  (for example likes, owned devices, skills, favorite genres).\n- EVENT: a historical occurrence that remains true as an event even after later events.\n- NON_REVISIONAL: a useful proposition that is not naturally a mutable state slot,\n  collection member, or historical event.\n- UNKNOWN: semantic certainty is insufficient. Prefer UNKNOWN to forcing a slot.\n\nsubject_key must name the stable referent, not its wording in this sentence. Use\nconcise lower-snake semantic identifiers (examples: user, assistant, user_mother,\nuser_dog, instagram_account). attribute_key identifies only the slot, never its\nvalue or observation (examples: instagram_follower_count, gym_frequency_per_week,\ncurrent_employer, home_city, body_weight). Do not include dates, values, session IDs,\nor memory IDs in either key. Do not encode which observation is newer.\n\nvalue_text must preserve the value meaning supported by this proposition. Do not\nnormalize units, infer equivalence, consult outside knowledge, or use benchmark answers.\nReturn valid JSON exactly matching the supplied response schema, with no prose.",
+  "system_prompt_sha256": "4ed9594e72d089e414cf31cefa5334dcf74be4e52f65d06ad7da4b40f4f98033"
+}

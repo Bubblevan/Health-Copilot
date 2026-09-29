@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "stage": "mem3b0-revision-identity-frozen-flatprop-20260930",
+  "status": "FAILED_FATAL_IDENTITY_CONTRACT",
+  "completion_gate_marker": "MEM3B0_REVISION_IDENTITY_FROZEN_DIAGNOSTIC=NO",
+  "failure_class": "model_response_contract_violation",
+  "failure_code": "IDENTITY_CONTRACT_FAILURE",
+  "failure_detail": "duplicate_memory_id:m10flat3-071a08836f80559e40ec8399d08df06fed1cdd715e12d1506193323c24f81241",
+  "failed_batch_id": "46f5fb27273ed9ab572a7677391ffbee036efeb7265fd9a3a50beca26bd63b14",
+  "failed_batch_size": 32,
+  "failed_request_sha256": "41dac141137cf4a5e952e3a72c8e8eed5a813bdc669076879d30efd71ad11406",
+  "http_status": 200,
+  "finish_reason": "stop",
+  "prompt_tokens": 4578,
+  "completion_tokens": 3879,
+  "http_envelope_sha256": "f8fb31bd86efe75397980750ffa161974ba56f7a8761212c6aed4c45a95c48f8",
+  "assistant_content_sha256": "d1bae7a7d6fd02659b7f3acc19cd3ea2d777928cccf6c513cbdf44aab80cf05d",
+  "model_artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+  "frozen_input_sha256": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+  "preflight_sha256": "8fc1e3caf715f7fdad4e9360eb836147780d606cd302571be7e05430dd3de7f9",
+  "contract_sha256": "7636f96f90e18eb014d9afa83116569335f4cbd219fe52916549bae3bc5bfad0",
+  "call_accounting": {
+    "local_loopback_identity_requests": 1,
+    "hosted_calls": 0,
+    "retries": 0,
+    "same_batch_repeated": false,
+    "length_bisections": 0,
+    "embedding_calls": 0,
+    "retrieval_calls": 0,
+    "reader_answer_calls": 0,
+    "judge_calls": 0
+  },
+  "coverage": {
+    "frozen_input_records": 8112,
+    "validated_identity_records": 0,
+    "failed_batch_records_not_accepted": 32,
+    "unattempted_records": 8080
+  },
+  "side_effects": {
+    "identity_artifacts_frozen": false,
+    "candidate_groups_frozen": false,
+    "identity_run_manifest_frozen": false,
+    "memory_store_modified": false,
+    "benchmark_metrics_computed": false,
+    "diagnostic_case_history_inspected": false
+  },
+  "raw_completion_retained_only_in_local_stage_cache": true,
+  "stop_reason": "The frozen contract marks duplicate IDs as fatal. No retry, response repair, batch subdivision, or further batch was run."
+}
