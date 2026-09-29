@@ -1,0 +1,23 @@
+{
+  "memory_external_benchmark": "MedMemoryBench (CONDITIONAL_ADOPT)",
+  "multi_agent_external_primary": "MedAgentBoard (CONDITIONAL_ADOPT; data license and fair adapter blockers)",
+  "multi_agent_secondary_reference": "MedMASLab (REFERENCE_ONLY)",
+  "unified_environment_backbone": "ESL-Bench patient state + custom Health-Copilot Integration Environment; no native external medical knowledge corpus",
+  "whole_agent_external_benchmarks": [
+    "AgentClinic (interactive clinical transfer)",
+    "HealthAgentBench (future Harness terminal transfer)"
+  ],
+  "post_training_compatibility": "PARTIAL",
+  "next_stage_recommendation": "D",
+  "next_stage": "Proceed first to Unified Environment prototype",
+  "do_not_start": [
+    "E2-B",
+    "L4",
+    "formal benchmark evaluation",
+    "SFT",
+    "GRPO",
+    "OPD",
+    "guideline/literature acquisition"
+  ],
+  "rationale": "ESL provides the best longitudinal state, but public evaluation exposure and no external knowledge corpus mean a versioned HC adapter/split/evidence/fairness prototype is needed first."
+}

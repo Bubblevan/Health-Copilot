@@ -1,0 +1,68 @@
+{
+  "run_id": "20260929T035527Z",
+  "task": "Health-Copilot E2-A.1 / U0 Unified Benchmark Feasibility Audit",
+  "audit_date": "2026-09-29",
+  "base_commit": "9e023dbddc1f8025e3608bfae4c5390c1a7957ef",
+  "final_commit": "5f666b241fefc0dbcd7524bd4ea6c85bbeaa6bb9",
+  "branch": "mem-b0-benchmark-routing-20260929",
+  "origin_main_same_commit": false,
+  "repository_changes_uncommitted": true,
+  "formal_benchmark_execution": false,
+  "llm_calls": false,
+  "training": false,
+  "test_policy": {
+    "explicit_test_rows_read": false,
+    "esl_test_row_content_read": false,
+    "medagentboard_test_row_content_read": false,
+    "healthagentbench_tasks_tests_content_read": false,
+    "benchmark_evaluator_called": false,
+    "agentclinic_unassigned_public_jsonl_parser_smoke": true
+  },
+  "deliverables": [
+    "docs/research/multi_agent/u0_benchmark_audit.md",
+    "docs/research/multi_agent/u0_benchmark_compatibility_matrix.json",
+    "docs/research/multi_agent/u0_counterfactual_arm_matrix.json",
+    "docs/research/multi_agent/u0_fairness_contract.md",
+    "docs/research/multi_agent/u0_external_corpus_gap.md",
+    "docs/research/multi_agent/u0_leakage_audit.md",
+    "docs/research/multi_agent/u0_integration_episode_schema.md",
+    "docs/research/multi_agent/u0_decision.md"
+  ],
+  "run_bundle": [
+    "manifest.json",
+    "benchmark_matrix.json",
+    "adapter_smoke.json",
+    "decision.json",
+    "report.md"
+  ],
+  "gates": {
+    "U0_SOURCE_PROVENANCE_AUDITED": "YES",
+    "U0_ESL_SCHEMA_AUDITED": "YES",
+    "U0_MEDMEMORY_SCHEMA_AUDITED": "YES",
+    "U0_MEDAGENTBOARD_AUDITED": "YES",
+    "U0_MEDMASLAB_AUDITED": "YES",
+    "U0_AGENTCLINIC_AUDITED": "YES",
+    "U0_HEALTHAGENTBENCH_AUDITED": "YES",
+    "U0_CAPABILITY_NAMESPACE_FROZEN": "YES",
+    "U0_SINGLE_TEAM_FAIRNESS_FROZEN": "YES",
+    "U0_COUNTERFACTUAL_FEASIBILITY_MAPPED": "YES",
+    "U0_EXTERNAL_CORPUS_GAPS_IDENTIFIED": "YES",
+    "U0_LEAKAGE_RISKS_DOCUMENTED": "YES",
+    "U0_POST_TRAIN_COMPATIBILITY_ASSESSED": "YES",
+    "U0_TEST_CONTENT_ACCESSED": "NO",
+    "RAG_TRACK_MODIFIED": "NO",
+    "MEMORY_TRACK_MODIFIED": "NO",
+    "E2_B_STARTED": "NO",
+    "L4_STARTED": "NO"
+  },
+  "notes": "U0 files are uncommitted. During the audit, the shared branch advanced from the base commit with a separate Memory audit commit; this run did not create or alter that commit. No raw benchmark row, query, answer, TEST artifact or test gold is included.",
+  "audit_changes_committed": false,
+  "origin_main_divergence": "origin/main...HEAD = 0 1",
+  "branch_tracking_ref": "origin/mem-b0-benchmark-routing-20260929",
+  "concurrent_commit_observed": {
+    "scope": "docs/research/memory and runs/memory only",
+    "created_by_this_u0_run": false,
+    "subject": "docs: audit MedMemoryBench transfer compatibility",
+    "sha": "5f666b241fefc0dbcd7524bd4ea6c85bbeaa6bb9"
+  }
+}

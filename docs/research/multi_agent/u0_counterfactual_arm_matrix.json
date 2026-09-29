@@ -1,0 +1,250 @@
+{
+  "schema_version": "u0-counterfactual-arm-matrix-v1",
+  "audit_run_id": "20260929T035527Z",
+  "capability_namespace": {
+    "MEMORY_READ": "读取 longitudinal personal/session state",
+    "EXTERNAL_RETRIEVAL": "查询独立外部医学知识 corpus",
+    "invariant": "Personal/Episodic Retrieval != External Knowledge Retrieval"
+  },
+  "status_enum": [
+    "NATIVE",
+    "ADAPTABLE",
+    "NOT_MEANINGFUL",
+    "NOT_AVAILABLE"
+  ],
+  "arm_order": [
+    "NONE",
+    "MEMORY",
+    "RAG",
+    "TEAM",
+    "MEMORY+RAG",
+    "MEMORY+TEAM",
+    "RAG+TEAM",
+    "MEMORY+RAG+TEAM"
+  ],
+  "note": "RAG 仅指 EXTERNAL_RETRIEVAL。MedMemoryBench BM25/Embedding baseline 检索 persona session history，属于 MEMORY_READ。",
+  "benchmarks": [
+    {
+      "benchmark_id": "ESL-Bench",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "有 query 和规定的 observable patient state，可做单体基线。"
+        },
+        "MEMORY": {
+          "status": "ADAPTABLE",
+          "reason": "需以受限 state read API 暴露 history；不能默认注入全历史。"
+        },
+        "RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "没有独立 external medical corpus。"
+        },
+        "TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "profile/event/device/exam 是真实来源分区，需公平 worker adapter。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "缺 external corpus。"
+        },
+        "MEMORY+TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "需 state adapter、worker contract 和 replay。"
+        },
+        "RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "缺 external corpus。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "缺 external corpus；timeline 不能冒充 RAG。"
+        }
+      }
+    },
+    {
+      "benchmark_id": "MedMemoryBench",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "Long-context baseline 可作无检索对照。"
+        },
+        "MEMORY": {
+          "status": "NATIVE",
+          "reason": "提供 stream sessions、query timing 和 memory baselines。"
+        },
+        "RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "官方 RAG baseline 检索病人 session history，按 HC 术语是 memory。"
+        },
+        "TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "需 custom Team harness；benchmark 没有 team tool contract。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无 external corpus；history index 不能充当两个 capability。"
+        },
+        "MEMORY+TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "相同 persona stream 和历史权限可回放。"
+        },
+        "RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无外部知识空间。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "需独立、许可冻结的外部证据空间。"
+        }
+      }
+    },
+    {
+      "benchmark_id": "MedAgentBoard",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "任务中有 single LLM/conventional baseline。"
+        },
+        "MEMORY": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "多数任务无跨 session personal history。"
+        },
+        "RAG": {
+          "status": "ADAPTABLE",
+          "reason": "限选任务并固定所有 arm 的外部 source/index。"
+        },
+        "TEAM": {
+          "status": "NATIVE",
+          "reason": "存在 native MAS methods，但资源总量不统一。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无共同 longitudinal memory 目标。"
+        },
+        "MEMORY+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无共同 longitudinal memory 目标。"
+        },
+        "RAG+TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "固定单任务、模型、prompt 和 source union。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "缺共同 memory 状态。"
+        }
+      }
+    },
+    {
+      "benchmark_id": "MedMASLab",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "有 direct/zero-shot 单体比较思路。"
+        },
+        "MEMORY": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无 longitudinal state。"
+        },
+        "RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无共同 external retrieval runtime。"
+        },
+        "TEAM": {
+          "status": "NATIVE",
+          "reason": "框架本身比较 MAS architecture，但多因素混杂。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无 memory，也无标准 external corpus。"
+        },
+        "MEMORY+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无 memory 任务。"
+        },
+        "RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无共同 evidence surface。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "前置能力均无。"
+        }
+      }
+    },
+    {
+      "benchmark_id": "AgentClinic",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "Doctor agent 可作为基线。"
+        },
+        "MEMORY": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "单 case 对话不是跨 session patient memory。"
+        },
+        "RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无外部知识语料。"
+        },
+        "TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "可替换 Doctor backend；environment actors 不计为 HC Team workers。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无 longitudinal history 和 external corpus。"
+        },
+        "MEMORY+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "无纵向记忆任务。"
+        },
+        "RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无 external evidence。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_MEANINGFUL",
+          "reason": "memory/RAG 前置条件不成立。"
+        }
+      }
+    },
+    {
+      "benchmark_id": "HealthAgentBench",
+      "arms": {
+        "NONE": {
+          "status": "NATIVE",
+          "reason": "Harbor 单体 agent task baseline。"
+        },
+        "MEMORY": {
+          "status": "ADAPTABLE",
+          "reason": "可加 bounded per-task state，但非 native cross-session patient memory。"
+        },
+        "RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "没有共同许可冻结的 external corpus。"
+        },
+        "TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "可加 workers，但须保持同工具 union、预算和 verifier。"
+        },
+        "MEMORY+RAG": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无统一 external corpus。"
+        },
+        "MEMORY+TEAM": {
+          "status": "ADAPTABLE",
+          "reason": "自建 state/worker adapter 且避开 tests/gold。"
+        },
+        "RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "无已批准 external corpus。"
+        },
+        "MEMORY+RAG+TEAM": {
+          "status": "NOT_AVAILABLE",
+          "reason": "缺共同外部 corpus，纵向状态也不是 native。"
+        }
+      }
+    }
+  ]
+}

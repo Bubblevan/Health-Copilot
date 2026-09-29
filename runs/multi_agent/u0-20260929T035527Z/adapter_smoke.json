@@ -1,0 +1,61 @@
+{
+  "smoke_id": "agentclinic-jsonl-schema-only-20260929",
+  "status": "PASS_SCHEMA_PARSE_ONLY",
+  "source": {
+    "repository": "https://github.com/SamuelSchmidgall/AgentClinic",
+    "local_path": "D:/MyLab/Jianli/external/AgentClinic/agentclinic_medqa.jsonl",
+    "repository_commit": "b6570edefb940857a7c334350656b29f9d984f24",
+    "row_index": 0,
+    "split": "SPLIT_POLICY_UNRESOLVED"
+  },
+  "operation": {
+    "jsonl_rows_parsed": 1,
+    "raw_row_saved": false,
+    "query_text_saved": false,
+    "gold_value_saved": false,
+    "raw_row_hash_saved": false,
+    "llm_called": false,
+    "evaluator_called": false,
+    "benchmark_execution": false,
+    "episode_contract_mapping_checked": true,
+    "integration_episode_constructed_in_memory": true,
+    "required_contract_fields_valid": true,
+    "evaluator_metadata_constructed": true
+  },
+  "observed_schema": {
+    "top_level_keys": [
+      "OSCE_Examination"
+    ],
+    "nested_keys": {
+      "OSCE_Examination": [
+        "Objective_for_Doctor",
+        "Patient_Actor",
+        "Physical_Examination_Findings",
+        "Test_Results",
+        "Correct_Diagnosis"
+      ]
+    }
+  },
+  "canonical_mapping": {
+    "episode_id": "source revision + row ordinal pseudonymous reference",
+    "benchmark_source": "AgentClinic",
+    "split": "SPLIT_POLICY_UNRESOLVED",
+    "subject_id": null,
+    "query": "Objective_for_Doctor string mapped in memory, never emitted",
+    "observable_state_ref": "case payload reference only",
+    "longitudinal_history_ref": null,
+    "external_evidence_space_ref": null,
+    "tool_surface_ref": "AgentClinic simulation",
+    "answerability": "UNASSESSED",
+    "evaluator_id": "not invoked; Moderator remains evaluator-only",
+    "cost_profile_id": "not measured",
+    "metadata": [
+      "row ordinal",
+      "schema keys",
+      "source revision"
+    ]
+  },
+  "limitations": [
+    "Only JSON/schema parse; not benchmark reproduction, split assignment, license clearance or evaluation."
+  ]
+}
