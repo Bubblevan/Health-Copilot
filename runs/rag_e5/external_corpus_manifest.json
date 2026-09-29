@@ -1,0 +1,95 @@
+{
+  "schema_version": "rag-e5-external-corpus-manifest-v1",
+  "generated_at": "2026-09-29T10:28:08Z",
+  "status": "ACTIVE_FROZEN",
+  "public_health_source_count": 30,
+  "public_health_chunk_count": 30,
+  "public_health_corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
+  "guideline_candidate_source_count": 3,
+  "guideline_approved_source_count": 3,
+  "guideline_active_source_count": 3,
+  "guideline_active_chunk_count": 26,
+  "guideline_candidate_chunk_count": 26,
+  "candidate_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "candidate_combined_corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
+  "qualification_report_path": "D:/MyLab/Jianli/external/rag_e5/e5a3/corpus_build_report.json",
+  "corpus_build_report_sha256": "af3e0c0b206b781d528be865ba080fe5a2167a6d2650fe6a3d8bdb41eec2cda6",
+  "index_qualification_report_path": "D:/MyLab/Jianli/external/rag_e5/e5a3/index_qualification_report.json",
+  "candidate_raw_source_set_sha256": "01136e09675780a3e658d1fb5abd4a231740aead6571334b8644ae8bdc7c1023",
+  "combined_active_corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
+  "chunker_config_sha256": "e383e8ec908478830c035474af52172ea934f3201f921b0a9fa3cd540ef2cbb1",
+  "extractor_version": "WHO recommendation-section extractor; Poppler pdftotext 23.13.0 (candidate artifacts, external storage)",
+  "source_manifest_sha256": "5cb97843c0ff1fb5450b00c608e2d3d156473cad43b6f0e8ecce4fc2c4c970a0",
+  "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+  "public_health_card_identity_note": "The existing 30 reviewed public-health cards are referenced in place; no copies or source-family reclassification were made.",
+  "guideline_candidates": [
+    {
+      "source_id": "who-hypertension-pharmacological-2021",
+      "source_family": "reviewed_guideline",
+      "review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "raw_sha256": "57f6376d5c9bc4ea6c44873625547c8a5443d5a6ad8c8c422733681563db05fb",
+      "raw_bytes": 843539,
+      "extracted_text_sha256": "4b4beafa42fa580a372e3493da3fe84d8b69e3a91a7e7a05ee6e800f39466894",
+      "domain_bindings": [
+        "hypertension",
+        "cardiovascular"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "hypertension": 20,
+        "cardiovascular": 20
+      },
+      "recommendation_section_count": 8,
+      "chunked_recommendation_section_count": 8,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET",
+      "task_authoring_eligible": false,
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7"
+    },
+    {
+      "source_id": "who-physical-activity-sedentary-2020",
+      "source_family": "reviewed_guideline",
+      "review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "raw_sha256": "50b66c44e7083cc3752849f301ae1d60d9360d511e34c0c948b39bdf6e13dc88",
+      "raw_bytes": 4041257,
+      "extracted_text_sha256": "c0d8a859942b01d9e8d1eaa151915aa873bd7e877cf4b3550c3ffca8f1d806a6",
+      "domain_bindings": [
+        "physical_activity"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "physical_activity": 20
+      },
+      "recommendation_section_count": 12,
+      "chunked_recommendation_section_count": 12,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET; 14 population-specific blocks preserve 12 sections",
+      "task_authoring_eligible": true,
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7"
+    },
+    {
+      "source_id": "who-total-fat-weight-gain-2023",
+      "source_family": "reviewed_guideline",
+      "review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "raw_sha256": "a9f12218be0b1720c9be4f0dee79c2dbdcbd13fb44cd3e0d751bf04b5fa63381",
+      "raw_bytes": 741784,
+      "extracted_text_sha256": "88ae89619a950e16d46e52ae0f0476fb04292ed89df02b2b42b58a5e2c04dda8",
+      "domain_bindings": [
+        "nutrition",
+        "weight_metabolic"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "nutrition": 20,
+        "weight_metabolic": 20
+      },
+      "recommendation_section_count": 2,
+      "chunked_recommendation_section_count": 2,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET",
+      "task_authoring_eligible": true,
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7"
+    }
+  ],
+  "promotion_blocker": null,
+  "active_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "activation_record_path": "runs/rag_e5/e5a_final_activation_report.json",
+  "activated_at": "2026-09-29T11:22:23.134210Z"
+}

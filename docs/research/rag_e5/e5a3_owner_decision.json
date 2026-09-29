@@ -1,0 +1,43 @@
+{
+  "schema_version": "rag-e5-owner-decision-v1",
+  "decided_at": "2026-09-29T09:46:19Z",
+  "owner": "project_owner",
+  "decision_basis": "Explicit owner decision: approve the three candidates with the scope limits in the Luna review and E5-A3 TRD.",
+  "sources": [
+    {
+      "source_id": "who-physical-activity-sedentary-2020",
+      "decision": "APPROVE",
+      "scope_limits": [
+        "public-health recommendation only",
+        "do not equate daily steps with MVPA minutes",
+        "no exercise clearance",
+        "no individualized exercise prescription",
+        "preserve population subgroup constraints"
+      ],
+      "task_authoring_eligible": true
+    },
+    {
+      "source_id": "who-total-fat-weight-gain-2023",
+      "decision": "APPROVE",
+      "scope_limits": [
+        "prevention of unhealthy weight gain only",
+        "do not infer actual dietary fat intake from weight or BMI",
+        "do not use as an obesity-management guideline",
+        "no individualized therapeutic diet prescription"
+      ],
+      "task_authoring_eligible": true
+    },
+    {
+      "source_id": "who-hypertension-pharmacological-2021",
+      "decision": "APPROVE",
+      "scope_limits": [
+        "retrieval corpus use permitted",
+        "may act as realistic external evidence or distractor",
+        "do not author E5-v1 gold tasks requiring medication initiation, target selection, or drug-class choice",
+        "blood-pressure measurements alone do not establish diagnosed hypertension",
+        "no personalized treatment recommendation"
+      ],
+      "task_authoring_eligible": false
+    }
+  ]
+}

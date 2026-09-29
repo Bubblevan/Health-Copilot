@@ -1,0 +1,193 @@
+{
+  "schema_version": "rag-e5-e5a-final-activation-v1",
+  "generated_at": "2026-09-29T11:22:23.137211Z",
+  "base_commit": "40c3fddf7994f8ec6401303b97a603b9e479ba45",
+  "qualification_semantics": "rag-e5-index-qualification-v2",
+  "owner_decision_provenance": "VERIFIED",
+  "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+  "owner_review_complete": "YES",
+  "recommendation_retention": "PASS_22_OF_22",
+  "profile_temporal_contract": "PASS",
+  "temporal_leakage_audit": "PASS_SYNTHETIC_PRE_CUTOFF_INVARIANCE_TESTS",
+  "feature_leakage_audit": "PASS_NO_METADATA_OR_PROFILE_PROSE_SHORTCUT",
+  "corpus_integrity": "PASS",
+  "bm25_index_integrity": "PASS",
+  "dense_index_integrity": "PASS",
+  "bm25_retrieval_diagnostic": "10_OF_10_ALL_VIEWS",
+  "dense_retrieval_diagnostic": {
+    "PUBLIC_HEALTH_ONLY": {
+      "bm25": {
+        "query_count": 10,
+        "hits_at_10": 10,
+        "misses": [],
+        "target_rank_distribution": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "source_smoke_sha256": "c3ae3f5057e99561fe4e5f14c2c3c46edfb13441413c4cbd1ce6f865619fd349"
+      },
+      "dense": {
+        "query_count": 10,
+        "hits_at_10": 8,
+        "misses": [
+          {
+            "query_id": "public-health-08",
+            "expected_source_id": "cdc-high-blood-pressure-measuring-01-home",
+            "target_rank": 18
+          },
+          {
+            "query_id": "public-health-10",
+            "expected_source_id": "cdc-high-blood-pressure-measuring-03-before-reading",
+            "target_rank": 15
+          }
+        ],
+        "target_rank_distribution": [
+          1,
+          1,
+          5,
+          2,
+          1,
+          1,
+          1,
+          18,
+          1,
+          15
+        ],
+        "source_smoke_sha256": "c3ae3f5057e99561fe4e5f14c2c3c46edfb13441413c4cbd1ce6f865619fd349"
+      }
+    },
+    "GUIDELINE_ONLY": {
+      "bm25": {
+        "query_count": 10,
+        "hits_at_10": 10,
+        "misses": [],
+        "target_rank_distribution": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "source_smoke_sha256": "9567fc5ec67e2a85f5f6bf8b467a06fba595c3ce3729eb259632488372abbf77"
+      },
+      "dense": {
+        "query_count": 10,
+        "hits_at_10": 10,
+        "misses": [],
+        "target_rank_distribution": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "source_smoke_sha256": "9567fc5ec67e2a85f5f6bf8b467a06fba595c3ce3729eb259632488372abbf77"
+      }
+    },
+    "PUBLIC_HEALTH_PLUS_GUIDELINE": {
+      "bm25": {
+        "query_count": 10,
+        "hits_at_10": 10,
+        "misses": [],
+        "target_rank_distribution": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "source_smoke_sha256": "949003be57ec61a6067f72fad4d67f4a645057bc5089cc5a266fe989d248a66b"
+      },
+      "dense": {
+        "query_count": 10,
+        "hits_at_10": 10,
+        "misses": [],
+        "target_rank_distribution": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          2,
+          1
+        ],
+        "source_smoke_sha256": "949003be57ec61a6067f72fad4d67f4a645057bc5089cc5a266fe989d248a66b"
+      }
+    }
+  },
+  "BGE_PUBLIC_HEALTH_TITLE_DIAGNOSTIC": "8/10",
+  "BGE_PUBLIC_HEALTH_MISSES": [
+    {
+      "query_id": "public-health-08",
+      "target_rank": 18
+    },
+    {
+      "query_id": "public-health-10",
+      "target_rank": 15
+    }
+  ],
+  "AFFECTS_INDEX_INTEGRITY": "NO",
+  "KNOWN_TRANSFER_LIMITATION": "YES",
+  "SMOKE_FAILURE_CLASSIFICATION": "DENSE_RETRIEVAL_DIAGNOSTIC_MISS",
+  "LIKELY_CONTRIBUTING_FACTOR": "FROZEN_ENGLISH_MODEL_ON_CHINESE_PUBLIC_HEALTH_TEXT",
+  "LIKELY_CONTRIBUTING_FACTOR_CONFIDENCE": "PLAUSIBLE_NOT_CAUSALLY_PROVEN",
+  "CORPUS_CONTENT_CHANGED": "NO",
+  "INDEX_CONTENT_CHANGED": "NO",
+  "ACTIVE_EXTERNAL_CORPUS_IDENTITY": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "STANDARD_METHOD_CONFIG_UNCHANGED": "YES",
+  "STRONG_METHOD_CONFIG_UNCHANGED": "YES",
+  "STANDARD_CORPUS_BOUND": "YES",
+  "STRONG_CORPUS_BOUND": "YES",
+  "STANDARD_PROFILE_CONFIG_SHA256": "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330",
+  "STRONG_PROFILE_CONFIG_SHA256": "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b",
+  "RAG_CLOSEOUT_UNCHANGED": "YES",
+  "RAG_CLOSEOUT_SHA256": "1a127b15ac5954e188b5b4dfd0d719799f0987cd5d45ce7c5c0c1c0f0b3dab2d",
+  "MIRAGE_CLOSEOUT_UNCHANGED": "YES",
+  "MIRAGE_CLOSEOUT_SHA256": "006e11b6e04baf7a9bcceffa0030590e98557165a59446f90cb9f36d991cf399",
+  "MIRAGE_REPORT_SHA256": "c660fe7b696123cb59784a56ac2a55305bb4661823549659b4c1a4404032217c",
+  "R2MED_LOCK_UNCHANGED": "YES",
+  "R2MED_FINAL_TEST_LOCK_SHA256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+  "R2MED_SOURCE_MANIFEST_SHA256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+  "STRUCTURAL_INTEGRITY_REPORT_SHA256": "0cb6605201732dd5dadf1ff9bcf8c7f5ff7e13f40281cf9342aef7ed7b49feae",
+  "LANGUAGE_INVENTORY_SHA256": "39325287336f86231ac8250e39ca73ac17aa8b65f1a808c3132a7ab63a6e571a",
+  "RETRIEVAL_DIAGNOSTIC_SHA256": "cb119fa401bbdba41d1109dcee3ab0377ea382b581aa2ced12e439c5b8140b6f",
+  "PROTOCOL_SHA256": "49d6edcba8ffc3e4d598b0b0e4f983cbd5f5a060621494c755ad9d88a1502b65",
+  "PROTOCOL_PREVIOUS_SHA256": "3a4e4f3c934f704bef900fdf6b7ae354ff1a4e409b0eb4cff1b679dcfb91d0ad",
+  "PROTOCOL_ERRATUM_SHA256": "47a3638e7520ed1932018dcc444041eae354aec9f32746455454d45b08489d4b",
+  "SMOKE_USED_AS_INDEX_GATE": "NO",
+  "DENSE_VECTOR_COUNT": 112,
+  "DENSE_FINITE_COUNT": 112,
+  "DENSE_NORMALIZED_COUNT": 112,
+  "DENSE_ZERO_VECTOR_COUNT": 0,
+  "FOCUSED_TESTS": "55 passed",
+  "FULL_TESTS": "660 passed, 1 skipped, 1 third-party deprecation warning",
+  "RUFF": "PASS",
+  "E5A_READY": "YES",
+  "E5B_STARTED": "NO"
+}

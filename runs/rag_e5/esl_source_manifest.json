@@ -1,0 +1,350 @@
+{
+  "schema_version": "rag-e5-esl-source-manifest-v1",
+  "dataset_repo": "healthmemoryarena/ESL-Bench",
+  "local_source_root": "D:/MyLab/Jianli/external/datasets/ESL-Bench",
+  "upstream_git_commit": null,
+  "source_identity_basis": "manifest_and_state_file_hashes",
+  "manifest_version": 16,
+  "manifest_updated_at": "2026-09-07T08:34:58Z",
+  "manifest_sha256": "d181b25117955cb3bae240a3e7a440d019b7e76fc3f67252a540549c4097cce9",
+  "state_files_included": [
+    "profile.json",
+    "timeline.json",
+    "exam_data.json"
+  ],
+  "question_or_answer_files_opened": false,
+  "batches": {
+    "202607": {
+      "role": "development",
+      "published_batch_checksum": "sha256:6f4ce4faf6dee27a723feceeb9f9cb4a91beb7995ce6304c322b338e95582bd5",
+      "evaluation_dataset_id": "sample280-20260730",
+      "user_count": 20,
+      "users": [
+        "user5200_AT_demo",
+        "user5201_AT_demo",
+        "user5202_AT_demo",
+        "user5203_AT_demo",
+        "user5204_AT_demo",
+        "user5205_AT_demo",
+        "user5206_AT_demo",
+        "user5207_AT_demo",
+        "user5208_AT_demo",
+        "user5209_AT_demo",
+        "user5210_AT_demo",
+        "user5211_AT_demo",
+        "user5212_AT_demo",
+        "user5213_AT_demo",
+        "user5214_AT_demo",
+        "user5215_AT_demo",
+        "user5216_AT_demo",
+        "user5217_AT_demo",
+        "user5218_AT_demo",
+        "user5219_AT_demo"
+      ],
+      "state_file_count": 60,
+      "state_files_index_sha256": "faa1f93cd9216fa218d33e41c6e8b2bddbe26ec1303027d3cc7d453ce8669137",
+      "schemas": {
+        "profile.json:metadata": [
+          {
+            "fields": [
+              "generated_at",
+              "generation_params",
+              "generation_type",
+              "language",
+              "profile_id",
+              "use_case"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:demographics": [
+          {
+            "fields": [
+              "age",
+              "education_level",
+              "gender",
+              "location_type",
+              "marital_status",
+              "occupation"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:personality": [
+          {
+            "fields": [
+              "$string"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:health_profile": [
+          {
+            "fields": [
+              "allergies_and_intolerances",
+              "chronic_conditions",
+              "family_history",
+              "lifestyle",
+              "mental_health",
+              "past_medical_history",
+              "patient_narrative",
+              "physical_measurements",
+              "summary"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:root": [
+          {
+            "fields": [
+              "demographics",
+              "health_profile",
+              "metadata",
+              "personality"
+            ],
+            "file_count": 20
+          }
+        ],
+        "timeline.json:root": [
+          {
+            "fields": [
+              "entries",
+              "entry_count",
+              "generated_at",
+              "user_id"
+            ],
+            "file_count": 20
+          }
+        ],
+        "timeline.json:record": [
+          {
+            "fields": [
+              "device_type",
+              "entry_type",
+              "indicator",
+              "time",
+              "unit",
+              "value"
+            ],
+            "file_count": 1472775
+          },
+          {
+            "fields": [
+              "end_time",
+              "entry_type",
+              "event",
+              "time"
+            ],
+            "file_count": 2007
+          },
+          {
+            "fields": [
+              "entry_type",
+              "event",
+              "time"
+            ],
+            "file_count": 2011
+          },
+          {
+            "fields": [
+              "entry_type",
+              "exam_location",
+              "exam_type",
+              "indicator",
+              "time",
+              "unit",
+              "value"
+            ],
+            "file_count": 21174
+          }
+        ],
+        "exam_data.json:root": [
+          {
+            "fields": [
+              "array",
+              "length:6"
+            ],
+            "file_count": 20
+          }
+        ],
+        "exam_data.json:record": [
+          {
+            "fields": [
+              "abnormal_findings",
+              "exam_date",
+              "exam_location",
+              "exam_type",
+              "generation_summary",
+              "indicators",
+              "overall_assessment",
+              "recommendations",
+              "weekday"
+            ],
+            "file_count": 120
+          }
+        ]
+      }
+    },
+    "202608": {
+      "role": "future_holdout",
+      "published_batch_checksum": "sha256:7745391e881d5ee1d4e006f2220aecb8cea1512edad5782d535c23bb2017a548",
+      "evaluation_dataset_id": "sample320-20260830",
+      "user_count": 20,
+      "users": [
+        "user5300_AT_demo",
+        "user5301_AT_demo",
+        "user5302_AT_demo",
+        "user5303_AT_demo",
+        "user5304_AT_demo",
+        "user5305_AT_demo",
+        "user5306_AT_demo",
+        "user5307_AT_demo",
+        "user5308_AT_demo",
+        "user5309_AT_demo",
+        "user5310_AT_demo",
+        "user5311_AT_demo",
+        "user5312_AT_demo",
+        "user5313_AT_demo",
+        "user5314_AT_demo",
+        "user5315_AT_demo",
+        "user5316_AT_demo",
+        "user5317_AT_demo",
+        "user5318_AT_demo",
+        "user5319_AT_demo"
+      ],
+      "state_file_count": 60,
+      "state_files_index_sha256": "728ac1a16365644aee7a7a1f07e8acb7179ac3fbe470dbf2ad36a162ceda7ccf",
+      "schemas": {
+        "profile.json:metadata": [
+          {
+            "fields": [
+              "language",
+              "profile_id"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:demographics": [
+          {
+            "fields": [
+              "age",
+              "education_level",
+              "gender",
+              "location_type",
+              "marital_status",
+              "occupation"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:personality": [
+          {
+            "fields": [
+              "$string"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:health_profile": [
+          {
+            "fields": [
+              "allergies_and_intolerances",
+              "chronic_conditions",
+              "family_history",
+              "lifestyle",
+              "mental_health",
+              "past_medical_history",
+              "patient_narrative",
+              "physical_measurements",
+              "summary"
+            ],
+            "file_count": 20
+          }
+        ],
+        "profile.json:root": [
+          {
+            "fields": [
+              "demographics",
+              "health_profile",
+              "metadata",
+              "personality"
+            ],
+            "file_count": 20
+          }
+        ],
+        "timeline.json:root": [
+          {
+            "fields": [
+              "entries",
+              "entry_count",
+              "generated_at",
+              "user_id"
+            ],
+            "file_count": 20
+          }
+        ],
+        "timeline.json:record": [
+          {
+            "fields": [
+              "device_type",
+              "entry_type",
+              "indicator",
+              "time",
+              "unit",
+              "value"
+            ],
+            "file_count": 1433667
+          },
+          {
+            "fields": [
+              "entry_type",
+              "event",
+              "time"
+            ],
+            "file_count": 3989
+          },
+          {
+            "fields": [
+              "entry_type",
+              "exam_location",
+              "exam_type",
+              "indicator",
+              "time",
+              "unit",
+              "value"
+            ],
+            "file_count": 23220
+          }
+        ],
+        "exam_data.json:root": [
+          {
+            "fields": [
+              "array",
+              "length:6"
+            ],
+            "file_count": 20
+          }
+        ],
+        "exam_data.json:record": [
+          {
+            "fields": [
+              "exam_date",
+              "exam_location",
+              "exam_type",
+              "indicators",
+              "recommendations",
+              "weekday"
+            ],
+            "file_count": 120
+          }
+        ]
+      }
+    }
+  },
+  "split": {
+    "development_batch": "202607",
+    "future_holdout_batch": "202608",
+    "user_overlap": [],
+    "user_level_split": true
+  }
+}

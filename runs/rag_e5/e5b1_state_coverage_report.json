@@ -1,0 +1,34 @@
+{
+  "202608_opened": false,
+  "age_safe_count": 0,
+  "age_temporal_contract_sha256": "b6d916a63990b0e23ce5f9ad616e6e6ba0f1d6638fe99738b5edce873cfefd5b",
+  "batch_id": "202607",
+  "boundary_rule": "latest_unique_observed_timeline_timestamp_no_rescue",
+  "chosen_metric_counts": {
+    "body_weight": 20
+  },
+  "coverage_gate": "PASS",
+  "esl_source_manifest_sha256": "ea3fb4e2badedefafcb2be5a0a1d2240518be20f8e3b9112bcf829f9d08a4969",
+  "kg_evaluation_queries_opened": false,
+  "native_esl_answers_opened": false,
+  "native_esl_questions_opened": false,
+  "patient_level_values_or_prose_included": false,
+  "profile_temporal_contract_sha256": "6a5bf04301cc71f09f723b35473022576d218e53c4bce0001f9a1589e987e1b3",
+  "raw_source_files_read_per_user": [
+    "profile.json",
+    "timeline.json",
+    "exam_data.json"
+  ],
+  "schema_version": "rag-e5-e5b1-state-coverage-v1",
+  "state_packet_builder_version": "e5-longitudinal-state-v4",
+  "state_packet_config_sha256": "f61959fa1c29dfbc7c40902813c52ac5ce6a820d2c10ced1990c01e0f24a3a64",
+  "state_packet_set_sha256": "860f5da64a6b94790944a5bd2d50aa4977a098bc51d1b6f822321bf4fbbd1d1c",
+  "temporal_semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+  "temporal_semantics_sha256": "e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13",
+  "unknown_age_count": 20,
+  "users_failed": 0,
+  "users_total": 20,
+  "users_with_bmi_fallback": 0,
+  "users_with_neither": 0,
+  "users_with_weight_trend": 20
+}

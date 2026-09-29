@@ -1,0 +1,271 @@
+{
+  "schema_version": "rag-e5-external-language-inventory-v1",
+  "method": "deterministic Unicode script-character heuristic; no model or translation",
+  "source_count": 33,
+  "sources": [
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-about-01-us-threshold",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 68,
+      "latin_letter_count": 13
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-about-02-symptoms",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 47,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-about-03-organ-risks",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 54,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-managing-01-monitoring",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 51,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-managing-02-care-plan",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 48,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-managing-03-medicine-safety",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 74,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-managing-04-otc",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 46,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-measuring-01-home",
+      "detected_script_class": "Mixed",
+      "document_language": "Mixed",
+      "cjk_character_count": 55,
+      "latin_letter_count": 42
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-measuring-02-repeat",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 51,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-measuring-03-before-reading",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 42,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-measuring-04-position",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 69,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-measuring-05-white-coat",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 58,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-prevention-01-diet",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 53,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-prevention-02-dash",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 59,
+      "latin_letter_count": 7
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-prevention-03-activity",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 61,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-prevention-04-sleep",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 53,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-risk-01-sodium",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 72,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-risk-02-inactivity",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 54,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-risk-03-alcohol",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 57,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-risk-04-tobacco",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 42,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "cdc-high-blood-pressure-risk-05-overweight",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 55,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "nhc-hypertension-day-01-salt",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 82,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "nhc-hypertension-day-02-weight",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 62,
+      "latin_letter_count": 0
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "nhc-hypertension-day-03-home-monitoring",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 93,
+      "latin_letter_count": 0
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "nhc-hypertension-day-04-adult-screening",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 63,
+      "latin_letter_count": 0
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "who-hypertension-01-definition",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 71,
+      "latin_letter_count": 22
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "who-hypertension-02-confirmation",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 69,
+      "latin_letter_count": 11
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "who-hypertension-03-silent",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 51,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "who-hypertension-04-risk-factors",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 56,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "public_health",
+      "source_id": "who-hypertension-05-lifestyle",
+      "detected_script_class": "CJK-dominant",
+      "document_language": "CJK-dominant",
+      "cjk_character_count": 69,
+      "latin_letter_count": 3
+    },
+    {
+      "source_family": "reviewed_guideline",
+      "source_id": "who-hypertension-pharmacological-2021",
+      "detected_script_class": "Latin-dominant",
+      "document_language": "Latin-dominant",
+      "cjk_character_count": 0,
+      "latin_letter_count": 6137
+    },
+    {
+      "source_family": "reviewed_guideline",
+      "source_id": "who-physical-activity-sedentary-2020",
+      "detected_script_class": "Latin-dominant",
+      "document_language": "Latin-dominant",
+      "cjk_character_count": 0,
+      "latin_letter_count": 6737
+    },
+    {
+      "source_family": "reviewed_guideline",
+      "source_id": "who-total-fat-weight-gain-2023",
+      "detected_script_class": "Latin-dominant",
+      "document_language": "Latin-dominant",
+      "cjk_character_count": 0,
+      "latin_letter_count": 4571
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schema_version": "rag-e5-retrieval-action-profiles-v1",
+  "external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "profiles": [
+    {
+      "action": "OFF",
+      "retriever_profile_id": null,
+      "source_families": [],
+      "max_external_calls": 0,
+      "requires_generator": false,
+      "cost_class": "none",
+      "frozen_config": {
+        "kind": "no_external_retrieval",
+        "version": 1
+      },
+      "config_sha256": "5d93d2b4dd6d93d37be031d77c40d24851e2eb69584ba56b75e78a540489605c",
+      "provenance_lock_sha256": null
+    },
+    {
+      "action": "STANDARD",
+      "retriever_profile_id": "r2med-bm25-bge-rrf-v1",
+      "source_families": [
+        "public_health",
+        "reviewed_guideline"
+      ],
+      "max_external_calls": 1,
+      "requires_generator": false,
+      "cost_class": "standard_hybrid",
+      "frozen_config": {
+        "bm25": {
+          "analyzer": "Lucene",
+          "b": 0.4,
+          "k1": 0.9,
+          "top_k": 100
+        },
+        "dense": {
+          "model": "BAAI/bge-large-en-v1.5",
+          "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+          "top_k": 100,
+          "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+        },
+        "kind": "two_source_rrf",
+        "provenance": {
+          "final_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+          "source_manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+          "upstream_commit": "11244a4925a39082967a6c9d38ef01f279c316a5"
+        },
+        "rrf": {
+          "k": 60,
+          "output_depth": 100,
+          "weights": [
+            1,
+            1
+          ]
+        }
+      },
+      "config_sha256": "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330",
+      "provenance_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d"
+    },
+    {
+      "action": "STRONG",
+      "retriever_profile_id": "r2med-lamer-mv-v1",
+      "source_families": [
+        "public_health",
+        "reviewed_guideline"
+      ],
+      "max_external_calls": 1,
+      "requires_generator": true,
+      "cost_class": "generative_retrieval",
+      "frozen_config": {
+        "bm25": {
+          "analyzer": "Lucene",
+          "b": 0.4,
+          "k1": 0.9,
+          "top_k": 100
+        },
+        "dense": {
+          "model": "BAAI/bge-large-en-v1.5",
+          "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+          "top_k": 100,
+          "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+        },
+        "feedback_depth": 10,
+        "generator": {
+          "calls_per_query": 1,
+          "file": "Qwen3-8B-Q4_K_M.gguf",
+          "max_output_tokens": 256,
+          "model": "Qwen/Qwen3-8B-GGUF",
+          "reasoning": "disabled",
+          "retry_on_error": false,
+          "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+          "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+          "temperature": 0.0
+        },
+        "kind": "four_view_gar_rrf",
+        "method": "LameR-MV",
+        "prompt_binding": {
+          "family": "MedQA-Diag",
+          "mapping": "E5 integration questions use the pinned generic medical-exam LameR template without prompt edits.",
+          "template_sha256": "317a15290b029422df211a96550f2f689d98fff61618a1e1847c7f54f8443122"
+        },
+        "provenance": {
+          "final_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d",
+          "generation_code_sha256": "cc207039a7b5a6937740eac055a48445c1a7d520daed6efe0ba8be63d5687f1a",
+          "prompt_code_sha256": "8e767d77f22330beb4417b6baebc29be5e7ca59f386e5106162bea56882902a7",
+          "source_manifest_sha256": "b70c4f01b37f58c77597f1e28cc35a52585785142f3f625f928173c81be3874e",
+          "upstream_commit": "11244a4925a39082967a6c9d38ef01f279c316a5"
+        },
+        "rrf": {
+          "config_id": "k20-W2",
+          "k": 20,
+          "output_depth": 100,
+          "weights": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        "views": [
+          "BM25(original_query)",
+          "BM25(generated_bridge)",
+          "BGE-large(original_query)",
+          "BGE-large(generated_bridge)"
+        ]
+      },
+      "config_sha256": "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b",
+      "provenance_lock_sha256": "0b80fad6668c3a57833c55beb1db359c65440cf015effd10da770c630fb3e41d"
+    }
+  ]
+}

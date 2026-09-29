@@ -1,0 +1,35 @@
+{
+  "schema_version": "rag-e5-profile-temporal-contract-v2",
+  "temporal_semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+  "temporal_semantics_sha256": "e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13",
+  "age_temporal_contract_id": "AGE_TEMPORAL_CONTRACT_V1",
+  "age_temporal_contract_sha256": "b6d916a63990b0e23ce5f9ad616e6e6ba0f1d6638fe99738b5edce873cfefd5b",
+  "time_invariant_safe": [],
+  "decision_time_derived": {
+    "profile.demographics.date_of_birth": "completed_age_at_decision_boundary_then_bucket",
+    "profile.demographics.birth_date": "completed_age_at_decision_boundary_then_bucket",
+    "profile.demographics.birthday": "completed_age_at_decision_boundary_then_bucket"
+  },
+  "excluded_dynamic_fields": ["profile.demographics.age"],
+  "age_fallback": "unknown_if_safe_birth_date_missing_invalid_conflicting_or_future",
+  "baseline_safe_if_proven": [],
+  "temporally_unsafe": [
+    "health_profile.chronic_conditions",
+    "health_profile.past_medical_history",
+    "health_profile.summary",
+    "health_profile.patient_narrative",
+    "health_profile.mental_health",
+    "health_profile.family_history"
+  ],
+  "excluded_from_policy_features": [
+    "profile.metadata"
+  ],
+  "condition_categories_source": [
+    "timeline.entry_type",
+    "timeline.indicator",
+    "exam_data.exam_type",
+    "exam_data.indicators.keys"
+  ],
+  "condition_category_cutoff": "record_timestamp < same_user_source_relative_decision_timestamp",
+  "date_only_exam_on_decision_date": "exclude_conservatively"
+}

@@ -1,0 +1,28 @@
+{
+  "202608_profile_timeline_exam_questions_answers_opened": false,
+  "capability_context_identical": true,
+  "capability_context_sha256": "564c31689401e5f32172647ccc3cf18a73632032ed1c68dad3d8e15524e6c442",
+  "counterfactual_outcomes_created": false,
+  "kg_evaluation_queries_opened": false,
+  "leakage_gate": "PASS",
+  "model_calls": 0,
+  "native_esl_answers_opened": false,
+  "native_esl_questions_opened": false,
+  "question_audit": {
+    "forbidden_token_counts": {},
+    "question_count": 60,
+    "question_leakage_gate": "PASS"
+  },
+  "retrieval_calls": 0,
+  "runtime_case_schema": "PASS_EXACT_ALLOWLIST",
+  "runtime_teacher_separation": "PASS",
+  "schema_version": "rag-e5-e5b1-leakage-audit-v1",
+  "state_packet_refs": "NULL_FOR_T1_ONLY",
+  "synthetic_t2_dependency_test": {
+    "gate": "PASS",
+    "maximum_full_score": 1.0,
+    "maximum_without_required_evidence_and_citation": 0.5,
+    "maximum_without_required_state": 0.5,
+    "synthetic_cases": 20
+  }
+}

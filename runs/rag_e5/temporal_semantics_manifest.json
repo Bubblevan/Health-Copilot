@@ -1,0 +1,9 @@
+{
+  "semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+  "timezone_interpretation": "NONE",
+  "cross_user_ordering_allowed": false,
+  "cross_user_duration_allowed": false,
+  "same_user_ordering_allowed": true,
+  "date_only_same_day_visibility": "EXCLUDE",
+  "equal_timestamp_visibility": "EXCLUDE"
+}
