@@ -21,6 +21,10 @@ from tools.research.rag_e5.run_e5b2_counterfactual import (
     _verify_resume_call_budget,
     load_runtime_cases,
 )
+from tools.research.rag_e5.run_e5b2_recovery import (
+    _NullableBridgePayload,
+    normalize_arm_bridge,
+)
 
 
 def test_frozen_arm_order_is_60_cases_by_exact_action_order() -> None:
@@ -74,6 +78,15 @@ def test_arm_artifact_is_hash_checked_and_immutable(tmp_path: Path) -> None:
     assert verified["completion_sha256"] == digest
     with pytest.raises(FileExistsError, match="immutable"):
         write_complete_arm(artifact, payload)
+
+
+def test_nullable_bridge_compatibility_preserves_raw_arm_and_normalizes_verified_copy() -> None:
+    payload = _NullableBridgePayload({"case_id": "c", "bridge": None})
+    verified_copy = normalize_arm_bridge({"case_id": "c", "bridge": None})
+
+    assert payload.get("bridge", {}).get("fallback_original_query") is None
+    assert dict(payload)["bridge"] is None
+    assert verified_copy["bridge"] == {}
 
 
 def test_reader_parser_fails_closed_without_repair_or_retry() -> None:
