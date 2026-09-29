@@ -1,0 +1,22 @@
+{
+  "schema_version": "rag-e5-guideline-source-manifest-v1",
+  "source_family": "reviewed_guideline",
+  "eligibility": "NOT_YET_ELIGIBLE",
+  "reviewed_at": null,
+  "sources": [],
+  "required_source_fields": [
+    "source_id",
+    "source_family",
+    "publisher",
+    "title",
+    "jurisdiction",
+    "effective_date",
+    "publication_date",
+    "version",
+    "retrieved_at",
+    "document_hash",
+    "review_status",
+    "allowed_use"
+  ],
+  "admission_rule": "Official public source plus documented human review, version/date/jurisdiction metadata, frozen raw-document hash, and successful ingestion into the active E5 retriever."
+}
