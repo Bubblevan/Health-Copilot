@@ -9,7 +9,7 @@ from .realization import MaterializedCase
 from .schema import StructuredAnswerType
 
 VALUE_TOKEN = re.compile(r"SYNVAL-[0-9A-F]{10}")
-NUMBER_TOKEN = re.compile(r"(?<![\w.])-?\d+(?![\w.])")
+NUMBER_TOKEN = re.compile(r"(?<![\w.-])-?\d+(?![\w.])")
 
 
 @dataclass(frozen=True)

@@ -228,6 +228,27 @@ def test_u2f_numeric_surface_variant_preserves_tool_partition_contract():
         ).success for arm in arms)
 
 
+def test_u2f_numeric_answers_do_not_treat_synthetic_key_digits_as_values():
+    for seed in range(1_001, 20_001, 2):
+        world = build_world(
+            episode_id=f"NUM-KEY-{seed}", split_role="TRAIN", subject_id="SUBJ-NUMERIC",
+            persona_seed=41_005, scenario_seed=seed, scenario_family="CURRENT_ONLY",
+            template_family="TRAIN_NUMERIC", surface_variant_seed=1,
+            counterfactual_family_id=f"CF-NUM-KEY-{seed}", budget_class="NORMAL",
+            deadline_class="RELAXED", template_pool=("TRAIN_NUMERIC",),
+            diagnostic_mode="u2f",
+        )
+        world = _numeric_or_boolean_world(world)
+        if (dict(world.structural_metadata).get("numeric_operation")
+                and world.answer_type == StructuredAnswerType.NUMERIC):
+            world = replace(world, query=_balance_query_surface(world))
+            case = materialize(world)
+            answer = f"{case.evaluation.gold_answer} Source identifier SYNKEY-96771728."
+            assert evaluate_structured(case, answer, ()).success
+            return
+    raise AssertionError("numeric fixture seed not found in frozen search interval")
+
+
 def test_u2f_partial_policy_supervision_keeps_unresolved_dimensions_unlabeled():
     _, _, worlds, _ = _small_worlds()
     cases = tuple(materialize(world) for world in worlds)
