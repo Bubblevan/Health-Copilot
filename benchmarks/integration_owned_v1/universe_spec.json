@@ -1,0 +1,29 @@
+{
+  "schema_version": "u2e-owned-universe-spec-v1",
+  "universe_id": "health-copilot-owned-longitudinal-v1",
+  "generator_version": "u2e-generator-v1.0.1",
+  "global_seed": 20260929,
+  "creation_time": "2026-09-30T00:00:00Z",
+  "notice": "SYNTHETIC_RESEARCH_WORLD; NOT_CLINICAL_GUIDANCE",
+  "content_origin": "PROJECT_OWNED_SYNTHETIC",
+  "training_authorized": false,
+  "scenario_families": [
+    "CURRENT_ONLY", "MEMORY_LOOKUP", "MEMORY_REVISION", "MEMORY_TEMPORAL_COMPARE",
+    "MEMORY_MULTI_RECORD", "EXTERNAL_LOOKUP", "EXTERNAL_VERSIONED",
+    "EXTERNAL_MULTI_SOURCE", "MEMORY_EXTERNAL_JOIN", "MEMORY_EXTERNAL_CONFLICT",
+    "INSUFFICIENT_EVIDENCE", "DISTRACTOR_HEAVY", "TEMPORAL_BOUNDARY",
+    "COMPOSITIONAL_MULTI_FACT"
+  ],
+  "answer_types": ["EXACT_TOKEN", "EXACT_SET", "ORDERED_SEQUENCE", "NUMERIC", "BOOLEAN", "ABSTAIN"],
+  "runtime_observable_allowlist": [
+    "history_exists", "history_length_bucket", "history_time_span",
+    "available_personal_state_types", "available_external_source_families",
+    "available_tool_ids", "available_worker_capabilities", "budget_class",
+    "deadline_class", "query", "decision_time"
+  ],
+  "forbidden_generated_identifiers": [
+    "ESL-Bench", "MedMemoryBench", "MedAgentBoard", "MIMIC", "PubMedQA",
+    "R2MED", "MIRAGE", "NFCorpus", "WHO", "CDC"
+  ],
+  "lexical_shortcut_gate_accuracy_threshold": 0.95
+}

@@ -1,0 +1,672 @@
+{
+  "boundary_checks": [
+    {
+      "delta_seconds": -1,
+      "episode_id": "U2E-DEV_IID-0006",
+      "expected_visible": false,
+      "pass": true,
+      "target_visible": false
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-DEV_IID-0007",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 1,
+      "episode_id": "U2E-DEV_IID-0008",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-DEV_IID-0009",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": -1,
+      "episode_id": "U2E-DEV_STRUCTURAL-0006",
+      "expected_visible": false,
+      "pass": true,
+      "target_visible": false
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-DEV_STRUCTURAL-0007",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 1,
+      "episode_id": "U2E-DEV_STRUCTURAL-0008",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-DEV_STRUCTURAL-0009",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0042",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0043",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0070",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0071",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0098",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0099",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0126",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 864000,
+      "episode_id": "U2E-TRAIN-0127",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": -1,
+      "episode_id": "U2E-TRAIN-0006",
+      "expected_visible": false,
+      "pass": true,
+      "target_visible": false
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-TRAIN-0007",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 1,
+      "episode_id": "U2E-TRAIN-0008",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    },
+    {
+      "delta_seconds": 0,
+      "episode_id": "U2E-TRAIN-0009",
+      "expected_visible": true,
+      "pass": true,
+      "target_visible": true
+    }
+  ],
+  "checks_passed": 72,
+  "checks_total": 72,
+  "external_publication_checks": [
+    {
+      "episode_id": "U2E-DEV_IID-0030",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-08F0D9407D06"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-08F0D9407D06"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0031",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-08F0D9407D06"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-08F0D9407D06"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0014",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-6664BB224084"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-6664BB224084"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0015",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-6664BB224084"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-6664BB224084"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0016",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-9BBDA1245D9A"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-9BBDA1245D9A"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0017",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-9BBDA1245D9A"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-9BBDA1245D9A"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0030",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-F421827E3B22"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-F421827E3B22"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0031",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-F421827E3B22"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-F421827E3B22"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0014",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-413B572B11AA"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-413B572B11AA"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0015",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-413B572B11AA"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-413B572B11AA"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0016",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-2E9BE389116A"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-2E9BE389116A"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0017",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-2E9BE389116A"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-2E9BE389116A"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0030",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-B5DBFD90D4C1"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-B5DBFD90D4C1"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0031",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-B5DBFD90D4C1"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-B5DBFD90D4C1"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0058",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-BA251743E10D"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-BA251743E10D"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0059",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-BA251743E10D"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-BA251743E10D"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0086",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-C2C0D6FE1DF0"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-C2C0D6FE1DF0"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0087",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-C2C0D6FE1DF0"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-C2C0D6FE1DF0"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0114",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-1B2D47F194E0"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-1B2D47F194E0"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0115",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-1B2D47F194E0"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-1B2D47F194E0"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0142",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-E70E6D7353D3"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-E70E6D7353D3"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0143",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-E70E6D7353D3"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-E70E6D7353D3"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0014",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-FCB39901CB50"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-FCB39901CB50"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0015",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-FCB39901CB50"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-FCB39901CB50"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0016",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-0697287F02AA"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-0697287F02AA"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0017",
+      "pass": true,
+      "required_as_of_evidence_ids": [
+        "ER-0697287F02AA"
+      ],
+      "retrieved_as_of_ids": [
+        "ER-0697287F02AA"
+      ]
+    }
+  ],
+  "revision_checks": [
+    {
+      "episode_id": "U2E-DEV_IID-0022",
+      "memory_read_ids": [
+        "PR-CF5642088907"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-CF5642088907"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0023",
+      "memory_read_ids": [
+        "PR-CF5642088907"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-CF5642088907"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0010",
+      "memory_read_ids": [
+        "PR-652FAF475AE1"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-652FAF475AE1"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0011",
+      "memory_read_ids": [
+        "PR-652FAF475AE1"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-652FAF475AE1"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0012",
+      "memory_read_ids": [
+        "PR-F7093FC1DA15"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-F7093FC1DA15"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_IID-0013",
+      "memory_read_ids": [
+        "PR-F7093FC1DA15"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-F7093FC1DA15"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0022",
+      "memory_read_ids": [
+        "PR-076CEC8C737B"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-076CEC8C737B"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0023",
+      "memory_read_ids": [
+        "PR-076CEC8C737B"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-076CEC8C737B"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0010",
+      "memory_read_ids": [
+        "PR-0A7F1475FD12"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-0A7F1475FD12"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0011",
+      "memory_read_ids": [
+        "PR-0A7F1475FD12"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-0A7F1475FD12"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0012",
+      "memory_read_ids": [
+        "PR-90C6BDBB0C6B"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-90C6BDBB0C6B"
+      ]
+    },
+    {
+      "episode_id": "U2E-DEV_STRUCTURAL-0013",
+      "memory_read_ids": [
+        "PR-90C6BDBB0C6B"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-90C6BDBB0C6B"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0022",
+      "memory_read_ids": [
+        "PR-AE3EDB1E1961"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-AE3EDB1E1961"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0023",
+      "memory_read_ids": [
+        "PR-AE3EDB1E1961"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-AE3EDB1E1961"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0050",
+      "memory_read_ids": [
+        "PR-758980819ACC"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-758980819ACC"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0051",
+      "memory_read_ids": [
+        "PR-758980819ACC"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-758980819ACC"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0078",
+      "memory_read_ids": [
+        "PR-329BA5095EDB"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-329BA5095EDB"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0079",
+      "memory_read_ids": [
+        "PR-329BA5095EDB"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-329BA5095EDB"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0106",
+      "memory_read_ids": [
+        "PR-E43F412D1BCE"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-E43F412D1BCE"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0107",
+      "memory_read_ids": [
+        "PR-E43F412D1BCE"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-E43F412D1BCE"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0134",
+      "memory_read_ids": [
+        "PR-4540FEC5F40C"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-4540FEC5F40C"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0135",
+      "memory_read_ids": [
+        "PR-4540FEC5F40C"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-4540FEC5F40C"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0010",
+      "memory_read_ids": [
+        "PR-B4A501E76768"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-B4A501E76768"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0011",
+      "memory_read_ids": [
+        "PR-B4A501E76768"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-B4A501E76768"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0012",
+      "memory_read_ids": [
+        "PR-3AEB4E4322D8"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-3AEB4E4322D8"
+      ]
+    },
+    {
+      "episode_id": "U2E-TRAIN-0013",
+      "memory_read_ids": [
+        "PR-3AEB4E4322D8"
+      ],
+      "pass": true,
+      "required_current_revision_ids": [
+        "PR-3AEB4E4322D8"
+      ]
+    }
+  ],
+  "status": "PASS",
+  "timezone_aware_decisions": true
+}

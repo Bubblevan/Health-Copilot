@@ -1,0 +1,13 @@
+{
+  "schema_version": "u2e-reserved-test-plan-v1",
+  "materialized": false,
+  "training_authorized": false,
+  "pools": [
+    {"split_role": "IID_TEST", "persona_seed_range": [410000, 410999], "scenario_seed_range": [400000, 409999], "template_families": ["RESERVED_IID"], "scenario_families": ["CURRENT_ONLY", "MEMORY_LOOKUP", "EXTERNAL_LOOKUP"]},
+    {"split_role": "OOD_PATIENT", "persona_seed_range": [510000, 510999], "scenario_seed_range": [500000, 509999], "template_families": ["RESERVED_PATIENT"], "scenario_families": ["MEMORY_MULTI_RECORD", "MEMORY_REVISION"]},
+    {"split_role": "OOD_TASK", "persona_seed_range": [610000, 610999], "scenario_seed_range": [600000, 609999], "template_families": ["RESERVED_TASK"], "scenario_families": ["EXTERNAL_MULTI_SOURCE", "INSUFFICIENT_EVIDENCE"]},
+    {"split_role": "OOD_TEMPORAL", "persona_seed_range": [710000, 710999], "scenario_seed_range": [700000, 709999], "template_families": ["RESERVED_TEMPORAL"], "scenario_families": ["TEMPORAL_BOUNDARY", "EXTERNAL_VERSIONED"]},
+    {"split_role": "OOD_SOURCE", "persona_seed_range": [810000, 810999], "scenario_seed_range": [800000, 809999], "template_families": ["RESERVED_SOURCE"], "scenario_families": ["MEMORY_LOOKUP", "EXTERNAL_LOOKUP"]},
+    {"split_role": "OOD_COMPOSITION", "persona_seed_range": [910000, 910999], "scenario_seed_range": [900000, 909999], "template_families": ["RESERVED_COMPOSITION"], "scenario_families": ["MEMORY_EXTERNAL_JOIN", "COMPOSITIONAL_MULTI_FACT"]}
+  ]
+}

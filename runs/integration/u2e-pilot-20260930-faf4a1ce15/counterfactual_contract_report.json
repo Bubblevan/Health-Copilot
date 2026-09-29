@@ -1,0 +1,12 @@
+{
+  "architecture_labels_present": 0,
+  "architecture_supervision": "UNRESOLVED",
+  "contract_scope": "DETERMINISTIC_CONTRACT_SMOKE_ONLY; TEAM outcomes are not architecture evidence",
+  "counterfactual_arm_count": 1728,
+  "episode_count": 216,
+  "failed_expected_capability_arms": 0,
+  "latent_to_counterfactual_mismatches": 0,
+  "mismatch_examples": [],
+  "provider_calls": 0,
+  "status": "PASS"
+}

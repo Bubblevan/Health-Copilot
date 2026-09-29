@@ -1,0 +1,43 @@
+{
+  "schema_version": "u2e-dev-plan-v1",
+  "views": [
+    {
+      "schema_version": "u2e-generation-plan-v1",
+      "split_role": "DEV_IID",
+      "episode_count": 36,
+      "subject_count": 6,
+      "persona_seed_range": [210000, 210005],
+      "scenario_seed_range": [200000, 200017],
+      "template_families": ["COMMON_A", "COMMON_B"],
+      "scenario_families": [
+        "CURRENT_ONLY", "MEMORY_LOOKUP", "MEMORY_REVISION", "MEMORY_TEMPORAL_COMPARE",
+        "MEMORY_MULTI_RECORD", "EXTERNAL_LOOKUP", "EXTERNAL_VERSIONED",
+        "EXTERNAL_MULTI_SOURCE", "MEMORY_EXTERNAL_JOIN", "MEMORY_EXTERNAL_CONFLICT",
+        "INSUFFICIENT_EVIDENCE", "DISTRACTOR_HEAVY", "TEMPORAL_BOUNDARY",
+        "COMPOSITIONAL_MULTI_FACT"
+      ],
+      "budget_regimes": ["CHEAP", "NORMAL", "RELAXED"],
+      "deadline_regimes": ["TIGHT", "RELAXED"],
+      "iid_lexical_augmentation": true
+    },
+    {
+      "schema_version": "u2e-generation-plan-v1",
+      "split_role": "DEV_STRUCTURAL",
+      "episode_count": 36,
+      "subject_count": 6,
+      "persona_seed_range": [310000, 310005],
+      "scenario_seed_range": [300000, 300017],
+      "template_families": ["STRUCTURAL_E", "STRUCTURAL_F"],
+      "scenario_families": [
+        "CURRENT_ONLY", "MEMORY_LOOKUP", "MEMORY_REVISION", "MEMORY_TEMPORAL_COMPARE",
+        "MEMORY_MULTI_RECORD", "EXTERNAL_LOOKUP", "EXTERNAL_VERSIONED",
+        "EXTERNAL_MULTI_SOURCE", "MEMORY_EXTERNAL_JOIN", "MEMORY_EXTERNAL_CONFLICT",
+        "INSUFFICIENT_EVIDENCE", "DISTRACTOR_HEAVY", "TEMPORAL_BOUNDARY",
+        "COMPOSITIONAL_MULTI_FACT"
+      ],
+      "budget_regimes": ["CHEAP", "NORMAL", "RELAXED"],
+      "deadline_regimes": ["TIGHT", "RELAXED"],
+      "iid_lexical_augmentation": false
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "gate_accuracy_threshold": 0.95,
+  "interpretation": "Simple feature accuracy is a leakage diagnostic, not model performance.",
+  "lexical_balance": {
+    "evidence": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 5
+    },
+    "guideline": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 6
+    },
+    "history": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 0
+    },
+    "last": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 6
+    },
+    "previous": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 0
+    },
+    "source": {
+      "external_retrieval_required_when_absent": 83,
+      "external_retrieval_required_when_present": 0,
+      "memory_required_when_absent": 122,
+      "memory_required_when_present": 0,
+      "occurrences": 5
+    }
+  },
+  "maximum_single_feature_accuracy": 0.6759259259259259,
+  "probes": {
+    "external_retrieval": {
+      "contains_evidence": 0.5925925925925926,
+      "contains_guideline": 0.5879629629629629,
+      "contains_history": 0.6157407407407407,
+      "contains_last": 0.5879629629629629,
+      "contains_previous": 0.6157407407407407,
+      "contains_source": 0.5925925925925926,
+      "history_length_bucket": 0.6157407407407407,
+      "query_length_threshold": 0.6759259259259259
+    },
+    "memory_read": {
+      "contains_evidence": 0.5879629629629629,
+      "contains_guideline": 0.5925925925925926,
+      "contains_history": 0.5648148148148148,
+      "contains_last": 0.5925925925925926,
+      "contains_previous": 0.5648148148148148,
+      "contains_source": 0.5879629629629629,
+      "history_length_bucket": 0.6018518518518519,
+      "query_length_threshold": 0.6111111111111112
+    }
+  },
+  "status": "PASS"
+}

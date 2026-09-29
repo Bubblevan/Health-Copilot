@@ -1,0 +1,502 @@
+{
+  "different_surface_same_graph_examples": [
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0002",
+      "episode_ids": [
+        "U2E-DEV_IID-0004",
+        "U2E-DEV_IID-0005"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_A",
+        "COMMON_B"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0010",
+      "episode_ids": [
+        "U2E-DEV_IID-0020",
+        "U2E-DEV_IID-0021"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_A",
+        "COMMON_B"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0011",
+      "episode_ids": [
+        "U2E-DEV_IID-0022",
+        "U2E-DEV_IID-0023"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_B",
+        "COMMON_A"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0012",
+      "episode_ids": [
+        "U2E-DEV_IID-0024",
+        "U2E-DEV_IID-0025"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_A",
+        "COMMON_B"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0013",
+      "episode_ids": [
+        "U2E-DEV_IID-0026",
+        "U2E-DEV_IID-0027"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_B",
+        "COMMON_A"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0014",
+      "episode_ids": [
+        "U2E-DEV_IID-0028",
+        "U2E-DEV_IID-0029"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "COMMON_A",
+        "COMMON_B"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0015",
+      "episode_ids": [
+        "U2E-DEV_IID-0030",
+        "U2E-DEV_IID-0031"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "COMMON_B",
+        "COMMON_A"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0016",
+      "episode_ids": [
+        "U2E-DEV_IID-0032",
+        "U2E-DEV_IID-0033"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "COMMON_A",
+        "COMMON_B"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0017",
+      "episode_ids": [
+        "U2E-DEV_IID-0034",
+        "U2E-DEV_IID-0035"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY+RAG",
+        "external_retrieval_required": true,
+        "memory_required": true
+      },
+      "template_families": [
+        "COMMON_B",
+        "COMMON_A"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-0002",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0004",
+        "U2E-DEV_STRUCTURAL-0005"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "STRUCTURAL_E",
+        "STRUCTURAL_F"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-0010",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0020",
+        "U2E-DEV_STRUCTURAL-0021"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "STRUCTURAL_E",
+        "STRUCTURAL_F"
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-0011",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0022",
+        "U2E-DEV_STRUCTURAL-0023"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "STRUCTURAL_F",
+        "STRUCTURAL_E"
+      ]
+    }
+  ],
+  "different_surface_same_latent_graph_pair_count": 65,
+  "same_surface_different_requirement_examples": [
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0000",
+      "episode_ids": [
+        "U2E-DEV_IID-0000",
+        "U2E-DEV_IID-0001"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-0001",
+      "episode_ids": [
+        "U2E-DEV_IID-0002",
+        "U2E-DEV_IID-0003"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_IID-0006",
+        "U2E-DEV_IID-0007"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_IID-0006",
+        "U2E-DEV_IID-0008"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_IID-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_IID-0006",
+        "U2E-DEV_IID-0009"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-0000",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0000",
+        "U2E-DEV_STRUCTURAL-0001"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-0001",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0002",
+        "U2E-DEV_STRUCTURAL-0003"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0006",
+        "U2E-DEV_STRUCTURAL-0007"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0006",
+        "U2E-DEV_STRUCTURAL-0008"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-DEV_STRUCTURAL-BOUNDARY-000",
+      "episode_ids": [
+        "U2E-DEV_STRUCTURAL-0006",
+        "U2E-DEV_STRUCTURAL-0009"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-TRAIN-0000",
+      "episode_ids": [
+        "U2E-TRAIN-0000",
+        "U2E-TRAIN-0001"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "CF-TRAIN-0001",
+      "episode_ids": [
+        "U2E-TRAIN-0002",
+        "U2E-TRAIN-0003"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    }
+  ],
+  "same_surface_different_requirement_pair_count": 15,
+  "sibling_groups": 99,
+  "sibling_groups_with_multiple_episodes": 99
+}
