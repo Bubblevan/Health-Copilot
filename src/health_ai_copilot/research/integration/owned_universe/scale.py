@@ -95,7 +95,8 @@ def _balance_query_surface(world: LatentWorld) -> str:
     )
     context = [NEUTRAL_QUERY_CONTEXTS[(start + offset) % len(NEUTRAL_QUERY_CONTEXTS)]
                for offset in range(count)]
-    return " ".join(part for part in (world.query, surface, *context) if part)
+    key_instruction = "Identify the requested synthetic item by its key."
+    return " ".join(part for part in (world.query, key_instruction, surface, *context) if part)
 
 
 def generate_u2f_plan(plan: dict[str, Any], profile: dict[str, Any]) -> tuple[LatentWorld, ...]:
