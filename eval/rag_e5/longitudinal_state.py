@@ -4,15 +4,28 @@ from __future__ import annotations
 
 import json
 import re
+from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from datetime import UTC, date, datetime, time, timedelta
+from datetime import datetime, time, timedelta
 from hashlib import sha256
 from typing import Any
 
-STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v2"
+from eval.rag_e5.temporal import (
+    TEMPORAL_SEMANTICS_ID,
+    TEMPORAL_SEMANTICS_SHA256,
+    SourceRelativeDecisionBoundary,
+    candidate_decision_boundaries,
+    date_only_exam_is_visible,
+    parse_esl_date,
+    parse_esl_naive_datetime,
+)
+
+STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v3"
 PROFILE_TEMPORAL_CONTRACT = {
     "schema_version": "rag-e5-profile-temporal-contract-v1",
+    "temporal_semantics_id": TEMPORAL_SEMANTICS_ID,
+    "temporal_semantics_sha256": TEMPORAL_SEMANTICS_SHA256,
     "time_invariant_safe": {
         "demographics.age": "materialize_only_as_age_bucket",
     },
@@ -32,7 +45,7 @@ PROFILE_TEMPORAL_CONTRACT = {
         "exam_data.exam_type",
         "exam_data.indicators.keys",
     ],
-    "condition_category_cutoff": "record_timestamp <= decision_timestamp",
+    "condition_category_cutoff": "record_timestamp < same_user_source_relative_decision_timestamp",
     "date_only_exam_on_decision_date": "exclude_conservatively",
 }
 PROFILE_TEMPORAL_CONTRACT_SHA256 = sha256(
@@ -47,7 +60,10 @@ STATE_PACKET_CONFIG = {
     "recent_window_days": 30,
     "trend_tolerance_relative": 0.02,
     "profile_temporal_contract_sha256": PROFILE_TEMPORAL_CONTRACT_SHA256,
+    "temporal_semantics_sha256": TEMPORAL_SEMANTICS_SHA256,
     "condition_categories_source": "pre-cutoff structured timeline/exam labels only",
+    "same_timestamp_metric_policy": "exclude_ambiguous_metric_time_groups",
+    "recent_window_policy": "same_user_calendar_dates_inclusive_lower_bound",
 }
 STATE_PACKET_CONFIG_SHA256 = sha256(
     json.dumps(STATE_PACKET_CONFIG, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -103,6 +119,9 @@ class LongitudinalStatePacket:
 
     user_id: str
     decision_timestamp: str
+    decision_boundary: SourceRelativeDecisionBoundary
+    temporal_semantics_id: str
+    temporal_semantics_sha256: str
     source_file_hashes: tuple[tuple[str, str], ...]
     included_record_counts: tuple[tuple[str, int], ...]
     included_record_ids: tuple[str, ...]
@@ -122,6 +141,9 @@ class LongitudinalStatePacket:
         return {
             "user_id": self.user_id,
             "decision_timestamp": self.decision_timestamp,
+            "decision_boundary": self.decision_boundary.to_dict(),
+            "temporal_semantics_id": self.temporal_semantics_id,
+            "temporal_semantics_sha256": self.temporal_semantics_sha256,
             "source_file_hashes": dict(self.source_file_hashes),
             "included_record_counts": dict(self.included_record_counts),
             "included_record_ids": list(self.included_record_ids),
@@ -144,8 +166,7 @@ class LongitudinalStatePacket:
 
 def build_longitudinal_state_packet(
     *,
-    user_id: str,
-    decision_timestamp: str,
+    decision_boundary: SourceRelativeDecisionBoundary,
     profile: Mapping[str, Any],
     timeline: Mapping[str, Any],
     exam_data: Sequence[Mapping[str, Any]],
@@ -157,11 +178,10 @@ def build_longitudinal_state_packet(
     are never copied into the summary. Date-only exam records are conservatively
     excluded on the decision date because their time-of-day is unknown.
     """
-    if not isinstance(user_id, str):
-        raise TypeError("user_id must be a string")
-    if not user_id.strip():
-        raise ValueError("user_id must be non-empty")
-    cutoff = _parse_timestamp(decision_timestamp)
+    if not isinstance(decision_boundary, SourceRelativeDecisionBoundary):
+        raise TypeError("decision_boundary must be a SourceRelativeDecisionBoundary")
+    user_id = decision_boundary.user_id
+    cutoff = decision_boundary.timestamp
     if not isinstance(profile, Mapping) or not isinstance(timeline, Mapping):
         raise TypeError("profile and timeline must be mappings")
     if not isinstance(exam_data, Sequence) or isinstance(exam_data, (str, bytes)):
@@ -177,32 +197,38 @@ def build_longitudinal_state_packet(
     entries = timeline.get("entries", ())
     if not isinstance(entries, Sequence) or isinstance(entries, (str, bytes)):
         raise TypeError("timeline.entries must be a sequence")
-    included_events: list[tuple[datetime, int, Mapping[str, Any]]] = []
-    trend_samples: dict[str, list[tuple[datetime, float]]] = {}
-    for index, row in enumerate(entries):
+    candidate_boundaries = candidate_decision_boundaries(user_id=user_id, timeline=timeline)
+    if cutoff not in {boundary.timestamp for boundary in candidate_boundaries}:
+        raise ValueError("decision boundary must be an observed unique timeline timestamp")
+
+    included_events: list[tuple[datetime, Mapping[str, Any]]] = []
+    trend_samples: dict[str, dict[datetime, list[float]]] = defaultdict(lambda: defaultdict(list))
+    for row in entries:
         if not isinstance(row, Mapping):
             raise TypeError("timeline entries must be objects")
-        timestamp = _parse_timestamp(row.get("time"))
-        if timestamp > cutoff:
+        timestamp = parse_esl_naive_datetime(row.get("time"))
+        if not decision_boundary.is_strictly_after_source_timestamp(
+            source_user_id=user_id, source_timestamp=row.get("time")
+        ):
             continue
-        included_events.append((timestamp, index, row))
+        included_events.append((timestamp, row))
         metric = _metric_bucket(row.get("indicator"))
         numeric = _numeric_value(row.get("value"))
         if metric is not None and numeric is not None:
-            samples = trend_samples.setdefault(metric, [])
-            samples.append((timestamp, numeric))
-            samples.sort(key=lambda sample: sample[0])
-            del samples[:-int(STATE_PACKET_CONFIG["max_trend_samples"])]
+            trend_samples[metric][timestamp].append(numeric)
 
-    exams_included: list[tuple[datetime, int, Mapping[str, Any]]] = []
+    exams_included: list[tuple[datetime, Mapping[str, Any]]] = []
     exam_categories: set[str] = set()
-    for index, exam in enumerate(exam_data):
+    for exam in exam_data:
         if not isinstance(exam, Mapping):
             raise TypeError("exam_data rows must be objects")
         exam_timestamp, date_only = _parse_exam_date(exam.get("exam_date"))
-        if exam_timestamp > cutoff or (date_only and exam_timestamp.date() == cutoff.date()):
+        if date_only:
+            if not date_only_exam_is_visible(exam.get("exam_date"), decision_boundary):
+                continue
+        elif exam_timestamp >= cutoff:
             continue
-        exams_included.append((exam_timestamp, index, exam))
+        exams_included.append((exam_timestamp, exam))
         exam_categories.update(_categories_from_label(exam.get("exam_type")))
         indicators = exam.get("indicators", {})
         if isinstance(indicators, Mapping):
@@ -211,32 +237,25 @@ def build_longitudinal_state_packet(
 
     condition_categories = _time_bounded_condition_categories(included_events, exams_included)
 
-    included_events.sort(key=lambda item: (item[0], item[1]))
-    exams_included.sort(key=lambda item: (item[0], item[1]))
+    included_events.sort(key=lambda item: item[0])
+    exams_included.sort(key=lambda item: item[0])
     event_times = [item[0] for item in included_events]
     history_span_days = (
         max(0, (event_times[-1].date() - event_times[0].date()).days) if event_times else 0
     )
-    recent_cutoff = cutoff - timedelta(days=int(STATE_PACKET_CONFIG["recent_window_days"]))
-    recent_event_count = sum(timestamp >= recent_cutoff for timestamp in event_times)
+    recent_cutoff_date = cutoff.date() - timedelta(days=int(STATE_PACKET_CONFIG["recent_window_days"]))
+    recent_event_count = sum(timestamp.date() >= recent_cutoff_date for timestamp in event_times)
     trends = tuple(
         sorted(
-            (metric, _trend(samples))
-            for metric, samples in trend_samples.items()
-            if len(samples) >= 2
+            (metric, trend)
+            for metric, grouped in trend_samples.items()
+            if (trend := _trend_from_timestamp_groups(grouped)) is not None
         )
     )
 
     max_ids = int(STATE_PACKET_CONFIG["max_recent_event_ids"])
-    recent_events = included_events[-max_ids:]
-    record_ids = [
-        _record_id("timeline", index, timestamp)
-        for timestamp, index, _row in recent_events
-    ]
-    record_ids.extend(
-        _record_id("exam_data", index, timestamp)
-        for timestamp, index, _exam in exams_included[-max_ids:]
-    )
+    record_ids = _recent_group_record_ids("timeline", included_events, max_ids)
+    record_ids.extend(_recent_group_record_ids("exam_data", exams_included, max_ids))
 
     condition_categories = condition_categories[: int(STATE_PACKET_CONFIG["max_condition_categories"])]
     available_exam_categories = tuple(
@@ -260,7 +279,10 @@ def build_longitudinal_state_packet(
 
     packet_without_hash: dict[str, Any] = {
         "user_id": user_id,
-        "decision_timestamp": cutoff.isoformat().replace("+00:00", "Z"),
+        "decision_timestamp": cutoff.isoformat(),
+        "decision_boundary": decision_boundary.to_dict(),
+        "temporal_semantics_id": TEMPORAL_SEMANTICS_ID,
+        "temporal_semantics_sha256": TEMPORAL_SEMANTICS_SHA256,
         "source_file_hashes": dict(hashes),
         "included_record_counts": {
             "profile": 1,
@@ -282,6 +304,9 @@ def build_longitudinal_state_packet(
     return LongitudinalStatePacket(
         user_id=user_id,
         decision_timestamp=packet_without_hash["decision_timestamp"],
+        decision_boundary=decision_boundary,
+        temporal_semantics_id=TEMPORAL_SEMANTICS_ID,
+        temporal_semantics_sha256=TEMPORAL_SEMANTICS_SHA256,
         source_file_hashes=hashes,
         included_record_counts=tuple(sorted(packet_without_hash["included_record_counts"].items())),
         included_record_ids=tuple(record_ids),
@@ -305,16 +330,28 @@ def build_longitudinal_state_packet_from_payload(
     """Fail closed on unknown task/evaluator payload keys before state building."""
     if not isinstance(payload, Mapping):
         raise TypeError("state payload must be a mapping")
-    allowed = {"user_id", "decision_timestamp", "profile", "timeline", "exam_data"}
+    allowed = {"decision_boundary", "profile", "timeline", "exam_data"}
     unknown = set(payload) - allowed
     if unknown:
         raise ValueError(f"state payload contains non-state fields: {sorted(unknown)}")
     missing = allowed - set(payload)
     if missing:
         raise ValueError(f"state payload is missing fields: {sorted(missing)}")
+    raw_boundary = payload["decision_boundary"]
+    if isinstance(raw_boundary, SourceRelativeDecisionBoundary):
+        boundary = raw_boundary
+    elif isinstance(raw_boundary, Mapping):
+        if set(raw_boundary) != {"user_id", "naive_timestamp", "semantics_id"}:
+            raise ValueError("decision_boundary has an invalid shape")
+        boundary = SourceRelativeDecisionBoundary(
+            user_id=raw_boundary["user_id"],
+            naive_timestamp=raw_boundary["naive_timestamp"],
+            semantics_id=raw_boundary["semantics_id"],
+        )
+    else:
+        raise TypeError("decision_boundary must be a boundary object or mapping")
     return build_longitudinal_state_packet(
-        user_id=payload["user_id"],
-        decision_timestamp=payload["decision_timestamp"],
+        decision_boundary=boundary,
         profile=payload["profile"],
         timeline=payload["timeline"],
         exam_data=payload["exam_data"],
@@ -348,22 +385,10 @@ def _normalize_source_hashes(value: Mapping[str, str]) -> tuple[tuple[str, str],
     return tuple(sorted(value.items()))
 
 
-def _parse_timestamp(value: object) -> datetime:
-    if not isinstance(value, str) or not value.strip():
-        raise ValueError("timestamps must be non-empty ISO-8601 strings")
-    try:
-        parsed = datetime.fromisoformat(value.strip())
-    except ValueError as exc:
-        raise ValueError("timestamps must be ISO-8601") from exc
-    if parsed.tzinfo is None:
-        raise ValueError("timestamps must include a timezone")
-    return parsed.astimezone(UTC)
-
-
 def _parse_exam_date(value: object) -> tuple[datetime, bool]:
-    if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value.strip()):
-        return datetime.combine(date.fromisoformat(value.strip()), time.min, UTC), True
-    return _parse_timestamp(value), False
+    if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return datetime.combine(parse_esl_date(value), time.min), True
+    return parse_esl_naive_datetime(value), False
 
 
 def _age_bucket(value: object) -> str:
@@ -387,15 +412,15 @@ def _age_bucket(value: object) -> str:
 
 
 def _time_bounded_condition_categories(
-    timeline_entries: Sequence[tuple[datetime, int, Mapping[str, Any]]],
-    exam_records: Sequence[tuple[datetime, int, Mapping[str, Any]]],
+    timeline_entries: Sequence[tuple[datetime, Mapping[str, Any]]],
+    exam_records: Sequence[tuple[datetime, Mapping[str, Any]]],
 ) -> tuple[str, ...]:
     """Derive coarse observed domains from structured, pre-cutoff record labels only."""
     categories: set[str] = set()
-    for _timestamp, _index, row in timeline_entries:
+    for _timestamp, row in timeline_entries:
         categories.update(_categories_from_label(row.get("entry_type")))
         categories.update(_categories_from_label(row.get("indicator")))
-    for _timestamp, _index, exam in exam_records:
+    for _timestamp, exam in exam_records:
         categories.update(_categories_from_label(exam.get("exam_type")))
         indicators = exam.get("indicators", {})
         if isinstance(indicators, Mapping):
@@ -448,8 +473,18 @@ def _numeric_value(value: object) -> float | None:
     return None
 
 
-def _trend(samples: list[tuple[datetime, float]]) -> str:
-    ordered = sorted(samples, key=lambda sample: sample[0])
+def _trend_from_timestamp_groups(grouped: Mapping[datetime, Sequence[float]]) -> str | None:
+    """Compute trend only across unambiguous, distinct timestamps."""
+    unambiguous: list[tuple[datetime, float]] = []
+    for timestamp, values in grouped.items():
+        unique_values = set(values)
+        if len(unique_values) == 1:
+            unambiguous.append((timestamp, next(iter(unique_values))))
+    ordered = sorted(unambiguous, key=lambda sample: sample[0])[-int(
+        STATE_PACKET_CONFIG["max_trend_samples"]
+    ) :]
+    if len(ordered) < 2:
+        return None
     first = ordered[0][1]
     last = ordered[-1][1]
     tolerance = max(abs(first) * float(STATE_PACKET_CONFIG["trend_tolerance_relative"]), 1e-9)
@@ -460,9 +495,28 @@ def _trend(samples: list[tuple[datetime, float]]) -> str:
     return "stable"
 
 
-def _record_id(source: str, index: int, timestamp: datetime) -> str:
-    identity = f"{source}\n{index}\n{timestamp.isoformat()}"
-    return sha256(identity.encode("utf-8")).hexdigest()
+def _recent_group_record_ids(
+    source: str, records: Sequence[tuple[datetime, Mapping[str, Any]]], limit: int
+) -> list[str]:
+    """Select whole timestamp groups and create row-order-independent opaque IDs."""
+    grouped: dict[datetime, list[Mapping[str, Any]]] = defaultdict(list)
+    for timestamp, row in records:
+        grouped[timestamp].append(row)
+    selected: list[tuple[datetime, list[Mapping[str, Any]]]] = []
+    selected_count = 0
+    for timestamp in sorted(grouped, reverse=True):
+        rows = grouped[timestamp]
+        selected.append((timestamp, rows))
+        selected_count += len(rows)
+        if selected_count >= limit:
+            break
+
+    identifiers: list[str] = []
+    for timestamp, rows in reversed(selected):
+        for occurrence in range(len(rows)):
+            identity = f"{source}\n{timestamp.isoformat()}\n{occurrence}"
+            identifiers.append(sha256(identity.encode("utf-8")).hexdigest())
+    return identifiers
 
 
 __all__ = [
@@ -471,6 +525,7 @@ __all__ = [
     "STATE_PACKET_BUILDER_VERSION",
     "STATE_PACKET_CONFIG_SHA256",
     "LongitudinalStatePacket",
+    "SourceRelativeDecisionBoundary",
     "build_longitudinal_state_packet",
     "build_longitudinal_state_packet_from_payload",
 ]

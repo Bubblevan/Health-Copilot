@@ -1,5 +1,7 @@
 {
   "schema_version": "rag-e5-profile-temporal-contract-v1",
+  "temporal_semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+  "temporal_semantics_sha256": "e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13",
   "time_invariant_safe": {
     "demographics.age": "materialize_only_as_age_bucket"
   },
@@ -21,6 +23,6 @@
     "exam_data.exam_type",
     "exam_data.indicators.keys"
   ],
-  "condition_category_cutoff": "record_timestamp <= decision_timestamp",
+  "condition_category_cutoff": "record_timestamp < same_user_source_relative_decision_timestamp",
   "date_only_exam_on_decision_date": "exclude_conservatively"
 }

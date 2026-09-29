@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
 from enum import StrEnum
+
+from eval.rag_e5.temporal import (
+    SourceRelativeDecisionBoundary,
+    parse_esl_naive_datetime,
+)
 
 
 class IntegrationTaskFamily(StrEnum):
@@ -37,12 +41,11 @@ class E5IntegrationCase:
                 raise ValueError(f"{name} must be non-empty")
         if not isinstance(self.decision_timestamp, str):
             raise TypeError("decision_timestamp must be an ISO-8601 string")
-        try:
-            parsed = datetime.fromisoformat(self.decision_timestamp)
-        except ValueError as exc:
-            raise ValueError("decision_timestamp must be ISO-8601") from exc
-        if parsed.tzinfo is None:
-            raise ValueError("decision_timestamp must include a timezone")
+        parse_esl_naive_datetime(self.decision_timestamp)
+
+    @property
+    def decision_boundary(self) -> SourceRelativeDecisionBoundary:
+        return SourceRelativeDecisionBoundary(self.user_id, self.decision_timestamp)
 
 
 @dataclass(frozen=True, slots=True)

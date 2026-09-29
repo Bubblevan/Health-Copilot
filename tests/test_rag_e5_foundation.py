@@ -97,7 +97,7 @@ def test_policy_api_refuses_evaluation_case_objects() -> None:
         user_id="synthetic-user-1",
         batch_id="synthetic",
         question="Use my trend and public guidance.",
-        decision_timestamp="2026-01-01T00:00:00Z",
+        decision_timestamp="2026-01-01T00:00:00",
         longitudinal_state_ref="synthetic://state/1",
     )
     teacher = EvaluatorCaseMetadata(
@@ -111,6 +111,8 @@ def test_policy_api_refuses_evaluation_case_objects() -> None:
     )
 
     assert teacher.task_family == IntegrationTaskFamily.LONGITUDINAL_EXTERNAL
+    assert case.decision_boundary.user_id == case.user_id
+    assert case.decision_boundary.semantics_id == "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1"
     assert "allowed_external_source_families" not in E5IntegrationCase.__dataclass_fields__
     assert not hasattr(case, "allowed_external_source_families")
     with pytest.raises(TypeError, match="only ExecutionPolicyObservation"):

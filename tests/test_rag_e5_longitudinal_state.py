@@ -6,15 +6,20 @@ import pytest
 
 from eval.rag_e5.longitudinal_state import (
     PROFILE_TEMPORAL_CONTRACT_SHA256,
+    STATE_PACKET_BUILDER_VERSION,
     build_longitudinal_state_packet,
     build_longitudinal_state_packet_from_payload,
 )
+from eval.rag_e5.temporal import SourceRelativeDecisionBoundary
 
 
 def _fixture() -> tuple[dict[str, object], dict[str, str]]:
     payload: dict[str, object] = {
-        "user_id": "synthetic-user",
-        "decision_timestamp": "2026-01-03T12:00:00Z",
+        "decision_boundary": {
+            "user_id": "synthetic-user",
+            "naive_timestamp": "2026-01-03T12:00:00",
+            "semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+        },
         "profile": {
             "demographics": {"age": 62},
             "health_profile": {
@@ -24,9 +29,11 @@ def _fixture() -> tuple[dict[str, object], dict[str, str]]:
             },
         },
         "timeline": {
+            "user_id": "synthetic-user",
+            "generated_at": "2026-01-05T12:00:00",
             "entries": [
                 {
-                    "time": "2026-01-01T08:00:00Z",
+                    "time": "2026-01-01T08:00:00",
                     "entry_type": "device_indicator",
                     "indicator": "SystolicBloodPressure",
                     "value": 120,
@@ -34,14 +41,20 @@ def _fixture() -> tuple[dict[str, object], dict[str, str]]:
                     "event": "ignored narrative",
                 },
                 {
-                    "time": "2026-01-02T08:00:00Z",
+                    "time": "2026-01-02T08:00:00",
                     "entry_type": "device_indicator",
                     "indicator": "SystolicBloodPressure",
                     "value": 130,
                     "unit": "mmHg",
                 },
                 {
-                    "time": "2026-01-04T08:00:00Z",
+                    "time": "2026-01-03T12:00:00",
+                    "entry_type": "device_indicator",
+                    "indicator": "SystolicBloodPressure",
+                    "value": 210,
+                },
+                {
+                    "time": "2026-01-04T08:00:00",
                     "entry_type": "device_indicator",
                     "indicator": "SystolicBloodPressure",
                     "value": 220,
@@ -95,8 +108,8 @@ def test_future_timeline_event_cannot_change_history_or_state_summary() -> None:
     payload, hashes = _fixture()
     baseline = _build(payload, hashes)
     changed = copy.deepcopy(payload)
-    changed["timeline"]["entries"][2]["value"] = -999  # type: ignore[index]
-    changed["timeline"]["entries"][2]["time"] = "2030-01-01T00:00:00Z"  # type: ignore[index]
+    changed["timeline"]["entries"][3]["value"] = -999  # type: ignore[index]
+    changed["timeline"]["entries"][3]["time"] = "2030-01-01T00:00:00"  # type: ignore[index]
 
     future_changed = _build(changed, hashes)
 
@@ -124,7 +137,8 @@ def test_state_summary_is_deterministic_bounded_and_does_not_copy_prose_or_value
     assert "private narrative" not in first.state_summary
     assert "ignored narrative" not in first.state_summary
     assert "120" not in first.state_summary
-    assert first.summary_builder_version == "e5-longitudinal-state-v2"
+    assert first.summary_builder_version == STATE_PACKET_BUILDER_VERSION
+    assert first.summary_builder_version == "e5-longitudinal-state-v3"
     assert len(first.summary_config_sha256) == 64
     assert first.profile_temporal_contract_sha256 == PROFILE_TEMPORAL_CONTRACT_SHA256
     assert len(first.packet_sha256) == 64
@@ -160,13 +174,13 @@ def test_condition_categories_use_only_pre_cutoff_structured_records() -> None:
     ]
     payload["timeline"]["entries"] = [  # type: ignore[index]
         {
-            "time": "2026-01-01T08:00:00Z",
+            "time": "2026-01-01T08:00:00",
             "entry_type": "device_indicator",
             "indicator": "DailySteps",
             "value": 4000,
         },
         {
-            "time": "2026-01-04T08:00:00Z",
+            "time": "2026-01-03T12:00:00",
             "entry_type": "device_indicator",
             "indicator": "SystolicBloodPressure",
             "value": 220,
@@ -202,6 +216,18 @@ def test_profile_metadata_is_not_a_policy_shortcut() -> None:
         "use_case": "future batch discriminator",
         "profile_id": "synthetic-id",
     }
+
+    changed_packet = _build(changed, hashes)
+
+    assert changed_packet.state_summary == baseline.state_summary
+    assert changed_packet.packet_sha256 == baseline.packet_sha256
+
+
+def test_timeline_generated_at_is_metadata_not_a_temporal_feature() -> None:
+    payload, hashes = _fixture()
+    baseline = _build(payload, hashes)
+    changed = copy.deepcopy(payload)
+    changed["timeline"]["generated_at"] = "not a usable timestamp"  # type: ignore[index]
 
     changed_packet = _build(changed, hashes)
 
@@ -247,15 +273,16 @@ def test_state_summary_uses_no_external_retrieval_or_teacher_inputs() -> None:
 
 def test_state_packet_rejects_ambiguous_timestamps_and_incomplete_hashes() -> None:
     payload, hashes = _fixture()
-    payload["timeline"]["entries"][0]["time"] = "2026-01-01T08:00:00"  # type: ignore[index]
-    with pytest.raises(ValueError, match="timezone"):
+    payload["timeline"]["entries"][0]["time"] = "2026-01-01T08:00:00Z"  # type: ignore[index]
+    with pytest.raises(ValueError, match="without a zone"):
         _build(payload, hashes)
 
     payload, _ = _fixture()
     with pytest.raises(ValueError, match="exactly the three allowed"):
         build_longitudinal_state_packet(
-            user_id="synthetic-user",
-            decision_timestamp=payload["decision_timestamp"],  # type: ignore[arg-type]
+            decision_boundary=SourceRelativeDecisionBoundary(
+                user_id="synthetic-user", naive_timestamp="2026-01-03T12:00:00"
+            ),
             profile=payload["profile"],  # type: ignore[arg-type]
             timeline=payload["timeline"],  # type: ignore[arg-type]
             exam_data=payload["exam_data"],  # type: ignore[arg-type]
