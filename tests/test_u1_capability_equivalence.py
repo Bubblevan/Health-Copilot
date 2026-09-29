@@ -4,6 +4,7 @@ from health_ai_copilot.research.integration.actions import (
     ACTION_BY_KEY,
     ActionKey,
     capability_equivalence_report,
+    executable_capability_equivalence_report,
 )
 from health_ai_copilot.research.integration.executor import DeterministicIntegrationExecutor
 from health_ai_copilot.research.integration.fixtures import build_synthetic_cases
@@ -13,6 +14,8 @@ def test_all_synthetic_single_team_unions_match() -> None:
     for case in build_synthetic_cases():
         report = capability_equivalence_report(case.episode)
         assert report.equivalent, (case.case_id, report.mismatches)
+        executable = executable_capability_equivalence_report(case.episode)
+        assert executable.equivalent, (case.case_id, executable.mismatches)
 
 
 def test_worker_capability_violation_fails_before_any_read() -> None:
