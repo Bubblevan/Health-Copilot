@@ -1,14 +1,14 @@
 {
   "schema_version": "rag-e5-external-corpus-manifest-v1",
   "generated_at": "2026-09-29T10:28:08Z",
-  "status": "OWNER_APPROVED_PENDING_INDEX_QUALIFICATION",
+  "status": "ACTIVE_FROZEN",
   "public_health_source_count": 30,
   "public_health_chunk_count": 30,
   "public_health_corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
   "guideline_candidate_source_count": 3,
   "guideline_approved_source_count": 3,
-  "guideline_active_source_count": 0,
-  "guideline_active_chunk_count": 0,
+  "guideline_active_source_count": 3,
+  "guideline_active_chunk_count": 26,
   "guideline_candidate_chunk_count": 26,
   "candidate_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
   "candidate_combined_corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
@@ -16,12 +16,11 @@
   "corpus_build_report_sha256": "af3e0c0b206b781d528be865ba080fe5a2167a6d2650fe6a3d8bdb41eec2cda6",
   "index_qualification_report_path": "D:/MyLab/Jianli/external/rag_e5/e5a3/index_qualification_report.json",
   "candidate_raw_source_set_sha256": "01136e09675780a3e658d1fb5abd4a231740aead6571334b8644ae8bdc7c1023",
-  "combined_active_corpus_sha256": null,
-  "chunker_config_sha256": null,
+  "combined_active_corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
+  "chunker_config_sha256": "e383e8ec908478830c035474af52172ea934f3201f921b0a9fa3cd540ef2cbb1",
   "extractor_version": "WHO recommendation-section extractor; Poppler pdftotext 23.13.0 (candidate artifacts, external storage)",
   "source_manifest_sha256": "5cb97843c0ff1fb5450b00c608e2d3d156473cad43b6f0e8ecce4fc2c4c970a0",
   "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
-  "chunker_config_sha256": "e383e8ec908478830c035474af52172ea934f3201f921b0a9fa3cd540ef2cbb1",
   "public_health_card_identity_note": "The existing 30 reviewed public-health cards are referenced in place; no copies or source-family reclassification were made.",
   "guideline_candidates": [
     {
@@ -89,5 +88,8 @@
       "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7"
     }
   ],
-  "promotion_blocker": "Owner approval and all exact recommendation-section retention audits passed. Corpus remains inactive because dense BGE source-title smoke failed 8/10 in PUBLIC_HEALTH_ONLY; two Chinese CDC title queries ranked expected sources at 18 and 15. Frozen model and smoke queries were not changed."
+  "promotion_blocker": null,
+  "active_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "activation_record_path": "runs/rag_e5/e5a_final_activation_report.json",
+  "activated_at": "2026-09-29T11:22:23.134210Z"
 }

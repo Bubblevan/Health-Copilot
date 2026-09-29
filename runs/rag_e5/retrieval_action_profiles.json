@@ -1,6 +1,6 @@
 {
   "schema_version": "rag-e5-retrieval-action-profiles-v1",
-  "external_corpus_identity": null,
+  "external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
   "profiles": [
     {
       "action": "OFF",

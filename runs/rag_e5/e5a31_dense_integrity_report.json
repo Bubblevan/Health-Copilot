@@ -1,0 +1,270 @@
+{
+  "schema_version": "rag-e5-e5a31-structural-integrity-v1",
+  "generated_at": "2026-09-29T11:22:23.132206Z",
+  "qualification_semantics": "rag-e5-index-qualification-v2",
+  "owner_decision_provenance": {
+    "status": "VERIFIED",
+    "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+    "source_ids": [
+      "who-hypertension-pharmacological-2021",
+      "who-physical-activity-sedentary-2020",
+      "who-total-fat-weight-gain-2023"
+    ],
+    "authorization_provenance": {
+      "kind": "owner-authored Codex conversation message",
+      "message_quote": "我已经决定好了，和subagent意见一致",
+      "context": "Owner affirmation of the reviewed three-source decision, followed by the owner-scope A3 TRD."
+    },
+    "scope_unchanged": true
+  },
+  "candidate_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "corpus_integrity": {
+    "status": "PASS",
+    "public_health_source_count": 30,
+    "public_health_chunk_count": 30,
+    "guideline_source_count": 3,
+    "guideline_chunk_count": 26,
+    "recommendation_sections_expected": 22,
+    "recommendation_sections_retained": 22,
+    "raw_and_extracted_sources": [
+      {
+        "source_id": "who-hypertension-pharmacological-2021",
+        "raw_sha256": "57f6376d5c9bc4ea6c44873625547c8a5443d5a6ad8c8c422733681563db05fb",
+        "raw_bytes": 843539,
+        "raw_hash_valid": true,
+        "extracted_text_sha256": "4b4beafa42fa580a372e3493da3fe84d8b69e3a91a7e7a05ee6e800f39466894",
+        "extracted_text_hash_valid": true
+      },
+      {
+        "source_id": "who-physical-activity-sedentary-2020",
+        "raw_sha256": "50b66c44e7083cc3752849f301ae1d60d9360d511e34c0c948b39bdf6e13dc88",
+        "raw_bytes": 4041257,
+        "raw_hash_valid": true,
+        "extracted_text_sha256": "c0d8a859942b01d9e8d1eaa151915aa873bd7e877cf4b3550c3ffca8f1d806a6",
+        "extracted_text_hash_valid": true
+      },
+      {
+        "source_id": "who-total-fat-weight-gain-2023",
+        "raw_sha256": "a9f12218be0b1720c9be4f0dee79c2dbdcbd13fb44cd3e0d751bf04b5fa63381",
+        "raw_bytes": 741784,
+        "raw_hash_valid": true,
+        "extracted_text_sha256": "88ae89619a950e16d46e52ae0f0476fb04292ed89df02b2b42b58a5e2c04dda8",
+        "extracted_text_hash_valid": true
+      }
+    ],
+    "raw_source_set_sha256": "01136e09675780a3e658d1fb5abd4a231740aead6571334b8644ae8bdc7c1023",
+    "views": [
+      {
+        "view": "PUBLIC_HEALTH_ONLY",
+        "document_count": 30,
+        "source_count": 30,
+        "corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
+        "chunk_artifact_sha256": "e4c8e1ad12d4fa525949abb6c81dceca87454fe9cffa250633691e7d61269a9a",
+        "search_document_artifact_sha256": "06e6f13b490c1898fe52d195b5a32d498ceec424379f9afa9af5acf1aa37851e",
+        "source_families_valid": true,
+        "unique_chunk_ids": true,
+        "text_hashes_valid": true
+      },
+      {
+        "view": "GUIDELINE_ONLY",
+        "document_count": 26,
+        "source_count": 3,
+        "corpus_sha256": "19576a23b1c6afb55c5af3d7eb48610445910875816dd73d1db6b51d7dbb5ce4",
+        "chunk_artifact_sha256": "d5a896753ae0d5666b7529469fdf5d75b5242081a37c5a160a62e766332617fc",
+        "search_document_artifact_sha256": "68a6e370d8b2e5547a9eeef4509db9d7fcf36e32f5e9e100912b3b86552f3a8c",
+        "source_families_valid": true,
+        "unique_chunk_ids": true,
+        "text_hashes_valid": true
+      },
+      {
+        "view": "PUBLIC_HEALTH_PLUS_GUIDELINE",
+        "document_count": 56,
+        "source_count": 33,
+        "corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
+        "chunk_artifact_sha256": "92070cbb5f5961bf1f9cfdf628bbc9cc3ea7c4fdf3a317ca378fd450aa28b5ac",
+        "search_document_artifact_sha256": "2d73b1707ebe53ce5cca08123dfd8cae63d3cc91a395b4495c72a7734f6e2e88",
+        "source_families_valid": true,
+        "unique_chunk_ids": true,
+        "text_hashes_valid": true
+      }
+    ],
+    "candidate_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+    "candidate_content_unchanged": true
+  },
+  "bm25_index_integrity": {
+    "status": "PASS",
+    "views": [
+      {
+        "view": "PUBLIC_HEALTH_ONLY",
+        "document_count": 30,
+        "indexed_document_count": 30,
+        "matrix_shape": [
+          30,
+          491
+        ],
+        "nonempty_indexed_document_rows": 30,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "token_and_model_hashes_match": true,
+        "stored_matrix_finite": true,
+        "stored_matrix_rebuild": "not required; source artifact hashes and index identity validated",
+        "search_probe_count": 3,
+        "search_replay_deterministic": true,
+        "replay_hashes": [
+          "19fb84e4b656a9a713d14e91f2126c1474c451c83f3042e4cc6aa3d8d82e2995",
+          "c074f71d78b546bb72bed57b080f49a2edab3e1937cc46ab034aea109a1e6488",
+          "8b7620a164f07af4efceed17f44c49421b7f472e616b22b72c28997ad3e39d9d"
+        ],
+        "index_identity": "9c30156cdd17602827cbbb5c44b689f3a274f404af0a0dc8e5230c1ca7049546",
+        "integrity_status": "PASS"
+      },
+      {
+        "view": "GUIDELINE_ONLY",
+        "document_count": 26,
+        "indexed_document_count": 26,
+        "matrix_shape": [
+          26,
+          543
+        ],
+        "nonempty_indexed_document_rows": 26,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "token_and_model_hashes_match": true,
+        "stored_matrix_finite": true,
+        "stored_matrix_rebuild": "not required; source artifact hashes and index identity validated",
+        "search_probe_count": 3,
+        "search_replay_deterministic": true,
+        "replay_hashes": [
+          "d72430e55c6b7f11ae1343242fafc8e1c0437cd0455f875e4df2e2782e50217c",
+          "d9fb4496afbc828888fdf6cd68a5f856f0421fa1d23a709f476b0be417bb79c4",
+          "227f549f4d4823c68063406b0ef0cd06bb783a9bc47fd58d325bf22c2ac910c1"
+        ],
+        "index_identity": "808ec5f8e2a3a01571ac55771648cf5e686d80cd033f1b0abc821127d7d21848",
+        "integrity_status": "PASS"
+      },
+      {
+        "view": "PUBLIC_HEALTH_PLUS_GUIDELINE",
+        "document_count": 56,
+        "indexed_document_count": 56,
+        "matrix_shape": [
+          56,
+          1018
+        ],
+        "nonempty_indexed_document_rows": 56,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "token_and_model_hashes_match": true,
+        "stored_matrix_finite": true,
+        "stored_matrix_rebuild": "not required; source artifact hashes and index identity validated",
+        "search_probe_count": 3,
+        "search_replay_deterministic": true,
+        "replay_hashes": [
+          "8421cad77cba060ef54cb252f7cc899b1ab86668e0e838f3cc034aa162104ce1",
+          "a793775ea8d1a7dd1bfe55a28df87bf7314f4007b28109da7a569e7ed6716730",
+          "ea8f88cb61eed544004790740dacc06bf54c4debf0859db88d35952f93870fdb"
+        ],
+        "index_identity": "b603755c4a35628891f38ca2edfb3128e592681e4ead0e62219d63698906bf74",
+        "integrity_status": "PASS"
+      }
+    ]
+  },
+  "dense_index_integrity": {
+    "status": "PASS",
+    "embedding_row_count_total": 112,
+    "finite_vector_count_total": 112,
+    "normalized_vector_count_total": 112,
+    "zero_vector_count_total": 0,
+    "views": [
+      {
+        "view": "PUBLIC_HEALTH_ONLY",
+        "document_count": 30,
+        "embedding_row_count": 30,
+        "dimension": 1024,
+        "finite_vector_count": 30,
+        "normalized_vector_count": 30,
+        "zero_vector_count": 0,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "embedding_sha_match": true,
+        "model_sha_match": true,
+        "model_weight_files_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+        "model_name": "BAAI/bge-large-en-v1.5",
+        "model_revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+        "dense_index_identity": "4d0e24c5a491ab725029ed0d2b4255f939b1d1c149850d1edd5122282e04a2a3",
+        "search_probe_count": 3,
+        "query_embeddings_finite_and_normalized": true,
+        "search_returns_valid_unique_ids": true,
+        "scores_finite_and_descending": true,
+        "search_replay_deterministic": true,
+        "search_replay_hashes": [
+          "116a6fcd86a01f53072ab9918d6bdf613c0e2d71660e3a429976cc21c87cd875",
+          "e667e3df098bef95788198cc61ef1d83c3fc07f3cc749c7e650a825214ad0605",
+          "8c8d3f15cf8e5aafa1c69012db0915852878ed821149ad4787d300e01db0d32c"
+        ],
+        "integrity_status": "PASS"
+      },
+      {
+        "view": "GUIDELINE_ONLY",
+        "document_count": 26,
+        "embedding_row_count": 26,
+        "dimension": 1024,
+        "finite_vector_count": 26,
+        "normalized_vector_count": 26,
+        "zero_vector_count": 0,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "embedding_sha_match": true,
+        "model_sha_match": true,
+        "model_weight_files_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+        "model_name": "BAAI/bge-large-en-v1.5",
+        "model_revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+        "dense_index_identity": "2ab2d61af2c53b23c0458ada13ba0230237b0eec09e9db37d27fae91307cc5b0",
+        "search_probe_count": 3,
+        "query_embeddings_finite_and_normalized": true,
+        "search_returns_valid_unique_ids": true,
+        "scores_finite_and_descending": true,
+        "search_replay_deterministic": true,
+        "search_replay_hashes": [
+          "1624b333f739a53ec54f49c06e0096818999c8f6b08b29086e060f301937aaa0",
+          "f54480d3ea549445846ddcda5968a53891b568a47e044ae91a0864f32022f785",
+          "bfb8d82adb5945f66e9bca0a4684638ae1bbb910ce9790adc3095bed82176db2"
+        ],
+        "integrity_status": "PASS"
+      },
+      {
+        "view": "PUBLIC_HEALTH_PLUS_GUIDELINE",
+        "document_count": 56,
+        "embedding_row_count": 56,
+        "dimension": 1024,
+        "finite_vector_count": 56,
+        "normalized_vector_count": 56,
+        "zero_vector_count": 0,
+        "document_order_sha_match": true,
+        "corpus_sha_match": true,
+        "embedding_sha_match": true,
+        "model_sha_match": true,
+        "model_weight_files_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+        "model_name": "BAAI/bge-large-en-v1.5",
+        "model_revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+        "dense_index_identity": "6dc6cfad476979d401e817942d60504fb50147a1cd75a106cdec3405ce0e0e86",
+        "search_probe_count": 3,
+        "query_embeddings_finite_and_normalized": true,
+        "search_returns_valid_unique_ids": true,
+        "scores_finite_and_descending": true,
+        "search_replay_deterministic": true,
+        "search_replay_hashes": [
+          "9ce7a4f3bd06be9558192c94c1a17a06b635c00fa62631f64c54eb9034d5769f",
+          "1bb015804cc3c6e3931e7e74b77d13b8dfdd1c36abb3dc9754b7daed956af6e9",
+          "a707bfdf6c1fbcf5fa8efd9acee9bf086c5bef2cfc642434b5f148430c23d6f3"
+        ],
+        "integrity_status": "PASS"
+      }
+    ]
+  },
+  "retrieval_diagnostic_is_not_an_integrity_gate": true,
+  "frozen_smoke_sha256": {
+    "PUBLIC_HEALTH_ONLY": "c3ae3f5057e99561fe4e5f14c2c3c46edfb13441413c4cbd1ce6f865619fd349",
+    "GUIDELINE_ONLY": "9567fc5ec67e2a85f5f6bf8b467a06fba595c3ce3729eb259632488372abbf77",
+    "PUBLIC_HEALTH_PLUS_GUIDELINE": "949003be57ec61a6067f72fad4d67f4a645057bc5089cc5a266fe989d248a66b"
+  }
+}

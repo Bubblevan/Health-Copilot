@@ -1,4 +1,9 @@
-# RAG-E5 Integration Transfer — E5-A Foundation Protocol
+# RAG-E5 Integration Transfer — E5-A Qualification Protocol v2
+
+`qualification_semantics = rag-e5-index-qualification-v2`. This protocol
+version separates corpus/index artifact integrity from retrieval effectiveness.
+The correction and before/after protocol hashes are recorded in the
+[`E5-A3.1 qualification erratum`](e5a31_qualification_erratum.md).
 
 ## Stage boundary
 
@@ -106,24 +111,41 @@ from the current question and the same query's BM25 top-10 only.
 ## Current E5-A capability gate
 
 The E5-A2 owner-review snapshot is historical and has been superseded by the
-E5-A3 owner decision and corpus/index qualification. The owner approved three
-WHO guideline sources for candidate-corpus retrieval; physical-activity and
-total-fat sources are task-authoring eligible, while the hypertension
-pharmacological source is restricted to retrieval context/distractor use.
-Deterministic extraction retained all 22 declared recommendation sections in
-26 guideline chunks. The existing 30 reviewed public-health cards were mapped
-one-to-one without changing their text or source family.
+E5-A3 owner decision and the E5-A3.1 qualification semantics correction. The
+owner approved three WHO guideline sources; physical-activity and total-fat
+sources are task-authoring eligible, while hypertension pharmacology is
+retrieval-context/distractor only. Deterministic extraction retained all 22
+declared recommendation sections in 26 guideline chunks. The existing 30
+reviewed public-health cards were mapped one-to-one without changing their text
+or source family.
 
-BM25 passed all three 10-query source-title smoke views. The frozen BGE dense
-index passed `GUIDELINE_ONLY` and `PUBLIC_HEALTH_PLUS_GUIDELINE`, but scored
-8/10 for `PUBLIC_HEALTH_ONLY`; the two expected Chinese CDC sources ranked 18th
-and 15th. The corpus is therefore not activated. The candidate identity is
-recorded in the qualification artifacts, while runtime
-`external_corpus_identity` remains null and STANDARD/STRONG remain unbound.
-`E5A_READY = NO`. No task construction, counterfactual run, oracle calculation,
-policy training, or 202608 outcome inspection occurred. See the
-[`E5-A3 qualification report`](e5a3_index_qualification.md) and
-[`activation gate JSON`](../../../runs/rag_e5/e5a3_activation_report.json).
+E5-A3.1 independently validated corpus, BM25, and dense-index integrity. All
+three views contain their expected documents and unique ordered IDs; the
+candidate/raw/text/model/index hashes match; BM25 and dense structural search
+probes are finite and deterministic; and all 112 dense vectors are finite,
+normalized within `1e-5`, and nonzero. The same candidate identity
+`9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd` is now the
+active frozen external corpus. STANDARD and STRONG are bound to it without
+changing either action's frozen method-config hash.
+
+Source-title smoke is retained as a retrieval diagnostic, not an index gate.
+BM25 is 10/10 for all three views. Frozen BGE is 8/10 for
+`PUBLIC_HEALTH_ONLY`; two Chinese CDC probes rank their expected sources 18th
+and 15th. `GUIDELINE_ONLY` and the existing combined 10-query sample are 10/10,
+but the combined sample does not include those two public-health queries. This
+is a known transfer limitation, plausibly contributed to by applying the
+frozen English embedding model to Chinese public-health text; that causal
+explanation is not proven. No smoke query, model, cutoff, corpus, chunk, or
+index was modified to obtain activation. See the
+[`E5-A3.1 structural integrity report`](../../../runs/rag_e5/e5a31_dense_integrity_report.json),
+[`retained retrieval diagnostic`](../../../runs/rag_e5/e5a31_retrieval_diagnostic.json),
+[`language inventory`](../../../runs/rag_e5/external_language_inventory.json), and
+[`final activation report`](../../../runs/rag_e5/e5a_final_activation_report.json).
+
+`E5A_READY = YES`. This is corpus/index capability readiness only; it is not
+evidence that retrieval improves downstream outcomes. No E5-B task construction,
+counterfactual run, oracle calculation, policy training, or 202608 outcome
+inspection occurred in E5-A.
 
 The A2 details remain in the
 [`historical E5-A2 qualification record`](e5a2_guideline_corpus.md); they

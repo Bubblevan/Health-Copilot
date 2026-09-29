@@ -161,7 +161,9 @@ def test_machine_profile_and_feature_contracts_match_runtime_types() -> None:
     )
 
     assert profile_payload["profiles"] == [item.to_dict() for item in retrieval_action_specs()]
-    assert profile_payload["external_corpus_identity"] is None
+    assert profile_payload["external_corpus_identity"] == (
+        "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd"
+    )
     assert [item["name"] for item in feature_payload["features"]] == [
         item.name for item in ExecutionPolicyObservation.__dataclass_fields__.values()
     ]

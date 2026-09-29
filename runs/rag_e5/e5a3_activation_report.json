@@ -39,8 +39,14 @@
     "GUIDELINE_ONLY": {"bm25_hits_at_10": 10, "bge_hits_at_10": 10, "required": 10},
     "PUBLIC_HEALTH_PLUS_GUIDELINE": {"bm25_hits_at_10": 10, "bge_hits_at_10": 10, "required": 10}
   },
-  "SMOKE_FAILURE_CLASSIFICATION": "TOKENIZATION/ENCODING_BUG",
-  "SMOKE_FAILURE_CLASSIFICATION_CONFIDENCE": "SUSPECTED_NOT_CONFIRMED; no tokenizer corruption or extraction defect is proven",
+  "SMOKE_FAILURE_CLASSIFICATION": "DENSE_RETRIEVAL_DIAGNOSTIC_MISS",
+  "SMOKE_FAILURE_CLASSIFICATION_CONFIDENCE": "PLAUSIBLE_NOT_CAUSALLY_PROVEN",
+  "LIKELY_CONTRIBUTING_FACTOR": "FROZEN_ENGLISH_MODEL_ON_CHINESE_PUBLIC_HEALTH_TEXT",
+  "A3_FROZEN_PUBLIC_HEALTH_BGE_HITS_AT_10": 8,
+  "A3_FROZEN_MISS_RANKS": [18, 15],
+  "A3_REPORT_STATUS": "HISTORICAL_STAGE_SNAPSHOT_SUPERSEDED_BY_A31",
+  "A3_HISTORICAL_E5A_READY": "NO; the v1 protocol incorrectly treated semantic title hits@10 as an index-integrity gate",
+  "CURRENT_E5A_READY": "SEE e5a_final_activation_report.json",
   "SMOKE_FAILURE_DETAILS": [
     {
       "query_id": "public-health-08",
@@ -76,7 +82,7 @@
   "FOCUSED_TESTS": "48 passed",
   "FULL_TESTS": "650 passed, 1 skipped, 1 third-party deprecation warning",
   "RUFF": "PASS",
-  "E5A_READY": "NO",
+  "E5A_READY": "NO_AT_A3_STAGE_END; superseded by E5-A3.1 structural qualification",
   "MAIN_MERGE_PERFORMED": "NO_GATE_FAILED",
   "E5B_STARTED": "NO"
 }

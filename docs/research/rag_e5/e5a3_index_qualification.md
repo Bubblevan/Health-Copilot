@@ -1,5 +1,16 @@
 # E5-A3 corpus and index qualification
 
+> Historical A3-stage snapshot. The conclusion below reflects the original
+> v1 gate, which incorrectly treated semantic source-title `hits@10` as index
+> integrity. E5-A3.1 supersedes the *readiness conclusion*, not these frozen
+> retrieval results: structural corpus/BM25/dense checks passed, the same
+> candidate identity was activated, and STANDARD/STRONG were bound without
+> changing their method hashes. The BGE `PUBLIC_HEALTH_ONLY` 8/10 result and
+> miss ranks 18/15 remain unchanged as a retrieval diagnostic. See the
+> [qualification erratum](e5a31_qualification_erratum.md),
+> [structural report](../../../runs/rag_e5/e5a31_dense_integrity_report.json),
+> and [final activation report](../../../runs/rag_e5/e5a_final_activation_report.json).
+
 ## Outcome
 
 Owner review and deterministic corpus preparation passed. The frozen index
