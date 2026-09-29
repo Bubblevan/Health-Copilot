@@ -15,7 +15,7 @@
   },
   "batch_id": "202607",
   "case_count": 60,
-  "code_commit": "2af07bc31199280ec70a5c7fdd4c4590ed6c6b3f",
+  "code_commit": "7e4f83060e08bc8688861b81314805fd0aee2e9f",
   "code_tree_sha256": "1c1240a54d825e88cc7393a965d51ed2b5a2133cb845c8f9bae77a772d54f61d",
   "counterfactual_execution_order": "case_id_sorted_then_OFF_STANDARD_STRONG",
   "counterfactual_input_invariance": "same_question_state_answer_model_prompt_and_evaluator;_only_retrieved_evidence_differs",
