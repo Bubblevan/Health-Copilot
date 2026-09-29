@@ -1,0 +1,9 @@
+{
+  "applies_after_writer_packets_freeze": true,
+  "diagnostic_only": true,
+  "metric": "lowercase word-token set Jaccard similarity",
+  "no_merge_drop_or_retry": true,
+  "schema_version": 1,
+  "stage": "mem3a2r-minimal-flatprop-16k-frozen-10-20260929",
+  "threshold_inclusive": 0.8
+}

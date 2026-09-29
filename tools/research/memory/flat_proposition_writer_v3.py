@@ -52,8 +52,15 @@ def dynamic_output_schema(catalog: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def writer_request(
-    *, session_date: str, catalog: list[dict[str, Any]], system_prompt: str, model_alias: str
+    *,
+    session_date: str,
+    catalog: list[dict[str, Any]],
+    system_prompt: str,
+    model_alias: str,
+    max_tokens: int = 4096,
 ) -> dict[str, Any]:
+    if max_tokens not in {4096, 16384}:
+        raise ValueError("v3 writer max_tokens must be a frozen supported capacity")
     return {
         "model": model_alias,
         "messages": [
@@ -70,7 +77,7 @@ def writer_request(
         ],
         "temperature": 0,
         "seed": 42,
-        "max_tokens": 4096,
+        "max_tokens": max_tokens,
         "stream": False,
         "chat_template_kwargs": {"enable_thinking": False},
         "response_format": {
