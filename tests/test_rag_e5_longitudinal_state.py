@@ -138,9 +138,10 @@ def test_state_summary_is_deterministic_bounded_and_does_not_copy_prose_or_value
     assert "ignored narrative" not in first.state_summary
     assert "120" not in first.state_summary
     assert first.summary_builder_version == STATE_PACKET_BUILDER_VERSION
-    assert first.summary_builder_version == "e5-longitudinal-state-v3"
+    assert first.summary_builder_version == "e5-longitudinal-state-v4"
     assert len(first.summary_config_sha256) == 64
     assert first.profile_temporal_contract_sha256 == PROFILE_TEMPORAL_CONTRACT_SHA256
+    assert len(first.age_temporal_contract_sha256) == 64
     assert len(first.packet_sha256) == 64
 
 

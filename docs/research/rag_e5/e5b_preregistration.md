@@ -1,13 +1,14 @@
 # RAG-E5 E5-B Preregistration
 
-Status: B0 temporal source audit and implementation pass. No E5-B tasks, model
-calls, counterfactuals, or outcomes have been generated. Task/scoring choices
-below remain prospective and are not frozen by B0.
+Status: B0 temporal audit passed; B1 task, teacher, runtime, and scorer protocol
+is frozen. The 60-task 202607 overlay exists only in the external ignored run
+directory. No answer-model calls, retrieval runs, counterfactual outcomes, or
+oracle actions have been created; B2 has not started.
 
 This is an integration-transfer study on the retired ESL-Bench-derived
 development cohort, not an official ESL-Bench evaluation or a public benchmark
-claim. B0 freezes only the source-relative time contract; it does not authorize
-task construction or counterfactual execution.
+claim. B0 freezes the source-relative time contract. B1 freezes the task and
+evaluation object; it does not itself authorize counterfactual execution.
 
 ## B0 temporal contract
 
@@ -43,8 +44,10 @@ task construction or counterfactual execution.
   Canonical sorted compact JSON SHA-256:
   `e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13`.
   Its SHA-256 must be copied into every future E5-B task manifest and every
-  longitudinal state packet. The state packet implementation is
-  `e5-longitudinal-state-v3`.
+  longitudinal state packet. B1 supersedes the v3 snapshot-age rule with
+  `e5-longitudinal-state-v4`: `profile.demographics.age` is excluded. Age is
+  derived only from a safe full birth date at the same user's decision date;
+  absent, invalid, conflicting, or future birth dates yield `unknown`.
 - The source-schema gate reads only the 20 users' 202607 `timeline.json` and
   `exam_data.json` (plus profile only if a later state build requires it). It
   writes aggregate counts only; no patient prose or values enter the audit.
@@ -66,33 +69,36 @@ reasoning. This metadata irregularity does not weaken the timeline/exam gate.
 - Use only the 20 users in batch `202607` listed in
   `runs/rag_e5/esl_source_manifest.json` and only each user's
   `profile.json`, `timeline.json`, and `exam_data.json`.
-- Select a deterministic per-user boundary only from that user's sorted unique
-  observed timeline timestamps. The exact boundary-selection rule and all
-  task/scoring decisions in this section remain prospective until separately
-  frozen after the B0 audit and tests pass. Do not substitute `generated_at`.
+- Select the latest unique timestamp observed in each user's timeline. Do not
+  substitute `generated_at`; do not move to another boundary if required state
+  is missing. The state packet still includes records only when
+  `record.time < decision_boundary`.
   State materialization must use only bounded structured fields; patient prose
   and raw measurements are not sent to the answer model or committed as task
   artifacts.
 - Construct exactly three deterministic overlay tasks per user (60 total):
   one T0, one T1, and one T2. Questions and evaluator references are generated
   without native ESL question/answer files, retrieval outcomes, or qrels.
-- T0 asks for a bounded, explicitly non-diagnostic reading of the user's
-  recorded weight/BMI trend and one recorded domain. Select `body_weight` when
-  present, otherwise `body_mass_index`; accept any one domain actually present
-  in the packet. It requires internal state and has no external evidence group.
-- T1 asks a population-level WHO recommendation question, alternating evenly
-  between the owner-approved physical-activity guideline and total-fat
-  guideline. It has no patient-state dependency.
+- T0 asks only for the recorded weight trend. Use `body_weight`, otherwise
+  `body_mass_index`; if neither exists at the frozen boundary, the entire
+  20-user coverage gate fails. It requires internal state and no external
+  evidence group.
+- T1 alternates deterministically by sorted user index: even indices use the
+  owner-approved adult physical-activity source; odd indices use the
+  owner-approved total-fat source. It has no patient-state dependency. User
+  wording does not name the publisher, source ID, guideline title, action, or
+  retrieval.
 - T2 asks for two clearly separated facts: the user's recorded weight/BMI
-  trend, and the WHO population-level total-fat recommendation for preventing
-  unhealthy weight gain. The prompt explicitly forbids causal attribution or
+  trend, and general adult dietary-fat advice for reducing unhealthy-weight-gain
+  risk. The prompt explicitly forbids causal attribution or
   individualized diet/treatment advice. The evaluator requires both the
   internal trend field and evidence from
   `who-total-fat-weight-gain-2023`. Select `body_weight` when present,
   otherwise `body_mass_index`; fail closed if neither trend exists.
-- If any user's permitted state packet lacks the required trend/domain, fail
-  closed before any model call; do not replace the user or inspect another
-  batch. Task-generation output remains outside Git and is identified by hashes.
+- If any user's permitted state packet lacks the required trend, fail closed;
+  do not replace the user, change the boundary, or inspect another batch.
+  Patient-specific tasks remain outside Git and are identified by aggregate
+  hashes only.
 
 ## Counterfactual execution
 
@@ -130,11 +136,15 @@ No LLM judge is used.
   whitespace/case normalization; unsupported or missing values score zero.
 - Guideline score: fraction of predeclared recommendation key points detected
   by the frozen term/number rules for that task. Expected points are authored
-  only from the task's approved WHO source; this content score is independent
-  of whether retrieval supplied the source.
-- Grounding score: fraction of required guideline points accompanied by a
+  only from the task's approved, task-authoring-eligible source. B1 tightens the
+  prospective scoring rule to satisfy the preregistered T2 dependency gate:
+  keypoints receive credit only when a supplied chunk from the required source
+  and recommendation is cited. This supersedes the earlier prospective sentence
+  that content scoring is independent of retrieval; no outcomes existed when
+  this rule was frozen.
+- Grounding score: fraction of required recommendations accompanied by a
   citation to a chunk ID actually supplied to the reader and belonging to the
-  task's required evidence group.
+  task's required source and recommendation.
 - T0 quality is its state score. T1 quality is
   `0.75 * guideline_score + 0.25 * grounding_score`. T2 quality is
   `0.50 * state_score + 0.25 * guideline_score + 0.25 * grounding_score`.
@@ -177,6 +187,6 @@ hashes, and aggregate reports without per-user health facts or answer text.
 Every future task/run artifact records the 202607 batch identity, exact allowed
 filenames, temporal semantics ID and manifest SHA-256, source-relative decision
 boundary, corpus identity, action-profile hashes, model identity,
-prompt/rubric hashes, code commit, and ordered task IDs hash. Until B0's audit
-and tests pass, the task-generation and counterfactual sections above are a
-planning draft only.
+prompt/rubric hashes, code commit, and ordered task IDs hash. B1 has frozen the
+task-generation and scoring sections; the counterfactual execution section is
+only a future protocol. B2 remains unstarted, and 202608 remains unopened.

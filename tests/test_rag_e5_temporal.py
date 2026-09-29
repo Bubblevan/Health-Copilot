@@ -10,6 +10,7 @@ from eval.rag_e5.temporal import (
     SourceRelativeDecisionBoundary,
     candidate_decision_boundaries,
     date_only_exam_is_visible,
+    latest_decision_boundary,
     parse_esl_naive_datetime,
     sanitize_visible_event_entry,
 )
@@ -269,3 +270,25 @@ def test_boundary_rejects_unknown_semantics_and_foreign_timeline() -> None:
             user_id="user-a",
             timeline={"user_id": "user-b", "entries": [{"time": "2026-03-03T10:00:00"}]},
         )
+
+
+def test_latest_decision_boundary_is_latest_unique_observed_timestamp() -> None:
+    timeline = {
+        "user_id": "user-a",
+        "generated_at": "2099-01-01T00:00:00",
+        "entries": [
+            {"time": "2026-03-02T10:00:00"},
+            {"time": "2026-03-01T10:00:00"},
+            {"time": "2026-03-02T10:00:00"},
+        ],
+    }
+
+    boundary = latest_decision_boundary(user_id="user-a", timeline=timeline)
+
+    assert boundary.naive_timestamp == "2026-03-02T10:00:00"
+    assert boundary.naive_timestamp != timeline["generated_at"]
+
+
+def test_latest_decision_boundary_fails_closed_on_empty_timeline() -> None:
+    with pytest.raises(ValueError, match="no observed decision boundary"):
+        latest_decision_boundary(user_id="user-a", timeline={"user_id": "user-a", "entries": []})

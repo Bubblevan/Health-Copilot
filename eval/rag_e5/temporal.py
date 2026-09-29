@@ -123,6 +123,16 @@ def candidate_decision_boundaries(
     )
 
 
+def latest_decision_boundary(
+    *, user_id: str, timeline: Mapping[str, Any]
+) -> SourceRelativeDecisionBoundary:
+    """Select the latest unique observed timestamp; never rescue from another source."""
+    boundaries = candidate_decision_boundaries(user_id=user_id, timeline=timeline)
+    if not boundaries:
+        raise ValueError("timeline has no observed decision boundary")
+    return boundaries[-1]
+
+
 def date_only_exam_is_visible(exam_date: object, boundary: SourceRelativeDecisionBoundary) -> bool:
     """A date-only exam is visible only on a strictly earlier calendar date."""
     return parse_esl_date(exam_date) < boundary.timestamp.date()
@@ -179,6 +189,7 @@ __all__ = [
     "TemporalSemanticsManifest",
     "candidate_decision_boundaries",
     "date_only_exam_is_visible",
+    "latest_decision_boundary",
     "parse_esl_date",
     "parse_esl_naive_datetime",
     "sanitize_visible_event_entry",

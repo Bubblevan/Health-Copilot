@@ -11,6 +11,7 @@ from datetime import datetime, time, timedelta
 from hashlib import sha256
 from typing import Any
 
+from eval.rag_e5.age import AGE_TEMPORAL_CONTRACT_SHA256, age_bucket_at_decision
 from eval.rag_e5.temporal import (
     TEMPORAL_SEMANTICS_ID,
     TEMPORAL_SEMANTICS_SHA256,
@@ -21,14 +22,21 @@ from eval.rag_e5.temporal import (
     parse_esl_naive_datetime,
 )
 
-STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v3"
+STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v4"
 PROFILE_TEMPORAL_CONTRACT = {
-    "schema_version": "rag-e5-profile-temporal-contract-v1",
+    "schema_version": "rag-e5-profile-temporal-contract-v2",
     "temporal_semantics_id": TEMPORAL_SEMANTICS_ID,
     "temporal_semantics_sha256": TEMPORAL_SEMANTICS_SHA256,
-    "time_invariant_safe": {
-        "demographics.age": "materialize_only_as_age_bucket",
+    "age_temporal_contract_id": "AGE_TEMPORAL_CONTRACT_V1",
+    "age_temporal_contract_sha256": AGE_TEMPORAL_CONTRACT_SHA256,
+    "time_invariant_safe": [],
+    "decision_time_derived": {
+        "profile.demographics.date_of_birth": "completed_age_at_decision_boundary_then_bucket",
+        "profile.demographics.birth_date": "completed_age_at_decision_boundary_then_bucket",
+        "profile.demographics.birthday": "completed_age_at_decision_boundary_then_bucket",
     },
+    "excluded_dynamic_fields": ["profile.demographics.age"],
+    "age_fallback": "unknown_if_safe_birth_date_missing_invalid_conflicting_or_future",
     "baseline_safe_if_proven": [],
     "temporally_unsafe": [
         "health_profile.chronic_conditions",
@@ -60,6 +68,7 @@ STATE_PACKET_CONFIG = {
     "recent_window_days": 30,
     "trend_tolerance_relative": 0.02,
     "profile_temporal_contract_sha256": PROFILE_TEMPORAL_CONTRACT_SHA256,
+    "age_temporal_contract_sha256": AGE_TEMPORAL_CONTRACT_SHA256,
     "temporal_semantics_sha256": TEMPORAL_SEMANTICS_SHA256,
     "condition_categories_source": "pre-cutoff structured timeline/exam labels only",
     "same_timestamp_metric_policy": "exclude_ambiguous_metric_time_groups",
@@ -135,6 +144,7 @@ class LongitudinalStatePacket:
     summary_builder_version: str
     summary_config_sha256: str
     profile_temporal_contract_sha256: str
+    age_temporal_contract_sha256: str
     packet_sha256: str
 
     def to_dict(self) -> dict[str, Any]:
@@ -160,6 +170,7 @@ class LongitudinalStatePacket:
             "summary_builder_version": self.summary_builder_version,
             "summary_config_sha256": self.summary_config_sha256,
             "profile_temporal_contract_sha256": self.profile_temporal_contract_sha256,
+            "age_temporal_contract_sha256": self.age_temporal_contract_sha256,
             "packet_sha256": self.packet_sha256,
         }
 
@@ -192,7 +203,7 @@ def build_longitudinal_state_packet(
     demographics = profile.get("demographics", {})
     if not isinstance(demographics, Mapping):
         raise TypeError("profile.demographics must be a mapping")
-    age_bucket = _age_bucket(demographics.get("age"))
+    age_bucket = age_bucket_at_decision(demographics, decision_boundary)
 
     entries = timeline.get("entries", ())
     if not isinstance(entries, Sequence) or isinstance(entries, (str, bytes)):
@@ -295,6 +306,7 @@ def build_longitudinal_state_packet(
         "summary_builder_version": STATE_PACKET_BUILDER_VERSION,
         "summary_config_sha256": STATE_PACKET_CONFIG_SHA256,
         "profile_temporal_contract_sha256": PROFILE_TEMPORAL_CONTRACT_SHA256,
+        "age_temporal_contract_sha256": AGE_TEMPORAL_CONTRACT_SHA256,
     }
     packet_sha256 = sha256(
         json.dumps(packet_without_hash, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
@@ -320,6 +332,7 @@ def build_longitudinal_state_packet(
         summary_builder_version=STATE_PACKET_BUILDER_VERSION,
         summary_config_sha256=STATE_PACKET_CONFIG_SHA256,
         profile_temporal_contract_sha256=PROFILE_TEMPORAL_CONTRACT_SHA256,
+        age_temporal_contract_sha256=AGE_TEMPORAL_CONTRACT_SHA256,
         packet_sha256=packet_sha256,
     )
 
@@ -389,26 +402,6 @@ def _parse_exam_date(value: object) -> tuple[datetime, bool]:
     if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
         return datetime.combine(parse_esl_date(value), time.min), True
     return parse_esl_naive_datetime(value), False
-
-
-def _age_bucket(value: object) -> str:
-    if isinstance(value, bool):
-        return "unknown"
-    try:
-        age = float(value)
-    except (TypeError, ValueError):
-        return "unknown"
-    if not 0 <= age <= 125:
-        return "unknown"
-    if age < 18:
-        return "under_18"
-    if age < 40:
-        return "18_39"
-    if age < 60:
-        return "40_59"
-    if age < 75:
-        return "60_74"
-    return "75_plus"
 
 
 def _time_bounded_condition_categories(

@@ -1,10 +1,17 @@
 {
-  "schema_version": "rag-e5-profile-temporal-contract-v1",
+  "schema_version": "rag-e5-profile-temporal-contract-v2",
   "temporal_semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
   "temporal_semantics_sha256": "e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13",
-  "time_invariant_safe": {
-    "demographics.age": "materialize_only_as_age_bucket"
+  "age_temporal_contract_id": "AGE_TEMPORAL_CONTRACT_V1",
+  "age_temporal_contract_sha256": "b6d916a63990b0e23ce5f9ad616e6e6ba0f1d6638fe99738b5edce873cfefd5b",
+  "time_invariant_safe": [],
+  "decision_time_derived": {
+    "profile.demographics.date_of_birth": "completed_age_at_decision_boundary_then_bucket",
+    "profile.demographics.birth_date": "completed_age_at_decision_boundary_then_bucket",
+    "profile.demographics.birthday": "completed_age_at_decision_boundary_then_bucket"
   },
+  "excluded_dynamic_fields": ["profile.demographics.age"],
+  "age_fallback": "unknown_if_safe_birth_date_missing_invalid_conflicting_or_future",
   "baseline_safe_if_proven": [],
   "temporally_unsafe": [
     "health_profile.chronic_conditions",
