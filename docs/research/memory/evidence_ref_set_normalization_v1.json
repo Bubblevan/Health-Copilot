@@ -1,0 +1,43 @@
+{
+  "contract_id": "evidence-ref-set-normalization-v1",
+  "field": "evidence_refs",
+  "logical_type": "SET[EvidenceRef]",
+  "wire_type": "JSON array",
+  "duplicate_semantics": "idempotent representation redundancy; exact duplicate strings only",
+  "canonical_order": "source catalog ordinal ascending",
+  "validation_order": [
+    "JSON parse",
+    "root and object-field validation",
+    "raw evidence_refs type and non-empty validation",
+    "validate every raw reference as a known current-session catalog reference",
+    "exact deduplication and source-catalog-order normalization",
+    "provenance content-hash and offset reconstruction"
+  ],
+  "forbidden_recovery": [
+    "fuzzy matching",
+    "semantic inference",
+    "cross-session reference resolution",
+    "dropping unknown references",
+    "model repair request",
+    "retry"
+  ],
+  "diagnostics": {
+    "fields": [
+      "raw_evidence_ref_count",
+      "canonical_evidence_ref_count",
+      "duplicate_evidence_ref_count",
+      "duplicate_evidence_refs"
+    ],
+    "scope": "evaluator/debug metadata only",
+    "excluded_from": [
+      "MemoryRecord reader-visible value",
+      "embedding document",
+      "query prompt"
+    ]
+  },
+  "writer_contract_unchanged": {
+    "extractor_contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+    "extractor_prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+    "schema_uniqueItems": true
+  }
+}

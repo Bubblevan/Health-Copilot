@@ -1,0 +1,13 @@
+{
+  "identity": {
+    "evidence_ref_normalization_contract_sha256": "d718ae5895976e4736fd4aed63019d656cf60b863a1632c4b15631fc55b5862e",
+    "extractor_v3_contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+    "normalization_order": "exact set; source catalog ordinal ascending",
+    "rawspan_catalog_builder_source_sha256": "57d33ab389c64a8f9c873d25e38dae0c952cc728fde3dcbf37c10984d184cec9",
+    "rawspan_catalog_contract_sha256": "e89f199a1da9ded83dbc4b07e0581661dc06451a284efdcd5f0548f9193177d3",
+    "validator_id": "flatprop-packet-validator-v3-set-v1",
+    "validator_source_sha256": "3130709b803d7e56ba63aa9c705cb51f948c19955dec34afb2f39a0196532ef9",
+    "writer_prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376"
+  },
+  "identity_sha256": "410ed4cbdca586bdf67e5f525c07b85a244a6fe6f6b1671e9ff38165baecc562"
+}

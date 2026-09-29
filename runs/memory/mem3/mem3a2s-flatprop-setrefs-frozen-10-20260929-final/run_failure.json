@@ -1,0 +1,21 @@
+{
+  "102_dev_access": false,
+  "downstream_started": false,
+  "completion_gate_marker": "MEM3A2S_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "failure": "COMPLETION_TRUNCATED",
+  "failure_classification": "WRITER_UNBOUNDED_OUTPUT_FAILURE",
+  "hosted_calls": 0,
+  "historical_outcomes_imported": 102,
+  "historical_provider_replays": 0,
+  "labels_loaded": false,
+  "local_writer_attempts": 149,
+  "local_writer_failures": 1,
+  "local_writer_successes": 148,
+  "normalized_outcomes": 250,
+  "remaining_unattempted_source_sessions": 226,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a2s-flatprop-setrefs-frozen-10-20260929-final",
+  "status": "FAILED",
+  "test_access": false
+}

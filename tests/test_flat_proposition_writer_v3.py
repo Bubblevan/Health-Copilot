@@ -116,6 +116,139 @@ def test_v3_derives_mixed_authority_from_actual_span_roles():
     assert normalized["propositions"][0]["source_authority"] == "mixed"
 
 
+def test_v3_canonicalizes_exact_duplicate_refs_with_diagnostics():
+    normalized = v3.validate_packet(
+        _packet(
+            [
+                {
+                    "proposition_text": "The user likes swimming.",
+                    "evidence_refs": ["S0000", "S0000"],
+                }
+            ]
+        ),
+        _catalog(),
+    )["propositions"][0]
+    assert normalized["evidence_refs"] == ["S0000"]
+    assert normalized["raw_evidence_ref_count"] == 2
+    assert normalized["canonical_evidence_ref_count"] == 1
+    assert normalized["duplicate_evidence_ref_count"] == 1
+    assert normalized["duplicate_evidence_refs"] == [
+        {"evidence_ref": "S0000", "multiplicity": 2}
+    ]
+
+
+def test_v3_canonical_order_uses_catalog_ordinal_not_ref_lexical_order():
+    catalog = _catalog()
+    catalog[0]["evidence_ref"] = "S0012"
+    catalog[1]["evidence_ref"] = "S0003"
+    normalized = v3.validate_packet(
+        _packet(
+            [
+                {
+                    "proposition_text": "Supported across both spans.",
+                    "evidence_refs": ["S0003", "S0012", "S0003"],
+                }
+            ]
+        ),
+        catalog,
+    )["propositions"][0]
+    assert normalized["evidence_refs"] == ["S0012", "S0003"]
+    assert [row["evidence_ref"] for row in normalized["evidence"]] == ["S0012", "S0003"]
+
+
+def test_v3_unknown_reference_remains_fatal_even_when_other_ref_is_duplicate():
+    with pytest.raises(v2.ExtractionValidationError) as error:
+        v3.validate_packet(
+            _packet(
+                [
+                    {
+                        "proposition_text": "The user likes swimming.",
+                        "evidence_refs": ["S0000", "BAD", "S0000"],
+                    }
+                ]
+            ),
+            _catalog(),
+        )
+    assert error.value.code == "UNKNOWN_EVIDENCE_REF"
+    assert error.value.evidence_ref == "BAD"
+
+
+def test_v3_empty_evidence_stays_fatal():
+    with pytest.raises(v2.ExtractionValidationError) as error:
+        v3.validate_packet(
+            _packet([{"proposition_text": "No provenance.", "evidence_refs": []}]),
+            _catalog(),
+        )
+    assert error.value.code == "EMPTY_EVIDENCE_REFS"
+
+
+def test_v3_same_evidence_across_propositions_is_not_deduplicated():
+    normalized = v3.validate_packet(
+        _packet(
+            [
+                {"proposition_text": "First statement.", "evidence_refs": ["S0000"]},
+                {"proposition_text": "Second statement.", "evidence_refs": ["S0000"]},
+            ]
+        ),
+        _catalog(),
+    )
+    assert len(normalized["propositions"]) == 2
+
+
+def test_v3_duplicate_and_single_ref_have_same_canonical_provenance_identity():
+    def identity(refs):
+        prop = v3.validate_packet(
+            _packet([{"proposition_text": "Same fact.", "evidence_refs": refs}]), _catalog()
+        )["propositions"][0]
+        provenance = {"evidence_refs": prop["evidence_refs"], "evidence": prop["evidence"]}
+        return v2.sha256_bytes(v2.canonical_json({"text": prop["proposition_text"], **provenance}))
+
+    assert identity(["S0000"]) == identity(["S0000", "S0000"])
+
+
+def test_v3_provider_schema_keeps_unique_items_true():
+    assert v3.dynamic_output_schema(_catalog())["properties"]["propositions"]["items"][
+        "properties"
+    ]["evidence_refs"]["uniqueItems"] is True
+
+
+def test_validator_identity_participates_in_normalized_packet_cache_identity(tmp_path):
+    catalog = _catalog()
+    request = {"model": "local", "response_format": {"schema": v3.dynamic_output_schema(catalog)}}
+    provider_calls = []
+
+    def provider(_request):
+        provider_calls.append(1)
+        return (
+            200,
+            _envelope(
+                _packet(
+                    [{"proposition_text": "The user likes swimming.", "evidence_refs": ["S0000"]}]
+                )
+            ),
+            "application/json",
+        )
+
+    ledgers = []
+    for identity in ("set-validator-identity-v1", "set-validator-identity-v2"):
+        _, ledger = v2.execute_or_resume(
+            request=request,
+            catalog=catalog,
+            session_identity_sha256="same-session",
+            prompt_sha256="same-prompt",
+            contract_sha256="same-writer-contract",
+            local_cache_root=tmp_path,
+            provider=provider,
+            stage_identity="same-stage",
+            packet_validator=v3.validate_packet,
+            packet_validator_sha256=identity,
+        )
+        ledgers.append(ledger)
+
+    assert len(provider_calls) == 2
+    assert ledgers[0]["cache_identity_sha256"] != ledgers[1]["cache_identity_sha256"]
+
+
 def test_v3_reconstructs_exact_frozen_quote_turn_span_and_offsets():
     normalized = v3.validate_packet(
         _packet(

@@ -1,0 +1,29 @@
+{
+  "all_prompt_tokens_plus_16384_fit": true,
+  "base_commit_sha": "5b380f8ace23e0008077d0d394aac3d09dad8291",
+  "execution_order_selected_for_failure_efficiency_not_model_quality": true,
+  "execution_order_sha256": "2bf0ae826f0762d78fabb3a9192fff51ea79b50e2ab1c98a64a7ab7246b4069e",
+  "extractor_contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+  "first_execution_identity": "7dcf35e1722f16d214f5fe14fd59bc198cd73d0c35ec9858300f0b348e30cb15",
+  "hosted_calls": 0,
+  "label_barrier": "labels remain unloaded through writer, inventory, retrieval, bundles, predictions and reader ledger freeze",
+  "max_reserved_prompt_tokens": 36246,
+  "normalization_contract_sha256": "d718ae5895976e4736fd4aed63019d656cf60b863a1632c4b15631fc55b5862e",
+  "preflight_requests": 477,
+  "prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+  "retries": 0,
+  "schema_version": 1,
+  "semantic_noise_threshold": {
+    "applies_after_writer_packets_freeze": true,
+    "diagnostic_only": true,
+    "metric": "lowercase word-token set Jaccard similarity",
+    "no_merge_drop_or_retry": true,
+    "schema_version": 1,
+    "stage": "mem3a2s-flatprop-setrefs-frozen-10-20260929-final",
+    "threshold_inclusive": 0.8
+  },
+  "sole_method_change": "writer max_tokens 4096 -> 16384; MEM-3A.2S adds post-response exact evidence-ref set canonicalization",
+  "stage": "mem3a2s-flatprop-setrefs-frozen-10-20260929-final",
+  "validator_identity_id": "flatprop-packet-validator-v3-set-v1",
+  "writer_runtime_contract_sha256": "993e395f1c95ba3a3da295a2b67b63549d642a186f252ada23812e8627721edf"
+}

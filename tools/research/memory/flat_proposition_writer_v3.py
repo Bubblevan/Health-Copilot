@@ -107,6 +107,7 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
         )
 
     spans = {span["evidence_ref"]: span for span in catalog}
+    catalog_ordinal = {span["evidence_ref"]: index for index, span in enumerate(catalog)}
     normalized = []
     for index, proposition in enumerate(payload["propositions"]):
         if not isinstance(proposition, dict):
@@ -141,25 +142,29 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
             raise ExtractionValidationError(
                 "INVALID_EVIDENCE_REF", proposition_index=index, field="evidence_refs"
             )
-        if len(refs) != len(set(refs)):
-            duplicate = next(ref for pos, ref in enumerate(refs) if ref in refs[:pos])
-            raise ExtractionValidationError(
-                "DUPLICATE_EVIDENCE_REF",
-                proposition_index=index,
-                field="evidence_refs",
-                evidence_ref=duplicate,
-            )
 
-        evidence = []
+        # Validate every wire value before normalization so unknown refs stay fatal.
         for ref in refs:
-            span = spans.get(ref)
-            if span is None:
+            if ref not in spans:
                 raise ExtractionValidationError(
                     "UNKNOWN_EVIDENCE_REF",
                     proposition_index=index,
                     field="evidence_refs",
                     evidence_ref=ref,
                 )
+        ref_counts: dict[str, int] = {}
+        for ref in refs:
+            ref_counts[ref] = ref_counts.get(ref, 0) + 1
+        canonical_refs = sorted(set(refs), key=catalog_ordinal.__getitem__)
+        duplicate_refs = [
+            {"evidence_ref": ref, "multiplicity": ref_counts[ref]}
+            for ref in canonical_refs
+            if ref_counts[ref] > 1
+        ]
+
+        evidence = []
+        for ref in canonical_refs:
+            span = spans[ref]
             content = span["content"]
             actual_sha = sha256_bytes(content.encode("utf-8"))
             if actual_sha != span["content_sha256"]:
@@ -191,9 +196,13 @@ def validate_packet(raw_bytes: bytes, catalog: list[dict[str, Any]]) -> dict[str
         normalized.append(
             {
                 "proposition_text": text.strip(),
-                "evidence_refs": refs,
+                "evidence_refs": canonical_refs,
                 "evidence": evidence,
                 "source_authority": authority,
+                "raw_evidence_ref_count": len(refs),
+                "canonical_evidence_ref_count": len(canonical_refs),
+                "duplicate_evidence_ref_count": len(refs) - len(canonical_refs),
+                "duplicate_evidence_refs": duplicate_refs,
             }
         )
     return {"propositions": normalized}
