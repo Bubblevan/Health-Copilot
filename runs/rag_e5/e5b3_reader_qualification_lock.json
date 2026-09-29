@@ -1,0 +1,87 @@
+{
+  "approved_corpus_chunks_sha256": "92070cbb5f5961bf1f9cfdf628bbc9cc3ea7c4fdf3a317ca378fd450aa28b5ac",
+  "b2_or_202608_outputs_read": false,
+  "b2_tasks_or_reader_outputs_used": false,
+  "budget_selection": "smallest budget that passes every locked qualification gate",
+  "candidate_output_budgets": [
+    256,
+    384,
+    512
+  ],
+  "fixture_set_sha256": "be08bef9ee465595696ad8dceaf6478594b40df599265da8ef9e74c7e2d30fef",
+  "fixture_strata": {
+    "Q0_STATE_ONLY": 8,
+    "Q1_EVIDENCE_ONLY": 8,
+    "Q2_STATE_AND_EVIDENCE": 8
+  },
+  "gates": {
+    "finish_reason_length": "0/24",
+    "p95_output_tokens": "<= 75% of candidate output budget",
+    "q0_q2_canonical_state_contract": "16/16",
+    "q1_q2_invented_citations": 0,
+    "q1_q2_valid_supplied_citation": "at least one for each evidence-required fixture",
+    "valid_reader_v2_json": "24/24"
+  },
+  "llama_cpp": {
+    "endpoint": "http://127.0.0.1:8093/v1",
+    "executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "executable_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_args": [
+      "--host 127.0.0.1",
+      "--port 8093",
+      "--ctx-size 16384",
+      "--n-gpu-layers 0",
+      "--reasoning off",
+      "--chat-template-kwargs {\"enable_thinking\":false}",
+      "--no-cache-prompt",
+      "--parallel 1",
+      "--offline",
+      "--no-webui"
+    ],
+    "version": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "model": {
+    "bytes": 5027783488,
+    "file": "Qwen3-8B-Q4_K_M.gguf",
+    "reasoning": "disabled",
+    "repository": "Qwen/Qwen3-8B-GGUF",
+    "retry_on_error": false,
+    "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "temperature": 0.0
+  },
+  "model_calls": 0,
+  "q2_passage_char_lengths": [
+    1240,
+    1426,
+    1510,
+    1724,
+    1944
+  ],
+  "q2_passages_per_fixture": 5,
+  "qualification_fixture_count": 24,
+  "qualification_lock_sha256": "df095956f301bc3f519c003d7a1d2f7a197a918a2781a9f81e575e540ff46adb",
+  "qualification_passage_ids": [
+    "who-guideline-33511bbfac7ce4586cb7aadc",
+    "who-guideline-4f47a8d684098dc3c22b7ad5",
+    "who-guideline-5ca2f3d427b204da9c293c0f",
+    "who-guideline-5f9f38ca0abb571b9420ada2",
+    "who-guideline-7f385b69c8e66434d2fefc4c",
+    "who-guideline-9c2ad627f2731d22c33e010d",
+    "who-guideline-a88b56abfce6c49800316477",
+    "who-guideline-e6e84b1a717d8c85db5f0454"
+  ],
+  "reader_prompt_sha256": "2f9073d43f4bb01ea16602bea822525b73fe223a62eabe2ce2fd7d26c67fb7a5",
+  "reader_schema_sha256": "3b31dadccc42aa2bd703d9f2d47e8edec693491b79f6fb56f0d7fc3801a0369e",
+  "reader_state_projection_sha256": "631352e4e53c9690c3af81013374984a291380b4bd335243f060000d0e67fd23",
+  "retrieval_performed": false,
+  "schema_version": "rag-e5-e5b3-reader-qualification-lock-v1",
+  "scope": "independent reader contract qualification; no retrieval or task outcomes",
+  "source_sha256": {
+    "eval/rag_e5/e5b3_qualification.py": "95c704012b976bd8bdb88b6eab6bf3da549e694797a24eb1d137ea2a9fdcba7d",
+    "eval/rag_e5/e5b3_reader.py": "537eb277995a222bff18a64a710bf31fc44987069252f5885a639db75e0c0b1f",
+    "tools/research/rag_e5/freeze_e5b3_qualification.py": "bd6b742469413221b71d88d8515a70a0f1e6881b8420996cc0425f5c8c43ed49",
+    "tools/research/rag_e5/qualify_e5b3_reader.py": "e837ad863ca7d662f7e3497c7da51e9f8f6dd1f115fd14c247fcf3e41d3e961f"
+  },
+  "status": "FROZEN_BEFORE_QUALIFICATION_MODEL_CALLS"
+}
