@@ -1,0 +1,134 @@
+{
+  "schema_audit_version": "medmemorybench-schema-audit-v1",
+  "audit_date": "2026-09-29",
+  "source_commit": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+  "schema_hashes": {
+    "zh": "1fc5b5f09846a2b59fcd558c2a18367511082d38a74bfe5edf798d87f10c4df4",
+    "en": "c53acbbe5f1db597b39e7d1aa424e7140fb74f43c7040331a4e41c50244ce84d"
+  },
+  "schema_hash_algorithm": "Parse JSON structure only; recursively union JSON types by dotted object path and [] array path; canonicalize the sorted path-to-sorted-type-set map as compact UTF-8 JSON and SHA256 it.",
+  "dialogue_session_shape": {
+    "top_level_fields": [
+      "session_id",
+      "persona_id",
+      "messages",
+      "turn_count",
+      "event_id",
+      "event_info",
+      "knowledge_points",
+      "persona_info",
+      "created_at",
+      "status",
+      "kp_count"
+    ],
+    "message_fields": ["turn", "role", "content", "agent_type"],
+    "event_info_fields": ["date", "event", "type"],
+    "knowledge_point_fields": ["category", "name", "content", "time", "session_id", "trap_score"],
+    "runtime_visibility": {
+      "messages": "RUNTIME_VISIBLE",
+      "session_id": "ADAPTER_PROVENANCE_ONLY",
+      "persona_id": "ADAPTER_SCOPE_ONLY",
+      "turn_count": "DATASET_GENERATION_METADATA",
+      "event_id": "DATASET_GENERATION_METADATA",
+      "event_info": "DATASET_GENERATION_METADATA",
+      "knowledge_points": "EVALUATOR_ONLY",
+      "persona_info": "DATASET_GENERATION_METADATA",
+      "created_at": "DATASET_GENERATION_METADATA",
+      "status": "DATASET_GENERATION_METADATA",
+      "kp_count": "DATASET_GENERATION_METADATA"
+    }
+  },
+  "query_shape": {
+    "top_level_fields": [
+      "query_id",
+      "session_id",
+      "query_type",
+      "question",
+      "answers",
+      "source_key_points",
+      "metadata"
+    ],
+    "answer_fields": ["content", "explanation", "is_correct"],
+    "source_key_point_fields": ["category", "name", "content", "time", "session_id", "trap_score"],
+    "metadata_keys_vary_by_type": true,
+    "observed_metadata_key_families": {
+      "entity_exact_match": ["answer_format", "difficulty", "entity_type", "entity_value"],
+      "temporal_localization": ["difficulty", "target_time", "time_type"],
+      "state_update": ["change_description", "change_type", "difficulty", "focus_session", "state_type"],
+      "inference_generation": ["common_wrong_answer", "difficulty", "inference_type", "trap_design"],
+      "multiple_choice": ["correct_count", "difficulty", "trap_count", "trap_design"],
+      "multi_hop_clinical_deduction": [
+        "core_mechanism",
+        "difficulty",
+        "diversity_check",
+        "hop_count",
+        "question_style",
+        "reasoning_chain",
+        "reasoning_pattern",
+        "required_memory_nodes",
+        "sessions_involved",
+        "time_span_days"
+      ]
+    }
+  },
+  "field_classification": {
+    "query": {
+      "query_id": "EVALUATOR_ONLY",
+      "session_id": "EVALUATOR_ONLY",
+      "query_type": "EVALUATOR_ONLY",
+      "question": "RUNTIME_VISIBLE_AT_QUERY_TIME",
+      "answers": "EVALUATOR_ONLY",
+      "source_key_points": "EVALUATOR_ONLY",
+      "metadata": "EVALUATOR_ONLY"
+    },
+    "dialogue_annotations": {
+      "event_info": "DATASET_GENERATION_METADATA",
+      "knowledge_points": "EVALUATOR_ONLY",
+      "trap_score": "EVALUATOR_ONLY",
+      "trap_events": "EVALUATOR_ONLY",
+      "generated_events": "DATASET_GENERATION_METADATA",
+      "generated_personas": "DATASET_GENERATION_METADATA"
+    }
+  },
+  "aggregate_shape_audit": {
+    "per_language_personas": 20,
+    "regular_sessions_per_language": 2020,
+    "turns_per_language": 31976,
+    "queries_per_language": 1986,
+    "event_graph_event_nodes_per_language": 2074,
+    "trap_events_per_language": 120,
+    "trap_event_types_per_language": {
+      "allergy": 20,
+      "medication_history": 20,
+      "disease_history": 20,
+      "medication_preference": 20,
+      "diet_preference": 20,
+      "lifestyle_economic": 20
+    },
+    "generated_event_types_per_language": {
+      "health": 1182,
+      "life": 562,
+      "work": 210,
+      "lifestyle_economic": 20,
+      "medication_history": 20,
+      "disease_history": 20,
+      "diet_preference": 20,
+      "medication_preference": 20,
+      "allergy": 20
+    }
+  },
+  "leakage_rules": [
+    "Only ordered conversation messages may enter future runtime memory.",
+    "Do not pass knowledge_points, event_info, trap labels/scores, answers, source_key_points, or query metadata to an extractor, writer, retriever, prompt, embedding model, or reader.",
+    "Session IDs may be retained only as provenance references; event IDs require an explicit protocol approval.",
+    "Gold annotations may be loaded only by an evaluator isolated from runtime."
+  ],
+  "gold_leakage_assessment": {
+    "embedding_or_memorizing_knowledge_points": "LEAKAGE",
+    "embedding_or_memorizing_event_info": "GENERATION_METADATA_LEAKAGE",
+    "embedding_or_memorizing_trap_annotations": "EVALUATOR_LABEL_LEAKAGE",
+    "using_source_key_points_at_runtime": "GOLD_PROVENANCE_LEAKAGE",
+    "label_exposure_occurred": true,
+    "exposure_reason": "The Hugging Face viewer automatically displayed a sample dialogue and one associated knowledge_points value during schema inspection; no answers field was opened and the sample was not used for tuning, method selection, or scoring."
+  }
+}

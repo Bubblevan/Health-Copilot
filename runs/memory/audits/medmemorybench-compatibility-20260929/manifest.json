@@ -1,0 +1,132 @@
+{
+  "manifest_version": "mem-b0-audit-v1",
+  "stage": "MEM-B0 — Benchmark Routing Freeze & MedMemoryBench Compatibility Audit",
+  "audit_date": "2026-09-29",
+  "repository": {
+    "name": "Health-Copilot",
+    "base_commit": "9e023dbddc1f8025e3608bfae4c5390c1a7957ef",
+    "branch": "mem-b0-benchmark-routing-20260929",
+    "remote": "https://github.com/Bubblevan/Health-Copilot.git"
+  },
+  "gates": {
+    "MEDMEMORYBENCH_SOURCE_PINNED": "YES",
+    "MEDMEMORYBENCH_COMPATIBILITY_AUDITED": "YES",
+    "MEDMEMORY_STREAMING_COMPATIBLE": "CONDITIONAL",
+    "LONGMEM_MEMORY_MECHANISM_FROZEN": "NO",
+    "MEDMEMORY_LABEL_EXPOSURE_OCCURRED": true
+  },
+  "external_source": {
+    "repository": "https://github.com/AQ-MedAI/MedMemoryBench",
+    "commit": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+    "git_tree": "0433ceb8502784d29004c57e254ca5dbdb6e813f",
+    "worktree_clean": true,
+    "matches_observed_upstream": true,
+    "pull_or_fetch_performed": false,
+    "submodules_initialized": false
+  },
+  "dataset_identity": {
+    "zh": {
+      "files": 182,
+      "bytes": 616424610,
+      "tree_sha256": "d014f99d147b341812045f289f60f0198155dd46a6168da4366aa2d9e6a00421",
+      "schema_sha256": "1fc5b5f09846a2b59fcd558c2a18367511082d38a74bfe5edf798d87f10c4df4",
+      "personas": 20,
+      "regular_sessions": 2020,
+      "turns": 31976,
+      "queries": 1986,
+      "noise_sessions": 2000
+    },
+    "en": {
+      "files": 122,
+      "bytes": 464444729,
+      "tree_sha256": "ee3c8d71a5aebf7bea21b9946a6059d7657b26a0e3dae1542176e2b925b5099e",
+      "schema_sha256": "c53acbbe5f1db597b39e7d1aa424e7140fb74f43c7040331a4e41c50244ce84d",
+      "personas": 20,
+      "regular_sessions": 2020,
+      "turns": 31976,
+      "queries": 1986,
+      "noise_sessions": 2000
+    },
+    "hash_algorithm": "Defined in docs/research/memory/medmemorybench_dataset_manifest.json",
+    "future_evaluation_class": "PUBLIC_EXTERNAL_TRANSFER"
+  },
+  "activity": {
+    "benchmark_methods_run": 0,
+    "provider_calls": 0,
+    "embedding_calls": 0,
+    "reader_calls": 0,
+    "judge_calls": 0,
+    "memory_writes": 0,
+    "query_scoring_runs": 0,
+    "longmemeval_102_dev_runs": 0,
+    "mem3b_stages_started": 0,
+    "esl_downloads_or_ingestions": 0,
+    "answer_content_semantically_inspected": false,
+    "schema_only_json_parsing": true
+  },
+  "exposure_note": "The Hugging Face viewer unexpectedly rendered a sample dialogue and one associated knowledge_points value. No answers field was opened and the sample was not used for tuning, method selection, or scoring; label exposure is conservatively marked true.",
+  "routing": {
+    "personal_session_bm25_dense_graph": "MEMORY_READ",
+    "external_guideline_or_public_health_corpus": "EXTERNAL_RETRIEVAL",
+    "team": "TEAM_ORCHESTRATION",
+    "benchmark_rag_namespaces": [
+      "MEMORY_READ_BASELINE::BM25",
+      "MEMORY_READ_BASELINE::DENSE",
+      "MEMORY_READ_BASELINE::GRAPH"
+    ]
+  },
+  "current_longmem_checkpoint": {
+    "checkout_commit": "73332535a7aef74d6a93d39092f5f596d00ec767",
+    "run_gate": "MEM3A2R_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+    "terminal_failure_class": "duplicate evidence reference at session 102",
+    "modified_by_mem_b0": false
+  },
+  "unresolved_transfer_blockers": [
+    "Finish/freeze LongMem revision and temporal mechanism chain.",
+    "Freeze timestamp, query-time, language, noise-arm, and evaluator protocol before MED-M0.",
+    "Implement adapter scope/reset/checkpoint/noise provenance after both gates.",
+    "Separate model-incompatible official historical results from controlled local transfer.",
+    "Resolve license discrepancy before dataset redistribution.",
+    "Handle incomplete provenance and judge infrastructure failures without scoring them as quality."
+  ],
+  "required_artifacts": [
+    {
+      "path": "docs/research/memory/benchmark_routing_contract.md",
+      "sha256": "6a7ef6652b4d3fea8ac199a54e5263b375a8211820542d09db0f811945fa9bfa"
+    },
+    {
+      "path": "docs/research/memory/memory_benchmark_roadmap.md",
+      "sha256": "e6f7509ef6615da5238d0e91e5ba10bbfa60abafaf2c867048a6c5998a021440"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_compatibility_audit.md",
+      "sha256": "259214212193841a2a72391da016868700cb34147a6a47d61f84c3b42b43d551"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_dataset_manifest.json",
+      "sha256": "c42f4f24c5274d9425ecb85f3d78b62d82e967207c73ffa9217cea309bead42d"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_schema_audit.json",
+      "sha256": "43b26636e7d751fb34b8b1476099e9e4902a5dbd5c8f8f7f03562bdd62250184"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_query_taxonomy.json",
+      "sha256": "72f067cfb2a7374b7f59f565e117ce7d71f9e0905e1ae2643c9ab98f7b6659c7"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_provenance_compatibility.json",
+      "sha256": "bda20fd2d7cf31b41aa10e8df0ffabf6db7b22f0d2957afbf88707848932fb89"
+    },
+    {
+      "path": "docs/research/memory/medmemorybench_baseline_protocol_matrix.json",
+      "sha256": "c0ef667323afa319bf2c98b0b0cce21b816645d9d2be4917518d7024897b5106"
+    },
+    {
+      "path": "docs/research/memory/esl_bench_integration_recon.md",
+      "sha256": "31e85479c4023bd60ba4681f0a099eb1b1298c9136da9caa981a4a6243cc6dba"
+    }
+  ],
+  "manifest_sha256_sidecar": "manifest.json.sha256",
+  "claim_boundary": "Audit and compatibility planning only; no benchmark result, baseline performance claim, or MED-M0 authorization."
+}

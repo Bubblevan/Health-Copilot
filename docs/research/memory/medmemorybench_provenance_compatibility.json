@@ -1,0 +1,110 @@
+{
+  "provenance_audit_version": "medmemorybench-provenance-v1",
+  "audit_date": "2026-09-29",
+  "source_commit": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+  "per_language_query_count": 1986,
+  "source_key_points": {
+    "queries_with_source_key_points": 1986,
+    "coverage": 1.0,
+    "fields": ["category", "name", "content", "time", "session_id", "trap_score"],
+    "direct_source_turn_id_present": 0,
+    "direct_source_event_id_present": 0,
+    "queries_with_temporal_source_fields": 1986,
+    "queries_with_multiple_source_key_points": 984,
+    "queries_with_multiple_distinct_source_sessions": 652
+  },
+  "resolvable_joins": {
+    "queries_with_at_least_one_resolvable_source_session": 1982,
+    "queries_with_indirect_session_to_event_join": 1982,
+    "queries_with_direct_event_id_in_source_key_point": 0,
+    "queries_without_resolvable_source_session": 4,
+    "join_path": "source_key_points.session_id -> dialogue session -> session.event_id",
+    "event_join_is_directly_gold_exposed": false
+  },
+  "by_query_type": {
+    "entity_exact_match": {
+      "queries": 400,
+      "multi_source_session_queries": 0,
+      "max_distinct_source_sessions": 1,
+      "resolvable_source_session_queries": 400,
+      "max_source_key_points": 1
+    },
+    "temporal_localization": {
+      "queries": 400,
+      "multi_source_session_queries": 0,
+      "max_distinct_source_sessions": 1,
+      "resolvable_source_session_queries": 400,
+      "max_source_key_points": 1
+    },
+    "state_update": {
+      "queries": 200,
+      "multi_source_session_queries": 200,
+      "max_distinct_source_sessions": 96,
+      "resolvable_source_session_queries": 200,
+      "max_source_key_points": 197
+    },
+    "inference_generation": {
+      "queries": 397,
+      "multi_source_session_queries": 146,
+      "max_distinct_source_sessions": 3,
+      "resolvable_source_session_queries": 397
+    },
+    "multiple_choice": {
+      "queries": 398,
+      "multi_source_session_queries": 131,
+      "max_distinct_source_sessions": 3,
+      "resolvable_source_session_queries": 398
+    },
+    "multi_hop_clinical_deduction": {
+      "queries": 191,
+      "multi_source_session_queries": 175,
+      "max_distinct_source_sessions": 4,
+      "resolvable_source_session_queries": 187
+    }
+  },
+  "metric_compatibility": {
+    "answer_session_recall_at_k": {
+      "status": "SUPPORTED_WITH_COVERAGE_DISCLOSURE",
+      "basis": "source_key_points session IDs",
+      "coverage": "1982/1986 queries have at least one resolvable session; remaining cases must be NA or explicitly excluded"
+    },
+    "mrr": {
+      "status": "SUPPORTED_WITH_COVERAGE_DISCLOSURE",
+      "basis": "rank of first retrieved resolvable gold session"
+    },
+    "evidence_recall_at_k": {
+      "status": "PROXY_ONLY",
+      "basis": "knowledge-point content exists evaluator-side but no source turn ID or direct event ID; use session/KP proxy and label it accordingly"
+    },
+    "current_state_conflict": {
+      "status": "PARTIAL",
+      "basis": "state_update labels and runtime context/write traces can identify conflicts for the relevant subset; not a uniform all-category gold metric"
+    },
+    "stale_context_rate": {
+      "status": "PARTIAL",
+      "basis": "requires runtime-retrieved/exposed IDs plus explicit temporal invalidity mapping; gold annotations alone are not runtime inputs"
+    },
+    "revision_resolution_accuracy": {
+      "status": "PARTIAL",
+      "basis": "state_update is a target subset; source provenance can be very broad and does not itself define deterministic revision identity"
+    },
+    "historical_recall": {
+      "status": "LIMITED",
+      "basis": "temporal_localization is not a general explicit AS_OF query contract; no universal historical-recall label"
+    },
+    "multi_source_composition_coverage": {
+      "status": "SUPPORTED_WITH_DISCLOSURE",
+      "basis": "distinct source session count can measure whether retrieved context covers multiple annotated sessions, but not source-turn evidence completeness"
+    },
+    "noise_exposure": {
+      "status": "RUNTIME_TRACE_REQUIRED",
+      "basis": "source_key_points do not directly link injected noise IDs; log writes, retrieved IDs, and exposed context during a future approved run"
+    }
+  },
+  "runtime_boundary": {
+    "evaluator_only": true,
+    "permitted_runtime_inputs": ["arrived dialogue messages", "approved session/scope identifiers"],
+    "prohibited_runtime_inputs": ["source_key_points", "answer content", "trap labels", "query metadata", "gold source mapping"],
+    "memory_is_not_clinical_evidence": true
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "manifest_version": "medmemorybench-dataset-audit-v1",
+  "audit_date": "2026-09-29",
+  "source": {
+    "repository": "https://github.com/AQ-MedAI/MedMemoryBench",
+    "local_path": "external/MedMemoryBench",
+    "branch": "main",
+    "commit": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+    "matches_observed_public_upstream": true,
+    "source_tree_sha1": "0433ceb8502784d29004c57e254ca5dbdb6e813f",
+    "worktree_clean": true,
+    "head_vs_origin_main": {
+      "ahead": 0,
+      "behind": 0
+    },
+    "submodules_initialized": false,
+    "submodule_gitlinks": {
+      "HippoRAG": {
+        "commit": "d437bfb1805278b81e20c82357ed3f7d90f14901",
+        "url": "https://github.com/OSU-NLP-Group/HippoRAG.git"
+      },
+      "LightMem": {
+        "commit": "a19ea88df47c73fd2f55d27f64616467ef576a81",
+        "url": "https://github.com/zjunlp/LightMem.git"
+      },
+      "MEM1": {
+        "commit": "2609aef4e7c46d8d0c0f06b9312bc4b4abe04b9d",
+        "url": "https://github.com/MIT-MI/MEM1.git"
+      },
+      "REMem": {
+        "commit": "d87840be922c9815a3c97ec24d9c25e4af5c295a",
+        "url": "https://github.com/intuit-ai-research/REMem.git"
+      }
+    },
+    "pull_performed": false
+  },
+  "dataset": {
+    "repository_native_representation": true,
+    "language_artifacts": {
+      "zh": {
+        "directory": "data/MedMemoryBench",
+        "file_count": 182,
+        "total_bytes_decimal": 616424610,
+        "tree_sha256": "d014f99d147b341812045f289f60f0198155dd46a6168da4366aa2d9e6a00421",
+        "schema_sha256": "1fc5b5f09846a2b59fcd558c2a18367511082d38a74bfe5edf798d87f10c4df4",
+        "personas": 20,
+        "persona_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        "regular_sessions": 2020,
+        "regular_sessions_per_persona": 101,
+        "turns": 31976,
+        "queries": 1986,
+        "noise_sessions": 2000,
+        "noise_sessions_per_persona": {
+          "health": 100,
+          "family_health": 100
+        },
+        "noisy_dialogue_rows_including_regular_sessions": 6020,
+        "artifact_family_inventory_sha256": {
+          "algorithm": "For each family, sort by numeric persona ID then relative path; hash relative_path UTF-8, NUL, byte_length decimal ASCII, NUL, lowercase per-file SHA256 ASCII, LF for every file.",
+          "generated_dialogues.json": {"files": 20, "sha256": "f70c72002749385b978dc409c2f218e44e036d431e527d748be2bdd074537070"},
+          "generated_dialogues_with_noise.json": {"files": 20, "sha256": "3e5e3e88723f8d4afaa8509ae187623bba92aabb5d93c7460d94042e7663a847"},
+          "generated_queries.json": {"files": 20, "sha256": "188b68aa571d6d726ace07455b7a8ca9b67b3fddc7185d3c6f2821f6640f8634"},
+          "generated_events.json": {"files": 20, "sha256": "79a286d24b23505123b77a977d18806cf6f2b11b1a3660643c3f5e1160ad83a4"},
+          "generated_personas.json": {"files": 20, "sha256": "85cceff738fe1a9be4efdda08a20e748b41ccabccb6ffd0fba586c4d0643b0b0"},
+          "generated_trap_events.json": {"files": 20, "sha256": "a7dc13ec5400d8bc6e4ec4fd9ae8b74e2495a9e062c2500e4f9a2d576d80d2e6"},
+          "noise_family_sessions.json": {"files": 20, "sha256": "2c30e8fbe7cb06eb70f33c212e20a8be7c9f557180c3623478bb0cb1364f706d"},
+          "noise_health_sessions.json": {"files": 20, "sha256": "8b06ba666ef63bbbb0bf93be361aff4de274a663248d54fe1c4b0f5197d7e9e1"},
+          "med_eve.db": {"files": 20, "sha256": "35e815b5356d1cd4e24d4d684159c5d1b0eafed9d8ccb3632d0f67c5b380051d"},
+          "user_personas.json": {"files": 1, "sha256": "6fbc98b146e8b0ec7d9d73ed657453994f957b4780baf6f3d2c3dd77e97929eb"},
+          "user_report.json": {"files": 1, "sha256": "35bf2e5a6f1ad17d6c88a0f89487b4c2dfe71e04c3b06b8c584a7e26dfab6ce3"}
+        }
+      },
+      "en": {
+        "directory": "data/MedMemoryBench_EN",
+        "file_count": 122,
+        "total_bytes_decimal": 464444729,
+        "tree_sha256": "ee3c8d71a5aebf7bea21b9946a6059d7657b26a0e3dae1542176e2b925b5099e",
+        "schema_sha256": "c53acbbe5f1db597b39e7d1aa424e7140fb74f43c7040331a4e41c50244ce84d",
+        "personas": 20,
+        "persona_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        "regular_sessions": 2020,
+        "regular_sessions_per_persona": 101,
+        "turns": 31976,
+        "queries": 1986,
+        "noise_sessions": 2000,
+        "noise_sessions_per_persona": {
+          "health": 100,
+          "family_health": 100
+        },
+        "noisy_dialogue_rows_including_regular_sessions": 6020,
+        "artifact_family_inventory_sha256": {
+          "algorithm": "For each family, sort by numeric persona ID then relative path; hash relative_path UTF-8, NUL, byte_length decimal ASCII, NUL, lowercase per-file SHA256 ASCII, LF for every file.",
+          "generated_dialogues.json": {"files": 20, "sha256": "fcdd3d51cd21ef3834077634f37f2536e07de1e5630945dfb93ec9cd7bb78a3c"},
+          "generated_dialogues_with_noise.json": {"files": 20, "sha256": "c4fa1edefe0e776afd3b36691c1672550a97044a5fa95f974d0a4ad6fc47c39c"},
+          "generated_queries.json": {"files": 20, "sha256": "6bb56b04109cc8f211d6f6ee9a0f7b46552c7a3d5193260ad4fe4f8769da8811"},
+          "generated_events.json": {"files": 20, "sha256": "8a97f1912b6a3701a3c90e86a4a89cf03d83b682f2362ef8341cbd505a9c8403"},
+          "generated_personas.json": {"files": 20, "sha256": "0ffb9c529e818656d98da96390ec5141d0a1d1cdd444127226504bcffa10643f"},
+          "generated_trap_events.json": {"files": 20, "sha256": "89aeb51e333cb23a4252a221aba68083d86dda365288e037178bff0f4a766fd7"},
+          "user_personas_en.json": {"files": 1, "sha256": "5338f2a2ed82a267436a6fb4817b0aa3c9ff7d0f34373fe38852a7711533723b"},
+          "user_report_en.json": {"files": 1, "sha256": "c01a5050c2922524be6a92b3807a134642db746967a74d397a91e168046f5d5b"}
+        }
+      }
+    },
+    "bilingual_totals": {
+      "language_persona_pairs": 40,
+      "regular_sessions": 4040,
+      "turns": 63952,
+      "queries": 3972,
+      "noise_sessions": 4000
+    },
+    "lfs": {
+      "zh_files_hydrated": 182,
+      "zh_files_hash_match": 182,
+      "en_files_hydrated": 122,
+      "en_files_hash_match": 122
+    },
+    "license_discrepancy": {
+      "repository_readme": "CC-BY-4.0",
+      "huggingface_mirror": "CC-BY-NC-SA-4.0",
+      "mirror_id": "Cyan27/MedMemoryBench",
+      "resolved": false
+    },
+    "readme_size_claim_comparison": {
+      "zh_readme_approx_mb": 598,
+      "zh_local_bytes_decimal": 616424610,
+      "en_readme_approx_mb": 443,
+      "en_local_bytes_decimal": 464444729
+    }
+  },
+  "evaluation_config": {
+    "mode": "independent",
+    "persona_ids_default": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "evaluation_interval_regular_sessions": 10,
+    "inject_noise_default": false,
+    "official_train_dev_test_split_found": false,
+    "hidden_evaluator_found": false,
+    "evaluation_labels_public": true,
+    "future_evaluation_class": "PUBLIC_EXTERNAL_TRANSFER"
+  },
+  "no_answer_content_included": true,
+  "dataset_hash_algorithms": {
+    "tree_sha256": "Sort all relative POSIX paths; update SHA256 with relative_path UTF-8, NUL, byte_length decimal ASCII, NUL, lowercase per-file SHA256 ASCII, LF.",
+    "schema_sha256": "Parse JSON structure only; recursively union JSON types by dotted object path and [] array path; canonicalize the sorted path-to-sorted-type-set map as compact UTF-8 JSON and SHA256 it."
+  },
+  "dataset_manifest_role": "identity and aggregate audit only; not a benchmark result",
+  "medmemorybench_source_pinned": "YES",
+  "medmemorybench_compatibility_audited": "YES"
+}

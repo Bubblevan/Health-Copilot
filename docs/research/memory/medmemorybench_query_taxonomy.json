@@ -1,0 +1,159 @@
+{
+  "taxonomy_version": "medmemorybench-query-taxonomy-v1",
+  "audit_date": "2026-09-29",
+  "source_commit": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+  "total_queries_per_language": 1986,
+  "checkpoint_timing": "Queries are keyed to the checkpoint session and asked after the current evaluation unit has been ingested.",
+  "categories": [
+    {
+      "query_type": "entity_exact_match",
+      "count_per_language": 400,
+      "answer_format": "Exact/partial entity fact text",
+      "official_metric": "string_contain",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": false,
+      "multi_source_queries": 0,
+      "state_replacement_may_be_required": false,
+      "temporal_ordering_required": false,
+      "longmemeval_relation": "PARTIAL_MATCH",
+      "notes": "Primarily single-session entity recall; source_key_points has one resolvable source session.",
+      "mechanism_compatibility": {
+        "current_state": "PARTIAL_MATCH",
+        "historical_as_of": "NO_MATCH",
+        "change_transition": "NO_MATCH",
+        "temporal_localization": "NO_MATCH",
+        "multi_session_composition": "NO_MATCH",
+        "preference_patient_state": "PARTIAL_MATCH",
+        "noise_suppression": "UNKNOWN",
+        "abstention": "NO_MATCH"
+      }
+    },
+    {
+      "query_type": "temporal_localization",
+      "count_per_language": 400,
+      "answer_format": "Event/time localization",
+      "official_metric": "llm_judge",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": false,
+      "multi_source_queries": 0,
+      "state_replacement_may_be_required": false,
+      "temporal_ordering_required": true,
+      "longmemeval_relation": "PARTIAL_MATCH",
+      "notes": "Temporal target localization, but its exact semantics are not equivalent to all LongMemEval temporal QA.",
+      "mechanism_compatibility": {
+        "current_state": "PARTIAL_MATCH",
+        "historical_as_of": "PARTIAL_MATCH",
+        "change_transition": "PARTIAL_MATCH",
+        "temporal_localization": "DIRECT_MATCH",
+        "multi_session_composition": "NO_MATCH",
+        "preference_patient_state": "NO_MATCH",
+        "noise_suppression": "UNKNOWN",
+        "abstention": "NO_MATCH"
+      }
+    },
+    {
+      "query_type": "state_update",
+      "count_per_language": 200,
+      "answer_format": "Updated/current state, with change semantics",
+      "official_metric": "llm_judge",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": true,
+      "multi_source_queries": 200,
+      "state_replacement_may_be_required": true,
+      "temporal_ordering_required": true,
+      "longmemeval_relation": "DIRECT_MATCH",
+      "notes": "Mechanism-level analogue of knowledge update; clinical state semantics remain domain-specific. Maximum observed source coverage: 96 sessions and 197 source key points.",
+      "mechanism_compatibility": {
+        "current_state": "DIRECT_MATCH",
+        "historical_as_of": "NO_MATCH",
+        "change_transition": "DIRECT_MATCH",
+        "temporal_localization": "PARTIAL_MATCH",
+        "multi_session_composition": "DIRECT_MATCH",
+        "preference_patient_state": "DIRECT_MATCH",
+        "noise_suppression": "PARTIAL_MATCH",
+        "abstention": "NO_MATCH"
+      }
+    },
+    {
+      "query_type": "inference_generation",
+      "count_per_language": 397,
+      "answer_format": "Free-form patient-specific inference",
+      "official_metric": "llm_judge",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": "146 of 397 span multiple distinct source sessions",
+      "multi_source_queries": 146,
+      "state_replacement_may_be_required": false,
+      "temporal_ordering_required": "Question-dependent",
+      "longmemeval_relation": "PARTIAL_MATCH",
+      "notes": "Includes clinical inference beyond generic memory recall.",
+      "mechanism_compatibility": {
+        "current_state": "PARTIAL_MATCH",
+        "historical_as_of": "UNKNOWN",
+        "change_transition": "PARTIAL_MATCH",
+        "temporal_localization": "UNKNOWN",
+        "multi_session_composition": "PARTIAL_MATCH",
+        "preference_patient_state": "PARTIAL_MATCH",
+        "noise_suppression": "UNKNOWN",
+        "abstention": "UNKNOWN"
+      }
+    },
+    {
+      "query_type": "multiple_choice",
+      "count_per_language": 398,
+      "answer_format": "Option selection; exact selected set",
+      "official_metric": "option_match",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": "131 of 398 span multiple distinct source sessions",
+      "multi_source_queries": 131,
+      "state_replacement_may_be_required": false,
+      "temporal_ordering_required": "Question-dependent",
+      "longmemeval_relation": "PARTIAL_MATCH",
+      "notes": "Output contract and clinical multiple-choice reasoning make it non-equivalent to a standard memory QA category.",
+      "mechanism_compatibility": {
+        "current_state": "PARTIAL_MATCH",
+        "historical_as_of": "UNKNOWN",
+        "change_transition": "PARTIAL_MATCH",
+        "temporal_localization": "UNKNOWN",
+        "multi_session_composition": "PARTIAL_MATCH",
+        "preference_patient_state": "PARTIAL_MATCH",
+        "noise_suppression": "UNKNOWN",
+        "abstention": "UNKNOWN"
+      }
+    },
+    {
+      "query_type": "multi_hop_clinical_deduction",
+      "count_per_language": 191,
+      "answer_format": "Clinical causal/reasoning chain",
+      "official_metric": "llm_judge_mcd",
+      "question_timing": "Regular-session checkpoint; after every tenth regular session",
+      "multiple_historical_sessions_needed": "175 of 191 span multiple distinct source sessions",
+      "multi_source_queries": 175,
+      "state_replacement_may_be_required": false,
+      "temporal_ordering_required": "Question-dependent",
+      "longmemeval_relation": "PARTIAL_MATCH",
+      "notes": "187/191 have at least one source session resolvable; max four distinct source sessions. Clinical causal depth is beyond generic multi-session memory.",
+      "mechanism_compatibility": {
+        "current_state": "PARTIAL_MATCH",
+        "historical_as_of": "UNKNOWN",
+        "change_transition": "PARTIAL_MATCH",
+        "temporal_localization": "UNKNOWN",
+        "multi_session_composition": "PARTIAL_MATCH",
+        "preference_patient_state": "PARTIAL_MATCH",
+        "noise_suppression": "PARTIAL_MATCH",
+        "abstention": "NO_MATCH"
+      }
+    }
+  ],
+  "metric_totals": {
+    "deterministic_categories": 798,
+    "llm_judged_categories": 1188,
+    "counts_sum_to_total": true
+  },
+  "compatibility_labels": {
+    "DIRECT_MATCH": "Same mechanism question is materially tested, though domain-specific answer semantics may differ.",
+    "PARTIAL_MATCH": "Overlapping capability, but task semantics, evidence requirements, or answer contract differ.",
+    "NO_MATCH": "No meaningful mechanism correspondence identified.",
+    "UNKNOWN": "Insufficient source/schema evidence."
+  },
+  "no_scoring_performed": true
+}
