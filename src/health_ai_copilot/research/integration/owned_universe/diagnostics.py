@@ -201,15 +201,15 @@ def counterfactual_contract_report(cases: tuple[MaterializedCase, ...]) -> dict[
             action = arm.action
             memory_on = action.memory_read
             retrieval_on = action.external_retrieval.value == "STANDARD"
+            structured = evaluate_structured(
+                case, arm.execution.outcome.answer, arm.execution.observed_evidence_ids
+            )
             expected_success = (
-                True if not oracle.answerability else
+                structured.success if not oracle.answerability else
                 (not oracle.memory_required or memory_on)
                 and (not oracle.external_retrieval_required or retrieval_on)
             )
             actual_success = arm.evaluation.outcome.task_success
-            structured = evaluate_structured(
-                case, arm.execution.outcome.answer, arm.execution.observed_evidence_ids
-            )
             if expected_success != actual_success or expected_success != structured.success:
                 expected_failure_count += int(not expected_success)
                 if len(mismatches) < 30:

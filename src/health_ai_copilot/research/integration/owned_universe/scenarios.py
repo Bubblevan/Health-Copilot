@@ -295,7 +295,8 @@ def build_world(
 
     if query_tool_ids:
         query += " Synthetic inputs: part_a=3; part_b=4; sum."
-    if scenario_family in {"INSUFFICIENT_EVIDENCE", "TEMPORAL_BOUNDARY"} \
+    if (diagnostic_mode not in {"u2f", "u2f-matched-surface"}
+            and scenario_family in {"INSUFFICIENT_EVIDENCE", "TEMPORAL_BOUNDARY"}) \
             or diagnostic_mode == "matched-abstain":
         query = f"Please give a supported answer for {key}."
 

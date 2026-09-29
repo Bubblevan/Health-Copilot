@@ -18,6 +18,7 @@ GENERATOR_MODULES = (
     "__init__.py", "schema.py", "facts.py", "grammar.py", "timeline.py", "scenarios.py",
     "splits.py", "realization.py", "realization_text.py", "evaluator_truth.py",
     "diagnostics.py", "lineage.py", "source_independence.py", "cli.py",
+    "scale.py", "u2f_diagnostics.py", "u2f_cli.py",
 )
 
 
@@ -40,7 +41,7 @@ def audited_source_paths(source_root: Path, spec_root: Path) -> tuple[Path, ...]
 
 def source_independence_audit(
     worlds: tuple[LatentWorld, ...], *, source_root: Path, spec_root: Path,
-    forbidden_identifiers: tuple[str, ...],
+    forbidden_identifiers: tuple[str, ...], timelines=None,
 ) -> dict[str, Any]:
     inputs = audited_source_paths(source_root, spec_root)
     imported_modules: set[str] = set()
@@ -67,6 +68,12 @@ def source_independence_audit(
         generated_rows.append(world.query)
         generated_rows.extend(row.natural_language_content for row in world.patient_records)
         generated_rows.extend(row.natural_language_content for row in world.evidence_records)
+    timeline_count = 0
+    if timelines:
+        for rows in timelines.values():
+            for _, record in rows:
+                generated_rows.append(record.natural_language_content)
+                timeline_count += 1
     hits = sorted({token for text in generated_rows for token in forbidden_identifiers
                    if re.search(rf"(?<![A-Za-z0-9]){re.escape(token)}(?![A-Za-z0-9])",
                                 text, flags=re.IGNORECASE)})
@@ -84,6 +91,7 @@ def source_independence_audit(
         "external_medical_document_content_used": False,
         "forbidden_identifier_scan": {
             "generated_runtime_text_count": len(generated_rows),
+            "shared_timeline_record_count_scanned": timeline_count,
             "identifiers_scanned": list(forbidden_identifiers),
             "hits": hits,
             "status": "PASS" if not hits else "FAIL",
