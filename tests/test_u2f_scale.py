@@ -188,7 +188,7 @@ def test_u2f_insufficient_worlds_keep_wrong_or_conflicting_evidence_unanswerable
 def test_u2f_query_shell_is_common_and_matched_surfaces_remain_equal():
     _, _, worlds, _ = _small_worlds()
     assert all("  " not in world.query for world in worlds)
-    assert all("identify the requested synthetic item by its key." in world.query.casefold()
+    assert all("include the requested synthetic item, indexed by its key." in world.query.casefold()
                for world in worlds)
     assert all(
         "return the requested synthetic result." in world.query.casefold()
