@@ -1,0 +1,75 @@
+{
+  "cache_identity": {
+    "identity": {
+      "context_bundle_sha256": "831349108f946f7514ce2d992d60af567dff9dfab72f33b71f76627b8dee8d6f",
+      "pre_reader_freeze_sha256": "a78b10ac9d85f703f531438b87d539fd7dfc12305b7ed8e22294c80ff8280c68",
+      "question_id": "gpt4_f420262c",
+      "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+      "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+      "reader_runtime_props_sha256": "3842a26b19d18343b3a0525f15d01e80228a2b2a07e020414cfb41c5d2bd355b",
+      "request_sha256": "eb31dcad6db71ee413a91b42fea3a92b87a17cc293d155a79b2a3955a388d3d0",
+      "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929"
+    },
+    "identity_sha256": "bccdca2d9bd2e06df681d410c0a8f644c46bb25be36194357798c75a780cf7b8"
+  },
+  "call": {
+    "cache_identity_sha256": "bccdca2d9bd2e06df681d410c0a8f644c46bb25be36194357798c75a780cf7b8",
+    "completion_tokens_server": 25,
+    "context_bundle_sha256": "831349108f946f7514ce2d992d60af567dff9dfab72f33b71f76627b8dee8d6f",
+    "enable_thinking": false,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "error_type": null,
+    "finish_reason": "stop",
+    "hosted_call": false,
+    "latency_ms": 1138.766,
+    "loopback_only": true,
+    "max_new_tokens": 256,
+    "model": "health-memory-qwen3-8b",
+    "prompt_sha256": "35191646fe1e678c62781434e68097deb91849fcd921d4c5df15a8fee7891dcf",
+    "prompt_tokens_match": true,
+    "prompt_tokens_preflight": 2250,
+    "prompt_tokens_server": 2250,
+    "provider": "local_qwen",
+    "quality_status": "OK",
+    "question_id": "gpt4_f420262c",
+    "rendered_prompt_sha256": "0ec6cd1cdcc9d7e65d9f15642cac01c5565de17f3f59be27789ffa81f8e159ec",
+    "request_sha256": "eb31dcad6db71ee413a91b42fea3a92b87a17cc293d155a79b2a3955a388d3d0",
+    "retry_count": 0,
+    "role": "reader_answer",
+    "seed": 42,
+    "success": true,
+    "temperature": 0
+  },
+  "prediction": {
+    "cache_identity": {
+      "identity": {
+        "context_bundle_sha256": "831349108f946f7514ce2d992d60af567dff9dfab72f33b71f76627b8dee8d6f",
+        "pre_reader_freeze_sha256": "a78b10ac9d85f703f531438b87d539fd7dfc12305b7ed8e22294c80ff8280c68",
+        "question_id": "gpt4_f420262c",
+        "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+        "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+        "reader_runtime_props_sha256": "3842a26b19d18343b3a0525f15d01e80228a2b2a07e020414cfb41c5d2bd355b",
+        "request_sha256": "eb31dcad6db71ee413a91b42fea3a92b87a17cc293d155a79b2a3955a388d3d0",
+        "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929"
+      },
+      "identity_sha256": "bccdca2d9bd2e06df681d410c0a8f644c46bb25be36194357798c75a780cf7b8"
+    },
+    "completion_tokens_server": 25,
+    "context_bundle_sha256": "831349108f946f7514ce2d992d60af567dff9dfab72f33b71f76627b8dee8d6f",
+    "final_reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+    "finish_reason": "stop",
+    "input_truncated": false,
+    "output_hit_token_cap": false,
+    "predicted": "The order of airlines you flew with from earliest to latest before today is: American Airlines, JetBlue, and Delta.",
+    "prompt_tokens_match": true,
+    "quality_status": "OK",
+    "question_id": "gpt4_f420262c",
+    "reader_latency_ms": 1138.766,
+    "reader_prompt_tokens_preflight": 2250,
+    "reader_prompt_tokens_server": 2250,
+    "rendered_prompt_sha256": "0ec6cd1cdcc9d7e65d9f15642cac01c5565de17f3f59be27789ffa81f8e159ec",
+    "shared_reader_prompt_sha256": "35191646fe1e678c62781434e68097deb91849fcd921d4c5df15a8fee7891dcf",
+    "system": "m10_flatprop_dense"
+  },
+  "status": "COMPLETE"
+}

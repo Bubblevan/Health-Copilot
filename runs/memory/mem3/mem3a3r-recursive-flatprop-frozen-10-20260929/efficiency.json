@@ -1,0 +1,79 @@
+{
+  "embedding": {
+    "device": "cuda:0",
+    "dimensions": 1024,
+    "document_tokens": 175219,
+    "documents": 8112,
+    "dtype": "float16",
+    "hosted_calls": 0,
+    "local_only": true,
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "query_tokens": 391,
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "truncations": 0,
+    "unique_documents": 8072
+  },
+  "no_quality_cost_winner_claim": true,
+  "projection": {
+    "memory_budget_tokens": 1024,
+    "reader_visible_context_tokens_by_question": {
+      "06878be2": 2127,
+      "1c549ce4": 1919,
+      "1cea1afa": 2170,
+      "778164c6": 2170,
+      "8550ddae": 2148,
+      "a82c026e": 2136,
+      "c4ea545c": 2125,
+      "fca70973": 1922,
+      "gpt4_e061b84g": 2134,
+      "gpt4_f420262c": 2146
+    }
+  },
+  "reader": {
+    "calls": 10,
+    "completion_tokens_total": 275,
+    "hosted_calls": 0,
+    "mean_latency_ms": 1171.2564,
+    "prompt_tokens_total": 22031
+  },
+  "retrieval": {
+    "by_question_latency_ms": {
+      "06878be2": 32.342,
+      "1c549ce4": 25.762,
+      "1cea1afa": 24.205,
+      "778164c6": 29.299,
+      "8550ddae": 20.773,
+      "a82c026e": 26.299,
+      "c4ea545c": 26.263,
+      "fca70973": 27.42,
+      "gpt4_e061b84g": 31.223,
+      "gpt4_f420262c": 29.623
+    },
+    "p50_latency_ms": 26.8595,
+    "p95_latency_ms": 31.838449999999998
+  },
+  "schema_version": 1,
+  "writer": {
+    "exact_duplicates_attributed_to_overlap": 27,
+    "exact_duplicates_removed_across_leaves": 27,
+    "exact_duplicates_removed_within_leaf": 146,
+    "final_logical_propositions": 8112,
+    "irreducible_overflows": 0,
+    "maximum_recursion_depth": 1,
+    "near_duplicate_pairs_retained": 970,
+    "new_initial_chunk_calls": 0,
+    "overflow_parent_calls_this_stage": 0,
+    "overflow_parent_calls_total": 0,
+    "overflow_root_count": 0,
+    "provider_calls_this_stage": 643,
+    "raw_generated_propositions_before_exact_collapse": 8285,
+    "recursive_child_calls": 0,
+    "total_generated_child_chunks": 6,
+    "unresolved_structural_failures": 0,
+    "writer_completion_tokens": 526938,
+    "writer_input_tokens": 3014329,
+    "writer_latency_ms_mean_measured_this_process": null,
+    "writer_latency_ms_total_measured_this_process": 10590135.72300001,
+    "writer_stage_elapsed_wall_seconds": 8.38454559998354
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "embedding_model_calls_made_during_recovery": 0,
+  "labels_loaded_after_prediction_and_reader_ledger_freeze": true,
+  "mode": "frozen_artifact_closeout_recovery",
+  "original_pre_reader_freeze_sha256": "a78b10ac9d85f703f531438b87d539fd7dfc12305b7ed8e22294c80ff8280c68",
+  "reader_calls_made_during_recovery": 0,
+  "reader_calls_replayed": 10,
+  "reader_runtime_verified_loopback": true,
+  "reason_for_replay": "Only non-semantic latency telemetry changed between the initial frozen calls and closeout replay; request, prompt, ContextBundle, model, and runtime identities were checked before reuse.",
+  "replayed_pre_reader_freeze_sha256": "fb9572d2b71c12ba2c7cf6a3731cd701f275d3d248cf4becf78c9b34c4711324",
+  "same_context_bundle_sha256_verified": true,
+  "same_reader_prompts_and_requests_verified": true,
+  "schema_version": 1,
+  "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "terminal_leaf_call_attribution": "one verified local response per terminal leaf; historical cache imports retain their original call attribution",
+  "writer_calls_made_during_recovery": 0
+}

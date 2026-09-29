@@ -1,0 +1,17 @@
+{
+  "102_dev_access": false,
+  "base_commit_sha": "5b380f8ace23e0008077d0d394aac3d09dad8291",
+  "completed_unique_source_sessions": 100,
+  "completion_gate_marker": "MEM3A2S_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=PENDING",
+  "expected_unique_source_sessions": 477,
+  "historical_outcomes_imported": 102,
+  "historical_provider_replays": 0,
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "provider_calls_this_process": 0,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a2s-flatprop-setrefs-frozen-10-20260929",
+  "status": "WRITER_IN_PROGRESS",
+  "test_access": false
+}

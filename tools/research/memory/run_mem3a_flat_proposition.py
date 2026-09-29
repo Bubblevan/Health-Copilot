@@ -1389,13 +1389,9 @@ def _embedding_and_retrieval(
         query_batches = list(
             adapter.encode_batches(query_texts, "query", token_counts=query_tokens)
         )
-        if (
-            len(query_batches) != 1
-            or query_batches[0].vectors.shape != (len(QUESTION_IDS), DIMENSIONS)
-            or query_batches[0].truncated_count
-        ):
-            raise RuntimeError("Frozen query embedding batch was incomplete or truncated")
-        query_vectors = query_batches[0].vectors
+        query_vectors, query_embedding_wall_ms = _assemble_query_embedding_batches(
+            query_batches, expected_count=len(QUESTION_IDS)
+        )
         query_vector_by_qid = {qid: query_vectors[index] for index, qid in enumerate(QUESTION_IDS)}
         memory_index = {digest: index for index, digest in enumerate(ordered_doc_shas)}
         by_qid_flat: dict[str, dict[str, dict[str, Any]]] = {qid: {} for qid in QUESTION_IDS}
@@ -1476,7 +1472,7 @@ def _embedding_and_retrieval(
             "document_truncations": 0,
             "query_truncations": 0,
             "cache": cache_stats,
-            "query_embedding_wall_ms": round(query_batches[0].latency_ms, 3),
+            "query_embedding_wall_ms": round(query_embedding_wall_ms, 3),
             "retrieval_latency_ms": retrieval_latency,
             "local_only": True,
             "hosted_calls": 0,
@@ -1490,6 +1486,32 @@ def _embedding_and_retrieval(
         query_tokens_by_qid(query_tokens, QUESTION_IDS),
         retrieval_latency,
     )
+
+
+def _assemble_query_embedding_batches(
+    batches: list[Any], *, expected_count: int
+) -> tuple[Any, float]:
+    import numpy as np
+
+    if expected_count <= 0 or not batches:
+        raise RuntimeError("Frozen query embedding batches were empty")
+    expected_start = 0
+    for batch in batches:
+        row_count = batch.end - batch.start
+        if (
+            batch.start != expected_start
+            or row_count <= 0
+            or getattr(batch.vectors, "shape", None) != (row_count, DIMENSIONS)
+            or batch.truncated_count
+        ):
+            raise RuntimeError("Frozen query embedding batches were incomplete or truncated")
+        expected_start = batch.end
+    if expected_start != expected_count:
+        raise RuntimeError("Frozen query embedding batches did not cover every question")
+    vectors = np.concatenate([batch.vectors for batch in batches], axis=0)
+    if vectors.shape != (expected_count, DIMENSIONS):
+        raise RuntimeError("Frozen query embedding matrix has an invalid shape")
+    return vectors, sum(batch.latency_ms for batch in batches)
 
 
 def query_tokens_by_qid(values: list[int], qids: tuple[str, ...]) -> dict[str, int]:

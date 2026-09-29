@@ -1,0 +1,13 @@
+{
+  "completion_gate_marker": "MEM3A3R_RECURSIVE_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "downstream_started": false,
+  "error": "recursive FlatProp leaf set does not cover all 477 sessions",
+  "error_type": "RuntimeError",
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "provider_calls_this_process": 0,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "status": "FAILED_STOP_NO_RETRY"
+}

@@ -1,0 +1,31 @@
+{
+  "base_writer_method_contract_sha256": "d8a2e2445817e5519c142413eed14b82d4e949bdfc0342876648f18ac596ce76",
+  "chunk_request_source_sha256": "34afa39b8bb38135a5a30b6c92cfa32b6d7e27415167dcb03b03c4130f2d2598",
+  "embedding_device": "cuda:0",
+  "embedding_dtype": "float16",
+  "embedding_model_identity": {
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_path": "E:\\Health-Copilot-Models\\models\\Qwen3-Embedding-0.6B",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "hosted_provider": false,
+  "initial_chunk_plan_sha256": "f708a6d3a7066f5db24c546f8c7c0c04c53df7e57ff57359ef9c8c8e83ca79fc",
+  "judge_model": null,
+  "max_completion_tokens": 8192,
+  "max_prompt_tokens": 6144,
+  "normalization_contract_sha256": "d718ae5895976e4736fd4aed63019d656cf60b863a1632c4b15631fc55b5862e",
+  "packet_validator_source_sha256": "3130709b803d7e56ba63aa9c705cb51f948c19955dec34afb2f39a0196532ef9",
+  "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+  "recursive_helper_source_sha256": "040eca7f9093456d4f852818558ff80229f590b6bdba16dafc30cb66109d5c42",
+  "recursive_runner_source_sha256": "a37ce17ff6dd1e2758e89010681c2c826ef3a5eb26269309fb6320097b25e246",
+  "recursive_split_contract_sha256": "61a301b6e0f25eb1a9b6ff9bbf0d4e37808bf7a18f3143b8ad6ca51c044ad406",
+  "retries": 0,
+  "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "transport_unwrap_source_sha256": "57d33ab389c64a8f9c873d25e38dae0c952cc728fde3dcbf37c10984d184cec9",
+  "writer_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+  "writer_prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+  "writer_semantic_contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545"
+}

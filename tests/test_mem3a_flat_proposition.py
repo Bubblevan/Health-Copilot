@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+from types import SimpleNamespace
 from urllib.parse import urlsplit
 
 import pytest
@@ -150,6 +151,68 @@ def test_answer_session_recall_is_fractional_and_ranked():
         ]
         == 0.5
     )
+
+
+def test_query_embedding_batches_are_concatenated_in_frozen_order(monkeypatch):
+    np = pytest.importorskip("numpy")
+    monkeypatch.setattr(mem3a, "DIMENSIONS", 2)
+    batches = [
+        SimpleNamespace(
+            start=0,
+            end=8,
+            vectors=np.arange(16, dtype=np.float32).reshape(8, 2),
+            truncated_count=0,
+            latency_ms=12.5,
+        ),
+        SimpleNamespace(
+            start=8,
+            end=10,
+            vectors=np.arange(16, 20, dtype=np.float32).reshape(2, 2),
+            truncated_count=0,
+            latency_ms=4.25,
+        ),
+    ]
+
+    vectors, latency_ms = mem3a._assemble_query_embedding_batches(batches, expected_count=10)
+
+    assert vectors.shape == (10, 2)
+    assert vectors[:, 0].tolist() == list(range(0, 20, 2))
+    assert latency_ms == pytest.approx(16.75)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"start": 9},
+        {"end": 9},
+        {"truncated_count": 1},
+        {"vectors": "wrong-shape"},
+    ],
+)
+def test_query_embedding_batches_fail_closed_on_invalid_coverage(monkeypatch, changes):
+    np = pytest.importorskip("numpy")
+    monkeypatch.setattr(mem3a, "DIMENSIONS", 2)
+    first = SimpleNamespace(
+        start=0,
+        end=2,
+        vectors=np.ones((2, 2), dtype=np.float32),
+        truncated_count=0,
+        latency_ms=1.0,
+    )
+    second = SimpleNamespace(
+        start=2,
+        end=3,
+        vectors=np.ones((1, 2), dtype=np.float32),
+        truncated_count=0,
+        latency_ms=1.0,
+    )
+    key, value = next(iter(changes.items()))
+    if key == "vectors":
+        value = np.ones((1, 3), dtype=np.float32)
+    setattr(second, key, value)
+
+    with pytest.raises(RuntimeError, match="query embedding"):
+        mem3a._assemble_query_embedding_batches([first, second], expected_count=3)
 
 
 def test_main_stack_is_local_without_openai_credentials():

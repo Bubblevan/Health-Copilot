@@ -1,0 +1,13 @@
+{
+  "completion_gate_marker": "MEM3A3R_RECURSIVE_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "downstream_started": true,
+  "error": "'retrieval_latency_ms'",
+  "error_type": "KeyError",
+  "hosted_calls": 0,
+  "labels_loaded": true,
+  "provider_calls_this_process": 643,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "status": "FAILED_STOP_NO_RETRY"
+}

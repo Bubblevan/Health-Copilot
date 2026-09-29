@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "contract_id": "flatprop_recursive_split_v1",
+  "parent_plan": "frozen MEM-3A.3 785-chunk plan; never regenerated",
+  "trigger": "finish_reason=length only",
+  "semantic_method": "flat-proposition-extractor-v4-chunked",
+  "writer_semantics": "frozen v3 proposition_text plus evidence_refs only",
+  "max_prompt_tokens": 6144,
+  "max_completion_tokens": 8192,
+  "tokenizer": {
+    "source": "frozen local Qwen3-8B llama.cpp /tokenize",
+    "add_special": false,
+    "unit_mass": "tokenize each existing RawSpan content separately; complete-turn mass is the sum of its RawSpan masses",
+    "split_metric": "absolute left/right sum difference"
+  },
+  "split": {
+    "primary_unit_hierarchy": [
+      "complete source turns when the parent contains multiple complete turns",
+      "existing RawSpans only when the parent is confined to one turn or is already an oversized-turn partition"
+    ],
+    "contiguous": true,
+    "tie_break": "smallest legal split index",
+    "pre_inference_budget_overflow": "recursively split before provider call until every request plus dynamic schema is <= 6144"
+  },
+  "overlap": {
+    "contract": "frozen MEM-3A.3 turn_overlap=1 policy",
+    "recompute_for_each_child": true,
+    "context_only": true,
+    "primary_ownership_changes": false
+  },
+  "identity": {
+    "child_id": "SHA256(canonical_json(child identity body))",
+    "fields": [
+      "split_contract_sha256",
+      "session_identity_sha256",
+      "root_initial_chunk_id",
+      "parent_chunk_id",
+      "recursion_depth",
+      "primary_unit_kind",
+      "primary_unit_ordinals",
+      "primary_span_ordinals",
+      "overlap_turn_ordinals",
+      "overlap_span_ordinals",
+      "rendered_source_payload_sha256",
+      "dynamic_schema_sha256"
+    ]
+  },
+  "termination": {
+    "rawspan_count_greater_than_one": "SUBDIVISION",
+    "one_rawspan_finish_reason_length": "IRREDUCIBLE_WRITER_OVERFLOW",
+    "maximum_recursion_depth": null
+  },
+  "non_length_failures": "fatal; no subdivision or retry",
+  "overflow_parent_output": "forensic-only; semantic_output_used=false; zero propositions enter aggregation",
+  "logical_identity": "SHA256(canonical_json(stripped proposition_text, catalog-ordered unique evidence_refs)); exact duplicates collapse session-wide",
+  "near_duplicates": "diagnostic-only and retained; no fuzzy or embedding merge",
+  "primary_ownership": "every source RawSpan has exactly one terminal successful primary leaf owner"
+}

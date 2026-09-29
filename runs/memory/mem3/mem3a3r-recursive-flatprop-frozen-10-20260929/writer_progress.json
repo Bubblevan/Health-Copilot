@@ -1,0 +1,16 @@
+{
+  "historical_cache_imported": 0,
+  "historical_cache_miss_reexecuted": 0,
+  "hosted_calls": 0,
+  "initial_chunks": 785,
+  "initial_roots_started": 0,
+  "labels_loaded": false,
+  "node_attempts": 791,
+  "overflow_parents": 3,
+  "provider_calls_this_process": 0,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "status": "WRITER_IN_PROGRESS",
+  "terminal_attempts": 788
+}

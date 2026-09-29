@@ -1,0 +1,12 @@
+{
+  "102_dev_access": false,
+  "completion_gate_marker": "MEM3A2S_MINIMAL_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "failure": "Session-102 expected exact S0070 set normalization was not observed",
+  "failure_classification": "RuntimeError",
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "schema_version": 1,
+  "stage": "mem3a2s-flatprop-setrefs-frozen-10-20260929",
+  "status": "FAILED",
+  "test_access": false
+}
