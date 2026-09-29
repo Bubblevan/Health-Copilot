@@ -1,0 +1,86 @@
+{
+  "run_id": "u1-synthetic-20260929-01",
+  "task": "U1 Longitudinal Environment Contract & Replay Prototype",
+  "base_commit": "9e023dbddc1f8025e3608bfae4c5390c1a7957ef",
+  "branch": "integration-u1-longitudinal-env-20260929",
+  "fixture_status": "SYNTHETIC_CONTRACT_FIXTURE; NOT_MEDICAL_BENCHMARK",
+  "episode_count": 9,
+  "counterfactual_executor": "u1-scripted-executor-v1",
+  "evaluator": "u1-deterministic-evaluator-v1",
+  "provider_calls": 0,
+  "training_started": false,
+  "esl_evaluation_content_accessed": false,
+  "memory_track_modified": false,
+  "rag_track_modified": false,
+  "esl_adapter_feasibility": {
+    "adapter_id": "esl-like-schema-v1",
+    "status": "SCHEMA_PROPOSAL_ONLY",
+    "mappings": [
+      {
+        "source_surface": "profile fields",
+        "target_surface": "PatientStateRecord(PROFILE)",
+        "mapping_status": "PROPOSED",
+        "note": "Preserve subject scope and provenance."
+      },
+      {
+        "source_surface": "timeline events",
+        "target_surface": "PatientStateRecord(EVENT)",
+        "mapping_status": "PROPOSED",
+        "note": "Keep source timestamps; apply decision-time cutoff."
+      },
+      {
+        "source_surface": "exam records",
+        "target_surface": "PatientStateRecord(EXAM)",
+        "mapping_status": "PROPOSED",
+        "note": "Do not infer missing exams."
+      },
+      {
+        "source_surface": "measurements",
+        "target_surface": "PatientStateRecord(MEASUREMENT)",
+        "mapping_status": "PROPOSED",
+        "note": "Preserve units and time metadata in content/provenance."
+      },
+      {
+        "source_surface": "conversation history",
+        "target_surface": "PatientStateRecord(CONVERSATION)",
+        "mapping_status": "PROPOSED",
+        "note": "Do not treat assistant output as patient fact."
+      }
+    ],
+    "constraints": [
+      "No ESL query, answer, evaluation/test row, or gold content was loaded.",
+      "This adapter proposal does not make ESL data training-eligible.",
+      "Dataset and split licenses/provenance must be reviewed before any row assignment."
+    ]
+  },
+  "gates": {
+    "U1_EPISODE_CONTRACT_FROZEN": "YES",
+    "U1_RUNTIME_EVAL_PRIVILEGED_PLANES_SEPARATED": "YES",
+    "U1_MEMORY_EXTERNAL_NAMESPACE_SEPARATED": "YES",
+    "U1_TEMPORAL_SNAPSHOT_FAIL_CLOSED": "YES",
+    "U1_SINGLE_TEAM_CAPABILITY_EQUIVALENCE_ENFORCED": "YES",
+    "U1_VALID_ACTION_MASK_ENFORCED": "YES",
+    "U1_COUNTERFACTUAL_REPLAY_DETERMINISTIC": "YES",
+    "U1_MINIMAL_SUCCESS_ACTION_SET_WORKS": "YES",
+    "U1_SFT_VIEW_NO_GOLD_LEAKAGE": "YES",
+    "U1_GRPO_GROUP_SCHEMA_WORKS": "YES",
+    "U1_OPD_PRIVILEGED_ISOLATION_WORKS": "YES",
+    "U1_ESL_EVALUATION_CONTENT_ACCESSED": "NO",
+    "RAG_TRACK_MODIFIED": "NO",
+    "MEMORY_TRACK_MODIFIED": "NO",
+    "E2_B_STARTED": "NO",
+    "L4_STARTED": "NO",
+    "POST_TRAINING_STARTED": "NO"
+  },
+  "case_ids": [
+    "U1-NONE",
+    "U1-MEM",
+    "U1-RAG",
+    "U1-MEM-RAG",
+    "U1-TEAM",
+    "U1-MEM-TEAM",
+    "U1-ALL",
+    "U1-OOD-INSUFFICIENT",
+    "U1-TEMPORAL-LEAKAGE"
+  ]
+}

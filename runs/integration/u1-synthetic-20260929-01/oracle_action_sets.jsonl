@@ -1,0 +1,9 @@
+{"actions": ["NONE"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-NONE", "epsilon": 0, "minimum_cost": 0}
+{"actions": ["MEMORY"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-MEM", "epsilon": 0, "minimum_cost": 1}
+{"actions": ["RAG"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-RAG", "epsilon": 0, "minimum_cost": 1}
+{"actions": ["MEMORY+RAG"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-MEM-RAG", "epsilon": 0, "minimum_cost": 2}
+{"actions": ["TEAM"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-TEAM", "epsilon": 0, "minimum_cost": 4}
+{"actions": ["MEMORY+TEAM"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-MEM-TEAM", "epsilon": 0, "minimum_cost": 3}
+{"actions": ["ALL"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-ALL", "epsilon": 0, "minimum_cost": 4}
+{"actions": ["NONE"], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-OOD-INSUFFICIENT", "epsilon": 0, "minimum_cost": 0}
+{"actions": [], "cost_model_version": "u1-abstract-cost-v1", "episode_id": "U1-TEMPORAL-LEAKAGE", "epsilon": 0, "minimum_cost": null}
