@@ -1,0 +1,53 @@
+{
+  "all_subjects_total": 36,
+  "counterfactual_sibling_split_leaks": [],
+  "dev_iid_subject_count": 6,
+  "dev_structural_subject_count": 6,
+  "episode_counts": {
+    "DEV_IID": 36,
+    "DEV_STRUCTURAL": 36,
+    "TRAIN": 144
+  },
+  "persona_seed_split_leaks": [],
+  "reserved_test_materialized": false,
+  "scenario_seed_ranges": {
+    "DEV_IID": [
+      200000,
+      200017
+    ],
+    "DEV_STRUCTURAL": [
+      300000,
+      300017
+    ],
+    "TRAIN": [
+      100000,
+      100071
+    ]
+  },
+  "scenario_seed_split_leaks": [],
+  "status": "PASS",
+  "subject_seed_ranges": {
+    "DEV_IID": [
+      210000,
+      210005
+    ],
+    "DEV_STRUCTURAL": [
+      310000,
+      310005
+    ],
+    "TRAIN": [
+      110000,
+      110023
+    ]
+  },
+  "subject_split_leaks": [],
+  "template_family_split_leaks": [],
+  "template_overlap_exception": {
+    "basis": "explicit DEV_IID lexical augmentation; structural DEV templates are reserved",
+    "families": [
+      "COMMON_A",
+      "COMMON_B"
+    ]
+  },
+  "train_subject_count": 24
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "u2e-u2d-terminology-clarification-v1",
+  "historical_status_preserved": true,
+  "source_status": "QUALIFIED_INTERNAL_EVAL",
+  "source_status_meaning": "owner-scoped project use qualification; not an internal benchmark evaluation claim",
+  "who_cdc_allowed_runtime_role": "EXTERNAL_RETRIEVAL_RUNTIME",
+  "who_cdc_training_allowed": false,
+  "owner_accepted_scope": "OWNER_SCOPE_DECISION",
+  "upstream_license_conflict_resolved": false,
+  "upstream_conflict_semantics": "OWNER_ACCEPTED_SCOPE is not the same as UPSTREAM_LICENSE_CONFLICT_RESOLVED",
+  "u2e_external_retrieval_content_origin": "PROJECT_OWNED_SYNTHETIC",
+  "real_who_cdc_document_content_used_in_u2e": false
+}

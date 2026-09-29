@@ -1,0 +1,19 @@
+{
+  "schema_version": "u2e-generation-plan-v1",
+  "split_role": "TRAIN",
+  "episode_count": 144,
+  "subject_count": 24,
+  "persona_seed_range": [110000, 110023],
+  "scenario_seed_range": [100000, 100071],
+  "template_families": ["COMMON_A", "COMMON_B", "TRAIN_C", "TRAIN_D"],
+  "scenario_families": [
+    "CURRENT_ONLY", "MEMORY_LOOKUP", "MEMORY_REVISION", "MEMORY_TEMPORAL_COMPARE",
+    "MEMORY_MULTI_RECORD", "EXTERNAL_LOOKUP", "EXTERNAL_VERSIONED",
+    "EXTERNAL_MULTI_SOURCE", "MEMORY_EXTERNAL_JOIN", "MEMORY_EXTERNAL_CONFLICT",
+    "INSUFFICIENT_EVIDENCE", "DISTRACTOR_HEAVY", "TEMPORAL_BOUNDARY",
+    "COMPOSITIONAL_MULTI_FACT"
+  ],
+  "budget_regimes": ["CHEAP", "NORMAL", "RELAXED"],
+  "deadline_regimes": ["TIGHT", "RELAXED"],
+  "iid_lexical_augmentation": false
+}

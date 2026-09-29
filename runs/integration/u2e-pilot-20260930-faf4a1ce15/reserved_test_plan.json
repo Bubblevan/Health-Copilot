@@ -1,0 +1,117 @@
+{
+  "materialized": false,
+  "pools": [
+    {
+      "persona_seed_range": [
+        410000,
+        410999
+      ],
+      "scenario_families": [
+        "CURRENT_ONLY",
+        "MEMORY_LOOKUP",
+        "EXTERNAL_LOOKUP"
+      ],
+      "scenario_seed_range": [
+        400000,
+        409999
+      ],
+      "split_role": "IID_TEST",
+      "template_families": [
+        "RESERVED_IID"
+      ]
+    },
+    {
+      "persona_seed_range": [
+        510000,
+        510999
+      ],
+      "scenario_families": [
+        "MEMORY_MULTI_RECORD",
+        "MEMORY_REVISION"
+      ],
+      "scenario_seed_range": [
+        500000,
+        509999
+      ],
+      "split_role": "OOD_PATIENT",
+      "template_families": [
+        "RESERVED_PATIENT"
+      ]
+    },
+    {
+      "persona_seed_range": [
+        610000,
+        610999
+      ],
+      "scenario_families": [
+        "EXTERNAL_MULTI_SOURCE",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "scenario_seed_range": [
+        600000,
+        609999
+      ],
+      "split_role": "OOD_TASK",
+      "template_families": [
+        "RESERVED_TASK"
+      ]
+    },
+    {
+      "persona_seed_range": [
+        710000,
+        710999
+      ],
+      "scenario_families": [
+        "TEMPORAL_BOUNDARY",
+        "EXTERNAL_VERSIONED"
+      ],
+      "scenario_seed_range": [
+        700000,
+        709999
+      ],
+      "split_role": "OOD_TEMPORAL",
+      "template_families": [
+        "RESERVED_TEMPORAL"
+      ]
+    },
+    {
+      "persona_seed_range": [
+        810000,
+        810999
+      ],
+      "scenario_families": [
+        "MEMORY_LOOKUP",
+        "EXTERNAL_LOOKUP"
+      ],
+      "scenario_seed_range": [
+        800000,
+        809999
+      ],
+      "split_role": "OOD_SOURCE",
+      "template_families": [
+        "RESERVED_SOURCE"
+      ]
+    },
+    {
+      "persona_seed_range": [
+        910000,
+        910999
+      ],
+      "scenario_families": [
+        "MEMORY_EXTERNAL_JOIN",
+        "COMPOSITIONAL_MULTI_FACT"
+      ],
+      "scenario_seed_range": [
+        900000,
+        909999
+      ],
+      "split_role": "OOD_COMPOSITION",
+      "template_families": [
+        "RESERVED_COMPOSITION"
+      ]
+    }
+  ],
+  "rows_generated": 0,
+  "schema_version": "u2e-reserved-test-plan-v1",
+  "training_authorized": false
+}

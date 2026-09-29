@@ -1,0 +1,202 @@
+{
+  "architecture_supervision": "UNRESOLVED",
+  "budget_class_supervision": "UNRESOLVED",
+  "by_split_role": {
+    "DEV_IID": {
+      "derived_capability_requirement_distribution": {
+        "INSUFFICIENT": 3,
+        "MEMORY": 18,
+        "MEMORY+RAG": 2,
+        "NONE": 2,
+        "RAG": 11
+      },
+      "distractor_count": {
+        "count": 36,
+        "max": 4,
+        "median": 3.0,
+        "min": 2
+      },
+      "episode_count": 36,
+      "history_length_records": {
+        "count": 36,
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "history_timespan_days": {
+        "count": 36,
+        "max": 19.0,
+        "median": 18.0,
+        "min": 8.999988425925926
+      },
+      "query_word_count": {
+        "count": 36,
+        "max": 13,
+        "median": 7.0,
+        "min": 6
+      },
+      "revision_count": 6,
+      "scenario_family_distribution": {
+        "CURRENT_ONLY": 2,
+        "EXTERNAL_LOOKUP": 3,
+        "EXTERNAL_MULTI_SOURCE": 2,
+        "EXTERNAL_VERSIONED": 6,
+        "INSUFFICIENT_EVIDENCE": 2,
+        "MEMORY_EXTERNAL_JOIN": 2,
+        "MEMORY_LOOKUP": 5,
+        "MEMORY_MULTI_RECORD": 2,
+        "MEMORY_REVISION": 6,
+        "MEMORY_TEMPORAL_COMPARE": 2,
+        "TEMPORAL_BOUNDARY": 4
+      },
+      "subject_count": 6,
+      "template_family_distribution": {
+        "COMMON_A": 12,
+        "COMMON_B": 24
+      },
+      "temporal_boundary_count": 4,
+      "training_authorized": false
+    },
+    "DEV_STRUCTURAL": {
+      "derived_capability_requirement_distribution": {
+        "INSUFFICIENT": 3,
+        "MEMORY": 18,
+        "MEMORY+RAG": 2,
+        "NONE": 2,
+        "RAG": 11
+      },
+      "distractor_count": {
+        "count": 36,
+        "max": 4,
+        "median": 3.0,
+        "min": 2
+      },
+      "episode_count": 36,
+      "history_length_records": {
+        "count": 36,
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "history_timespan_days": {
+        "count": 36,
+        "max": 19.0,
+        "median": 18.0,
+        "min": 8.999988425925926
+      },
+      "query_word_count": {
+        "count": 36,
+        "max": 15,
+        "median": 9.0,
+        "min": 7
+      },
+      "revision_count": 6,
+      "scenario_family_distribution": {
+        "CURRENT_ONLY": 2,
+        "EXTERNAL_LOOKUP": 3,
+        "EXTERNAL_MULTI_SOURCE": 2,
+        "EXTERNAL_VERSIONED": 6,
+        "INSUFFICIENT_EVIDENCE": 2,
+        "MEMORY_EXTERNAL_JOIN": 2,
+        "MEMORY_LOOKUP": 5,
+        "MEMORY_MULTI_RECORD": 2,
+        "MEMORY_REVISION": 6,
+        "MEMORY_TEMPORAL_COMPARE": 2,
+        "TEMPORAL_BOUNDARY": 4
+      },
+      "subject_count": 6,
+      "template_family_distribution": {
+        "STRUCTURAL_E": 12,
+        "STRUCTURAL_F": 24
+      },
+      "temporal_boundary_count": 4,
+      "training_authorized": false
+    },
+    "TRAIN": {
+      "derived_capability_requirement_distribution": {
+        "INSUFFICIENT": 11,
+        "MEMORY": 58,
+        "MEMORY+RAG": 24,
+        "NONE": 18,
+        "RAG": 33
+      },
+      "distractor_count": {
+        "count": 144,
+        "max": 12,
+        "median": 3.0,
+        "min": 2
+      },
+      "episode_count": 144,
+      "history_length_records": {
+        "count": 144,
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      },
+      "history_timespan_days": {
+        "count": 144,
+        "max": 19.0,
+        "median": 18.0,
+        "min": 8.999988425925926
+      },
+      "query_word_count": {
+        "count": 144,
+        "max": 18,
+        "median": 7.0,
+        "min": 6
+      },
+      "revision_count": 14,
+      "scenario_family_distribution": {
+        "COMPOSITIONAL_MULTI_FACT": 8,
+        "CURRENT_ONLY": 10,
+        "DISTRACTOR_HEAVY": 8,
+        "EXTERNAL_LOOKUP": 11,
+        "EXTERNAL_MULTI_SOURCE": 8,
+        "EXTERNAL_VERSIONED": 14,
+        "INSUFFICIENT_EVIDENCE": 10,
+        "MEMORY_EXTERNAL_CONFLICT": 8,
+        "MEMORY_EXTERNAL_JOIN": 8,
+        "MEMORY_LOOKUP": 13,
+        "MEMORY_MULTI_RECORD": 10,
+        "MEMORY_REVISION": 14,
+        "MEMORY_TEMPORAL_COMPARE": 10,
+        "TEMPORAL_BOUNDARY": 12
+      },
+      "subject_count": 24,
+      "template_family_distribution": {
+        "COMMON_A": 33,
+        "COMMON_B": 37,
+        "TRAIN_C": 33,
+        "TRAIN_D": 41
+      },
+      "temporal_boundary_count": 12,
+      "training_authorized": false
+    }
+  },
+  "derived_capability_requirement_distribution": {
+    "INSUFFICIENT": 17,
+    "MEMORY": 94,
+    "MEMORY+RAG": 28,
+    "NONE": 22,
+    "RAG": 55
+  },
+  "model_performance_metrics": "NOT_RUN",
+  "overall_episode_count": 216,
+  "overall_subject_count": 36,
+  "scenario_family_distribution": {
+    "COMPOSITIONAL_MULTI_FACT": 8,
+    "CURRENT_ONLY": 14,
+    "DISTRACTOR_HEAVY": 8,
+    "EXTERNAL_LOOKUP": 17,
+    "EXTERNAL_MULTI_SOURCE": 12,
+    "EXTERNAL_VERSIONED": 26,
+    "INSUFFICIENT_EVIDENCE": 14,
+    "MEMORY_EXTERNAL_CONFLICT": 8,
+    "MEMORY_EXTERNAL_JOIN": 12,
+    "MEMORY_LOOKUP": 23,
+    "MEMORY_MULTI_RECORD": 14,
+    "MEMORY_REVISION": 26,
+    "MEMORY_TEMPORAL_COMPARE": 14,
+    "TEMPORAL_BOUNDARY": 20
+  }
+}
