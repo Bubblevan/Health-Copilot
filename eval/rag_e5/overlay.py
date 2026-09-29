@@ -16,7 +16,7 @@ from typing import Any
 
 BATCH_ID = "202607"
 TASK_TEMPLATE_VERSION = "e5b1-overlay-template-v1"
-SCORER_VERSION = "e5b1-deterministic-evidence-gated-v1"
+SCORER_VERSION = "e5b2-content-grounding-separated-v2"
 ACTION_ORDER = ("OFF", "STANDARD", "STRONG")
 CORPUS_IDENTITY = "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd"
 
@@ -298,7 +298,7 @@ def score_case(
     remove_state: bool = False,
     remove_evidence_and_citations: bool = False,
 ) -> dict[str, float]:
-    """Apply frozen exact state and evidence-gated deterministic content scoring."""
+    """Score content correctness separately from support in supplied evidence."""
     required_state = teacher.get("expected_state_fields", {})
     expected_state = {} if remove_state else required_state
     actual_state: dict[str, str] = {}
@@ -338,30 +338,34 @@ def score_case(
         for item in reader_output.get("guidance_facts", [])
         if isinstance(item, Mapping) and isinstance(item.get("statement", ""), str)
     ]
-    if required_recs and grounding_score == 0.0:
-        guideline_score = 0.0
-    elif rubric:
-        guideline_score = sum(
+    if rubric:
+        guideline_content_score = sum(
             any(_matches_keypoint(statement, keypoint) for statement in statements)
             for keypoint in rubric
         ) / len(rubric)
     else:
-        guideline_score = 1.0 if not required_recs else 0.0
+        guideline_content_score = 1.0 if not required_recs else 0.0
 
     family = teacher.get("task_family")
     if family == "T0":
-        quality = state_score
+        end_to_end_quality = state_score
+        content_only_quality = state_score
     elif family == "T1":
-        quality = 0.75 * guideline_score + 0.25 * grounding_score
+        end_to_end_quality = 0.75 * guideline_content_score + 0.25 * grounding_score
+        content_only_quality = guideline_content_score
     elif family == "T2":
-        quality = 0.50 * state_score + 0.25 * guideline_score + 0.25 * grounding_score
+        end_to_end_quality = (
+            0.50 * state_score + 0.25 * guideline_content_score + 0.25 * grounding_score
+        )
+        content_only_quality = 0.50 * state_score + 0.50 * guideline_content_score
     else:
         raise ValueError("unknown task family in teacher record")
     return {
         "state_score": state_score,
-        "guideline_score": guideline_score,
+        "guideline_content_score": guideline_content_score,
         "grounding_score": grounding_score,
-        "quality": quality,
+        "content_only_quality": content_only_quality,
+        "end_to_end_quality": end_to_end_quality,
     }
 
 

@@ -1,0 +1,168 @@
+{
+  "content_only_weights": {
+    "T0": {
+      "state": 1.0
+    },
+    "T1": {
+      "guideline_content": 1.0
+    },
+    "T2": {
+      "guideline_content": 0.5,
+      "state": 0.5
+    }
+  },
+  "end_to_end_weights": {
+    "T0": {
+      "state": 1.0
+    },
+    "T1": {
+      "grounding": 0.25,
+      "guideline_content": 0.75
+    },
+    "T2": {
+      "grounding": 0.25,
+      "guideline_content": 0.25,
+      "state": 0.5
+    }
+  },
+  "grounding_score": "cited_supplied_chunk_matching_required_source_and_recommendation_fraction",
+  "guideline_content_score": "rubric_anchor_match_in_guidance_facts_independent_of_retrieval_and_citations",
+  "normalization": "casefold_and_collapse_whitespace; numbers_match_integer_token",
+  "recommendations": {
+    "who-physical-activity-sedentary-2020": {
+      "adults_18_64_physical_activity": {
+        "approved_chunk_ids": [
+          "who-guideline-bf99cb257704c2aff3b1a753"
+        ],
+        "keypoints": [
+          {
+            "all_terms": [
+              "moderate",
+              "aerobic"
+            ],
+            "any_term_groups": [
+              [
+                "minute",
+                "min"
+              ],
+              [
+                "week",
+                "weekly"
+              ]
+            ],
+            "keypoint_id": "moderate_aerobic_minutes",
+            "required_numbers": [
+              "150",
+              "300"
+            ]
+          },
+          {
+            "all_terms": [
+              "vigorous",
+              "aerobic"
+            ],
+            "any_term_groups": [
+              [
+                "minute",
+                "min"
+              ],
+              [
+                "week",
+                "weekly"
+              ]
+            ],
+            "keypoint_id": "vigorous_aerobic_minutes",
+            "required_numbers": [
+              "75",
+              "150"
+            ]
+          },
+          {
+            "all_terms": [
+              "muscle"
+            ],
+            "any_term_groups": [
+              [
+                "strengthen",
+                "strengthening"
+              ],
+              [
+                "day",
+                "days"
+              ]
+            ],
+            "keypoint_id": "muscle_strengthening_days",
+            "required_numbers": [
+              "2"
+            ]
+          }
+        ]
+      }
+    },
+    "who-total-fat-weight-gain-2023": {
+      "recommendation-1": {
+        "approved_chunk_ids": [
+          "who-guideline-33511bbfac7ce4586cb7aadc",
+          "who-guideline-4f47a8d684098dc3c22b7ad5",
+          "who-guideline-5f9f38ca0abb571b9420ada2"
+        ],
+        "keypoints": [
+          {
+            "all_terms": [
+              "adult",
+              "energy"
+            ],
+            "any_term_groups": [
+              [
+                "total fat",
+                "dietary fat"
+              ],
+              [
+                "percent",
+                "%"
+              ]
+            ],
+            "keypoint_id": "adult_total_fat_threshold",
+            "required_numbers": [
+              "30"
+            ]
+          },
+          {
+            "all_terms": [
+              "adult"
+            ],
+            "any_term_groups": [
+              [
+                "year",
+                "age"
+              ]
+            ],
+            "keypoint_id": "recommendation_population_age",
+            "required_numbers": [
+              "20"
+            ]
+          },
+          {
+            "all_terms": [
+              "increase"
+            ],
+            "any_term_groups": [
+              [
+                "already below",
+                "less than 30",
+                "below 30"
+              ]
+            ],
+            "keypoint_id": "threshold_is_not_a_target_to_increase",
+            "required_numbers": [
+              "30"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "schema_version": "rag-e5-e5b2-scoring-contract-v2",
+  "scorer_version": "e5b2-content-grounding-separated-v2",
+  "state_score": "exact_required_field_enum_match_fraction"
+}

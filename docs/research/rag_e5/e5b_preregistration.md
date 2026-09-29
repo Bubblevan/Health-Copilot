@@ -127,6 +127,11 @@ decoding parameters, and evaluator. Only retrieved evidence may differ.
 
 ## Frozen scoring
 
+> Scoring erratum: the B1 evidence-gated content rule below was corrected
+> before any counterfactual outcome existed. See
+> [e5b2_scoring_erratum.md](e5b2_scoring_erratum.md); E5-B2 uses the separated
+> content and grounding scorer and its new lock.
+
 The evaluator is deterministic and separate from policy/runtime inputs.
 Expected state facts are copied from the frozen state packet; expected guideline
 facts are fixed from the approved WHO recommendation chunks before outcomes.

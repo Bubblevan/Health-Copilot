@@ -1,4 +1,4 @@
-"""Freeze E5-B1 runtime/teacher overlays and B2 execution protocol, without execution."""
+"""Legacy E5-B1 freeze builder; outputs are immutable after the B2 scorer erratum."""
 
 from __future__ import annotations
 
@@ -58,6 +58,10 @@ def build_freeze(
     profiles_path: Path,
     coverage_path: Path,
 ) -> dict[str, Any]:
+    if SCORER_VERSION != "e5b1-deterministic-evidence-gated-v1":
+        raise RuntimeError(
+            "the B1 freeze is immutable; use freeze_e5b2_protocol.py for the corrected scorer"
+        )
     coverage = _read_json(coverage_path)
     _validate_coverage(coverage)
     corpus_manifest = _read_json(corpus_manifest_path)
@@ -316,13 +320,18 @@ def _build_rubric(
     return {
         "scorer_version": SCORER_VERSION,
         "normalization": "casefold_and_collapse_whitespace; numbers_match_integer_token",
-        "guideline_credit_gate": "at_least_one_supplied_correct_source_and_recommendation_chunk_is_cited",
+        "guideline_content_score": "rubric_anchor_match_in_guidance_facts_independent_of_retrieval_and_citations",
         "state_score": "exact_required_field_enum_match_fraction",
         "grounding_score": "cited_supplied_correct_recommendation_fraction",
         "weights": {
             "T0": {"state": 1.0},
-            "T1": {"guideline": 0.75, "grounding": 0.25},
-            "T2": {"state": 0.5, "guideline": 0.25, "grounding": 0.25},
+            "T1": {"guideline_content": 0.75, "grounding": 0.25},
+            "T2": {"state": 0.5, "guideline_content": 0.25, "grounding": 0.25},
+        },
+        "content_only_weights": {
+            "T0": {"state": 1.0},
+            "T1": {"guideline_content": 1.0},
+            "T2": {"state": 0.5, "guideline_content": 0.5},
         },
         "recommendations": recommendations,
     }
@@ -374,14 +383,14 @@ def _synthetic_dependency_audit(
             teacher=teacher.to_dict(), reader_output=output, supplied_chunks=[valid_chunk],
             remove_evidence_and_citations=True,
         )
-        maxima_full.append(full["quality"])
-        maxima_without_state.append(no_state["quality"])
-        maxima_without_evidence.append(no_evidence["quality"])
+        maxima_full.append(full["end_to_end_quality"])
+        maxima_without_state.append(no_state["end_to_end_quality"])
+        maxima_without_evidence.append(no_evidence["end_to_end_quality"])
     passed = (
         len(t2_cases) == 20
         and all(score == 1.0 for score in maxima_full)
-        and all(score <= 0.5 for score in maxima_without_state)
-        and all(score <= 0.5 for score in maxima_without_evidence)
+        and all(score == 0.5 for score in maxima_without_state)
+        and all(score == 0.75 for score in maxima_without_evidence)
     )
     return {
         "synthetic_cases": len(t2_cases),

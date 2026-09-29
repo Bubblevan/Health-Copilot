@@ -1,0 +1,373 @@
+{
+  "202608_opened": false,
+  "action_profiles": {
+    "STANDARD": "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330",
+    "STRONG": "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b",
+    "manifest_sha256": "0f50b8fbd87b7a3e837c7e7a474db4e16ba19a644f46fc0692e85e5edcadb5fa"
+  },
+  "age_temporal_contract_sha256": "b6d916a63990b0e23ce5f9ad616e6e6ba0f1d6638fe99738b5edce873cfefd5b",
+  "answer_model": {
+    "bridge_calls": 60,
+    "bytes": 5027783488,
+    "endpoint_binding": "loopback_only",
+    "file": "Qwen3-8B-Q4_K_M.gguf",
+    "llama_cpp_version": "version: 10068 (571d0d540) built with Clang 20.1.8 for Windows x86_64",
+    "max_output_tokens": 256,
+    "model": "Qwen/Qwen3-8B-GGUF",
+    "prompt_cache": false,
+    "reader_calls": 180,
+    "reasoning": "disabled",
+    "retry_on_error": false,
+    "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "stateless_request": true,
+    "temperature": 0.0
+  },
+  "base_main": "56a809024e3d006451724380e94f2b4ed9c2cee7",
+  "batch_id": "202607",
+  "bge_artifacts": {
+    "dense_manifest_sha256": "fc8c9c747031494415ee354f0770842b5582ce0e25178f5c489717b6dd55e78d",
+    "embedding_matrix_sha256": "e6c2ac08e521317200997f210401f4b50bc1e4fddc1f0fcac26e393f3a0aaa5f",
+    "model_files_sha256": {
+      "1_Pooling/config.json": "e54c164a07274f2eb45bb724f54a79d1efcc90c41573887cd9a29aeee0597352",
+      "config.json": "446712fac367857b4b1302762fe1cd7bfa8b3c4b77b4dc5d77c4025407660896",
+      "config_sentence_transformers.json": "940d5f50db195fa6e5e6a4f122c095f77880de259d74b14a65779ed48bdd7c56",
+      "modules.json": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+      "sentence_bert_config.json": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf",
+      "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+      "tokenizer_config.json": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3",
+      "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+    },
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+    "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+  },
+  "bm25_artifacts": {
+    "analyzer": "Anserini DefaultEnglishAnalyzer with Porter stemming",
+    "analyzer_cli_class_sha256": "aa431577158fa801fbf532e0d26738bf953d39f11b62fbf418ecaf3bc317cdc1",
+    "analyzer_jar_sha256": "573afd03348195f1b388b7ecc297a56624a01c1b18a87ad3527e10221774a3a0",
+    "b": 0.4,
+    "dictionary_model_sha256": "4ef4e604881fb36a718994ef812486f117d30fcee837daae1b45672141a85b4a",
+    "k1": 0.9,
+    "manifest_sha256": "6f987e66e466bd18232ff266ccbcc84620814a4c8eb082d83f8f77fb0c987e22",
+    "matrix_sha256": "a007921331e993d765e997a25c3cf1388fe95f42ce61c29f881f884b19a51988",
+    "token_artifact_sha256": "6bc63b0e5aca95d23eb390ab33379b0432ee150f6250fbdbfceac4204c5cd4f2"
+  },
+  "case_count": 60,
+  "content_only_quality": {
+    "T0": "state_score",
+    "T1": "guideline_content_score",
+    "T2": "0.50*state_score+0.50*guideline_content_score"
+  },
+  "counterfactual_lock_sha256": "d59609d97729b85dfcf5527c40671ea6bd012b78abbba605476e909bfe30c5bb",
+  "execution_order": "sorted_case_id_then_OFF_STANDARD_STRONG",
+  "expected_arms": 180,
+  "external_corpus_chunks_sha256": "92070cbb5f5961bf1f9cfdf628bbc9cc3ea7c4fdf3a317ca378fd450aa28b5ac",
+  "external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "external_corpus_manifest_sha256": "6cde1f396f12a2b2de2296d5c0c19d5f2a89e512b6e5e47a554c7edf309e79d9",
+  "locked_code": [
+    {
+      "path": "eval/rag_e5/overlay.py",
+      "sha256": "6b4e76c60b2eebef4978407966cd7497fedbfec7a13c27b7f99b8921c822f121"
+    },
+    {
+      "path": "eval/rag_e5/counterfactual.py",
+      "sha256": "228156521d7968e7a907504ba1016fd20974d00c7c6c146b76dae46468a2c428"
+    },
+    {
+      "path": "eval/rag_e5/retrieval.py",
+      "sha256": "64d5634347873b63d55a6c5833440c9f73b695bd22b8472015bdd7e18397eb1e"
+    },
+    {
+      "path": "eval/rag_e5/e5b2_evaluator.py",
+      "sha256": "d98f32c7e3531a9e9534e3d46e8fcc9b1823ad1970cbe18617bb0bf41366834d"
+    },
+    {
+      "path": "eval/rag_e5/E5LuceneAnalyzerCli.java",
+      "sha256": "be34cf039fbcf6f46c5bdcb9dbf209e9e2dbcbce78d06a0fcf820fda12c8a4f0"
+    },
+    {
+      "path": "eval/rag_e5/age.py",
+      "sha256": "26a4d92f6bca2616c6f5c437f56b28923a467f309dd1d0e7502ba52cda49da0e"
+    },
+    {
+      "path": "eval/rag_e5/longitudinal_state.py",
+      "sha256": "271f6ab48226c8d12e8eb61427a331b0b58c13fc14bc023f3ca269c34ec1c021"
+    },
+    {
+      "path": "eval/rag_e5/temporal.py",
+      "sha256": "78f5245565d8840866b646e2a3dd273a6950796694c81e2c0a51acff43f3eb34"
+    },
+    {
+      "path": "eval/r2med_crb.py",
+      "sha256": "fc7bf6dca373d4e5eb87b3b3b4a2ad887ed85e660d3bfc8e82aa088237e77a1c"
+    },
+    {
+      "path": "eval/r2med_crb_data.py",
+      "sha256": "01cc2c2d37a73b1778b6445d5e51c9bc04802fd2b601a95e8cbdcf124fb4256d"
+    },
+    {
+      "path": "eval/r2med_gar_generation.py",
+      "sha256": "bb513ab75141dd805bcf77268d8d3fb15ae7a160e37a9094ddce517507d3f5f9"
+    },
+    {
+      "path": "eval/r2med_multiview.py",
+      "sha256": "2bf69768b9aa04b92070ee7dd4b6ca662de54d9d33761e7073d044b338f2dc08"
+    },
+    {
+      "path": "tools/research/rag_e5/freeze_e5b2_protocol.py",
+      "sha256": "a49e0ca6f3b01ba3566cd574408c4e57a9842fd6cc138bf0a0a9681a3aaf3c8c"
+    },
+    {
+      "path": "tools/research/rag_e5/run_e5b2_counterfactual.py",
+      "sha256": "80a6a6cf14d74dd9d500898dbc0db9f603f808e086420d332192566309d14ea7"
+    },
+    {
+      "path": "tools/research/rag_e5/score_e5b2_counterfactual.py",
+      "sha256": "75a03da11e70caee87d4e254c594570175ece243f14fc62137c418aae27e387b"
+    },
+    {
+      "path": "tools/research/rag_e5/build_e5b1_overlay.py",
+      "sha256": "e08c4c6ce1d0d297ec4f952f7bc3f630a41969eb64e6c6028e1f6a5239590466"
+    },
+    {
+      "path": "tools/research/rag_e5/build_e5b1_state_packets.py",
+      "sha256": "e1892cf56576118c9388efaf0e23f4fd718049b388e26a042fa45d72998bda98"
+    }
+  ],
+  "model_calls": 0,
+  "ordered_case_ids_sha256": "7ac2d95f98efc6fcced665f93977c76c4d219af0cfe7e16f05b1fdd67358979a",
+  "outcomes_or_oracle_action_created": false,
+  "primary_quality": {
+    "T0": "state_score",
+    "T1": "0.75*guideline_content_score+0.25*grounding_score",
+    "T2": "0.50*state_score+0.25*guideline_content_score+0.25*grounding_score"
+  },
+  "profile_temporal_contract_sha256": "6a5bf04301cc71f09f723b35473022576d218e53c4bce0001f9a1589e987e1b3",
+  "python_runtime": {
+    "numpy": "2.4.6",
+    "python": "3.11.15",
+    "scipy": "1.17.1",
+    "sentence-transformers": "6.1.0",
+    "torch": "2.14.0+cu132",
+    "transformers": "5.17.0"
+  },
+  "question_set_sha256": "5a64a0aa9520d6f94f7e73172786a3970c4b49f00789a73d42ffe1db361ef2a6",
+  "reader_evidence_context": "top_five_fused_chunks_in_rank_order",
+  "reader_prompt_sha256": "9cece7ff44c0b4b279288a774afddc45eb362e0f638ae4da84089379edb69010",
+  "reader_schema_sha256": "1adda6d839f1b6aac7e586da59449398561e363f5d6f42f3dbca9cec15986564",
+  "retrieval_calls": 0,
+  "runtime_capability_context_sha256": "564c31689401e5f32172647ccc3cf18a73632032ed1c68dad3d8e15524e6c442",
+  "runtime_cases_file_sha256": "afa168512ac269391b001a2c2fc74b08b2d87dfa8f9d84361d03f9c8f9bab177",
+  "schema_version": "rag-e5-e5b2-counterfactual-lock-v1",
+  "scorer_function_sha256": "8e468ecd46931a65232a2ac75421212841ef026aeb1cebdf666b5e83d7715337",
+  "scorer_module_sha256": "6b4e76c60b2eebef4978407966cd7497fedbfec7a13c27b7f99b8921c822f121",
+  "scorer_version": "e5b2-content-grounding-separated-v2",
+  "scoring_contract": {
+    "content_only_weights": {
+      "T0": {
+        "state": 1.0
+      },
+      "T1": {
+        "guideline_content": 1.0
+      },
+      "T2": {
+        "guideline_content": 0.5,
+        "state": 0.5
+      }
+    },
+    "end_to_end_weights": {
+      "T0": {
+        "state": 1.0
+      },
+      "T1": {
+        "grounding": 0.25,
+        "guideline_content": 0.75
+      },
+      "T2": {
+        "grounding": 0.25,
+        "guideline_content": 0.25,
+        "state": 0.5
+      }
+    },
+    "grounding_score": "cited_supplied_chunk_matching_required_source_and_recommendation_fraction",
+    "guideline_content_score": "rubric_anchor_match_in_guidance_facts_independent_of_retrieval_and_citations",
+    "normalization": "casefold_and_collapse_whitespace; numbers_match_integer_token",
+    "recommendations": {
+      "who-physical-activity-sedentary-2020": {
+        "adults_18_64_physical_activity": {
+          "approved_chunk_ids": [
+            "who-guideline-bf99cb257704c2aff3b1a753"
+          ],
+          "keypoints": [
+            {
+              "all_terms": [
+                "moderate",
+                "aerobic"
+              ],
+              "any_term_groups": [
+                [
+                  "minute",
+                  "min"
+                ],
+                [
+                  "week",
+                  "weekly"
+                ]
+              ],
+              "keypoint_id": "moderate_aerobic_minutes",
+              "required_numbers": [
+                "150",
+                "300"
+              ]
+            },
+            {
+              "all_terms": [
+                "vigorous",
+                "aerobic"
+              ],
+              "any_term_groups": [
+                [
+                  "minute",
+                  "min"
+                ],
+                [
+                  "week",
+                  "weekly"
+                ]
+              ],
+              "keypoint_id": "vigorous_aerobic_minutes",
+              "required_numbers": [
+                "75",
+                "150"
+              ]
+            },
+            {
+              "all_terms": [
+                "muscle"
+              ],
+              "any_term_groups": [
+                [
+                  "strengthen",
+                  "strengthening"
+                ],
+                [
+                  "day",
+                  "days"
+                ]
+              ],
+              "keypoint_id": "muscle_strengthening_days",
+              "required_numbers": [
+                "2"
+              ]
+            }
+          ]
+        }
+      },
+      "who-total-fat-weight-gain-2023": {
+        "recommendation-1": {
+          "approved_chunk_ids": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2"
+          ],
+          "keypoints": [
+            {
+              "all_terms": [
+                "adult",
+                "energy"
+              ],
+              "any_term_groups": [
+                [
+                  "total fat",
+                  "dietary fat"
+                ],
+                [
+                  "percent",
+                  "%"
+                ]
+              ],
+              "keypoint_id": "adult_total_fat_threshold",
+              "required_numbers": [
+                "30"
+              ]
+            },
+            {
+              "all_terms": [
+                "adult"
+              ],
+              "any_term_groups": [
+                [
+                  "year",
+                  "age"
+                ]
+              ],
+              "keypoint_id": "recommendation_population_age",
+              "required_numbers": [
+                "20"
+              ]
+            },
+            {
+              "all_terms": [
+                "increase"
+              ],
+              "any_term_groups": [
+                [
+                  "already below",
+                  "less than 30",
+                  "below 30"
+                ]
+              ],
+              "keypoint_id": "threshold_is_not_a_target_to_increase",
+              "required_numbers": [
+                "30"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "schema_version": "rag-e5-e5b2-scoring-contract-v2",
+    "scorer_version": "e5b2-content-grounding-separated-v2",
+    "state_score": "exact_required_field_enum_match_fraction"
+  },
+  "scoring_contract_sha256": "f4e191e53d1b500049d3847ac17442e6a46f0213d66228c062293eba2689461f",
+  "source_cohort": "202607_only",
+  "state_packet_builder_version": "e5-longitudinal-state-v4",
+  "state_packet_config_sha256": "f61959fa1c29dfbc7c40902813c52ac5ce6a820d2c10ced1990c01e0f24a3a64",
+  "state_packet_set_sha256": "860f5da64a6b94790944a5bd2d50aa4977a098bc51d1b6f822321bf4fbbd1d1c",
+  "status": "FROZEN_PROTOCOL_NO_OUTCOMES",
+  "strong_generator": {
+    "calls_per_case": 1,
+    "fallback": "original_query_on_empty_or_truncated_bridge",
+    "feedback_depth": 10,
+    "input_boundary": "current_question_and_same_query_bm25_top10_only",
+    "method": "LameR-MV",
+    "prompt_template_sha256": "317a15290b029422df211a96550f2f689d98fff61618a1e1847c7f54f8443122"
+  },
+  "task_template_sha256": "4ad4d293958aef0de9d841420413d027cdc14e94ead0f0154614e9eb8591ec02",
+  "teacher_cases_file_sha256": "2486eaad0c67cb3ed5aa4bf75edb337e4322f57df68a3c285244e42bfe165e8c",
+  "temporal_semantics_id": "SOURCE_RELATIVE_NAIVE_CIVIL_TIME_V1",
+  "temporal_semantics_sha256": "e8cc9ead7055317b52dd6373af6ccbc8cbd4ab14d41d6959f54589df35da4f13",
+  "upstream": {
+    "commit": "11244a4925a39082967a6c9d38ef01f279c316a5",
+    "lamer_medqa_prompt_sha256": "317a15290b029422df211a96550f2f689d98fff61618a1e1847c7f54f8443122",
+    "prompt_family_mapping": {
+      "IIYi-Clinical": "IIYiPatients-EN",
+      "MedQA-Diag": "MedQA-Diag",
+      "MedXpertQA-Exam": "MedXpertQA-Exam",
+      "Medical-Sciences": "Stack-Medical",
+      "PMC-Clinical": "PMCPatients",
+      "PMC-Treatment": "PMC-Treat"
+    },
+    "repository": "R2MED/R2MED",
+    "source_file_sha256": {
+      "src/eval_BM25.py": "01b6f4d68baea7f3c8d4c0f177ca1c6a17512c694cf9ba0f64ea7078b9fe882d",
+      "src/eval_retrieval.py": "dce42ec72f8a2d5e9b71e25bbf773cf27268b2b7e0940fe69494840b38ba7229",
+      "src/example.py": "a1636976765b6ce4ce365349e04183bf1d1f40337d2f5f4342f00de03f2363af",
+      "src/generate_hypothetical_doc.py": "cc207039a7b5a6937740eac055a48445c1a7d520daed6efe0ba8be63d5687f1a",
+      "src/instrcution.py": "8e767d77f22330beb4417b6baebc29be5e7ca59f386e5106162bea56882902a7"
+    }
+  }
+}

@@ -213,7 +213,7 @@ def test_task_construction_does_not_call_retriever() -> None:
     _assert_overlay_has_no_model_or_retriever_calls()
 
 
-def test_t2_maximum_drops_without_state_or_evidence_for_every_user() -> None:
+def test_content_and_grounding_are_independent_and_t2_caps_are_exact() -> None:
     runtime, teachers = _build()
     runtime_by_id = {case.case_id: case for case in runtime}
     t2 = [case for case in teachers if case.task_family == "T2"]
@@ -241,9 +241,37 @@ def test_t2_maximum_drops_without_state_or_evidence_for_every_user() -> None:
             teacher=teacher.to_dict(), reader_output=perfect_output, supplied_chunks=[chunk],
             remove_evidence_and_citations=True,
         )
-        assert full["quality"] == 1.0
-        assert without_state["quality"] <= 0.5
-        assert without_evidence["quality"] <= 0.5
+        off = score_case(
+            teacher=teacher.to_dict(), reader_output={**perfect_output, "citations": []},
+            supplied_chunks=[],
+        )
+        assert full["end_to_end_quality"] == 1.0
+        assert full["content_only_quality"] == 1.0
+        assert without_state["end_to_end_quality"] == 0.5
+        assert without_evidence["end_to_end_quality"] == 0.75
+        assert without_evidence["guideline_content_score"] == 1.0
+        assert without_evidence["grounding_score"] == 0.0
+        assert off["guideline_content_score"] == 1.0
+        assert off["grounding_score"] == 0.0
+        assert off["end_to_end_quality"] == 0.75
+
+
+def test_t1_content_can_score_without_evidence_but_grounding_cannot() -> None:
+    _, teachers = _build()
+    teacher = next(case for case in teachers if case.task_family == "T1")
+    statement = (
+        "Adults should do 150 to 300 minutes of moderate aerobic activity each week, "
+        "75 to 150 minutes of vigorous aerobic activity, and muscle strengthening on 2 days."
+    )
+    scored = score_case(
+        teacher=teacher.to_dict(),
+        reader_output={"guidance_facts": [{"statement": statement}], "citations": []},
+        supplied_chunks=[],
+    )
+    assert scored["guideline_content_score"] == 1.0
+    assert scored["grounding_score"] == 0.0
+    assert scored["content_only_quality"] == 1.0
+    assert scored["end_to_end_quality"] == 0.75
 
 
 def test_frozen_manifests_contain_no_counterfactual_outcomes() -> None:
