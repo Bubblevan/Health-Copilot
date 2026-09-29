@@ -32,10 +32,21 @@ class SyntheticCase:
     episode: IntegrationEpisode
     evaluation: EvaluationPlane
     resources: ExecutionResources
+    contract_expectation: SyntheticContractExpectation
+
+
+@dataclass(frozen=True)
+class SyntheticContractExpectation:
+    """Test-only fixture checks; never passed to evaluator or training views."""
+
+    expected_team_tools: tuple[str, ...] = ()
 
 
 def _budget() -> EpisodeBudget:
-    return EpisodeBudget(20, 1, 1, 4, 12, "SYNTHETIC_STANDARD", "NO_DEADLINE")
+    return EpisodeBudget(
+        24, 4, 4, 4, 12, "SYNTHETIC_STANDARD", "NO_DEADLINE",
+        "u1.1-activation-observed-v1",
+    )
 
 
 def _team_workers(
@@ -75,7 +86,6 @@ def _case(
     required_evidence_ids: tuple[str, ...] = (),
     required_memory_facts: tuple[str, ...] = (),
     required_memory_record_ids: tuple[str, ...] = (),
-    requires_team: bool = False,
     safe_abstention: bool = False,
     tools: tuple[str, ...] = (),
 ) -> SyntheticCase:
@@ -125,11 +135,11 @@ def _case(
         required_memory_facts=required_memory_facts,
         required_memory_record_ids=required_memory_record_ids,
         required_external_evidence_ids=required_evidence_ids,
-        requires_team=requires_team,
         failure_labels=("TEMPORAL_LEAKAGE",) if case_id == "U1-TEMPORAL-LEAKAGE" else (),
     )
     return SyntheticCase(case_id, episode, evaluation,
-                         ExecutionResources(PatientStateStore(records), world))
+                         ExecutionResources(PatientStateStore(records), world),
+                         SyntheticContractExpectation(tools if case_id == "U1-TEAM" else ()))
 
 
 def build_synthetic_cases() -> tuple[SyntheticCase, ...]:
@@ -171,7 +181,7 @@ def build_synthetic_cases() -> tuple[SyntheticCase, ...]:
     )
     team = _case(
         "U1-TEAM", "Synthetic arithmetic part_a=3; part_b=4; compute sum.",
-        required_facts=("7",), gold_answer="7", requires_team=True,
+        required_facts=("7",), gold_answer="7",
         tools=("query_part_a", "query_part_b"),
     )
     mem_team = _case(
@@ -186,7 +196,7 @@ def build_synthetic_cases() -> tuple[SyntheticCase, ...]:
         ),
         required_facts=("2026-08-04", "2 days"), gold_answer="2026-08-04; 2 days",
         required_memory_facts=("2026-08-04", "2 days"),
-        required_memory_record_ids=("mem-event-2", "mem-conversation-2"), requires_team=True,
+        required_memory_record_ids=("mem-event-2", "mem-conversation-2"),
     )
     all_caps = _case(
         "U1-ALL", "Use all_marker and synthetic_literature marker; include both results.",
@@ -198,7 +208,7 @@ def build_synthetic_cases() -> tuple[SyntheticCase, ...]:
                                          "Synthetic literature example describes 2 groups.",
                                          ("synthetic_literature",)),),
         required_facts=("120 units", "2 groups"), gold_answer="120 units; 2 groups",
-        required_evidence_ids=("lit-u1",), required_memory_facts=("120 units",), requires_team=True,
+        required_evidence_ids=("lit-u1",), required_memory_facts=("120 units",),
         required_memory_record_ids=("mem-event-3",),
     )
     insufficient = _case(

@@ -16,7 +16,10 @@ from health_ai_copilot.research.integration.fixtures import (
     build_synthetic_cases,
 )
 from health_ai_copilot.research.integration.replay import semantic_execution_hash
-from health_ai_copilot.research.integration.training_views import build_training_views
+from health_ai_copilot.research.integration.training_views import (
+    StudentActionSource,
+    build_training_views,
+)
 
 
 def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
@@ -32,7 +35,10 @@ def main() -> int:
     cases = build_synthetic_cases()
     runner = CounterfactualRunner(epsilon=0)
     bundles = [(case, runner.run(case.episode, case.evaluation, case.resources)) for case in cases]
-    views = [(case, bundle, build_training_views(case.episode, bundle)) for case, bundle in bundles]
+    views = [(case, bundle, build_training_views(
+        case.episode, bundle, student_action="NONE",
+        student_action_source=StudentActionSource.SCRIPTED_PROBE,
+    )) for case, bundle in bundles]
     replay_stable = all(
         semantic_execution_hash(bundle)
         == semantic_execution_hash(runner.run(case.episode, case.evaluation, case.resources))
@@ -73,6 +79,8 @@ def main() -> int:
     }
     run_id = "u1-synthetic-20260929-01"
     output = ROOT / "runs" / "integration" / run_id
+    if output.exists():
+        raise RuntimeError("historical U1 artifacts are frozen; use the U1.1 run builder")
     output.mkdir(parents=True, exist_ok=True)
     manifest = {
         "run_id": run_id,

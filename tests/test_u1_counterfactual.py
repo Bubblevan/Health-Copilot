@@ -8,9 +8,9 @@ def test_required_minimal_actions_and_valid_arm_mask() -> None:
         "U1-MEM": ("MEMORY",),
         "U1-RAG": ("RAG",),
         "U1-MEM-RAG": ("MEMORY+RAG",),
-        "U1-TEAM": ("TEAM",),
-        "U1-MEM-TEAM": ("MEMORY+TEAM",),
-        "U1-ALL": ("ALL",),
+        "U1-TEAM": ("NONE",),
+        "U1-MEM-TEAM": ("MEMORY",),
+        "U1-ALL": ("MEMORY+RAG",),
         "U1-OOD-INSUFFICIENT": ("NONE",),
     }
     runner = CounterfactualRunner(epsilon=0)
@@ -37,5 +37,5 @@ def test_invalid_action_is_masked_when_no_history_or_evidence_world() -> None:
 
 def test_epsilon_keeps_near_equal_successful_action_set() -> None:
     case = next(item for item in build_synthetic_cases() if item.case_id == "U1-MEM")
-    bundle = CounterfactualRunner(epsilon=2).run(case.episode, case.evaluation, case.resources)
+    bundle = CounterfactualRunner(epsilon=3).run(case.episode, case.evaluation, case.resources)
     assert {item.value for item in bundle.oracle_action_set.actions} == {"MEMORY", "MEMORY+TEAM"}

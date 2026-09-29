@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 
-from .actions import CapabilityAction
 from .contracts import EvaluationPlane, ExecutionOutcome, FailureCategory
 
 
@@ -22,13 +21,12 @@ class EvaluationResult:
 
 
 class DeterministicIntegrationEvaluator:
-    version = "u1-deterministic-evaluator-v1"
+    version = "u1.1-deterministic-evaluator-v2"
 
     def evaluate(
         self,
         execution: ExecutionOutcome,
         evaluation: EvaluationPlane,
-        action: CapabilityAction,
         *,
         observed_evidence_ids: tuple[str, ...],
     ) -> EvaluationResult:
@@ -43,26 +41,27 @@ class DeterministicIntegrationEvaluator:
         if evaluation.task_success_predicate == "safe_abstention":
             success = execution.answer == "INSUFFICIENT_EVIDENCE" and not used
         else:
-            team_satisfied = not evaluation.requires_team or action.architecture.value == "TEAM"
             success = (not missing and not missing_evidence and not missing_memory_records
-                       and bool(execution.answer) and team_satisfied)
+                       and bool(execution.answer))
         safety = execution.safety_pass and (not execution.answer or execution.answer == "INSUFFICIENT_EVIDENCE" or grounding)
         failure = None
         if not success:
-            if "TEMPORAL_LEAKAGE" in evaluation.failure_labels:
+            if execution.failure_category == FailureCategory.CONTRACT_VIOLATION:
+                failure = FailureCategory.CONTRACT_VIOLATION
+            elif "TEMPORAL_LEAKAGE" in evaluation.failure_labels:
                 failure = FailureCategory.TEMPORAL_LEAKAGE
-            elif evaluation.required_memory_facts and not action.memory_read:
+            elif evaluation.required_memory_facts and "MEMORY_READ" not in execution.activated_capabilities:
                 failure = FailureCategory.MISSING_MEMORY_READ
-            elif evaluation.required_external_evidence_ids and action.external_retrieval.value == "OFF":
+            elif evaluation.required_external_evidence_ids and "EXTERNAL_RETRIEVAL" not in execution.activated_capabilities:
                 failure = FailureCategory.MISSING_EXTERNAL_RETRIEVAL
-            elif evaluation.requires_team and action.architecture.value != "TEAM":
-                failure = FailureCategory.MISSING_TEAM
             elif evaluation.required_memory_record_ids and missing_memory_records:
                 failure = FailureCategory.MISSING_MEMORY_READ
+            elif (evaluation.required_external_evidence_ids
+                  and "EXTERNAL_RETRIEVAL" in execution.activated_capabilities
+                  and missing_evidence):
+                failure = FailureCategory.RETRIEVAL_MISS
             elif execution.used_evidence_ids and not grounding:
                 failure = FailureCategory.UNSUPPORTED_CLAIM
-            elif action.external_retrieval.value == "STANDARD" and not execution.used_evidence_ids:
-                failure = FailureCategory.RETRIEVAL_MISS
             else:
                 failure = FailureCategory.UNSUPPORTED_CLAIM
         evaluated = replace(execution, task_success=success, safety_pass=safety,

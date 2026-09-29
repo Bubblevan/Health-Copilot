@@ -38,8 +38,6 @@ class FailureCategory(StrEnum):
     UNNECESSARY_MEMORY_READ = "UNNECESSARY_MEMORY_READ"
     MISSING_EXTERNAL_RETRIEVAL = "MISSING_EXTERNAL_RETRIEVAL"
     UNNECESSARY_EXTERNAL_RETRIEVAL = "UNNECESSARY_EXTERNAL_RETRIEVAL"
-    MISSING_TEAM = "MISSING_TEAM"
-    UNNECESSARY_TEAM = "UNNECESSARY_TEAM"
     STALE_STATE = "STALE_STATE"
     TEMPORAL_LEAKAGE = "TEMPORAL_LEAKAGE"
     RETRIEVAL_MISS = "RETRIEVAL_MISS"
@@ -333,7 +331,6 @@ class EvaluationPlane:
     required_memory_facts: tuple[str, ...] = ()
     required_memory_record_ids: tuple[str, ...] = ()
     required_external_evidence_ids: tuple[str, ...] = ()
-    requires_team: bool = False
 
     def __post_init__(self) -> None:
         for name in ("episode_id", "gold_answer", "task_success_predicate"):
@@ -353,8 +350,7 @@ class EvaluationPlane:
                 "failure_labels": list(self.failure_labels),
                 "required_memory_facts": list(self.required_memory_facts),
                 "required_memory_record_ids": list(self.required_memory_record_ids),
-                "required_external_evidence_ids": list(self.required_external_evidence_ids),
-                "requires_team": self.requires_team}
+                "required_external_evidence_ids": list(self.required_external_evidence_ids)}
 
 
 @dataclass(frozen=True)

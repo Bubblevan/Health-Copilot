@@ -46,6 +46,21 @@ changes. Verification used the existing repository `.venv`:
 - `python -m compileall -q src`: passed.
 - `git diff --check`: passed before commit.
 
+## U1.1 interpretation boundary
+
+U1 established **declared** Single/Team capability equality and the surrounding
+contract plumbing. It did not establish executable capability parity: the
+deterministic executor ran arbitrary `query_part_*` tools only inside its Team
+branch, while the fixture evaluator treated `requires_team` as task gold. The
+historical `U1-TEAM` Team-only success therefore records synthetic contract
+fixture semantics; it is not evidence of an empirical orchestration benefit.
+
+The historical run at `runs/integration/u1-synthetic-20260929-01/` remains
+unchanged. U1.1 adds one shared registered tool implementation surface,
+architecture-agnostic task success, observed execution accounting, and a new
+synthetic run. Its comparison may correctly select a Single arm after both
+architectures can invoke the same tools at the same authority.
+
 ## Next stage
 
 Recommended next stage: **U2-D — resolve dataset/split/license blockers first**.

@@ -1,0 +1,621 @@
+{
+  "all_cases_equivalent": true,
+  "cases": [
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": []
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": []
+        }
+      },
+      "episode_id": "U1-NONE",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [],
+        "tool_implementation_hashes": {},
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [],
+        "tool_implementation_hashes": {},
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        }
+      },
+      "episode_id": "U1-MEM",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "GUIDELINE"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": [
+            "external_retrieval"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "GUIDELINE"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": [
+            "external_retrieval"
+          ]
+        }
+      },
+      "episode_id": "U1-RAG",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "GUIDELINE"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [
+          "external_retrieval"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "GUIDELINE"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [
+          "external_retrieval"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "PUBLIC_HEALTH"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT"
+          ],
+          "tool_ids": [
+            "external_retrieval",
+            "memory_read"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "PUBLIC_HEALTH"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT"
+          ],
+          "tool_ids": [
+            "external_retrieval",
+            "memory_read"
+          ]
+        }
+      },
+      "episode_id": "U1-MEM-RAG",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "PUBLIC_HEALTH"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT"
+        ],
+        "tool_ids": [
+          "external_retrieval",
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556",
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "PUBLIC_HEALTH"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT"
+        ],
+        "tool_ids": [
+          "external_retrieval",
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556",
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": [
+            "query_part_a",
+            "query_part_b"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": [
+            "query_part_a",
+            "query_part_b"
+          ]
+        }
+      },
+      "episode_id": "U1-TEAM",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [
+          "query_part_a",
+          "query_part_b"
+        ],
+        "tool_implementation_hashes": {
+          "query_part_a": "5e50691751ffd94a5a71f6635cc0524211647897dffb4be3a89e4a0adb226a21",
+          "query_part_b": "b344486d05241371489e9b392edc3ae9c9cb0cbe18d3f8d4604fcd79f60ecce8"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [
+          "query_part_a",
+          "query_part_b"
+        ],
+        "tool_implementation_hashes": {
+          "query_part_a": "5e50691751ffd94a5a71f6635cc0524211647897dffb4be3a89e4a0adb226a21",
+          "query_part_b": "b344486d05241371489e9b392edc3ae9c9cb0cbe18d3f8d4604fcd79f60ecce8"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "CONVERSATION",
+            "EVENT"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "CONVERSATION",
+            "EVENT"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        }
+      },
+      "episode_id": "U1-MEM-TEAM",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "CONVERSATION",
+          "EVENT"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "CONVERSATION",
+          "EVENT"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "LITERATURE"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "MEASUREMENT"
+          ],
+          "tool_ids": [
+            "external_retrieval",
+            "memory_read"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [
+            "LITERATURE"
+          ],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "MEASUREMENT"
+          ],
+          "tool_ids": [
+            "external_retrieval",
+            "memory_read"
+          ]
+        }
+      },
+      "episode_id": "U1-ALL",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "LITERATURE"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "MEASUREMENT"
+        ],
+        "tool_ids": [
+          "external_retrieval",
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556",
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [
+          "LITERATURE"
+        ],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "MEASUREMENT"
+        ],
+        "tool_ids": [
+          "external_retrieval",
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "external_retrieval": "1896e4ff4691cada8162e2ca5a1e56fa8da2f132a37702d5387d97fb45b00556",
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": []
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [],
+          "tool_ids": []
+        }
+      },
+      "episode_id": "U1-OOD-INSUFFICIENT",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [],
+        "tool_implementation_hashes": {},
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [],
+        "tool_ids": [],
+        "tool_implementation_hashes": {},
+        "unimplemented_tool_ids": []
+      }
+    },
+    {
+      "declared_report": {
+        "equivalent": true,
+        "mismatches": [],
+        "single": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT",
+            "PROFILE"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        },
+        "team_union": {
+          "budget_regime": "SYNTHETIC_STANDARD",
+          "evaluator_identity": "u1-fixture-evaluator@v1",
+          "external_source_families": [],
+          "global_budget_units": 24,
+          "model_identity": "deterministic-scripted-v1",
+          "personal_state_scopes": [
+            "EVENT",
+            "PROFILE"
+          ],
+          "tool_ids": [
+            "memory_read"
+          ]
+        }
+      },
+      "episode_id": "U1-TEMPORAL-LEAKAGE",
+      "equivalent": true,
+      "mismatches": [],
+      "single": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT",
+          "PROFILE"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      },
+      "team_union": {
+        "budget_regime": "SYNTHETIC_STANDARD",
+        "evaluator_identity": "u1-fixture-evaluator@v1",
+        "external_source_families": [],
+        "global_budget_units": 24,
+        "model_identity": "deterministic-scripted-v1",
+        "personal_state_scopes": [
+          "EVENT",
+          "PROFILE"
+        ],
+        "tool_ids": [
+          "memory_read"
+        ],
+        "tool_implementation_hashes": {
+          "memory_read": "57079fcf82c97d9529638b61b0f359f6b8368ac9d0a9ae0cab0eb49c71da304a"
+        },
+        "unimplemented_tool_ids": []
+      }
+    }
+  ],
+  "schema": "u1.1-executable-equivalence-v1"
+}

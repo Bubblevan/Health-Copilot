@@ -1,11 +1,27 @@
-"""Schema-only SFT, GRPO, and OPD compatibility artifacts; no model training."""
+"""Schema-only SFT, GRPO, and OPD views with explicit sampling provenance."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
 
 from .contracts import ExecutionOutcome, IntegrationEpisode, ObservableState
 from .counterfactual import CounterfactualBundle
+
+
+class StudentActionSource(StrEnum):
+    SCRIPTED_PROBE = "SCRIPTED_PROBE"
+    POLICY_SAMPLE = "POLICY_SAMPLE"
+
+
+class OpdDataStatus(StrEnum):
+    SCHEMA_PROBE = "SCHEMA_PROBE"
+    POLICY_VISITED = "POLICY_VISITED"
+
+
+class GrpoRolloutSource(StrEnum):
+    COUNTERFACTUAL_ENUMERATION = "COUNTERFACTUAL_ENUMERATION"
+    POLICY_SAMPLE = "POLICY_SAMPLE"
 
 
 @dataclass(frozen=True)
@@ -37,14 +53,16 @@ class PolicyRolloutGroup:
     episode_id: str
     samples: tuple[PolicyRolloutSample, ...]
     group_rewards: tuple[float, ...]
-    reward_version: str = "u1-success-safety-cost-v1"
+    reward_version: str = "u1.1-success-safety-cost-v2"
+    rollout_source: GrpoRolloutSource = GrpoRolloutSource.COUNTERFACTUAL_ENUMERATION
 
     def to_dict(self) -> dict[str, object]:
         return {"episode_id": self.episode_id,
-                "sampled_actions": [item.action for item in self.samples],
+                "actions": [item.action for item in self.samples],
                 "outcomes": [item.outcome.to_dict() for item in self.samples],
                 "group_rewards": list(self.group_rewards),
-                "reward_version": self.reward_version}
+                "reward_version": self.reward_version,
+                "rollout_source": self.rollout_source.value}
 
 
 @dataclass(frozen=True)
@@ -72,6 +90,7 @@ class StudentPacket:
     episode_id: str
     student_visited_state: ObservableState
     student_action: str
+    student_action_source: StudentActionSource
     student_outcome: StudentVisibleOutcome
     provenance: tuple[tuple[str, str], ...]
 
@@ -79,6 +98,7 @@ class StudentPacket:
         return {"episode_id": self.episode_id,
                 "student_visited_state": self.student_visited_state.to_dict(),
                 "student_action": self.student_action,
+                "student_action_source": self.student_action_source.value,
                 "student_outcome": self.student_outcome.to_dict(),
                 "provenance": dict(self.provenance)}
 
@@ -103,15 +123,19 @@ class PrivilegedTeacherPacket:
     student_packet: StudentPacket
     counterfactual_action_outcomes: tuple[TeacherCounterfactualOutcome, ...]
     minimal_successful_action_set: tuple[str, ...]
-    failure_attribution: tuple[str, ...]
+    arm_failure_categories: tuple[str, ...]
+    bundle_counterfactual_attributions: tuple[str, ...]
+    opd_data_status: OpdDataStatus
     privileged_plane: str = "PRIVILEGED_TRAINING"
 
     def to_dict(self) -> dict[str, object]:
         return {"episode_id": self.episode_id, "privileged_plane": self.privileged_plane,
+                "opd_data_status": self.opd_data_status.value,
                 "student_packet": self.student_packet.to_dict(),
                 "counterfactual_action_outcomes": [item.to_dict() for item in self.counterfactual_action_outcomes],
                 "minimal_successful_action_set": list(self.minimal_successful_action_set),
-                "failure_attribution": list(self.failure_attribution)}
+                "arm_failure_categories": list(self.arm_failure_categories),
+                "bundle_counterfactual_attributions": list(self.bundle_counterfactual_attributions)}
 
 
 @dataclass(frozen=True)
@@ -122,21 +146,69 @@ class TrainingViews:
     teacher_packet: PrivilegedTeacherPacket
 
 
-def build_training_views(episode: IntegrationEpisode, bundle: CounterfactualBundle) -> TrainingViews:
-    accepted = tuple(item.value for item in bundle.oracle_action_set.actions)
-    provenance = (("episode_hash", episode.episode_hash), ("schema", "u1-training-views-v1"))
-    sft = SFTCandidate(episode.observable_state, accepted, provenance)
+def build_training_views(
+    episode: IntegrationEpisode,
+    bundle: CounterfactualBundle,
+    *,
+    student_action: str,
+    student_action_source: StudentActionSource | str,
+    policy_identity: str | None = None,
+    policy_sample_id: str | None = None,
+) -> TrainingViews:
+    source = StudentActionSource(student_action_source)
+    if (source == StudentActionSource.POLICY_SAMPLE
+            and episode.source_provenance.startswith("SYNTHETIC_CONTRACT_FIXTURE")):
+        raise ValueError("synthetic contract fixtures cannot claim POLICY_SAMPLE provenance")
+    if source == StudentActionSource.POLICY_SAMPLE and not (policy_identity and policy_sample_id):
+        raise ValueError("POLICY_SAMPLE requires explicit policy_identity and policy_sample_id")
+    if source == StudentActionSource.SCRIPTED_PROBE and (policy_identity or policy_sample_id):
+        raise ValueError("SCRIPTED_PROBE cannot carry policy sample identity")
+    if episode.episode_id != bundle.episode_id:
+        raise ValueError("counterfactual bundle episode_id mismatch")
+    selected = next((item for item in bundle.arms if item.action_key.value == student_action), None)
+    if selected is None or student_action not in {item.value for item in bundle.availability.valid}:
+        raise ValueError("student_action must be a valid evaluated counterfactual arm")
+
+    first = bundle.arms[0] if bundle.arms else None
+    arm_actions = ",".join(item.action_key.value for item in bundle.arms)
+    provenance = (
+        ("episode_hash", episode.episode_hash),
+        ("schema", "u1.1-training-views-v2"),
+        ("label_source", "DETERMINISTIC_COUNTERFACTUAL_ORACLE"),
+        ("execution_backend", first.identity.executor_version if first else "NONE"),
+        ("evaluator", first.identity.evaluator_version if first else "NONE"),
+        ("cost_model", bundle.oracle_action_set.cost_model_version),
+        ("epsilon", str(bundle.oracle_action_set.epsilon)),
+        ("evaluated_arms", arm_actions),
+    )
+    sft = SFTCandidate(
+        episode.observable_state,
+        tuple(item.value for item in bundle.oracle_action_set.actions),
+        provenance,
+    )
     samples: list[PolicyRolloutSample] = []
     for arm in bundle.arms:
         outcome = arm.evaluation.outcome
         reward = float(int(outcome.task_success and outcome.safety_pass and outcome.grounding_pass))
         reward -= arm.cost.total_units * 0.01
         samples.append(PolicyRolloutSample(arm.action_key.value, outcome, arm.cost.total_units, reward))
-    group = PolicyRolloutGroup(episode.episode_id, tuple(samples), tuple(item.reward for item in samples))
-    student_arm = next((item for item in bundle.arms if item.action_key.value == "NONE"), bundle.arms[0])
+    group = PolicyRolloutGroup(
+        episode.episode_id, tuple(samples), tuple(item.reward for item in samples),
+        rollout_source=GrpoRolloutSource.COUNTERFACTUAL_ENUMERATION,
+    )
+    student_provenance = [("episode_hash", episode.episode_hash), ("schema", "u1.1-student-packet-v2")]
+    if source == StudentActionSource.POLICY_SAMPLE:
+        student_provenance.extend((
+            ("policy_identity", policy_identity or ""),
+            ("policy_sample_id", policy_sample_id or ""),
+        ))
     student = StudentPacket(
-        episode.episode_id, episode.observable_state, student_arm.action_key.value,
-        StudentVisibleOutcome.from_execution(student_arm.evaluation.outcome), provenance,
+        episode_id=episode.episode_id,
+        student_visited_state=episode.observable_state,
+        student_action=selected.action_key.value,
+        student_action_source=source,
+        student_outcome=StudentVisibleOutcome.from_execution(selected.execution.outcome),
+        provenance=tuple(student_provenance),
     )
     teacher_outcomes = tuple(TeacherCounterfactualOutcome(
         item.action_key.value, item.evaluation.outcome.task_success,
@@ -145,8 +217,15 @@ def build_training_views(episode: IntegrationEpisode, bundle: CounterfactualBund
     ) for item in bundle.arms)
     failures = tuple(sorted({item.evaluation.outcome.failure_category.value
                              for item in bundle.arms if item.evaluation.outcome.failure_category}))
+    bundle_attributions = tuple(
+        f"{item.category.value}:{item.single_action}->{item.team_action}"
+        for item in bundle.attributions
+    )
+    status = (OpdDataStatus.POLICY_VISITED if source == StudentActionSource.POLICY_SAMPLE
+              else OpdDataStatus.SCHEMA_PROBE)
     teacher = PrivilegedTeacherPacket(
         episode.episode_id, student, teacher_outcomes,
-        accepted, failures,
+        tuple(item.value for item in bundle.oracle_action_set.actions), failures,
+        bundle_attributions, status,
     )
     return TrainingViews(sft, group, student, teacher)

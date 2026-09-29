@@ -18,6 +18,7 @@ class ReplayIdentity:
     patient_snapshot_hash: str
     external_world_hash: str
     capability_manifest_hash: str
+    tool_registry_hash: str
     action_hash: str
     executor_version: str
     evaluator_version: str
@@ -28,6 +29,7 @@ class ReplayIdentity:
                 "patient_snapshot_hash": self.patient_snapshot_hash,
                 "external_world_hash": self.external_world_hash,
                 "capability_manifest_hash": self.capability_manifest_hash,
+                "tool_registry_hash": self.tool_registry_hash,
                 "action_hash": self.action_hash,
                 "executor_version": self.executor_version,
                 "evaluator_version": self.evaluator_version}
@@ -59,6 +61,7 @@ def replay_identity(
         external_world_hash=external_hash,
         capability_manifest_hash=stable_hash(episode.tool_surface_ref.to_dict()
                                              if episode.tool_surface_ref else None),
+        tool_registry_hash=stable_hash(executor.tool_registry.implementation_hashes),
         action_hash=stable_hash(action.to_dict()),
         executor_version=executor.version,
         evaluator_version=evaluator_version,
