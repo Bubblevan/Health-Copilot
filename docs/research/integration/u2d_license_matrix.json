@@ -1,0 +1,264 @@
+{
+  "schema_version": "u2d-license-matrix-v1",
+  "audit_date": "2026-09-29",
+  "interpretation": "This is a research qualification record, not legal advice. Code, dataset packaging, underlying source content, labels, images, and derived artifacts are separate license layers.",
+  "source_registry": "u2d_source_registry.json",
+  "conflicts": [
+    {
+      "conflict_id": "MEDMEMORY_DATA_LICENSE",
+      "sources": [
+        {
+          "statement": "CC-BY-4.0",
+          "source": "https://github.com/AQ-MedAI/MedMemoryBench"
+        },
+        {
+          "statement": "CC-BY-NC-SA-4.0",
+          "source": "https://huggingface.co/datasets/Cyan27/MedMemoryBench"
+        }
+      ],
+      "resolution": "UNRESOLVED",
+      "conservative_action": "No dataset rows in TRAIN, DEV, or project evaluation; schema/documentation reference only."
+    },
+    {
+      "conflict_id": "MEDAGENTBOARD_ARCHIVE_RIGHTS",
+      "sources": [
+        {
+          "statement": "Repository describes logs/data/results as open-sourced",
+          "source": "https://github.com/yhzhu99/MedAgentBoard"
+        },
+        {
+          "statement": "Zenodo record rights not confirmed from record metadata",
+          "source": "https://zenodo.org/records/22299495"
+        }
+      ],
+      "resolution": "UNRESOLVED",
+      "conservative_action": "Do not use archive content until the exact item-level license and source permissions are recorded."
+    },
+    {
+      "conflict_id": "R2MED_PACKAGE_VS_COMPONENT_LICENSES",
+      "sources": [
+        {
+          "statement": "Packaged subsets carry CC-BY-4.0 cards",
+          "source": "https://huggingface.co/datasets/R2MED"
+        },
+        {
+          "statement": "Paper Table 8 reports different terms by query source, including CC-BY-SA, MIT, CC-BY-NC-SA, and unspecified terms",
+          "source": "https://openreview.net/pdf/b1cd41af38a3494706a923e6de10affdcc496356.pdf"
+        }
+      ],
+      "resolution": "PARTIALLY_RESOLVED_BY_SOURCE_GRANULARITY",
+      "conservative_action": "Use the most specific underlying source terms; unresolved subsets stay excluded. Do not collapse all subsets to package-level CC-BY-4.0."
+    },
+    {
+      "conflict_id": "NFCORPUS_LOCAL_APPROVAL_VS_REVIEW",
+      "sources": [
+        {
+          "statement": "Local manifest status APPROVED but license_name, redistribution_allowed, and derived_artifact_commit_allowed are null",
+          "source": "benchmarks/nfcorpus/manifest.json"
+        },
+        {
+          "statement": "Local license review document says REVIEW_REQUIRED",
+          "source": "benchmarks/nfcorpus/license_review.md"
+        }
+      ],
+      "resolution": "UNRESOLVED",
+      "conservative_action": "Do not distribute normalized source content or use as an unseen test; historical test use is exposed."
+    },
+    {
+      "conflict_id": "MIRAGE_CONTAINER_VS_COMPONENT_RIGHTS",
+      "sources": [
+        {
+          "statement": "Local manifest status APPROVED with null aggregate license fields",
+          "source": "benchmarks/medical_mirage/manifest.json"
+        },
+        {
+          "statement": "Local review requires per-component dataset review",
+          "source": "benchmarks/medical_mirage/license_review.md"
+        }
+      ],
+      "resolution": "UNRESOLVED",
+      "conservative_action": "No source rows in training or new evaluation; historical evaluation is exposed."
+    },
+    {
+      "conflict_id": "CDC_GENERAL_PUBLIC_DOMAIN_VS_SPECIFIC_PAGE_CONTENT",
+      "sources": [
+        {
+          "statement": "Most CDC web information is public domain, with attribution, disclaimer, and no substantive alteration requirements; third-party exceptions apply",
+          "source": "https://www.cdc.gov/other/agencymaterials.html"
+        }
+      ],
+      "resolution": "CONDITIONAL",
+      "conservative_action": "Verify each article, embedded third-party item, and summary fidelity before retrieval, adaptation, redistribution, or training."
+    },
+    {
+      "conflict_id": "WHO_GENERAL_POLICY_VS_SPECIFIC_PUBLICATION",
+      "sources": [
+        {
+          "statement": "WHO publications are generally CC-BY-NC-SA-3.0-IGO, subject to publication-specific notices and third-party material",
+          "source": "https://www.who.int/about/policies/publishing/copyright"
+        }
+      ],
+      "resolution": "CONDITIONAL",
+      "conservative_action": "Check the specific fact sheet license, adaptation chain, non-commercial scope, and share-alike requirements; no broad training permission inferred."
+    },
+    {
+      "conflict_id": "NHC_PUBLIC_ACCESS_VS_REUSE_RIGHT",
+      "sources": [
+        {
+          "statement": "Government information disclosure guidance describes access to information",
+          "source": "https://www.nhc.gov.cn/zwgk/gkzn/listcon.shtml"
+        }
+      ],
+      "resolution": "UNRESOLVED",
+      "conservative_action": "Access/publication alone does not establish a content reuse or redistribution license."
+    }
+  ],
+  "matrix": [
+    {
+      "source_id": "ESL_BENCH",
+      "code_license": "not separately established",
+      "data_or_content_license": "Apache-2.0 per dataset card and README",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "CONDITIONAL: only immutable current active batch; retired answer-bearing batches are exposed",
+      "EXTERNAL_TRANSFER_REDISTRIBUTION": "No project redistribution of rows in this audit"
+    },
+    {
+      "source_id": "MEDMEMORYBENCH",
+      "code_license": "Apache-2.0",
+      "data_or_content_license": "conflicting CC-BY-4.0 vs CC-BY-NC-SA-4.0 claims",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "NO until authoritative resolution and explicit exposure review"
+    },
+    {
+      "source_id": "MEDAGENTBOARD",
+      "code_license": "no root LICENSE identified",
+      "data_or_content_license": "Zenodo item-level terms and component-source terms unresolved",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "NO"
+    },
+    {
+      "source_id": "MEDMASLAB",
+      "code_license": "no repository LICENSE identified at pinned revision",
+      "data_or_content_license": "Hugging Face package metadata says MIT; this does not cover its heterogeneous underlying datasets, whose licenses remain unresolved",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "NO"
+    },
+    {
+      "source_id": "AGENTCLINIC_PUBLIC_CASES",
+      "code_license": "MIT",
+      "data_or_content_license": "case-specific rights unresolved",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "CONDITIONAL: public exploratory only; sample exposure acknowledged"
+    },
+    {
+      "source_id": "AGENTCLINIC_MIMIC_CASES",
+      "code_license": "MIT wrapper does not cover source data",
+      "data_or_content_license": "PhysioNet credentialed agreement",
+      "content_rights_status": "BLOCKED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "NO"
+    },
+    {
+      "source_id": "HEALTHAGENTBENCH_HARNESS",
+      "code_license": "MIT",
+      "data_or_content_license": "seven task families have separate rights; see source registry",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_TRANSFER": "Per-family review required; no pooled qualification"
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_CDC",
+      "code_license": "not applicable to upstream page content",
+      "data_or_content_license": "mostly public domain, with attribution, disclaimer, and no substantive change; exceptions apply",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_RETRIEVAL": "CONDITIONAL: article-specific review required"
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_WHO",
+      "code_license": "not applicable to upstream publication content",
+      "data_or_content_license": "generally CC-BY-NC-SA-3.0-IGO; publication-specific notices and third-party rights apply",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_RETRIEVAL": "CONDITIONAL: confirm non-commercial and adaptation/share-alike requirements"
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_NHC",
+      "code_license": "not applicable to upstream article content",
+      "data_or_content_license": "no reuse license recorded",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_RETRIEVAL": "NO pending permission/terms evidence"
+    },
+    {
+      "source_id": "R2MED",
+      "code_license": "MIT",
+      "data_or_content_license": "source-specific mixture; some terms unspecified",
+      "content_rights_status": "CONDITIONAL",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO new use",
+      "EXTERNAL_TRANSFER": "CONDITIONAL per subset; tested subsets are exposed"
+    },
+    {
+      "source_id": "NFCORPUS",
+      "code_license": "BEIR code terms do not determine corpus terms",
+      "data_or_content_license": "unresolved; conflicting local review state",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO new use",
+      "EXTERNAL_TRANSFER": "NO confirmatory use; prior test use exposed"
+    },
+    {
+      "source_id": "MEDICAL_MIRAGE",
+      "code_license": "repository-level terms do not determine all component data terms",
+      "data_or_content_license": "per-component review incomplete",
+      "content_rights_status": "UNRESOLVED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO new use",
+      "EXTERNAL_TRANSFER": "No confirmatory use; prior exploratory evaluation exposed"
+    },
+    {
+      "source_id": "MEDRAG_CORPORA",
+      "code_license": "not assessed",
+      "data_or_content_license": "no frozen document-level inventory or permission record",
+      "content_rights_status": "BLOCKED",
+      "TRAIN": "NO",
+      "DEV": "NO",
+      "INTERNAL_EVAL": "NO",
+      "EXTERNAL_RETRIEVAL": "NO"
+    }
+  ],
+  "training_eligibility_summary": {
+    "third_party_benchmark_content_qualified": false,
+    "project_owned_synthetic_generation_recommended": true,
+    "data_created_in_u2d": false
+  }
+}

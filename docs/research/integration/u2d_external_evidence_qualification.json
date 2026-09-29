@@ -1,0 +1,97 @@
+{
+  "schema_version": "u2d-external-evidence-qualification-v1",
+  "audit_date": "2026-09-29",
+  "current_production_evidence_status": "NO_PRODUCTION_FAMILY_QUALIFIED",
+  "source_registry": "u2d_source_registry.json",
+  "families": [
+    {
+      "family": "PUBLIC_HEALTH",
+      "u0_u1_status": "Only synthetic U1 namespace fixtures were eligible; no production source corpus was qualified.",
+      "local_assets": [
+        {
+          "source_id": "HC_KNOWLEDGE_CARDS_CDC",
+          "count": 21,
+          "license_status": "CONDITIONAL",
+          "evidence_role": "SCHEMA_REFERENCE_ONLY",
+          "blockers": [
+            "Cards have no license field.",
+            "CDC allows most information to be reused with attribution, disclaimer, and no substantive alteration, but third-party and contractor exceptions apply.",
+            "Article-level review and summary-fidelity review not completed."
+          ]
+        },
+        {
+          "source_id": "HC_KNOWLEDGE_CARDS_WHO",
+          "count": 5,
+          "license_status": "CONDITIONAL",
+          "evidence_role": "SCHEMA_REFERENCE_ONLY",
+          "blockers": [
+            "Cards have no license field.",
+            "WHO publications are generally CC BY-NC-SA 3.0 IGO, subject to publication-specific notices and third-party materials.",
+            "Adaptation, attribution, share-alike, and non-commercial applicability not resolved for each card."
+          ]
+        },
+        {
+          "source_id": "HC_KNOWLEDGE_CARDS_NHC",
+          "count": 4,
+          "license_status": "UNRESOLVED",
+          "evidence_role": "SCHEMA_REFERENCE_ONLY",
+          "blockers": [
+            "Cards have no license field.",
+            "Government-information disclosure access is not an explicit article reuse license.",
+            "No specific redistribution/adaptation permission recorded."
+          ]
+        }
+      ],
+      "qualification_status": "CONDITIONAL",
+      "decision": "Do not bind these existing card bodies to production retrieval, training, or internal evaluation in U2-D. The family is a future candidate only after per-card source/license/date/derivation review."
+    },
+    {
+      "family": "GUIDELINE",
+      "local_assets": [],
+      "qualification_status": "BLOCKED",
+      "decision": "No guideline corpus is frozen. Before admission, identify jurisdiction, issuing body, edition/effective/withdrawal dates, stable identifiers, and rights for storage, indexing, API transfer, annotation, training, and redistribution."
+    },
+    {
+      "family": "LITERATURE",
+      "local_assets": [
+        {
+          "source_id": "R2MED",
+          "qualification_status": "CONDITIONAL",
+          "decision": "Heterogeneous retrieval benchmark subsets, not a curated literature evidence corpus; source rights differ by subset and historical tests are exposed."
+        },
+        {
+          "source_id": "NFCORPUS",
+          "qualification_status": "UNRESOLVED",
+          "decision": "License fields are null and local review states conflict; prior test evaluation is exposed."
+        },
+        {
+          "source_id": "MEDICAL_MIRAGE",
+          "qualification_status": "UNRESOLVED",
+          "decision": "Multi-source QA benchmark, not a source-qualified evidence library; underlying dataset terms are incomplete and evaluation is exposed."
+        },
+        {
+          "source_id": "MEDRAG_CORPORA",
+          "qualification_status": "BLOCKED",
+          "decision": "No frozen document inventory, revision, per-document license, or derivative-index permission."
+        }
+      ],
+      "qualification_status": "BLOCKED",
+      "decision": "No production literature evidence source qualifies. A future candidate needs document-level identifiers, source/version/hash, license, retraction/update status, and retrieval/index/API-transfer permission."
+    }
+  ],
+  "namespace_and_use_controls": {
+    "patient_history_namespace": "MEMORY_READ",
+    "external_evidence_namespace": "EXTERNAL_RETRIEVAL",
+    "patient_history_is_not_external_evidence": true,
+    "benchmark_material_is_not_evidence_corpus_by_default": true,
+    "no_external_corpus_bound_in_u2d": true,
+    "no_memory_or_rag_implementation_changed": true,
+    "worker_eligibility_changed": false
+  },
+  "eligibility_interpretation": {
+    "public_health_conceptual_fixture": "Synthetic U1 contract fixtures test namespace behavior only.",
+    "specific_production_assets": "No WHO/CDC/NHC card set is fully qualified in this audit.",
+    "guideline": "NOT_ELIGIBLE",
+    "literature": "NOT_ELIGIBLE"
+  }
+}

@@ -1,0 +1,521 @@
+{
+  "schema_version": "u2d-source-registry-v1",
+  "audit_date": "2026-09-29",
+  "audit_mode": "metadata-only; no benchmark row assignment or benchmark execution",
+  "provenance": {
+    "u1_1_commit": "f0c741f3fcd4b37e1e54ee1a77c770000085c8e3",
+    "u1_1_remote_ref": "refs/heads/integration-u1-1-exec-fairness-20260929",
+    "u0_commit": "df8cac1fafbbb8851aa2481c85c311c045c01230",
+    "u0_remote_ref": "refs/heads/integration-u0-benchmark-audit-20260929",
+    "current_branch": "integration-u2d-dataset-split-license-20260929"
+  },
+  "status_vocabulary": [
+    "QUALIFIED_TRAIN",
+    "QUALIFIED_DEV",
+    "QUALIFIED_INTERNAL_EVAL",
+    "QUALIFIED_EXTERNAL_TRANSFER",
+    "SCHEMA_REFERENCE_ONLY",
+    "REFERENCE_ONLY",
+    "CONDITIONAL",
+    "BLOCKED",
+    "UNRESOLVED"
+  ],
+  "role_rules": {
+    "public_benchmark_default": "EXTERNAL_TRANSFER",
+    "benchmark_reassignment": "Requires explicit source permission, a frozen project decision, and relinquishment of the external-transfer claim for the reassigned content.",
+    "code_license_scope": "A code license does not grant rights to benchmark rows, source documents, images, or labels.",
+    "training_default": "No third-party benchmark or source content is approved for TRAIN in this audit."
+  },
+  "records": [
+    {
+      "source_id": "ESL_BENCH",
+      "source_family": "LONGITUDINAL_HEALTH_AGENT_BENCHMARK",
+      "source_type": "synthetic public evaluation benchmark",
+      "canonical_url": "https://huggingface.co/datasets/mirobody/ESL-Bench",
+      "upstream": {
+        "u0_pin": "5626c5bd939e70706a739502baf3291fcf48c568",
+        "observed_main_ref": "ef0fbb2",
+        "observed_main_ref_source_date": "search-index snapshot crawled 2026-09",
+        "full_current_commit_resolved": false,
+        "active_batch_metadata": "202608",
+        "current_exact_revision_required_before_future_use": true
+      },
+      "license_layers": {
+        "dataset_card": "Apache-2.0",
+        "benchmark_code": "Not established by dataset-card metadata; evaluate separately if code is used.",
+        "underlying_generated_content": "The dataset is described as synthetic; generated content still remains benchmark evaluation material."
+      },
+      "split_metadata": {
+        "official_train_dev": "none identified",
+        "public_evaluation": true,
+        "retired_batches_publish_answer_files": true,
+        "newest_batch_status": "active evaluation according to repository metadata; no rows opened"
+      },
+      "project_exposure": {
+        "metadata_and_docs_read": true,
+        "evaluation_or_gold_rows_read": false,
+        "used_for_training": false,
+        "used_for_prompt_design_or_hpo": false
+      },
+      "eligible_roles": ["EXTERNAL_TRANSFER"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "Potential future external transfer only. Use a fully resolved immutable active-batch revision; retired answer-bearing batches are exposed and cannot serve as unseen confirmation."
+    },
+    {
+      "source_id": "MEDMEMORYBENCH",
+      "source_family": "LONGITUDINAL_MEMORY_BENCHMARK",
+      "source_type": "public dialogues and evaluation queries",
+      "canonical_urls": [
+        "https://github.com/AQ-MedAI/MedMemoryBench",
+        "https://huggingface.co/datasets/Cyan27/MedMemoryBench"
+      ],
+      "upstream": {
+        "u0_pin": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+        "observed_github_main": "7227bc105b84a1a9f7a75861eb9e1be3ea502882",
+        "observed_huggingface_card": "main as observed 2026-09"
+      },
+      "license_layers": {
+        "code": "Apache-2.0",
+        "github_readme_data_statement": "CC-BY-4.0",
+        "huggingface_dataset_card": "CC-BY-NC-SA-4.0",
+        "resolved_data_license": null
+      },
+      "split_metadata": {
+        "independent_official_train_dev": "not established",
+        "public_evaluation_content": true,
+        "memory_semantics": "persona longitudinal history is patient-state memory, not external evidence"
+      },
+      "project_exposure": {
+        "metadata_docs_and_license_statements_read": true,
+        "dialogue_query_or_gold_rows_read": false,
+        "used_for_training": false,
+        "used_for_prompt_design_or_hpo": false
+      },
+      "eligible_roles": ["SCHEMA_REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Conflicting upstream data-license claims; keep benchmark content out of project data. Reconsider external transfer only after an authoritative written resolution and split/exposure review."
+    },
+    {
+      "source_id": "MEDAGENTBOARD",
+      "source_family": "MEDICAL_AGENT_BENCHMARK",
+      "source_type": "multi-task agent benchmark plus Zenodo archive",
+      "canonical_urls": [
+        "https://github.com/yhzhu99/MedAgentBoard",
+        "https://zenodo.org/records/22299495"
+      ],
+      "upstream": {
+        "u0_pin": "b09dcbb11cb2c908e23b83b8b71c566be41326c5",
+        "observed_github_main": "b09dcbb11cb2c908e23b83b8b71c566be41326c5",
+        "zenodo_record_metadata_and_license": "not independently resolved in this audit"
+      },
+      "license_layers": {
+        "code": "No root LICENSE identified at pinned repository revision",
+        "zenodo_payload": "UNRESOLVED",
+        "mimic_related_content": "PhysioNet credentialed source; no access or transfer authority inferred"
+      },
+      "task_families": [
+        {
+          "family": "medical QA, including visual medical QA",
+          "source_terms": "source dataset and task terms unresolved",
+          "proposed_status": "UNRESOLVED"
+        },
+        {
+          "family": "lay summary",
+          "source_terms": "source dataset and task terms unresolved",
+          "proposed_status": "UNRESOLVED"
+        },
+        {
+          "family": "EHR prediction",
+          "source_terms": "source dataset terms unresolved; MIMIC-related material excluded without authorization",
+          "proposed_status": "BLOCKED"
+        },
+        {
+          "family": "clinical workflow automation",
+          "source_repository": "separate MedAgentBoard-WorkflowAutomation repository",
+          "source_terms": "separate repository and task/source terms unresolved",
+          "proposed_status": "BLOCKED"
+        }
+      ],
+      "split_metadata": {
+        "public_test_filenames_or_descriptions": true,
+        "official_task_families_are_heterogeneous": true,
+        "single pooled transfer claim": "not qualified"
+      },
+      "project_exposure": {
+        "code_docs_papers_and_filenames_read": true,
+        "test_row_payload_read": false,
+        "used_for_training_prompt_design_or_hpo": false
+      },
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL", "EXTERNAL_TRANSFER"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Do not infer Zenodo data rights from an 'open-sourced' description or from code availability. Qualify each task family and Zenodo item independently."
+    },
+    {
+      "source_id": "MEDMASLAB",
+      "source_family": "MULTIMODAL_MEDICAL_MULTI_AGENT_BENCHMARK",
+      "source_type": "benchmark code, dataset wrapper, and multiple underlying datasets",
+      "canonical_urls": [
+        "https://github.com/NUS-Project/MedMASLab",
+        "https://arxiv.org/abs/2603.09909"
+      ],
+      "upstream": {
+        "u0_pin": "709eccbe019e6692fc359f0581374c0ee62ae004",
+        "observed_github_main": "709eccbe019e6692fc359f0581374c0ee62ae004",
+        "underlying_dataset_revisions": "not exhaustively pinned in U0"
+      },
+      "license_layers": {
+        "repository_code": "No repository LICENSE identified at pinned revision",
+        "hosted_dataset_card": "Hugging Face package metadata reports MIT; this covers only that declared package and does not establish rights for underlying datasets",
+        "underlying_source_datasets": "multiple independent source terms; unresolved"
+      },
+      "split_metadata": {
+        "benchmark_reports_multiple_datasets": true,
+        "official_shared_train_dev_for_this_project": "none"
+      },
+      "project_exposure": {
+        "repository_metadata_and_paper_read": true,
+        "underlying_rows_or_gold_read": false,
+        "used_for_training_prompt_design_or_hpo": false
+      },
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL", "EXTERNAL_TRANSFER"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Keep at reference level until each underlying dataset, image, label, and derivative has a separate rights and split record."
+    },
+    {
+      "source_id": "AGENTCLINIC_PUBLIC_CASES",
+      "source_family": "MULTI_AGENT_CLINICAL_CASE_BENCHMARK",
+      "source_type": "public case benchmark; one unassigned JSONL row was used for a schema parse smoke in U0",
+      "canonical_urls": [
+        "https://github.com/SamuelSchmidgall/AgentClinic",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13324710/"
+      ],
+      "upstream": {
+        "u0_pin": "b6570edefb940857a7c334350656b29f9d984f24",
+        "observed_github_main": "b6570edefb940857a7c334350656b29f9d984f24"
+      },
+      "license_layers": {
+        "code": "MIT",
+        "public_case_content": "case-source rights and split status require independent confirmation"
+      },
+      "split_metadata": {
+        "official_train_dev_test": "not identified",
+        "public_cases_or_labels": "benchmark content is publicly exposed"
+      },
+      "project_exposure": {
+        "metadata_read": true,
+        "unassigned_public_schema_sample_read": 1,
+        "sample_id_or_gold_retained": false,
+        "sample_gold_status": "unknown; no official split exists to establish whether the sample carried answer fields",
+        "benchmark_evaluation_run": false
+      },
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "The schema smoke is a real row-level exposure and prevents a clean-blind claim for that sample. Reconsider public external exploratory transfer only after case rights are established."
+    },
+    {
+      "source_id": "AGENTCLINIC_MIMIC_CASES",
+      "source_family": "CREDENTIALLED_CLINICAL_DATA",
+      "source_type": "MIMIC-derived AgentClinic cases",
+      "canonical_url": "https://physionet.org/content/mimiciv/",
+      "license_layers": {
+        "data": "PhysioNet Credentialed Health Data License and source-specific restrictions",
+        "derivatives": "treated as sensitive; no redistribution authority inferred"
+      },
+      "project_exposure": {
+        "gated_rows_accessed": false,
+        "benchmark_run": false
+      },
+      "eligible_roles": [],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL", "EXTERNAL_TRANSFER"],
+      "qualification_status": "BLOCKED",
+      "rationale": "No credentialed access or approved secure execution plan is in scope."
+    },
+    {
+      "source_id": "HEALTHAGENTBENCH_HARNESS",
+      "source_family": "TERMINAL_HEALTH_AGENT_BENCHMARK",
+      "source_type": "benchmark harness and task definitions",
+      "canonical_urls": [
+        "https://github.com/microsoft/HealthAgentBench",
+        "https://microsoft.github.io/HealthAgentBench/"
+      ],
+      "upstream": {
+        "u0_pin": "bcbb8085fd549469e2dc7455f4bfd68a1b98895a",
+        "observed_github_main": "bcbb8085fd549469e2dc7455f4bfd68a1b98895a"
+      },
+      "license_layers": {
+        "code_and_task_wrapper": "MIT",
+        "task_data_and_gold": "independent component licenses and access terms; not covered by wrapper MIT"
+      },
+      "project_exposure": {
+        "root_docs_and_task_names_read": true,
+        "task_readmes_read": "metadata only",
+        "tests_or_gold_payload_read": false,
+        "benchmark_run": false
+      },
+      "task_families": [
+        {
+          "family": "xray_report_correction",
+          "source": "MIMIC-CXR / MIMIC-CXR-JPG",
+          "license_or_access": "PhysioNet credentialed access; no third-party API transfer inferred",
+          "status": "BLOCKED"
+        },
+        {
+          "family": "tumor_area_selection_pathology",
+          "source": "CAMELYON16",
+          "license_or_access": "challenge rules restrict redistribution and use for other algorithm development without prior participation",
+          "status": "BLOCKED"
+        },
+        {
+          "family": "ehr_to_meds_etl",
+          "source": "MIMIC-IV demo",
+          "license_or_access": "source terms and derived-task rights require family-specific review",
+          "status": "CONDITIONAL"
+        },
+        {
+          "family": "ct_abnormality",
+          "source": "CT-RATE",
+          "license_or_access": "gated Hugging Face dataset; acceptance and downstream task-label terms not established",
+          "status": "BLOCKED"
+        },
+        {
+          "family": "clinical_trial_matching",
+          "source": "TREC Clinical Trials 2021 and ClinicalTrials.gov snapshot",
+          "license_or_access": "query/qrels and snapshot rights/split provenance require separate review",
+          "status": "CONDITIONAL"
+        },
+        {
+          "family": "ehr_data_quality",
+          "source": "MIMIC-IV demo plus corrupted derived subset",
+          "license_or_access": "underlying and derived-content rights/access require review",
+          "status": "BLOCKED"
+        },
+        {
+          "family": "ehr_event_modelling",
+          "source": "EHRSHOT",
+          "license_or_access": "Stanford credentialed research and education data license; no share/reuse authority inferred",
+          "status": "BLOCKED"
+        }
+      ],
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "The wrapper can be read as software reference. Every task family must pass a separate access, source-license, gold-isolation, and transfer review before evaluation."
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_CDC",
+      "source_family": "PUBLIC_HEALTH",
+      "source_type": "21 local derivative knowledge cards from CDC pages; metadata only inspected",
+      "local_path": "data/knowledge_cards/",
+      "canonical_url": "https://www.cdc.gov/other/agencymaterials.html",
+      "license_layers": {
+        "publisher_policy": "Most CDC web information is public domain with attribution, disclaimer, and no substantive alteration; third-party and contractor material is excluded.",
+        "card_manifest_license_field": "absent",
+        "article_specific_rights_and_derivation_review": "not completed"
+      },
+      "project_exposure": {
+        "card_metadata_inspected": true,
+        "card_content_read_or_reproduced_in_this_audit": false,
+        "existing_project_assets": 21
+      },
+      "eligible_roles": ["SCHEMA_REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "Potential external retrieval evidence only after verifying source-specific third-party notices, attribution, disclaimer, update date, and that summaries do not alter substantive content."
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_WHO",
+      "source_family": "PUBLIC_HEALTH",
+      "source_type": "5 local derivative knowledge cards from a WHO fact sheet; metadata only inspected",
+      "local_path": "data/knowledge_cards/",
+      "canonical_url": "https://www.who.int/about/policies/publishing/copyright",
+      "license_layers": {
+        "publisher_policy": "WHO publications are generally CC BY-NC-SA 3.0 IGO, subject to publication-specific notices and third-party materials.",
+        "card_manifest_license_field": "absent",
+        "commercial_or_training_permission": "not established"
+      },
+      "project_exposure": {
+        "card_metadata_inspected": true,
+        "card_content_read_or_reproduced_in_this_audit": false,
+        "existing_project_assets": 5
+      },
+      "eligible_roles": ["SCHEMA_REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "Need publication-specific license, attribution, adaptation/share-alike review, and a non-commercial-use determination before retrieval or derivative use."
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_NHC",
+      "source_family": "PUBLIC_HEALTH",
+      "source_type": "4 local derivative knowledge cards citing one NHC article; metadata only inspected",
+      "local_path": "data/knowledge_cards/",
+      "canonical_url": "https://www.nhc.gov.cn/ylyjs/gzdt/202509/2db90f506b274a95a25ac4ec701c3416.shtml",
+      "license_layers": {
+        "publisher_policy": "Government-information disclosure/access guidance is not an explicit reuse license for this article.",
+        "card_manifest_license_field": "absent",
+        "article_specific_reuse_right": "unresolved"
+      },
+      "project_exposure": {
+        "card_metadata_inspected": true,
+        "card_content_read_or_reproduced_in_this_audit": false,
+        "existing_project_assets": 4
+      },
+      "eligible_roles": ["SCHEMA_REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "INTERNAL_EVAL", "EXTERNAL_RETRIEVAL"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Public availability and government-information access do not themselves establish reproduction, adaptation, training, or redistribution permission."
+    },
+    {
+      "source_id": "R2MED",
+      "source_family": "MEDICAL_RETRIEVAL_BENCHMARK",
+      "source_type": "heterogeneous biomedical and medical retrieval subsets",
+      "canonical_urls": [
+        "https://github.com/R2MED/R2MED",
+        "https://openreview.net/pdf/b1cd41af38a3494706a923e6de10affdcc496356.pdf"
+      ],
+      "upstream": {
+        "code_revision": "11244a4925a39082967a6c9d38ef01f279c316a5",
+        "subset_revisions": "recorded in existing runs/e1_2/r2med_source_manifest.json"
+      },
+      "license_layers": {
+        "code": "MIT",
+        "package_card": "CC-BY-4.0",
+        "subset_terms": {
+          "Biology": "CC-BY-4.0",
+          "Bioinformatics": "CC-BY-SA",
+          "Medical-Sciences": "CC-BY-SA",
+          "MedXpertQA-Exam": "MIT",
+          "MedQA-Diag": "MIT",
+          "PMC-Treatment": "unspecified in paper table",
+          "PMC-Clinical": "CC-BY-NC-SA-4.0",
+          "IIYi-Clinical": "unspecified in paper table"
+        }
+      },
+      "split_metadata": {
+        "project_existing_roles": "prior DEV and TEST evaluations exist; published in-project RAG results make tested subsets exposed",
+        "official_source_splits": "preserved by subset; no new assignment in U2-D"
+      },
+      "project_exposure": {
+        "prior_eval_code_and_aggregate_test_results": true,
+        "manual_test_row_inspection_in_u2d": false,
+        "used_for_training": false,
+        "prompt_and_method_results_known": true
+      },
+      "eligible_roles": ["EXTERNAL_TRANSFER"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST"],
+      "qualification_status": "CONDITIONAL",
+      "rationale": "External retrieval transfer only after per-subset rights review; existing tested material is exposed and non-confirmatory. R2MED is not a guideline corpus."
+    },
+    {
+      "source_id": "NFCORPUS",
+      "source_family": "BIOMEDICAL_RETRIEVAL_BENCHMARK",
+      "source_type": "BEIR-formatted biomedical retrieval corpus",
+      "canonical_urls": [
+        "https://www.cl.uni-heidelberg.de/statnlpgroup/nfcorpus/",
+        "https://github.com/beir-cellar/beir"
+      ],
+      "upstream": {
+        "version": "BEIR-v2.2.0",
+        "revision": "6ef8c9097ebfb203ad360bd64e0cfb93e64f4a44"
+      },
+      "license_layers": {
+        "license_name": null,
+        "local_manifest_status": "APPROVED with null license fields",
+        "local_license_review_document": "REVIEW_REQUIRED pending upstream license and derivative confirmation",
+        "resolved_rights": false
+      },
+      "split_metadata": {
+        "official_splits": ["train", "dev", "test"],
+        "project_test_exposure": "prior test evaluation recorded in RAG closeout"
+      },
+      "project_exposure": {
+        "test_evaluation_or_derived_results_exist": true,
+        "human_question_or_qrels_review_in_u2d": false,
+        "used_for_training": false
+      },
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "EXTERNAL_CONFIRMATORY_TEST"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Resolve the contradictory local approval/review records and underlying source license before reuse or redistribution; any prior test use is exposed."
+    },
+    {
+      "source_id": "MEDICAL_MIRAGE",
+      "source_family": "MEDICAL_QA_BENCHMARK",
+      "source_type": "aggregated medical QA and retrieval benchmark",
+      "canonical_urls": [
+        "https://github.com/gzxiong/MIRAGE",
+        "https://aclanthology.org/2024.findings-acl.372/"
+      ],
+      "upstream": {
+        "revision": "392943af99cd94cafd50a0de2e7fca24bbf65494",
+        "local_artifact": "benchmark.json (4,296,735 bytes; content not opened in U2-D)"
+      },
+      "license_layers": {
+        "repository_code": "Repository-level license does not resolve component data rights",
+        "component_datasets": "multiple; not exhaustively reviewed",
+        "local_manifest_status": "APPROVED while license and redistribution fields are null",
+        "local_license_review_document": "REVIEW_REQUIRED per component"
+      },
+      "split_metadata": {
+        "official_component_identity_preserved": true,
+        "project_existing_evaluation": "5,235-case exploratory evaluation; already exposed"
+      },
+      "project_exposure": {
+        "prior_test_or_evaluation_results_exist": true,
+        "new_rows_read_in_u2d": false,
+        "used_for_training": false,
+        "router_and_failure_analysis_known": true
+      },
+      "eligible_roles": ["REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "EXTERNAL_CONFIRMATORY_TEST"],
+      "qualification_status": "UNRESOLVED",
+      "rationale": "Prior exploratory results are exposed; do not use for confirmatory or training claims. Resolve component licenses before any content reuse."
+    },
+    {
+      "source_id": "MEDRAG_CORPORA",
+      "source_family": "MEDICAL_RETRIEVAL_CORPORA",
+      "source_type": "candidate external corpus family without a frozen local source manifest",
+      "canonical_urls": ["https://github.com/Teddy-XiongGZ/MedRAG"],
+      "upstream": {
+        "local_frozen_corpus_revision": null,
+        "document_level_license_manifest": null
+      },
+      "project_exposure": {
+        "corpus_source_rows_used_for_training": false,
+        "U2D_rows_accessed": false
+      },
+      "eligible_roles": [],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST", "EXTERNAL_RETRIEVAL"],
+      "qualification_status": "BLOCKED",
+      "rationale": "No frozen source document inventory, immutable revision, document-level terms, or derived-index permission is established."
+    },
+    {
+      "source_id": "U1_SYNTHETIC_FIXTURES",
+      "source_family": "PROJECT_OWNED_SYNTHETIC",
+      "source_type": "small deterministic contract fixtures from U1/U1.1",
+      "canonical_url": "https://github.com/Bubblevan/Health-Copilot",
+      "upstream": {
+        "fixture_contract_commit": "f0c741f3fcd4b37e1e54ee1a77c770000085c8e3",
+        "fixture_count_in_u1_1": 9
+      },
+      "license_layers": {
+        "project_authorship": "project-controlled synthetic examples; confirm repository license scope before downstream packaging",
+        "benchmark_source_dependency": "none asserted"
+      },
+      "project_exposure": {
+        "used_for_training": false,
+        "used_as_contract_tests_or_research_fixtures": true
+      },
+      "eligible_roles": ["SCHEMA_REFERENCE_ONLY"],
+      "blocked_roles": ["TRAIN", "DEV", "IID_TEST", "OOD_TEST"],
+      "qualification_status": "SCHEMA_REFERENCE_ONLY",
+      "rationale": "Nine contract fixtures are too few and too purpose-built to be treated as a representative training or evaluation dataset. Use the strategy in u2d_train_dev_strategy.md for a separately authored future corpus."
+    }
+  ],
+  "no_row_assignments_created": true,
+  "no_restricted_rows_accessed_in_u2d": true
+}

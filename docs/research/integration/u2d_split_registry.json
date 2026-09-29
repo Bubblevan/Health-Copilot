@@ -1,0 +1,94 @@
+{
+  "schema_version": "u2d-split-registry-v1",
+  "policy_version": "u2d-owned-synthetic-split-policy-v1",
+  "audit_date": "2026-09-29",
+  "status": "POLICY_FROZEN_NO_ROWS_ASSIGNED",
+  "source_registry": "u2d_source_registry.json",
+  "license_matrix": "u2d_license_matrix.json",
+  "row_assignments_created": false,
+  "membership_materialized": false,
+  "split_roles": [
+    {
+      "role": "TRAIN",
+      "eligible_source_policy": "Project-authored synthetic longitudinal scenarios only, after separate generation-stage approval.",
+      "current_membership": "NONE",
+      "purpose": "Future policy learning or training after rights, safety, and lineage checks."
+    },
+    {
+      "role": "DEV",
+      "eligible_source_policy": "Project-authored synthetic scenarios from a distinct predeclared scenario/persona/template pool.",
+      "current_membership": "NONE",
+      "purpose": "Development, prompt, configuration, and hyperparameter selection."
+    },
+    {
+      "role": "IID_TEST",
+      "eligible_source_policy": "Reserved project-owned synthetic scenarios sampled from the same target design family but disjoint by subject/persona, episode template, and authored scenario seed.",
+      "current_membership": "NONE",
+      "purpose": "Future internal in-distribution evaluation."
+    },
+    {
+      "role": "OOD_PATIENT",
+      "eligible_source_policy": "Reserved subjects/personas absent from TRAIN, DEV, and other test roles.",
+      "current_membership": "NONE",
+      "purpose": "Generalization to unseen synthetic subjects/personas."
+    },
+    {
+      "role": "OOD_TASK",
+      "eligible_source_policy": "Reserved task templates or task families absent from training examples.",
+      "current_membership": "NONE",
+      "purpose": "Generalization to held-out task formulations."
+    },
+    {
+      "role": "OOD_TEMPORAL",
+      "eligible_source_policy": "Reserved timeline spacings, event orderings, or decision horizons not used in TRAIN or DEV.",
+      "current_membership": "NONE",
+      "purpose": "Temporal distribution-shift evaluation."
+    },
+    {
+      "role": "OOD_SOURCE",
+      "eligible_source_policy": "Reserved, rights-qualified source family/version; external evidence content remains outside patient-memory namespace.",
+      "current_membership": "NONE",
+      "purpose": "Generalization to held-out evidence sources."
+    },
+    {
+      "role": "OOD_COMPOSITION",
+      "eligible_source_policy": "Reserve capability combinations while exposing individual capabilities in TRAIN; candidate held-out combinations include MEMORY+RAG, MEMORY+TEAM, RAG+TEAM, and ALL.",
+      "current_membership": "NONE",
+      "purpose": "Evaluate compositional capability generalization."
+    },
+    {
+      "role": "EXTERNAL_TRANSFER",
+      "eligible_source_policy": "Public benchmark/evidence sources retaining their official identity, split, and provenance; only after source-specific rights and exposure checks.",
+      "current_membership": "NONE",
+      "purpose": "External transfer claim; never silently pooled into project-owned IID/OOD roles."
+    }
+  ],
+  "frozen_split_invariants": [
+    "No source row, query, answer, qrel, image, clinical record, or benchmark gold is assigned by this policy document.",
+    "A subject/persona and all linked episodes belong to exactly one project split.",
+    "A scenario template and its paraphrases, transformations, or counterfactual siblings stay in one split.",
+    "Split assignment is performed before prompt tuning, failure-taxonomy changes, or hyperparameter selection against the assigned role.",
+    "Source family and immutable source version are part of lineage; content from different rights regimes is never collapsed into one source label.",
+    "Memory/patient state and external evidence remain separate namespaces and separate lineage parents.",
+    "Any public benchmark moved from EXTERNAL_TRANSFER to another role requires explicit permission and forfeits the external-transfer claim for those records.",
+    "A TEST role must be held by an independent evaluator; test access, row emission, or answer inspection is recorded in the exposure register."
+  ],
+  "ood_axis_definitions": {
+    "OOD_PATIENT": "new synthetic subject/persona identities, with no subject-level overlap across roles.",
+    "OOD_TASK": "task intent, schema, or task family held out as a unit.",
+    "OOD_TEMPORAL": "timeline cadence, chronology pattern, event order, or prediction horizon held out as a unit.",
+    "OOD_SOURCE": "external evidence publisher/source/version family held out as a unit, after content rights are qualified.",
+    "OOD_COMPOSITION": "capability compositions held out while individual capabilities may appear separately in TRAIN."
+  },
+  "source_role_decisions": {
+    "third_party_benchmark_rows": "EXTERNAL_TRANSFER only, conditional on source-specific license and exposure eligibility",
+    "retired_answer_bearing_public_benchmark_batches": "REFERENCE_ONLY",
+    "U1_U1_1_contract_fixtures": "SCHEMA_REFERENCE_ONLY",
+    "new_owned_synthetic_train_dev_corpus": "future recommendation only; no rows created"
+  },
+  "freeze_record": {
+    "split_policy_frozen": true,
+    "split_membership_frozen": false,
+    "freeze_reason": "No production data source or qualified owned dataset exists to assign without making new data."
+  }
+}

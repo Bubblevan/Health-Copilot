@@ -1,0 +1,15 @@
+{
+  "schema_version": "u2d-run-decision-v1",
+  "status": "COMPLETE_WITH_CONDITIONS",
+  "train_eligibility": "No third-party content qualified; future TRAIN should use separately authored project-owned synthetic episodes.",
+  "dev_eligibility": "No third-party content qualified; future DEV should use a disjoint authored synthetic pool.",
+  "split_policy": "FROZEN_NO_ROWS_ASSIGNED",
+  "external_evidence": "No production source family fully qualified.",
+  "next_stage": "U2-E",
+  "next_stage_description": "Specify a project-owned synthetic TRAIN/DEV universe and generation controls; create no rows in U2-D.",
+  "locked_test_or_gold_accessed_in_u2d": false,
+  "benchmark_execution_started": false,
+  "hosted_model_called": false,
+  "memory_changed": false,
+  "rag_changed": false
+}

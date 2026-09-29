@@ -1,0 +1,41 @@
+{
+  "schema_version": "u2d-run-manifest-v1",
+  "run_id": "u2d-20260929-01",
+  "stage": "U2-D",
+  "created_at": "2026-09-29",
+  "status": "COMPLETE_WITH_CONDITIONS",
+  "branch": "integration-u2d-dataset-split-license-20260929",
+  "base_commit": "f0c741f3fcd4b37e1e54ee1a77c770000085c8e3",
+  "published_provenance": {
+    "u1_1": {
+      "commit": "f0c741f3fcd4b37e1e54ee1a77c770000085c8e3",
+      "remote_ref": "refs/heads/integration-u1-1-exec-fairness-20260929",
+      "remote_sha_verified": true
+    },
+    "u0": {
+      "commit": "df8cac1fafbbb8851aa2481c85c311c045c01230",
+      "remote_ref": "refs/heads/integration-u0-benchmark-audit-20260929",
+      "remote_sha_verified": true
+    }
+  },
+  "audit_mode": "metadata-only",
+  "benchmark_rows_read": 0,
+  "locked_or_hidden_test_rows_read": 0,
+  "gold_answers_read": 0,
+  "gated_data_accessed": false,
+  "benchmark_executions": 0,
+  "hosted_model_calls": 0,
+  "raw_or_restricted_content_committed": false,
+  "memory_changed": false,
+  "rag_changed": false,
+  "worker_eligibility_changed": false,
+  "artifacts": [
+    "manifest.json",
+    "source_qualification.json",
+    "license_conflicts.json",
+    "split_policy.json",
+    "external_evidence_status.json",
+    "decision.json",
+    "report.md"
+  ]
+}
