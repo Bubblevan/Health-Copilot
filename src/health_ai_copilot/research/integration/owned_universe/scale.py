@@ -95,7 +95,9 @@ def _balance_query_surface(world: LatentWorld) -> str:
     )
     context = [NEUTRAL_QUERY_CONTEXTS[(start + offset) % len(NEUTRAL_QUERY_CONTEXTS)]
                for offset in range(count)]
-    key_instruction = "Include the item indexed by its synthetic key."
+    key_instruction = (
+        "Include the item indexed by its synthetic key and return the requested result for that key."
+    )
     return " ".join(part for part in (world.query, key_instruction, surface, *context) if part)
 
 
