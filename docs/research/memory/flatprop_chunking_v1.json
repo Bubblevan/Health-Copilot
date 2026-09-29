@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "contract_id": "flatprop_chunking_v1",
+  "method_identity": "flat-proposition-extractor-v4-chunked",
+  "semantic_policy": "minimal proposition_text plus evidence_refs; unchanged from frozen v3",
+  "source_basis": "existing ordered LongMemEval RawSpan catalog only",
+  "max_rendered_chunk_prompt_tokens": 6144,
+  "chunk_max_completion_tokens": 8192,
+  "turn_overlap": 1,
+  "primary_partition": "greedily add complete turns in source order using exact rendered request budget tokens",
+  "oversized_single_turn": "greedily partition the oversized turn into contiguous existing RawSpan groups; never split a RawSpan",
+  "overlap_policy": "try preceding and following complete turns together; if both exceed the limit, prefer preceding; add following only if the preceding-priority combination still fits; if preceding alone does not fit, omit overlap",
+  "tokenizer_budget_view": {
+    "renderer": "frozen llama.cpp /apply-template, enable_thinking=false",
+    "tokenizer": "same frozen llama.cpp /tokenize endpoint, add_special=false",
+    "budget_view": "tokenize the exact rendered chat prompt followed by schema_prefix, canonical JSON of the exact dynamic JSON schema sent in response_format, and schema_suffix",
+    "schema_prefix": "\n\n<FLATPROP_DYNAMIC_SCHEMA>\n",
+    "schema_suffix": "\n</FLATPROP_DYNAMIC_SCHEMA>",
+    "fields_recorded_separately": [
+      "rendered_chat_prompt_tokens",
+      "dynamic_schema_tokens",
+      "request_budget_tokens"
+    ]
+  },
+  "chunk_identity_fields": [
+    "chunking_contract_sha256",
+    "session_identity_sha256",
+    "primary_start_ordinal",
+    "primary_end_ordinal",
+    "overlap_ordinals",
+    "rendered_source_payload_sha256",
+    "dynamic_schema_sha256"
+  ],
+  "rawspan_coverage": "every existing source RawSpan belongs to exactly one primary chunk; oversized turns may have their RawSpans partitioned across consecutive primary chunks",
+  "cross_chunk_proposition_identity": "SHA256 of canonical JSON containing stripped proposition_text and catalog-ordered canonical evidence_refs",
+  "cross_chunk_collapse": "exact identity only; retain source chunk lineage; no paraphrase or semantic merging",
+  "duplicate_diagnostics": {
+    "high_similarity_threshold": 0.9,
+    "algorithm": "SequenceMatcher ratio over casefolded proposition text",
+    "purpose": "diagnostic only; never merges propositions or changes writer policy"
+  },
+  "model_generation": {
+    "temperature": 0,
+    "seed": 42,
+    "enable_thinking": false,
+    "retry_count": 0,
+    "hosted_fallback": false
+  },
+  "out_of_scope": [
+    "memory_kind",
+    "entity_key",
+    "attribute_key",
+    "value normalization",
+    "revision semantics",
+    "gold-aware chunk boundaries",
+    "benchmark-query-aware chunk boundaries"
+  ]
+}
