@@ -1,0 +1,28 @@
+{
+  "chunk_planner_source_sha256": "227ebd98bd40e3fd4a8ac7e8bcd4e1919987bc0296bf2c9cfd372f43a4c5448d",
+  "chunking_contract_sha256": "d54f55654d58d6c0772e9a23fbd9368fd10382db03d87d0dd725da559c7281ec",
+  "contract_id": "flat-proposition-extractor-v4-chunked",
+  "embedding_adapter_source_sha256": "3f6ba58de6f41deb3d4e7b67fbabaee09d20a789ff89c97d258fbaa9daa3d5e1",
+  "embedding_device": "cuda:0",
+  "embedding_dtype": "float16",
+  "embedding_model_identity": {
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_path": "E:\\Health-Copilot-Models\\models\\Qwen3-Embedding-0.6B",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "evidence_ref_set_normalization_sha256": "d718ae5895976e4736fd4aed63019d656cf60b863a1632c4b15631fc55b5862e",
+  "flatprop_runtime_source_sha256": "709b3589ed24b749a8013625d3d223419a214177e4f1f95a8091dd66ab6d79de",
+  "packet_validator_source_sha256": "3130709b803d7e56ba63aa9c705cb51f948c19955dec34afb2f39a0196532ef9",
+  "runner_source_sha256": "7a33d03d9040a42d261ad1ddd154056dec0924bfdc221cc5faea8f1e777b52e3",
+  "semantic_fields": [
+    "proposition_text",
+    "evidence_refs"
+  ],
+  "transport_unwrap_source_sha256": "57d33ab389c64a8f9c873d25e38dae0c952cc728fde3dcbf37c10984d184cec9",
+  "v3_extractor_contract_sha256": "708da9fce6990c3b410f1bc610009e76dc39a993a786f59bfeac9f5798fd1545",
+  "v3_extractor_prompt_sha256": "0c0211bac51cf48e8e01663bbee7d9f9db69815afc7d40c1e8d6877f4a0f2376",
+  "writer_max_completion_tokens": 8192,
+  "writer_request_source_sha256": "34afa39b8bb38135a5a30b6c92cfa32b6d7e27415167dcb03b03c4130f2d2598"
+}

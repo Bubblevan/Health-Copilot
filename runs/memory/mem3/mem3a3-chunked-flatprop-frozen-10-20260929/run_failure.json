@@ -1,0 +1,12 @@
+{
+  "completion_gate_marker": "MEM3A3_CHUNKED_FLATPROP_FROZEN_10_DIAGNOSTIC=NO",
+  "downstream_started": false,
+  "error": "MEM3A3_CHUNKED_FLATPROP_FROZEN_10_DIAGNOSTIC=NO; stopped on exact failed chunk 104d270a9c92d9d464dc5eb07adf1eac6881d5edd6a1d437fc040ec814508bc9",
+  "error_type": "RuntimeError",
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "labels_loaded": false,
+  "schema_version": 1,
+  "stage": "mem3a3-chunked-flatprop-frozen-10-20260929",
+  "status": "FAILED"
+}

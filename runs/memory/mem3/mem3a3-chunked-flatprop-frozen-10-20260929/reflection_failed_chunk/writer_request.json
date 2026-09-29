@@ -1,0 +1,173 @@
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "content": "Extract durable propositions from exactly one dated conversation session.\n\nThe Harness assigns session-local evidence references to frozen source spans.\nReturn only the strict JSON object required by the response schema. Each\nproposition has exactly two fields: proposition_text and evidence_refs. Cite\nonly supplied refs that support the complete proposition. Do not produce\nquotes, roles, turn/span indices, offsets, memory types, entity/attribute/value\nkeys, or revision operations.\n\nExtract durable user facts and preferences, user-reported events, durable plans\nand decisions, plus specific assistant-origin facts, recommendations, or named\nsuggestions likely to matter in later conversation. Assistant evidence is\nallowed; do not force assistant-origin propositions into a recommendation\ncategory. When support is assistant-only, preserve assistant attribution in\nthe wording when needed to avoid presenting an assistant statement as a user\nfact. Do not claim that an assistant-origin statement is clinically verified.\n\nExclude one-off advice requests, generic help-me requests, conversational\nintent, generic encouragement, boilerplate, hypothetical/example dialogue,\nand redundant paraphrases that add no durable information. Preserve durable\nfacts embedded in a request. Keep separately supported historical\nobservations separate; do not reconcile or suppress old and new values. An\nempty propositions array is valid when no durable proposition is supported.\n\nUse only the supplied session_date and source_spans as evidence. Never infer\nfacts from another session. If a statement is ambiguous or not fully supported,\nomit it. Output valid JSON only.\n",
+      "role": "system"
+    },
+    {
+      "content": "{\n  \"session_date\": \"2023/05/29 (Mon) 12:27\",\n  \"source_spans\": [\n    {\n      \"content\": \"Use cases\\n\",\n      \"evidence_ref\": \"S0000\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"---------\\n\\n\",\n      \"evidence_ref\": \"S0001\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"The following use cases have been identified for the Annotation screen:\\n\\n\",\n      \"evidence_ref\": \"S0002\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Use case 1: Annotation**\\n\\n\",\n      \"evidence_ref\": \"S0003\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger user logs into the annotation tool.\\n\",\n      \"evidence_ref\": \"S0004\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger user selects a task from the list of tasks on the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0005\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0006\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Tagger user selects the classification for the document from the classification dropdown.\\n\",\n      \"evidence_ref\": \"S0007\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Tagger user selects labels from the labels list and places them on the document.\\n\",\n      \"evidence_ref\": \"S0008\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"6. Tagger user adjusts the position, size, and shape of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0009\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"7. Tagger user edits the name and description of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0010\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"8. Tagger user changes the color of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0011\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"9. Tagger user clicks the save button to save their annotation progress.\\n\",\n      \"evidence_ref\": \"S0012\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"10. Tagger user repeats steps 5-9 until they have finished annotating the document.\\n\\n\",\n      \"evidence_ref\": \"S0013\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Use case 2: Review**\\n\\n\",\n      \"evidence_ref\": \"S0014\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Checker user logs into the annotation tool.\\n\",\n      \"evidence_ref\": \"S0015\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Checker user selects a task from the list of tasks on the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0016\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0017\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Checker user reviews the labels that have been placed on the document by the Tagger user.\\n\",\n      \"evidence_ref\": \"S0018\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Checker user approves or rejects each label as needed.\\n\",\n      \"evidence_ref\": \"S0019\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"6. Checker user modifies the labels as needed.\\n\",\n      \"evidence_ref\": \"S0020\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"7. Checker user adds comments for each label as needed.\\n\",\n      \"evidence_ref\": \"S0021\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"8. Checker user clicks the submit button to complete the review task.\\n\\n\",\n      \"evidence_ref\": \"S0022\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Use case 3: Navigation**\\n\\n\",\n      \"evidence_ref\": \"S0023\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger or Checker user logs into the annotation tool.\\n\",\n      \"evidence_ref\": \"S0024\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger or Checker user selects a task from the list of tasks on the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0025\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger or Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0026\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Tagger or Checker user uses the page navigation buttons to navigate between pages in the document.\\n\",\n      \"evidence_ref\": \"S0027\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Tagger or Checker user uses the document outline to jump to specific pages or headings in the document.\\n\\n\",\n      \"evidence_ref\": \"S0028\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Use case 4: Annotation history**\\n\\n\",\n      \"evidence_ref\": \"S0029\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger or Checker user logs into the annotation tool.\\n\",\n      \"evidence_ref\": \"S0030\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger or Checker user selects a task from the list of tasks on the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0031\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger or Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0032\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Tagger or Checker user clicks on a label on the document.\\n\",\n      \"evidence_ref\": \"S0033\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. A popup with the annotation history for the label is displayed.\\n\",\n      \"evidence_ref\": \"S0034\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"6. Tagger or Checker user reviews the annotation history for the label.\",\n      \"evidence_ref\": \"S0035\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"Continue\",\n      \"evidence_ref\": \"S0036\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"Flows\\n\",\n      \"evidence_ref\": \"S0037\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"-----\\n\\n\",\n      \"evidence_ref\": \"S0038\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"The following flows have been identified for the Annotation screen:\\n\\n\",\n      \"evidence_ref\": \"S0039\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Flow 1: Annotation**\\n\\n\",\n      \"evidence_ref\": \"S0040\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger user selects a task from the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0041\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0042\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger user selects the classification for the document.\\n\",\n      \"evidence_ref\": \"S0043\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Tagger user selects labels from the labels list and places them on the document.\\n\",\n      \"evidence_ref\": \"S0044\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Tagger user adjusts the position, size, and shape of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0045\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"6. Tagger user edits the name and description of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0046\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"7. Tagger user changes the color of the labels as needed.\\n\",\n      \"evidence_ref\": \"S0047\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"8. Tagger user clicks the save button to save their annotation progress.\\n\",\n      \"evidence_ref\": \"S0048\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"9. Steps 4-8 are repeated until the Tagger user has finished annotating the document.\\n\\n\",\n      \"evidence_ref\": \"S0049\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Flow 2: Review**\\n\\n\",\n      \"evidence_ref\": \"S0050\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Checker user selects a task from the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0051\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0052\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Checker user reviews the labels that have been placed on the document by the Tagger user.\\n\",\n      \"evidence_ref\": \"S0053\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Checker user approves or rejects each label as needed.\\n\",\n      \"evidence_ref\": \"S0054\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Checker user modifies the labels as needed.\\n\",\n      \"evidence_ref\": \"S0055\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"6. Checker user adds comments for each label as needed.\\n\",\n      \"evidence_ref\": \"S0056\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"7. Checker user clicks the submit button to complete the review task.\\n\\n\",\n      \"evidence_ref\": \"S0057\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Flow 3: Navigation**\\n\\n\",\n      \"evidence_ref\": \"S0058\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger or Checker user selects a task from the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0059\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger or Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0060\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger or Checker user uses the page navigation buttons to navigate between pages in the document.\\n\",\n      \"evidence_ref\": \"S0061\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. Tagger or Checker user uses the document outline to jump to specific pages or headings in the document.\\n\\n\",\n      \"evidence_ref\": \"S0062\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"**Flow 4: Annotation history**\\n\\n\",\n      \"evidence_ref\": \"S0063\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"1. Tagger or Checker user selects a task from the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0064\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"2. Tagger or Checker user is redirected to the Annotation screen.\\n\",\n      \"evidence_ref\": \"S0065\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"3. Tagger or Checker user clicks on a label on the document.\\n\",\n      \"evidence_ref\": \"S0066\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"4. A popup with the annotation history for the label is displayed.\\n\",\n      \"evidence_ref\": \"S0067\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"5. Tagger or Checker user reviews the annotation history for the label.\",\n      \"evidence_ref\": \"S0068\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"Continue\",\n      \"evidence_ref\": \"S0069\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"Actions\\n\",\n      \"evidence_ref\": \"S0070\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"-------\\n\\n\",\n      \"evidence_ref\": \"S0071\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"The following actions have been identified for the Annotation screen:\\n\\n\",\n      \"evidence_ref\": \"S0072\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Select classification**: Tagger user selects the classification for the document from the classification dropdown.\\n\",\n      \"evidence_ref\": \"S0073\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Select label**: Tagger user selects a label from the labels list and places it on the document.\\n\",\n      \"evidence_ref\": \"S0074\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Adjust label**: Tagger user adjusts the position, size, and shape of the label.\\n\",\n      \"evidence_ref\": \"S0075\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Edit label**: Tagger user edits the name and description of the label.\\n\",\n      \"evidence_ref\": \"S0076\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Change label color**: Tagger user changes the color of the label.\\n\",\n      \"evidence_ref\": \"S0077\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Save annotation**: Tagger user clicks the save button to save their annotation progress.\\n\",\n      \"evidence_ref\": \"S0078\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Approve label**: Checker user clicks the approve button for a label.\\n\",\n      \"evidence_ref\": \"S0079\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Reject label**: Checker user clicks the reject button for a label.\\n\",\n      \"evidence_ref\": \"S0080\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Modify label**: Checker user clicks the modify button and makes changes to the label.\\n\",\n      \"evidence_ref\": \"S0081\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Add comment**: Tagger or Checker user adds a comment for the label.\\n\",\n      \"evidence_ref\": \"S0082\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Submit review**: Checker user clicks the submit button to complete the review task.\\n\",\n      \"evidence_ref\": \"S0083\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Navigate pages**: Tagger or Checker user uses the page navigation buttons to navigate between pages in the document.\\n\",\n      \"evidence_ref\": \"S0084\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **Jump to page**: Tagger or Checker user uses the document outline to jump to a specific page or heading in the document.\\n\",\n      \"evidence_ref\": \"S0085\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* **View annotation history**: Tagger or Checker user clicks on a label on the document and a popup with the annotation history is displayed.\",\n      \"evidence_ref\": \"S0086\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"Continue\",\n      \"evidence_ref\": \"S0087\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"UI Design\\n\",\n      \"evidence_ref\": \"S0088\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"---------\\n\\n\",\n      \"evidence_ref\": \"S0089\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"The Annotation screen should have the following layout:\\n\\n\",\n      \"evidence_ref\": \"S0090\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* A top menu bar with the following options:\\n\",\n      \"evidence_ref\": \"S0091\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Home: Takes the user back to the Tasks screen.\\n\",\n      \"evidence_ref\": \"S0092\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Profile: Takes the user to their profile screen.\\n\",\n      \"evidence_ref\": \"S0093\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Logout: Logs the user out of the annotation tool.\\n\",\n      \"evidence_ref\": \"S0094\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* A left sidebar with the following options:\\n\",\n      \"evidence_ref\": \"S0095\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Classification dropdown: Allows the Tagger user to select the classification for the document.\\n\",\n      \"evidence_ref\": \"S0096\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Labels list: Allows the Tagger user to select labels for annotation.\\n\",\n      \"evidence_ref\": \"S0097\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Document outline: Allows the Tagger or Checker user to navigate to specific pages or headings in the document.\\n\",\n      \"evidence_ref\": \"S0098\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Annotation history: Allows the Tagger or Checker user to view the annotation history for a label.\\n\",\n      \"evidence_ref\": \"S0099\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* A main area in the center of the screen that displays the document and the labels that have been placed on it.\\n\",\n      \"evidence_ref\": \"S0100\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* A bottom bar with the following options:\\n\",\n      \"evidence_ref\": \"S0101\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Save button: Allows the Tagger user to save their annotation progress.\\n\",\n      \"evidence_ref\": \"S0102\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Approve button: Allows the Checker user to approve a label.\\n\",\n      \"evidence_ref\": \"S0103\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Reject button: Allows the Checker user to reject a label.\\n\",\n      \"evidence_ref\": \"S0104\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Modify button: Allows the Checker user to modify a label.\\n\",\n      \"evidence_ref\": \"S0105\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Add comment button: Allows the Tagger or Checker user to add a comment for a label.\\n\",\n      \"evidence_ref\": \"S0106\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"\\t+ Submit button: Allows the Checker user to submit their review.\\n\",\n      \"evidence_ref\": \"S0107\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"* Page navigation buttons: Allows the Tagger or Checker user to navigate between pages in the document.\",\n      \"evidence_ref\": \"S0108\",\n      \"role\": \"assistant\"\n    },\n    {\n      \"content\": \"Continue\",\n      \"evidence_ref\": \"S0109\",\n      \"role\": \"user\"\n    }\n  ]\n}",
+      "role": "user"
+    }
+  ],
+  "model": "health-memory-qwen3-8b",
+  "response_format": {
+    "json_schema": {
+      "name": "flat_proposition_packet_v4_chunked",
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "propositions": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "evidence_refs": {
+                  "items": {
+                    "enum": [
+                      "S0000",
+                      "S0001",
+                      "S0002",
+                      "S0003",
+                      "S0004",
+                      "S0005",
+                      "S0006",
+                      "S0007",
+                      "S0008",
+                      "S0009",
+                      "S0010",
+                      "S0011",
+                      "S0012",
+                      "S0013",
+                      "S0014",
+                      "S0015",
+                      "S0016",
+                      "S0017",
+                      "S0018",
+                      "S0019",
+                      "S0020",
+                      "S0021",
+                      "S0022",
+                      "S0023",
+                      "S0024",
+                      "S0025",
+                      "S0026",
+                      "S0027",
+                      "S0028",
+                      "S0029",
+                      "S0030",
+                      "S0031",
+                      "S0032",
+                      "S0033",
+                      "S0034",
+                      "S0035",
+                      "S0036",
+                      "S0037",
+                      "S0038",
+                      "S0039",
+                      "S0040",
+                      "S0041",
+                      "S0042",
+                      "S0043",
+                      "S0044",
+                      "S0045",
+                      "S0046",
+                      "S0047",
+                      "S0048",
+                      "S0049",
+                      "S0050",
+                      "S0051",
+                      "S0052",
+                      "S0053",
+                      "S0054",
+                      "S0055",
+                      "S0056",
+                      "S0057",
+                      "S0058",
+                      "S0059",
+                      "S0060",
+                      "S0061",
+                      "S0062",
+                      "S0063",
+                      "S0064",
+                      "S0065",
+                      "S0066",
+                      "S0067",
+                      "S0068",
+                      "S0069",
+                      "S0070",
+                      "S0071",
+                      "S0072",
+                      "S0073",
+                      "S0074",
+                      "S0075",
+                      "S0076",
+                      "S0077",
+                      "S0078",
+                      "S0079",
+                      "S0080",
+                      "S0081",
+                      "S0082",
+                      "S0083",
+                      "S0084",
+                      "S0085",
+                      "S0086",
+                      "S0087",
+                      "S0088",
+                      "S0089",
+                      "S0090",
+                      "S0091",
+                      "S0092",
+                      "S0093",
+                      "S0094",
+                      "S0095",
+                      "S0096",
+                      "S0097",
+                      "S0098",
+                      "S0099",
+                      "S0100",
+                      "S0101",
+                      "S0102",
+                      "S0103",
+                      "S0104",
+                      "S0105",
+                      "S0106",
+                      "S0107",
+                      "S0108",
+                      "S0109"
+                    ],
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "proposition_text": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "proposition_text",
+                "evidence_refs"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "propositions"
+        ],
+        "type": "object"
+      },
+      "strict": true
+    },
+    "type": "json_schema"
+  },
+  "seed": 42,
+  "stream": false,
+  "temperature": 0
+}

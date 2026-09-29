@@ -1,0 +1,512 @@
+{
+  "propositions": [
+    {
+      "proposition_text": "The Annotation screen has a top menu bar with Home, Profile, and Logout options.",
+      "evidence_refs": ["S0090", "S0091", "S0092", "S0093", "S0094"]
+    },
+    {
+      "proposition_text": "The Annotation screen has a left sidebar with Classification dropdown, Labels list, Document outline, and Annotation history options.",
+      "evidence_refs": ["S0090", "S0095", "S0096", "S0097", "S0098", "S0099"]
+    },
+    {
+      "proposition_text": "The Annotation screen has a main area that displays the document and the labels placed on it.",
+      "evidence_refs": ["S0090", "S0100"]
+    },
+    {
+      "proposition_text": "The Annotation screen has a bottom bar with Save, Approve, Reject, Modify, Add comment, and Submit buttons.",
+      "evidence_refs": ["S0090", "S0101", "S0102", "S0103", "S0104", "S0105", "S0106", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes page navigation buttons for navigating between pages in the document.",
+      "evidence_refs": ["S0090", "S0108"]
+    },
+    {
+      "proposition_text": "The Annotation screen allows users to view the annotation history for a label by clicking on it.",
+      "evidence_refs": ["S0090", "S0100", "S0099", "S0108", "S0086"]
+    },
+    {
+      "proposition_text": "Tagger users can select a task from the Tasks screen and be redirected to the Annotation screen.",
+      "evidence_refs": ["S0002", "S0004", "S0005", "S0006", "S0041", "S0042", "S0049", "S0059", "S0060"]
+    },
+    {
+      "proposition_text": "Checker users can select a task from the Tasks screen and be redirected to the Annotation screen.",
+      "evidence_refs": ["S0014", "S0015", "S0016", "S0017", "S0018", "S0019", "S0020", "S0021", "S0022", "S0050", "S0051", "S0052", "S0053", "S0054", "S0055", "S0056", "S0057"]
+    },
+    {
+      "proposition_text": "Tagger users can select labels from the labels list and place them on the document.",
+      "evidence_refs": ["S0005", "S0008", "S0044", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "Tagger users can adjust the position, size, and shape of the labels as needed.",
+      "evidence_refs": ["S0006", "S0045", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "Tagger users can edit the name and description of the labels as needed.",
+      "evidence_refs": ["S0007", "S0046", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "Tagger users can change the color of the labels as needed.",
+      "evidence_refs": ["S0008", "S0047", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "Tagger users can click the save button to save their annotation progress.",
+      "evidence_refs": ["S0009", "S0048", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "Checker users can review the labels placed on the document by the Tagger user.",
+      "evidence_refs": ["S0018", "S0053", "S0054", "S0055", "S0056", "S0057"]
+    },
+    {
+      "proposition_text": "Checker users can approve or reject each label as needed.",
+      "evidence_refs": ["S0019", "S0054", "S0055", "S0056", "S0057"]
+    },
+    {
+      "proposition_text": "Checker users can modify the labels as needed.",
+      "evidence_refs": ["S0020", "S0055", "S0056", "S0057"]
+    },
+    {
+      "proposition_text": "Checker users can add comments for each label as needed.",
+      "evidence_refs": ["S0021", "S0056", "S0057"]
+    },
+    {
+      "proposition_text": "Checker users can click the submit button to complete the review task.",
+      "evidence_refs": ["S0022", "S0057"]
+    },
+    {
+      "proposition_text": "Tagger or Checker users can navigate between pages in the document using page navigation buttons.",
+      "evidence_refs": ["S0027", "S0028", "S0061", "S0062", "S0084", "S0085"]
+    },
+    {
+      "proposition_text": "Tagger or Checker users can use the document outline to jump to specific pages or headings in the document.",
+      "evidence_refs": ["S0028", "S0062", "S0084", "S0085"]
+    },
+    {
+      "proposition_text": "Tagger or Checker users can click on a label to view its annotation history.",
+      "evidence_refs": ["S0033", "S0034", "S0035", "S0066", "S0067", "S0068", "S0086"]
+    },
+    {
+      "proposition_text": "The Annotation screen allows users to view the annotation history for a label.",
+      "evidence_refs": ["S0099", "S0086"]
+    },
+    {
+      "proposition_text": "Tagger or Checker users can click on a label to view its annotation history.",
+      "evidence_refs": ["S0066", "S0067", "S0068", "S0086"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a classification dropdown for Tagger users to select the classification for the document.",
+      "evidence_refs": ["S0004", "S0005", "S0006", "S0007", "S0008", "S0041", "S0042", "S0043", "S0044", "S0045", "S0046", "S0047", "S0048", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a labels list for Tagger users to select labels for annotation.",
+      "evidence_refs": ["S0005", "S0006", "S0007", "S0008", "S0044", "S0049", "S0059", "S0060", "S0064", "S0065", "S0066", "S0067", "S0068"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a document outline for Tagger or Checker users to navigate to specific pages or headings in the document.",
+      "evidence_refs": ["S0005", "S0006", "S0007", "S0008", "S0028", "S0062", "S0084", "S0085"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with Save, Approve, Reject, Modify, Add comment, and Submit buttons.",
+      "evidence_refs": ["S0090", "S0101", "S0102", "S0103", "S0104", "S0105", "S0106", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a page navigation bar for Tagger or Checker users to navigate between pages in the document.",
+      "evidence_refs": ["S0090", "S0108"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for Tagger users to save their annotation progress.",
+      "evidence_refs": ["S0090", "S0101", "S0102"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Approve button for Checker users to approve a label.",
+      "evidence_refs": ["S0090", "S0101", "S0103"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Reject button for Checker users to reject a label.",
+      "evidence_refs": ["S0090", "S0101", "S0104"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Modify button for Checker users to modify a label.",
+      "evidence_refs": ["S0090", "S0101", "S0105"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Submit button for Checker users to submit their review.",
+      "evidence_refs": ["S0090", "S0101", "S0107"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with an Add comment button for Tagger or Checker users to add a comment for a label.",
+      "evidence_refs": ["S0090", "S0101", "S0106"]
+    },
+    {
+      "proposition_text": "The Annotation screen includes a bottom bar with a Save button for

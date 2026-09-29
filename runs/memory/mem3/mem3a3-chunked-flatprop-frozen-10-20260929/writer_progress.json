@@ -1,0 +1,12 @@
+{
+  "completed_chunks": 147,
+  "hosted_calls": 0,
+  "labels_loaded": false,
+  "planned_chunks": 785,
+  "provider_calls": 148,
+  "provider_calls_this_process": 148,
+  "retries": 0,
+  "schema_version": 1,
+  "stage": "mem3a3-chunked-flatprop-frozen-10-20260929",
+  "status": "FAILED_STOP_NO_RETRY"
+}
