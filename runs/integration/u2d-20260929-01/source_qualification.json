@@ -1,0 +1,46 @@
+{
+  "schema_version": "u2d-run-source-qualification-v1",
+  "source_registry": "docs/research/integration/u2d_source_registry.json",
+  "license_matrix": "docs/research/integration/u2d_license_matrix.json",
+  "summary": {
+    "qualified_train_sources": [],
+    "qualified_dev_sources": [],
+    "qualified_internal_eval_sources": [],
+    "qualified_external_transfer_sources": [],
+    "conditional_sources": [
+      "ESL_BENCH",
+      "AGENTCLINIC_PUBLIC_CASES",
+      "HEALTHAGENTBENCH_HARNESS",
+      "R2MED",
+      "HC_KNOWLEDGE_CARDS_CDC",
+      "HC_KNOWLEDGE_CARDS_WHO"
+    ],
+    "unresolved_sources": [
+      "MEDMEMORYBENCH",
+      "MEDAGENTBOARD",
+      "MEDMASLAB",
+      "HC_KNOWLEDGE_CARDS_NHC",
+      "NFCORPUS",
+      "MEDICAL_MIRAGE"
+    ],
+    "blocked_sources": [
+      "AGENTCLINIC_MIMIC_CASES",
+      "MEDRAG_CORPORA"
+    ],
+    "reference_only_sources": [
+      "U1_SYNTHETIC_FIXTURES"
+    ]
+  },
+  "decisions": [
+    "Do not use third-party benchmark rows for TRAIN or DEV.",
+    "Treat public benchmark material as EXTERNAL_TRANSFER by default.",
+    "Audit task and source licenses separately from code licenses.",
+    "Do not infer derived-artifact redistribution rights from a container license."
+  ],
+  "current_active_source_revision_gap": {
+    "source_id": "ESL_BENCH",
+    "observed_short_ref": "ef0fbb2",
+    "full_immutable_commit_resolved": false,
+    "future_execution_allowed": false
+  }
+}

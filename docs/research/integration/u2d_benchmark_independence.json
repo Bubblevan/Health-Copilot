@@ -1,0 +1,140 @@
+{
+  "schema_version": "u2d-benchmark-independence-v1",
+  "audit_date": "2026-09-29",
+  "scope": "Project-level contamination and historical exposure only; foundation-model pretraining exposure is unknown unless a source provides a verifiable exclusion.",
+  "independence_dimensions": [
+    "used_for_training",
+    "used_for_prompt_design",
+    "used_for_hyperparameter_selection",
+    "used_for_failure_taxonomy",
+    "gold_or_answer_fields_exposed",
+    "test_content_accessed",
+    "allowed_future_claim"
+  ],
+  "benchmarks": [
+    {
+      "source_id": "ESL_BENCH",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": false,
+      "test_content_accessed": false,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Potential external transfer on a fully pinned, still-active batch; not TRAIN/DEV/internal evaluation. Any later exposure invalidates a blind claim."
+    },
+    {
+      "source_id": "MEDMEMORYBENCH",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": "No dataset rows read; upstream evaluation/query material is public, so public answer exposure is possible.",
+      "test_content_accessed": false,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "No claim until license conflict is resolved. A future public benchmark run could only be labeled exposed external transfer unless unseen material is independently established."
+    },
+    {
+      "source_id": "MEDAGENTBOARD",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": false,
+      "test_content_accessed": false,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Reference only until Zenodo and task-family rights/splits are qualified."
+    },
+    {
+      "source_id": "MEDMASLAB",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": false,
+      "test_content_accessed": false,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Reference only until every underlying dataset has a pinned rights/split record."
+    },
+    {
+      "source_id": "AGENTCLINIC_PUBLIC_CASES",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": "Unknown for one unassigned public JSONL schema sample read by U0; no sample identity or answer retained.",
+      "test_content_accessed": "One public row payload was read; no official test split exists to identify it as test or non-test.",
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "No clean-blind claim for the sampled row. If rights are cleared, public exploratory external transfer only; no independent official holdout claim."
+    },
+    {
+      "source_id": "HEALTHAGENTBENCH_HARNESS",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": false,
+      "used_for_hyperparameter_selection": false,
+      "used_for_failure_taxonomy": false,
+      "gold_or_answer_fields_exposed": false,
+      "test_content_accessed": false,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Per-task external transfer only after component access, test-label isolation, and source-rights qualification."
+    },
+    {
+      "source_id": "R2MED",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": "RAG methods and prior results are known; no benchmark rows were used as prompts by this audit.",
+      "used_for_hyperparameter_selection": "Historical subset DEV was used in the RAG line.",
+      "used_for_failure_taxonomy": "Historical RAG result and parity analysis are known.",
+      "gold_or_answer_fields_exposed": "Aggregate test scores are public within the project; the source manifest says no manual test row inspection.",
+      "test_content_accessed": "Yes, retrieval/scoring code executed against historical TEST subsets and aggregate results were produced.",
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Previously evaluated subsets are exposed, non-confirmatory external results; no use as TRAIN or new DEV."
+    },
+    {
+      "source_id": "NFCORPUS",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": "Generic RAG configuration/protocol is known.",
+      "used_for_hyperparameter_selection": "Not used for model training; historical retrieval evaluation exists.",
+      "used_for_failure_taxonomy": "Aggregate retrieval comparison is known.",
+      "gold_or_answer_fields_exposed": "Historical test metrics are known; no row-level content read in U2-D.",
+      "test_content_accessed": true,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Exposed exploratory/external retrieval result only; no unseen confirmatory claim."
+    },
+    {
+      "source_id": "MEDICAL_MIRAGE",
+      "metadata_docs_papers_seen": true,
+      "used_for_training": false,
+      "used_for_prompt_design": "Task format and aggregate results are known.",
+      "used_for_hyperparameter_selection": "Historical evaluation/router work used the exposed case set.",
+      "used_for_failure_taxonomy": "Exploratory failure and router results are known.",
+      "gold_or_answer_fields_exposed": "Historical aggregate evaluation outputs exist; no new row opened in U2-D.",
+      "test_content_accessed": true,
+      "foundation_model_pretraining_unknown": true,
+      "u2d_row_access": false,
+      "allowed_future_claim": "Exposed exploratory medical-QA result only; no unseen confirmatory or training claim."
+    }
+  ],
+  "global_controls": {
+    "u2d_locked_or_hidden_test_rows_accessed": false,
+    "u2d_gold_answers_accessed": false,
+    "foundation_model_pretraining_exposure": "UNKNOWN",
+    "project_level_non_contamination": "Does not imply absence from a pretrained foundation model.",
+    "source_qualification_required_before_any_future_execution": true
+  }
+}

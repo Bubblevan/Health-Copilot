@@ -1,0 +1,22 @@
+{
+  "schema_version": "u2d-run-split-policy-v1",
+  "policy_source": "docs/research/integration/u2d_split_registry.json",
+  "policy_version": "u2d-owned-synthetic-split-policy-v1",
+  "policy_frozen": true,
+  "split_membership_frozen": false,
+  "row_assignments_created": false,
+  "roles": [
+    "TRAIN",
+    "DEV",
+    "IID_TEST",
+    "OOD_PATIENT",
+    "OOD_TASK",
+    "OOD_TEMPORAL",
+    "OOD_SOURCE",
+    "OOD_COMPOSITION",
+    "EXTERNAL_TRANSFER"
+  ],
+  "future_train_dev_source": "Separate project-authored synthetic pools",
+  "third_party_benchmark_default_role": "EXTERNAL_TRANSFER",
+  "membership_status": "NONE"
+}

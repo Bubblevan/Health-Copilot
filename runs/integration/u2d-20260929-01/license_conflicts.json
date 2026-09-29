@@ -1,0 +1,46 @@
+{
+  "schema_version": "u2d-run-license-conflicts-v1",
+  "details": "See docs/research/integration/u2d_license_matrix.json",
+  "conflicts": [
+    {
+      "id": "MEDMEMORY_DATA_LICENSE",
+      "state": "UNRESOLVED",
+      "decision": "exclude data rows"
+    },
+    {
+      "id": "MEDAGENTBOARD_ARCHIVE_RIGHTS",
+      "state": "UNRESOLVED",
+      "decision": "reference only; no archive data use"
+    },
+    {
+      "id": "R2MED_PACKAGE_VS_COMPONENT_LICENSES",
+      "state": "PARTIALLY_RESOLVED_BY_SOURCE_GRANULARITY",
+      "decision": "do not collapse component rights"
+    },
+    {
+      "id": "NFCORPUS_LOCAL_APPROVAL_VS_REVIEW",
+      "state": "UNRESOLVED",
+      "decision": "no further content reuse; prior test is exposed"
+    },
+    {
+      "id": "MIRAGE_CONTAINER_VS_COMPONENT_RIGHTS",
+      "state": "UNRESOLVED",
+      "decision": "no further content reuse; prior evaluation is exposed"
+    },
+    {
+      "id": "CDC_GENERAL_PUBLIC_DOMAIN_VS_SPECIFIC_PAGE_CONTENT",
+      "state": "CONDITIONAL",
+      "decision": "article-level exception and attribution review required"
+    },
+    {
+      "id": "WHO_GENERAL_POLICY_VS_SPECIFIC_PUBLICATION",
+      "state": "CONDITIONAL",
+      "decision": "publication-level license and non-commercial/adaptation review required"
+    },
+    {
+      "id": "NHC_PUBLIC_ACCESS_VS_REUSE_RIGHT",
+      "state": "UNRESOLVED",
+      "decision": "no reuse right inferred from public access"
+    }
+  ]
+}

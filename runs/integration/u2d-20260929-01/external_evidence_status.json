@@ -1,0 +1,23 @@
+{
+  "schema_version": "u2d-run-external-evidence-status-v1",
+  "qualification_source": "docs/research/integration/u2d_external_evidence_qualification.json",
+  "families": {
+    "PUBLIC_HEALTH": {
+      "status": "CONDITIONAL",
+      "qualified_production_source_count": 0,
+      "notes": "WHO/CDC need per-card review; NHC reuse rights unresolved; U1 fixtures are synthetic only."
+    },
+    "GUIDELINE": {
+      "status": "BLOCKED",
+      "qualified_production_source_count": 0
+    },
+    "LITERATURE": {
+      "status": "BLOCKED",
+      "qualified_production_source_count": 0,
+      "notes": "Existing retrieval assets are not a rights-qualified evidence corpus; prior R2MED/NFCorpus/MIRAGE exposure is recorded."
+    }
+  },
+  "external_evidence_world_bound": false,
+  "memory_or_rag_modified": false,
+  "worker_eligibility_changed": false
+}
