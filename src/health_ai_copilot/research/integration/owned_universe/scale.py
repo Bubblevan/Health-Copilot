@@ -88,7 +88,6 @@ def _balance_query_surface(world: LatentWorld) -> str:
     metadata = dict(world.structural_metadata)
     same_surface = metadata.get("same_surface_stress_group", 0) == 1
     surface_slot = 0 if same_surface else int(world.surface_variant.split("-", 1)[0]) - 1
-    marker = f"Include the item indexed by {_required_key(world)}."
     surface = NEUTRAL_QUERY_SURFACES[surface_slot % len(NEUTRAL_QUERY_SURFACES)]
     count = _hash_int(world.scenario_seed, "query-context-count", surface_slot) % 5
     start = _hash_int(world.scenario_seed, "query-context-start", surface_slot) % len(
@@ -96,7 +95,7 @@ def _balance_query_surface(world: LatentWorld) -> str:
     )
     context = [NEUTRAL_QUERY_CONTEXTS[(start + offset) % len(NEUTRAL_QUERY_CONTEXTS)]
                for offset in range(count)]
-    return " ".join(part for part in (world.query, marker, surface, *context) if part)
+    return " ".join(part for part in (world.query, surface, *context) if part)
 
 
 def generate_u2f_plan(plan: dict[str, Any], profile: dict[str, Any]) -> tuple[LatentWorld, ...]:
@@ -758,6 +757,10 @@ def _patient_record_type_hardening(world: LatentWorld) -> LatentWorld:
 
 
 def _required_key(world: LatentWorld) -> str:
+    required_ids = set(world.graph.required_fact_ids)
+    for record in (*world.patient_records, *world.evidence_records):
+        if required_ids.intersection(record.latent_fact_ids) and record.retrieval_terms:
+            return record.retrieval_terms[0]
     return key_token(world.scenario_seed, "primary")
 
 
@@ -1000,7 +1003,7 @@ def build_u2f_worlds(
         same_surface = int(dict(members[0].structural_metadata).get(
             "same_surface_stress_group", 0
         )) == 1
-        shared_query = (f"Can a supported answer be returned for {_required_key(members[0])}?"
+        shared_query = (f"What synthetic value is supported for {_required_key(members[0])}?"
                         if same_surface else None)
         regime = pair_regime[pair_id]
         target_day = pair_target_day[pair_id]
@@ -1017,12 +1020,6 @@ def build_u2f_worlds(
             world = _insufficient_world(world)
             world = _numeric_or_boolean_world(world)
             world = _boolean_evidence_world(world)
-            if world.scenario_family == "CURRENT_ONLY" and not dict(world.structural_metadata).get(
-                "numeric_operation"
-            ):
-                world = replace(world, query=(
-                    f"{world.query} Reference synthetic field {_required_key(world)}."
-                ))
             if same_surface:
                 world = replace(world, structural_metadata=tuple(sorted({
                     **dict(world.structural_metadata), "same_surface_stress_group": 1,
