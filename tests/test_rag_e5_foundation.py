@@ -21,6 +21,9 @@ from health_ai_copilot.execution_policy import (
 from health_ai_copilot.knowledge.loader import load_knowledge_cards
 from health_ai_copilot.knowledge.scope import load_knowledge_scope
 from health_ai_copilot.retrieval_capabilities import (
+    BGE_LARGE_SHA256,
+    QWEN3_8B_SHA256,
+    R2MED_FINAL_LOCK_SHA256,
     RetrievalAction,
     require_action_available,
     retrieval_action_specs,
@@ -96,7 +99,6 @@ def test_policy_api_refuses_evaluation_case_objects() -> None:
         question="Use my trend and public guidance.",
         decision_timestamp="2026-01-01T00:00:00Z",
         longitudinal_state_ref="synthetic://state/1",
-        allowed_external_source_families=("public_health",),
     )
     teacher = EvaluatorCaseMetadata(
         case_id="synthetic-1",
@@ -109,6 +111,8 @@ def test_policy_api_refuses_evaluation_case_objects() -> None:
     )
 
     assert teacher.task_family == IntegrationTaskFamily.LONGITUDINAL_EXTERNAL
+    assert "allowed_external_source_families" not in E5IntegrationCase.__dataclass_fields__
+    assert not hasattr(case, "allowed_external_source_families")
     with pytest.raises(TypeError, match="only ExecutionPolicyObservation"):
         require_policy_observation(case)
     with pytest.raises(ValueError, match="evaluator-only"):
@@ -139,7 +143,13 @@ def test_action_space_is_frozen_and_bound_to_r2med_profiles() -> None:
     assert strong.frozen_config["feedback_depth"] == 10
     assert strong.frozen_config["rrf"]["weights"] == [1, 2, 1, 2]
     assert strong.requires_generator
-    assert all(len(item.config_sha256) == 64 for item in (off, standard, strong))
+    assert standard.config_sha256 == "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330"
+    assert strong.config_sha256 == "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b"
+    assert standard.provenance_lock_sha256 == R2MED_FINAL_LOCK_SHA256
+    assert strong.provenance_lock_sha256 == R2MED_FINAL_LOCK_SHA256
+    assert strong.frozen_config["generator"]["sha256"] == QWEN3_8B_SHA256
+    assert strong.frozen_config["dense"]["weights_sha256"] == BGE_LARGE_SHA256
+    assert len(off.config_sha256) == 64
 
 
 def test_machine_profile_and_feature_contracts_match_runtime_types() -> None:
@@ -151,6 +161,7 @@ def test_machine_profile_and_feature_contracts_match_runtime_types() -> None:
     )
 
     assert profile_payload["profiles"] == [item.to_dict() for item in retrieval_action_specs()]
+    assert profile_payload["external_corpus_identity"] is None
     assert [item["name"] for item in feature_payload["features"]] == [
         item.name for item in ExecutionPolicyObservation.__dataclass_fields__.values()
     ]

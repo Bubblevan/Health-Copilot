@@ -1,0 +1,80 @@
+{
+  "schema_version": "rag-e5-external-corpus-manifest-v1",
+  "generated_at": "2026-09-29T05:24:10.986745Z",
+  "status": "GUIDELINE_CANDIDATES_QUARANTINED",
+  "public_health_source_count": 30,
+  "public_health_chunk_count": 30,
+  "public_health_corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
+  "guideline_candidate_source_count": 3,
+  "guideline_approved_source_count": 0,
+  "guideline_active_source_count": 0,
+  "guideline_active_chunk_count": 0,
+  "guideline_candidate_chunk_count": 0,
+  "candidate_raw_source_set_sha256": "01136e09675780a3e658d1fb5abd4a231740aead6571334b8644ae8bdc7c1023",
+  "combined_active_corpus_sha256": null,
+  "chunker_config_sha256": null,
+  "extractor_version": "Poppler pdftotext 23.13.0 -layout (quarantined text only)",
+  "source_manifest_sha256": "9db64db9317e30be488fadd9afcc7b1a99df438537682157ed25041380fb8d92",
+  "public_health_card_identity_note": "The existing 30 reviewed public-health cards are referenced in place; no copies or source-family reclassification were made.",
+  "guideline_candidates": [
+    {
+      "source_id": "who-hypertension-pharmacological-2021",
+      "source_family": "reviewed_guideline",
+      "review_status": "READY_FOR_OWNER_REVIEW",
+      "owner_review_status": "PENDING",
+      "raw_sha256": "57f6376d5c9bc4ea6c44873625547c8a5443d5a6ad8c8c422733681563db05fb",
+      "raw_bytes": 843539,
+      "extracted_text_sha256": "4b4beafa42fa580a372e3493da3fe84d8b69e3a91a7e7a05ee6e800f39466894",
+      "domain_bindings": [
+        "hypertension",
+        "cardiovascular"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "hypertension": 20,
+        "cardiovascular": 20
+      },
+      "recommendation_section_count": 8,
+      "chunked_recommendation_section_count": 0,
+      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW"
+    },
+    {
+      "source_id": "who-physical-activity-sedentary-2020",
+      "source_family": "reviewed_guideline",
+      "review_status": "READY_FOR_OWNER_REVIEW",
+      "owner_review_status": "PENDING",
+      "raw_sha256": "50b66c44e7083cc3752849f301ae1d60d9360d511e34c0c948b39bdf6e13dc88",
+      "raw_bytes": 4041257,
+      "extracted_text_sha256": "c0d8a859942b01d9e8d1eaa151915aa873bd7e877cf4b3550c3ffca8f1d806a6",
+      "domain_bindings": [
+        "physical_activity"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "physical_activity": 20
+      },
+      "recommendation_section_count": 12,
+      "chunked_recommendation_section_count": 0,
+      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW"
+    },
+    {
+      "source_id": "who-total-fat-weight-gain-2023",
+      "source_family": "reviewed_guideline",
+      "review_status": "READY_FOR_OWNER_REVIEW",
+      "owner_review_status": "PENDING",
+      "raw_sha256": "a9f12218be0b1720c9be4f0dee79c2dbdcbd13fb44cd3e0d751bf04b5fa63381",
+      "raw_bytes": 741784,
+      "extracted_text_sha256": "88ae89619a950e16d46e52ae0f0476fb04292ed89df02b2b42b58a5e2c04dda8",
+      "domain_bindings": [
+        "nutrition",
+        "weight_metabolic"
+      ],
+      "users_with_longitudinal_signal_by_domain": {
+        "nutrition": 20,
+        "weight_metabolic": 20
+      },
+      "recommendation_section_count": 2,
+      "chunked_recommendation_section_count": 0,
+      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW"
+    }
+  ],
+  "promotion_blocker": "No owner approval record has been supplied; candidate sources are not active or retrievable."
+}

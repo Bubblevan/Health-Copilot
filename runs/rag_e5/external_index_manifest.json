@@ -1,0 +1,49 @@
+{
+  "schema_version": "rag-e5-external-index-manifest-v1",
+  "generated_at": "2026-09-29T05:24:10.986745Z",
+  "status": "NOT_BUILT",
+  "bm25_index_ready": false,
+  "dense_index_ready": false,
+  "embedding_model": "BAAI/bge-large-en-v1.5",
+  "embedding_revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+  "embedding_dimension": 1024,
+  "normalized": true,
+  "views": [
+    {
+      "corpus_view_id": "PUBLIC_HEALTH_ONLY",
+      "source_families": [
+        "public_health"
+      ],
+      "source_count": 30,
+      "chunk_count": 30,
+      "corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
+      "status": "NOT_INDEXED_BY_E5_A2"
+    },
+    {
+      "corpus_view_id": "GUIDELINE_ONLY",
+      "source_families": [
+        "reviewed_guideline"
+      ],
+      "source_count": 0,
+      "chunk_count": 0,
+      "corpus_sha256": null,
+      "status": "BLOCKED_OWNER_APPROVAL_AND_CHUNK_AUDIT"
+    },
+    {
+      "corpus_view_id": "PUBLIC_HEALTH_PLUS_GUIDELINE",
+      "source_families": [
+        "public_health",
+        "reviewed_guideline"
+      ],
+      "source_count": 30,
+      "chunk_count": 30,
+      "corpus_sha256": null,
+      "status": "BLOCKED_OWNER_APPROVAL_AND_CHUNK_AUDIT"
+    }
+  ],
+  "standard_profile_config_sha256": "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330",
+  "strong_profile_config_sha256": "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b",
+  "external_corpus_identity": null,
+  "built_at": null,
+  "code_commit": null
+}

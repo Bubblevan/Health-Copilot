@@ -13,12 +13,9 @@ class IntegrationTaskFamily(StrEnum):
     LONGITUDINAL_EXTERNAL = "T2"
 
 
-_E5_SOURCE_FAMILIES = frozenset({"public_health", "reviewed_guideline"})
-
-
 @dataclass(frozen=True, slots=True)
 class E5IntegrationCase:
-    """Question/state references visible to the runner, not teacher labels."""
+    """Case identity and runtime inputs, without capability or teacher labels."""
 
     case_id: str
     user_id: str
@@ -26,7 +23,6 @@ class E5IntegrationCase:
     question: str
     decision_timestamp: str
     longitudinal_state_ref: str
-    allowed_external_source_families: tuple[str, ...]
 
     def __post_init__(self) -> None:
         for name in (
@@ -47,13 +43,6 @@ class E5IntegrationCase:
             raise ValueError("decision_timestamp must be ISO-8601") from exc
         if parsed.tzinfo is None:
             raise ValueError("decision_timestamp must include a timezone")
-        raw_families = tuple(self.allowed_external_source_families)
-        if any(not isinstance(item, str) or not item.strip() for item in raw_families):
-            raise ValueError("allowed_external_source_families must contain non-empty strings")
-        if not set(raw_families).issubset(_E5_SOURCE_FAMILIES):
-            raise ValueError("allowed_external_source_families contains a family outside E5 v1")
-        families = tuple(sorted(set(raw_families)))
-        object.__setattr__(self, "allowed_external_source_families", families)
 
 
 @dataclass(frozen=True, slots=True)

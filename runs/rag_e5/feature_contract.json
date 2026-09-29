@@ -93,7 +93,7 @@
     },
     {
       "name": "available_source_families",
-      "producer": "reviewed CapabilitySourceCatalog eligibility resolution",
+      "producer": "E5RuntimeCapabilityContext from environment catalog and active corpus identity; independent of task/teacher metadata",
       "available_at_decision_time": true,
       "uses_external_retrieval": false,
       "uses_gold": false,
@@ -101,7 +101,7 @@
     },
     {
       "name": "available_retrieval_actions",
-      "producer": "frozen RetrievalCapabilitySpec plus active catalog and budget checks",
+      "producer": "environment permission state plus frozen RetrievalCapabilitySpec, active corpus catalog, and budget checks",
       "available_at_decision_time": true,
       "uses_external_retrieval": false,
       "uses_gold": false,
@@ -223,5 +223,10 @@
     "retrieved_gold_doc_count",
     "post_retrieval_evidence_score"
   ],
-  "task_intent_features": "Not included in v1; any future intent must be runtime-derived from current query/state and separately frozen."
+  "task_intent_features": "Not included in v1; any future intent must be runtime-derived from current query/state and separately frozen.",
+  "provenance_only_fields": {
+    "capability_context_source": "environment",
+    "included_in_policy_observation": false,
+    "forbidden_sources": ["task", "teacher", "evaluator", "counterfactual"]
+  }
 }

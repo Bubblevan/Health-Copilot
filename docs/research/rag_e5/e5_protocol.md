@@ -34,8 +34,9 @@ and 202608 user cohorts are disjoint and remain a user-level split.
 ## Integration-task contract
 
 An `E5IntegrationCase` contains only case/user/batch identity, the task question,
-decision timestamp, a longitudinal-state reference, and the source families
-allowed by the runtime catalog. Evaluator metadata is a separate type and owns
+decision timestamp, and a longitudinal-state reference. Runtime capability
+metadata is constructed separately from environment source families, the
+active corpus identity, permissions, and budget state. Evaluator metadata is a separate type and owns
 the task-family label, dependency assertions, and evaluation payload reference.
 It is never passed to the execution policy.
 
@@ -56,9 +57,11 @@ The sole policy input is
 `health_ai_copilot.execution_policy.ExecutionPolicyObservation`. Its frozen
 field-level contract is
 [`runs/rag_e5/feature_contract.json`](../../../runs/rag_e5/feature_contract.json).
-Fields are decision-time query, history/memory summaries, eligible capability
-metadata, budgets/deadline, sanitized prior non-retrieval failures, and an
-optional deterministic bounded state summary. It excludes benchmark labels,
+Fields are decision-time query, history/memory summaries, environment-sourced
+capability metadata, budgets/deadline, sanitized prior non-retrieval failures,
+and an optional deterministic bounded state summary. Capability metadata has
+`capability_context_source="environment"` provenance and is independent of T0,
+T1, and T2 teacher annotations. It excludes benchmark labels,
 gold answers/source groups, retrieval relevance, post-retrieval signals, and all
 three counterfactual outcomes. `from_dict` rejects unknown fields, and the
 separate leakage guard rejects evaluator-only fields even when nested.
@@ -112,11 +115,15 @@ existing capability contracts mark:
   connected to the active retriever.
 - `LITERATURE`: not yet eligible and reserved for this E5 version.
 
-The schema, state substrate, action contracts, and leakage tests are in place,
-but the requested guideline capability is not. Therefore `E5A_READY = NO` and
-E5 must stop before any T2 case construction, counterfactual outcome run, oracle
-calculation, policy training, or 202608 outcome inspection. See
-[`e5_external_corpus.md`](e5_external_corpus.md) for the bounded next prerequisite.
+The E5-A2 qualification has three WHO source candidates ready for owner review,
+but zero owner-approved guideline sources, active guideline chunks, or formal
+E5 indexes. The candidate PDFs are quarantined, and
+`external_corpus_identity` remains null in the unchanged action profiles.
+Therefore `E5A_READY = NO`; E5 must stop before any T2 case construction,
+counterfactual outcome run, oracle calculation, policy training, or 202608
+outcome inspection. See the
+[`E5-A2 review packet`](e5a2_guideline_review_packet.md) and
+[`corpus qualification`](e5a2_guideline_corpus.md) for the human-review gate.
 
 ## Stage gates and stop rules
 
