@@ -1,0 +1,46 @@
+{
+  "schema_version": "u2d-owner-scope-run-manifest-v1",
+  "run_id": "u2d-20260929-02",
+  "stage": "U2-D",
+  "created_at": "2026-09-29",
+  "status": "COMPLETE_WITH_OWNER_ACCEPTED_SCOPE",
+  "supersedes_decision_snapshot": "runs/integration/u2d-20260929-01",
+  "branch": "integration-u2d-dataset-split-license-20260929",
+  "base_commit": "f0c741f3fcd4b37e1e54ee1a77c770000085c8e3",
+  "owner_scope_decisions": {
+    "research_use": "non-commercial",
+    "MedMemoryBench": "external evaluation only; no redistribution; no training",
+    "MedAgentBoard": "partial non-MIMIC external validation; no redistribution; exclude mimic-iv and separate workflow task",
+    "ESL_Bench": "use local manifest-v16 202608 batch",
+    "WHO_CDC": "retrieval layer only; no document redistribution; no training; no per-article audit",
+    "MedMASLab": "REFERENCE_ONLY; no multimodal download"
+  },
+  "selected_esl_artifact": {
+    "local_path": "D:/MyLab/Jianli/external/datasets/ESL-Bench",
+    "manifest_version": 16,
+    "manifest_updated_at": "2026-09-07T08:34:58Z",
+    "batch": "202608",
+    "file": "data/202608/sample320-20260830.jsonl",
+    "manifest_batch_checksum": "sha256:7745391e881d5ee1d4e006f2220aecb8cea1512edad5782d535c23bb2017a548",
+    "checksum_recomputed": false
+  },
+  "benchmark_rows_read": 0,
+  "locked_or_hidden_test_rows_read": 0,
+  "gold_answers_read": 0,
+  "gated_data_accessed": false,
+  "benchmark_executions": 0,
+  "hosted_model_calls": 0,
+  "raw_or_restricted_content_committed": false,
+  "memory_changed": false,
+  "rag_changed": false,
+  "worker_eligibility_changed": false,
+  "artifacts": [
+    "manifest.json",
+    "source_qualification.json",
+    "license_conflicts.json",
+    "split_policy.json",
+    "external_evidence_status.json",
+    "decision.json",
+    "report.md"
+  ]
+}

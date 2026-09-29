@@ -82,6 +82,12 @@
   },
   "source_role_decisions": {
     "third_party_benchmark_rows": "EXTERNAL_TRANSFER only, conditional on source-specific license and exposure eligibility",
+    "ESL_BENCH": "EXTERNAL_TRANSFER using the local manifest-v16 202608 batch only",
+    "MEDMEMORYBENCH": "EXTERNAL_TRANSFER for non-commercial research evaluation only; no TRAIN, DEV, or redistribution",
+    "MEDAGENTBOARD": "EXTERNAL_TRANSFER for selected non-MIMIC QA, lay-summary, and tjh EHR prediction assets; exclude mimic-iv and workflow task",
+    "WHO_CDC_KNOWLEDGE_CARDS": "EXTERNAL_RETRIEVAL for non-commercial research only; no source-document redistribution or training",
+    "NHC_KNOWLEDGE_CARDS": "REFERENCE_ONLY; not bound to the retrieval world",
+    "MEDMASLAB": "REFERENCE_ONLY; no dataset download",
     "retired_answer_bearing_public_benchmark_batches": "REFERENCE_ONLY",
     "U1_U1_1_contract_fixtures": "SCHEMA_REFERENCE_ONLY",
     "new_owned_synthetic_train_dev_corpus": "future recommendation only; no rows created"

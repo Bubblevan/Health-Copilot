@@ -1,0 +1,22 @@
+{
+  "schema_version": "u2d-owner-scope-split-policy-v1",
+  "policy_source": "docs/research/integration/u2d_split_registry.json",
+  "policy_version": "u2d-owned-synthetic-split-policy-v1",
+  "policy_frozen": true,
+  "split_membership_frozen": false,
+  "row_assignments_created": false,
+  "selected_external_roles": {
+    "ESL_BENCH": "EXTERNAL_TRANSFER: local 202608 batch",
+    "MEDMEMORYBENCH": "EXTERNAL_TRANSFER: non-commercial evaluation only",
+    "MEDAGENTBOARD": "EXTERNAL_TRANSFER: selected non-MIMIC task subset",
+    "CDC_WHO": "EXTERNAL_RETRIEVAL: non-commercial retrieval only"
+  },
+  "excluded_from_current_scope": [
+    "MedAgentBoard mimic-iv task variants",
+    "MedAgentBoard separate clinical workflow task",
+    "NHC cards from retrieval",
+    "MedMASLab multimodal dataset",
+    "all third-party TRAIN and DEV content"
+  ],
+  "no_row_assignments_created": true
+}
