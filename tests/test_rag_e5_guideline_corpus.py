@@ -1,15 +1,19 @@
 from __future__ import annotations
 
+import json
 from hashlib import sha256
 from pathlib import Path
 
 import pytest
 
 from eval.rag_e5.corpus import (
+    E5ExternalChunk,
     RecommendationBlock,
     approved_guideline_sources,
     build_corpus_view,
     build_guideline_chunks,
+    build_public_health_chunks,
+    task_authoring_guideline_sources,
     validate_index_binding,
     validate_ranked_chunk_ids,
     verify_raw_source,
@@ -20,6 +24,7 @@ def _manifest(path: Path, *, status: str = "APPROVED") -> dict[str, object]:
     raw_hash = sha256(path.read_bytes()).hexdigest()
     return {
         "source_family": "reviewed_guideline",
+        "owner_decision_record_sha256": "d" * 64,
         "sources": [
             {
                 "source_id": "who-synthetic-1",
@@ -27,6 +32,11 @@ def _manifest(path: Path, *, status: str = "APPROVED") -> dict[str, object]:
                 "review_status": status,
                 "owner_review_status": status,
                 "owner_reviewed_at": "2026-01-01T00:00:00Z" if status == "APPROVED" else None,
+                "owner_decision_record_sha256": "d" * 64,
+                "approval_scope": "test public-health scope",
+                "task_authoring_eligible": True,
+                "allowed_task_intents": ["general_guideline_information"],
+                "prohibited_task_intents": ["diagnosis"],
                 "raw_sha256": raw_hash,
             }
         ],
@@ -85,6 +95,39 @@ def test_guideline_source_family_is_not_public_health(tmp_path: Path) -> None:
 
     assert source["source_family"] == "reviewed_guideline"
     assert source["source_family"] != "public_health"
+
+
+def test_task_authoring_requires_explicit_source_eligibility(tmp_path: Path) -> None:
+    raw_path = tmp_path / "source.pdf"
+    raw_path.write_bytes(b"synthetic guideline source")
+    manifest = _manifest(raw_path)
+    source = manifest["sources"][0]  # type: ignore[index]
+    source["task_authoring_eligible"] = False
+
+    assert task_authoring_guideline_sources(manifest) == ()
+    assert len(approved_guideline_sources(manifest)) == 1
+
+
+def test_approved_source_requires_machine_readable_scope_limits(tmp_path: Path) -> None:
+    raw_path = tmp_path / "source.pdf"
+    raw_path.write_bytes(b"synthetic guideline source")
+    manifest = _manifest(raw_path)
+    source = manifest["sources"][0]  # type: ignore[index]
+    del source["prohibited_task_intents"]
+
+    with pytest.raises(ValueError, match="prohibited_task_intents"):
+        approved_guideline_sources(manifest)
+
+
+def test_approved_source_must_bind_the_manifest_owner_decision(tmp_path: Path) -> None:
+    raw_path = tmp_path / "source.pdf"
+    raw_path.write_bytes(b"synthetic guideline source")
+    manifest = _manifest(raw_path)
+    source = manifest["sources"][0]  # type: ignore[index]
+    source["owner_decision_record_sha256"] = "e" * 64
+
+    with pytest.raises(ValueError, match="bind the owner decision record"):
+        approved_guideline_sources(manifest)
 
 
 def test_raw_source_hash_must_match_manifest(tmp_path: Path) -> None:
@@ -152,8 +195,6 @@ def test_chunk_max_token_contract_is_enforced(tmp_path: Path) -> None:
 
 
 def test_corpus_views_are_family_scoped_before_ranking() -> None:
-    from eval.rag_e5.corpus import GuidelineChunk
-
     common = {
         "section_path": ("section",),
         "recommendation_id": "rec",
@@ -161,14 +202,15 @@ def test_corpus_views_are_family_scoped_before_ranking() -> None:
         "text_sha256": "a" * 64,
         "token_count": 1,
         "char_count": 4,
-        "source_raw_sha256": "b" * 64,
+        "raw_source_sha256": "b" * 64,
+        "review_identity": "c" * 64,
         "extractor_version": "v1",
         "chunker_version": "v1",
     }
-    guideline = GuidelineChunk(
+    guideline = E5ExternalChunk(
         chunk_id="guideline-1", source_id="who-1", source_family="reviewed_guideline", **common
     )
-    public_health = GuidelineChunk(
+    public_health = E5ExternalChunk(
         chunk_id="public-1", source_id="ph-1", source_family="public_health", **common
     )
 
@@ -190,6 +232,67 @@ def test_corpus_views_are_family_scoped_before_ranking() -> None:
     assert all(chunk.source_family == "reviewed_guideline" for chunk in guideline_only.chunks)
     with pytest.raises(ValueError, match="outside its prebuilt corpus view"):
         validate_ranked_chunk_ids(guideline_only, ("public-1",))
+
+
+def test_each_reviewed_knowledge_card_maps_to_one_unmodified_chunk(tmp_path: Path) -> None:
+    card_path = tmp_path / "card-1.json"
+    card = {
+        "id": "card-1",
+        "title": "A reviewed title",
+        "content": "Keep this exact public-health body.",
+        "source_url": "https://example.org/source",
+        "publisher": "Example publisher",
+        "reviewed_at": "2026-01-01",
+        "reviewer": "reviewer-1",
+        "version": "1",
+    }
+    raw = json.dumps(card).encode("utf-8")
+    card_path.write_bytes(raw)
+
+    chunks = build_public_health_chunks(card_paths=(card_path,), tokenize=_tokenize)
+
+    assert len(chunks) == 1
+    assert chunks[0].source_id == card["id"]
+    assert chunks[0].source_family == "public_health"
+    assert chunks[0].text == card["content"]
+    assert chunks[0].raw_source_sha256 == sha256(raw).hexdigest()
+    assert chunks[0].recommendation_id is None
+
+    view = build_corpus_view(
+        chunks, corpus_view_id="PUBLIC_HEALTH_ONLY", source_families=("public_health",)
+    )
+    expected_payload = [{"card_id": "card-1", "file_sha256": sha256(raw).hexdigest()}]
+    expected_sha = sha256(
+        json.dumps(
+            expected_payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    assert view.corpus_sha256 == expected_sha
+
+
+def test_knowledge_card_identity_must_match_its_filename(tmp_path: Path) -> None:
+    card_path = tmp_path / "filename-id.json"
+    card_path.write_text(
+        json.dumps(
+            {
+                "id": "different-id",
+                "title": "A reviewed title",
+                "content": "Reviewed body.",
+                "source_url": "https://example.org/source",
+                "publisher": "Example publisher",
+                "reviewed_at": "2026-01-01",
+                "reviewer": "reviewer-1",
+                "version": "1",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="frozen filename identity"):
+        build_public_health_chunks(card_paths=(card_path,), tokenize=_tokenize)
 
 
 def test_bm25_and_dense_indexes_must_bind_exact_corpus_hash() -> None:

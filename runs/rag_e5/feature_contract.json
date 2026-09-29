@@ -45,7 +45,7 @@
     },
     {
       "name": "active_condition_count",
-      "producer": "LongitudinalStatePacket profile index",
+      "producer": "LongitudinalStatePacket condition categories derived from pre-cutoff structured timeline/exam labels",
       "available_at_decision_time": true,
       "uses_external_retrieval": false,
       "uses_gold": false,

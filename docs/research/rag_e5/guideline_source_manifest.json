@@ -1,16 +1,18 @@
 {
-  "schema_version": "rag-e5-guideline-source-manifest-v2",
+  "schema_version": "rag-e5-guideline-source-manifest-v3",
   "source_family": "reviewed_guideline",
-  "eligibility": "NOT_YET_ELIGIBLE",
-  "review_status": "READY_FOR_OWNER_REVIEW",
-  "qualification_snapshot_at": "2026-09-29T05:02:50Z",
+  "eligibility": "OWNER_APPROVED_PENDING_CORPUS_QUALIFICATION",
+  "review_status": "APPROVED",
+  "owner_decision_record": "docs/research/rag_e5/e5a3_owner_decision.json",
+  "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+  "qualification_snapshot_at": "2026-09-29T09:46:19Z",
   "active_source_count": 0,
   "review_candidate_count": 3,
   "sources": [
     {
       "source_id": "who-hypertension-pharmacological-2021",
       "source_family": "reviewed_guideline",
-      "review_status": "READY_FOR_OWNER_REVIEW",
+      "review_status": "APPROVED",
       "publisher": "World Health Organization",
       "title": "Guideline for the pharmacological treatment of hypertension in adults",
       "jurisdiction": "Global",
@@ -42,11 +44,26 @@
         {"section_id": "3.8", "title": "Administration of treatment by non-physician professionals"}
       ],
       "detected_recommendation_section_count": 8,
-      "chunked_recommendation_section_count": 0,
-      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW",
-      "automated_review_status": "READY_FOR_OWNER_REVIEW",
-      "owner_review_status": "PENDING",
-      "owner_reviewed_at": null,
+      "chunked_recommendation_section_count": 8,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET",
+      "automated_review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "owner_reviewed_at": "2026-09-29T09:46:19Z",
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+      "approval_scope": "retrieval-corpus-only; may serve as context or distractor, not required gold evidence in E5-v1",
+      "task_authoring_eligible": false,
+      "allowed_task_intents": [
+        "retrieval_context",
+        "external_evidence_distractor"
+      ],
+      "prohibited_task_intents": [
+        "medication_initiation",
+        "treatment_target_selection",
+        "drug_class_choice",
+        "diagnosis",
+        "individualized_treatment",
+        "medication_prescription"
+      ],
       "review_caveats": [
         "Pharmacological-management document, not a general hypertension lifestyle guide.",
         "Pregnancy-specific and emergency-setting sections require careful population filtering."
@@ -55,7 +72,7 @@
     {
       "source_id": "who-physical-activity-sedentary-2020",
       "source_family": "reviewed_guideline",
-      "review_status": "READY_FOR_OWNER_REVIEW",
+      "review_status": "APPROVED",
       "publisher": "World Health Organization",
       "title": "WHO guidelines on physical activity and sedentary behaviour",
       "jurisdiction": "Global",
@@ -91,20 +108,36 @@
         {"section_id": "disability_sedentary", "title": "People living with disability: sedentary behaviour"}
       ],
       "detected_recommendation_section_count": 12,
-      "chunked_recommendation_section_count": 0,
-      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW",
-      "automated_review_status": "READY_FOR_OWNER_REVIEW",
-      "owner_review_status": "PENDING",
-      "owner_reviewed_at": null,
+      "chunked_recommendation_section_count": 12,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET; 14 population-specific blocks preserve 12 sections",
+      "automated_review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "owner_reviewed_at": "2026-09-29T09:46:19Z",
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+      "approval_scope": "population-level public-health activity and sedentary-behaviour guidance only",
+      "task_authoring_eligible": true,
+      "allowed_task_intents": [
+        "population_public_health_recommendation",
+        "bounded_comparison_to_recorded_activity_when_measure_definitions_match"
+      ],
+      "prohibited_task_intents": [
+        "diagnosis",
+        "exercise_clearance",
+        "individualized_exercise_prescription",
+        "disease_risk_assessment",
+        "equate_daily_steps_with_mvpa_minutes"
+      ],
       "review_caveats": [
         "Guideline is broad public-health guidance; individual exercise advice still depends on contraindications and clinical context.",
-        "PDF third-party content must be excluded or separately licensed."
+        "PDF third-party content must be excluded or separately licensed.",
+        "WHO's current physical-activity page still lists the 2020 guideline as foundational; the 2026 wearable-measurement report concerns measurement guidance and is not a replacement edition.",
+        "Daily-step measurements are not interchangeable with moderate-to-vigorous physical-activity minutes."
       ]
     },
     {
       "source_id": "who-total-fat-weight-gain-2023",
       "source_family": "reviewed_guideline",
-      "review_status": "READY_FOR_OWNER_REVIEW",
+      "review_status": "APPROVED",
       "publisher": "World Health Organization",
       "title": "Total fat intake for the prevention of unhealthy weight gain in adults and children: WHO guideline",
       "jurisdiction": "Global",
@@ -130,11 +163,24 @@
         {"section_id": "recommendation_2", "title": "Total fat intake for children and adults as scoped in the remarks"}
       ],
       "detected_recommendation_section_count": 2,
-      "chunked_recommendation_section_count": 0,
-      "recommendation_retention_audit": "NOT_RUN_PENDING_OWNER_REVIEW",
-      "automated_review_status": "READY_FOR_OWNER_REVIEW",
-      "owner_review_status": "PENDING",
-      "owner_reviewed_at": null,
+      "chunked_recommendation_section_count": 2,
+      "recommendation_retention_audit": "PASS_EXACT_CANONICAL_SECTION_ID_SET",
+      "automated_review_status": "APPROVED",
+      "owner_review_status": "APPROVED",
+      "owner_reviewed_at": "2026-09-29T09:46:19Z",
+      "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+      "approval_scope": "population-level prevention of unhealthy weight gain; not treatment of existing overweight or obesity",
+      "task_authoring_eligible": true,
+      "allowed_task_intents": [
+        "population_prevention_guidance",
+        "general_total_fat_guideline_information"
+      ],
+      "prohibited_task_intents": [
+        "diagnosis",
+        "infer_individual_dietary_fat_intake",
+        "obesity_management",
+        "individualized_therapeutic_diet"
+      ],
       "review_caveats": [
         "Population-level prevention guidance; it must not be presented as treatment for existing obesity.",
         "PDF third-party content must be excluded or separately licensed."
@@ -153,6 +199,6 @@
       "reason": "The 202607 aggregate audit found no direct cognitive/dementia longitudinal signal. Do not select a source solely because it is new."
     }
   ],
-  "admission_rule": "Only sources with review_status=APPROVED and owner_review_status=APPROVED may enter the active reviewed_guideline corpus. READY_FOR_OWNER_REVIEW sources remain quarantined candidates.",
-  "promotion_blocker": "No owner approval record has been supplied; candidate sources are not active or retrievable."
+  "admission_rule": "Only sources with review_status=APPROVED and owner_review_status=APPROVED may enter the active reviewed_guideline corpus. Source approval is separate from task_authoring_eligible; scope limits must be enforced by the task authoring contract.",
+  "promotion_blocker": "Owner approval and exact recommendation-section retention are recorded; activation is blocked because the frozen BGE source-title smoke scored 8/10 for PUBLIC_HEALTH_ONLY. Two Chinese CDC title queries ranked their target sources at 18 and 15; frozen model and queries were not changed."
 }

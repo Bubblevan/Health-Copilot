@@ -105,25 +105,30 @@ from the current question and the same query's BM25 top-10 only.
 
 ## Current E5-A capability gate
 
-The existing reviewed catalog has 30 sources, all classified as
-`public_health` (catalog hash
-`7cef21fceb5c04577fed2541dbefd2798900299825b711ab06c8c14e41b29c19`). The
-existing capability contracts mark:
+The E5-A2 owner-review snapshot is historical and has been superseded by the
+E5-A3 owner decision and corpus/index qualification. The owner approved three
+WHO guideline sources for candidate-corpus retrieval; physical-activity and
+total-fat sources are task-authoring eligible, while the hypertension
+pharmacological source is restricted to retrieval context/distractor use.
+Deterministic extraction retained all 22 declared recommendation sections in
+26 guideline chunks. The existing 30 reviewed public-health cards were mapped
+one-to-one without changing their text or source family.
 
-- `PUBLIC_HEALTH`: eligible.
-- `GUIDELINE`: not yet eligible; no reviewed guideline/recommendation corpus is
-  connected to the active retriever.
-- `LITERATURE`: not yet eligible and reserved for this E5 version.
+BM25 passed all three 10-query source-title smoke views. The frozen BGE dense
+index passed `GUIDELINE_ONLY` and `PUBLIC_HEALTH_PLUS_GUIDELINE`, but scored
+8/10 for `PUBLIC_HEALTH_ONLY`; the two expected Chinese CDC sources ranked 18th
+and 15th. The corpus is therefore not activated. The candidate identity is
+recorded in the qualification artifacts, while runtime
+`external_corpus_identity` remains null and STANDARD/STRONG remain unbound.
+`E5A_READY = NO`. No task construction, counterfactual run, oracle calculation,
+policy training, or 202608 outcome inspection occurred. See the
+[`E5-A3 qualification report`](e5a3_index_qualification.md) and
+[`activation gate JSON`](../../../runs/rag_e5/e5a3_activation_report.json).
 
-The E5-A2 qualification has three WHO source candidates ready for owner review,
-but zero owner-approved guideline sources, active guideline chunks, or formal
-E5 indexes. The candidate PDFs are quarantined, and
-`external_corpus_identity` remains null in the unchanged action profiles.
-Therefore `E5A_READY = NO`; E5 must stop before any T2 case construction,
-counterfactual outcome run, oracle calculation, policy training, or 202608
-outcome inspection. See the
-[`E5-A2 review packet`](e5a2_guideline_review_packet.md) and
-[`corpus qualification`](e5a2_guideline_corpus.md) for the human-review gate.
+The A2 details remain in the
+[`historical E5-A2 qualification record`](e5a2_guideline_corpus.md); they
+describe the state before owner approval and must not be read as the current
+activation status.
 
 ## Stage gates and stop rules
 

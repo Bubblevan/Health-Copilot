@@ -1,0 +1,26 @@
+{
+  "schema_version": "rag-e5-profile-temporal-contract-v1",
+  "time_invariant_safe": {
+    "demographics.age": "materialize_only_as_age_bucket"
+  },
+  "baseline_safe_if_proven": [],
+  "temporally_unsafe": [
+    "health_profile.chronic_conditions",
+    "health_profile.past_medical_history",
+    "health_profile.summary",
+    "health_profile.patient_narrative",
+    "health_profile.mental_health",
+    "health_profile.family_history"
+  ],
+  "excluded_from_policy_features": [
+    "profile.metadata"
+  ],
+  "condition_categories_source": [
+    "timeline.entry_type",
+    "timeline.indicator",
+    "exam_data.exam_type",
+    "exam_data.indicators.keys"
+  ],
+  "condition_category_cutoff": "record_timestamp <= decision_timestamp",
+  "date_only_exam_on_decision_date": "exclude_conservatively"
+}

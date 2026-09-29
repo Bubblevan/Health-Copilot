@@ -5,6 +5,7 @@ import copy
 import pytest
 
 from eval.rag_e5.longitudinal_state import (
+    PROFILE_TEMPORAL_CONTRACT_SHA256,
     build_longitudinal_state_packet,
     build_longitudinal_state_packet_from_payload,
 )
@@ -123,9 +124,89 @@ def test_state_summary_is_deterministic_bounded_and_does_not_copy_prose_or_value
     assert "private narrative" not in first.state_summary
     assert "ignored narrative" not in first.state_summary
     assert "120" not in first.state_summary
-    assert first.summary_builder_version == "e5-longitudinal-state-v1"
+    assert first.summary_builder_version == "e5-longitudinal-state-v2"
     assert len(first.summary_config_sha256) == 64
+    assert first.profile_temporal_contract_sha256 == PROFILE_TEMPORAL_CONTRACT_SHA256
     assert len(first.packet_sha256) == 64
+
+
+def test_profile_clinical_fields_do_not_change_runtime_packet() -> None:
+    payload, hashes = _fixture()
+    baseline = _build(payload, hashes)
+    changed = copy.deepcopy(payload)
+    changed["profile"]["health_profile"].update(  # type: ignore[index]
+        {
+            "chronic_conditions": ["diabetes", "kidney disease"],
+            "past_medical_history": ["stroke"],
+            "summary": "profile summary must not affect decision-time state",
+            "patient_narrative": "profile narrative must not affect decision-time state",
+            "mental_health": {"depression": True},
+            "family_history": ["heart disease"],
+        }
+    )
+
+    changed_packet = _build(changed, hashes)
+
+    assert changed_packet.condition_categories == baseline.condition_categories
+    assert changed_packet.state_summary == baseline.state_summary
+    assert changed_packet.packet_sha256 == baseline.packet_sha256
+
+
+def test_condition_categories_use_only_pre_cutoff_structured_records() -> None:
+    payload, hashes = _fixture()
+    payload["profile"]["health_profile"]["chronic_conditions"] = [  # type: ignore[index]
+        "hypertension",
+        "diabetes",
+    ]
+    payload["timeline"]["entries"] = [  # type: ignore[index]
+        {
+            "time": "2026-01-01T08:00:00Z",
+            "entry_type": "device_indicator",
+            "indicator": "DailySteps",
+            "value": 4000,
+        },
+        {
+            "time": "2026-01-04T08:00:00Z",
+            "entry_type": "device_indicator",
+            "indicator": "SystolicBloodPressure",
+            "value": 220,
+        },
+    ]
+    payload["exam_data"] = [  # type: ignore[assignment]
+        {
+            "exam_date": "2026-01-02",
+            "exam_type": "routine exam",
+            "indicators": {"BodyWeight": 70},
+        },
+        {
+            "exam_date": "2026-01-05",
+            "exam_type": "hypertension exam",
+            "indicators": {"BloodGlucose": 999},
+        },
+    ]
+
+    packet = _build(payload, hashes)
+
+    assert "hypertension" not in packet.condition_categories
+    assert "diabetes" not in packet.condition_categories
+    assert "physical_activity" in packet.condition_categories
+    assert "weight_metabolic" in packet.condition_categories
+
+
+def test_profile_metadata_is_not_a_policy_shortcut() -> None:
+    payload, hashes = _fixture()
+    baseline = _build(payload, hashes)
+    changed = copy.deepcopy(payload)
+    changed["profile"]["metadata"] = {  # type: ignore[index]
+        "generation_type": "202607-only marker",
+        "use_case": "future batch discriminator",
+        "profile_id": "synthetic-id",
+    }
+
+    changed_packet = _build(changed, hashes)
+
+    assert changed_packet.state_summary == baseline.state_summary
+    assert changed_packet.packet_sha256 == baseline.packet_sha256
 
 
 @pytest.mark.parametrize(

@@ -23,21 +23,27 @@ class RecommendationBlock:
 
 
 @dataclass(frozen=True, slots=True)
-class GuidelineChunk:
-    """A deterministic retrieval chunk with source and section provenance."""
+class E5ExternalChunk:
+    """Canonical family-neutral E5 chunk with review and extraction provenance."""
 
     chunk_id: str
     source_id: str
     source_family: str
     section_path: tuple[str, ...]
-    recommendation_id: str
+    recommendation_id: str | None
     text: str
     text_sha256: str
     token_count: int
     char_count: int
-    source_raw_sha256: str
+    raw_source_sha256: str
+    review_identity: str
     extractor_version: str
     chunker_version: str
+
+    @property
+    def source_raw_sha256(self) -> str:
+        """Compatibility alias for pre-A3 diagnostics."""
+        return self.raw_source_sha256
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -50,10 +56,15 @@ class GuidelineChunk:
             "text_sha256": self.text_sha256,
             "token_count": self.token_count,
             "char_count": self.char_count,
-            "source_raw_sha256": self.source_raw_sha256,
+            "raw_source_sha256": self.raw_source_sha256,
+            "review_identity": self.review_identity,
             "extractor_version": self.extractor_version,
             "chunker_version": self.chunker_version,
         }
+
+
+# The old name remains a type alias while callers migrate to the canonical contract.
+GuidelineChunk = E5ExternalChunk
 
 
 @dataclass(frozen=True, slots=True)
@@ -62,7 +73,7 @@ class CorpusView:
 
     corpus_view_id: str
     source_families: tuple[str, ...]
-    chunks: tuple[GuidelineChunk, ...]
+    chunks: tuple[E5ExternalChunk, ...]
     corpus_sha256: str
 
 
@@ -70,6 +81,9 @@ def approved_guideline_sources(manifest: Mapping[str, Any]) -> tuple[Mapping[str
     """Return only owner-approved guideline records; malformed states fail closed."""
     if manifest.get("source_family") != _GUIDELINE_FAMILY:
         raise ValueError("guideline manifest source_family must be reviewed_guideline")
+    owner_decision_sha256 = manifest.get("owner_decision_record_sha256")
+    if not isinstance(owner_decision_sha256, str) or len(owner_decision_sha256) != 64:
+        raise ValueError("approved guideline manifest requires the owner decision record SHA-256")
     rows = manifest.get("sources")
     if not isinstance(rows, list):
         raise TypeError("guideline manifest sources must be a list")
@@ -93,8 +107,33 @@ def approved_guideline_sources(manifest: Mapping[str, Any]) -> tuple[Mapping[str
         if review_status == "APPROVED":
             if not source.get("owner_reviewed_at"):
                 raise ValueError("approved guideline source requires owner_reviewed_at")
+            if not isinstance(source.get("approval_scope"), str) or not source["approval_scope"].strip():
+                raise ValueError("approved guideline source requires a machine-readable approval_scope")
+            if type(source.get("task_authoring_eligible")) is not bool:
+                raise ValueError("approved guideline source requires task_authoring_eligible")
+            if source.get("owner_decision_record_sha256") != owner_decision_sha256:
+                raise ValueError("approved guideline source must bind the owner decision record")
+            for field in ("allowed_task_intents", "prohibited_task_intents"):
+                values = source.get(field)
+                if not isinstance(values, list) or any(
+                    not isinstance(item, str) or not item.strip() for item in values
+                ):
+                    raise ValueError(f"approved guideline source requires {field}")
+            if set(source["allowed_task_intents"]) & set(source["prohibited_task_intents"]):
+                raise ValueError("allowed and prohibited task intents must be disjoint")
             admitted.append(source)
     return tuple(admitted)
+
+
+def task_authoring_guideline_sources(
+    manifest: Mapping[str, Any],
+) -> tuple[Mapping[str, Any], ...]:
+    """Return only approved sources explicitly eligible for gold-task authoring."""
+    return tuple(
+        source
+        for source in approved_guideline_sources(manifest)
+        if source.get("task_authoring_eligible") is True
+    )
 
 
 def verify_raw_source(source: Mapping[str, Any], raw_path: Path) -> str:
@@ -118,7 +157,7 @@ def build_guideline_chunks(
     chunker_version: str,
     target_tokens: int = 384,
     hard_max_tokens: int = 480,
-) -> tuple[GuidelineChunk, ...]:
+) -> tuple[E5ExternalChunk, ...]:
     """Pack paragraphs without crossing a recommendation or admitting unapproved sources."""
     if target_tokens <= 0 or hard_max_tokens < target_tokens:
         raise ValueError("chunk token limits must satisfy 0 < target <= hard maximum")
@@ -128,7 +167,7 @@ def build_guideline_chunks(
     if set(raw_paths) != set(blocks_by_source):
         raise ValueError("raw_paths must exactly match sources with extracted blocks")
 
-    chunks: list[GuidelineChunk] = []
+    chunks: list[E5ExternalChunk] = []
     for source_id in sorted(blocks_by_source):
         source = approved[source_id]
         raw_hash = verify_raw_source(source, raw_paths[source_id])
@@ -167,7 +206,8 @@ def build_guideline_chunks(
                             part=part_by_section.get(section_key, 0),
                             text="\n\n".join(packed),
                             token_count=len(tokenize("\n\n".join(packed))),
-                            source_raw_sha256=raw_hash,
+                            raw_source_sha256=raw_hash,
+                            review_identity=_source_review_identity(source),
                             extractor_version=extractor_version,
                             chunker_version=chunker_version,
                         )
@@ -190,7 +230,8 @@ def build_guideline_chunks(
                         part=part_by_section.get(section_key, 0),
                         text=text,
                         token_count=token_count,
-                        source_raw_sha256=raw_hash,
+                        raw_source_sha256=raw_hash,
+                        review_identity=_source_review_identity(source),
                         extractor_version=extractor_version,
                         chunker_version=chunker_version,
                     )
@@ -200,8 +241,84 @@ def build_guideline_chunks(
     return tuple(chunks)
 
 
+def build_public_health_chunks(
+    *, card_paths: Sequence[Path], tokenize: Callable[[str], Sequence[object]]
+) -> tuple[E5ExternalChunk, ...]:
+    """Adapt each reviewed knowledge card in place to one canonical E5 chunk."""
+    chunks: list[E5ExternalChunk] = []
+    seen_ids: set[str] = set()
+    for path in sorted(card_paths, key=lambda item: item.name):
+        raw = path.read_bytes()
+        card = json.loads(raw)
+        if not isinstance(card, Mapping):
+            raise TypeError(f"knowledge card must be a JSON object: {path.name}")
+        source_id = card.get("id")
+        title = card.get("title")
+        text = card.get("content")
+        if any(not isinstance(value, str) or not value.strip() for value in (source_id, title, text)):
+            raise ValueError(f"knowledge card lacks id/title/content: {path.name}")
+        if source_id != path.stem:
+            raise ValueError(f"knowledge-card ID must match its frozen filename identity: {path.name}")
+        if source_id in seen_ids:
+            raise ValueError(f"duplicate public-health card id: {source_id}")
+        seen_ids.add(source_id)
+        if not all(
+            isinstance(card.get(field), str) and card[field].strip()
+            for field in ("source_url", "publisher", "reviewed_at", "reviewer", "version")
+        ):
+            raise ValueError(f"knowledge card lacks reviewed provenance: {source_id}")
+        raw_hash = sha256(raw).hexdigest()
+        review_identity = sha256(
+            json.dumps(
+                {
+                    "source_id": source_id,
+                    "source_url": card["source_url"],
+                    "publisher": card["publisher"],
+                    "reviewed_at": card["reviewed_at"],
+                    "reviewer": card["reviewer"],
+                    "version": card["version"],
+                    "raw_source_sha256": raw_hash,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        text_hash = sha256(text.encode("utf-8")).hexdigest()
+        identity = {
+            "source_id": source_id,
+            "raw_source_sha256": raw_hash,
+            "text_sha256": text_hash,
+            "review_identity": review_identity,
+        }
+        chunk_id = "public-health-" + sha256(
+            json.dumps(identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()[:24]
+        token_count = len(tokenize(text))
+        if token_count == 0:
+            raise ValueError(f"tokenizer produced an empty public-health card: {source_id}")
+        chunks.append(
+            E5ExternalChunk(
+                chunk_id=chunk_id,
+                source_id=source_id,
+                source_family="public_health",
+                section_path=(title,),
+                recommendation_id=None,
+                text=text,
+                text_sha256=text_hash,
+                token_count=token_count,
+                char_count=len(text),
+                raw_source_sha256=raw_hash,
+                review_identity=review_identity,
+                extractor_version="knowledge-card-json-v1",
+                chunker_version="identity-card-v1",
+            )
+        )
+    return tuple(chunks)
+
+
 def build_corpus_view(
-    chunks: Sequence[GuidelineChunk], *, corpus_view_id: str, source_families: Sequence[str]
+    chunks: Sequence[E5ExternalChunk], *, corpus_view_id: str, source_families: Sequence[str]
 ) -> CorpusView:
     """Build family-scoped input before ranking; never filter a global top-k afterward."""
     families = tuple(sorted(set(source_families)))
@@ -210,16 +327,28 @@ def build_corpus_view(
     selected = tuple(chunk for chunk in chunks if chunk.source_family in families)
     if any(chunk.source_family not in families for chunk in selected):
         raise AssertionError("corpus view contains an undeclared source family")
-    canonical = [
-        {
-            "chunk_id": chunk.chunk_id,
-            "source_id": chunk.source_id,
-            "source_family": chunk.source_family,
-            "text_sha256": chunk.text_sha256,
-            "source_raw_sha256": chunk.source_raw_sha256,
-        }
-        for chunk in sorted(selected, key=lambda item: item.chunk_id)
-    ]
+    if families == ("public_health",):
+        # Preserve the frozen A2 identity: ordered card IDs bound to raw file hashes.
+        canonical = [
+            {"card_id": chunk.source_id, "file_sha256": chunk.raw_source_sha256}
+            for chunk in sorted(selected, key=lambda item: item.source_id)
+        ]
+    else:
+        canonical = [
+            {
+                "chunk_id": chunk.chunk_id,
+                "source_id": chunk.source_id,
+                "source_family": chunk.source_family,
+                "text_sha256": chunk.text_sha256,
+                "section_path": list(chunk.section_path),
+                "recommendation_id": chunk.recommendation_id,
+                "raw_source_sha256": chunk.raw_source_sha256,
+                "review_identity": chunk.review_identity,
+                "extractor_version": chunk.extractor_version,
+                "chunker_version": chunk.chunker_version,
+            }
+            for chunk in sorted(selected, key=lambda item: item.chunk_id)
+        ]
     corpus_hash = sha256(
         json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
             "utf-8"
@@ -259,7 +388,8 @@ def _make_chunk(
     part: int,
     text: str,
     token_count: int,
-    source_raw_sha256: str,
+    raw_source_sha256: str,
+    review_identity: str,
     extractor_version: str,
     chunker_version: str,
 ) -> GuidelineChunk:
@@ -269,7 +399,8 @@ def _make_chunk(
     text_hash = sha256(normalized_text.encode("utf-8")).hexdigest()
     identity = {
         "source_id": source_id,
-        "source_raw_sha256": source_raw_sha256,
+        "raw_source_sha256": raw_source_sha256,
+        "review_identity": review_identity,
         "section_path": list(section_path),
         "recommendation_id": recommendation_id,
         "part": part,
@@ -278,7 +409,7 @@ def _make_chunk(
     chunk_id = "who-guideline-" + sha256(
         json.dumps(identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()[:24]
-    return GuidelineChunk(
+    return E5ExternalChunk(
         chunk_id=chunk_id,
         source_id=source_id,
         source_family=str(source["source_family"]),
@@ -288,19 +419,46 @@ def _make_chunk(
         text_sha256=text_hash,
         token_count=token_count,
         char_count=len(normalized_text),
-        source_raw_sha256=source_raw_sha256,
+        raw_source_sha256=raw_source_sha256,
+        review_identity=review_identity,
         extractor_version=extractor_version,
         chunker_version=chunker_version,
     )
 
 
+def _source_review_identity(source: Mapping[str, Any]) -> str:
+    fields = {
+        key: source.get(key)
+        for key in (
+            "source_id",
+            "source_family",
+            "review_status",
+            "owner_review_status",
+            "owner_reviewed_at",
+            "owner_decision_record_sha256",
+            "approval_scope",
+            "task_authoring_eligible",
+            "allowed_task_intents",
+            "prohibited_task_intents",
+        )
+    }
+    return sha256(
+        json.dumps(fields, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
+            "utf-8"
+        )
+    ).hexdigest()
+
+
 __all__ = [
     "CorpusView",
+    "E5ExternalChunk",
     "GuidelineChunk",
     "RecommendationBlock",
     "approved_guideline_sources",
     "build_corpus_view",
     "build_guideline_chunks",
+    "build_public_health_chunks",
+    "task_authoring_guideline_sources",
     "validate_index_binding",
     "validate_ranked_chunk_ids",
     "verify_raw_source",

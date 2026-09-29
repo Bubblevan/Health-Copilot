@@ -10,7 +10,34 @@ from datetime import UTC, date, datetime, time, timedelta
 from hashlib import sha256
 from typing import Any
 
-STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v1"
+STATE_PACKET_BUILDER_VERSION = "e5-longitudinal-state-v2"
+PROFILE_TEMPORAL_CONTRACT = {
+    "schema_version": "rag-e5-profile-temporal-contract-v1",
+    "time_invariant_safe": {
+        "demographics.age": "materialize_only_as_age_bucket",
+    },
+    "baseline_safe_if_proven": [],
+    "temporally_unsafe": [
+        "health_profile.chronic_conditions",
+        "health_profile.past_medical_history",
+        "health_profile.summary",
+        "health_profile.patient_narrative",
+        "health_profile.mental_health",
+        "health_profile.family_history",
+    ],
+    "excluded_from_policy_features": ["profile.metadata"],
+    "condition_categories_source": [
+        "timeline.entry_type",
+        "timeline.indicator",
+        "exam_data.exam_type",
+        "exam_data.indicators.keys",
+    ],
+    "condition_category_cutoff": "record_timestamp <= decision_timestamp",
+    "date_only_exam_on_decision_date": "exclude_conservatively",
+}
+PROFILE_TEMPORAL_CONTRACT_SHA256 = sha256(
+    json.dumps(PROFILE_TEMPORAL_CONTRACT, sort_keys=True, separators=(",", ":")).encode("utf-8")
+).hexdigest()
 STATE_PACKET_CONFIG = {
     "age_buckets": [18, 40, 60, 75],
     "max_condition_categories": 12,
@@ -19,6 +46,8 @@ STATE_PACKET_CONFIG = {
     "max_trend_samples": 5,
     "recent_window_days": 30,
     "trend_tolerance_relative": 0.02,
+    "profile_temporal_contract_sha256": PROFILE_TEMPORAL_CONTRACT_SHA256,
+    "condition_categories_source": "pre-cutoff structured timeline/exam labels only",
 }
 STATE_PACKET_CONFIG_SHA256 = sha256(
     json.dumps(STATE_PACKET_CONFIG, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -86,6 +115,7 @@ class LongitudinalStatePacket:
     state_summary: str
     summary_builder_version: str
     summary_config_sha256: str
+    profile_temporal_contract_sha256: str
     packet_sha256: str
 
     def to_dict(self) -> dict[str, Any]:
@@ -107,6 +137,7 @@ class LongitudinalStatePacket:
             "state_summary": self.state_summary,
             "summary_builder_version": self.summary_builder_version,
             "summary_config_sha256": self.summary_config_sha256,
+            "profile_temporal_contract_sha256": self.profile_temporal_contract_sha256,
             "packet_sha256": self.packet_sha256,
         }
 
@@ -139,11 +170,9 @@ def build_longitudinal_state_packet(
     hashes = _normalize_source_hashes(source_file_hashes)
 
     demographics = profile.get("demographics", {})
-    health = profile.get("health_profile", {})
-    if not isinstance(demographics, Mapping) or not isinstance(health, Mapping):
-        raise TypeError("profile requires object demographics and health_profile")
+    if not isinstance(demographics, Mapping):
+        raise TypeError("profile.demographics must be a mapping")
     age_bucket = _age_bucket(demographics.get("age"))
-    condition_categories = _condition_categories(health.get("chronic_conditions"))
 
     entries = timeline.get("entries", ())
     if not isinstance(entries, Sequence) or isinstance(entries, (str, bytes)):
@@ -179,6 +208,8 @@ def build_longitudinal_state_packet(
         if isinstance(indicators, Mapping):
             for indicator in indicators:
                 exam_categories.update(_categories_from_label(indicator))
+
+    condition_categories = _time_bounded_condition_categories(included_events, exams_included)
 
     included_events.sort(key=lambda item: (item[0], item[1]))
     exams_included.sort(key=lambda item: (item[0], item[1]))
@@ -241,6 +272,7 @@ def build_longitudinal_state_packet(
         "state_summary": state_summary,
         "summary_builder_version": STATE_PACKET_BUILDER_VERSION,
         "summary_config_sha256": STATE_PACKET_CONFIG_SHA256,
+        "profile_temporal_contract_sha256": PROFILE_TEMPORAL_CONTRACT_SHA256,
     }
     packet_sha256 = sha256(
         json.dumps(packet_without_hash, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
@@ -262,6 +294,7 @@ def build_longitudinal_state_packet(
         state_summary=state_summary,
         summary_builder_version=STATE_PACKET_BUILDER_VERSION,
         summary_config_sha256=STATE_PACKET_CONFIG_SHA256,
+        profile_temporal_contract_sha256=PROFILE_TEMPORAL_CONTRACT_SHA256,
         packet_sha256=packet_sha256,
     )
 
@@ -353,10 +386,21 @@ def _age_bucket(value: object) -> str:
     return "75_plus"
 
 
-def _condition_categories(value: Any) -> tuple[str, ...]:
+def _time_bounded_condition_categories(
+    timeline_entries: Sequence[tuple[datetime, int, Mapping[str, Any]]],
+    exam_records: Sequence[tuple[datetime, int, Mapping[str, Any]]],
+) -> tuple[str, ...]:
+    """Derive coarse observed domains from structured, pre-cutoff record labels only."""
     categories: set[str] = set()
-    for label in _category_labels(value):
-        categories.update(_categories_from_label(label))
+    for _timestamp, _index, row in timeline_entries:
+        categories.update(_categories_from_label(row.get("entry_type")))
+        categories.update(_categories_from_label(row.get("indicator")))
+    for _timestamp, _index, exam in exam_records:
+        categories.update(_categories_from_label(exam.get("exam_type")))
+        indicators = exam.get("indicators", {})
+        if isinstance(indicators, Mapping):
+            for indicator in indicators:
+                categories.update(_categories_from_label(indicator))
     return tuple(sorted(categories))
 
 
@@ -422,6 +466,8 @@ def _record_id(source: str, index: int, timestamp: datetime) -> str:
 
 
 __all__ = [
+    "PROFILE_TEMPORAL_CONTRACT",
+    "PROFILE_TEMPORAL_CONTRACT_SHA256",
     "STATE_PACKET_BUILDER_VERSION",
     "STATE_PACKET_CONFIG_SHA256",
     "LongitudinalStatePacket",

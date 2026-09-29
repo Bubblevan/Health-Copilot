@@ -1,9 +1,15 @@
 {
   "schema_version": "rag-e5-external-index-manifest-v1",
-  "generated_at": "2026-09-29T05:24:10.986745Z",
-  "status": "NOT_BUILT",
-  "bm25_index_ready": false,
+  "generated_at": "2026-09-29T10:31:48Z",
+  "status": "QUALIFICATION_FAILED_DENSE_SMOKE",
+  "bm25_index_ready": true,
   "dense_index_ready": false,
+  "candidate_external_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "source_manifest_sha256": "5cb97843c0ff1fb5450b00c608e2d3d156473cad43b6f0e8ecce4fc2c4c970a0",
+  "owner_decision_record_sha256": "f563d8b9a837f4627c750874a030f3beb5e8728c91638568dd74eab241d12ac7",
+  "qualification_report_path": "D:/MyLab/Jianli/external/rag_e5/e5a3/index_qualification_report.json",
+  "qualification_report_sha256": "2a420f20fe93b02b72b15f71034c9670064ad51fb2454820dcb24f52366aa9fa",
+  "source_title_smoke_pass": false,
   "embedding_model": "BAAI/bge-large-en-v1.5",
   "embedding_revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
   "embedding_dimension": 1024,
@@ -17,17 +23,32 @@
       "source_count": 30,
       "chunk_count": 30,
       "corpus_sha256": "3f8da93a349d199ce2b78a91c7ef3483d6b3f298b714315f33ab2a19c92ed2a7",
-      "status": "NOT_INDEXED_BY_E5_A2"
+      "status": "DENSE_SOURCE_TITLE_SMOKE_FAILED",
+      "bm25_index_identity": "9c30156cdd17602827cbbb5c44b689f3a274f404af0a0dc8e5230c1ca7049546",
+      "bm25_index_manifest_sha256": "142e70ce12a8f323ff77839aeea84d1ecc175bc713ac4af79878de2f19272e59",
+      "bm25_smoke_sha256": "f90bd7c5097cbdc75f4ba5ce8a042f5aa6eefa3ef38edc3d850eb43dcf9e368d",
+      "bm25_smoke_hits_at_10": 10,
+      "dense_index_identity": "4d0e24c5a491ab725029ed0d2b4255f939b1d1c149850d1edd5122282e04a2a3",
+      "dense_index_manifest_sha256": "c80cfd18e9731f3385c7e25647be6064a1e6b1be5881eaaf27db5630a091a638",
+      "dense_smoke_hits_at_10": 8,
+      "smoke_report_sha256": "c3ae3f5057e99561fe4e5f14c2c3c46edfb13441413c4cbd1ce6f865619fd349"
     },
     {
       "corpus_view_id": "GUIDELINE_ONLY",
       "source_families": [
         "reviewed_guideline"
       ],
-      "source_count": 0,
-      "chunk_count": 0,
-      "corpus_sha256": null,
-      "status": "BLOCKED_OWNER_APPROVAL_AND_CHUNK_AUDIT"
+      "source_count": 3,
+      "chunk_count": 26,
+      "corpus_sha256": "19576a23b1c6afb55c5af3d7eb48610445910875816dd73d1db6b51d7dbb5ce4",
+      "status": "SMOKE_QUALIFIED_NOT_ACTIVE",
+      "bm25_index_identity": "808ec5f8e2a3a01571ac55771648cf5e686d80cd033f1b0abc821127d7d21848",
+      "bm25_index_manifest_sha256": "7ab4cbb2b54d79848eed63bff606a81d00a9b37d4192c55e8fd605f6dd21310a",
+      "bm25_smoke_hits_at_10": 10,
+      "dense_index_identity": "2ab2d61af2c53b23c0458ada13ba0230237b0eec09e9db37d27fae91307cc5b0",
+      "dense_index_manifest_sha256": "b346744fcbf2c93c449eac9a7b422c5cd3ebb8fbff84a7e5dfa1ad8ebf3177f6",
+      "dense_smoke_hits_at_10": 10,
+      "smoke_report_sha256": "9567fc5ec67e2a85f5f6bf8b467a06fba595c3ce3729eb259632488372abbf77"
     },
     {
       "corpus_view_id": "PUBLIC_HEALTH_PLUS_GUIDELINE",
@@ -35,15 +56,23 @@
         "public_health",
         "reviewed_guideline"
       ],
-      "source_count": 30,
-      "chunk_count": 30,
-      "corpus_sha256": null,
-      "status": "BLOCKED_OWNER_APPROVAL_AND_CHUNK_AUDIT"
+      "source_count": 33,
+      "chunk_count": 56,
+      "corpus_sha256": "ea713d948b2b5bfde0dcb5b0b2f22f6e37cba4bc56ab61971516b5a7135e7ccc",
+      "status": "SMOKE_QUALIFIED_NOT_ACTIVE_GLOBAL_GATE_FAILED",
+      "bm25_index_identity": "b603755c4a35628891f38ca2edfb3128e592681e4ead0e62219d63698906bf74",
+      "bm25_index_manifest_sha256": "6f987e66e466bd18232ff266ccbcc84620814a4c8eb082d83f8f77fb0c987e22",
+      "bm25_smoke_hits_at_10": 10,
+      "dense_index_identity": "6dc6cfad476979d401e817942d60504fb50147a1cd75a106cdec3405ce0e0e86",
+      "dense_index_manifest_sha256": "fc8c9c747031494415ee354f0770842b5582ce0e25178f5c489717b6dd55e78d",
+      "dense_smoke_hits_at_10": 10,
+      "smoke_report_sha256": "949003be57ec61a6067f72fad4d67f4a645057bc5089cc5a266fe989d248a66b"
     }
   ],
   "standard_profile_config_sha256": "6ddb91bb0c31f5bc5b69372df6a3bdd3b4f71d70cdbcece8ef22c5bfd9a94330",
   "strong_profile_config_sha256": "d9e3de9bf986a1f08b1c217153422d6e86ad0a84bc1982d90bade897c9274a8b",
   "external_corpus_identity": null,
-  "built_at": null,
+  "candidate_corpus_identity": "9b19ad467f47641032277707cb1cfdb1d05c2fb39c558039b180efc7394692bd",
+  "built_at": "2026-09-29T10:31:48Z",
   "code_commit": null
 }

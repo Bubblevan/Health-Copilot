@@ -1,5 +1,11 @@
 # E5-A2 external evidence corpus qualification
 
+> Historical snapshot: this document records the E5-A2 state before owner
+> review. E5-A3 later recorded approval, built the candidate corpus and indexes,
+> and stopped activation because the frozen dense smoke was 8/10 for
+> `PUBLIC_HEALTH_ONLY`. See
+> [`E5-A3 qualification`](e5a3_index_qualification.md) for current status.
+
 ## Result
 
 Three official WHO guideline candidates are hash-verified and ready for owner
