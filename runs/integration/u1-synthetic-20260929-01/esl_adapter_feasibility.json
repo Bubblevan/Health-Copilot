@@ -1,0 +1,41 @@
+{
+  "adapter_id": "esl-like-schema-v1",
+  "status": "SCHEMA_PROPOSAL_ONLY",
+  "mappings": [
+    {
+      "source_surface": "profile fields",
+      "target_surface": "PatientStateRecord(PROFILE)",
+      "mapping_status": "PROPOSED",
+      "note": "Preserve subject scope and provenance."
+    },
+    {
+      "source_surface": "timeline events",
+      "target_surface": "PatientStateRecord(EVENT)",
+      "mapping_status": "PROPOSED",
+      "note": "Keep source timestamps; apply decision-time cutoff."
+    },
+    {
+      "source_surface": "exam records",
+      "target_surface": "PatientStateRecord(EXAM)",
+      "mapping_status": "PROPOSED",
+      "note": "Do not infer missing exams."
+    },
+    {
+      "source_surface": "measurements",
+      "target_surface": "PatientStateRecord(MEASUREMENT)",
+      "mapping_status": "PROPOSED",
+      "note": "Preserve units and time metadata in content/provenance."
+    },
+    {
+      "source_surface": "conversation history",
+      "target_surface": "PatientStateRecord(CONVERSATION)",
+      "mapping_status": "PROPOSED",
+      "note": "Do not treat assistant output as patient fact."
+    }
+  ],
+  "constraints": [
+    "No ESL query, answer, evaluation/test row, or gold content was loaded.",
+    "This adapter proposal does not make ESL data training-eligible.",
+    "Dataset and split licenses/provenance must be reviewed before any row assignment."
+  ]
+}
