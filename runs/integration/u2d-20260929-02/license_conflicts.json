@@ -1,0 +1,43 @@
+{
+  "schema_version": "u2d-owner-scope-license-conflicts-v1",
+  "decision_date": "2026-09-29",
+  "conflicts": [
+    {
+      "conflict_id": "MEDMEMORY_DATA_LICENSE",
+      "observed_statements": ["CC-BY-4.0", "CC-BY-NC-SA-4.0"],
+      "operational_resolution": "OWNER_ACCEPTED_NONCOMMERCIAL_EXTERNAL_EVALUATION_ONLY",
+      "controls": ["attribution", "no redistribution", "no training"],
+      "upstream_discrepancy_retained": true,
+      "blocks_selected_scope": false
+    },
+    {
+      "conflict_id": "MEDAGENTBOARD_ARCHIVE_RIGHTS",
+      "observed_state": "Zenodo item-level terms were not independently verified",
+      "operational_resolution": "OWNER_ACCEPTED_PARTIAL_NON_MIMIC_EXTERNAL_VALIDATION_ONLY",
+      "controls": ["non-commercial research", "no redistribution", "exclude mimic-iv", "exclude separate workflow task"],
+      "blocks_selected_scope": false
+    },
+    {
+      "conflict_id": "CDC_GENERAL_PUBLIC_DOMAIN_VS_SPECIFIC_PAGE_CONTENT",
+      "operational_resolution": "OWNER_ACCEPTED_NONCOMMERCIAL_RETRIEVAL_ONLY",
+      "controls": ["preserve attribution/source links", "no document redistribution", "no training", "no per-article audit"],
+      "blocks_selected_scope": false
+    },
+    {
+      "conflict_id": "WHO_GENERAL_POLICY_VS_SPECIFIC_PUBLICATION",
+      "operational_resolution": "OWNER_ACCEPTED_NONCOMMERCIAL_RETRIEVAL_ONLY",
+      "controls": ["preserve attribution/source links", "no document redistribution", "no training", "no per-article audit"],
+      "blocks_selected_scope": false
+    },
+    {
+      "conflict_id": "MEDMASLAB_MULTIMODAL_PACKAGE",
+      "operational_resolution": "REFERENCE_ONLY_NO_DOWNLOAD",
+      "blocks_selected_scope": false
+    }
+  ],
+  "remaining_out_of_scope_records": [
+    "NHC cards are excluded from retrieval.",
+    "R2MED, NFCorpus, MIRAGE, MedRAG, AgentClinic, and HealthAgentBench are not selected for the next data scope."
+  ],
+  "owner_data_availability_report": "Owner reports the required remote datasets have been fully downloaded. U2-D did not perform a full-file completeness/checksum scan, and this report does not change source-license or exposure records."
+}

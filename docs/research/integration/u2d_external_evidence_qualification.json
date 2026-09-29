@@ -1,7 +1,7 @@
 {
   "schema_version": "u2d-external-evidence-qualification-v1",
   "audit_date": "2026-09-29",
-  "current_production_evidence_status": "NO_PRODUCTION_FAMILY_QUALIFIED",
+  "current_production_evidence_status": "PARTIALLY_QUALIFIED_NONCOMMERCIAL_RETRIEVAL_SCOPE",
   "source_registry": "u2d_source_registry.json",
   "families": [
     {
@@ -11,39 +11,41 @@
         {
           "source_id": "HC_KNOWLEDGE_CARDS_CDC",
           "count": 21,
-          "license_status": "CONDITIONAL",
-          "evidence_role": "SCHEMA_REFERENCE_ONLY",
-          "blockers": [
-            "Cards have no license field.",
-            "CDC allows most information to be reused with attribution, disclaimer, and no substantive alteration, but third-party and contractor exceptions apply.",
-            "Article-level review and summary-fidelity review not completed."
+          "license_status": "QUALIFIED_INTERNAL_EVAL",
+          "evidence_role": "EXTERNAL_RETRIEVAL",
+          "scope_controls": [
+            "Use is limited to non-commercial research retrieval.",
+            "Do not redistribute source documents or use card text for training.",
+            "Preserve CDC attribution and source links; this qualification follows the owner's scope decision and does not cover third-party exceptions or substantive alteration."
           ]
         },
         {
           "source_id": "HC_KNOWLEDGE_CARDS_WHO",
           "count": 5,
-          "license_status": "CONDITIONAL",
-          "evidence_role": "SCHEMA_REFERENCE_ONLY",
-          "blockers": [
-            "Cards have no license field.",
-            "WHO publications are generally CC BY-NC-SA 3.0 IGO, subject to publication-specific notices and third-party materials.",
-            "Adaptation, attribution, share-alike, and non-commercial applicability not resolved for each card."
+          "license_status": "QUALIFIED_INTERNAL_EVAL",
+          "evidence_role": "EXTERNAL_RETRIEVAL",
+          "scope_controls": [
+            "Use is limited to non-commercial research retrieval.",
+            "Do not redistribute source documents or use card text for training.",
+            "Preserve WHO attribution and source links; this qualification follows the owner's scope decision and does not cover third-party exceptions."
           ]
         },
         {
           "source_id": "HC_KNOWLEDGE_CARDS_NHC",
           "count": 4,
-          "license_status": "UNRESOLVED",
-          "evidence_role": "SCHEMA_REFERENCE_ONLY",
+          "license_status": "REFERENCE_ONLY",
+          "evidence_role": "REFERENCE_ONLY",
           "blockers": [
-            "Cards have no license field.",
-            "Government-information disclosure access is not an explicit article reuse license.",
-            "No specific redistribution/adaptation permission recorded."
+            "NHC cards are not included in the selected retrieval source set.",
+            "No reuse or redistribution license was established."
           ]
         }
       ],
-      "qualification_status": "CONDITIONAL",
-      "decision": "Do not bind these existing card bodies to production retrieval, training, or internal evaluation in U2-D. The family is a future candidate only after per-card source/license/date/derivation review."
+      "qualified_asset_count": 26,
+      "excluded_asset_count": 4,
+      "qualification_status": "QUALIFIED_INTERNAL_EVAL",
+      "owner_decision": "Non-commercial research retrieval only, no document redistribution, no training, no per-article audit for the 21 CDC and 5 WHO cards.",
+      "decision": "Bind only the CDC and WHO cards to EXTERNAL_RETRIEVAL within the stated scope. Keep NHC cards unbound as REFERENCE_ONLY."
     },
     {
       "family": "GUIDELINE",
@@ -90,7 +92,7 @@
   },
   "eligibility_interpretation": {
     "public_health_conceptual_fixture": "Synthetic U1 contract fixtures test namespace behavior only.",
-    "specific_production_assets": "No WHO/CDC/NHC card set is fully qualified in this audit.",
+    "specific_production_assets": "WHO and CDC cards are qualified for non-commercial retrieval only by owner scope decision; NHC cards remain unbound.",
     "guideline": "NOT_ELIGIBLE",
     "literature": "NOT_ELIGIBLE"
   }

@@ -1,0 +1,60 @@
+{
+  "schema_version": "u2d-owner-scope-source-qualification-v1",
+  "source_registry": "docs/research/integration/u2d_source_registry.json",
+  "owner_decisions_recorded_at": "2026-09-29",
+  "qualified_external_transfer": [
+    {
+      "source_id": "ESL_BENCH",
+      "scope": "local manifest-v16 batch 202608 only",
+      "role": "EXTERNAL_TRANSFER",
+      "rows_read_in_u2d": false
+    },
+    {
+      "source_id": "MEDMEMORYBENCH",
+      "scope": "non-commercial research benchmark evaluation, attribution, no redistribution, no training",
+      "role": "EXTERNAL_TRANSFER",
+      "rows_read_in_u2d": false,
+      "public_eval_is_blind_holdout": false
+    },
+    {
+      "source_id": "MEDAGENTBOARD",
+      "scope": "non-MIMIC medical QA, lay summary, and tjh EHR prediction assets",
+      "role": "EXTERNAL_TRANSFER",
+      "excluded": [
+        "mimic-iv EHR mortality/readmission variants",
+        "separate clinical workflow task pending MIMIC-free confirmation"
+      ],
+      "rows_read_in_u2d": false
+    }
+  ],
+  "qualified_internal_eval": [
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_CDC",
+      "count": 21,
+      "scope": "non-commercial EXTERNAL_RETRIEVAL only; attribution/source links; no document redistribution or training; no per-article audit"
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_WHO",
+      "count": 5,
+      "scope": "non-commercial EXTERNAL_RETRIEVAL only; attribution/source links; no document redistribution or training; no per-article audit"
+    }
+  ],
+  "reference_only": [
+    {
+      "source_id": "MEDMASLAB",
+      "decision": "Do not download multimodal data."
+    },
+    {
+      "source_id": "HC_KNOWLEDGE_CARDS_NHC",
+      "decision": "Do not bind to external retrieval."
+    }
+  ],
+  "train_dev": {
+    "third_party_sources_qualified": [],
+    "recommended_source": "Separate project-owned synthetic TRAIN and DEV pools"
+  },
+  "source_disclosures": [
+    "The MedMemoryBench upstream license statements remain documented; owner acceptance is limited to the stated non-commercial no-redistribution evaluation scope.",
+    "MedAgentBoard Zenodo item terms were not independently verified; owner acceptance is limited to the selected non-MIMIC subset and does not grant redistribution."
+  ]
+}

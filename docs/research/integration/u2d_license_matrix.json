@@ -16,8 +16,9 @@
           "source": "https://huggingface.co/datasets/Cyan27/MedMemoryBench"
         }
       ],
-      "resolution": "UNRESOLVED",
-      "conservative_action": "No dataset rows in TRAIN, DEV, or project evaluation; schema/documentation reference only."
+      "resolution": "OWNER_ACCEPTED_FOR_NONCOMMERCIAL_EXTERNAL_EVALUATION_SCOPE",
+      "upstream_discrepancy_retained": true,
+      "conservative_action": "Use for non-commercial research external evaluation only, with attribution; do not redistribute data or use it for training."
     },
     {
       "conflict_id": "MEDAGENTBOARD_ARCHIVE_RIGHTS",
@@ -31,8 +32,9 @@
           "source": "https://zenodo.org/records/22299495"
         }
       ],
-      "resolution": "UNRESOLVED",
-      "conservative_action": "Do not use archive content until the exact item-level license and source permissions are recorded."
+      "resolution": "OWNER_ACCEPTED_FOR_PARTIAL_NON_MIMIC_EXTERNAL_VALIDATION_SCOPE",
+      "upstream_item_license_independently_verified": false,
+      "conservative_action": "Use the selected non-MIMIC public task subset for non-commercial external validation only; do not redistribute. Exclude MIMIC-IV variants and the separate workflow task from the selected subset."
     },
     {
       "conflict_id": "R2MED_PACKAGE_VS_COMPONENT_LICENSES",
@@ -87,8 +89,9 @@
           "source": "https://www.cdc.gov/other/agencymaterials.html"
         }
       ],
-      "resolution": "CONDITIONAL",
-      "conservative_action": "Verify each article, embedded third-party item, and summary fidelity before retrieval, adaptation, redistribution, or training."
+      "resolution": "OWNER_ACCEPTED_FOR_NONCOMMERCIAL_RETRIEVAL_ONLY_SCOPE",
+      "per_article_audit_required_by_project_decision": false,
+      "conservative_action": "Use only in the retrieval layer for non-commercial research, preserve source links/attribution, and do not redistribute source documents or use card content for training."
     },
     {
       "conflict_id": "WHO_GENERAL_POLICY_VS_SPECIFIC_PUBLICATION",
@@ -98,8 +101,9 @@
           "source": "https://www.who.int/about/policies/publishing/copyright"
         }
       ],
-      "resolution": "CONDITIONAL",
-      "conservative_action": "Check the specific fact sheet license, adaptation chain, non-commercial scope, and share-alike requirements; no broad training permission inferred."
+      "resolution": "OWNER_ACCEPTED_FOR_NONCOMMERCIAL_RETRIEVAL_ONLY_SCOPE",
+      "per_article_audit_required_by_project_decision": false,
+      "conservative_action": "Use only in the retrieval layer for non-commercial research, preserve source links/attribution, and do not redistribute source documents or use card content for training."
     },
     {
       "conflict_id": "NHC_PUBLIC_ACCESS_VS_REUSE_RIGHT",
@@ -118,38 +122,38 @@
       "source_id": "ESL_BENCH",
       "code_license": "not separately established",
       "data_or_content_license": "Apache-2.0 per dataset card and README",
-      "content_rights_status": "CONDITIONAL",
+      "content_rights_status": "QUALIFIED_EXTERNAL_TRANSFER",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_TRANSFER": "CONDITIONAL: only immutable current active batch; retired answer-bearing batches are exposed",
-      "EXTERNAL_TRANSFER_REDISTRIBUTION": "No project redistribution of rows in this audit"
+      "EXTERNAL_TRANSFER": "Selected local manifest-v16 batch 202608 only",
+      "EXTERNAL_TRANSFER_REDISTRIBUTION": "No project redistribution of rows"
     },
     {
       "source_id": "MEDMEMORYBENCH",
       "code_license": "Apache-2.0",
       "data_or_content_license": "conflicting CC-BY-4.0 vs CC-BY-NC-SA-4.0 claims",
-      "content_rights_status": "UNRESOLVED",
+      "content_rights_status": "QUALIFIED_EXTERNAL_TRANSFER",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_TRANSFER": "NO until authoritative resolution and explicit exposure review"
+      "EXTERNAL_TRANSFER": "Non-commercial research evaluation only; attribution required; no redistribution or training; not a blind holdout"
     },
     {
       "source_id": "MEDAGENTBOARD",
       "code_license": "no root LICENSE identified",
-      "data_or_content_license": "Zenodo item-level terms and component-source terms unresolved",
-      "content_rights_status": "UNRESOLVED",
+      "data_or_content_license": "Zenodo/item license not independently verified; owner accepts narrow non-commercial no-redistribution scope",
+      "content_rights_status": "QUALIFIED_EXTERNAL_TRANSFER",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_TRANSFER": "NO"
+      "EXTERNAL_TRANSFER": "Selected non-MIMIC QA, lay-summary, and tjh EHR prediction assets only; exclude mimic-iv and workflow task"
     },
     {
       "source_id": "MEDMASLAB",
       "code_license": "no repository LICENSE identified at pinned revision",
-      "data_or_content_license": "Hugging Face package metadata says MIT; this does not cover its heterogeneous underlying datasets, whose licenses remain unresolved",
-      "content_rights_status": "UNRESOLVED",
+      "data_or_content_license": "Hugging Face package metadata says MIT; underlying datasets are not downloaded or used and remain outside this scope",
+      "content_rights_status": "REFERENCE_ONLY",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
@@ -189,31 +193,31 @@
       "source_id": "HC_KNOWLEDGE_CARDS_CDC",
       "code_license": "not applicable to upstream page content",
       "data_or_content_license": "mostly public domain, with attribution, disclaimer, and no substantive change; exceptions apply",
-      "content_rights_status": "CONDITIONAL",
+      "content_rights_status": "QUALIFIED_INTERNAL_EVAL",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_RETRIEVAL": "CONDITIONAL: article-specific review required"
+      "EXTERNAL_RETRIEVAL": "Approved for non-commercial research retrieval only; preserve source links/attribution; no redistribution or training"
     },
     {
       "source_id": "HC_KNOWLEDGE_CARDS_WHO",
       "code_license": "not applicable to upstream publication content",
       "data_or_content_license": "generally CC-BY-NC-SA-3.0-IGO; publication-specific notices and third-party rights apply",
-      "content_rights_status": "CONDITIONAL",
+      "content_rights_status": "QUALIFIED_INTERNAL_EVAL",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_RETRIEVAL": "CONDITIONAL: confirm non-commercial and adaptation/share-alike requirements"
+      "EXTERNAL_RETRIEVAL": "Approved for non-commercial research retrieval only; preserve source links/attribution; no redistribution or training"
     },
     {
       "source_id": "HC_KNOWLEDGE_CARDS_NHC",
       "code_license": "not applicable to upstream article content",
       "data_or_content_license": "no reuse license recorded",
-      "content_rights_status": "UNRESOLVED",
+      "content_rights_status": "REFERENCE_ONLY",
       "TRAIN": "NO",
       "DEV": "NO",
       "INTERNAL_EVAL": "NO",
-      "EXTERNAL_RETRIEVAL": "NO pending permission/terms evidence"
+      "EXTERNAL_RETRIEVAL": "Not selected; remains unbound and reference-only"
     },
     {
       "source_id": "R2MED",

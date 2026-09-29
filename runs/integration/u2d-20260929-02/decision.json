@@ -1,0 +1,21 @@
+{
+  "schema_version": "u2d-owner-scope-decision-v1",
+  "status": "COMPLETE_WITH_OWNER_ACCEPTED_SCOPE",
+  "train_eligibility": "No third-party source; use future project-owned synthetic data only.",
+  "dev_eligibility": "No third-party source; use a disjoint project-owned synthetic pool.",
+  "external_benchmark_scope": [
+    "ESL-Bench local 202608 batch",
+    "MedMemoryBench non-commercial external evaluation",
+    "MedAgentBoard partial non-MIMIC subset"
+  ],
+  "external_evidence_scope": "WHO and CDC cards for non-commercial retrieval only; NHC excluded.",
+  "MedMASLab": "REFERENCE_ONLY; no data download.",
+  "split_policy": "FROZEN_NO_ROWS_ASSIGNED",
+  "locked_test_or_gold_accessed_in_u2d": false,
+  "benchmark_execution_started": false,
+  "hosted_model_called": false,
+  "memory_changed": false,
+  "rag_changed": false,
+  "worker_eligibility_changed": false,
+  "next_stage": "U2-E"
+}

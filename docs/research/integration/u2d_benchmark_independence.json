@@ -23,7 +23,8 @@
       "test_content_accessed": false,
       "foundation_model_pretraining_unknown": true,
       "u2d_row_access": false,
-      "allowed_future_claim": "Potential external transfer on a fully pinned, still-active batch; not TRAIN/DEV/internal evaluation. Any later exposure invalidates a blind claim."
+      "selected_local_batch": "manifest-v16 data/202608/sample320-20260830.jsonl",
+      "allowed_future_claim": "External transfer on the selected local 202608 batch; not TRAIN/DEV/internal evaluation. The batch is public evaluation material, not a private or blind holdout."
     },
     {
       "source_id": "MEDMEMORYBENCH",
@@ -36,7 +37,7 @@
       "test_content_accessed": false,
       "foundation_model_pretraining_unknown": true,
       "u2d_row_access": false,
-      "allowed_future_claim": "No claim until license conflict is resolved. A future public benchmark run could only be labeled exposed external transfer unless unseen material is independently established."
+      "allowed_future_claim": "Non-commercial external benchmark transfer only, with attribution and no redistribution or training. Describe the public evaluation material as exposed benchmark content, not a blind internal holdout."
     },
     {
       "source_id": "MEDAGENTBOARD",
@@ -49,7 +50,16 @@
       "test_content_accessed": false,
       "foundation_model_pretraining_unknown": true,
       "u2d_row_access": false,
-      "allowed_future_claim": "Reference only until Zenodo and task-family rights/splits are qualified."
+      "selected_task_scope": [
+        "non-MIMIC medical QA assets",
+        "non-MIMIC lay-summary assets",
+        "tjh EHR prediction variant"
+      ],
+      "excluded_task_scope": [
+        "mimic-iv EHR mortality/readmission variants",
+        "separate clinical workflow automation repository pending MIMIC-free confirmation"
+      ],
+      "allowed_future_claim": "Partial non-commercial external MAS validation on the selected task subset only; do not imply results cover all four task categories or establish orchestration-only causality."
     },
     {
       "source_id": "MEDMASLAB",

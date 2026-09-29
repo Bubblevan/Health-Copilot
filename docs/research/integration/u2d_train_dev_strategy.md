@@ -24,7 +24,7 @@ The nine U1.1 fixtures remain contract examples only. They are too small and too
 
 Reserve IID_TEST, OOD_PATIENT, OOD_TASK, OOD_TEMPORAL, OOD_SOURCE, and OOD_COMPOSITION memberships before training. Keep membership under evaluator control. OOD_SOURCE remains unavailable until a source family has passed its specific rights and provenance review.
 
-Third-party benchmarks retain EXTERNAL_TRANSFER identity. Previously evaluated R2MED, NFCorpus, and MIRAGE test material is exposed and cannot support a new blind confirmatory claim. AgentClinic has one unassigned public row exposure and no official split; it is not a clean holdout. ESL's active batch may be considered for a future external transfer only after exact immutable revision resolution.
+Third-party benchmarks retain EXTERNAL_TRANSFER identity. The selected external sources are MedMemoryBench, the local ESL-Bench 202608 batch, and the non-MIMIC subset of MedAgentBoard. MedMemoryBench's public evaluation material and the selected ESL batch are external benchmark content, not blind internal holdouts. Previously evaluated R2MED, NFCorpus, and MIRAGE content remains exposed and is outside this source plan. AgentClinic has one unassigned public row exposure and no official split; it remains outside the current source plan.
 
 ## Stage routing
 
