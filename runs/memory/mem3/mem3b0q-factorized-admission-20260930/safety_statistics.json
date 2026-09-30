@@ -1,0 +1,57 @@
+{
+  "admitted_slot_count": 99,
+  "blocked_slot_count": 310,
+  "both_source_seed_pairs": 74,
+  "closure_pair_count": 525,
+  "closure_pairs": 525,
+  "dev_opened": false,
+  "eligibility_counts": {
+    "ELIGIBLE_USER_STATE": 1510,
+    "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+    "INELIGIBLE_REVISION_KIND": 5055,
+    "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+    "REVISION_INELIGIBLE": 4
+  },
+  "eligible_records": 1366,
+  "eligible_user_state_records": 1366,
+  "exact_hint_seed_pairs": 256,
+  "factorized_pair_call_count": 4526,
+  "forbidden_metadata_decode_count": 0,
+  "grounding_counts": {
+    "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
+    "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
+    "NOT_EVALUATED": 6602,
+    "VALUE_LOCALLY_GROUNDED": 1366
+  },
+  "harness_unknown_pair_count": 1,
+  "harness_unknown_pair_rate": 0.000221,
+  "hosted_calls": 0,
+  "maximal_clique_count": 403,
+  "medmemorybench_run": false,
+  "memory_store_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  },
+  "overlapping_ambiguous_clique_count": 304,
+  "oversized_component_count": 6,
+  "oversized_components": 6,
+  "pair_source_counts": {
+    "BOTH": 74,
+    "EXACT_HINT": 256,
+    "SEMANTIC_NEIGHBOR": 3819
+  },
+  "positive_component_count_non_singleton": 187,
+  "positive_singleton_edges": 957,
+  "preliminary_non_singleton_components": 187,
+  "preliminary_positive_edges": 916,
+  "same_request_retries": 0,
+  "seed_pair_count": 4001,
+  "semantic_neighbor_retrievals_directed": 5464,
+  "semantic_neighbor_seed_pairs": 3819,
+  "test_opened": false,
+  "timestamp_fields_used": 0,
+  "timestamp_fields_used_before_semantic_freeze": 0,
+  "union_seed_pairs": 4001
+}

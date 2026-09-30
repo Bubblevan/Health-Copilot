@@ -1,0 +1,74 @@
+{
+  "b0p_false_completed_purchase_control": {
+    "admitted_to_same_slot": false,
+    "blocked_as_not_a_state": true,
+    "candidate_sources": [
+      "EXACT_HINT",
+      "SEMANTIC_NEIGHBOR"
+    ],
+    "factorized_verdict": {
+      "failure_code": null,
+      "same_state_dimension": "YES",
+      "state_cardinality": "NOT_A_STATE",
+      "value_relation": "SAME"
+    },
+    "historical_human_label": "false_revision_merge",
+    "historical_human_note": "Completed purchase event; not a mutable state slot.",
+    "memory_ids": [
+      "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+      "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+    ],
+    "pair_discovered": true
+  },
+  "control_source": "B0P historical critical-case and human-review artifacts, joined to frozen B0Q candidates, verdicts, and slots after semantic freeze",
+  "gym_cross_key_control": {
+    "admitted_to_same_slot": false,
+    "candidate_sources": [
+      "EXACT_HINT"
+    ],
+    "factorized_verdict": {
+      "failure_code": null,
+      "same_state_dimension": "NO",
+      "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+      "value_relation": "UNKNOWN"
+    },
+    "memory_ids": [
+      "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+      "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+    ],
+    "pair_discovered": true
+  },
+  "historical_b0s_false_safe_controls": {
+    "all_blocked": true,
+    "case_count": 7,
+    "cases_unblocked": []
+  },
+  "human_review": {
+    "admitted_slots": 99,
+    "decisions_pending": 99,
+    "packet_sha256": "bb35d9467dcc86bb1202bffc21804296298a27729ecf9587501319597ad2687e"
+  },
+  "instagram_positive_control": {
+    "admitted_to_same_slot": false,
+    "candidate_sources": [
+      "EXACT_HINT",
+      "SEMANTIC_NEIGHBOR"
+    ],
+    "factorized_verdict": {
+      "failure_code": null,
+      "same_state_dimension": "NO",
+      "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+      "value_relation": "DIFFERENT"
+    },
+    "memory_ids": [
+      "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+      "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+    ],
+    "pair_discovered": true
+  },
+  "readiness_note": "B1 readiness remains pending human reflection; current Instagram positive-control failure independently prevents readiness YES.",
+  "schema_version": 1,
+  "semantic_freeze_sha256": "1ccf9fe62335d6b9d9b700defb6ef698c8bf76f715124655889bd6de73942cff",
+  "status": "POST_FREEZE_CONTROL_AUDIT_COMPLETE",
+  "timestamp_values_included": false
+}
