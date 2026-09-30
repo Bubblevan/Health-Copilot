@@ -1,0 +1,8 @@
+{
+  "key_format_counts": {
+    "SYNKEY-<8 uppercase hex>": 256454
+  },
+  "key_label_hits": [],
+  "key_label_leakage": "NO",
+  "status": "PASS"
+}

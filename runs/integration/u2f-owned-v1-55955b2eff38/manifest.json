@@ -1,0 +1,235 @@
+{
+  "artifact_count": 34,
+  "artifact_sha256": {
+    "cheap_classifier_audit.json": "ab3c4d4a77cd43b9299e632439ae33bcbc7eb44e9a4aa7abd92fc9c224cc17a3",
+    "counterfactual_contract_report.json": "eaaf1710857b55751812e4f2b79371abed280bd4a69b939c880233fe4a8f5719",
+    "dev_iid/episodes.jsonl": "71849af9d2e373832464533e37081a7071bb5b4aab35377f888ed1206f3e5bf6",
+    "dev_iid/evaluator_truth.jsonl": "63c298c63757b88411f279a61994d3aca171d9df668a3f3e96bf8e7c1c916e5c",
+    "dev_iid/lineage.jsonl": "4548e723a2df6c432822488a15935e601cd590455510b357b454297e594b1e55",
+    "dev_iid/partial_policy_supervision.jsonl": "3a75abf1a11ce7cdd5587c4179c33133e4bbae655934f61c2fddc3fbf6e5176a",
+    "dev_structural/episodes.jsonl": "ef2cfee6b1a60f5eae1a1883bd657cd634f2172b16596a03dede87fdbd8d4606",
+    "dev_structural/evaluator_truth.jsonl": "5911f83e9541f2b033881a24d2310de6efdd47e72ad41b339509f29de1fe15b7",
+    "dev_structural/lineage.jsonl": "2d3356cd467cc31fadd42a0f4f7ea38eff231429f8471073cdaa3f04b81051d8",
+    "dev_structural/partial_policy_supervision.jsonl": "4204e94f1a59e6e5709738ddc6d044f3e735408a21d736346a51562ce86f7b78",
+    "distribution_report.json": "09f5c49f813775223c72007030acda6566cff3fc0c61ea9d6ef91d2ebd579ad2",
+    "duplicate_audit.json": "29701ed7f50e2e49424e253fca7e45fca41ea45813b0e6b1cb7cde4781a0488f",
+    "generation_plans.json": "98c21c01e0fbdc293851fa291f3a04995e98cfa311d04f892efeb31218ae1792",
+    "human_spot_audit.json": "12df10665a81233b68065752442f4f97e613ce9db0f80d74f2037c485563297a",
+    "latent_worlds.jsonl": "3967773f145d71f97d4b6e275d05713b0e6ccbe3e488890b33cd2aa2d569aee3",
+    "lineage.jsonl": "d1c2a56e213c66c3439e143c2d3b52f436cfb2bee8cb5210137a5774eb0e617a",
+    "lineage_audit.json": "7bc5b309a8668222c935f52cfe45ae703cc7728c4b0f2170ad02dbdf4c28307c",
+    "matched_pair_diagnostics.json": "72456d4f61edc9810dd5e49f2be788ded80c861537019d01fcf86c358af2ada6",
+    "natural_language_realizations.jsonl": "5bdc7708f802eb67d3e36907fdb3c2b913114c42b473b8e92dae2b1ed2b754e5",
+    "report.md": "77f24eafb48b0e8865d57196ac8856f71b033d31a4d5b0255000f1983411291c",
+    "reserved_test_audit.json": "fccf7a6c3aa85500eb1260934ab8c6ebcfb1afa329131f162284070e19710920",
+    "reserved_test_plan.json": "db2c7bf4158374a09502a52e8ccb1671c43332aaec9e09913a9a31d0d70f7d1b",
+    "runtime_leakage_audit.json": "0bed20e1d762ebd0027bd5bbf941b509016f58c437b1d81cac4d070720c3119a",
+    "scale_gates.json": "653a732c417969831f0eea02f3f6356cc02de68d4079d20374b4953e2252f395",
+    "scale_profile.json": "55b564ae8c32aa79abf7fab2ad0495725df59c79ea912828d7688ecb886be0f5",
+    "shortcut_audit.json": "53fafd8e8dadb04fd8870fa319b92a1fa1564f4a22d6e79dc8b15ac93314524f",
+    "source_independence_audit.json": "8023ab6e8cb917f0120710157ad98a1d8b502736bcbf762f0d1540de1010d435",
+    "split_audit.json": "c31a0620b47e18747c621f55a906713c68adf4424639bbd241db3d5828295b24",
+    "synthetic_key_leakage_audit.json": "d516969c9f0a3ce9ca0906149903473a279670a5640be7b6bdce2f5243d059ff",
+    "temporal_revision_audit.json": "09d06bebacd45292c5fc74ba1856411e58c73f01ff24cf7968f0633e7a843821",
+    "train/episodes.jsonl": "11f19dba164c6832a6cfd807e1784247d7af4ecd7ea423b0d3562677233f0f42",
+    "train/evaluator_truth.jsonl": "917dabb6c0e20b626e90a38d46880fa868b22db7f11bd290e2e271309af76330",
+    "train/lineage.jsonl": "c23b9304410998cd2e70d5ed8884ebbbbd2a48a60f99c8537a12e772d44ed559",
+    "train/partial_policy_supervision.jsonl": "a1a1ca17a34e56a9433ac55f8bd814a79e5a95eabcadb735bd01fbf4d3b01aca"
+  },
+  "base_commit_sha": "ce68eb7d37463d255a8abd3ad0a1b73cfbbf518e",
+  "branch": "integration-u2d-dataset-split-license-20260929",
+  "data_qualification": {
+    "eligible_dimensions": [
+      "memory_read",
+      "external_retrieval",
+      "answerability"
+    ],
+    "full_execution_policy_training_ready": false,
+    "partial_policy_data_eligible": true,
+    "post_train_ready": false,
+    "training_started": false
+  },
+  "dataset_id": "health-copilot-owned-longitudinal-v1",
+  "dataset_root_hash": "e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134",
+  "dataset_version_frozen": true,
+  "deterministic_regeneration_verified_by_isolated_wrapper": true,
+  "episode_counts_by_split": {
+    "DEV_IID": 512,
+    "DEV_STRUCTURAL": 512,
+    "TRAIN": 4096
+  },
+  "generation_plan_hashes": {
+    "u2f_dev_iid_plan.json": "1df16d5ed566aafcae26f042a9a5b4bbf1807f909927d76ec285d08de34397ec",
+    "u2f_dev_structural_plan.json": "8eb4a9835a1bf6f4f2997d82ea31d1b83a72b6948af853391503bb43b78a269f",
+    "u2f_reserved_test_plan.json": "8ba4c4c45e42d7dbb7800169b91fa83aa06560270f58c885fb4a8d1b8a7a2a92",
+    "u2f_scale_profile.json": "ae0a562dd4433d3e9da252e1c6ec0bff12a7d4bd56fe986cc885feb5f8d21b57",
+    "u2f_train_plan.json": "8957336da15bdeb103672f988425ccac00712ca5a9635e0df7d098668a7ff75b"
+  },
+  "generator_commit_sha": "fdaf394be287c8523c394fc626c42cd86e602745",
+  "generator_version": "u2f-generator-v1.0.0",
+  "human_spot_audit": {
+    "review_note": "Reviewed all 64 seeded spot examples (TRAIN=32, DEV_IID=16, DEV_STRUCTURAL=16): no blank query slots, exact duplicate queries, template artifacts, label leakage, impossible grammar, or unintended clinical claims. All observed records are project-owned synthetic content; no manual example edits.",
+    "sample_sizes": {
+      "DEV_IID": 16,
+      "DEV_STRUCTURAL": 16,
+      "TRAIN": 32
+    },
+    "status": "PASS"
+  },
+  "notice": "SYNTHETIC_RESEARCH_WORLD; NOT_CLINICAL_GUIDANCE",
+  "provenance_assertions": {
+    "content_origin": "PROJECT_OWNED_SYNTHETIC",
+    "e2_b_started": false,
+    "external_benchmark_rows_used": false,
+    "external_medical_document_content_used": false,
+    "l4_started": false,
+    "memory_track_modified": false,
+    "phi_used": false,
+    "provider_calls": 0,
+    "rag_track_modified": false,
+    "real_patient_data_used": false,
+    "who_cdc_content_used": false
+  },
+  "reserved_evaluation_rows_materialized": false,
+  "run_id": "55955b2eff38",
+  "scale_gate_details": {
+    "combined_probe_human_disposition": "PASS",
+    "combined_probe_max_balanced_accuracy_or_macro_f1": 0.8199,
+    "combined_probe_review_status": "PASS",
+    "combined_probe_review_threshold": 0.9,
+    "different_surface_same_dependency_episode_fraction": 0.6312,
+    "gates": {
+      "all_external_evidence_world_regimes_in_all_splits": true,
+      "all_insufficient_evidence_subtypes_in_train": true,
+      "all_patient_record_types_available_in_train_and_dev": true,
+      "all_six_answer_types_in_train": true,
+      "all_temporal_distance_buckets_present": true,
+      "architecture_and_budget_unresolved": true,
+      "availability_does_not_determine_requirement": true,
+      "combined_cheap_feature_review": true,
+      "complete_lineage": true,
+      "counterfactual_contract": true,
+      "dependency_depths_one_two_and_three_in_train": true,
+      "deterministic_regeneration": true,
+      "different_surface_same_dependency_minimum": true,
+      "duplicate_audit": true,
+      "high_and_extreme_distractors_in_long_histories": true,
+      "human_spot_audit": true,
+      "legacy_one_to_four_history_bucket_below_70_percent": true,
+      "multiple_revision_depths_and_depth_over_one": true,
+      "required_memory_record_type_diversity": true,
+      "reserved_test_ood_unmaterialized": true,
+      "runtime_evaluator_separation": true,
+      "same_surface_different_requirement_minimum": true,
+      "scenario_family_support": true,
+      "shared_longitudinal_subject_progression": true,
+      "single_feature_shortcut_gate": true,
+      "source_independence": true,
+      "split_and_sibling_isolation": true,
+      "synthetic_key_opacity": true,
+      "target_episode_and_subject_counts": true,
+      "temporal_audit": true,
+      "total_episode_cap": true,
+      "train_history_regime_coverage": true
+    },
+    "required_memory_record_type_max_fraction": 0.2129,
+    "same_surface_different_requirement_episode_fraction": 0.1516,
+    "single_feature_gate_max_accuracy": 0.8,
+    "single_feature_gate_max_lift": 0.15,
+    "status": "PASS",
+    "train_dependency_depth_distribution": {
+      "1": 2689,
+      "2": 967,
+      "3": 370,
+      "4": 68,
+      "5": 2
+    },
+    "train_derived_capability_distribution_review": {
+      "INSUFFICIENT": {
+        "count": 502,
+        "fraction": 0.1226,
+        "reference_range": [
+          0.05,
+          0.15
+        ],
+        "within_reference_range": true
+      },
+      "MEMORY": {
+        "count": 1045,
+        "fraction": 0.2551,
+        "reference_range": [
+          0.2,
+          0.4
+        ],
+        "within_reference_range": true
+      },
+      "MEMORY+RAG": {
+        "count": 826,
+        "fraction": 0.2017,
+        "reference_range": [
+          0.15,
+          0.3
+        ],
+        "within_reference_range": true
+      },
+      "NONE": {
+        "count": 916,
+        "fraction": 0.2236,
+        "reference_range": [
+          0.1,
+          0.25
+        ],
+        "within_reference_range": true
+      },
+      "RAG": {
+        "count": 807,
+        "fraction": 0.197,
+        "reference_range": [
+          0.15,
+          0.3
+        ],
+        "within_reference_range": true
+      }
+    },
+    "train_history_regime_fractions": {
+      "LONG": 0.3125,
+      "MEDIUM": 0.3125,
+      "SATURATED": 0.1562,
+      "SHORT": 0.2188
+    },
+    "train_revision_depth_distribution": {
+      "1": 66,
+      "2": 66,
+      "3": 74
+    },
+    "train_scenario_family_minimum": 100,
+    "train_temporal_distance_distribution": {
+      "1-7 days": 112,
+      "181-365 days": 380,
+      "31-180 days": 1101,
+      "8-30 days": 384,
+      "<1 day": 248,
+      ">365 days": 386
+    },
+    "univariate_references": {
+      "single_feature_max_accuracy": 0.8,
+      "single_feature_max_lift_over_majority": 0.15
+    }
+  },
+  "scale_gate_status": "PASS",
+  "schema_version": "owned-longitudinal-v1-manifest",
+  "spec_hash": "60e3a1807683efef1c7147f549c9acc14b2087035bcfdbe3a480d25774367d4a",
+  "status": "PASS",
+  "subject_counts_by_split": {
+    "DEV_IID": 64,
+    "DEV_STRUCTURAL": 64,
+    "TRAIN": 320
+  },
+  "supervision": {
+    "answerability": "QUALIFIED",
+    "architecture": "UNRESOLVED",
+    "budget": "UNRESOLVED",
+    "external_retrieval": "QUALIFIED",
+    "memory_read": "QUALIFIED"
+  }
+}

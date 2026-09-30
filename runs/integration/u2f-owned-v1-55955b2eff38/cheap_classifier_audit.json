@@ -1,0 +1,638 @@
+{
+  "query_only": {
+    "dev_iid": {
+      "context_features_included": false,
+      "excluded_features": [
+        "scenario_family",
+        "gold",
+        "required_fact_ids",
+        "latent_dependency_graph",
+        "counterfactual_family_id"
+      ],
+      "feature_scope": "runtime-observable cheap features only",
+      "max_balanced_accuracy_or_macro_f1": 0.8135,
+      "review_threshold": 0.9,
+      "status": "PASS",
+      "targets": {
+        "external_retrieval_required": {
+          "accuracy": 0.8145,
+          "balanced_accuracy": 0.8135,
+          "eval_positive_rate": 0.3887,
+          "feature_count": 2642,
+          "macro_f1": 0.8078,
+          "predicted_positive_count": 218,
+          "top_feature_attribution_abs_log_odds": [
+            {
+              "abs_log_odds": 6.3394,
+              "feature": "qkeyword:current"
+            },
+            {
+              "abs_log_odds": 6.3394,
+              "feature": "qtoken:current"
+            },
+            {
+              "abs_log_odds": 6.2577,
+              "feature": "qtoken:synval"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qkeyword:effective"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qkeyword:published"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qtoken:effective"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qtoken:published"
+            },
+            {
+              "abs_log_odds": 5.5658,
+              "feature": "qtoken:note"
+            },
+            {
+              "abs_log_odds": 5.1228,
+              "feature": "qtoken:in"
+            },
+            {
+              "abs_log_odds": 5.1019,
+              "feature": "qtoken:both"
+            },
+            {
+              "abs_log_odds": 5.0453,
+              "feature": "qtoken:condition"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:answer"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:must"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:present"
+            },
+            {
+              "abs_log_odds": 4.9027,
+              "feature": "qtoken:request's"
+            }
+          ],
+          "train_positive_rate": 0.3987
+        },
+        "memory_required": {
+          "accuracy": 0.7734,
+          "balanced_accuracy": 0.7786,
+          "eval_positive_rate": 0.3984,
+          "feature_count": 2642,
+          "macro_f1": 0.7694,
+          "predicted_positive_count": 240,
+          "top_feature_attribution_abs_log_odds": [
+            {
+              "abs_log_odds": 6.4951,
+              "feature": "qtoken:synval"
+            },
+            {
+              "abs_log_odds": 5.8032,
+              "feature": "qtoken:note"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qkeyword:effective"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qkeyword:published"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qtoken:effective"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qtoken:published"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:answer"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:must"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:present"
+            },
+            {
+              "abs_log_odds": 5.1401,
+              "feature": "qtoken:request's"
+            },
+            {
+              "abs_log_odds": 5.1401,
+              "feature": "qtoken:says"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:already"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:gives"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:packet"
+            },
+            {
+              "abs_log_odds": 5.0999,
+              "feature": "qtoken:carries"
+            }
+          ],
+          "train_positive_rate": 0.4568
+        }
+      }
+    },
+    "dev_structural": {
+      "context_features_included": false,
+      "excluded_features": [
+        "scenario_family",
+        "gold",
+        "required_fact_ids",
+        "latent_dependency_graph",
+        "counterfactual_family_id"
+      ],
+      "feature_scope": "runtime-observable cheap features only",
+      "max_balanced_accuracy_or_macro_f1": 0.78,
+      "review_threshold": 0.9,
+      "status": "PASS",
+      "targets": {
+        "external_retrieval_required": {
+          "accuracy": 0.7715,
+          "balanced_accuracy": 0.7773,
+          "eval_positive_rate": 0.4219,
+          "feature_count": 2642,
+          "macro_f1": 0.7699,
+          "predicted_positive_count": 253,
+          "top_feature_attribution_abs_log_odds": [
+            {
+              "abs_log_odds": 6.3394,
+              "feature": "qkeyword:current"
+            },
+            {
+              "abs_log_odds": 6.3394,
+              "feature": "qtoken:current"
+            },
+            {
+              "abs_log_odds": 6.2577,
+              "feature": "qtoken:synval"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qkeyword:effective"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qkeyword:published"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qtoken:effective"
+            },
+            {
+              "abs_log_odds": 5.7904,
+              "feature": "qtoken:published"
+            },
+            {
+              "abs_log_odds": 5.5658,
+              "feature": "qtoken:note"
+            },
+            {
+              "abs_log_odds": 5.1228,
+              "feature": "qtoken:in"
+            },
+            {
+              "abs_log_odds": 5.1019,
+              "feature": "qtoken:both"
+            },
+            {
+              "abs_log_odds": 5.0453,
+              "feature": "qtoken:condition"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:answer"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:must"
+            },
+            {
+              "abs_log_odds": 4.9125,
+              "feature": "qtoken:present"
+            },
+            {
+              "abs_log_odds": 4.9027,
+              "feature": "qtoken:request's"
+            }
+          ],
+          "train_positive_rate": 0.3987
+        },
+        "memory_required": {
+          "accuracy": 0.7734,
+          "balanced_accuracy": 0.78,
+          "eval_positive_rate": 0.4648,
+          "feature_count": 2642,
+          "macro_f1": 0.7731,
+          "predicted_positive_count": 294,
+          "top_feature_attribution_abs_log_odds": [
+            {
+              "abs_log_odds": 6.4951,
+              "feature": "qtoken:synval"
+            },
+            {
+              "abs_log_odds": 5.8032,
+              "feature": "qtoken:note"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qkeyword:effective"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qkeyword:published"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qtoken:effective"
+            },
+            {
+              "abs_log_odds": 5.2068,
+              "feature": "qtoken:published"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:answer"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:must"
+            },
+            {
+              "abs_log_odds": 5.1499,
+              "feature": "qtoken:present"
+            },
+            {
+              "abs_log_odds": 5.1401,
+              "feature": "qtoken:request's"
+            },
+            {
+              "abs_log_odds": 5.1401,
+              "feature": "qtoken:says"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:already"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:gives"
+            },
+            {
+              "abs_log_odds": 5.1252,
+              "feature": "qtoken:packet"
+            },
+            {
+              "abs_log_odds": 5.0999,
+              "feature": "qtoken:carries"
+            }
+          ],
+          "train_positive_rate": 0.4568
+        }
+      }
+    }
+  },
+  "status": "PASS",
+  "train_rows": 4096,
+  "train_to_dev_iid": {
+    "context_features_included": true,
+    "excluded_features": [
+      "scenario_family",
+      "gold",
+      "required_fact_ids",
+      "latent_dependency_graph",
+      "counterfactual_family_id"
+    ],
+    "feature_scope": "runtime-observable cheap features only",
+    "max_balanced_accuracy_or_macro_f1": 0.8199,
+    "review_threshold": 0.9,
+    "status": "PASS",
+    "targets": {
+      "external_retrieval_required": {
+        "accuracy": 0.8223,
+        "balanced_accuracy": 0.8199,
+        "eval_positive_rate": 0.3887,
+        "feature_count": 2670,
+        "macro_f1": 0.8154,
+        "predicted_positive_count": 214,
+        "top_feature_attribution_abs_log_odds": [
+          {
+            "abs_log_odds": 6.3394,
+            "feature": "qkeyword:current"
+          },
+          {
+            "abs_log_odds": 6.3394,
+            "feature": "qtoken:current"
+          },
+          {
+            "abs_log_odds": 6.2577,
+            "feature": "qtoken:synval"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qkeyword:effective"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qkeyword:published"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qtoken:effective"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qtoken:published"
+          },
+          {
+            "abs_log_odds": 5.5658,
+            "feature": "qtoken:note"
+          },
+          {
+            "abs_log_odds": 5.1228,
+            "feature": "qtoken:in"
+          },
+          {
+            "abs_log_odds": 5.1019,
+            "feature": "qtoken:both"
+          },
+          {
+            "abs_log_odds": 5.0453,
+            "feature": "qtoken:condition"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:answer"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:must"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:present"
+          },
+          {
+            "abs_log_odds": 4.9027,
+            "feature": "qtoken:request's"
+          }
+        ],
+        "train_positive_rate": 0.3987
+      },
+      "memory_required": {
+        "accuracy": 0.7852,
+        "balanced_accuracy": 0.7883,
+        "eval_positive_rate": 0.3984,
+        "feature_count": 2670,
+        "macro_f1": 0.7806,
+        "predicted_positive_count": 234,
+        "top_feature_attribution_abs_log_odds": [
+          {
+            "abs_log_odds": 6.4951,
+            "feature": "qtoken:synval"
+          },
+          {
+            "abs_log_odds": 5.8032,
+            "feature": "qtoken:note"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qkeyword:effective"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qkeyword:published"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qtoken:effective"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qtoken:published"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:answer"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:must"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:present"
+          },
+          {
+            "abs_log_odds": 5.1401,
+            "feature": "qtoken:request's"
+          },
+          {
+            "abs_log_odds": 5.1401,
+            "feature": "qtoken:says"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:already"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:gives"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:packet"
+          },
+          {
+            "abs_log_odds": 5.0999,
+            "feature": "qtoken:carries"
+          }
+        ],
+        "train_positive_rate": 0.4568
+      }
+    }
+  },
+  "train_to_dev_structural": {
+    "context_features_included": true,
+    "excluded_features": [
+      "scenario_family",
+      "gold",
+      "required_fact_ids",
+      "latent_dependency_graph",
+      "counterfactual_family_id"
+    ],
+    "feature_scope": "runtime-observable cheap features only",
+    "max_balanced_accuracy_or_macro_f1": 0.7892,
+    "review_threshold": 0.9,
+    "status": "PASS",
+    "targets": {
+      "external_retrieval_required": {
+        "accuracy": 0.7793,
+        "balanced_accuracy": 0.7853,
+        "eval_positive_rate": 0.4219,
+        "feature_count": 2670,
+        "macro_f1": 0.7777,
+        "predicted_positive_count": 253,
+        "top_feature_attribution_abs_log_odds": [
+          {
+            "abs_log_odds": 6.3394,
+            "feature": "qkeyword:current"
+          },
+          {
+            "abs_log_odds": 6.3394,
+            "feature": "qtoken:current"
+          },
+          {
+            "abs_log_odds": 6.2577,
+            "feature": "qtoken:synval"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qkeyword:effective"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qkeyword:published"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qtoken:effective"
+          },
+          {
+            "abs_log_odds": 5.7904,
+            "feature": "qtoken:published"
+          },
+          {
+            "abs_log_odds": 5.5658,
+            "feature": "qtoken:note"
+          },
+          {
+            "abs_log_odds": 5.1228,
+            "feature": "qtoken:in"
+          },
+          {
+            "abs_log_odds": 5.1019,
+            "feature": "qtoken:both"
+          },
+          {
+            "abs_log_odds": 5.0453,
+            "feature": "qtoken:condition"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:answer"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:must"
+          },
+          {
+            "abs_log_odds": 4.9125,
+            "feature": "qtoken:present"
+          },
+          {
+            "abs_log_odds": 4.9027,
+            "feature": "qtoken:request's"
+          }
+        ],
+        "train_positive_rate": 0.3987
+      },
+      "memory_required": {
+        "accuracy": 0.7832,
+        "balanced_accuracy": 0.7892,
+        "eval_positive_rate": 0.4648,
+        "feature_count": 2670,
+        "macro_f1": 0.783,
+        "predicted_positive_count": 289,
+        "top_feature_attribution_abs_log_odds": [
+          {
+            "abs_log_odds": 6.4951,
+            "feature": "qtoken:synval"
+          },
+          {
+            "abs_log_odds": 5.8032,
+            "feature": "qtoken:note"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qkeyword:effective"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qkeyword:published"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qtoken:effective"
+          },
+          {
+            "abs_log_odds": 5.2068,
+            "feature": "qtoken:published"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:answer"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:must"
+          },
+          {
+            "abs_log_odds": 5.1499,
+            "feature": "qtoken:present"
+          },
+          {
+            "abs_log_odds": 5.1401,
+            "feature": "qtoken:request's"
+          },
+          {
+            "abs_log_odds": 5.1401,
+            "feature": "qtoken:says"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:already"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:gives"
+          },
+          {
+            "abs_log_odds": 5.1252,
+            "feature": "qtoken:packet"
+          },
+          {
+            "abs_log_odds": 5.0999,
+            "feature": "qtoken:carries"
+          }
+        ],
+        "train_positive_rate": 0.4568
+      }
+    }
+  }
+}

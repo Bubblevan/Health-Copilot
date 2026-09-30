@@ -1,0 +1,79 @@
+{
+  "materialized": false,
+  "pools": [
+    {
+      "persona_seed_range": [
+        510000,
+        510255
+      ],
+      "scenario_seed_range": [
+        4000000,
+        4000255
+      ],
+      "split_role": "IID_TEST"
+    },
+    {
+      "persona_seed_range": [
+        520000,
+        520255
+      ],
+      "scenario_seed_range": [
+        4100000,
+        4100255
+      ],
+      "split_role": "OOD_PATIENT"
+    },
+    {
+      "persona_seed_range": [
+        530000,
+        530255
+      ],
+      "scenario_seed_range": [
+        4200000,
+        4200255
+      ],
+      "split_role": "OOD_TASK"
+    },
+    {
+      "persona_seed_range": [
+        540000,
+        540255
+      ],
+      "scenario_seed_range": [
+        4300000,
+        4300255
+      ],
+      "split_role": "OOD_TEMPORAL"
+    },
+    {
+      "persona_seed_range": [
+        550000,
+        550255
+      ],
+      "scenario_seed_range": [
+        4400000,
+        4400255
+      ],
+      "split_role": "OOD_SOURCE"
+    },
+    {
+      "persona_seed_range": [
+        560000,
+        560511
+      ],
+      "reserved_compositions": [
+        "deep MEMORY→RAG serial chains",
+        "multi-source RAG plus memory revision",
+        "three-branch compositional tasks",
+        "long-history plus versioned external evidence"
+      ],
+      "scenario_seed_range": [
+        4500000,
+        4500511
+      ],
+      "split_role": "OOD_COMPOSITION"
+    }
+  ],
+  "rows_generated": 0,
+  "schema_version": "u2f-reserved-pools-v1"
+}

@@ -1,0 +1,7 @@
+{
+  "forbidden_evaluator_or_split_keys": [],
+  "forbidden_scenario_or_architecture_tokens": [],
+  "runtime_and_evaluator_files_physically_separate": true,
+  "runtime_episode_count": 5120,
+  "status": "PASS"
+}

@@ -1,0 +1,6333 @@
+{
+  "all_revision_depths_over_one_present": true,
+  "decision_boundary_checks": [
+    {
+      "episode_id": "U2F-013BD010F2F38FFD",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-3300B71C3134DEA7",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-F5B772DD6CD9ECC2",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-FEC3A1AB9BEDEB21",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-57DDF4EAC4AB533F",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-8D5CE23751A4D6A4",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0E3693CD875F51BD",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-EFC1617B9205281E",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4870601C0988AFD7",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-F63D53F198B341FC",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-25C10468A27AEDAF",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-888E55E370E2067C",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-AD133A7239229981",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E1315214C10A9174",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-09391D706E43AB92",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-78FE65A9E93A074E",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0DB598FC0E0199EB",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6E456C2B70AE5A50",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-656E83119E1ED4C1",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-93925C45C885D385",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0D2BE5C43F81EFCF",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6DFE85C03A786C4D",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0128E643C85E00BA",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-EEFE660E9F9472F1",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4938A50ACBD3B9EC",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-C78850D678FA1A96",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-245BF7B7CE4DCF27",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-A00F53F30E0861ED",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-CAD584040ECF99C0",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-EA7F336FDA9434F0",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-06DD468C7C6C8ABF",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-266C73BB5EB83228",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6F294A8F79EC4B74",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-8CB227077AA7CE62",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-C018E69D0E2D86A3",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-EBC14118CD28BC02",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-99EC412F225A6354",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-F55CE72AB8A1E658",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3F5BB46569014C0B",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-B2BE4988D1E09096",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0246724395EF8A1D",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E892920ED14C6D0F",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3C6883D8949F6673",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-C1B4067B576D37AA",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-104B0BE838633618",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-DC3AE5BDB5141EAC",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-19C02568FE114A48",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-72FC036624C9C65A",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-51A53865F888A779",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-C39C1A0CC8EFC0A0",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-148C1CAC4451B23C",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-C618CFD39F0F33E0",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-64C34099298320EB",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-83DDE96B09580BC8",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-26FD60B02791735B",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-BFEB3CA68409507F",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-B310F2152A065E75",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-EB3D98B9F70436B7",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-C01385D17A489E39",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-F96609F6920399CF",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-1E33F0DEB302973C",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-2AA734CEF104E683",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-5B13ED5ABC7961F4",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-E80BFF92F5560F94",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4B0066B2058DE10C",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-5040ADE12BE70546",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-07F99FC0ECF1443B",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E8572697E8328CC0",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6723EAC6AF9518DC",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-9EFE8600F3561A8E",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6A8513F59419DB0B",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-B82109B2BB84DDAD",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-089B85BD48C63622",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-79E16C8DE87999C1",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-9D445482CB27DCB2",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E4C8C7AA09AA4D98",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-1B54881BCD04B593",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-1B99C8BF4A1B9325",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-68A02A0EFC29EF06",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-B78EA6B496BAC7B4",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-9B99F3AD65F888E6",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-D62F91F4C87159CF",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-A02C82AA9879B4E5",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-F60774BF05DE1F5A",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-9E9698615F74EC7F",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-E0655D1ADA5D7124",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0A18AD7D44A64F98",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3797CCEACFC2C258",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-1974C8AAB470EA14",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-487B505D133ADC9B",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3E01BF3161C914C6",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-B572D841D3D57251",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-C878F6D58F6FC46C",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-CC7C87ADB583ED66",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-00FD84EC8DB11EBC",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-64B12FE8AAE3A549",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-83C10D119BF9819F",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-9C6012F69BB4CE1C",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4672617F181EFCEA",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-88B9886FE5CD5063",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-2E10A3BB64292D33",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-A87DFDDACE3F68BD",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-18246ADBE5C64AA3",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-FEFDB9BE8FC1BE5C",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-48BFC099453FCC4D",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E743A9B35AE6DA98",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-2330C573902474E5",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-60CB175E05C29A2D",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4CC6CD78779A5674",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-66B6485CED437A23",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4E974623389422AA",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-F83B49E5A0B176BE",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-48E983B1A07F4382",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-5D6409E047278EFA",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-24AF42ACFA2B0AC4",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-47164347E290BF5B",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-7CD65DAB40B4FC92",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-A4F82AF3EBF47624",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-7B7C45CA268CE1F8",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-A068DB9CFEF64BBA",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-14F7315CF18E1F82",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-CB74503F7C5FD71D",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-033D2A5C8C937757",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-D4E28907DCDBCD10",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-458D795885C43504",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-BD4262BF46178498",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-52E7B85F8FE7F9F3",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-89EF220593E5D170",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-B6196C8AA25F721E",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-CEFD34CAE001D1A6",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E05D0E4E99C67D12",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-F67985C22B7A9EF4",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3B958A76374D9E4F",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-D8523653079E2221",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-0E1A3C15D71B299F",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-14662EB2928FFF65",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-220329FC40795273",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-38B89CC6B05A34F9",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-ED71FDA229FB8D59",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-FAD7638FC6766BB1",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3F9B343BAB2955AF",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6D3C86531B141F2A",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-20D67F1F803236C7",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-673C71BBF61F4DA4",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-8E969F0EBA5586B4",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-DB7DF3B0812830D7",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-077114EDC3823F23",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-6445B4CF1A3BE213",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-33ED53BB780BA350",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-6F88EC327E2F983E",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-3093EEC492EF2FDE",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-FDC5A749402BB7D3",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-97DF02262F027888",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-D296809A560C709B",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-1B492D29118F2613",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-E6C8D034BC480DB2",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-73029ECBDE3FEF07",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-A2CCA65A790346FA",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-79C00D63E5065F80",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-F79635F7CD44A4C0",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-4B943861D44355D3",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-88EE36A9086AC375",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-35B49BB9736442C3",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-67C5E66379769543",
+      "expected_visible": true,
+      "offset_seconds": 1,
+      "pass": true,
+      "visible": true
+    },
+    {
+      "episode_id": "U2F-7725A3799984FAF6",
+      "expected_visible": false,
+      "offset_seconds": -1,
+      "pass": true,
+      "visible": false
+    },
+    {
+      "episode_id": "U2F-7E4C35386BA595BD",
+      "expected_visible": true,
+      "offset_seconds": 0,
+      "pass": true,
+      "visible": true
+    }
+  ],
+  "external_temporal_ordering_examples": [
+    {
+      "effective_time": "2026-04-04T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-04-20T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-0975FE015017"
+    },
+    {
+      "effective_time": "2027-01-07T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-12-26T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-0F99A5BACBFB"
+    },
+    {
+      "effective_time": "2026-06-12T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-07-10T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-1010B0BB89D5"
+    },
+    {
+      "effective_time": "2027-11-13T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-10-21T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-1462CC5F2CAB"
+    },
+    {
+      "effective_time": "2027-05-13T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-05-17T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-1E55CB315A27"
+    },
+    {
+      "effective_time": "2027-01-01T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-12-20T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-1FCFF18DD1D6"
+    },
+    {
+      "effective_time": "2026-01-27T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-01-25T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-2718A26B020D"
+    },
+    {
+      "effective_time": "2027-01-16T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-01-13T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-2C2048A7F7E4"
+    },
+    {
+      "effective_time": "2027-07-01T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-07-04T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-3036AE48D054"
+    },
+    {
+      "effective_time": "2027-01-08T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-02-03T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-337327248A5F"
+    },
+    {
+      "effective_time": "2027-10-17T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2027-09-25T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-345C660F4B91"
+    },
+    {
+      "effective_time": "2026-11-22T09:00:00+00:00",
+      "effective_until": null,
+      "episode_id": "U2F-582D81EB439D686C",
+      "hidden_by_temporal_constraints": true,
+      "publication_time": "2026-11-11T09:00:00+00:00",
+      "source_id": "ER-U2F-POOL-3AA5908B208D"
+    }
+  ],
+  "external_version_selection_checks": [
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-49CA944B6D30EF17",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B33FEACB45045F51"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B33FEACB45045F51"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6B8E795EF93A3D5A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B33FEACB45045F51"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B33FEACB45045F51"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-05F0E85DDE1C31F4",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-796E3688E9B93FB3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-796E3688E9B93FB3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-49B66A1FD1230B3F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-796E3688E9B93FB3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-796E3688E9B93FB3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-37320514502D458E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-52FDD58F841DBA0A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-52FDD58F841DBA0A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A3A5E55CF1B3327B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-52FDD58F841DBA0A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-52FDD58F841DBA0A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4FF8432A9C2966D5",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B1E01F5D48FFF919"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B1E01F5D48FFF919"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9B6B59553B6E7351",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B1E01F5D48FFF919"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B1E01F5D48FFF919"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-160FBEC3DC1B784E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F4DF753E3F43FD13"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F4DF753E3F43FD13"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-903ACC18E9C29666",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F4DF753E3F43FD13"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F4DF753E3F43FD13"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1EB8A2A360987F9C",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-54B43E300A54E3F0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-54B43E300A54E3F0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A915AED06E6E734A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-54B43E300A54E3F0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-54B43E300A54E3F0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-185DEB3EC5B2F98F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6B6E00DF1B4E3F6A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6B6E00DF1B4E3F6A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B4F2E2D834CD5EDE",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6B6E00DF1B4E3F6A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6B6E00DF1B4E3F6A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2ED7AA83CB6BF24A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-03DB75A64A160A20"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-03DB75A64A160A20"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E0A3DB325197149D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-03DB75A64A160A20"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-03DB75A64A160A20"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-45DD6F9DAF2FC030",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8B3D816999293D27"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8B3D816999293D27"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6AC2D2289C768DEC",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8B3D816999293D27"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8B3D816999293D27"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3D21FBB427E1BD66",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8894B9CCB5976A6E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8894B9CCB5976A6E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-AA1DAB7C05D2EA65",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8894B9CCB5976A6E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8894B9CCB5976A6E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-874F18FF8DA1BF46",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9E7072D11EE3BAEE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9E7072D11EE3BAEE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B4BE75C4237D3149",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9E7072D11EE3BAEE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9E7072D11EE3BAEE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-49E929F9284B8F94",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5F3762BFC569921A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5F3762BFC569921A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-797D4075854FA3C5",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5F3762BFC569921A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5F3762BFC569921A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-13D3420C3BAADF38",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DA706195E589B6AC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DA706195E589B6AC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-476F4563B4301CE0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DA706195E589B6AC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DA706195E589B6AC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CD757927B1661201",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9EFAAA5E5C3E3784"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9EFAAA5E5C3E3784"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FAA53ECD63B644C1",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9EFAAA5E5C3E3784"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9EFAAA5E5C3E3784"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-99E7B4F1A2E21EAF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3FF7ED4577CBE475"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3FF7ED4577CBE475"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FB1DFA8C41B220E0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3FF7ED4577CBE475"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3FF7ED4577CBE475"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-60C6626808FEBB3E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7A2FB32335574BDE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7A2FB32335574BDE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-692088D3BBE0EE2B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7A2FB32335574BDE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7A2FB32335574BDE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-624FAF6AE290E3F2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-548CF477429C93AC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-548CF477429C93AC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DC2424A2D96FCE52",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-548CF477429C93AC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-548CF477429C93AC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B918FC647753E980",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7BD41086E5B49CA1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7BD41086E5B49CA1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E4ABDB88AD59BBD8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7BD41086E5B49CA1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7BD41086E5B49CA1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4A7DBA9B6F748E8E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-937F5D936ED623A1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-937F5D936ED623A1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A7F25CEBD37C42C0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-937F5D936ED623A1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-937F5D936ED623A1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1F18E0AE990EAE33",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F911CEB29CE53FFE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F911CEB29CE53FFE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-574F5103F9B538CA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F911CEB29CE53FFE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F911CEB29CE53FFE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5089D817EE411077",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-EB92F0D7E1A17C26"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-EB92F0D7E1A17C26"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5FC822DE9FB30AB2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-EB92F0D7E1A17C26"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-EB92F0D7E1A17C26"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-00808D941F529150",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0E66C48A38FCD4C5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0E66C48A38FCD4C5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-AC27E1EA35341294",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0E66C48A38FCD4C5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0E66C48A38FCD4C5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A8CD78BCFB5B32D9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-802EFB07BB81839C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-802EFB07BB81839C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-EAED9231DC205171",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-802EFB07BB81839C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-802EFB07BB81839C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-AE373B48D61A2258",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C4FE70398EF9AEAE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C4FE70398EF9AEAE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FD863BCF92DBF496",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C4FE70398EF9AEAE"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C4FE70398EF9AEAE"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-605F6EEFB36CCB2A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-31BB1D40D0E6AC4D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-31BB1D40D0E6AC4D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-BC295DB88860A39E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-31BB1D40D0E6AC4D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-31BB1D40D0E6AC4D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-0B989D903B40AEDD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4686B69178832091"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4686B69178832091"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-98E069EA989DACAB",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4686B69178832091"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4686B69178832091"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3905DCD082B2A9E8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-16B9ACA10B559975"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-16B9ACA10B559975"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-822589CB0FE4BE40",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-16B9ACA10B559975"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-16B9ACA10B559975"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-094DBE357AEEEF03",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B68FA732E31F5066"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B68FA732E31F5066"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2199DA0976305379",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B68FA732E31F5066"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B68FA732E31F5066"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8DD81BFF15719D5E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-11B61130DADB10F3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-11B61130DADB10F3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-EDE2BA27EFB827AA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-11B61130DADB10F3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-11B61130DADB10F3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3454C86D613855E6",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7D5EF3B528190DCB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7D5EF3B528190DCB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-F58FAA52AF822E61",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7D5EF3B528190DCB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7D5EF3B528190DCB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3C3945F3304EB7B9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BCC31DBF8628B1E5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BCC31DBF8628B1E5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-739AD615C944C687",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BCC31DBF8628B1E5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BCC31DBF8628B1E5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2C4D1CDB4D381420",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-37F1C842DC847AA4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-37F1C842DC847AA4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-46CA752C888F603E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-37F1C842DC847AA4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-37F1C842DC847AA4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-02666735818A874D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C63799295ECB7608"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C63799295ECB7608"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A3C8961A8C959981",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C63799295ECB7608"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C63799295ECB7608"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-273A6225DA4CC831",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0EC94FD0F5E2FF2E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0EC94FD0F5E2FF2E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FC8EE425512B05A3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0EC94FD0F5E2FF2E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0EC94FD0F5E2FF2E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4AC04E3014CD24A7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E0CBD15AF85DBA6F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E0CBD15AF85DBA6F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4F254493E5773E64",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E0CBD15AF85DBA6F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E0CBD15AF85DBA6F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3CEBEC326C7AB5C0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C6471145A2E4605B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C6471145A2E4605B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6CD8575A7309E5F2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C6471145A2E4605B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C6471145A2E4605B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-04CE4CEB5982396D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2BA6EB87F7F958C5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2BA6EB87F7F958C5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2832489AF20BBBE8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2BA6EB87F7F958C5"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2BA6EB87F7F958C5"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7646EC503F9A0C85",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AE5011EBF77E7A54"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AE5011EBF77E7A54"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-87C3D9F7BC201D83",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AE5011EBF77E7A54"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AE5011EBF77E7A54"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5A0CC9CBA4E4B78D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-15B2D5EBDE214C28"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-15B2D5EBDE214C28"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D7179C1D6C4BC219",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-15B2D5EBDE214C28"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-15B2D5EBDE214C28"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-159C668F89EBF85A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-63485FEEDE9C31E2"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-63485FEEDE9C31E2"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-F829CC310DB4CFA6",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-63485FEEDE9C31E2"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-63485FEEDE9C31E2"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-369ADCA283D541F9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6E76CB550EFF3120"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6E76CB550EFF3120"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-C77D44ED077A7DB5",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6E76CB550EFF3120"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6E76CB550EFF3120"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-0E1839D16AFFE99A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E76F39913263C6D3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E76F39913263C6D3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DBE3278278EBC6FA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E76F39913263C6D3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E76F39913263C6D3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7A6F71D39E064C99",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-83B09468DFDA7433"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-83B09468DFDA7433"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D0A42AAB31FC6035",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-83B09468DFDA7433"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-83B09468DFDA7433"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2AB72A5B99DB4C04",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-57CEEC954A9E8998"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-57CEEC954A9E8998"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6C0AA8F2307CBEED",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-57CEEC954A9E8998"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-57CEEC954A9E8998"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1AE076401EF4D4F7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2D85C47E37EC976C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2D85C47E37EC976C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9A0A5C740376833E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2D85C47E37EC976C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2D85C47E37EC976C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3FDFC912002B3A40",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9A883311F7FC00F4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9A883311F7FC00F4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-795126AA1B2A3899",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9A883311F7FC00F4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9A883311F7FC00F4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B4F37D5574795425",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1ED67454F43B744A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1ED67454F43B744A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B956FDE7C38249DA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1ED67454F43B744A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1ED67454F43B744A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7E2A1E9351E8CD34",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-35346414E70803E7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-35346414E70803E7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-EEE279E0D0ACCCE9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-35346414E70803E7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-35346414E70803E7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5F592D6488B00340",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F58E944764782A51"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F58E944764782A51"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-66395A0065E02563",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F58E944764782A51"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F58E944764782A51"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A8EF300C1776B368",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9168E95E2BD7CDCB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9168E95E2BD7CDCB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DD794DE66ECCFEFF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9168E95E2BD7CDCB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9168E95E2BD7CDCB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4B28E86F90AC44DE",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-A3D3FBA2F44EFBA8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-A3D3FBA2F44EFBA8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5E1EEF08815FD47A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-A3D3FBA2F44EFBA8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-A3D3FBA2F44EFBA8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CC3987612B746F8A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7FD9F8C6EFB1D36"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7FD9F8C6EFB1D36"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FADF3A246C835F67",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7FD9F8C6EFB1D36"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7FD9F8C6EFB1D36"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2CABE7B99E449AFB",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6A3E9A2C6AC9E9E0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6A3E9A2C6AC9E9E0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7498EF19145ACB68",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6A3E9A2C6AC9E9E0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6A3E9A2C6AC9E9E0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-47CD7FE901C3060B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-01524B29D33EC555"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-01524B29D33EC555"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6865DB5ECB51A714",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-01524B29D33EC555"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-01524B29D33EC555"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5336C25997BEFFB5",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-10141DFB59B93DB8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-10141DFB59B93DB8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7885FBA4EF93D337",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-10141DFB59B93DB8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-10141DFB59B93DB8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-11DC0902C499A8B0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1FE935D54ABB368A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1FE935D54ABB368A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7782E4331BE5DA5B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1FE935D54ABB368A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1FE935D54ABB368A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9A4BFAFD8C3437B7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9C577DE7B12FDBAB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9C577DE7B12FDBAB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A9F53B52AB06E039",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9C577DE7B12FDBAB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9C577DE7B12FDBAB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-256DBBCB302EA0B4",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7D6D653545420CCC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7D6D653545420CCC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9D074A48504920D8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7D6D653545420CCC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7D6D653545420CCC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-16D6208407FCD809",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39B900A2860B7851"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39B900A2860B7851"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-342D661F29D5A57A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39B900A2860B7851"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39B900A2860B7851"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-000EFAA940A2DCA6",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-85589A096F0F6437"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-85589A096F0F6437"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E96B601072BDE84D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-85589A096F0F6437"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-85589A096F0F6437"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4C0F65AFF31B4BD4",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C578F96FCDA64FB7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C578F96FCDA64FB7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8546C07F090E9870",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C578F96FCDA64FB7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C578F96FCDA64FB7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8B60ECACF3378037",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3338346374AA123B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3338346374AA123B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-F6D753E3917BDB3E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3338346374AA123B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3338346374AA123B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-0E7055825EA9CF5D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-71CBE4352A366891"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-71CBE4352A366891"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-88D2C03140757623",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-71CBE4352A366891"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-71CBE4352A366891"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-17380D92AA2A2C85",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5CB245B7632463A0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5CB245B7632463A0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8D89141CC014FA6A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5CB245B7632463A0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5CB245B7632463A0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-202755651060214F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CF2DF4B3BE02538A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CF2DF4B3BE02538A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7321F354815E71FD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CF2DF4B3BE02538A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CF2DF4B3BE02538A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6B7CD3AAB285E712",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AB136E4BD9B8EB9A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AB136E4BD9B8EB9A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D1100E5871F1CC0A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AB136E4BD9B8EB9A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AB136E4BD9B8EB9A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-119C5D53A17A5EE2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F171573EA94C5A02"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F171573EA94C5A02"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2B668E00B77BA222",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F171573EA94C5A02"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F171573EA94C5A02"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-36D25EF80774E6AD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-700745A7430C07F0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-700745A7430C07F0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-73AFD3A0D471A9DD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-700745A7430C07F0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-700745A7430C07F0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2C31045686924C80",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C870F464F51E4262"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C870F464F51E4262"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8318C5007B3670F7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C870F464F51E4262"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C870F464F51E4262"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8B1C16F35F0217D3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AD20B6003392F764"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AD20B6003392F764"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CD5F768451532A05",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-AD20B6003392F764"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-AD20B6003392F764"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A9FC1D06F5410DF6",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0ACC9ACB2F065C63"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0ACC9ACB2F065C63"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E5AC64D442AEC988",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0ACC9ACB2F065C63"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0ACC9ACB2F065C63"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-04F65AF6BCC6EFED",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C61D180F4089264C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C61D180F4089264C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8C7BEC42A119CEBD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-C61D180F4089264C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-C61D180F4089264C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6455A4E34282A2B3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-17A1F1EE3706337D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-17A1F1EE3706337D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DBFB2F4C2AFC0148",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-17A1F1EE3706337D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-17A1F1EE3706337D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3C3FAB2F25338519",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-294D145EEEC7B7BB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-294D145EEEC7B7BB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-91A346860B7664D9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-294D145EEEC7B7BB"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-294D145EEEC7B7BB"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6847219865BA7BE7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8B8CFE44B958F46C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8B8CFE44B958F46C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E8AB42D26418B563",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8B8CFE44B958F46C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8B8CFE44B958F46C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-52207D3109FF06E8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3A28DAA9872DC558"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3A28DAA9872DC558"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6B6A608E91187C5E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-3A28DAA9872DC558"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-3A28DAA9872DC558"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-15ED6BDA46D025CA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B02EA546EAE71451"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B02EA546EAE71451"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1F280970F0A54089",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B02EA546EAE71451"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B02EA546EAE71451"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-483666545E421DE3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39827F7CB607837B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39827F7CB607837B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-88F48E5229F6489A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39827F7CB607837B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39827F7CB607837B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2935BEF3BAEEE94A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9EBE4788BD9AEF67"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9EBE4788BD9AEF67"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5518E7DD38EA1F6D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9EBE4788BD9AEF67"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9EBE4788BD9AEF67"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-20B9C7D282DCB196",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2CF1DA8756F6F01A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2CF1DA8756F6F01A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-C6DC6C53AE080402",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2CF1DA8756F6F01A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2CF1DA8756F6F01A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7DD4364825E97044",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-623212F141D9EC63"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-623212F141D9EC63"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-859FA7001ED0A29F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-623212F141D9EC63"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-623212F141D9EC63"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3FC4C2409089EDB7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-31A48B4F9C5D3077"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-31A48B4F9C5D3077"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-906FD8510258DABC",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-31A48B4F9C5D3077"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-31A48B4F9C5D3077"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-066C4463F15701F0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CDE4386050B527B0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CDE4386050B527B0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-51760A20C9C84B65",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CDE4386050B527B0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CDE4386050B527B0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-301D642EEECED531",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9691FCE248395C92"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9691FCE248395C92"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E6B8961AFAC20F60",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9691FCE248395C92"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9691FCE248395C92"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6CCE1D5349099DDA",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CDB94C6F87F86DC9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CDB94C6F87F86DC9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-C5C62E8D077741A9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CDB94C6F87F86DC9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CDB94C6F87F86DC9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A9C3E99E7DC8C624",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BC0EB99A154A76EF"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BC0EB99A154A76EF"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-AEE6142B88EC9584",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BC0EB99A154A76EF"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BC0EB99A154A76EF"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B440620EF36DFBD9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39C7C94084BFDF48"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39C7C94084BFDF48"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CA427CE0DAEC6CBE",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-39C7C94084BFDF48"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-39C7C94084BFDF48"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-688E1539B4773A73",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-64B3D32E560A18B7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-64B3D32E560A18B7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6FAFFE73505E4530",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-64B3D32E560A18B7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-64B3D32E560A18B7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-002ADEF63AC8632E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BB6ED801A24A396B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BB6ED801A24A396B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6E1D39B9DF116748",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BB6ED801A24A396B"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BB6ED801A24A396B"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-755AEF7BA38A0B81",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-28B27FCE2063D056"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-28B27FCE2063D056"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-F771C3C659BA5D37",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-28B27FCE2063D056"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-28B27FCE2063D056"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-73C8EC95C8E12AE1",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8041B5CB9770AB22"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8041B5CB9770AB22"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D9FBB3D19111B512",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8041B5CB9770AB22"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8041B5CB9770AB22"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-071429A0F27F3936",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D3EE8FB2043A232F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D3EE8FB2043A232F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-598381C6BE883DB1",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D3EE8FB2043A232F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D3EE8FB2043A232F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DB83D28BFCD18B65",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-44CF543E382F2BFA"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-44CF543E382F2BFA"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DB840141FF553D00",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-44CF543E382F2BFA"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-44CF543E382F2BFA"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-39F7FBB5992364DE",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-42385D0217B213C8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-42385D0217B213C8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-BC3EC526A17EDC7A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-42385D0217B213C8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-42385D0217B213C8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-259740811225BBF2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-00CFDC72ED487408"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-00CFDC72ED487408"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D37C1361E5F1D8B3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-00CFDC72ED487408"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-00CFDC72ED487408"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-58BEF572DE9C649A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4D900DC6C66D5510"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4D900DC6C66D5510"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B04866CAE60CAD7D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4D900DC6C66D5510"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4D900DC6C66D5510"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-355FEE95F1C2E0B5",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-73E219CFA3D85E37"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-73E219CFA3D85E37"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-43D0F4B2A3A7F651",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-73E219CFA3D85E37"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-73E219CFA3D85E37"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-414C1F8A4C41041E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B7E39A2E28DDB84C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B7E39A2E28DDB84C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E52D0F53D5CCE691",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B7E39A2E28DDB84C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B7E39A2E28DDB84C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-782EC71239FBCA82",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7CB161B3F9378716"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7CB161B3F9378716"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-869B20A103FA323B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7CB161B3F9378716"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7CB161B3F9378716"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4AEBEADF0426F940",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4A249F793F4057B9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4A249F793F4057B9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-BC8082509920F721",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-4A249F793F4057B9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-4A249F793F4057B9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-C7EEE69839DE3901",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DAD0D56C02CF71A7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DAD0D56C02CF71A7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FFEBC739408084B2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DAD0D56C02CF71A7"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DAD0D56C02CF71A7"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-00129CB626552046",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9047AED064921890"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9047AED064921890"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-653FE328117DD4E2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9047AED064921890"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9047AED064921890"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-18EFD891E8CCE5DF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D87F09AFB179CC70"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D87F09AFB179CC70"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5F6423408A8C608F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D87F09AFB179CC70"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D87F09AFB179CC70"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1F5BCDA2948C6808",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D4CF1D17F4182E5A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D4CF1D17F4182E5A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-666F338C6A4E9C5A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-D4CF1D17F4182E5A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-D4CF1D17F4182E5A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-4CEB726C483AD9EF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-71818B9E94490727"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-71818B9E94490727"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-8351E3B1B22A1947",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-71818B9E94490727"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-71818B9E94490727"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-AF797DC0C52B4238",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DC3604E326C69B49"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DC3604E326C69B49"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-C22A6EEA96B585C8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-DC3604E326C69B49"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-DC3604E326C69B49"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-22BDE9BE242BDBE0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0EAE9D15A1BDC477"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0EAE9D15A1BDC477"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-54CD6D5E52953313",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0EAE9D15A1BDC477"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0EAE9D15A1BDC477"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2EB01DD372EE8AC4",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-A6A91892410E9D6F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-A6A91892410E9D6F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-493C57394EDCFDE7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-A6A91892410E9D6F"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-A6A91892410E9D6F"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-197A50E50769DA98",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7CEFD5D122B1677"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7CEFD5D122B1677"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6DB7D0C838B47F6B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7CEFD5D122B1677"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7CEFD5D122B1677"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1916D80E5491A154",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8D17C80E5822FDC4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8D17C80E5822FDC4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-1D4AA7EAB6C4F28E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-8D17C80E5822FDC4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-8D17C80E5822FDC4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-32A463C7B3965CA9",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E948067DE694933D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E948067DE694933D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6CB1430DE4E99F97",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E948067DE694933D"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E948067DE694933D"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-78E8287D5F8F04B7",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2A279E0ABAE88D6C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2A279E0ABAE88D6C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D600393BFE4A3936",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-2A279E0ABAE88D6C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-2A279E0ABAE88D6C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3DF4A4BFDBE5BD3D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7201947FE0832855"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7201947FE0832855"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CBD2926BD6FF5165",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-7201947FE0832855"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-7201947FE0832855"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-54935DDBF511752B",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B33EE9BCD5760960"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B33EE9BCD5760960"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A38C0B8E658C73FD",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-B33EE9BCD5760960"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-B33EE9BCD5760960"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7C73AAF350E4E3BB",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-77C98CD1082473ED"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-77C98CD1082473ED"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DFF1D2544288246C",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-77C98CD1082473ED"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-77C98CD1082473ED"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-040B8C13519FBAB0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-66589CEDCFA31352"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-66589CEDCFA31352"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-60E15D44EDAF6974",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-66589CEDCFA31352"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-66589CEDCFA31352"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-28C7559DE1FBE78A",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-955FE5FDEF821CB0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-955FE5FDEF821CB0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A05B3A82EFD5AB33",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-955FE5FDEF821CB0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-955FE5FDEF821CB0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-503A394A55564115",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BB2244166B77EEAC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BB2244166B77EEAC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A4421D841DB528E4",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BB2244166B77EEAC"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BB2244166B77EEAC"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-11EAA59C7E0FA36C",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0510CE30498338B8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0510CE30498338B8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D7489F28F52EFA32",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-0510CE30498338B8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-0510CE30498338B8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-7C2DE4E321F15C02",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F20BFDF7CD900199"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F20BFDF7CD900199"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-909AEEFB2B01938E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F20BFDF7CD900199"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F20BFDF7CD900199"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-257D893678E65195",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6D0C11AFC002CBB9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6D0C11AFC002CBB9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5DE59E9FD1CBAA6D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-6D0C11AFC002CBB9"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-6D0C11AFC002CBB9"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-92E4AEE872DB7C7C",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-103A99449B9F3C28"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-103A99449B9F3C28"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-A11F9EC50F2A0911",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-103A99449B9F3C28"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-103A99449B9F3C28"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3334D53B3A218435",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CFD4155EC406493A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CFD4155EC406493A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-6A7866E6B5059D9D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CFD4155EC406493A"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CFD4155EC406493A"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3B0A0AD342BB0A29",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-33530A7B3C82C8F1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-33530A7B3C82C8F1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-430F2F72FD26D555",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-33530A7B3C82C8F1"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-33530A7B3C82C8F1"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9522489A3080A53D",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-20037CB9535FBDAD"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-20037CB9535FBDAD"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-9F63629E4C583B69",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-20037CB9535FBDAD"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-20037CB9535FBDAD"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CD7F16312EA4B54E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-ACF731F26104CD45"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-ACF731F26104CD45"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-EF08B0D4C1B21FF3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-ACF731F26104CD45"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-ACF731F26104CD45"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-50A6EF0E2EF104AC",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BCC5CEB4972595E4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BCC5CEB4972595E4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-5E4B0C27C826A8FF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-BCC5CEB4972595E4"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-BCC5CEB4972595E4"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-2B7FDDFD1ABFE936",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CF0AF263AFD07AF0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CF0AF263AFD07AF0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-40C41B35C137D37F",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CF0AF263AFD07AF0"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CF0AF263AFD07AF0"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3B104940954DB283",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-FD4B311BEA24B020"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-FD4B311BEA24B020"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DA9B2A8CD8CC59FB",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-FD4B311BEA24B020"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-FD4B311BEA24B020"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-0574CB545F257E9E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1EC04E4C9F5DDA55"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1EC04E4C9F5DDA55"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-E41060A61F0AEDF3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-1EC04E4C9F5DDA55"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-1EC04E4C9F5DDA55"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-64F513715A50919E",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5C7B3509F583CF0C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5C7B3509F583CF0C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-DAE8607F79886FEF",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-5C7B3509F583CF0C"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-5C7B3509F583CF0C"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-717E51B702EF23FB",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CCF63EE82EB964A3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CCF63EE82EB964A3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-B677DDD2E0959347",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-CCF63EE82EB964A3"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-CCF63EE82EB964A3"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-3D592637962A3AC0",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F3DA35D868FAF3F8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F3DA35D868FAF3F8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FB393A2CC405D314",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-F3DA35D868FAF3F8"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-F3DA35D868FAF3F8"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D485BDE7159645C8",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9908571B7BC9458E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9908571B7BC9458E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-D6C0420C80C656FE",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-9908571B7BC9458E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-9908571B7BC9458E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-42B0676133F10827",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7BB662F68A0DE98"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7BB662F68A0DE98"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-FA6A3BF7542182F3",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-E7BB662F68A0DE98"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-E7BB662F68A0DE98"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-50CD5CEF017567B2",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-626147E84CCDA39E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-626147E84CCDA39E"
+      ]
+    },
+    {
+      "available_published_effective_versions": 1,
+      "episode_id": "U2F-CA7B8328C045B337",
+      "latest_valid_published_fact_ids": [
+        "LF-U2F-EV-626147E84CCDA39E"
+      ],
+      "latest_version_selected": true,
+      "selected_fact_ids": [
+        "LF-U2F-EV-626147E84CCDA39E"
+      ]
+    }
+  ],
+  "external_version_selection_failures": [],
+  "future_personal_record_failures": [],
+  "future_personal_records_checked": 342,
+  "future_personal_records_hidden": 342,
+  "publication_effectivity_checks": 71456,
+  "publication_effectivity_failures": [],
+  "revision_checks": [
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-1D0A5AFA2927240C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-49661D8B372D597A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-53587B359328ACB0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A701F304C77C3A09",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-5D63754070B56314",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-86085BFEC9C9CE94",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-BEA625905BEC8889",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-DCE7799629AB9C21",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-0B2C7E512900D2B2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-177E0BFD078E12DE",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-0DD8497DFECAFF1D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-70DD0ED0AD16514B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B1D78B5FF4D41EB5",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-D76528BB7F85D0A8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-8AA3D8DB928FE030",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-DECBD891AA0096DF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-9131545319BB7865",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-E61273393410C89E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-50FB8DD43F33E6C9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-C6993C6D80044566",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-2A9F80E8FFC21834",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-3FD08111292B9B93",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-EA4F01EDCC99AC37",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-F84690C628D55AD6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-66AE555EFEEDA44C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-EB012483CED5E719",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-1BC2C9450E2FAA28",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B261178BE24C954E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-4CCEACF44B11883A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-DBF236A103B68C30",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-1421D8695F6D81EA",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-A4BF8BF676F8BA77",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-E63561E7C2B42BB5",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-F3A7EA5779D8C1B4",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-2DA3C9CFF0F67528",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-9CE9F0612E9F009D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-D3A776715E0D7BF8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-E50D93CB2229A3C1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-86BA58C13052C8AA",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-979A0743FEBA87E7",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-31F8D57DC3404C76",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-AE3648BF015D1337",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-01B7E756540C410E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-BC7DF4AC7A33AD10",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-35FBD6E6EC0BC248",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-7F5D40B917A9DC32",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-11880F4150DC4A13",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-8433997C91B91C17",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-B388D1DEF2647DF8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-FBFCF7934938D823",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-A547E8C75AAE7A32",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-F1FE37169196E2A1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C2FE278F778ECEEB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-F2347F6CCB34C1EE",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-A59E983225EE11C1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-EDD18907CCCB25C7",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-4896F739963B81D7",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-577FBFD052BDD864",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C74449CD51261E79",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-F431C0BAE0DF6F4C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-4084B4F0C335A012",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-B73417AF55A4A74B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-33793B3397D21CE1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-81005B1CD469B172",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B2543B1CB9FE5586",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-CC0C539421EDA8BB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-3A6BD2D8AB624672",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-73BEB270218FCAF2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-0419EE473163D080",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C78DDCEA68097C10",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-74709F4DBD13B32A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E913454B1DB17AC2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-86D58786FAB85927",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-BF818733EF844D41",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-9039DCDB51E736F1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-BEB8F02EF9AD3642",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-A6197203D8F00990",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-E16B05A486299AB3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-8E6D952DAF5ADE7B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-BEAC37E684977A82",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-556E0AB7CFBF618F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-DFD5D60F2F0AA423",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E39DCA119B1F3031",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E61AFB73A442C04F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-2CCEF09C742A0E6A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-D2DD9AABAA499802",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-920FC73DD8818641",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C2E27E91E4A23578",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-619BFA86D71DC79D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-D52039337D4545B1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-1F1A599CC05C0D89",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-CEB87E09D42F87C0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-698BA546234B45FA",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-E783F0C9536AFFA9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-6F4700D3BCBFF474",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-AD3510C48A61A9AF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-39307F08BE2E222B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E3BABF1208B86B79",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-06AE96C87F03E339",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B1EC3B6468340426",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-6ABBED4F0A09973E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-F5DAF0E6280E4CC2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-692AFDB5B07562B3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-D2092BB07D950FA0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-1F32B80A8B6BD9E8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-A682BC617AB9E5B9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-0856178FB6C8B68F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-E29F8448D77D40AE",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-26EAF2A1BDD5A3AF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C6D64EE9563E80D0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-4F0570E53AB667CC",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-8112DE6D3216E960",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-0F424E6052FD0F27",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-9EB21338246BBE87",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-AA6F4E436A0E54AB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-B0B9EF3C48F05762",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-BD015443B65BBBCB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-DDA523383C2B36C4",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-086B6771CBEDB140",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-D8BFFF49E7C521AB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-38F1D30B965103B2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-F90149BD5F7531F6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A29ADF7D2799A618",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-DC737DEC4289F2AF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-1C31350B4E438F25",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-C796BDBA8FC1FF61",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-62A6026FF8BC03A7",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-7C0D7021C967050C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-059634C8519987A4",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-BBFEE88EFFE7747F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-5AF090FCCD132ACD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-CEAA3832A16CDC46",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-39C5583FEB4F9EF6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-3A7941EAE59F232E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-09F9B7556FF95AC6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-206306BC643923C6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-3EAC6168065320AD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-F20D5C65B1B44538",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-211E5FDE4D092121",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-C0909D600B9B257A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-032D315CE7C382B4",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A1C7C0407158009F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-0E92B86D0556786B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-EDCA6526820AA5F3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-1519D0856B5C7402",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-1CAE4FF6172D7596",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-76FC59050998990C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E435820C071EECE1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-1885A60A383F74A8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-758207C268D6E94F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-5F867F4153B70D43",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-DE0EDE83E13EDE94",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-6759954BA50D2813",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-7163D43F9E5BBA07",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-7089BE12D4E2469A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-9DBD8368A66059D3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-CB13CEFCB905C9C9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-E5F4615D497CCF3C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-76BBF60AD8138661",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-E1099B46759FEE0E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-6B4A3A3C28FF080D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A7391E5209C1167A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B8E470C1E88D8488",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-EDB4F47A6D4A1C8D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-1671787FB2B95A39",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-27744FEDB3D1257E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-01D3B408D42B812E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-A63F44F307FCBA6B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-1A20AFA21A14CD72",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-2F208282626FCC84",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-9B21DFFC9B5924FF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-D041233736212D8F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-94BF827D27766974",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-AF00C7A7D41B9F5F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-46D9072657D42ACE",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B81BE13670A513CD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-2CDE0B163FEE004D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B51C753BD9BBE2C2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-4D90B5661622BDA1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-8D315EFDE3D5EC3F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-1045853F2B72002D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-11C517AEE4D23CB0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-22A34F8D13029FE1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-825AD38226F55670",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-683F0385702AB331",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-88D69528171697A5",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-7E5500A375330511",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-B617318487272BAB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-06595E1E98DDE6E6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-123BFBA5650658BB",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-3FC3834D8DEEC794",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-A1B54A37C1475D3B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-309CC4B872492133",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-32F51AA3E771317C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-98A4927C3A66EF2F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-B08D9BF836638691",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-A4AF8A7BE8B2BC59",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-BAE86507B2E7F726",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-0E1F8287DFB9A41F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-623290DFF677ED10",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-29DC9D61641C88E8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-FCB188C99F4088F5",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-596F81D143AA6E3E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-C2A48216EA4BF97B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-00856AD3E9D1C72B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-2EE6EC6867B35903",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-1C59A0909952380A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-3AC0B2CB8ABC9916",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-96CB6DE28BA42085",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-F7036ED05318E93A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-0E3A247408E33250",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-4954A917D3A2272D",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-924359A3D001D060",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A549A0227F2EABE3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-953BE06DD1FDE9FD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-D5D8AE5B08B5EC0B",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-40391F02F175E2FE",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-A239AC0F653C1FF0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-02B79F1F60C305A6",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-616C06B1C27E9FC4",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-6E3B9A44282B26DF",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-764AD272B7818C42",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-AB4D4BAD7D14252A",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-DFF0C40F672C4051",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-74CFAA14E12D39C2",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-C890259B73C6F698",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-13B044D5B4E35B1F",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-A431C77EC768D9E1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-1085E8B098D9BB63",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-6F9B52D1E10009C9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-3139C8619BB123FC",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-4D927B94D4C044E3",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-40AA00B6AC432514",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-84CDD8398B254DB0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-2348DE2FFB39F835",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-67D6D74627D2CBB1",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-086DFE9370021AA9",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-88F9E7631786BB00",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-2F873ADCCD096E44",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-676B67D873C9B0BD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-5283E15A7DF42E2E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-698B3EA1A9340EF8",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-4626BF1F23719425",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-92A2D79E7BF71729",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-60107B1848DA8BDD",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-D68A64999D3CA276",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-30F386B654DA7345",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 1,
+      "episode_id": "U2F-BF0764B9DEBBB5E0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 2
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-04BC4647B2490B99",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-48B117E9461B4920",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-40C24A8A4EC1A602",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 3,
+      "episode_id": "U2F-ECA586F0CE75F5F0",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 4
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-9BED793288545880",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-B7CBB84570F8A95C",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-22F90BE1F464BE10",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-39B6EFACE82B608E",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-D7806BC7608AF989",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    },
+    {
+      "declared_depth": 2,
+      "episode_id": "U2F-E2DE142AA787B347",
+      "pass": true,
+      "requested_fact_valid_at_requested_time": true,
+      "validity_chain_contiguous": true,
+      "version_count": 3
+    }
+  ],
+  "status": "PASS",
+  "timezone_aware_decisions": true
+}

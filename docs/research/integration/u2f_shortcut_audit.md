@@ -24,11 +24,11 @@ Bernoulli Naive Bayes was fit on TRAIN using cheap runtime-visible features and 
 
 | Diagnostic | DEV_IID max balanced accuracy / macro-F1 | DEV_STRUCTURAL max balanced accuracy / macro-F1 | Review threshold | Result |
 |---|---:|---:|---:|---|
-| Context-aware cheap features | 0.8093 | 0.8248 | 0.90 | PASS; below review trigger |
-| Query-only features | 0.8150 | 0.8288 | 0.90 | PASS; below review trigger |
+| Context-aware cheap features | 0.8199 | 0.7892 | 0.90 | PASS; below review trigger |
+| Query-only features | 0.8135 | 0.7800 | 0.90 | PASS; below review trigger |
 
-Per-target query-only scores are preserved in `cheap_classifier_audit.json`: on DEV_IID, memory 0.7931 balanced accuracy / 0.7901 macro-F1 and retrieval 0.8150 / 0.8150; on DEV_STRUCTURAL, memory 0.8288 / 0.8261 and retrieval 0.7814 / 0.7780. The slightly stronger query-only diagnostic is recorded as a caution for follow-on work, while all scores remain below the review threshold.
+Per-target query-only scores are preserved in `cheap_classifier_audit.json`: on DEV_IID, memory 0.7786 balanced accuracy / 0.7694 macro-F1 and retrieval 0.8135 / 0.8078; on DEV_STRUCTURAL, memory 0.7800 / 0.7731 and retrieval 0.7773 / 0.7699. All scores remain below the review threshold.
 
 ## Interpretation and limits
 
-Passing this audit means the declared univariate thresholds and the cheap-classifier review threshold were met on this generated distribution. It does not prove absence of all shortcuts, establish robustness to a new grammar, or demonstrate a router's accuracy. Any later generator, query-template, answerability, or runtime-observable feature change requires a fresh audit. See the run-level `shortcut_audit.json` and `cheap_classifier_audit.json` for per-feature rules, thresholds, train/evaluation prevalence, feature exclusions, and attribution lists.
+Passing this audit means the declared univariate thresholds and the cheap-classifier review threshold were met on frozen run `55955b2eff38`. It does not prove absence of all shortcuts, establish robustness to a new grammar, or demonstrate a router's accuracy. Any later generator, query-template, answerability, or runtime-observable feature change requires a fresh audit. See `runs/integration/u2f-owned-v1-55955b2eff38/shortcut_audit.json` and `cheap_classifier_audit.json` for per-feature rules, thresholds, train/evaluation prevalence, feature exclusions, and attribution lists.

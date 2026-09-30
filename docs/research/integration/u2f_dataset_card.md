@@ -11,8 +11,12 @@
 | Active splits | TRAIN, DEV_IID, DEV_STRUCTURAL |
 | Total size | 5,120 episodes across 448 synthetic subjects |
 | Reserved test/OOD rows | 0 materialized |
+| Frozen run | `runs/integration/u2f-owned-v1-55955b2eff38` |
+| Qualification | PASS; 64-example human spot review PASS |
+| Dataset root hash | `e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134` |
+| Generator commit | `fdaf394be287c8523c394fc626c42cd86e602745` |
 
-The frozen manifest in the generated run is authoritative for generator commit, spec hash, artifact hashes, deterministic replay, review status, and final gate status.
+The frozen manifest at `runs/integration/u2f-owned-v1-55955b2eff38/manifest.json` is authoritative for generator commit, spec hash, artifact hashes, deterministic replay, review status, and final gate status. All gates pass; the two isolated generations were byte-identical.
 
 ## Intended use
 

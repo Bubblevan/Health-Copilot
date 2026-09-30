@@ -1,0 +1,86 @@
+[
+  {
+    "episode_count": 4096,
+    "iid_lexical_augmentation": false,
+    "persona_seed_range": [
+      410000,
+      410319
+    ],
+    "same_surface_pair_count": 260,
+    "scenario_seed_range": [
+      1000000,
+      1002047
+    ],
+    "schema_version": "u2f-split-plan-v1",
+    "split_role": "TRAIN",
+    "subject_count": 320,
+    "template_families": [
+      "TRAIN_LOOKUP",
+      "TRAIN_TEMPORAL",
+      "TRAIN_UPDATE",
+      "TRAIN_AGGREGATE",
+      "TRAIN_SOURCE",
+      "TRAIN_BOOLEAN",
+      "TRAIN_SEQUENCE",
+      "TRAIN_NUMERIC",
+      "TRAIN_ABSTAIN",
+      "TRAIN_COMPOSE",
+      "TRAIN_CONVERSATION",
+      "TRAIN_TREND",
+      "TRAIN_CURRENT"
+    ]
+  },
+  {
+    "episode_count": 512,
+    "iid_lexical_augmentation": true,
+    "persona_seed_range": [
+      420000,
+      420063
+    ],
+    "same_surface_pair_count": 64,
+    "scenario_seed_range": [
+      2000000,
+      2000255
+    ],
+    "schema_version": "u2f-split-plan-v1",
+    "split_role": "DEV_IID",
+    "subject_count": 64,
+    "template_families": [
+      "TRAIN_LOOKUP",
+      "TRAIN_TEMPORAL",
+      "TRAIN_UPDATE",
+      "TRAIN_AGGREGATE",
+      "TRAIN_SOURCE",
+      "TRAIN_BOOLEAN",
+      "TRAIN_SEQUENCE",
+      "TRAIN_NUMERIC",
+      "TRAIN_ABSTAIN",
+      "TRAIN_COMPOSE",
+      "TRAIN_CONVERSATION",
+      "TRAIN_TREND",
+      "TRAIN_CURRENT"
+    ]
+  },
+  {
+    "episode_count": 512,
+    "iid_lexical_augmentation": false,
+    "persona_seed_range": [
+      430000,
+      430063
+    ],
+    "same_surface_pair_count": 64,
+    "scenario_seed_range": [
+      3000000,
+      3000255
+    ],
+    "schema_version": "u2f-split-plan-v1",
+    "split_role": "DEV_STRUCTURAL",
+    "subject_count": 64,
+    "template_families": [
+      "DEV_STRUCTURAL_ORDER",
+      "DEV_STRUCTURAL_COMPOSE",
+      "DEV_STRUCTURAL_CONDITION",
+      "DEV_STRUCTURAL_CONTRAST"
+    ]
+  }
+]

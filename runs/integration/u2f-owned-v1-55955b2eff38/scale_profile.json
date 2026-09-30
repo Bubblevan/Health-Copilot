@@ -1,0 +1,181 @@
+{
+  "answer_types": [
+    "EXACT_TOKEN",
+    "EXACT_SET",
+    "ORDERED_SEQUENCE",
+    "NUMERIC",
+    "BOOLEAN",
+    "ABSTAIN"
+  ],
+  "architecture_supervision": "UNRESOLVED",
+  "audit_seed": 2026093001,
+  "budget_supervision": "UNRESOLVED",
+  "content_origin": "PROJECT_OWNED_SYNTHETIC",
+  "dataset_id": "health-copilot-owned-longitudinal-v1",
+  "distractor_regimes": {
+    "EXTREME": [
+      41,
+      100
+    ],
+    "HIGH": [
+      16,
+      40
+    ],
+    "LOW": [
+      2,
+      5
+    ],
+    "MEDIUM": [
+      6,
+      15
+    ]
+  },
+  "evidence_world_regimes": {
+    "LARGE": {
+      "records": [
+        25,
+        64
+      ]
+    },
+    "MEDIUM": {
+      "records": [
+        9,
+        24
+      ]
+    },
+    "SMALL": {
+      "records": [
+        4,
+        8
+      ]
+    }
+  },
+  "external_families": [
+    "PUBLIC_HEALTH",
+    "GUIDELINE",
+    "LITERATURE"
+  ],
+  "forbidden_generated_identifiers": [
+    "ESL-Bench",
+    "MedMemoryBench",
+    "MedAgentBoard",
+    "MIMIC",
+    "PubMedQA",
+    "R2MED",
+    "MIRAGE",
+    "NFCorpus",
+    "WHO",
+    "CDC"
+  ],
+  "generator_version": "u2f-generator-v1.0.0",
+  "global_seed": 20260930,
+  "history_regime_ranges": {
+    "LONG": {
+      "days": [
+        120,
+        365
+      ],
+      "records": [
+        24,
+        64
+      ]
+    },
+    "MEDIUM": {
+      "days": [
+        30,
+        120
+      ],
+      "records": [
+        8,
+        24
+      ]
+    },
+    "SATURATED": {
+      "days": [
+        365,
+        730
+      ],
+      "records": [
+        64,
+        128
+      ]
+    },
+    "SHORT": {
+      "days": [
+        1,
+        14
+      ],
+      "records": [
+        2,
+        6
+      ]
+    }
+  },
+  "history_regime_target_weights": {
+    "LONG": 0.31,
+    "MEDIUM": 0.31,
+    "SATURATED": 0.15,
+    "SHORT": 0.23
+  },
+  "notice": "SYNTHETIC_RESEARCH_WORLD; NOT_CLINICAL_GUIDANCE",
+  "post_train_ready": false,
+  "record_types": [
+    "PROFILE",
+    "MEASUREMENT",
+    "EXAM",
+    "EVENT",
+    "CONVERSATION"
+  ],
+  "required_thresholds": {
+    "combined_probe_review_threshold": 0.9,
+    "counterfactual_mismatch_max": 0,
+    "different_surface_same_graph_episode_fraction_min": 0.2,
+    "revision_failure_max": 0,
+    "same_surface_episode_fraction_min": 0.1,
+    "single_feature_accuracy_max": 0.8,
+    "single_feature_lift_over_majority_max": 0.15,
+    "temporal_failure_max": 0
+  },
+  "reserved_compositions": [
+    "deep MEMORY→RAG serial chains",
+    "multi-source RAG plus memory revision",
+    "three-branch compositional tasks",
+    "long-history plus versioned external evidence"
+  ],
+  "same_surface_pair_count": {
+    "DEV_IID": 64,
+    "DEV_STRUCTURAL": 64,
+    "TRAIN": 260
+  },
+  "scenario_family_weights": {
+    "COMPOSITIONAL_MULTI_FACT": 0.07,
+    "CURRENT_ONLY": 0.18,
+    "DISTRACTOR_HEAVY": 0.06,
+    "EXTERNAL_LOOKUP": 0.08,
+    "EXTERNAL_MULTI_SOURCE": 0.06,
+    "EXTERNAL_VERSIONED": 0.06,
+    "INSUFFICIENT_EVIDENCE": 0.05,
+    "MEMORY_EXTERNAL_CONFLICT": 0.06,
+    "MEMORY_EXTERNAL_JOIN": 0.1,
+    "MEMORY_LOOKUP": 0.1,
+    "MEMORY_MULTI_RECORD": 0.04,
+    "MEMORY_REVISION": 0.06,
+    "MEMORY_TEMPORAL_COMPARE": 0.04,
+    "TEMPORAL_BOUNDARY": 0.04
+  },
+  "schema_version": "u2f-scale-profile-v1",
+  "targets": {
+    "DEV_IID": {
+      "episode_count": 512,
+      "subject_count": 64
+    },
+    "DEV_STRUCTURAL": {
+      "episode_count": 512,
+      "subject_count": 64
+    },
+    "TRAIN": {
+      "episode_count": 4096,
+      "subject_count": 320
+    }
+  }
+}

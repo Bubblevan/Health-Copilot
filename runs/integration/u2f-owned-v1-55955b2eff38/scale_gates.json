@@ -1,0 +1,124 @@
+{
+  "combined_probe_human_disposition": "PASS",
+  "combined_probe_max_balanced_accuracy_or_macro_f1": 0.8199,
+  "combined_probe_review_status": "PASS",
+  "combined_probe_review_threshold": 0.9,
+  "different_surface_same_dependency_episode_fraction": 0.6312,
+  "gates": {
+    "all_external_evidence_world_regimes_in_all_splits": true,
+    "all_insufficient_evidence_subtypes_in_train": true,
+    "all_patient_record_types_available_in_train_and_dev": true,
+    "all_six_answer_types_in_train": true,
+    "all_temporal_distance_buckets_present": true,
+    "architecture_and_budget_unresolved": true,
+    "availability_does_not_determine_requirement": true,
+    "combined_cheap_feature_review": true,
+    "complete_lineage": true,
+    "counterfactual_contract": true,
+    "dependency_depths_one_two_and_three_in_train": true,
+    "deterministic_regeneration": true,
+    "different_surface_same_dependency_minimum": true,
+    "duplicate_audit": true,
+    "high_and_extreme_distractors_in_long_histories": true,
+    "human_spot_audit": true,
+    "legacy_one_to_four_history_bucket_below_70_percent": true,
+    "multiple_revision_depths_and_depth_over_one": true,
+    "required_memory_record_type_diversity": true,
+    "reserved_test_ood_unmaterialized": true,
+    "runtime_evaluator_separation": true,
+    "same_surface_different_requirement_minimum": true,
+    "scenario_family_support": true,
+    "shared_longitudinal_subject_progression": true,
+    "single_feature_shortcut_gate": true,
+    "source_independence": true,
+    "split_and_sibling_isolation": true,
+    "synthetic_key_opacity": true,
+    "target_episode_and_subject_counts": true,
+    "temporal_audit": true,
+    "total_episode_cap": true,
+    "train_history_regime_coverage": true
+  },
+  "required_memory_record_type_max_fraction": 0.2129,
+  "same_surface_different_requirement_episode_fraction": 0.1516,
+  "single_feature_gate_max_accuracy": 0.8,
+  "single_feature_gate_max_lift": 0.15,
+  "status": "PASS",
+  "train_dependency_depth_distribution": {
+    "1": 2689,
+    "2": 967,
+    "3": 370,
+    "4": 68,
+    "5": 2
+  },
+  "train_derived_capability_distribution_review": {
+    "INSUFFICIENT": {
+      "count": 502,
+      "fraction": 0.1226,
+      "reference_range": [
+        0.05,
+        0.15
+      ],
+      "within_reference_range": true
+    },
+    "MEMORY": {
+      "count": 1045,
+      "fraction": 0.2551,
+      "reference_range": [
+        0.2,
+        0.4
+      ],
+      "within_reference_range": true
+    },
+    "MEMORY+RAG": {
+      "count": 826,
+      "fraction": 0.2017,
+      "reference_range": [
+        0.15,
+        0.3
+      ],
+      "within_reference_range": true
+    },
+    "NONE": {
+      "count": 916,
+      "fraction": 0.2236,
+      "reference_range": [
+        0.1,
+        0.25
+      ],
+      "within_reference_range": true
+    },
+    "RAG": {
+      "count": 807,
+      "fraction": 0.197,
+      "reference_range": [
+        0.15,
+        0.3
+      ],
+      "within_reference_range": true
+    }
+  },
+  "train_history_regime_fractions": {
+    "LONG": 0.3125,
+    "MEDIUM": 0.3125,
+    "SATURATED": 0.1562,
+    "SHORT": 0.2188
+  },
+  "train_revision_depth_distribution": {
+    "1": 66,
+    "2": 66,
+    "3": 74
+  },
+  "train_scenario_family_minimum": 100,
+  "train_temporal_distance_distribution": {
+    "1-7 days": 112,
+    "181-365 days": 380,
+    "31-180 days": 1101,
+    "8-30 days": 384,
+    "<1 day": 248,
+    ">365 days": 386
+  },
+  "univariate_references": {
+    "single_feature_max_accuracy": 0.8,
+    "single_feature_max_lift_over_majority": 0.15
+  }
+}

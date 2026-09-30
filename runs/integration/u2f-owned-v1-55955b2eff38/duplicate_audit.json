@@ -1,0 +1,15 @@
+{
+  "cross_split_normalized_query_overlap": [],
+  "exact_query_duplicate_rows": 388,
+  "exact_query_duplicates_allowed_inside_matched_groups": 388,
+  "exact_runtime_serialization_duplicate_rows": 0,
+  "latent_graph_duplicate_groups": 1616,
+  "latent_graph_duplicates_confined_to_sibling_group": true,
+  "normalized_query_duplicate_rows_by_split": {
+    "DEV_IID": 64,
+    "DEV_STRUCTURAL": 64,
+    "TRAIN": 260
+  },
+  "status": "PASS",
+  "unapproved_exact_query_duplicate_groups": []
+}
