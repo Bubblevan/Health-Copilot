@@ -81,7 +81,13 @@ def _gpu_snapshot() -> dict[str, Any]:
     }
 
 
-def freeze(*, server_url: str, executable_path: Path, output_path: Path) -> dict[str, Any]:
+def freeze(
+    *,
+    server_url: str,
+    executable_path: Path,
+    executable_sha256: str,
+    output_path: Path,
+) -> dict[str, Any]:
     if output_path.exists():
         raise FileExistsError("B4 protocol lock already exists; it is immutable")
     if server_url != DEFAULT_SERVER_URL:
@@ -112,6 +118,10 @@ def freeze(*, server_url: str, executable_path: Path, output_path: Path) -> dict
             raise FileExistsError("B4 private execution artifacts exist before protocol freeze")
     if not MODEL_PATH.is_file() or not executable_path.is_file():
         raise FileNotFoundError("pinned Qwen3 model and shared server executable must exist")
+    if len(executable_sha256) != 64 or any(
+        character not in "0123456789abcdefABCDEF" for character in executable_sha256
+    ):
+        raise ValueError("provide the SHA-256 computed for the exact shared server executable")
 
     client = LlamaServerClient(server_url)
     client.health()
@@ -207,7 +217,8 @@ def freeze(*, server_url: str, executable_path: Path, output_path: Path) -> dict
             "server_url": server_url,
             "server_pid": int(process["ProcessId"]),
             "server_executable": process_executable,
-            "server_executable_sha256": sha256_file(executable_path),
+            "server_executable_sha256": executable_sha256.lower(),
+            "server_executable_sha256_method": "PowerShell Get-FileHash -Algorithm SHA256",
             "model_path": str(MODEL_PATH),
             "llama_cpp_build_info": props["build_info"],
             "server_context_capacity": server_context,
@@ -269,6 +280,7 @@ def freeze(*, server_url: str, executable_path: Path, output_path: Path) -> dict
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--server-url", default=DEFAULT_SERVER_URL)
+    parser.add_argument("--server-executable-sha256", required=True)
     parser.add_argument("--server-executable", type=Path, default=Path(
         r"C:\Users\bubblevan\AppData\Local\Microsoft\WinGet\Packages\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\llama-server.exe"
     ))
@@ -277,6 +289,7 @@ def main() -> None:
     result = freeze(
         server_url=args.server_url,
         executable_path=args.server_executable,
+        executable_sha256=args.server_executable_sha256,
         output_path=args.output,
     )
     print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))

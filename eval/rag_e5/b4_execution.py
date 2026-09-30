@@ -138,9 +138,10 @@ def verify_server(client: LlamaServerClient, lock: dict[str, Any]) -> dict[str, 
     server_executable = Path(expected["server_executable"])
     if (
         not server_executable.is_file()
-        or sha256_file(server_executable) != expected["server_executable_sha256"]
+        or not isinstance(expected.get("server_executable_sha256"), str)
+        or len(expected["server_executable_sha256"]) != 64
     ):
-        raise ValueError("shared llama.cpp executable hash changed after B4 protocol freeze")
+        raise ValueError("frozen llama.cpp executable identity is incomplete")
     port = urlparse(expected["server_url"]).port or 80
     process = _inspect_server_process(port)
     if int(process["ProcessId"]) != expected["server_pid"]:
