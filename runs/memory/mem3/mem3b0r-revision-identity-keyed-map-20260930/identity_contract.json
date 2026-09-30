@@ -1,0 +1,102 @@
+{
+  "batch": {
+    "initial_size": 32,
+    "order": "scope_id then memory_id ascending",
+    "same_request_retries": 0
+  },
+  "contract_id": "revision-identity-v2-keyed-map-local-recovery",
+  "input_fields": [
+    "memory_id",
+    "proposition_text",
+    "source_authority",
+    "scope_id"
+  ],
+  "model": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_fallback": false,
+    "max_tokens": 8192,
+    "model": "Qwen3-8B Q4_K_M frozen local artifact",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "role": "identity proposer",
+    "seed": 42,
+    "temperature": 0,
+    "thinking": false
+  },
+  "output_fields": [
+    "memory_id",
+    "revision_kind",
+    "subject_key",
+    "attribute_key",
+    "value_text",
+    "identity_origin",
+    "fallback_reason"
+  ],
+  "recovery_contract": {
+    "batch_size_gt_one": "discard parent semantic output; split contiguous canonical input in half; left before right",
+    "fallback_for_infrastructure_or_source_failure": false,
+    "global_failures": [
+      "frozen source SHA or inventory corruption",
+      "duplicate frozen input IDs",
+      "MemoryStore mutation",
+      "provider/model/runtime identity mismatch",
+      "benchmark label leakage",
+      "cache or artifact integrity failure",
+      "code/protocol identity mismatch",
+      "provider response unavailable"
+    ],
+    "local_failure_codes": [
+      "COMPLETION_TRUNCATED",
+      "DUPLICATE_JSON_OBJECT_KEY",
+      "EMPTY_VALUE_TEXT",
+      "IDENTITIES_NOT_OBJECT",
+      "IDENTITY_PAYLOAD_NOT_OBJECT",
+      "ILLEGAL_REVISION_KIND",
+      "INVALID_ATTRIBUTE_KEY",
+      "INVALID_IDENTITY_ROOT",
+      "INVALID_SUBJECT_KEY",
+      "MALFORMED_ASSISTANT_JSON",
+      "MISSING_IDENTITY_FIELD",
+      "MISSING_IDENTITY_KEY",
+      "UNEXPECTED_IDENTITY_FIELD",
+      "UNEXPECTED_IDENTITY_KEY"
+    ],
+    "same_request_retries": 0,
+    "single_item_local_output_failure": "UNKNOWN / unknown / unknown with original frozen proposition text and HARNESS_UNKNOWN_FALLBACK origin"
+  },
+  "revision_kinds": [
+    "SINGLETON_STATE",
+    "SET_STATE",
+    "EVENT",
+    "NON_REVISIONAL",
+    "UNKNOWN"
+  ],
+  "schema_version": 2,
+  "semantic_contract_unchanged": true,
+  "semantic_prompt_sha256": "4ed9594e72d089e414cf31cefa5334dcf74be4e52f65d06ad7da4b40f4f98033",
+  "validator_id": "revision-identity-validator-v2-keyed-map",
+  "validator_identity_binding": {
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "recovery_contract_sha256": "663373820ba367502454ae95c6450da547d963baeb57f2165a566cb198eefd0d",
+    "recovery_implementation_sha256": "ccffafbde671babc94a18a39aae3c9de6a4fa38bbf09218709073c9b3926d92a",
+    "semantic_identity_contract_sha256": "7636f96f90e18eb014d9afa83116569335f4cbd219fe52916549bae3bc5bfad0",
+    "validator_source_sha256": "ccffafbde671babc94a18a39aae3c9de6a4fa38bbf09218709073c9b3926d92a",
+    "wire_contract_sha256": "918545842ba973837e3b62ab20730756a56bb027461db256a32db1d7104da9fd"
+  },
+  "validator_identity_sha256": "ef6ae4ed7a6df2536c49b886515077c706a837d6a27c1b6b14c2e04294e4fc69",
+  "wire_contract": {
+    "additional_properties": false,
+    "contract_id": "revision-identity-wire-v2-keyed-map",
+    "inner_payload_fields": [
+      "revision_kind",
+      "subject_key",
+      "attribute_key",
+      "value_text"
+    ],
+    "memory_id_in_inner_payload": false,
+    "raw_duplicate_object_keys": "reject before dict construction",
+    "required_keys_equal_current_batch_ids": true,
+    "root_shape": {
+      "identities": "object keyed by the exact current batch IDs"
+    }
+  }
+}

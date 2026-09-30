@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "stage": "mem3b0-revision-identity-frozen-flatprop-20260930",
+  "base_commit_sha": "f2632b69a9e15a7ce08b58dc73ca1c76d379c50b",
+  "topic_head_at_preflight": "5992b0139eed3984e350454403a3957c110ff22c",
+  "status": "FAILED_FATAL_IDENTITY_CONTRACT",
+  "completion_gate_marker": "MEM3B0_REVISION_IDENTITY_FROZEN_DIAGNOSTIC=NO",
+  "frozen_input_sha256": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+  "identity_contract_sha256": "7636f96f90e18eb014d9afa83116569335f4cbd219fe52916549bae3bc5bfad0",
+  "identity_preflight_sha256": "8fc1e3caf715f7fdad4e9360eb836147780d606cd302571be7e05430dd3de7f9",
+  "failure_artifact_sha256": "0a95e87e4b637faa1628764c6e555af88f3068a0c1c2602c6f45423b469a2a0a",
+  "report_sha256": "75fe95affc98a2119d0f1d36f52edb7b115517543b7d21607ec1eaf4b759306f",
+  "human_review_sha256": "02fa19500d1f3776e87283d397f2fa6907495e762fb214e9fb2c0b972dd8772e",
+  "call_summary": {
+    "identity_proposer_requests": 1,
+    "local_loopback_only": true,
+    "hosted_calls": 0,
+    "retries": 0,
+    "length_bisections": 0,
+    "embedding_calls": 0,
+    "retrieval_calls": 0,
+    "reader_answer_calls": 0,
+    "judge_calls": 0
+  },
+  "coverage": {
+    "input_records": 8112,
+    "validated_identity_records": 0,
+    "unattempted_records": 8080
+  },
+  "memory_store_unchanged": true,
+  "diagnostic_case_history_inspected": false,
+  "benchmark_metrics_computed": false,
+  "artifact_sha256": {
+    "docs/research/memory/mem_3b0_revision_identity_protocol.md": "0d4433ea5d4785585ac48632d5410c18b56afcd8792a90f6c4c249ed23874179",
+    "docs/research/memory/mem_3b0_revision_identity_review.md": "02fa19500d1f3776e87283d397f2fa6907495e762fb214e9fb2c0b972dd8772e",
+    "runs/memory/mem3/mem3b0-revision-identity-frozen-flatprop-20260930/identity_failure.json": "0a95e87e4b637faa1628764c6e555af88f3068a0c1c2602c6f45423b469a2a0a",
+    "runs/memory/mem3/mem3b0-revision-identity-frozen-flatprop-20260930/identity_preflight.json": "8fc1e3caf715f7fdad4e9360eb836147780d606cd302571be7e05430dd3de7f9",
+    "runs/memory/mem3/mem3b0-revision-identity-frozen-flatprop-20260930/report.md": "75fe95affc98a2119d0f1d36f52edb7b115517543b7d21607ec1eaf4b759306f",
+    "runs/memory/mem3/mem3b0-revision-identity-frozen-flatprop-20260930/revision_identity_contract.json": "7636f96f90e18eb014d9afa83116569335f4cbd219fe52916549bae3bc5bfad0"
+  },
+  "identity_records_and_candidate_groups_not_produced": true,
+  "next_step": "STOP_FOR_HUMAN_REFLECTION"
+}
