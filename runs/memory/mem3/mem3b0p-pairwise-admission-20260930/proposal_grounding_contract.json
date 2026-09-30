@@ -1,0 +1,52 @@
+{
+  "contract_id": "mem3b0p-proposal-grounding-v1",
+  "fuzzy_matching": false,
+  "normalization": {
+    "case": "lowercase",
+    "stopwords": [
+      "a",
+      "an",
+      "and",
+      "are",
+      "as",
+      "at",
+      "be",
+      "been",
+      "by",
+      "for",
+      "from",
+      "had",
+      "has",
+      "have",
+      "in",
+      "is",
+      "it",
+      "of",
+      "on",
+      "or",
+      "the",
+      "to",
+      "was",
+      "were",
+      "with"
+    ],
+    "tokenization_regex": "[a-z0-9]+",
+    "underscore": "replace_with_space",
+    "unicode": "NFKC"
+  },
+  "rules": [
+    {
+      "decision": "every numeric token in value_text must occur in proposition_text",
+      "failure": "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH",
+      "id": "numeric_value_grounding"
+    },
+    {
+      "decision": "if both sides contain informative tokens, their token intersection must be non-empty",
+      "failure": "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED",
+      "id": "informative_token_overlap"
+    }
+  ],
+  "schema_version": 1,
+  "value_rewrite": false,
+  "value_text_authority": "diagnostic_only_not_persisted_state"
+}

@@ -1,0 +1,104 @@
+{
+  "base_commit_sha": "96fb49a05febfb65438d5c63ff115745ad8ddb79",
+  "candidate_statistics": {
+    "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "exact_candidate_groups": 1270,
+    "full_identity_calls": 0,
+    "grounded_eligible_records": 1366,
+    "grounded_user_asserted_records": 1243,
+    "grounded_user_mixed_records": 123,
+    "identity_hints": 8112,
+    "memory_store_mutations": {
+      "ADD": 0,
+      "DELETE": 0,
+      "SUPERSEDED": 0,
+      "UPDATE": 0
+    },
+    "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102",
+    "proposal_grounding_counts": {
+      "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
+      "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
+      "NOT_EVALUATED": 6602,
+      "VALUE_LOCALLY_GROUNDED": 1366
+    },
+    "repeated_candidate_groups": 48,
+    "repeated_candidate_members": 144,
+    "revision_eligibility_counts": {
+      "ELIGIBLE_USER_STATE": 1510,
+      "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+      "INELIGIBLE_REVISION_KIND": 5055,
+      "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+      "REVISION_INELIGIBLE": 4
+    },
+    "singleton_groups_no_revision_history": 1222,
+    "source_propositions": 8112,
+    "timestamp_fields_loaded": 0,
+    "timestamp_fields_used": 0,
+    "unordered_pair_count": 256
+  },
+  "completion_gate_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
+  "contract_sha256": {
+    "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "grounding_contract_file_sha256": "700e605f9920b03e9cdbe9909bb30883ae1cdbf7756bf4a7cfb350fe60d3ef37",
+    "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102"
+  },
+  "execution_policy": {
+    "benchmark_runs": 0,
+    "embedding_calls": 0,
+    "full_identity_calls": 0,
+    "hosted_calls": 0,
+    "judge_calls": 0,
+    "memory_store_mutations": {
+      "ADD": 0,
+      "DELETE": 0,
+      "SUPERSEDED": 0,
+      "UPDATE": 0
+    },
+    "pairwise_calls_allowed": 256,
+    "reader_answer_calls": 0,
+    "retrieval_calls": 0,
+    "same_request_retries": 0,
+    "timestamp_fields_loaded": 0,
+    "timestamp_fields_used": 0
+  },
+  "frozen_artifacts": {
+    "candidate_groups.json": "60c550c5ae979c1bdb97d923a6a4d6b627a0c805d05b5a0835e6d144fe637672",
+    "memory_module_scorecard_contract.json": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568",
+    "pair_manifest.jsonl": "08dce293fd5a9d29b8bc5901df64e28bb6958b5f5c2a80369e7a1476a81e0e17",
+    "pairwise_call_ledger.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pairwise_verifier_contract.json": "c6fbd775b4079188c2623995fed8e96ec3a8e46307436533547c13bfd5143aa3",
+    "proposal_grounding_contract.json": "700e605f9920b03e9cdbe9909bb30883ae1cdbf7756bf4a7cfb350fe60d3ef37",
+    "proposal_grounding_decisions.jsonl": "673d2690795f41f7990cfed8bf9366059d6b9410d0eedf6d8ec38621388815c7",
+    "revision_admission_contract.json": "f2b00a1f31a77f8456bce354d499474819e2483a0ce95325555dba97846ba96c",
+    "safety_statistics.json": "a31a13d7f5d9cc26f22f96a375eb78739f3d5e8a15275833cddf20b4fbdf840a"
+  },
+  "readiness_gate_marker": "MEM3B0P_MEM3B1_READY=NO",
+  "schema_version": 1,
+  "scorecard": {
+    "committed_before_any_model_call": true,
+    "contract_id": "health-copilot-memory-module-scorecard-v1",
+    "json_sha256": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568",
+    "markdown_sha256": "5492dfa093351c66f591c59f20c8df9cdb1eef848ca254a444a1f7f2f21540c1"
+  },
+  "scorecard_commit_subject": "Freeze MEM-3B0P memory scorecard protocol",
+  "scorecard_lock_commit_sha": "b2938211fe2c6ebea10f1f771132b62d82a2bbc1",
+  "source_code_sha256": {
+    "admission_module": "3cd19ed1c2fc3d7a99a4e49e6e5b1fa6c86053e68abc7dd36c3eb36906b26588",
+    "protocol": "8512f715b05f0d905f07f200096769ce5e1db0d211383996163a85f6b4e188d4",
+    "runner": "b470a35b38773070e33f51e24b8243d26b008914ed88e3fa8c1076078142a313",
+    "scorecard_json": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568",
+    "scorecard_markdown": "5492dfa093351c66f591c59f20c8df9cdb1eef848ca254a444a1f7f2f21540c1"
+  },
+  "stage": "mem3b0p-pairwise-admission-20260930",
+  "status": "CANDIDATES_FROZEN_AWAITING_LOCAL_PAIRWISE_VERIFICATION",
+  "topic_branch": "mem3b0p-pairwise-revision-admission-20260930",
+  "upstream": {
+    "flatprop_count": 8112,
+    "flatprop_path": "runs/memory/mem3/mem3a3r-recursive-flatprop-frozen-10-20260929/flatprop_inventory.jsonl",
+    "flatprop_sha256": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+    "identity_count": 8112,
+    "identity_path": "runs/memory/mem3/mem3b0r-revision-identity-keyed-map-20260930/revision_identity_records.jsonl",
+    "identity_role": "SEMANTIC_CANDIDATE_HINTS_NOT_AUTHORITATIVE_STATE_SCHEMA",
+    "identity_sha256": "49af354bb535909a572df580cf02483ab56022dcf31873266154caf0086b4f75"
+  }
+}

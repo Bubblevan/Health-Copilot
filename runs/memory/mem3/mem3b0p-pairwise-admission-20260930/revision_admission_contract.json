@@ -1,0 +1,29 @@
+{
+  "blocking_verdicts": [
+    "COEXISTING_FACTS",
+    "UNRELATED",
+    "UNKNOWN"
+  ],
+  "candidate_group_fields": [
+    "scope_id",
+    "subject_key",
+    "attribute_key"
+  ],
+  "candidate_keys_are_authoritative_slot_ids": false,
+  "contract_id": "mem3b0p-harness-all-pairs-admission-v1",
+  "group_admission_rule": "all unordered pair verdicts must equal SAME_MUTABLE_SLOT",
+  "memory_store_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  },
+  "no_transitive_clustering": true,
+  "schema_version": 1,
+  "single_member_group": "NO_REVISION_HISTORY; no slot id",
+  "slot_id": {
+    "diagnostic_subject_attribute_keys_in_hash": false,
+    "formula": "SHA256(UTF8(scope_id + concat(sorted(member_memory_ids)) + admission_contract_sha256))",
+    "owner": "Harness"
+  }
+}

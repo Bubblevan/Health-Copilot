@@ -1,0 +1,36 @@
+{
+  "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+  "exact_candidate_groups": 1270,
+  "full_identity_calls": 0,
+  "grounded_eligible_records": 1366,
+  "grounded_user_asserted_records": 1243,
+  "grounded_user_mixed_records": 123,
+  "identity_hints": 8112,
+  "memory_store_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  },
+  "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102",
+  "proposal_grounding_counts": {
+    "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
+    "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
+    "NOT_EVALUATED": 6602,
+    "VALUE_LOCALLY_GROUNDED": 1366
+  },
+  "repeated_candidate_groups": 48,
+  "repeated_candidate_members": 144,
+  "revision_eligibility_counts": {
+    "ELIGIBLE_USER_STATE": 1510,
+    "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+    "INELIGIBLE_REVISION_KIND": 5055,
+    "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+    "REVISION_INELIGIBLE": 4
+  },
+  "singleton_groups_no_revision_history": 1222,
+  "source_propositions": 8112,
+  "timestamp_fields_loaded": 0,
+  "timestamp_fields_used": 0,
+  "unordered_pair_count": 256
+}
