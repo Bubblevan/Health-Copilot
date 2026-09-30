@@ -1,0 +1,25 @@
+{
+  "b0p_false_purchase_event_blocked": true,
+  "b0p_purchase_control_memory_ids": [
+    "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+    "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+  ],
+  "b0p_purchase_state_cardinality": "NOT_A_STATE",
+  "control_audit_sha256": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
+  "control_source": "post_freeze_control_audit.json joined to frozen B0Q candidates, factorized verdicts, and slots",
+  "gym_candidate_recall": "DISCOVERED_NOT_ADMITTED",
+  "gym_control_memory_ids": [
+    "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+    "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+  ],
+  "gym_pair_discovered": "YES",
+  "gym_revision_slot_admitted": "NO",
+  "historical_b0s_false_safe_examples_blocked": true,
+  "human_review_slots": 99,
+  "instagram_control_memory_ids": [
+    "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+    "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+  ],
+  "instagram_revision_slot_admitted": "NO",
+  "reviewer_role": "USER_AUTHORIZED_SUBAGENT_REFLECTION"
+}

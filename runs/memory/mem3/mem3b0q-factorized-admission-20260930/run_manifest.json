@@ -39,8 +39,43 @@
   },
   "completion": {
     "completion_marker": "MEM3B0Q_FACTORIZED_REVISION_ADMISSION_COMPLETE=YES",
-    "readiness": "PENDING_HUMAN_REFLECTION",
+    "critical_controls": {
+      "b0p_false_purchase_event_blocked": true,
+      "b0p_purchase_control_memory_ids": [
+        "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+        "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+      ],
+      "b0p_purchase_state_cardinality": "NOT_A_STATE",
+      "control_audit_sha256": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
+      "control_source": "post_freeze_control_audit.json joined to frozen B0Q candidates, factorized verdicts, and slots",
+      "gym_candidate_recall": "DISCOVERED_NOT_ADMITTED",
+      "gym_control_memory_ids": [
+        "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+        "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+      ],
+      "gym_pair_discovered": "YES",
+      "gym_revision_slot_admitted": "NO",
+      "historical_b0s_false_safe_examples_blocked": true,
+      "human_review_slots": 99,
+      "instagram_control_memory_ids": [
+        "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+        "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+      ],
+      "instagram_revision_slot_admitted": "NO",
+      "reviewer_role": "USER_AUTHORIZED_SUBAGENT_REFLECTION"
+    },
+    "human_review_summary": {
+      "false_revision_merge": 45,
+      "true_singleton_slot": 41,
+      "uncertain": 13
+    },
+    "readiness": "NO",
     "readiness_marker": "MEM3B0Q_MEM3B1_READY=NO",
+    "reviewer_provenance": {
+      "authorization_basis": "User explicitly authorized subagent reflection with the same effect as human approval.",
+      "decision_file_sha256": "766f602146776e114e6696fa3e404a7954a3ceb3e72c0f3516e51288a8bd5564",
+      "reviewer_role": "USER_AUTHORIZED_SUBAGENT_REFLECTION"
+    },
     "semantic_quality_not_part_of_structural_gate": true,
     "structural_complete": true
   },
@@ -91,6 +126,7 @@
     "seed_pair_calls": 4001
   },
   "frozen_artifacts": {
+    "admitted_slot_human_review.json": "6c261644ed7ab455deac4332e364457d3907de1c1186abccb1f5baf95b746ed8",
     "admitted_slot_human_review_packet.json": "bb35d9467dcc86bb1202bffc21804296298a27729ecf9587501319597ad2687e",
     "b0r_identity_hints_projection.jsonl": "e378e8b676d3a97ec2816ed06a30394ebb0a2a7e5c222da607460aca94388c6f",
     "candidate_generation_contract.json": "df59f6f753a3485e10529593157f19e30ed7a0b402ac56864b65445d933d5acf",
@@ -98,15 +134,18 @@
     "candidate_pair_manifest.jsonl": "4cc70617a34e4d4e50a5c9b75ea996cfb30be95b892666cc73f7950ce417def5",
     "closure_pair_manifest.jsonl": "309c2fdea4f1e2207405b6a5ea213bdec2b9d08edc3e4cecbb139790ec55fbef",
     "closure_pairwise_verdicts.jsonl": "25e6db530056ff1df55671fccd10d1595d5d9586d91918958882a153d22feff3",
+    "critical_case_review.json": "8636672750a3004031a0519af6e097058e81a721d674ef38262569bb304cdf90",
     "eligibility_decisions.jsonl": "bbf49aea2b1ba02bd6b06d04682738ac28ce8ba156c20ff6fe57272f597de627",
     "eligible_records.jsonl": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
     "factorized_verifier_contract.json": "ebbcfb6572a2e04a5ad50dda98379fff57eaa1075c0934b08465f0365cdd8ed7",
     "human_review_decisions_template.json": "596c789608b41781918ab3b07410b4123a198e754119f648a5f9dbb2e9d00514",
+    "human_review_decisions_user.json": "766f602146776e114e6696fa3e404a7954a3ceb3e72c0f3516e51288a8bd5564",
     "pairwise_call_ledger.jsonl": "6ff71187decac2ad837f2fdd9cca99d08a03dce310471f26ed37b3ae743895d0",
     "pairwise_verdicts.jsonl": "5babc1e6c9b11dcbc9b46ba2cf334a8c0404604e9f3f1fe686b06990df19eb65",
     "positive_slot_graph.json": "22c6f7e288b8cf026ed0290ef50c0a5cd0aefe3aec510d7926351f975a70d07a",
     "post_freeze_control_audit.json": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
     "preliminary_positive_graph.json": "b77eda22e38ce0d3b5e6664c432b416b30ff17e6867eac93a128d983b34f21e4",
+    "report.md": "7c4980b2f0293b8d1bf8f5de3a9895616237636b2b161a0660710073b8ea18a6",
     "revision_semantic_source_projection.jsonl": "7acd97a0516f7fa59d33c369c1e62b120b9ccd0ac8c9def01fff00f5cf635990",
     "revision_slot_manifest.json": "7ba23005bea2f2d80706297d3e63c10d66417b7dfb57ebb2a56c234100b1c91d",
     "safety_statistics.json": "54de170c657e6587aa4a4333771191dfaa0ed64ab8f4bdf7b70266fe1d90b854",

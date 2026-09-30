@@ -1,0 +1,2476 @@
+{
+  "decisions": [
+    {
+      "decision": "false_revision_merge",
+      "notes": "Wallet color choice is distinct from style and material preferences.",
+      "revision_slot_id": "05b5eff80545e2d8c823385da7e3b8a006882210531c91c6a0566d4fcd247895"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "A routine segment list and one segment purpose are separate program dimensions.",
+      "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "General belief about BFR differs from the users own use and efficacy experience.",
+      "revision_slot_id": "0c571d5dd7fb61aa7cd4f9fd3efdc1c24e1196eba05fbcfb6004da5bb9fcd016"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "A specific loafer-scuff task is not the same state as general care of remaining shoes.",
+      "revision_slot_id": "0e2056fe9d264901e64543e16bf0ae201f6b30169f94c9b93a216eba619dd898"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Community charity, childrens causes, and wildlife care are multiple volunteer interests.",
+      "revision_slot_id": "0f0672f5572fea149cabc8336fa7764b8826ba598879c54510a231338c938ff4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The propositions concern two distinct coins.",
+      "revision_slot_id": "13f2bb1f0532456617d7846e79f3aa32bb8bbf7b789b1eecc6361131dc26402f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both state the same Node.js version for the user.",
+      "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "A sage infusion method and the selected syrup lineup are separate recipe attributes.",
+      "revision_slot_id": "1f11b92e511060d1882c12cef6bd8be4cced1b7cec4d1635b029242ceef04e55"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "General excitement about novelty and excitement about a specific birthday are separate states.",
+      "revision_slot_id": "23796b2ed87957669815c74fb93230ec327168f3a7f7be39d69e8a44e92123d3"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same jewelry-box organization task and intended storage decision.",
+      "revision_slot_id": "28ab1bb02fd56a114e1b248b7d379bb860feded3796fab7e70113f6a96cf6786"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Product display and a bundle promotion are separate event-marketing tactics.",
+      "revision_slot_id": "2983edf7ac8e42148b4c4369cf69c9743098fcf9bb9db2ac6fc1826402a03a5e"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern the contacts cleanup, but identifying entries and resolving ownership are distinct task states.",
+      "revision_slot_id": "2dd7212cc709f844561dbac61c68109efa83edc7ca231fde08c682fa9adb7f63"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Project format and embroidery design are separate sewing-project choices.",
+      "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The antique ring and brooch are separate possessions.",
+      "revision_slot_id": "34743307038c5afac2cfae7986f8d302d65fb94913f3a9aaa8b34e4a34cdb0fa"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Promoting a Q&A and applying poll feedback to content are distinct actions.",
+      "revision_slot_id": "34b266043b286d915dee569e645dfae85eba1be503e91144eddcce806284785e"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both ask for the same storage-and-preservation advice for the same prints.",
+      "revision_slot_id": "34be179b18b39a2425203a2642ab1994fef371180473f41f0f098186bc698899"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Beer-food pairing requests and the desired beer experience are different preference dimensions.",
+      "revision_slot_id": "35086c355aaf43d0e8cd7c6444878537d47032874b5d13ebd6a4fcd83bc12267"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "The exact recurring pizza toppings explain the stated satisfaction with the current combination.",
+      "revision_slot_id": "38aad96c65abdb345cfec66536f50ecaf5165d3ef6502cb4a7adae1f4531ebd3"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Bidding stage and lump-sum award type are separate project attributes.",
+      "revision_slot_id": "3ddcbb09f0beb1e80c28d75c119954e223ec43d6c242648e87adc478f2c7c70a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Residence location and commute distance are distinct user attributes.",
+      "revision_slot_id": "42a236d96b3988f4dd8731daad8837d005211121b8256263530ecbe1807e3d29"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern homemade jam, but general recipe ideation and flavor balancing may be separate task dimensions.",
+      "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "All propositions identify the same 1/24 Ford Mustang Shelby GT500 model-building project.",
+      "revision_slot_id": "48d952819b777c924acbe2ab54154def6a8771b60ae98e43988271ed59c2d5e1"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Running an academic-writing workshop and personal anxiety about writing formats are distinct states.",
+      "revision_slot_id": "4c727cc26a526ac772849c461ccc554ec486c020ecba60032a76be01c1b6915f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both express the same recent pattern of staying within gift budgets.",
+      "revision_slot_id": "4e5f513783f46c9b5f5862fc5a393dd71dacbb92a9ae7c3b9347e5071ac9d801"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Temporary lodging in Midtown and a lunch plan near the High Line are different location plans.",
+      "revision_slot_id": "4f01316b6637c487cab4d45d307b3e6231f7eff648f112d72bcbfeb4ad0345b3"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "All concern the same old Ugg boots and the users disposition/sale plan for them.",
+      "revision_slot_id": "4f39647a1c7175b7f2ec64e6a106b0b2be70a90fd4e8eb7e753fb559f52d62b2"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same Miso-Honey popcorn flavor trial; ginger is a compatible refinement.",
+      "revision_slot_id": "512144558c3ce8d45f7e507c85b076629dd694981068210e156e529711d6bed9"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both state the same inherited land ownership and Illinois location.",
+      "revision_slot_id": "512d5becdd0ba7ea87b3ca7f6237ae0132f74216836a5c2854bb6e04cfd52172"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "The propositions share a literary topic, but thematic interests and personal interpretation are separable dimensions.",
+      "revision_slot_id": "515a8a605f96729500abfa7d90734e0849370230d1246c790c0ec888d9c57683"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both request the same code-level explanation of the Joy-Con protocol.",
+      "revision_slot_id": "57692da90cb53ada0661a80ac06fc9a315ae6b3aeb8665e3315cc363fd1d1027"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both identify braking technique and corner-entry speed as the same track-day focus.",
+      "revision_slot_id": "583cf5961cb0fb3d1befd48d6a74b019f8e5ed76c91001695405cbedc5e62e33"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "A considered pom-pom/flower and a chosen embroidered label could be alternatives or additive hat decorations.",
+      "revision_slot_id": "5a4090c910d5d4de244cfc03c17d53ba474e0dcff4cd7c331c551fa680ee4bb7"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Dough consistency and making ravioli are related, but recipe task and technique question are not clearly one state.",
+      "revision_slot_id": "5b23d10f185b299beded7c300db0d21b7c2fc8ae311c3511cca7cb106aa2f5d6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same recent ankle injury; the recovery detail is compatible.",
+      "revision_slot_id": "5ce4a75fdd5cce8921f6cbc0bb0c34868935677455227880cd84cc0b522f5574"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same completed app-folder organization and its purpose.",
+      "revision_slot_id": "5f93eb2be59a2141c1e6859bf44b41b2333bca897bae1d41155577d34b9c39c2"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Flight/date flexibility and funding/planning a Miami trip are distinct travel-plan dimensions.",
+      "revision_slot_id": "6195e12cc218e882d1b041bed6761de323d35828fd1c4d0d50e994d394873de4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Phone use as a battery-drain cause and Facebook audience/activity are unrelated attributes.",
+      "revision_slot_id": "66e1a15b6c67363e151103575d77a70e09b6fe655215436fb50f018758bc4f53"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both concern whether bread flour is the chosen ingredient for dense savory scones.",
+      "revision_slot_id": "680c30771fcc8760f87d990562b29105941eb47136baf7e3d93199fb0d592fc7"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both report the same completed bedroom deep-cleaning state.",
+      "revision_slot_id": "687fa43373fe0e898ecc0317928023468c2402e248bca93df8d5903a7f04f565"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The Lavender Gin Fizz and Lavender Dream are distinct cocktail experiments and recipe choices.",
+      "revision_slot_id": "688d428f0496de87caca144d722a7b2aa74be6f83c5351f5547990a07d981144"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern net worth, but a 12-month decline and billionaire threshold may refer to different time/value dimensions.",
+      "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The clauses describe distinct procedural/legal propositions, not one mutable state.",
+      "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same unresolved intermittent connectivity-drop issue after router upgrade.",
+      "revision_slot_id": "6c324f4f91817bd857a3b0a0e11da800bd279b18f9b039f5254f7b8c54a38d96"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "A broad seasonal-baking interest and one savory-scone plan are related but not clearly the same state dimension.",
+      "revision_slot_id": "7139f97cb7473baddbc2861a9f641bad25a0b9e46a5d5464381078c4a84d8f6a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Outfit planning for boots and an opinion about the H&M store are separate preferences.",
+      "revision_slot_id": "76a51fed62bcdcff918bad963aa4e5c99aad9d121f5761aadc23791384c1a304"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Starting a small garden and expanding a garden may describe one plan, but the scope/status is ambiguous.",
+      "revision_slot_id": "83c32a6c85d0c5656211eb2e658077386c98c9db39285c88523bb090229b3aac"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Purchasing and assembling a bookshelf are separate completed historical events.",
+      "revision_slot_id": "8946ea66720edd82a0849b708f1bbe04ef4081f99edd83fddde6a0d88a23e911"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both concern the same coilover setup and intended adjustment for handling/body roll.",
+      "revision_slot_id": "8a775f0141498b8b6a5f9c2b2cb5b6cf382179215b73c235e91cb17ff26a899d"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "The price and material/store suggest the same necklace, but the propositions do not conclusively identify the same item.",
+      "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both express the same intention to grant the sister MyChart proxy access.",
+      "revision_slot_id": "8bc0c9dcc1819a7faa405a842b5854ce54b0eb57eb213acd20e82aa87b77da00"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Forming attachment mental models and listing parent behavior qualities are distinct intervention propositions.",
+      "revision_slot_id": "96d411785c5beab09b65024cfaa2c34996b016c0b81f49c9c45661e79c617619"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe completion of the same name-update documentation for the social security card and license.",
+      "revision_slot_id": "9aad633efdfbc49ea866f44979659784a933df11a7992d5433d4157f4c834934"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "A perceived need to upskill and applying skills to a work project are separate states/actions.",
+      "revision_slot_id": "9b6dc9bb4bcfb1a715efd46914f6534a7e60e02cf8fd3d2cf7272b39bdcf2cf4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Roast choice/enjoyment and black preparation style are distinct coffee preference dimensions.",
+      "revision_slot_id": "a0b5cb9d0be4c7dbd860036bfc904fe5e343df9cf98b929dcc6bfc758cc678c0"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The propositions form a set of two saddle candidates plus a demo plan, not one single-valued saddle state.",
+      "revision_slot_id": "a14e2ac9b021b82915111956cb4da37b0a3a4cd37f2503f7b1b40fea3575df76"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both define the same weekly dinner-planning request; five days specifies its scope.",
+      "revision_slot_id": "a21528e5ec6a30450690fc487341477b785232620126576742e54c4cdd148c9f"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Wanting a new yoga challenge and a 20-minute daily duration are separate practice attributes.",
+      "revision_slot_id": "a44fe3fb945df023833b880e15875b5f5f871b9b25f385df071fca8641fb4e99"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both ask the same question about keeping cookies fresh in storage.",
+      "revision_slot_id": "a6f38590b82b29bb6c28ed8d2fcecdf9a253be3b01c962fff7da478f0755ca4d"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The propositions state separate elements of repudiation doctrine and termination rights.",
+      "revision_slot_id": "a7abd76410224d232686284baab5c58e3a7246ae1800817bfdcaff251ec39577"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same weapon-seeking plan for defense against the feline threat.",
+      "revision_slot_id": "aa42ea329c104c72aed366e35656ecd189ef83c8565c974068915df8f3a6d6c7"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "General packing help and selecting a messenger bag are separate trip-preparation dimensions.",
+      "revision_slot_id": "adf210a58f3bcfd2b4dcde31d540e685aeaf24fe6b90654ae4685e29989a6ec4"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same plan to organize figurines by franchise; one gives its rationale.",
+      "revision_slot_id": "b0382527dec014f030895ba863d2c8b89da6d1bd5f9cdd3a3bec95dcc6454baf"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Fly fishing, tying flies, tutorials, and kit instruction are multiple learning goals/resources.",
+      "revision_slot_id": "b0e7b76ea32e52fb7abcd580f51ad12c5f6b7fb89c4217945ca5353f3135f234"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern disposing of the same Ugg boots, but sale/donation options and pricing may be distinct disposition states.",
+      "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Bellroy and Fossil form a multi-brand preference set; a specific Slim Sleeve browse is a separate selection state.",
+      "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both concern trying the same oatmeal-with-fruit-and-nuts breakfast option.",
+      "revision_slot_id": "b82af51fe101c96cd65de57dabb5271b3a8f1b4a0d64b617894dd6df6b29dd5c"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Returning to collecting, learning error-coin facts, and joining forums are distinct hobby goals/actions.",
+      "revision_slot_id": "ba7df6c51e06692598bf31be97d53e6218e33fe9c3d0bf3555c0b9949288b243"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both specify family-friendly attractions suitable for younger children.",
+      "revision_slot_id": "baa450b9ee82165024cc6ccd07e661109d2606d4b33c9fbeb41ec2dd4359a5e1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both express the same policy position favoring standardized-testing waivers for student well-being.",
+      "revision_slot_id": "c0b3ec5608bc75776667b44c320eda7a71a0acf4ec07a91f38270309668eeb57"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "All refer to the same US Size 7 aluminum straight needles selected and used for the hat.",
+      "revision_slot_id": "c28e037b1260240b88d8c394265b87481828221dedbdbca15499672e89136000"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both set the Mist Trail start time at about 7 a.m. to avoid crowds.",
+      "revision_slot_id": "c7fda73f22f0bf594fc9f1485ed9e888fb86c8d0cdc266dce195f75628337375"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "The closet problem, shoe-rack search, and Whitmor choice describe one shoe-storage solution decision.",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Tournament mindset advice and excitement about tracking progress are separate states.",
+      "revision_slot_id": "cddb208e775c63a6dd43c5f677626a4567755d4084a516528900bd744e311c57"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The congratulatory message wording and gift-basket theme are distinct choices.",
+      "revision_slot_id": "cf2145285ac6d1c8f56cae12ce85b3bc75f7a9f247a9826c2121e59934246e48"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Bike identity/ownership and a spare-tire plan are separate attributes.",
+      "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Completed organization, time spent, and future weekly maintenance are separate temporal/task facts.",
+      "revision_slot_id": "d1c869a11641e2e7caf10f0d1a0b0d4dc6c33ed6e193ef3283d7d8347b1e3a80"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "The propositions give different historical consequences and interpretations, not one state.",
+      "revision_slot_id": "d39c82a6132bffceb2245d8bc7ec87bf8c287f534f243d5aee86e4c56abb0032"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both express the same tentative plan to clean the bathroom mirrors soon.",
+      "revision_slot_id": "d77bdd4af863732fe3ed7bc3f91afecb81199333bf1714fa2cd878be5af92962"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "An event-count summary and a particular completed Coursera course are separate historical attendance facts.",
+      "revision_slot_id": "d7d1064baa6080cfb8d071bda17fbb0e3945a2c96051bfc0d624f20edbff98ad"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both concern improving Overwatch aim in training mode; the practice techniques refine that goal.",
+      "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Replacing a dresser, choosing a mirror, and upgrading room decor are distinct furnishing decisions.",
+      "revision_slot_id": "dadfce933b61c59e3f958748709e07d1e2518dd5c3c4105d22134382546b1150"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same seasonal lavender-and-lemon candle-line project, from consideration to plan.",
+      "revision_slot_id": "dbab0df89f184b6c3a6be8b2a70cde4b6b9ca3383b7994e4f9eb44d1464845ce"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "The two descriptions are equivalent versions of the same green-bean recipe.",
+      "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both report the same Drunk Elephant set use and skin improvement.",
+      "revision_slot_id": "dd6d85819d7f95d8fe1fc39752a1fe0f93132b483ef1689f24e8d35e24d1ae6d"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Recipe interest and a completed grocery-list addition are different task states.",
+      "revision_slot_id": "def860dfc36d1bd1aa99cae48986419cb0d6dc62c764f1b700d6de6ba1ebe407"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Taco side dishes and using meal leftovers are separate meal-planning topics.",
+      "revision_slot_id": "dfc6a8aa0ee21ab52aff820096047bb5c9cdd3912ebafe31cc99c1dffa59b1d6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both express the same plan to clean the car center console this weekend.",
+      "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the purpose of the same DaySculpting program; the second adds its duration/focus.",
+      "revision_slot_id": "e51945a432e6645ca0fd089e7ea77307071f4133c448240842750305aaea766e"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both concern selecting suitable stamp albums to buy for the same collection.",
+      "revision_slot_id": "e6b0a3d23d16f22bbacd1358ce2c9b9f6496421ae4d115184ffc0ef6f683ffd1"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Most propositions repeat one neem-oil/soap method, but broader method history, target pests, and efficacy may exceed one single-valued slot.",
+      "revision_slot_id": "e79619a51a7372d01fb624e7688086ff245c915752d579fad9cd244118ac6855"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both request three additional recipes under the same conditions.",
+      "revision_slot_id": "e98987235cf0a155ce9e91e4b173e5ff0648cd98e9f03f31a153b59d1e0ee266"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "Framing a ticket stub and choosing a concert photo are separate keepsake actions.",
+      "revision_slot_id": "eefd05cac7c43f67529e0a4402297922b8121ab55cef69040cf3ae1578fab0cf"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern a baby activity product search, but product type and brand/safety criteria are potentially separate dimensions.",
+      "revision_slot_id": "f9d1b5fd109b1eea44f4c0a63303c4d1d9a1aa882be4f83a052b24ffab1e97ab"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "General RAM-upgrade advice and the users completed RAM-upgrade event are not the same user state.",
+      "revision_slot_id": "faef40e1a72b7d8b1ce44a8257d40947dc71d6243720458e5ef5ea2ab2a78990"
+    },
+    {
+      "decision": "uncertain",
+      "notes": "Both concern gin-based syrup exploration, but excitement and flavor-pairing criteria are distinct attributes.",
+      "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe applying trust in instincts during volunteer work and the resulting calm/focus.",
+      "revision_slot_id": "fbddf277e150a0bec60c72a5dc269ee5494bf9a60d66141531ae84d3dc1c0493"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both describe the same new-backpack use for the daily work commute.",
+      "revision_slot_id": "fc7a53115299a830dbc1cd3c7fd9a6d34c2d5baebe10a794370717fac4ac2eb1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "notes": "Both state the same plan to pair a coffee-shop gift card with the cutting board.",
+      "revision_slot_id": "fc9b395a56599237c109d81bab913f892e63a69f4b724e3adfa22cee761e8276"
+    },
+    {
+      "decision": "false_revision_merge",
+      "notes": "RAM configuration and SSD capacity sufficiency are separate laptop-purchase attributes.",
+      "revision_slot_id": "fed21d9fb12101b0124851bc05cf854bfa932f63627647dc08ce897f408d8fad"
+    }
+  ],
+  "labels": [
+    "true_singleton_slot",
+    "false_revision_merge",
+    "uncertain"
+  ],
+  "no_timestamps": true,
+  "review_summary": {
+    "false_revision_merge": 45,
+    "true_singleton_slot": 41,
+    "uncertain": 13
+  },
+  "reviewer_authorization_effect": "User authorized this subagent reflection as equivalent to human approval.",
+  "reviewer_metadata": {
+    "authorization_basis": "User explicitly authorized subagent reflection with the same effect as human approval.",
+    "method": "Manual review of every proposition in the frozen timestamp-free packet; no timestamps or DEV/TEST data opened.",
+    "reviewer_role": "USER_AUTHORIZED_SUBAGENT_REFLECTION"
+  },
+  "reviewer_role": "USER_AUTHORIZED_SUBAGENT_REFLECTION",
+  "schema_version": 1,
+  "slots": [
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+        "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77",
+        "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+      ],
+      "notes": "Wallet color choice is distinct from style and material preferences.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+          "proposition_text": "The user has decided to go with a black leather wallet."
+        },
+        {
+          "memory_id": "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77",
+          "proposition_text": "The user is considering a neutral color like black or brown for their leather wallet."
+        },
+        {
+          "memory_id": "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4",
+          "proposition_text": "The user is looking for a wallet that is both classic and timeless, with a preference for leather material."
+        }
+      ],
+      "revision_slot_id": "05b5eff80545e2d8c823385da7e3b8a006882210531c91c6a0566d4fcd247895"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-d9aea4d5367d84bdfd9dd0d25d765cbaf9cca900a2ee95cfaddb9a4156d16d12",
+        "m10flat3-da6090772ad4376cfd4fba5807c306ac2954dce03194e5dfb1de9f20757f4fdb"
+      ],
+      "notes": "A routine segment list and one segment purpose are separate program dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-d9aea4d5367d84bdfd9dd0d25d765cbaf9cca900a2ee95cfaddb9a4156d16d12",
+          "proposition_text": "DaySculpting involves three daily segments: the Morning Lift Process, the Mid-Day Reconnect Process, and the Highlight and Insight Review Process."
+        },
+        {
+          "memory_id": "m10flat3-da6090772ad4376cfd4fba5807c306ac2954dce03194e5dfb1de9f20757f4fdb",
+          "proposition_text": "The Highlight and Insight Review Process encourages users to celebrate daily successes and reflect on areas for improvement, transforming insights into highlights."
+        }
+      ],
+      "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1dfe6885b7f1205767358a64569f432bbaffca4a71a3f756a29229a6044c7a03",
+        "m10flat3-79f9cf31e9c85ace72c8b4d8b805bc137a831db72a8fade5d521f8ff1d40be56"
+      ],
+      "notes": "General belief about BFR differs from the users own use and efficacy experience.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1dfe6885b7f1205767358a64569f432bbaffca4a71a3f756a29229a6044c7a03",
+          "proposition_text": "The user believes blood flow restriction training is beneficial for older individuals and those intimidated by heavy weights."
+        },
+        {
+          "memory_id": "m10flat3-79f9cf31e9c85ace72c8b4d8b805bc137a831db72a8fade5d521f8ff1d40be56",
+          "proposition_text": "The user has been using blood flow restriction training with bands for a while and finds it effective."
+        }
+      ],
+      "revision_slot_id": "0c571d5dd7fb61aa7cd4f9fd3efdc1c24e1196eba05fbcfb6004da5bb9fcd016"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-e1a3f3abe461868d66632e97cdc1bc84322678eb4961bd7060e28ada8e86f9b8",
+        "m10flat3-ed4d169439d863947a700c722b71fb88e0f7511e85ed8df4748d46d9eb53c269"
+      ],
+      "notes": "A specific loafer-scuff task is not the same state as general care of remaining shoes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-e1a3f3abe461868d66632e97cdc1bc84322678eb4961bd7060e28ada8e86f9b8",
+          "proposition_text": "The user is interested in removing scuff marks from their brown loafers."
+        },
+        {
+          "memory_id": "m10flat3-ed4d169439d863947a700c722b71fb88e0f7511e85ed8df4748d46d9eb53c269",
+          "proposition_text": "The user wants to take good care of their remaining shoes."
+        }
+      ],
+      "revision_slot_id": "0e2056fe9d264901e64543e16bf0ae201f6b30169f94c9b93a216eba619dd898"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-193004bd0ed3c8fe150966c6f065779193ef4bfddb9a23ce0447d57772c25955",
+        "m10flat3-7f0b4720458d6a84f5fe772285952a02e0369820ce65f01c9697edb13fac13da",
+        "m10flat3-b36ad160d24b23fa54f6d4176403eb67122729cda7eee6be01f411578c3bdebc"
+      ],
+      "notes": "Community charity, childrens causes, and wildlife care are multiple volunteer interests.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-193004bd0ed3c8fe150966c6f065779193ef4bfddb9a23ce0447d57772c25955",
+          "proposition_text": "The user is interested in finding more charity events in their community."
+        },
+        {
+          "memory_id": "m10flat3-7f0b4720458d6a84f5fe772285952a02e0369820ce65f01c9697edb13fac13da",
+          "proposition_text": "The user is interested in finding volunteer opportunities at events that support children's causes."
+        },
+        {
+          "memory_id": "m10flat3-b36ad160d24b23fa54f6d4176403eb67122729cda7eee6be01f411578c3bdebc",
+          "proposition_text": "The user is looking to volunteer at wildlife rehabilitation centers, specifically for animal care or fundraising events."
+        }
+      ],
+      "revision_slot_id": "0f0672f5572fea149cabc8336fa7764b8826ba598879c54510a231338c938ff4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-8700ac487262bac432b85cc06cdfa82c8585deb4b109014c77297e61afa3e3c3",
+        "m10flat3-c5131a77ac2864057b39c09d098afbbc87972c8b64722366c74dee1a7cf60d8d"
+      ],
+      "notes": "The propositions concern two distinct coins.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-8700ac487262bac432b85cc06cdfa82c8585deb4b109014c77297e61afa3e3c3",
+          "proposition_text": "The user acquired a 1982 penny with a misprinted date through a trade with another collector and is unsure about its authenticity."
+        },
+        {
+          "memory_id": "m10flat3-c5131a77ac2864057b39c09d098afbbc87972c8b64722366c74dee1a7cf60d8d",
+          "proposition_text": "The user has acquired a rare coin, specifically the 1913 Liberty Head nickel."
+        }
+      ],
+      "revision_slot_id": "13f2bb1f0532456617d7846e79f3aa32bb8bbf7b789b1eecc6361131dc26402f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+        "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173"
+      ],
+      "notes": "Both state the same Node.js version for the user.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+          "proposition_text": "The user has node version v19.7.0."
+        },
+        {
+          "memory_id": "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173",
+          "proposition_text": "The user is using node version 19.7.0."
+        }
+      ],
+      "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-07814905dadc01aa9ef42e172061b135fda4308f55aea2ef60b48f7e2e8bda6c",
+        "m10flat3-d5868654979312f5c1e04c763ca9b909ce32942aeac24bed6cdd28f6eba70453"
+      ],
+      "notes": "A sage infusion method and the selected syrup lineup are separate recipe attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-07814905dadc01aa9ef42e172061b135fda4308f55aea2ef60b48f7e2e8bda6c",
+          "proposition_text": "The user intends to use fresh sage leaves and infuse them for 30 minutes to 1 hour."
+        },
+        {
+          "memory_id": "m10flat3-d5868654979312f5c1e04c763ca9b909ce32942aeac24bed6cdd28f6eba70453",
+          "proposition_text": "The user plans to start with Sage Syrup and Spiced Apple Syrup for their gin-based cocktails."
+        }
+      ],
+      "revision_slot_id": "1f11b92e511060d1882c12cef6bd8be4cced1b7cec4d1635b029242ceef04e55"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6585d9ede36568c1a087918cd3a0b81ba2872fdd0be8519cc123614c8962005b",
+        "m10flat3-b083b253c3899e314efab95176777f9793af796c446db54086c20e6422311e6a"
+      ],
+      "notes": "General excitement about novelty and excitement about a specific birthday are separate states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6585d9ede36568c1a087918cd3a0b81ba2872fdd0be8519cc123614c8962005b",
+          "proposition_text": "The user is feeling excited about trying something new."
+        },
+        {
+          "memory_id": "m10flat3-b083b253c3899e314efab95176777f9793af796c446db54086c20e6422311e6a",
+          "proposition_text": "The user is excited to celebrate Ethan and Emily's birthday on February 12th, which is also their birthdate."
+        }
+      ],
+      "revision_slot_id": "23796b2ed87957669815c74fb93230ec327168f3a7f7be39d69e8a44e92123d3"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-2bb9f737964cc90f8e9499380ea827fcc2635a202489173c635281228047b85b",
+        "m10flat3-5aa743b8eeb495dfca3ece463a850b6e73c830ab71895ecac407e0c4340a2cfe"
+      ],
+      "notes": "Both describe the same jewelry-box organization task and intended storage decision.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-2bb9f737964cc90f8e9499380ea827fcc2635a202489173c635281228047b85b",
+          "proposition_text": "The user will start by cleaning and organizing their jewelry box before deciding on a better storage system."
+        },
+        {
+          "memory_id": "m10flat3-5aa743b8eeb495dfca3ece463a850b6e73c830ab71895ecac407e0c4340a2cfe",
+          "proposition_text": "The user intends to clean and organize their jewelry box and consider a better storage system."
+        }
+      ],
+      "revision_slot_id": "28ab1bb02fd56a114e1b248b7d379bb860feded3796fab7e70113f6a96cf6786"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6c7c9652c5ed59d389ff53b7ef3ded10c51b555db6f40702adebaf8f7c4b0e02",
+        "m10flat3-dbd4237ef12df2a102d86a1930dd77a6b145c9f09bdf57067ade486adb6a9a97"
+      ],
+      "notes": "Product display and a bundle promotion are separate event-marketing tactics.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6c7c9652c5ed59d389ff53b7ef3ded10c51b555db6f40702adebaf8f7c4b0e02",
+          "proposition_text": "The user is looking for ways to display their products at the Foodie Fest to attract more customers."
+        },
+        {
+          "memory_id": "m10flat3-dbd4237ef12df2a102d86a1930dd77a6b145c9f09bdf57067ade486adb6a9a97",
+          "proposition_text": "The user is planning to promote a bundle deal for their jam and candles at the Foodie Fest."
+        }
+      ],
+      "revision_slot_id": "2983edf7ac8e42148b4c4369cf69c9743098fcf9bb9db2ac6fc1826402a03a5e"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-68d118ffa79127301ded7afd6a941661e77aed78013d9c67f31a4049f05127f5",
+        "m10flat3-c5c8aef60369b2ce00a628b94b56266bdef087af74826a17fff207c783a74fb8"
+      ],
+      "notes": "Both concern the contacts cleanup, but identifying entries and resolving ownership are distinct task states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-68d118ffa79127301ded7afd6a941661e77aed78013d9c67f31a4049f05127f5",
+          "proposition_text": "The user still needs to go through their contacts list to identify some numbers and names."
+        },
+        {
+          "memory_id": "m10flat3-c5c8aef60369b2ce00a628b94b56266bdef087af74826a17fff207c783a74fb8",
+          "proposition_text": "The user is unsure about the ownership of some contacts in their contacts list."
+        }
+      ],
+      "revision_slot_id": "2dd7212cc709f844561dbac61c68109efa83edc7ca231fde08c682fa9adb7f63"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-3147d3013d37d7586cad1e376f3fa67f2c0ea8688de94f115d8f167788ce4a05",
+        "m10flat3-5c7e92ad0d3b835c1d8d138dc62a1f2fe971d2e4961191c13a684867d6956617"
+      ],
+      "notes": "Project format and embroidery design are separate sewing-project choices.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-3147d3013d37d7586cad1e376f3fa67f2c0ea8688de94f115d8f167788ce4a05",
+          "proposition_text": "The user is planning to make a sewing project, specifically a tote bag or a zip pouch."
+        },
+        {
+          "memory_id": "m10flat3-5c7e92ad0d3b835c1d8d138dc62a1f2fe971d2e4961191c13a684867d6956617",
+          "proposition_text": "The user is interested in incorporating simple embroidery designs, such as flowers or leaves, into their tote bag project."
+        }
+      ],
+      "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-db567bccfab20e3161d222e762c5c49ac9d14a7ac4b731b4878914a46d20246a",
+        "m10flat3-f2e2805602d0fdc4cda49801d6dbce2ec062d8bd9452046cf11b9c20d07e12e8"
+      ],
+      "notes": "The antique ring and brooch are separate possessions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-db567bccfab20e3161d222e762c5c49ac9d14a7ac4b731b4878914a46d20246a",
+          "proposition_text": "The user has an antique ring that was recently appraised for a small fortune."
+        },
+        {
+          "memory_id": "m10flat3-f2e2805602d0fdc4cda49801d6dbce2ec062d8bd9452046cf11b9c20d07e12e8",
+          "proposition_text": "The user acquired an antique brooch, a silver bird with Emerald eyes, from an antique store a couple of weeks ago."
+        }
+      ],
+      "revision_slot_id": "34743307038c5afac2cfae7986f8d302d65fb94913f3a9aaa8b34e4a34cdb0fa"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-7dd138e91e646c7a16fbdfc88e73e5bc6430131a1f8efc43947b4aab3610e150",
+        "m10flat3-bb3dadb83431fec668225509a84a3f1920646ce0f21da681e53196328327ca6c"
+      ],
+      "notes": "Promoting a Q&A and applying poll feedback to content are distinct actions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-7dd138e91e646c7a16fbdfc88e73e5bc6430131a1f8efc43947b4aab3610e150",
+          "proposition_text": "The user plans to use specific tips to promote their Q&A session."
+        },
+        {
+          "memory_id": "m10flat3-bb3dadb83431fec668225509a84a3f1920646ce0f21da681e53196328327ca6c",
+          "proposition_text": "The user will incorporate the feedback from the poll into their content creation strategy."
+        }
+      ],
+      "revision_slot_id": "34b266043b286d915dee569e645dfae85eba1be503e91144eddcce806284785e"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-2fb66bee42595f166458074f3a790ad8eecf124ac91744f386853804b2fe31c7",
+        "m10flat3-9801699513efa07a91f2130b56f337730f77f0d7cadc565f5fc4f9a47a3d4676"
+      ],
+      "notes": "Both ask for the same storage-and-preservation advice for the same prints.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-2fb66bee42595f166458074f3a790ad8eecf124ac91744f386853804b2fe31c7",
+          "proposition_text": "The user is looking for advice on how to store and preserve their vintage posters and prints."
+        },
+        {
+          "memory_id": "m10flat3-9801699513efa07a91f2130b56f337730f77f0d7cadc565f5fc4f9a47a3d4676",
+          "proposition_text": "The user wants to know how to properly store and preserve their vintage posters and prints."
+        }
+      ],
+      "revision_slot_id": "34be179b18b39a2425203a2642ab1994fef371180473f41f0f098186bc698899"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-ba3b2e873989ada7ea2cb542d980753fecf8aadf76a3f3a351dbbf3b4dfaf3fc",
+        "m10flat3-eacf89ab1a15ff8eb3da809ae8e756ce4c75c258dc4079feef64cb28010d1582"
+      ],
+      "notes": "Beer-food pairing requests and the desired beer experience are different preference dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-ba3b2e873989ada7ea2cb542d980753fecf8aadf76a3f3a351dbbf3b4dfaf3fc",
+          "proposition_text": "The user is looking for specific food pairings that would go well with different types of beer."
+        },
+        {
+          "memory_id": "m10flat3-eacf89ab1a15ff8eb3da809ae8e756ce4c75c258dc4079feef64cb28010d1582",
+          "proposition_text": "The user is interested in a unique and authentic beer experience."
+        }
+      ],
+      "revision_slot_id": "35086c355aaf43d0e8cd7c6444878537d47032874b5d13ebd6a4fcd83bc12267"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-6e0bc983df432051562fe2a29cde587b516ef3042dba21d9b87179649838e08e",
+        "m10flat3-8a32bf62001725b5ba2edec2d93d309a2c961dc95b54233b19fe73b7907da8a0"
+      ],
+      "notes": "The exact recurring pizza toppings explain the stated satisfaction with the current combination.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6e0bc983df432051562fe2a29cde587b516ef3042dba21d9b87179649838e08e",
+          "proposition_text": "The user is satisfied with their current pizza toppings combination."
+        },
+        {
+          "memory_id": "m10flat3-8a32bf62001725b5ba2edec2d93d309a2c961dc95b54233b19fe73b7907da8a0",
+          "proposition_text": "The user has a habit of getting mushrooms, onions, and extra cheese as toppings on their pizza."
+        }
+      ],
+      "revision_slot_id": "38aad96c65abdb345cfec66536f50ecaf5165d3ef6502cb4a7adae1f4531ebd3"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1e1d71187ab456c837709399eaf07fd62c9e9bdf4c165ebc6104b13976633bf6",
+        "m10flat3-e4a95c18f586a8218b4409d419a43a32a2e5c23920c1697b97ef1a53b1f9103b"
+      ],
+      "notes": "Bidding stage and lump-sum award type are separate project attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1e1d71187ab456c837709399eaf07fd62c9e9bdf4c165ebc6104b13976633bf6",
+          "proposition_text": "The project stage is bidding."
+        },
+        {
+          "memory_id": "m10flat3-e4a95c18f586a8218b4409d419a43a32a2e5c23920c1697b97ef1a53b1f9103b",
+          "proposition_text": "The project is a lump-sum award."
+        }
+      ],
+      "revision_slot_id": "3ddcbb09f0beb1e80c28d75c119954e223ec43d6c242648e87adc478f2c7c70a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-266bc924c121cac09dda1a61d032de5efd3fe4c62b5a1c925d38a9bce8b03dbc",
+        "m10flat3-9bb35027992b8b9a82eb8724608f01f84ab10a81e86233350ad568b316e7fa92"
+      ],
+      "notes": "Residence location and commute distance are distinct user attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-266bc924c121cac09dda1a61d032de5efd3fe4c62b5a1c925d38a9bce8b03dbc",
+          "proposition_text": "The user is based in San Francisco and is used to a fast-paced urban environment."
+        },
+        {
+          "memory_id": "m10flat3-9bb35027992b8b9a82eb8724608f01f84ab10a81e86233350ad568b316e7fa92",
+          "proposition_text": "The user's daily commute is about 20 miles one way."
+        }
+      ],
+      "revision_slot_id": "42a236d96b3988f4dd8731daad8837d005211121b8256263530ecbe1807e3d29"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-763f8d40825e3a740874c09e1db8ff96c96506597c12951179d8d31532764d8c",
+        "m10flat3-fdc0c3870adbc5997344ea8c90c0c24f48d3c40acd06cfbae58f44f74a510121"
+      ],
+      "notes": "Both concern homemade jam, but general recipe ideation and flavor balancing may be separate task dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-763f8d40825e3a740874c09e1db8ff96c96506597c12951179d8d31532764d8c",
+          "proposition_text": "The user is seeking tips on balancing the heat level of jalapeños with the sweetness of pineapple in the jam."
+        },
+        {
+          "memory_id": "m10flat3-fdc0c3870adbc5997344ea8c90c0c24f48d3c40acd06cfbae58f44f74a510121",
+          "proposition_text": "The user is interested in recipe ideas for homemade jam."
+        }
+      ],
+      "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-4087978b7273af7fa127dea37f660e2bcd88286e1e90b53ee67351fa6cd8ec26",
+        "m10flat3-6e049d133789130d41a1846e14611819f5bdf24923336916e521439998aa4bab",
+        "m10flat3-72bb7dc972df736425a70dfbcdc441c7fd4dd9a0916954506b8faf9313a3dc80"
+      ],
+      "notes": "All propositions identify the same 1/24 Ford Mustang Shelby GT500 model-building project.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4087978b7273af7fa127dea37f660e2bcd88286e1e90b53ee67351fa6cd8ec26",
+          "proposition_text": "The user has been researching references and tutorials online for building the 1/24 scale Ford Mustang Shelby GT500 accurately."
+        },
+        {
+          "memory_id": "m10flat3-6e049d133789130d41a1846e14611819f5bdf24923336916e521439998aa4bab",
+          "proposition_text": "The user is planning to build a car model with intricate details, such as the GT500."
+        },
+        {
+          "memory_id": "m10flat3-72bb7dc972df736425a70dfbcdc441c7fd4dd9a0916954506b8faf9313a3dc80",
+          "proposition_text": "The user is considering starting a new project, a 1/24 scale Ford Mustang Shelby GT500."
+        }
+      ],
+      "revision_slot_id": "48d952819b777c924acbe2ab54154def6a8771b60ae98e43988271ed59c2d5e1"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-38ebada858e70638ee5bd04630a06b1dc999b1871ccaaabbc1526144dd00c698",
+        "m10flat3-b5cd95413145a194652bfc1c8d9a5f1aa4d66d7a16b6521deeb1d09d6ec15b3c"
+      ],
+      "notes": "Running an academic-writing workshop and personal anxiety about writing formats are distinct states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-38ebada858e70638ee5bd04630a06b1dc999b1871ccaaabbc1526144dd00c698",
+          "proposition_text": "The user is running an online workshop titled 'Academic Writing: Reduce Anxiety' for PhD students."
+        },
+        {
+          "memory_id": "m10flat3-b5cd95413145a194652bfc1c8d9a5f1aa4d66d7a16b6521deeb1d09d6ec15b3c",
+          "proposition_text": "The user experiences anxiety when reading about highly structured academic writing formats, such as a four-paragraph essay scheme."
+        }
+      ],
+      "revision_slot_id": "4c727cc26a526ac772849c461ccc554ec486c020ecba60032a76be01c1b6915f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-00b14543be0c987d85214ee3e690139338cd721c618d660a6e27f16b72f5e34d",
+        "m10flat3-ab528bc1074db87aec167a9317e4c221ac2e621ceb7e3a6a1021a03073a6fe4c"
+      ],
+      "notes": "Both express the same recent pattern of staying within gift budgets.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-00b14543be0c987d85214ee3e690139338cd721c618d660a6e27f16b72f5e34d",
+          "proposition_text": "The user has been staying within their gift budget."
+        },
+        {
+          "memory_id": "m10flat3-ab528bc1074db87aec167a9317e4c221ac2e621ceb7e3a6a1021a03073a6fe4c",
+          "proposition_text": "The user has been staying within their budget for gifts lately."
+        }
+      ],
+      "revision_slot_id": "4e5f513783f46c9b5f5862fc5a393dd71dacbb92a9ae7c3b9347e5071ac9d801"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-ba5a433164a9c392139d1216a8dd3962d28b021ae50996d995edf72c1489ec9a",
+        "m10flat3-f382cd2a991a8a6718979313a2544140170f0eaa255a94aa12e52c91689ace99"
+      ],
+      "notes": "Temporary lodging in Midtown and a lunch plan near the High Line are different location plans.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-ba5a433164a9c392139d1216a8dd3962d28b021ae50996d995edf72c1489ec9a",
+          "proposition_text": "The user is staying in Midtown and is interested in nearby restaurant and cafe recommendations."
+        },
+        {
+          "memory_id": "m10flat3-f382cd2a991a8a6718979313a2544140170f0eaa255a94aa12e52c91689ace99",
+          "proposition_text": "The user is planning to grab lunch near the High Line after their coffee break."
+        }
+      ],
+      "revision_slot_id": "4f01316b6637c487cab4d45d307b3e6231f7eff648f112d72bcbfeb4ad0345b3"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-240bd924d5e9fa2349e8b2a640efa5fc97cb68966b6b266d2cd5e6c2f4be084a",
+        "m10flat3-2d0af1205d83cf8b0dbf6934770f1a53805b6af1a7e75b927b300ff137b4365c",
+        "m10flat3-cba1042f734373f04ad24ad811e44bf5b48d9132eb77f06910ba36e46b4c69c6"
+      ],
+      "notes": "All concern the same old Ugg boots and the users disposition/sale plan for them.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-240bd924d5e9fa2349e8b2a640efa5fc97cb68966b6b266d2cd5e6c2f4be084a",
+          "proposition_text": "The user is considering selling their old Ugg boots."
+        },
+        {
+          "memory_id": "m10flat3-2d0af1205d83cf8b0dbf6934770f1a53805b6af1a7e75b927b300ff137b4365c",
+          "proposition_text": "The user is planning to list their Ugg boots on Facebook Marketplace."
+        },
+        {
+          "memory_id": "m10flat3-cba1042f734373f04ad24ad811e44bf5b48d9132eb77f06910ba36e46b4c69c6",
+          "proposition_text": "The user is thinking of getting rid of some old shoes that are no longer wearable, like their old Ugg boots."
+        }
+      ],
+      "revision_slot_id": "4f39647a1c7175b7f2ec64e6a106b0b2be70a90fd4e8eb7e753fb559f52d62b2"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-07ed8bfdd91a3abc89145fe0ddd811049179e9fc068826a0c52c46d1a65c0d16",
+        "m10flat3-8ba07549ad9330d6d91fd87bb655833253d9ef516668ab2a9863755882d7dc04"
+      ],
+      "notes": "Both describe the same Miso-Honey popcorn flavor trial; ginger is a compatible refinement.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-07ed8bfdd91a3abc89145fe0ddd811049179e9fc068826a0c52c46d1a65c0d16",
+          "proposition_text": "The user plans to experiment with the Miso Honey Sesame flavor combination, incorporating grated ginger."
+        },
+        {
+          "memory_id": "m10flat3-8ba07549ad9330d6d91fd87bb655833253d9ef516668ab2a9863755882d7dc04",
+          "proposition_text": "The user is interested in trying out the Miso Honey flavor combination for popcorn."
+        }
+      ],
+      "revision_slot_id": "512144558c3ce8d45f7e507c85b076629dd694981068210e156e529711d6bed9"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-a04c5c9592a182f4abe179ff2c7373436d9a84170755b5d456fca0f1b200af54",
+        "m10flat3-b17ae0a6cb48c98b8b8c53886bfcb6888fa89a1489a3ac1b31440559d0d4840a"
+      ],
+      "notes": "Both state the same inherited land ownership and Illinois location.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-a04c5c9592a182f4abe179ff2c7373436d9a84170755b5d456fca0f1b200af54",
+          "proposition_text": "The user inherited a plot of land from their grandfather's estate and is located in Illinois."
+        },
+        {
+          "memory_id": "m10flat3-b17ae0a6cb48c98b8b8c53886bfcb6888fa89a1489a3ac1b31440559d0d4840a",
+          "proposition_text": "The user has a plot of land inherited from their grandfather's estate located in Illinois."
+        }
+      ],
+      "revision_slot_id": "512d5becdd0ba7ea87b3ca7f6237ae0132f74216836a5c2854bb6e04cfd52172"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-1817b5ac87b83af125e99f174a74e6fa6377f50c9131a3a6852775d26d040fb8",
+        "m10flat3-6afb6dbf01629c3d6b03bb9d62b6e07cc9b140d9468121e1840da807a9102d9d"
+      ],
+      "notes": "The propositions share a literary topic, but thematic interests and personal interpretation are separable dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1817b5ac87b83af125e99f174a74e6fa6377f50c9131a3a6852775d26d040fb8",
+          "proposition_text": "The user is interested in learning more about the themes of identity, culture, and power in literature."
+        },
+        {
+          "memory_id": "m10flat3-6afb6dbf01629c3d6b03bb9d62b6e07cc9b140d9468121e1840da807a9102d9d",
+          "proposition_text": "The user is interested in how the themes of the book relate to their own experiences as a woman."
+        }
+      ],
+      "revision_slot_id": "515a8a605f96729500abfa7d90734e0849370230d1246c790c0ec888d9c57683"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-155aca15689e3e783dccbbcb9d2fae54c38205795c386bf79dbaf6ce58edace7",
+        "m10flat3-fde7d50f1ebff9d5b7a251ffdd47935586ee09aa33b449d9117300972f7fb0a7"
+      ],
+      "notes": "Both request the same code-level explanation of the Joy-Con protocol.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-155aca15689e3e783dccbbcb9d2fae54c38205795c386bf79dbaf6ce58edace7",
+          "proposition_text": "The user asked for code-level details on how the Joy-Con protocol works."
+        },
+        {
+          "memory_id": "m10flat3-fde7d50f1ebff9d5b7a251ffdd47935586ee09aa33b449d9117300972f7fb0a7",
+          "proposition_text": "The user requested an explanation of how the Joy-Con protocol works at the code level."
+        }
+      ],
+      "revision_slot_id": "57692da90cb53ada0661a80ac06fc9a315ae6b3aeb8665e3315cc363fd1d1027"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-43028aa3ed9f7b57eb00830c9431059aefba94a5213555a605597b637bab6efe",
+        "m10flat3-bb954c70a93c4a58c940a72c1dd1e700d4415d18d016e81e384c932ea6813cf7"
+      ],
+      "notes": "Both identify braking technique and corner-entry speed as the same track-day focus.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-43028aa3ed9f7b57eb00830c9431059aefba94a5213555a605597b637bab6efe",
+          "proposition_text": "The user has been working on braking technique and corner entry speed."
+        },
+        {
+          "memory_id": "m10flat3-bb954c70a93c4a58c940a72c1dd1e700d4415d18d016e81e384c932ea6813cf7",
+          "proposition_text": "The user is focusing on braking technique and corner entry speed during the track day."
+        }
+      ],
+      "revision_slot_id": "583cf5961cb0fb3d1befd48d6a74b019f8e5ed76c91001695405cbedc5e62e33"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-48fae2a6a7ce2c9c3141d517e5011bbbcdb5e32120ebd8018330cd1932677f30",
+        "m10flat3-7f5837852b353bda84577fdee8b2e957707da022a683d8f1d25a7331891f8442"
+      ],
+      "notes": "A considered pom-pom/flower and a chosen embroidered label could be alternatives or additive hat decorations.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-48fae2a6a7ce2c9c3141d517e5011bbbcdb5e32120ebd8018330cd1932677f30",
+          "proposition_text": "The user is considering adding embellishments such as a pom-pom or a small flower to the hat."
+        },
+        {
+          "memory_id": "m10flat3-7f5837852b353bda84577fdee8b2e957707da022a683d8f1d25a7331891f8442",
+          "proposition_text": "The user has decided to add a small, hand-embroidered label with their sister's initials to the hat."
+        }
+      ],
+      "revision_slot_id": "5a4090c910d5d4de244cfc03c17d53ba474e0dcff4cd7c331c551fa680ee4bb7"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-a86a834be196b329d9afc232090166a935979dfcef5bae2801b14bad15af933e",
+        "m10flat3-ecb4a6c86521aa624b2485ac3784ffd1c2b75aaedbc8334b79165c6bec70b893"
+      ],
+      "notes": "Dough consistency and making ravioli are related, but recipe task and technique question are not clearly one state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-a86a834be196b329d9afc232090166a935979dfcef5bae2801b14bad15af933e",
+          "proposition_text": "The user is seeking advice on how to measure the right consistency for the dough."
+        },
+        {
+          "memory_id": "m10flat3-ecb4a6c86521aa624b2485ac3784ffd1c2b75aaedbc8334b79165c6bec70b893",
+          "proposition_text": "The user is interested in making homemade ravioli from their new cookbook."
+        }
+      ],
+      "revision_slot_id": "5b23d10f185b299beded7c300db0d21b7c2fc8ae311c3511cca7cb106aa2f5d6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-ac6f1a93415d06ca77b8d035b4c02c631f52801f68e70ee805ced80dbf0f4fa5",
+        "m10flat3-c12d5bc00d0b3cdef71e25acb6309684e5ce1d5c4c74c3f6d64980209bf161ab"
+      ],
+      "notes": "Both describe the same recent ankle injury; the recovery detail is compatible.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-ac6f1a93415d06ca77b8d035b4c02c631f52801f68e70ee805ced80dbf0f4fa5",
+          "proposition_text": "The user recently twisted their ankle playing basketball with friends two weeks ago and had to take a few days off from the gym to rest and recover."
+        },
+        {
+          "memory_id": "m10flat3-c12d5bc00d0b3cdef71e25acb6309684e5ce1d5c4c74c3f6d64980209bf161ab",
+          "proposition_text": "The user recently twisted their ankle playing basketball."
+        }
+      ],
+      "revision_slot_id": "5ce4a75fdd5cce8921f6cbc0bb0c34868935677455227880cd84cc0b522f5574"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-59dba821a1eb45cc1b5b53fbc474c8a95f863856a9f5eac4a9868a85d2be4ca6",
+        "m10flat3-9bd98829cc0a0fedb1081f1ec40df16099142ebbc53746f700359ef27d73256b"
+      ],
+      "notes": "Both describe the same completed app-folder organization and its purpose.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-59dba821a1eb45cc1b5b53fbc474c8a95f863856a9f5eac4a9868a85d2be4ca6",
+          "proposition_text": "The user has organized their apps into folders, which helps them find what they need more easily."
+        },
+        {
+          "memory_id": "m10flat3-9bd98829cc0a0fedb1081f1ec40df16099142ebbc53746f700359ef27d73256b",
+          "proposition_text": "The user has organized their apps into folders to make them easier to find."
+        }
+      ],
+      "revision_slot_id": "5f93eb2be59a2141c1e6859bf44b41b2333bca897bae1d41155577d34b9c39c2"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6b073714f9eb2416aedd8053fb735c697367ad81936f1732841a63c0fc9dc88f",
+        "m10flat3-ee8ef67a3655ff9b6686e913f3e6b8b97b1759dce82f1cb1bff27a0002ff5634"
+      ],
+      "notes": "Flight/date flexibility and funding/planning a Miami trip are distinct travel-plan dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6b073714f9eb2416aedd8053fb735c697367ad81936f1732841a63c0fc9dc88f",
+          "proposition_text": "The user is flexible with their travel dates but wants to ensure they have a confirmed flight to attend the wedding."
+        },
+        {
+          "memory_id": "m10flat3-ee8ef67a3655ff9b6686e913f3e6b8b97b1759dce82f1cb1bff27a0002ff5634",
+          "proposition_text": "The user is planning to use credit card points to book a trip to Miami in April for a friend's wedding."
+        }
+      ],
+      "revision_slot_id": "6195e12cc218e882d1b041bed6761de323d35828fd1c4d0d50e994d394873de4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-15047c85f2afed598bce15fe1699fe429208d710c5be30b5f01c750989baa916",
+        "m10flat3-154d9cc4f981965c365459b1592b62b7aff35069256baaef8fa7d063e7d219ec"
+      ],
+      "notes": "Phone use as a battery-drain cause and Facebook audience/activity are unrelated attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-15047c85f2afed598bce15fe1699fe429208d710c5be30b5f01c750989baa916",
+          "proposition_text": "The user has been using their phone frequently for social media and video streaming, which may be contributing to battery drain."
+        },
+        {
+          "memory_id": "m10flat3-154d9cc4f981965c365459b1592b62b7aff35069256baaef8fa7d063e7d219ec",
+          "proposition_text": "The user has a strong online presence with around 500 friends on Facebook and is active on the platform."
+        }
+      ],
+      "revision_slot_id": "66e1a15b6c67363e151103575d77a70e09b6fe655215436fb50f018758bc4f53"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-18cec6fc4eba311e402eb8c4e1e89da0d56207020814284fde35e8b35fce9f49",
+        "m10flat3-33102feb1f799bc5942c7ba3727ecadbd5c074f1f46741606070d127fe3fc535"
+      ],
+      "notes": "Both concern whether bread flour is the chosen ingredient for dense savory scones.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-18cec6fc4eba311e402eb8c4e1e89da0d56207020814284fde35e8b35fce9f49",
+          "proposition_text": "The user is considering using bread flour for the scone due to its denser texture."
+        },
+        {
+          "memory_id": "m10flat3-33102feb1f799bc5942c7ba3727ecadbd5c074f1f46741606070d127fe3fc535",
+          "proposition_text": "The user is asking if bread flour is a good choice for savory scones with a denser texture."
+        }
+      ],
+      "revision_slot_id": "680c30771fcc8760f87d990562b29105941eb47136baf7e3d93199fb0d592fc7"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-3987486aa15307cb811211ff8b9896a3b15b62999e2c4c4e719158ae387202be",
+        "m10flat3-3aa17469c67ca3e4f2a677bf57dbcb944160c3c01261389cfa5c6743ce5dfb77"
+      ],
+      "notes": "Both report the same completed bedroom deep-cleaning state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-3987486aa15307cb811211ff8b9896a3b15b62999e2c4c4e719158ae387202be",
+          "proposition_text": "The user performed a deeper clean of their bedroom, including vacuuming, dusting, and changing their sheets."
+        },
+        {
+          "memory_id": "m10flat3-3aa17469c67ca3e4f2a677bf57dbcb944160c3c01261389cfa5c6743ce5dfb77",
+          "proposition_text": "The user has already done a deeper clean of their bedroom, including vacuuming, dusting, and changing sheets."
+        }
+      ],
+      "revision_slot_id": "687fa43373fe0e898ecc0317928023468c2402e248bca93df8d5903a7f04f565"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1aa75c9032e87a328b9f1f2c43336ac0c3b1abaaad9ee76478e0d90cd37a93cb",
+        "m10flat3-e26826ad9e585671e05226a2279fb97f514a7efa4d6c5adf0440d424e655b110"
+      ],
+      "notes": "The Lavender Gin Fizz and Lavender Dream are distinct cocktail experiments and recipe choices.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1aa75c9032e87a328b9f1f2c43336ac0c3b1abaaad9ee76478e0d90cd37a93cb",
+          "proposition_text": "The user tried a lavender gin fizz recipe but had to improvise with honey and water instead of simple syrup."
+        },
+        {
+          "memory_id": "m10flat3-e26826ad9e585671e05226a2279fb97f514a7efa4d6c5adf0440d424e655b110",
+          "proposition_text": "The user is interested in the Lavender Dream cocktail and has tried using lavender syrup instead of infusing the gin."
+        }
+      ],
+      "revision_slot_id": "688d428f0496de87caca144d722a7b2aa74be6f83c5351f5547990a07d981144"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-8aba58f49b0079b96052318ed3299a25e96d46eb55f13dadc5231b85044b4fc2",
+        "m10flat3-91003dfb5e3f2d78d9a4d4e554636a19c1311699ec35d272f23461b20b9c70e5"
+      ],
+      "notes": "Both concern net worth, but a 12-month decline and billionaire threshold may refer to different time/value dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-8aba58f49b0079b96052318ed3299a25e96d46eb55f13dadc5231b85044b4fc2",
+          "proposition_text": "The user's net worth has declined significantly in the past 12 months."
+        },
+        {
+          "memory_id": "m10flat3-91003dfb5e3f2d78d9a4d4e554636a19c1311699ec35d272f23461b20b9c70e5",
+          "proposition_text": "The user is a billionaire, though his net worth has declined in the past year."
+        }
+      ],
+      "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6f0893aa71d9481ab90fc805a13775ba9025e3d6399824b517cf3a2cda045ccc",
+        "m10flat3-736beb5d6cfd201d42d96d1f7f4daff39a63a62ae98be0c128230bcd60794131"
+      ],
+      "notes": "The clauses describe distinct procedural/legal propositions, not one mutable state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6f0893aa71d9481ab90fc805a13775ba9025e3d6399824b517cf3a2cda045ccc",
+          "proposition_text": "A joint resolution of disapproval of designation or a joint resolution of disapproval of removal of designation is referred to as a covered joint resolution."
+        },
+        {
+          "memory_id": "m10flat3-736beb5d6cfd201d42d96d1f7f4daff39a63a62ae98be0c128230bcd60794131",
+          "proposition_text": "If a motion to proceed to the consideration of the covered joint resolution is agreed to, the covered joint resolution shall remain the unfinished business until disposed of."
+        }
+      ],
+      "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-69748050354f99f286c579590d456a4ba88110255b14d86c2c9bfa735796e18e",
+        "m10flat3-b75de95c3e4c04dfb7ee2686273ab79a9c8ce8ae3e0d04fe9e2f643c0136dad1"
+      ],
+      "notes": "Both describe the same unresolved intermittent connectivity-drop issue after router upgrade.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-69748050354f99f286c579590d456a4ba88110255b14d86c2c9bfa735796e18e",
+          "proposition_text": "The user has been experiencing occasional drops in connectivity despite upgrading their router to a TP-Link Archer AX50."
+        },
+        {
+          "memory_id": "m10flat3-b75de95c3e4c04dfb7ee2686273ab79a9c8ce8ae3e0d04fe9e2f643c0136dad1",
+          "proposition_text": "The user is still experiencing occasional connectivity drops when using their laptop in different rooms."
+        }
+      ],
+      "revision_slot_id": "6c324f4f91817bd857a3b0a0e11da800bd279b18f9b039f5254f7b8c54a38d96"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-4145f6a29bbd508bacf3a97506926dfc42d553dad8d9eb9c84e0d179804b53ee",
+        "m10flat3-61e3a7a372625e40c0b3505cd73e4ea8ca92bf1db453167f4150da87abf1ba0b"
+      ],
+      "notes": "A broad seasonal-baking interest and one savory-scone plan are related but not clearly the same state dimension.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4145f6a29bbd508bacf3a97506926dfc42d553dad8d9eb9c84e0d179804b53ee",
+          "proposition_text": "The user is interested in fall-themed baking recipes."
+        },
+        {
+          "memory_id": "m10flat3-61e3a7a372625e40c0b3505cd73e4ea8ca92bf1db453167f4150da87abf1ba0b",
+          "proposition_text": "The user is planning to make a savory scone with caramelized onions and mushrooms."
+        }
+      ],
+      "revision_slot_id": "7139f97cb7473baddbc2861a9f641bad25a0b9e46a5d5464381078c4a84d8f6a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-24a686fdcbedaa6adc6a60ff1bd947bbd58f0485f8aaad5c0c657b51dcf126d0",
+        "m10flat3-46908e1cbd011a35b8e874462b01ceeb64102805eef054cc6fda350206b3a506"
+      ],
+      "notes": "Outfit planning for boots and an opinion about the H&M store are separate preferences.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-24a686fdcbedaa6adc6a60ff1bd947bbd58f0485f8aaad5c0c657b51dcf126d0",
+          "proposition_text": "The user has a new pair of ankle boots from H&M and is looking for trendy outfit combinations."
+        },
+        {
+          "memory_id": "m10flat3-46908e1cbd011a35b8e874462b01ceeb64102805eef054cc6fda350206b3a506",
+          "proposition_text": "The user enjoys the trendy clothes and affordable prices at the new H&M store."
+        }
+      ],
+      "revision_slot_id": "76a51fed62bcdcff918bad963aa4e5c99aad9d121f5761aadc23791384c1a304"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-0439e2330b6f24cb1667c219d33916b1fe579e5566bea78c4ba7825a70f04c3d",
+        "m10flat3-50f0a70a44fd5867cb9462500266c73e685d08c24bfb7628c340449f1f40b16a"
+      ],
+      "notes": "Starting a small garden and expanding a garden may describe one plan, but the scope/status is ambiguous.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-0439e2330b6f24cb1667c219d33916b1fe579e5566bea78c4ba7825a70f04c3d",
+          "proposition_text": "The user intends to start a small vegetable garden on their 5-acre property."
+        },
+        {
+          "memory_id": "m10flat3-50f0a70a44fd5867cb9462500266c73e685d08c24bfb7628c340449f1f40b16a",
+          "proposition_text": "The user is planning to expand their garden and try growing new fruits and vegetables."
+        }
+      ],
+      "revision_slot_id": "83c32a6c85d0c5656211eb2e658077386c98c9db39285c88523bb090229b3aac"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1aa7e94f671ab1be81129118fefa6b5ee98022df370147cc11d6d0193e51d915",
+        "m10flat3-9a0eaeba1ca4ca83a71dc27c8458cbb570e0e008ddbf0a231103436ed01befda"
+      ],
+      "notes": "Purchasing and assembling a bookshelf are separate completed historical events.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1aa7e94f671ab1be81129118fefa6b5ee98022df370147cc11d6d0193e51d915",
+          "proposition_text": "The user recently assembled a new bookshelf."
+        },
+        {
+          "memory_id": "m10flat3-9a0eaeba1ca4ca83a71dc27c8458cbb570e0e008ddbf0a231103436ed01befda",
+          "proposition_text": "The user purchased a new bookshelf from IKEA for $80."
+        }
+      ],
+      "revision_slot_id": "8946ea66720edd82a0849b708f1bbe04ef4081f99edd83fddde6a0d88a23e911"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-41b2d1a21923472e302e4ac074a346674797b30278ef7c022f7e2c9d86dacdb8",
+        "m10flat3-97fb0c107a61a43d4d014acdb1c047e993ceff7a1536332c4196410c60793aa0"
+      ],
+      "notes": "Both concern the same coilover setup and intended adjustment for handling/body roll.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-41b2d1a21923472e302e4ac074a346674797b30278ef7c022f7e2c9d86dacdb8",
+          "proposition_text": "The user recently installed new coilovers and is concerned about their suspension setup."
+        },
+        {
+          "memory_id": "m10flat3-97fb0c107a61a43d4d014acdb1c047e993ceff7a1536332c4196410c60793aa0",
+          "proposition_text": "The user intends to make adjustments to the coilovers to reduce body roll and improve handling."
+        }
+      ],
+      "revision_slot_id": "8a775f0141498b8b6a5f9c2b2cb5b6cf382179215b73c235e91cb17ff26a899d"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-12c3cab099514f78c7c5b1e29c1af1ec679ef6dc986339234f3409cff6a2452d",
+        "m10flat3-860f4e0483e03948dd5e990f5d48318571025156af6fa627f51d5079f9ea1f90"
+      ],
+      "notes": "The price and material/store suggest the same necklace, but the propositions do not conclusively identify the same item.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-12c3cab099514f78c7c5b1e29c1af1ec679ef6dc986339234f3409cff6a2452d",
+          "proposition_text": "The user spent around $250 on their sister's necklace."
+        },
+        {
+          "memory_id": "m10flat3-860f4e0483e03948dd5e990f5d48318571025156af6fa627f51d5079f9ea1f90",
+          "proposition_text": "The user has a silver necklace from Tiffany's that cost around $250."
+        }
+      ],
+      "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-584f8fcdaed5ac39470aa40a0c0fa1efba48f2402ead183937d02159cfda8892",
+        "m10flat3-9b2029e24b984f8c3efa4be22ea4cd6d21cadc9283541af36669f20d0491120d"
+      ],
+      "notes": "Both express the same intention to grant the sister MyChart proxy access.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-584f8fcdaed5ac39470aa40a0c0fa1efba48f2402ead183937d02159cfda8892",
+          "proposition_text": "The user is considering granting proxy access to their sister through MyChart."
+        },
+        {
+          "memory_id": "m10flat3-9b2029e24b984f8c3efa4be22ea4cd6d21cadc9283541af36669f20d0491120d",
+          "proposition_text": "The user believes granting proxy access to their sister will be helpful for her to view their medical records and communicate with their healthcare team."
+        }
+      ],
+      "revision_slot_id": "8bc0c9dcc1819a7faa405a842b5854ce54b0eb57eb213acd20e82aa87b77da00"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-aae49a080d292542b743efd18cb664a91d1f7d465f6fd0fdd604d6ff7dad5ff7",
+        "m10flat3-dd4fa1834cccce2fe3d7f362b6f204e32cb5169f27ebd8bfef1e4c842600ba54"
+      ],
+      "notes": "Forming attachment mental models and listing parent behavior qualities are distinct intervention propositions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-aae49a080d292542b743efd18cb664a91d1f7d465f6fd0fdd604d6ff7dad5ff7",
+          "proposition_text": "The therapist helps the patient form new mental models of attachment relationships by suggesting qualities that promote secure attachment."
+        },
+        {
+          "memory_id": "m10flat3-dd4fa1834cccce2fe3d7f362b6f204e32cb5169f27ebd8bfef1e4c842600ba54",
+          "proposition_text": "The therapist can suggest that the parent figures are engaging in actions with specific qualities of being, such as being present, consistent, reliable, and interested in the patient."
+        }
+      ],
+      "revision_slot_id": "96d411785c5beab09b65024cfaa2c34996b016c0b81f49c9c45661e79c617619"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-95359b179230a05ce38b8937041e354af9fedbf8ecff88f882d20da1ba5456ef",
+        "m10flat3-bf2939248f986de5c8d52c5bbf4226547a4e5432cf883cb8e4ab197a1730f8a0"
+      ],
+      "notes": "Both describe completion of the same name-update documentation for the social security card and license.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-95359b179230a05ce38b8937041e354af9fedbf8ecff88f882d20da1ba5456ef",
+          "proposition_text": "The user has all the required documents, including their updated social security card and driver's license."
+        },
+        {
+          "memory_id": "m10flat3-bf2939248f986de5c8d52c5bbf4226547a4e5432cf883cb8e4ab197a1730f8a0",
+          "proposition_text": "The user has already updated their social security card and driver's license with their new name."
+        }
+      ],
+      "revision_slot_id": "9aad633efdfbc49ea866f44979659784a933df11a7992d5433d4157f4c834934"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-4770ebaef7f37746c64acc7959ac4ec9f6f75f3e8eb129569affd6b52cae6aa6",
+        "m10flat3-9e6fb8ec66c63f5ffee4bf6dc670747c4fd16edb394f5dfdf45eb8d47000b707"
+      ],
+      "notes": "A perceived need to upskill and applying skills to a work project are separate states/actions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4770ebaef7f37746c64acc7959ac4ec9f6f75f3e8eb129569affd6b52cae6aa6",
+          "proposition_text": "The user feels the need to upskill to remain competitive in their field."
+        },
+        {
+          "memory_id": "m10flat3-9e6fb8ec66c63f5ffee4bf6dc670747c4fd16edb394f5dfdf45eb8d47000b707",
+          "proposition_text": "The user intends to apply the skills learned to a project at work to maintain motivation."
+        }
+      ],
+      "revision_slot_id": "9b6dc9bb4bcfb1a715efd46914f6534a7e60e02cf8fd3d2cf7272b39bdcf2cf4"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1851d9a78304b82feab891e28bada690d45fcc763a69b0871434d0d1bd5694c4",
+        "m10flat3-ebd5380cdba03fa45c04389d0209f685725e906647656de0bed24635244011fb"
+      ],
+      "notes": "Roast choice/enjoyment and black preparation style are distinct coffee preference dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1851d9a78304b82feab891e28bada690d45fcc763a69b0871434d0d1bd5694c4",
+          "proposition_text": "The user is currently using an Ethiopian roast that they enjoy."
+        },
+        {
+          "memory_id": "m10flat3-ebd5380cdba03fa45c04389d0209f685725e906647656de0bed24635244011fb",
+          "proposition_text": "The user drinks their Ethiopian roast black, without sugar or cream."
+        }
+      ],
+      "revision_slot_id": "a0b5cb9d0be4c7dbd860036bfc904fe5e343df9cf98b929dcc6bfc758cc678c0"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-630658bd9648bfc74aae1185fce73ca209a1950595984db97b11c001c43c0477",
+        "m10flat3-6e5f11296c83c26386fc6c65ac6c61de954884da7dd9609172edbee2fa8ca3e3"
+      ],
+      "notes": "The propositions form a set of two saddle candidates plus a demo plan, not one single-valued saddle state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-630658bd9648bfc74aae1185fce73ca209a1950595984db97b11c001c43c0477",
+          "proposition_text": "The user plans to demo both the Arione and Antares saddles to determine comfort."
+        },
+        {
+          "memory_id": "m10flat3-6e5f11296c83c26386fc6c65ac6c61de954884da7dd9609172edbee2fa8ca3e3",
+          "proposition_text": "The user is interested in the Fizik Arione and Antares models for their saddle upgrade."
+        }
+      ],
+      "revision_slot_id": "a14e2ac9b021b82915111956cb4da37b0a3a4cd37f2503f7b1b40fea3575df76"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-23bbeac22834f7c7a62867f217b383ada2db7b3f75b75f3944db4609551bcbbe",
+        "m10flat3-a561edb95bb468b5b007caa30526c49b5a08d5f36378df1c4492cd0e4d4b2a03"
+      ],
+      "notes": "Both define the same weekly dinner-planning request; five days specifies its scope.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-23bbeac22834f7c7a62867f217b383ada2db7b3f75b75f3944db4609551bcbbe",
+          "proposition_text": "The user wants suggestions on how to plan meals for the week."
+        },
+        {
+          "memory_id": "m10flat3-a561edb95bb468b5b007caa30526c49b5a08d5f36378df1c4492cd0e4d4b2a03",
+          "proposition_text": "The user asked for a dinner menu plan for five days."
+        }
+      ],
+      "revision_slot_id": "a21528e5ec6a30450690fc487341477b785232620126576742e54c4cdd148c9f"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6ecd89a51739999f6ba269b253f9cd00cc1d164cac0bea599f81da24d6391a9c",
+        "m10flat3-7ec1795f8809559271a096b059a34315514e522b88fef28db1a8ffe8c1948c88"
+      ],
+      "notes": "Wanting a new yoga challenge and a 20-minute daily duration are separate practice attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6ecd89a51739999f6ba269b253f9cd00cc1d164cac0bea599f81da24d6391a9c",
+          "proposition_text": "The user has been doing the same yoga flows for a while and wants to challenge themselves."
+        },
+        {
+          "memory_id": "m10flat3-7ec1795f8809559271a096b059a34315514e522b88fef28db1a8ffe8c1948c88",
+          "proposition_text": "The user's daily yoga practice lasts for at least 20 minutes."
+        }
+      ],
+      "revision_slot_id": "a44fe3fb945df023833b880e15875b5f5f871b9b25f385df071fca8641fb4e99"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-91a50b282b7f669c648710938994b5527cc31e6ef1348440a20269d4505db3ce",
+        "m10flat3-b4de44ed288a17a08c1c0d065ce287a70458326c54d4c5b78f23d1c0d6fb2bb8"
+      ],
+      "notes": "Both ask the same question about keeping cookies fresh in storage.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-91a50b282b7f669c648710938994b5527cc31e6ef1348440a20269d4505db3ce",
+          "proposition_text": "The user is asking for the best way to store cookies to keep them fresh for a longer period."
+        },
+        {
+          "memory_id": "m10flat3-b4de44ed288a17a08c1c0d065ce287a70458326c54d4c5b78f23d1c0d6fb2bb8",
+          "proposition_text": "The user is interested in storing cookies to keep them fresh for a longer period."
+        }
+      ],
+      "revision_slot_id": "a6f38590b82b29bb6c28ed8d2fcecdf9a253be3b01c962fff7da478f0755ca4d"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-0a1f76d1325b725ce6cf3ffe4559308ddabb002657963e1c690c7dc8bdbf05f0",
+        "m10flat3-0e877836bb5cd17a747e44ac3ee39b4aabada221baa87f2245bf3275568f3218",
+        "m10flat3-bc5134775d7bc1e031ec06b40cff55ee4ea28dbb705f13ae1ca7f0a91e88bc48"
+      ],
+      "notes": "The propositions state separate elements of repudiation doctrine and termination rights.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-0a1f76d1325b725ce6cf3ffe4559308ddabb002657963e1c690c7dc8bdbf05f0",
+          "proposition_text": "The court will assess whether or not the repudiatory conduct is a breach of an essential term of the contract, or a breach of a non-essential term but causing substantial loss or benefit; and a renunciation of the contract."
+        },
+        {
+          "memory_id": "m10flat3-0e877836bb5cd17a747e44ac3ee39b4aabada221baa87f2245bf3275568f3218",
+          "proposition_text": "The innocent party may not have a contractual right to terminate under the contract, but may rely on common law right of repudiation to terminate."
+        },
+        {
+          "memory_id": "m10flat3-bc5134775d7bc1e031ec06b40cff55ee4ea28dbb705f13ae1ca7f0a91e88bc48",
+          "proposition_text": "Repudiation of a contract occurs when a party shows an unwillingness or inability to perform substantial obligations under the contract."
+        }
+      ],
+      "revision_slot_id": "a7abd76410224d232686284baab5c58e3a7246ae1800817bfdcaff251ec39577"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-116ad8a1246825cbd00a90494fa826794aa22be87356738ad497fbc92cab1375",
+        "m10flat3-64fce910957a8dbfb9dc3489b33833d065f0f97b2566da7cc68487e37c0c9ceb"
+      ],
+      "notes": "Both describe the same weapon-seeking plan for defense against the feline threat.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-116ad8a1246825cbd00a90494fa826794aa22be87356738ad497fbc92cab1375",
+          "proposition_text": "The user has decided to go to the construction site to find a weapon."
+        },
+        {
+          "memory_id": "m10flat3-64fce910957a8dbfb9dc3489b33833d065f0f97b2566da7cc68487e37c0c9ceb",
+          "proposition_text": "The user is looking for a weapon to defend against the feline threat."
+        }
+      ],
+      "revision_slot_id": "aa42ea329c104c72aed366e35656ecd189ef83c8565c974068915df8f3a6d6c7"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-0e502f3da2ee02e531f32e092ce98bec509648bce87906411e9f9edb9063f3ad",
+        "m10flat3-d2915a7902b0c5682917887d2a760c7799231e6527f68c660090a58a74d40a2a"
+      ],
+      "notes": "General packing help and selecting a messenger bag are separate trip-preparation dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-0e502f3da2ee02e531f32e092ce98bec509648bce87906411e9f9edb9063f3ad",
+          "proposition_text": "The user needs help with packing for the trip."
+        },
+        {
+          "memory_id": "m10flat3-d2915a7902b0c5682917887d2a760c7799231e6527f68c660090a58a74d40a2a",
+          "proposition_text": "The user is planning to bring a new messenger bag for carrying laptop and documents."
+        }
+      ],
+      "revision_slot_id": "adf210a58f3bcfd2b4dcde31d540e685aeaf24fe6b90654ae4685e29989a6ec4"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-3061f344b4d40724d1f47c3f6caf2705b6bd4bcff20a636ff691dba7b8a33b15",
+        "m10flat3-52ef3cb1e4cee5d982a49b017ebee4fa5182dd68bf3626c977aea576b28bd65a"
+      ],
+      "notes": "Both describe the same plan to organize figurines by franchise; one gives its rationale.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-3061f344b4d40724d1f47c3f6caf2705b6bd4bcff20a636ff691dba7b8a33b15",
+          "proposition_text": "The user intends to reorganize their shelf to group figurines by franchise."
+        },
+        {
+          "memory_id": "m10flat3-52ef3cb1e4cee5d982a49b017ebee4fa5182dd68bf3626c977aea576b28bd65a",
+          "proposition_text": "The user believes organizing figurines by franchise will make the display more visually appealing and easier to navigate."
+        }
+      ],
+      "revision_slot_id": "b0382527dec014f030895ba863d2c8b89da6d1bd5f9cdd3a3bec95dcc6454baf"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-1264e04e2a9a04526caf9565f1873e0ebbe51371d25ed70404c52a8a4646aca9",
+        "m10flat3-2d063b435c775bf8df2d30cfb11ee326b8a9ee0481c81c6a23467cd45331a114",
+        "m10flat3-8914293882e93541577641181e0dd539a62788f95554c5e6098f10b49e10956d"
+      ],
+      "notes": "Fly fishing, tying flies, tutorials, and kit instruction are multiple learning goals/resources.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1264e04e2a9a04526caf9565f1873e0ebbe51371d25ed70404c52a8a4646aca9",
+          "proposition_text": "The user is interested in learning fly fishing and has a specific interest in tying their own flies."
+        },
+        {
+          "memory_id": "m10flat3-2d063b435c775bf8df2d30cfb11ee326b8a9ee0481c81c6a23467cd45331a114",
+          "proposition_text": "The user plans to start with online tutorials and videos to learn the basics of fly fishing and tying."
+        },
+        {
+          "memory_id": "m10flat3-8914293882e93541577641181e0dd539a62788f95554c5e6098f10b49e10956d",
+          "proposition_text": "The user is looking for instructional materials or classes to help them use the Orvis Clearwater Fly Fishing Kit."
+        }
+      ],
+      "revision_slot_id": "b0e7b76ea32e52fb7abcd580f51ad12c5f6b7fb89c4217945ca5353f3135f234"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-86bb6ee5944bd47c5d1a9a04d0512aeb84af5dcf3817ebb58062fe25a3ae9f68",
+        "m10flat3-eac45c4f7516242a2961b57d6202aea4d00d068cc0a0e120dfdc4bb9e6421751"
+      ],
+      "notes": "Both concern disposing of the same Ugg boots, but sale/donation options and pricing may be distinct disposition states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-86bb6ee5944bd47c5d1a9a04d0512aeb84af5dcf3817ebb58062fe25a3ae9f68",
+          "proposition_text": "The user is looking for tips on how to sell their old Ugg boots online or where to donate them."
+        },
+        {
+          "memory_id": "m10flat3-eac45c4f7516242a2961b57d6202aea4d00d068cc0a0e120dfdc4bb9e6421751",
+          "proposition_text": "The user is looking for tips on how to price their Ugg boots when selling them online."
+        }
+      ],
+      "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-6bf64f5a3015a730261f1c637ba2ea12afe2f702d213cc19bb4a94ca4e035186",
+        "m10flat3-6e9713b9b3dbf9e9a68e2a517821e5e20ff4f26159cb6196afdd54cfca4cb7c9"
+      ],
+      "notes": "Bellroy and Fossil form a multi-brand preference set; a specific Slim Sleeve browse is a separate selection state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6bf64f5a3015a730261f1c637ba2ea12afe2f702d213cc19bb4a94ca4e035186",
+          "proposition_text": "The user is browsing through the Bellroy website and considering the Bellroy Slim Sleeve."
+        },
+        {
+          "memory_id": "m10flat3-6e9713b9b3dbf9e9a68e2a517821e5e20ff4f26159cb6196afdd54cfca4cb7c9",
+          "proposition_text": "The user is interested in wallet brands such as Bellroy and Fossil for their slim and stylish designs."
+        }
+      ],
+      "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-32e3b71c1383b2abbd632db08263d338d8e08032dcf5c3f2f6b1ecffb23b54a2",
+        "m10flat3-f82cfc02eb1fab0a3238b4822155c9d12fd5d630fc3f3714ac10b0a407d38e0a"
+      ],
+      "notes": "Both concern trying the same oatmeal-with-fruit-and-nuts breakfast option.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-32e3b71c1383b2abbd632db08263d338d8e08032dcf5c3f2f6b1ecffb23b54a2",
+          "proposition_text": "The user wants to customize the oatmeal with fresh fruits and nuts breakfast option."
+        },
+        {
+          "memory_id": "m10flat3-f82cfc02eb1fab0a3238b4822155c9d12fd5d630fc3f3714ac10b0a407d38e0a",
+          "proposition_text": "The user will try the oatmeal with fresh fruits and nuts option for breakfast."
+        }
+      ],
+      "revision_slot_id": "b82af51fe101c96cd65de57dabb5271b3a8f1b4a0d64b617894dd6df6b29dd5c"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-24838e0e9d9adf16d7474a7f5bafc986e2a51abf1bb186f1b03f7e8dec813a31",
+        "m10flat3-46d9c9646f1bba32a021430744c0d4fc84a06425d05cbf92eafb3d758e0951e2",
+        "m10flat3-90f2a1132772695ee6c94f10ec817f08884935dea22f82278d3c54a841115f2b",
+        "m10flat3-da24c1e09acefd4c6dcb0e0228070494c6c3f9f062ac9683d19ee5f13a5e1cd0"
+      ],
+      "notes": "Returning to collecting, learning error-coin facts, and joining forums are distinct hobby goals/actions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-24838e0e9d9adf16d7474a7f5bafc986e2a51abf1bb186f1b03f7e8dec813a31",
+          "proposition_text": "The user has recently returned to coin collecting and is considering starting a new collection of error coins."
+        },
+        {
+          "memory_id": "m10flat3-46d9c9646f1bba32a021430744c0d4fc84a06425d05cbf92eafb3d758e0951e2",
+          "proposition_text": "The user is interested in connecting with other collectors and learning more about error coins through online communities and forums."
+        },
+        {
+          "memory_id": "m10flat3-90f2a1132772695ee6c94f10ec817f08884935dea22f82278d3c54a841115f2b",
+          "proposition_text": "The user is interested in learning more about error coins, especially ones from the 1980s."
+        },
+        {
+          "memory_id": "m10flat3-da24c1e09acefd4c6dcb0e0228070494c6c3f9f062ac9683d19ee5f13a5e1cd0",
+          "proposition_text": "The user is interested in connecting with other collectors through online communities or forums for error coins."
+        }
+      ],
+      "revision_slot_id": "ba7df6c51e06692598bf31be97d53e6218e33fe9c3d0bf3555c0b9949288b243"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-c656af184d1514917dd6ab32e2ee2aed7401d2f54241aca6223c9e047d671a7e",
+        "m10flat3-dd0a649adfacc64ee988cb2a7da60a96cc09d8d00473df68d0f97dfac32f2067"
+      ],
+      "notes": "Both specify family-friendly attractions suitable for younger children.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-c656af184d1514917dd6ab32e2ee2aed7401d2f54241aca6223c9e047d671a7e",
+          "proposition_text": "The user is looking for family-friendly attractions in Orlando, Florida."
+        },
+        {
+          "memory_id": "m10flat3-dd0a649adfacc64ee988cb2a7da60a96cc09d8d00473df68d0f97dfac32f2067",
+          "proposition_text": "The user is interested in attractions suitable for younger children."
+        }
+      ],
+      "revision_slot_id": "baa450b9ee82165024cc6ccd07e661109d2606d4b33c9fbeb41ec2dd4359a5e1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-cfa3e80a42acdfcbaf508525ac824fb003264a45cf97fae2bd2f013d40d45f6f",
+        "m10flat3-eaf0b40e909ea978395a5a1f55c5ae0a88f4bda848cbe9efdc1548e6f516c387"
+      ],
+      "notes": "Both express the same policy position favoring standardized-testing waivers for student well-being.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-cfa3e80a42acdfcbaf508525ac824fb003264a45cf97fae2bd2f013d40d45f6f",
+          "proposition_text": "The user is concerned about the negative impact of testing on students' well-being."
+        },
+        {
+          "memory_id": "m10flat3-eaf0b40e909ea978395a5a1f55c5ae0a88f4bda848cbe9efdc1548e6f516c387",
+          "proposition_text": "The user is advocating for standardized testing waivers for students."
+        }
+      ],
+      "revision_slot_id": "c0b3ec5608bc75776667b44c320eda7a71a0acf4ec07a91f38270309668eeb57"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-4a22e8d6996634a45bd1f2e3e49e2f0e09daa4c2b37cffb4e267d0580af13604",
+        "m10flat3-7139fcbfb0617ac7de2825e8fdb8c232a160bacc904868215fd2dbd91f932b2d",
+        "m10flat3-7e8d1d4a0092bea63a0c30af9b09bc83d9b014d089e4db4196115211f26deddb"
+      ],
+      "notes": "All refer to the same US Size 7 aluminum straight needles selected and used for the hat.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4a22e8d6996634a45bd1f2e3e49e2f0e09daa4c2b37cffb4e267d0580af13604",
+          "proposition_text": "The user has decided to use US Size 7 (4.5mm) aluminum straight needles for knitting."
+        },
+        {
+          "memory_id": "m10flat3-7139fcbfb0617ac7de2825e8fdb8c232a160bacc904868215fd2dbd91f932b2d",
+          "proposition_text": "The user has previously worked with US Size 7 (4.5mm) aluminum straight needles and found them easy to handle."
+        },
+        {
+          "memory_id": "m10flat3-7e8d1d4a0092bea63a0c30af9b09bc83d9b014d089e4db4196115211f26deddb",
+          "proposition_text": "The user has decided to use US Size 7 (4.5mm) aluminum straight needles for the hat."
+        }
+      ],
+      "revision_slot_id": "c28e037b1260240b88d8c394265b87481828221dedbdbca15499672e89136000"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-82d0894a7c72ac722325d9b9efa4c5f416612d741e802bc953aaad7699e9da5d",
+        "m10flat3-b0ff472389fe5b4a646d04186ff80f81c6bd4aca75e433ac91a8b9c7735abac2"
+      ],
+      "notes": "Both set the Mist Trail start time at about 7 a.m. to avoid crowds.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-82d0894a7c72ac722325d9b9efa4c5f416612d741e802bc953aaad7699e9da5d",
+          "proposition_text": "The user is planning to start the Mist Trail hike early, around 7 am, to avoid crowds."
+        },
+        {
+          "memory_id": "m10flat3-b0ff472389fe5b4a646d04186ff80f81c6bd4aca75e433ac91a8b9c7735abac2",
+          "proposition_text": "The user plans to start early, around 7 am, to beat the crowds."
+        }
+      ],
+      "revision_slot_id": "c7fda73f22f0bf594fc9f1485ed9e888fb86c8d0cdc266dce195f75628337375"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-1094fce1832657c2fc6c8b12bb29611e296f1337eccec5dc9ce3fc4014bf6bef",
+        "m10flat3-2c55b1dc3fc6e02133423cb44ee10e62e4e5ac450d8c72336b4b223c25149c73",
+        "m10flat3-e278fac96fc2a9beb2aa11ca168e8e681ee5606e8280b3d194c0f3c7992096b9"
+      ],
+      "notes": "The closet problem, shoe-rack search, and Whitmor choice describe one shoe-storage solution decision.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-1094fce1832657c2fc6c8b12bb29611e296f1337eccec5dc9ce3fc4014bf6bef",
+          "proposition_text": "The user's closet is cluttered and they want to organize their shoes in one place."
+        },
+        {
+          "memory_id": "m10flat3-2c55b1dc3fc6e02133423cb44ee10e62e4e5ac450d8c72336b4b223c25149c73",
+          "proposition_text": "The user is considering a shoe rack for organizing their shoe collection."
+        },
+        {
+          "memory_id": "m10flat3-e278fac96fc2a9beb2aa11ca168e8e681ee5606e8280b3d194c0f3c7992096b9",
+          "proposition_text": "The user has decided to look into the Whitmor shoe rack."
+        }
+      ],
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-2005f0bafca46c4f68fab387611248bdc58a47838b4a112c7d5b9795eeff2a94",
+        "m10flat3-b6f5cc722d4d8acae470735377282117583630b224315416f5f783c382bfff4e"
+      ],
+      "notes": "Tournament mindset advice and excitement about tracking progress are separate states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-2005f0bafca46c4f68fab387611248bdc58a47838b4a112c7d5b9795eeff2a94",
+          "proposition_text": "The user is asking for tips on maintaining mental toughness and the right mindset during the tournament."
+        },
+        {
+          "memory_id": "m10flat3-b6f5cc722d4d8acae470735377282117583630b224315416f5f783c382bfff4e",
+          "proposition_text": "The user is excited to challenge themselves and track their progress."
+        }
+      ],
+      "revision_slot_id": "cddb208e775c63a6dd43c5f677626a4567755d4084a516528900bd744e311c57"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-204f17dc50c818a16b4e2304053e275b15847829fdf00325929f96fb79d92412",
+        "m10flat3-63e8081d3e3401e25a840d51e607f92fa57d10ecdde687da53096b6116faec55"
+      ],
+      "notes": "The congratulatory message wording and gift-basket theme are distinct choices.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-204f17dc50c818a16b4e2304053e275b15847829fdf00325929f96fb79d92412",
+          "proposition_text": "The user decided to use the first message: \"Congratulations on the royal arrival of Princess Olivia! Wishing you all the joy, love, and sleep (when you can get it) as you embark on this amazing journey.\""
+        },
+        {
+          "memory_id": "m10flat3-63e8081d3e3401e25a840d51e607f92fa57d10ecdde687da53096b6116faec55",
+          "proposition_text": "The user has decided to go with a \"Princess\" theme for the gift basket."
+        }
+      ],
+      "revision_slot_id": "cf2145285ac6d1c8f56cae12ce85b3bc75f7a9f247a9826c2121e59934246e48"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-5aba1206a0429ef88f83852a32cfefdb026c81a9ef0957886d70676ad998e830",
+        "m10flat3-fc97dfb0eb1ae823b635614fb4943621542d170761aaaeff1224c283fd7fa62a"
+      ],
+      "notes": "Bike identity/ownership and a spare-tire plan are separate attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-5aba1206a0429ef88f83852a32cfefdb026c81a9ef0957886d70676ad998e830",
+          "proposition_text": "The user owns a Specialized Rockhopper mountain bike and is thinking of getting a spare set of tires."
+        },
+        {
+          "memory_id": "m10flat3-fc97dfb0eb1ae823b635614fb4943621542d170761aaaeff1224c283fd7fa62a",
+          "proposition_text": "The user owns a Specialized Rockhopper mountain bike."
+        }
+      ],
+      "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-8a358295f563cee163a46cc5c67e4689bf7094bae38590a5e55ecb20013aa571",
+        "m10flat3-a7d5861da98ee968871a88dd76dfded109815680518ab26e33853c54d33d88d3",
+        "m10flat3-ddd9e163ed1e49e40230909ab00f9cc03c4e2bcde27afb28d488b7231134c06a"
+      ],
+      "notes": "Completed organization, time spent, and future weekly maintenance are separate temporal/task facts.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-8a358295f563cee163a46cc5c67e4689bf7094bae38590a5e55ecb20013aa571",
+          "proposition_text": "The user has organized their comic book collection on their bookshelf, arranging them in alphabetical order."
+        },
+        {
+          "memory_id": "m10flat3-a7d5861da98ee968871a88dd76dfded109815680518ab26e33853c54d33d88d3",
+          "proposition_text": "The user spent about two hours to organize their comic book collection in alphabetical order."
+        },
+        {
+          "memory_id": "m10flat3-ddd9e163ed1e49e40230909ab00f9cc03c4e2bcde27afb28d488b7231134c06a",
+          "proposition_text": "The user plans to maintain their organized bookshelf and comic book collection by setting aside a little time each week to tidy up."
+        }
+      ],
+      "revision_slot_id": "d1c869a11641e2e7caf10f0d1a0b0d4dc6c33ed6e193ef3283d7d8347b1e3a80"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-07765a209b44a7f1b229186028d7349df04d0a33d77ac6312d17404a303d3e16",
+        "m10flat3-322ac0d0704f8742a29cdd7c0afd9234b9b6e80180959180da98cce694126f7d"
+      ],
+      "notes": "The propositions give different historical consequences and interpretations, not one state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-07765a209b44a7f1b229186028d7349df04d0a33d77ac6312d17404a303d3e16",
+          "proposition_text": "The user believes that the Thirty Years War hurt the Holy Roman Empire and contributed to its declining economy and central weakness."
+        },
+        {
+          "memory_id": "m10flat3-322ac0d0704f8742a29cdd7c0afd9234b9b6e80180959180da98cce694126f7d",
+          "proposition_text": "The user indicated that the most significant consequence of the 30 Years War was the massive power shift away from the Habsburgs to the Bourbons, the epochal shift in religious authority, and the devastation of the Holy Roman Empire."
+        }
+      ],
+      "revision_slot_id": "d39c82a6132bffceb2245d8bc7ec87bf8c287f534f243d5aee86e4c56abb0032"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-84f9b5c6513da739b19d247d12082c58008802ad9efd38befa394160fe94565c",
+        "m10flat3-9d7791f61107231da65cc9c99db01ddf1b93dc2a775aee460b7f466fa6ce4318"
+      ],
+      "notes": "Both express the same tentative plan to clean the bathroom mirrors soon.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-84f9b5c6513da739b19d247d12082c58008802ad9efd38befa394160fe94565c",
+          "proposition_text": "The user is planning to clean bathroom mirrors soon."
+        },
+        {
+          "memory_id": "m10flat3-9d7791f61107231da65cc9c99db01ddf1b93dc2a775aee460b7f466fa6ce4318",
+          "proposition_text": "The user is considering cleaning the bathroom mirrors soon."
+        }
+      ],
+      "revision_slot_id": "d77bdd4af863732fe3ed7bc3f91afecb81199333bf1714fa2cd878be5af92962"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-5b488f33101c2df0685e179ec790ba9e3d9a61e61e50de5ee9f0dffdfe9e8323",
+        "m10flat3-e054e50bec3129c846bd6a29960ca3c17cdbebc6d3761683d8fbd32a503456a4"
+      ],
+      "notes": "An event-count summary and a particular completed Coursera course are separate historical attendance facts.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-5b488f33101c2df0685e179ec790ba9e3d9a61e61e50de5ee9f0dffdfe9e8323",
+          "proposition_text": "The user attended 7 events, including workshops, webinars, lectures, seminars, conferences, and an online course."
+        },
+        {
+          "memory_id": "m10flat3-e054e50bec3129c846bd6a29960ca3c17cdbebc6d3761683d8fbd32a503456a4",
+          "proposition_text": "The user also attended an online course on Digital Marketing through Coursera starting on January 25th."
+        }
+      ],
+      "revision_slot_id": "d7d1064baa6080cfb8d071bda17fbb0e3945a2c96051bfc0d624f20edbff98ad"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-a9b8a26eb9a229550bdfc3fe654f76d345475afb694eda2ffae3fb38fd250a72",
+        "m10flat3-c05fc02bd3b0662780757b5cdcee12002de4d13e13fa2c32ac8b9609fa7d2d28"
+      ],
+      "notes": "Both concern improving Overwatch aim in training mode; the practice techniques refine that goal.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-a9b8a26eb9a229550bdfc3fe654f76d345475afb694eda2ffae3fb38fd250a72",
+          "proposition_text": "The user practices flicks and circle jumps in training mode to improve aim."
+        },
+        {
+          "memory_id": "m10flat3-c05fc02bd3b0662780757b5cdcee12002de4d13e13fa2c32ac8b9609fa7d2d28",
+          "proposition_text": "The user is interested in improving their aim in Overwatch, specifically in the training mode."
+        }
+      ],
+      "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-53691c9ac375f50dae037eaf7aa5b316559ba696edf4788a09e5575202b8b34d",
+        "m10flat3-c9a13326c2158106d5baae83c17887131a1b1ff1a39cdf7e555178481ce9458e"
+      ],
+      "notes": "Replacing a dresser, choosing a mirror, and upgrading room decor are distinct furnishing decisions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-53691c9ac375f50dae037eaf7aa5b316559ba696edf4788a09e5575202b8b34d",
+          "proposition_text": "The user is planning to upgrade their bedroom decor to match their new dresser and mirror."
+        },
+        {
+          "memory_id": "m10flat3-c9a13326c2158106d5baae83c17887131a1b1ff1a39cdf7e555178481ce9458e",
+          "proposition_text": "The user is planning to replace their old dresser and is thinking of getting a new mirror to hang above it."
+        }
+      ],
+      "revision_slot_id": "dadfce933b61c59e3f958748709e07d1e2518dd5c3c4105d22134382546b1150"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-839d7245b8ab2f19d818230477a191b6c2a1595f0c284b4afaafc0d2b19b3357",
+        "m10flat3-bdbad5883a34d03045fe1f3568b125c905edd02fba0b483fd0435f48a2de802d"
+      ],
+      "notes": "Both describe the same seasonal lavender-and-lemon candle-line project, from consideration to plan.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-839d7245b8ab2f19d818230477a191b6c2a1595f0c284b4afaafc0d2b19b3357",
+          "proposition_text": "The user is considering creating a seasonal line of candles with scents like lavender and lemon for the summer months."
+        },
+        {
+          "memory_id": "m10flat3-bdbad5883a34d03045fe1f3568b125c905edd02fba0b483fd0435f48a2de802d",
+          "proposition_text": "The user is planning to create a seasonal line of candles with scents like lavender and lemon for the summer months."
+        }
+      ],
+      "revision_slot_id": "dbab0df89f184b6c3a6be8b2a70cde4b6b9ca3383b7994e4f9eb44d1464845ce"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-109c87d235334ef0bf22a185151b62b88850d25f201bbe30f9e00d619196546c",
+        "m10flat3-4e8d81c647103077ac78a95262cf6960af6195eb5f3836fa696daf5abd997d69"
+      ],
+      "notes": "The two descriptions are equivalent versions of the same green-bean recipe.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-109c87d235334ef0bf22a185151b62b88850d25f201bbe30f9e00d619196546c",
+          "proposition_text": "The user wants to create a green bean dish with macadamia nuts, shave jalapeños, and a dressing that tastes similar to a caesar salad."
+        },
+        {
+          "memory_id": "m10flat3-4e8d81c647103077ac78a95262cf6960af6195eb5f3836fa696daf5abd997d69",
+          "proposition_text": "The user wants to create a green bean dish with macadamia nuts, shave jalapeños, and a dressing similar to a Caesar salad."
+        }
+      ],
+      "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-c402e8f23130687231a9351df4ae8251d906cade9e4c6c7be85a2294af24c01e",
+        "m10flat3-f5ca94d4ce99d095b2fc74578617c8ae9fb1e7afe2830722baa0445b9fc355e2"
+      ],
+      "notes": "Both report the same Drunk Elephant set use and skin improvement.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-c402e8f23130687231a9351df4ae8251d906cade9e4c6c7be85a2294af24c01e",
+          "proposition_text": "The user is using the Drunk Elephant skincare set and has noticed some improvement in their skin."
+        },
+        {
+          "memory_id": "m10flat3-f5ca94d4ce99d095b2fc74578617c8ae9fb1e7afe2830722baa0445b9fc355e2",
+          "proposition_text": "The user is using the Drunk Elephant skincare set and has noticed an improvement in their skin."
+        }
+      ],
+      "revision_slot_id": "dd6d85819d7f95d8fe1fc39752a1fe0f93132b483ef1689f24e8d35e24d1ae6d"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-788af851f3d43c23790e08026f82b8466e71da85e1d3aa2391b13d696277fa6f",
+        "m10flat3-a8c4442834a934c82b4528f4e0053e89ffb05abae36c3ccdbf0d3c401cbd1475"
+      ],
+      "notes": "Recipe interest and a completed grocery-list addition are different task states.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-788af851f3d43c23790e08026f82b8466e71da85e1d3aa2391b13d696277fa6f",
+          "proposition_text": "The user wants recipes that use turmeric and cumin."
+        },
+        {
+          "memory_id": "m10flat3-a8c4442834a934c82b4528f4e0053e89ffb05abae36c3ccdbf0d3c401cbd1475",
+          "proposition_text": "The user added turmeric and cumin to their grocery list."
+        }
+      ],
+      "revision_slot_id": "def860dfc36d1bd1aa99cae48986419cb0d6dc62c764f1b700d6de6ba1ebe407"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-01ed473f3af3ba50bebcc4613449afb968bf850cc7916f5e7924e59bf440aca3",
+        "m10flat3-8460d960269796e0ad8a8c2199b9e45ca8716cdfde2dfd75290401883a598a06"
+      ],
+      "notes": "Taco side dishes and using meal leftovers are separate meal-planning topics.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-01ed473f3af3ba50bebcc4613449afb968bf850cc7916f5e7924e59bf440aca3",
+          "proposition_text": "The user is looking for side dish suggestions to accompany the Korean BBQ Tacos."
+        },
+        {
+          "memory_id": "m10flat3-8460d960269796e0ad8a8c2199b9e45ca8716cdfde2dfd75290401883a598a06",
+          "proposition_text": "The user wants to incorporate leftovers into their meals."
+        }
+      ],
+      "revision_slot_id": "dfc6a8aa0ee21ab52aff820096047bb5c9cdd3912ebafe31cc99c1dffa59b1d6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-31979be05335c78ee744b03b020fac504a4fedbb0a464e4e36ed7de8a6a05a87",
+        "m10flat3-de500f6cd7bf8c674dcf41c59ed98ad2b8d2d28b9f6ca1c73d7b6c0cdec5d145"
+      ],
+      "notes": "Both express the same plan to clean the car center console this weekend.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-31979be05335c78ee744b03b020fac504a4fedbb0a464e4e36ed7de8a6a05a87",
+          "proposition_text": "The user plans to clean the center console of their car this weekend."
+        },
+        {
+          "memory_id": "m10flat3-de500f6cd7bf8c674dcf41c59ed98ad2b8d2d28b9f6ca1c73d7b6c0cdec5d145",
+          "proposition_text": "The user is planning to clean the center console this weekend."
+        }
+      ],
+      "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-4b606e927b8fa70b98911348f8c6b1c0219a6fc10f1124c7588d3f49efc08206",
+        "m10flat3-f6de9195450e2cc5de670169c12ed361580d054397912b7d5d9e0efbde827022"
+      ],
+      "notes": "Both describe the purpose of the same DaySculpting program; the second adds its duration/focus.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-4b606e927b8fa70b98911348f8c6b1c0219a6fc10f1124c7588d3f49efc08206",
+          "proposition_text": "The program is designed for individuals who are willing to take their life to the next level by creating new success habits and replacing old, sabotaging ones."
+        },
+        {
+          "memory_id": "m10flat3-f6de9195450e2cc5de670169c12ed361580d054397912b7d5d9e0efbde827022",
+          "proposition_text": "DaySculpting is a 90-day program designed to help users create a successful life by focusing on their immediate future and daily habits."
+        }
+      ],
+      "revision_slot_id": "e51945a432e6645ca0fd089e7ea77307071f4133c448240842750305aaea766e"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-49d57db4cc380b8ade837f2bea17724465075e0f4a064905096836f74e39a214",
+        "m10flat3-4c18bf43ca8aa992731b09ba12dbd151f3ef41cfbe26faf29a35e2ad609fa53d"
+      ],
+      "notes": "Both concern selecting suitable stamp albums to buy for the same collection.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-49d57db4cc380b8ade837f2bea17724465075e0f4a064905096836f74e39a214",
+          "proposition_text": "The user is interested in purchasing stamp albums that are suitable for their collection."
+        },
+        {
+          "memory_id": "m10flat3-4c18bf43ca8aa992731b09ba12dbd151f3ef41cfbe26faf29a35e2ad609fa53d",
+          "proposition_text": "The user is trying to decide which stamp albums to buy for their collection."
+        }
+      ],
+      "revision_slot_id": "e6b0a3d23d16f22bbacd1358ce2c9b9f6496421ae4d115184ffc0ef6f683ffd1"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+        "m10flat3-13f39c4f78e564579f58224e1d2b212796347adb54c69752ae1adfe1290ed238",
+        "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+        "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+        "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+        "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168"
+      ],
+      "notes": "Most propositions repeat one neem-oil/soap method, but broader method history, target pests, and efficacy may exceed one single-valued slot.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control strategy."
+        },
+        {
+          "memory_id": "m10flat3-13f39c4f78e564579f58224e1d2b212796347adb54c69752ae1adfe1290ed238",
+          "proposition_text": "The user has been using natural pest control methods from the beginning of their gardening journey."
+        },
+        {
+          "memory_id": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "proposition_text": "The user has been using neem oil and soap solution for aphids and whiteflies in their garden."
+        },
+        {
+          "memory_id": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their pest control strategy."
+        },
+        {
+          "memory_id": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "proposition_text": "The user has been using neem oil and soap solution as a natural and effective pest control method."
+        },
+        {
+          "memory_id": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control approach."
+        }
+      ],
+      "revision_slot_id": "e79619a51a7372d01fb624e7688086ff245c915752d579fad9cd244118ac6855"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-841b422d0c3e4ea6db87e24f1106166124914b3719b0d5fe8f3d5dd36747b4a0",
+        "m10flat3-efc5aeda40323d95fb951601eec74283380e0efb9d806f3f161ef73cf90b376a"
+      ],
+      "notes": "Both request three additional recipes under the same conditions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-841b422d0c3e4ea6db87e24f1106166124914b3719b0d5fe8f3d5dd36747b4a0",
+          "proposition_text": "The user requested three more recipes under the same conditions."
+        },
+        {
+          "memory_id": "m10flat3-efc5aeda40323d95fb951601eec74283380e0efb9d806f3f161ef73cf90b376a",
+          "proposition_text": "The user requested three more meal recipes under the same conditions."
+        }
+      ],
+      "revision_slot_id": "e98987235cf0a155ce9e91e4b173e5ff0648cd98e9f03f31a153b59d1e0ee266"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-45c621e666fc1465135f605d25f13c37ac9421f1a11b4546b5609f94d75eac78",
+        "m10flat3-4d118975ec7fa44910e1e0034286a9535c8c95016e2e556f4bf6c97b412e0399"
+      ],
+      "notes": "Framing a ticket stub and choosing a concert photo are separate keepsake actions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-45c621e666fc1465135f605d25f13c37ac9421f1a11b4546b5609f94d75eac78",
+          "proposition_text": "The user is planning to frame the concert ticket stub from today's show."
+        },
+        {
+          "memory_id": "m10flat3-4d118975ec7fa44910e1e0034286a9535c8c95016e2e556f4bf6c97b412e0399",
+          "proposition_text": "The user intends to choose a photo that captures their excitement and anticipation for the concert."
+        }
+      ],
+      "revision_slot_id": "eefd05cac7c43f67529e0a4402297922b8121ab55cef69040cf3ae1578fab0cf"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-169086ddf99a6cd2d947f4b37f003506e73a9fb1a86a8e77b7505d1890fef72a",
+        "m10flat3-86e8345fa264a10a54b5cd88b09ca02ff6fbce1a922ca0436bd4a90d2a1885c2"
+      ],
+      "notes": "Both concern a baby activity product search, but product type and brand/safety criteria are potentially separate dimensions.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-169086ddf99a6cd2d947f4b37f003506e73a9fb1a86a8e77b7505d1890fef72a",
+          "proposition_text": "The user is seeking recommendations for popular baby gym brands known for durability and safety."
+        },
+        {
+          "memory_id": "m10flat3-86e8345fa264a10a54b5cd88b09ca02ff6fbce1a922ca0436bd4a90d2a1885c2",
+          "proposition_text": "The user is considering purchasing a baby gym or playmat."
+        }
+      ],
+      "revision_slot_id": "f9d1b5fd109b1eea44f4c0a63303c4d1d9a1aa882be4f83a052b24ffab1e97ab"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-694ba35814b4eb3018edc6cba0bc17d50afe83a5d0387439e2aa1af22d014490",
+        "m10flat3-79a5032b1cff8b423adfcfd78d785f44733fd969b5a7840765f9f09cb8a02361"
+      ],
+      "notes": "General RAM-upgrade advice and the users completed RAM-upgrade event are not the same user state.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-694ba35814b4eb3018edc6cba0bc17d50afe83a5d0387439e2aa1af22d014490",
+          "proposition_text": "Upgrading RAM from 8GB to 16GB is a great move for improving laptop performance."
+        },
+        {
+          "memory_id": "m10flat3-79a5032b1cff8b423adfcfd78d785f44733fd969b5a7840765f9f09cb8a02361",
+          "proposition_text": "The user has upgraded their RAM from 8GB to 16GB and noticed significant improvements in performance."
+        }
+      ],
+      "revision_slot_id": "faef40e1a72b7d8b1ce44a8257d40947dc71d6243720458e5ef5ea2ab2a78990"
+    },
+    {
+      "decision": "uncertain",
+      "member_memory_ids": [
+        "m10flat3-5d7a726ca4d6ff074a09b45f2884bff67cf13f325df911aa4c99ae6ba50b4c8b",
+        "m10flat3-de4ebe4d7144f41723d26d57f0e79c2803429203be67d9389b7d0782b15282e3"
+      ],
+      "notes": "Both concern gin-based syrup exploration, but excitement and flavor-pairing criteria are distinct attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-5d7a726ca4d6ff074a09b45f2884bff67cf13f325df911aa4c99ae6ba50b4c8b",
+          "proposition_text": "The user is excited to try out flavored syrups in their gin-based cocktails."
+        },
+        {
+          "memory_id": "m10flat3-de4ebe4d7144f41723d26d57f0e79c2803429203be67d9389b7d0782b15282e3",
+          "proposition_text": "The user is seeking suggestions for flavored syrups that pair well with gin-based cocktails, especially those with earthy and herbal notes."
+        }
+      ],
+      "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-2e994d7d84daafbaf4465a83861d1301afedd5a61a9943e6f0291f88d80d4a4c",
+        "m10flat3-8b85e1f90ef4d8bad6aa28b1e7719169f7654c6c68d66d0ada31114a200c32bf"
+      ],
+      "notes": "Both describe applying trust in instincts during volunteer work and the resulting calm/focus.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-2e994d7d84daafbaf4465a83861d1301afedd5a61a9943e6f0291f88d80d4a4c",
+          "proposition_text": "The user found that trusting their instincts helped them stay calm and focused during volunteer work."
+        },
+        {
+          "memory_id": "m10flat3-8b85e1f90ef4d8bad6aa28b1e7719169f7654c6c68d66d0ada31114a200c32bf",
+          "proposition_text": "The user is applying the mindset of trusting their instincts to other areas of their life, such as volunteer work."
+        }
+      ],
+      "revision_slot_id": "fbddf277e150a0bec60c72a5dc269ee5494bf9a60d66141531ae84d3dc1c0493"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-63f5e713c30659944a0ba4db71d5a5d49a5fcf9e3250c1e2f450fad247018620",
+        "m10flat3-ec1394f07fded922baad2556e90d1e1047b8ea038a888a4ebc5a1b14fc09f055"
+      ],
+      "notes": "Both describe the same new-backpack use for the daily work commute.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-63f5e713c30659944a0ba4db71d5a5d49a5fcf9e3250c1e2f450fad247018620",
+          "proposition_text": "The user's daily commute has been great with the new backpack."
+        },
+        {
+          "memory_id": "m10flat3-ec1394f07fded922baad2556e90d1e1047b8ea038a888a4ebc5a1b14fc09f055",
+          "proposition_text": "The user has been using a new backpack daily for their commute to work."
+        }
+      ],
+      "revision_slot_id": "fc7a53115299a830dbc1cd3c7fd9a6d34c2d5baebe10a794370717fac4ac2eb1"
+    },
+    {
+      "decision": "true_singleton_slot",
+      "member_memory_ids": [
+        "m10flat3-29f6296d4bffd73b530bebbfb52d349a24ee9b8500f90ed270a522b2a150d788",
+        "m10flat3-9d6f1f4134cba5cf070b65bc9c057d5f1a56b95d29261422c23453740ce396ce"
+      ],
+      "notes": "Both state the same plan to pair a coffee-shop gift card with the cutting board.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-29f6296d4bffd73b530bebbfb52d349a24ee9b8500f90ed270a522b2a150d788",
+          "proposition_text": "The user is thinking of getting a gift card to her favorite coffee shop to go along with the cutting board."
+        },
+        {
+          "memory_id": "m10flat3-9d6f1f4134cba5cf070b65bc9c057d5f1a56b95d29261422c23453740ce396ce",
+          "proposition_text": "The user is planning to pair the cutting board with a gift card to her favorite coffee shop."
+        }
+      ],
+      "revision_slot_id": "fc9b395a56599237c109d81bab913f892e63a69f4b724e3adfa22cee761e8276"
+    },
+    {
+      "decision": "false_revision_merge",
+      "member_memory_ids": [
+        "m10flat3-54e26c4e3de0c5d087c2baf96ab14c3ac99d21cf5d54b8118e18eb73a17a68fe",
+        "m10flat3-e3e1b6c1e36b67404fe8aaa0ef0e67ef179a9062f307fedb580b3d255edf6c6f"
+      ],
+      "notes": "RAM configuration and SSD capacity sufficiency are separate laptop-purchase attributes.",
+      "propositions": [
+        {
+          "memory_id": "m10flat3-54e26c4e3de0c5d087c2baf96ab14c3ac99d21cf5d54b8118e18eb73a17a68fe",
+          "proposition_text": "The user is looking for a laptop with a mid-range configuration of 16GB RAM and 512GB SSD."
+        },
+        {
+          "memory_id": "m10flat3-e3e1b6c1e36b67404fe8aaa0ef0e67ef179a9062f307fedb580b3d255edf6c6f",
+          "proposition_text": "The user is considering the storage capacity of their laptop, specifically whether the 512GB SSD will be sufficient for their needs."
+        }
+      ],
+      "revision_slot_id": "fed21d9fb12101b0124851bc05cf854bfa932f63627647dc08ce897f408d8fad"
+    }
+  ]
+}
