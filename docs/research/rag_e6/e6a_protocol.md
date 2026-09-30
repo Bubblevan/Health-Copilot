@@ -53,9 +53,14 @@ The U3-R retrieval code/configuration is reused without tuning:
 
 All generator requests use temperature 0, top-p 1, reasoning disabled, one attempt,
 8,192 completion tokens and the common 65,536-token context ceiling. Runtime
-backend/device details are recorded but are not method variables. No automatic
-retry is allowed. Retrieval output, query text, evidence aliases, requirement IDs,
-and evidence provenance are harness-owned.
+backend/device details are recorded but are not method variables. The pinned GGUF
+has a 40,960-token native/effective context despite the requested 65,536 setting;
+the client therefore applies a conservative UTF-8 prompt-byte guard before each
+generation request (reserving the full completion ceiling plus 1,024 bytes), then
+checks returned token usage against the effective context. This guard fails closed
+and never truncates or retries a request. No automatic retry is allowed. Retrieval
+output, query text, evidence aliases, requirement IDs, and evidence provenance are
+harness-owned.
 
 ## Arms and execution order
 
