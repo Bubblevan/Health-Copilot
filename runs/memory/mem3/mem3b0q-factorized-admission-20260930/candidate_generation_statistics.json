@@ -1,0 +1,61 @@
+{
+  "both_source_seed_pairs": 74,
+  "eligibility_counts": {
+    "ELIGIBLE_USER_STATE": 1510,
+    "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+    "INELIGIBLE_REVISION_KIND": 5055,
+    "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+    "REVISION_INELIGIBLE": 4
+  },
+  "eligible_records": 1366,
+  "eligible_user_state_records": 1366,
+  "embedding_runtime": {
+    "batch_count": 171,
+    "batch_size": 8,
+    "cuda_version": "12.8",
+    "device": "cuda:0",
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "dimensions": 1024,
+    "document_count": 1366,
+    "document_instruction": null,
+    "dtype": "float16",
+    "gpu_memory_after_bytes": {
+      "free": 14382268416,
+      "total": 17170956288
+    },
+    "gpu_memory_before_bytes": {
+      "free": 15806234624,
+      "total": 17170956288
+    },
+    "gpu_peak_allocated_bytes": 1280176640,
+    "input_tokens": 26354,
+    "max_batch_tokens": 8192,
+    "max_length": 8192,
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_path": "E:\\Health-Copilot-Models\\models\\Qwen3-Embedding-0.6B",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "normalization": "L2 float32 output",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "torch_version": "2.10.0+cu128",
+    "truncated_count": 0,
+    "wall_ms": 13227.268,
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "exact_hint_seed_pairs": 256,
+  "forbidden_metadata_decode_count": 0,
+  "grounding_counts": {
+    "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
+    "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
+    "NOT_EVALUATED": 6602,
+    "VALUE_LOCALLY_GROUNDED": 1366
+  },
+  "pair_source_counts": {
+    "BOTH": 74,
+    "EXACT_HINT": 256,
+    "SEMANTIC_NEIGHBOR": 3819
+  },
+  "semantic_neighbor_retrievals_directed": 5464,
+  "semantic_neighbor_seed_pairs": 3819,
+  "timestamp_fields_used": 0,
+  "union_seed_pairs": 4001
+}

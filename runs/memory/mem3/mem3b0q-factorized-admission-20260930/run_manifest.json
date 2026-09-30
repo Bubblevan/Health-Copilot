@@ -1,6 +1,35 @@
 {
   "base_commit_sha": "2e1c6b7982dcbb22904f9c0c020f184f9ab7425d",
   "branch": "mem3b0p-pairwise-revision-admission-20260930",
+  "candidate_statistics": {
+    "both_source_seed_pairs": 74,
+    "eligibility_counts": {
+      "ELIGIBLE_USER_STATE": 1510,
+      "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+      "INELIGIBLE_REVISION_KIND": 5055,
+      "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+      "REVISION_INELIGIBLE": 4
+    },
+    "eligible_records": 1366,
+    "eligible_user_state_records": 1366,
+    "exact_hint_seed_pairs": 256,
+    "forbidden_metadata_decode_count": 0,
+    "grounding_counts": {
+      "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
+      "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
+      "NOT_EVALUATED": 6602,
+      "VALUE_LOCALLY_GROUNDED": 1366
+    },
+    "pair_source_counts": {
+      "BOTH": 74,
+      "EXACT_HINT": 256,
+      "SEMANTIC_NEIGHBOR": 3819
+    },
+    "semantic_neighbor_retrievals_directed": 5464,
+    "semantic_neighbor_seed_pairs": 3819,
+    "timestamp_fields_used": 0,
+    "union_seed_pairs": 4001
+  },
   "canonical_main_at_stage_start": "5b0dc5c4d32b4fcbea55f697766f521d3551b175",
   "contracts": {
     "candidate_generation_contract_canonical_sha256": "ae59da8e70b2d586990635500069ac27807f70c0c3d5f2da858cfcfe41e94151",
@@ -11,14 +40,50 @@
     "slot_admission_contract_canonical_sha256": "3fcb6d1dda55dde515a8741c859d6373fb9564a01c83da0dfcac222174bac24c",
     "slot_admission_contract_file_sha256": "f18e3a19afe960d169e6077108ef7b7c166130e0732324c0c1693dc07bdbdeff"
   },
+  "embedding_runtime": {
+    "batch_count": 171,
+    "batch_size": 8,
+    "cuda_version": "12.8",
+    "device": "cuda:0",
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "dimensions": 1024,
+    "document_count": 1366,
+    "document_instruction": null,
+    "dtype": "float16",
+    "gpu_memory_after_bytes": {
+      "free": 14382268416,
+      "total": 17170956288
+    },
+    "gpu_memory_before_bytes": {
+      "free": 15806234624,
+      "total": 17170956288
+    },
+    "gpu_peak_allocated_bytes": 1280176640,
+    "input_tokens": 26354,
+    "max_batch_tokens": 8192,
+    "max_length": 8192,
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "model_path": "E:\\Health-Copilot-Models\\models\\Qwen3-Embedding-0.6B",
+    "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "normalization": "L2 float32 output",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "torch_version": "2.10.0+cu128",
+    "truncated_count": 0,
+    "wall_ms": 13227.268,
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
   "execution": {
     "closure_pair_calls": 0,
-    "embedding_calls": 0,
+    "embedding_calls": 1366,
     "seed_pair_calls": 0
   },
   "frozen_artifacts": {
     "b0r_identity_hints_projection.jsonl": "e378e8b676d3a97ec2816ed06a30394ebb0a2a7e5c222da607460aca94388c6f",
     "candidate_generation_contract.json": "df59f6f753a3485e10529593157f19e30ed7a0b402ac56864b65445d933d5acf",
+    "candidate_generation_statistics.json": "d52bbd677d8f5789116618db2c848b7d20fd4475fbc77d048146b32780ad56d0",
+    "candidate_pair_manifest.jsonl": "4cc70617a34e4d4e50a5c9b75ea996cfb30be95b892666cc73f7950ce417def5",
+    "eligibility_decisions.jsonl": "bbf49aea2b1ba02bd6b06d04682738ac28ce8ba156c20ff6fe57272f597de627",
+    "eligible_records.jsonl": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
     "factorized_verifier_contract.json": "ebbcfb6572a2e04a5ad50dda98379fff57eaa1075c0934b08465f0365cdd8ed7",
     "revision_semantic_source_projection.jsonl": "7acd97a0516f7fa59d33c369c1e62b120b9ccd0ac8c9def01fff00f5cf635990",
     "slot_admission_contract.json": "f18e3a19afe960d169e6077108ef7b7c166130e0732324c0c1693dc07bdbdeff"
@@ -55,7 +120,7 @@
     "source_reader_module": "5e8f9fc0fecccc1600036ea73f9eb4bdf818d072b42d44449fb67d7cec9b51bf"
   },
   "stage": "mem3b0q-factorized-admission-20260930",
-  "status": "SOURCE_AND_PROTOCOL_FROZEN",
+  "status": "CANDIDATE_PAIRS_FROZEN",
   "timestamp_barrier": {
     "forbidden_metadata_decode_count": 0,
     "sentinel_test": {
