@@ -110,26 +110,100 @@ def sha256_bytes(value: bytes) -> str:
 
 
 def jsonl_projection(line: str, allowed_fields: frozenset[str]) -> dict[str, Any]:
-    """Decode one object while retaining only an explicit top-level field allowlist."""
+    """Decode allowlisted top-level values and skip all other JSON values."""
+    decoder = json.JSONDecoder()
 
-    def project_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-        selected: dict[str, Any] = {}
-        seen: set[str] = set()
-        for key, value in pairs:
-            if key not in allowed_fields:
-                continue
-            if key in seen:
-                raise DuplicateJsonKey(f"duplicate_allowlisted_json_key:{key}")
-            selected[key] = value
-            seen.add(key)
-        return selected
+    def whitespace(index: int) -> int:
+        while index < len(line) and line[index] in " \t\r\n":
+            index += 1
+        return index
 
-    row = json.loads(line, object_pairs_hook=project_pairs)
-    if not isinstance(row, dict):
+    def skip_value(index: int) -> int:
+        index = whitespace(index)
+        if index >= len(line):
+            raise ValueError("missing_json_value")
+        first = line[index]
+        if first == '"':
+            cursor = index + 1
+            while cursor < len(line):
+                char = line[cursor]
+                if char == "\\":
+                    cursor += 2
+                    continue
+                if char == '"':
+                    return cursor + 1
+                cursor += 1
+            raise ValueError("unterminated_skipped_json_string")
+        if first in "[{":
+            expected = ["]" if first == "[" else "}"]
+            cursor = index + 1
+            in_string = False
+            while cursor < len(line):
+                char = line[cursor]
+                if in_string:
+                    if char == "\\":
+                        cursor += 2
+                        continue
+                    if char == '"':
+                        in_string = False
+                elif char == '"':
+                    in_string = True
+                elif char in "[{":
+                    expected.append("]" if char == "[" else "}")
+                elif char in "]}":
+                    if not expected or char != expected.pop():
+                        raise ValueError("unbalanced_skipped_json_value")
+                    if not expected:
+                        return cursor + 1
+                cursor += 1
+            raise ValueError("unterminated_skipped_json_value")
+
+        cursor = index
+        while cursor < len(line) and line[cursor] not in ",}] \t\r\n":
+            cursor += 1
+        raw = line[index:cursor]
+        if raw not in {"true", "false", "null"} and not re.fullmatch(
+            r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?", raw
+        ):
+            raise ValueError("invalid_skipped_json_primitive")
+        return cursor
+
+    index = whitespace(0)
+    if index >= len(line) or line[index] != "{":
         raise TypeError("projected_jsonl_row_is_not_object")
-    if TEMPORAL_OR_BENCHMARK_FIELDS.intersection(row):
+    index = whitespace(index + 1)
+    selected: dict[str, Any] = {}
+    if index < len(line) and line[index] == "}":
+        index = whitespace(index + 1)
+    else:
+        while True:
+            key, key_end = decoder.raw_decode(line, index)
+            if not isinstance(key, str):
+                raise TypeError("json_object_key_is_not_string")
+            index = whitespace(key_end)
+            if index >= len(line) or line[index] != ":":
+                raise ValueError("missing_json_object_colon")
+            index = whitespace(index + 1)
+            if key in allowed_fields:
+                if key in selected:
+                    raise DuplicateJsonKey(f"duplicate_allowlisted_json_key:{key}")
+                value, index = decoder.raw_decode(line, index)
+                selected[key] = value
+            else:
+                index = skip_value(index)
+            index = whitespace(index)
+            if index < len(line) and line[index] == ",":
+                index = whitespace(index + 1)
+                continue
+            if index < len(line) and line[index] == "}":
+                index = whitespace(index + 1)
+                break
+            raise ValueError("invalid_json_object_separator")
+    if index != len(line):
+        raise ValueError("trailing_data_after_json_object")
+    if TEMPORAL_OR_BENCHMARK_FIELDS.intersection(selected):
         raise ValueError("projection_contains_forbidden_time_or_benchmark_field")
-    return row
+    return selected
 
 
 def normalized_tokens(text: str) -> list[str]:

@@ -65,6 +65,19 @@ def test_jsonl_projection_discards_time_and_benchmark_fields() -> None:
     assert not admission.TEMPORAL_OR_BENCHMARK_FIELDS.intersection(row)
 
 
+def test_jsonl_projection_skips_non_allowlisted_values_without_decoding() -> None:
+    huge_numeric_timestamp = "9" * 5000
+    line = (
+        '{"memory_id":"m1","observed_at":'
+        + huge_numeric_timestamp
+        + ',"nested":{"session_date":"unread"},"source_authority":"user"}'
+    )
+    assert admission.jsonl_projection(line, admission.PROPOSAL_SOURCE_FIELDS) == {
+        "memory_id": "m1",
+        "source_authority": "user",
+    }
+
+
 def test_assistant_origin_never_becomes_user_revision_candidate() -> None:
     identities = [_identity("m1"), _identity("m2")]
     sources = [

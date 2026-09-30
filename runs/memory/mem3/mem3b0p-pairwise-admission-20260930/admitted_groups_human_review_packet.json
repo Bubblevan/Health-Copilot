@@ -1,0 +1,281 @@
+{
+  "decision_enum": [
+    "true_singleton_slot",
+    "false_revision_merge",
+    "uncertain"
+  ],
+  "review_scope": "every admitted group; no timestamps",
+  "reviewed_groups": [
+    {
+      "diagnostic_attribute_key": "current_question",
+      "diagnostic_subject_key": "user",
+      "group_id": "fd3057a7fe6e0397562d0f673a02095bd9fe6773b88d7b2d51710436c3ff5005",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-93d1de1660aa0a673f1a40133d95768248bcd24c08d222b93c4afd794361e548",
+          "proposition_text": "The user is asking about the durability of the Nike Vaporfly Next% for high-mileage training.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-9694cf453d0cc46df8ff404f7367eb31de398bb8cce73bfba90aa5a2f985e772",
+          "proposition_text": "The user is looking for a shoe that can handle weekly mileage of 60-70 miles.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-93d1de1660aa0a673f1a40133d95768248bcd24c08d222b93c4afd794361e548",
+          "memory_id_b": "m10flat3-9694cf453d0cc46df8ff404f7367eb31de398bb8cce73bfba90aa5a2f985e772",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "0126666bc4f14341c47f5b9bed88904dfe10730ced5acc254f5d6d60da93efbb",
+      "scope_id": "longmemeval:gpt4_e061b84g"
+    },
+    {
+      "diagnostic_attribute_key": "trash_reminder_preference",
+      "diagnostic_subject_key": "user",
+      "group_id": "a9d64055b97eb5a3786374e57a01662237da32945ab853c0678cffbe1a79f0a2",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-92f0aa0f1db242eca8398ddddbd4897a9861e5ccd7054e3d43f6fad641e90593",
+          "proposition_text": "The user is seeking advice on how to remember to take out the trash and recycling on designated days.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-9e54f4fec1469ffda336b3eda02adf4b7ab9c8e344666552b55035b3004231ac",
+          "proposition_text": "The user is trying to remember to take out the trash and recycling on designated days.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-92f0aa0f1db242eca8398ddddbd4897a9861e5ccd7054e3d43f6fad641e90593",
+          "memory_id_b": "m10flat3-9e54f4fec1469ffda336b3eda02adf4b7ab9c8e344666552b55035b3004231ac",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "3693cc90d0a2c897a65287df128a1f801bdde356bfeba897c0871e6971609034",
+      "scope_id": "longmemeval:a82c026e"
+    },
+    {
+      "diagnostic_attribute_key": "jewelry_box_organization",
+      "diagnostic_subject_key": "user",
+      "group_id": "7c4c953d4f843cb9a1d23f18a0c0fcbb608b717a1d37a149d1befc75813e9407",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-2bb9f737964cc90f8e9499380ea827fcc2635a202489173c635281228047b85b",
+          "proposition_text": "The user will start by cleaning and organizing their jewelry box before deciding on a better storage system.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-5aa743b8eeb495dfca3ece463a850b6e73c830ab71895ecac407e0c4340a2cfe",
+          "proposition_text": "The user intends to clean and organize their jewelry box and consider a better storage system.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-2bb9f737964cc90f8e9499380ea827fcc2635a202489173c635281228047b85b",
+          "memory_id_b": "m10flat3-5aa743b8eeb495dfca3ece463a850b6e73c830ab71895ecac407e0c4340a2cfe",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "3fc064aa7fe2124d5d7cf2efd8dbdcf25f6bf75fd0a4db56f1a1f4bf23e41e73",
+      "scope_id": "longmemeval:c4ea545c"
+    },
+    {
+      "diagnostic_attribute_key": "device_battery_concern",
+      "diagnostic_subject_key": "user",
+      "group_id": "987bf1e9d015a25ebd585c61bf7c2dd34d5ffd4bc11b926cb7cd44c8721f9352",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-3170926fc212109df4b4628639bb24a212281f59df32135b021a13beb71c21e0",
+          "proposition_text": "The user is considering the 4K OLED display but is concerned about its impact on battery life.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-32cab65daaa1aa0e8c0cc9d0db84a5603351ec8a6cda591f1ff1c838b9e4b929",
+          "proposition_text": "The user is concerned about the battery life of the 4K OLED model of the Dell XPS 13.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-3170926fc212109df4b4628639bb24a212281f59df32135b021a13beb71c21e0",
+          "memory_id_b": "m10flat3-32cab65daaa1aa0e8c0cc9d0db84a5603351ec8a6cda591f1ff1c838b9e4b929",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "91de488fc773ef6bbecee853e6930c6d84beadae80883481fcb14509b1e85b50",
+      "scope_id": "longmemeval:1cea1afa"
+    },
+    {
+      "diagnostic_attribute_key": "pest_control_method",
+      "diagnostic_subject_key": "user",
+      "group_id": "c7efb31581658fbcadfcb1cd6decec4160d5c00ea2c50f6feffa04652741bb09",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control strategy.",
+          "source_authority": "mixed"
+        },
+        {
+          "memory_id": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "proposition_text": "The user has been using neem oil and soap solution for aphids and whiteflies in their garden.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their pest control strategy.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "proposition_text": "The user has been using neem oil and soap solution as a natural and effective pest control method.",
+          "source_authority": "mixed"
+        },
+        {
+          "memory_id": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control approach.",
+          "source_authority": "mixed"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "memory_id_b": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "memory_id_b": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "memory_id_b": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "memory_id_b": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "memory_id_b": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+          "memory_id_b": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+          "memory_id_b": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "memory_id_b": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "memory_id_b": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+          "verdict": "SAME_MUTABLE_SLOT"
+        },
+        {
+          "memory_id_a": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+          "memory_id_b": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "db8dc540030e1196e162370da50af5cdad91de934f2782eb03b786bcc5b777e2",
+      "scope_id": "longmemeval:06878be2"
+    },
+    {
+      "diagnostic_attribute_key": "purchased_silver_necklace_for_sister",
+      "diagnostic_subject_key": "user",
+      "group_id": "6dda6b7fb7cad34f16e6a7d798ad9d432b4ab5a2bd1fb5ce0d86a185d025652c",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+          "proposition_text": "The user previously purchased a silver necklace with a small pendant from Zara for $40.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c",
+          "proposition_text": "The user recently purchased a silver necklace with a small pendant from Zara for their sister's 25th birthday, costing $40.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+          "memory_id_b": "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "e70370c5e29114f704e01536e4f6b7331357112c7824bbc316055bfaecac4e8f",
+      "scope_id": "longmemeval:8550ddae"
+    },
+    {
+      "diagnostic_attribute_key": "canon_ql17_appraisal_interest",
+      "diagnostic_subject_key": "user",
+      "group_id": "3e4794a66abd0ecf64661193321d9fd5fb4d9047a2568140a2c17d199e5eed78",
+      "human_review": {
+        "decision": "PENDING",
+        "notes": ""
+      },
+      "members": [
+        {
+          "memory_id": "m10flat3-4410680c2dbcb581a9c84c30dc1f3ef79dbfe260eb106ebe4508d87fc8dff5f0",
+          "proposition_text": "The user is interested in appraising the value of their Canon QL17.",
+          "source_authority": "user"
+        },
+        {
+          "memory_id": "m10flat3-49a0856f0c06b8c7aea342f0664f5af9c3d4b954f4f041d812104955e2e1702b",
+          "proposition_text": "The user wants to know how to appraise the value of their Canon QL17.",
+          "source_authority": "user"
+        }
+      ],
+      "pair_verdicts": [
+        {
+          "memory_id_a": "m10flat3-4410680c2dbcb581a9c84c30dc1f3ef79dbfe260eb106ebe4508d87fc8dff5f0",
+          "memory_id_b": "m10flat3-49a0856f0c06b8c7aea342f0664f5af9c3d4b954f4f041d812104955e2e1702b",
+          "verdict": "SAME_MUTABLE_SLOT"
+        }
+      ],
+      "revision_slot_id": "f7efec9e7a25a6043c31789b0efcfa3274c3737c70f81c900478d2208978b8b8",
+      "scope_id": "longmemeval:1c549ce4"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,10 +1,13 @@
 {
   "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+  "completion_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
   "exact_candidate_groups": 1270,
   "full_identity_calls": 0,
   "grounded_eligible_records": 1366,
   "grounded_user_asserted_records": 1243,
   "grounded_user_mixed_records": 123,
+  "hardened_projection_rebuild_matches_frozen": true,
+  "hosted_calls": 0,
   "identity_hints": 8112,
   "memory_store_mutations": {
     "ADD": 0,
@@ -12,14 +15,30 @@
     "SUPERSEDED": 0,
     "UPDATE": 0
   },
+  "opaque_revision_slots_created": 7,
   "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102",
+  "pairwise_latency_ms_p50": 301.575,
+  "pairwise_latency_ms_p95": 343.355,
+  "pairwise_prompt_tokens_p50": 177.0,
+  "pairwise_prompt_tokens_total": 44660,
+  "pairwise_provider_calls": 256,
+  "pairwise_unknown_count": 10,
+  "pairwise_verdict_counts": {
+    "COEXISTING_FACTS": 167,
+    "SAME_MUTABLE_SLOT": 59,
+    "UNKNOWN": 10,
+    "UNRELATED": 20
+  },
   "proposal_grounding_counts": {
     "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH": 17,
     "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED": 127,
     "NOT_EVALUATED": 6602,
     "VALUE_LOCALLY_GROUNDED": 1366
   },
+  "readiness_marker": "MEM3B0P_MEM3B1_READY=NO",
   "repeated_candidate_groups": 48,
+  "repeated_candidate_groups_admitted": 7,
+  "repeated_candidate_groups_blocked": 41,
   "repeated_candidate_members": 144,
   "revision_eligibility_counts": {
     "ELIGIBLE_USER_STATE": 1510,
@@ -28,9 +47,11 @@
     "INELIGIBLE_SUBJECT_NAMESPACE": 10,
     "REVISION_INELIGIBLE": 4
   },
+  "same_request_retries": 0,
   "singleton_groups_no_revision_history": 1222,
   "source_propositions": 8112,
-  "timestamp_fields_loaded": 0,
-  "timestamp_fields_used": 0,
+  "timestamp_value_count_before_freeze": "UNQUANTIFIED",
+  "timestamp_values_retained_or_used": 0,
+  "timestamp_values_transiently_decoded_before_freeze": true,
   "unordered_pair_count": 256
 }

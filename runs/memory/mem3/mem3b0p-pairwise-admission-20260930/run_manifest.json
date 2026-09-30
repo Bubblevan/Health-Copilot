@@ -36,6 +36,24 @@
     "timestamp_fields_used": 0,
     "unordered_pair_count": 256
   },
+  "completion": {
+    "critical_case_review_sha256": "e7ae1e25031af06c97e73464c5f64868a6b73d7f3bd36b219fe07f15878a5679",
+    "failed_structural_gates": [
+      "TIMESTAMP_VALUE_TRANSIENTLY_DECODED_BEFORE_SEMANTIC_FREEZE"
+    ],
+    "human_review_decisions_sha256": "85266dd7d3c043303ba6da5a024cb8a0734044b776172e116627c75fa7b043ca",
+    "human_review_sha256": "3cec52878005696cac77ff12d795c34f54b9b4fe4b88e34bbe4ed324f9b7fdcf",
+    "human_review_summary": {
+      "false_revision_merge": 1,
+      "true_singleton_slot": 5,
+      "uncertain": 1
+    },
+    "post_inference_closeout_code_sha256": "e5cb456611f0dc86973986f2cc14957da7cf3bce7a5921d17e9329c1e60ce9e5",
+    "post_inference_closeout_scope": "human-review input indexing and final reporting only; frozen pairwise decisions unchanged",
+    "readiness": "NO",
+    "report_sha256": "76daf50eff60506426c4a6d93d2aebb0b2380b6b297a8d60d4fdbb4b5d10f639",
+    "structural_complete": false
+  },
   "completion_gate_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
   "contract_sha256": {
     "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
@@ -58,21 +76,61 @@
     "reader_answer_calls": 0,
     "retrieval_calls": 0,
     "same_request_retries": 0,
-    "timestamp_fields_loaded": 0,
+    "timestamp_fields_loaded": "UNQUANTIFIED_TRANSIENT_DECODER_EXPOSURE",
     "timestamp_fields_used": 0
   },
   "frozen_artifacts": {
+    "admitted_groups_human_review.json": "3cec52878005696cac77ff12d795c34f54b9b4fe4b88e34bbe4ed324f9b7fdcf",
+    "admitted_groups_human_review_packet.json": "46055605a1977c0f9ea9d1efd4faa213505b7841e6040d6d36688e3a98fa8895",
     "candidate_groups.json": "60c550c5ae979c1bdb97d923a6a4d6b627a0c805d05b5a0835e6d144fe637672",
+    "critical_case_review.json": "e7ae1e25031af06c97e73464c5f64868a6b73d7f3bd36b219fe07f15878a5679",
+    "human_review_decisions.json": "85266dd7d3c043303ba6da5a024cb8a0734044b776172e116627c75fa7b043ca",
     "memory_module_scorecard_contract.json": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568",
     "pair_manifest.jsonl": "08dce293fd5a9d29b8bc5901df64e28bb6958b5f5c2a80369e7a1476a81e0e17",
-    "pairwise_call_ledger.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pairwise_call_ledger.jsonl": "b45378e1cda7433486c8f7088afc300652c9e1ab0b8af5fba61fd5bb1d6f2eb4",
+    "pairwise_verdicts.jsonl": "30a45b5b5572cbbcab068ab8933719d9117f79dbd880c49a2792ca9649f77dfe",
     "pairwise_verifier_contract.json": "c6fbd775b4079188c2623995fed8e96ec3a8e46307436533547c13bfd5143aa3",
     "proposal_grounding_contract.json": "700e605f9920b03e9cdbe9909bb30883ae1cdbf7756bf4a7cfb350fe60d3ef37",
     "proposal_grounding_decisions.jsonl": "673d2690795f41f7990cfed8bf9366059d6b9410d0eedf6d8ec38621388815c7",
+    "report.md": "76daf50eff60506426c4a6d93d2aebb0b2380b6b297a8d60d4fdbb4b5d10f639",
     "revision_admission_contract.json": "f2b00a1f31a77f8456bce354d499474819e2483a0ce95325555dba97846ba96c",
-    "safety_statistics.json": "a31a13d7f5d9cc26f22f96a375eb78739f3d5e8a15275833cddf20b4fbdf840a"
+    "revision_admission_overlay.jsonl": "fee3fadf309b567d179fbbec3ae66b7b7197c66ab9b70b1056b13fde1ff5c54e",
+    "revision_slot_manifest.json": "67071a3893755b4813eac79409ebae3137517324564cb9723e0b975baa26c126",
+    "safety_statistics.json": "2c4d74a1c015e427544c85112eeb4805b1e9fff85b728ee497c9c35e1602073a",
+    "semantic_freeze.json": "a9dc31ccab948f80a0a337401e00a9da39b3c0afc9fe1864219af37554a12787",
+    "timestamp_boundary_erratum.json": "2fa22f42f4f851bcbe9e7eb79c5001964144914af036b8876b9c1d8263943258"
+  },
+  "hosted_calls": 0,
+  "pairwise_provider_calls": 256,
+  "pairwise_unknown_count": 10,
+  "post_inference_closeout_audit": {
+    "runner_sha256": "e5cb456611f0dc86973986f2cc14957da7cf3bce7a5921d17e9329c1e60ce9e5",
+    "scope": "projection hardening, erratum, human review, and final reporting only; no pairwise requests or verdicts changed"
   },
   "readiness_gate_marker": "MEM3B0P_MEM3B1_READY=NO",
+  "runtime": {
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "generation": {
+      "enable_thinking": false,
+      "max_tokens": 32,
+      "seed": 42,
+      "temperature": 0
+    },
+    "hosted_calls": 0,
+    "loopback_only": true,
+    "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_id": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "provider": "local_qwen_loopback",
+    "proxy_environment_used": false,
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_build": "10068 (571d0d540)",
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_pid": 33612,
+    "server_version": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "same_request_retries": 0,
   "schema_version": 1,
   "scorecard": {
     "committed_before_any_model_call": true,
@@ -82,6 +140,20 @@
   },
   "scorecard_commit_subject": "Freeze MEM-3B0P memory scorecard protocol",
   "scorecard_lock_commit_sha": "b2938211fe2c6ebea10f1f771132b62d82a2bbc1",
+  "semantic_freeze": {
+    "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "benchmark_labels_loaded": false,
+    "pairwise_call_ledger_sha256": "b45378e1cda7433486c8f7088afc300652c9e1ab0b8af5fba61fd5bb1d6f2eb4",
+    "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102",
+    "pairwise_verdicts_sha256": "30a45b5b5572cbbcab068ab8933719d9117f79dbd880c49a2792ca9649f77dfe",
+    "revision_admission_overlay_sha256": "fee3fadf309b567d179fbbec3ae66b7b7197c66ab9b70b1056b13fde1ff5c54e",
+    "revision_slot_manifest_sha256": "67071a3893755b4813eac79409ebae3137517324564cb9723e0b975baa26c126",
+    "schema_version": 1,
+    "status": "SEMANTIC_DECISIONS_FROZEN",
+    "timestamp_fields_loaded_before_freeze": 0,
+    "timestamp_fields_loaded_in_mem3b0p": 0,
+    "timestamp_fields_used_before_freeze": 0
+  },
   "source_code_sha256": {
     "admission_module": "3cd19ed1c2fc3d7a99a4e49e6e5b1fa6c86053e68abc7dd36c3eb36906b26588",
     "protocol": "8512f715b05f0d905f07f200096769ce5e1db0d211383996163a85f6b4e188d4",
@@ -90,7 +162,26 @@
     "scorecard_markdown": "5492dfa093351c66f591c59f20c8df9cdb1eef848ca254a444a1f7f2f21540c1"
   },
   "stage": "mem3b0p-pairwise-admission-20260930",
-  "status": "CANDIDATES_FROZEN_AWAITING_LOCAL_PAIRWISE_VERIFICATION",
+  "status": "CLOSED_OUT_WITH_PROTOCOL_DEVIATION",
+  "timestamp_boundary_erratum": {
+    "detected_during": "post_inference_closeout_audit",
+    "frozen_pairwise_requests_repeated": false,
+    "hardened_projection_rebuild_matches_frozen_candidate_and_pair_artifacts": true,
+    "issue_id": "MEM3B0P-TIME-BOUNDARY-001",
+    "post_freeze_projection_hardened_to_skip_non_allowlisted_values_before_decoding": true,
+    "pre_freeze_admission_module_sha256": "3cd19ed1c2fc3d7a99a4e49e6e5b1fa6c86053e68abc7dd36c3eb36906b26588",
+    "pre_freeze_parser_behavior": "json.loads(object_pairs_hook=...) decoded object values and passed complete key/value pairs to the hook before non-allowlisted values were discarded",
+    "structural_gate_effect": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
+    "supersedes_timestamp_zero_claims_in": [
+      "initial run_manifest execution_policy",
+      "initial safety_statistics",
+      "semantic_freeze.json timestamp_fields_loaded_before_freeze"
+    ],
+    "timestamp_values_retained_in_projected_rows": 0,
+    "timestamp_values_transiently_decoded": true,
+    "timestamp_values_used_for_candidates_or_prompts": 0,
+    "transient_timestamp_value_count": "UNQUANTIFIED"
+  },
   "topic_branch": "mem3b0p-pairwise-revision-admission-20260930",
   "upstream": {
     "flatprop_count": 8112,

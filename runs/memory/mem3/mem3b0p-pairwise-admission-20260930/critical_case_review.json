@@ -1,0 +1,321 @@
+{
+  "all_historical_b0s_false_safe_examples_blocked": true,
+  "gym_related_exact_groups": [
+    {
+      "admission_status": "REVISION_BLOCKED_PAIRWISE_INCONSISTENCY",
+      "diagnostic_attribute_key": "workout_preference",
+      "group_id": "62125e1d2c878ef8e0d8200fcedccfcc48fc00cedb35ddb9c281233ac4b37b0f",
+      "member_memory_ids": [
+        "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+        "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "baby_gym_brand_interest",
+      "group_id": "1de513fd0d3d0cb715eb78c368d594390b8508bd50b224573c06191041b0f222",
+      "member_memory_ids": [
+        "m10flat3-169086ddf99a6cd2d947f4b37f003506e73a9fb1a86a8e77b7505d1890fef72a"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "current_workout_playlist_interest",
+      "group_id": "e2dbf35beee17c554f69d5b2b76a831f0f3137db9f1c8d6a380dd3d1c981b55c",
+      "member_memory_ids": [
+        "m10flat3-c76183574830c04cc3848b971a67d6874f4a8de8015d796c10a5e87590199f71"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "gym_bicep_curl_weight",
+      "group_id": "bbd0c0e9099cea7e88e18fc5a5a85e36deb16c58ddf47597827d35e93a24c280",
+      "member_memory_ids": [
+        "m10flat3-0b48e72f92f3ad33377046d16b45f2c15a3b6ecc0798c08f3a1566f51a2e0bdc"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "intended_purchases",
+      "group_id": "c07ccd1bd5870b237b5c061405665a9151235c8c6f390dc7ae0466244fa22e45",
+      "member_memory_ids": [
+        "m10flat3-86e8345fa264a10a54b5cd88b09ca02ff6fbce1a922ca0436bd4a90d2a1885c2"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "yoga_style_preference",
+      "group_id": "63919d89fea4984c46c61b304baf35663c25c38f3307e8ca3d59fb493a9e466f",
+      "member_memory_ids": [
+        "m10flat3-59ca75907ff62b58d7e08b7635ded30846630e5613eaeb03ca5e7cc1a4a1a5d6"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "goal_to_workout",
+      "group_id": "c837cd7ef8db25bbdd49a5f9f02223545bfa6f7a29751080c6dcc43ce4e28d2d",
+      "member_memory_ids": [
+        "m10flat3-12f352d2530a3c9126e8eb1560eab47db7719f7a3fcb3ef0439cc57301cca57c"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "gym_frequency",
+      "group_id": "bee9b4b9b4bccb06f443c29bcdeeb089d4193933e180807b82b7dfa97f25b6bf",
+      "member_memory_ids": [
+        "m10flat3-2a9dec54afbe2ebc08142874fe822a78e945e667542f3b3518d31b1ef4e01cf0"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "intended_actions",
+      "group_id": "efafc461a333eb43d67050cdc7a8a1a49ca7e80a0b1dad160a69a43a9d977beb",
+      "member_memory_ids": [
+        "m10flat3-27cdc343b1364a780708f1a0dd148992b8aff81227e740b6cd40cc7252467f25"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "workout_routine",
+      "group_id": "762ef04a3a306cf17d93d11a862a634c70754d8bd513010e68e75b5b0d923d29",
+      "member_memory_ids": [
+        "m10flat3-6ec299306c61e769f46ac0770d154760110324feb7a95c57bbe5022f2ce1321e"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "attends_zumba",
+      "group_id": "e532b69d1be039f7e61edc2517b7082abb287a253cccfa51555a1b1556763f6c",
+      "member_memory_ids": [
+        "m10flat3-5893a40d7ca7971c2c0e59c112f35a998745f3a7f7582b9134c5d7733224ab0b"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "gym_join_reason",
+      "group_id": "fb8cfb29ad82397ac3e8ecb55ce230811532dc92a590beb77620c8d0413f19d2",
+      "member_memory_ids": [
+        "m10flat3-670c4a90ce43c6a7e10abd2353ba00da63cff07e68e24e3fb1fdd584161deb95"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "twisted_ankle_recovery",
+      "group_id": "43f598f9538868e7ecb4c9f5feeb7f381d0e32a6304c30223b621808d653b299",
+      "member_memory_ids": [
+        "m10flat3-ac6f1a93415d06ca77b8d035b4c02c631f52801f68e70ee805ced80dbf0f4fa5"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "workout_routine_status",
+      "group_id": "0cfa046a089ad22c1f9b78f66e27e3e109b51f9b9d20a5e24968944d3f362779",
+      "member_memory_ids": [
+        "m10flat3-2c7a893b417223a9f0458076c4e7d5f9d331e8c835488a5e4c93ce5c3ac1d69e"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "user_weekly_training",
+      "group_id": "0bed1070626f53f932edc2c5461c9601d7d6a6f105a08fb043dfc2939da50e05",
+      "member_memory_ids": [
+        "m10flat3-5b09c34e9f00b43365333e6b9d3a67412a478ef9a996272b74c6233c81202c87"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "planned_7_minute_workout",
+      "group_id": "5da0c5b1eabc4a0c949324f04a877fc5cb316454d95568f1795305cc2440bbb1",
+      "member_memory_ids": [
+        "m10flat3-d252defd2cfb4fce6c2cb98e1cb8085ca96969a9bd236c8cdfeed78f942a3a4d"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "workout_habit",
+      "group_id": "6b5e04588514f02d1f370565ce641d53ed2a2fedc7b8c8c8d06830a5619bef33",
+      "member_memory_ids": [
+        "m10flat3-4ef041c9b1da4fe36b87c2310f1cde8c9b74105462007b6242de44938029141a"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "workout_prioritization",
+      "group_id": "975825bd00863d1ce1c1f5d95c7d469b07274e311d7a482701ad0df606f49ea8",
+      "member_memory_ids": [
+        "m10flat3-4f997887275f7898acddaa44369c07eded65cf750aa3c1ddbb4122e951e971ab"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "corrected_workout_schedule",
+      "group_id": "58417186d84f86ffec6b75707ac0ba69ec888b1695173893947c607647485ec6",
+      "member_memory_ids": [
+        "m10flat3-e85964bffcecee632e197b5587a248b3ab672169fa9df1696654e07d7a3cc969"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "gym_frequency_per_week",
+      "group_id": "35cdcd4e304ca98d10d405aa106573eccfbb61a5effb9570a71a6acced75f777",
+      "member_memory_ids": [
+        "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24"
+      ]
+    },
+    {
+      "admission_status": "NO_REVISION_HISTORY",
+      "diagnostic_attribute_key": "revised_weekly_schedule",
+      "group_id": "993af000963ca29df609975d1fd93d556298ad12a8adb3a46612f2b2a6ba1fa1",
+      "member_memory_ids": [
+        "m10flat3-879b97cb6ff7d4fd11349aa2495b28f508d413e4764ebb81109d5113c58c4d38"
+      ]
+    }
+  ],
+  "gym_revision_admission": "PARTIAL",
+  "historical_b0s_false_safe_examples": [
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "05ba91f36c0c9b02bd9a8c2df938633840b7522cdad09ac976afa10a0ba8b5b4"
+      ],
+      "current_outcomes": [
+        "ASSISTANT_SOURCE_AUTHORITY",
+        "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED",
+        "NO_REVISION_HISTORY"
+      ],
+      "historical_case": "retro_game_night_interest",
+      "member_memory_ids": [
+        "m10flat3-9e9dbc4eb7700786db0cdec794280e67d10512f17178e84f64dcfcb71e8d2317",
+        "m10flat3-a18c5e49cf894d1697522b5796c792cd971becb18866887cee73787ddc7de271",
+        "m10flat3-a64d6abb05b1d5987250295c849607b0bedb5c3466f5c9d8caf1817461f3bc4e"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "e3265cc2420c20b0da44f50617f61926c19d1fdd64d888ca01329543954987c1"
+      ],
+      "current_outcomes": [
+        "ASSISTANT_SOURCE_AUTHORITY",
+        "IDENTITY_HINT_BLOCKED_VALUE_NUMERIC_MISMATCH",
+        "NO_REVISION_HISTORY"
+      ],
+      "historical_case": "value_reported_on_5_05_2021",
+      "member_memory_ids": [
+        "m10flat3-dcb4718b1238a036769321f85a29b79ba26a34b19740b9570fe52a24fdae325c",
+        "m10flat3-df04cb94cbeff9aed34910335662735284d63f631efdbb27beca9887bc9e672e",
+        "m10flat3-e072c86547e2f71218e5497d5aaeaadd65dec77b05352ea005acb256fa763894",
+        "m10flat3-e0b10da20eaadd08c2734f3d3718e185f608537ea112f0c0fe2f977a47b7eab1",
+        "m10flat3-e0baf26322877359fa1a3fc6672ea61fd757b756b0ed19ff57f43dd71223b950"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "4236d5511792f8df7366dc9e01def34544562541d7835d398cd9f68488bba91e"
+      ],
+      "current_outcomes": [
+        "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED",
+        "NO_REVISION_HISTORY"
+      ],
+      "historical_case": "interest_in_documentary_series",
+      "member_memory_ids": [
+        "m10flat3-97cc381355335b82a9fb1fff3b9bc1af2c6cd6057323be3394c5a42eb6fa63cf",
+        "m10flat3-983e63a36b40e1d4602eabac9fe53f93144180313ebee3a8169804ceb829b2c5"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "7d6336bb6d010658491c5fda7df863f172ba743826c82064e7d18a8c37578647"
+      ],
+      "current_outcomes": [
+        "ASSISTANT_SOURCE_AUTHORITY",
+        "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED",
+        "NO_REVISION_HISTORY"
+      ],
+      "historical_case": "q_and_a_session_preparation",
+      "member_memory_ids": [
+        "m10flat3-3e469046922fee885d41fc8d1f83f706ea62d318680114ae69d24c7fa46ccd02",
+        "m10flat3-4261dcad49b8711047a31f57da930ca3ee8e52708386f2b6844dbc4f208518d9",
+        "m10flat3-4383eea5952e577e897ff43c48f2b915954c35df92b654d8afcb0ff3c450e47a",
+        "m10flat3-43c6ab4bc50b892a147e9d78038f01e2b0e756aaea3243e3e40ce4fa5c8a7cf2"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "ab0d821712f53a4177241e6ba75302515ea080d91c66087f10b0d5629ea37834"
+      ],
+      "current_outcomes": [
+        "IDENTITY_HINT_BLOCKED_VALUE_UNGROUNDED",
+        "NO_REVISION_HISTORY"
+      ],
+      "historical_case": "current_planner_search",
+      "member_memory_ids": [
+        "m10flat3-6b9201dc5d024aa1594f8a2bf48d98b411c481c24824844b5e9b11be50050aac",
+        "m10flat3-6c9f8fe653ddaebbf08ee4dd9867239e0111f7db266fa7dda334918d98c008aa"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "5a64491015316b574000b341035890830a2f3699b86202455586475c5cd283dc",
+        "6b37e1b0ed6495f62de92ea4e8004155c6a08b28032a0834bfcf0baab06601c8",
+        "f8de5194cda831325f7f94fb0652557c2d07db6cc4d074e77372955a6f46adcd"
+      ],
+      "current_outcomes": [
+        "NO_REVISION_HISTORY",
+        "REVISION_BLOCKED_PAIRWISE_INCONSISTENCY"
+      ],
+      "historical_case": "aunt_and_uncle_relationship_support",
+      "member_memory_ids": [
+        "m10flat3-ac211249fc8e37cd59d840ad75dc179e5121e3110544b43b5f23c25ba3677617",
+        "m10flat3-b0089e5f9613ee65303c921c84c2743150fc72e7cff957791ab27583ca059108",
+        "m10flat3-b1fb0ee0403663a46b4bc6e60329e612393ac6245957b281a67e56f786fd6f47",
+        "m10flat3-b34f502ecae68b2076cdd2f5ae2a3ccbeb98c9a7f47815b099ee945a694dc609"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    },
+    {
+      "all_blocked": true,
+      "current_group_ids": [
+        "4711c90049e25c4a948e191d30dfe4ecad60fd3e2fc040bf376e97dd524530d4",
+        "e1323dbe5a647579b42383466e4756e47f0151867c531621c8a2ca358bdf97c8"
+      ],
+      "current_outcomes": [
+        "ASSISTANT_SOURCE_AUTHORITY",
+        "NO_REVISION_HISTORY",
+        "REVISION_BLOCKED_PAIRWISE_INCONSISTENCY"
+      ],
+      "historical_case": "work_experience",
+      "member_memory_ids": [
+        "m10flat3-2e4a5ceadd5d6e5e6acb19709199ddc78f60364aea145d25bf0dbfe0f4a7b314",
+        "m10flat3-8b68eac326f7addb61687d2cf88be9804c0245c38965e6dbd4a62fa5ec96a02a",
+        "m10flat3-992aca9ec3a732f5c05acae006d6b599330ae5d3fa3c6cced7026ce6754e38b1",
+        "m10flat3-9a1bed23aecbef8c69ffb31a773704ea573c450d192dd5fa61807b379ebc7053",
+        "m10flat3-fd8721aad086cf9ae9e19a836dc3bec15840c5f17869ccb0d7004a828ab3edbd"
+      ],
+      "status": "BLOCKED_OR_NOT_ADMITTED"
+    }
+  ],
+  "instagram_pairwise_revision_admission": "NO",
+  "instagram_positive_control": {
+    "admission_status": "REVISION_BLOCKED_PAIRWISE_INCONSISTENCY",
+    "group_id": "1350b5cafe9611d6ae88c4827d09a41cf42cbc92d54f0bb0ff2fd5cc5c400128",
+    "member_memory_ids": [
+      "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+      "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+    ],
+    "pairwise_verdicts": [
+      "COEXISTING_FACTS"
+    ],
+    "revision_slot_id": null
+  },
+  "no_timestamp_values_in_review": true
+}

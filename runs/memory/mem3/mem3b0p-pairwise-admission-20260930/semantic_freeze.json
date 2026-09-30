@@ -1,0 +1,14 @@
+{
+  "admission_contract_canonical_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+  "benchmark_labels_loaded": false,
+  "pairwise_call_ledger_sha256": "b45378e1cda7433486c8f7088afc300652c9e1ab0b8af5fba61fd5bb1d6f2eb4",
+  "pairwise_contract_canonical_sha256": "3ff6b0368e12fdcb3a2bace99507df0863b05ba38acc60002a67ed4c49ae1102",
+  "pairwise_verdicts_sha256": "30a45b5b5572cbbcab068ab8933719d9117f79dbd880c49a2792ca9649f77dfe",
+  "revision_admission_overlay_sha256": "fee3fadf309b567d179fbbec3ae66b7b7197c66ab9b70b1056b13fde1ff5c54e",
+  "revision_slot_manifest_sha256": "67071a3893755b4813eac79409ebae3137517324564cb9723e0b975baa26c126",
+  "schema_version": 1,
+  "status": "SEMANTIC_DECISIONS_FROZEN",
+  "timestamp_fields_loaded_before_freeze": 0,
+  "timestamp_fields_loaded_in_mem3b0p": 0,
+  "timestamp_fields_used_before_freeze": 0
+}

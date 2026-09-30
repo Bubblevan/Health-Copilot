@@ -1,0 +1,82 @@
+[
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "current_question",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-93d1de1660aa0a673f1a40133d95768248bcd24c08d222b93c4afd794361e548",
+      "m10flat3-9694cf453d0cc46df8ff404f7367eb31de398bb8cce73bfba90aa5a2f985e772"
+    ],
+    "revision_slot_id": "0126666bc4f14341c47f5b9bed88904dfe10730ced5acc254f5d6d60da93efbb",
+    "scope_id": "longmemeval:gpt4_e061b84g"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "trash_reminder_preference",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-92f0aa0f1db242eca8398ddddbd4897a9861e5ccd7054e3d43f6fad641e90593",
+      "m10flat3-9e54f4fec1469ffda336b3eda02adf4b7ab9c8e344666552b55035b3004231ac"
+    ],
+    "revision_slot_id": "3693cc90d0a2c897a65287df128a1f801bdde356bfeba897c0871e6971609034",
+    "scope_id": "longmemeval:a82c026e"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "jewelry_box_organization",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-2bb9f737964cc90f8e9499380ea827fcc2635a202489173c635281228047b85b",
+      "m10flat3-5aa743b8eeb495dfca3ece463a850b6e73c830ab71895ecac407e0c4340a2cfe"
+    ],
+    "revision_slot_id": "3fc064aa7fe2124d5d7cf2efd8dbdcf25f6bf75fd0a4db56f1a1f4bf23e41e73",
+    "scope_id": "longmemeval:c4ea545c"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "device_battery_concern",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-3170926fc212109df4b4628639bb24a212281f59df32135b021a13beb71c21e0",
+      "m10flat3-32cab65daaa1aa0e8c0cc9d0db84a5603351ec8a6cda591f1ff1c838b9e4b929"
+    ],
+    "revision_slot_id": "91de488fc773ef6bbecee853e6930c6d84beadae80883481fcb14509b1e85b50",
+    "scope_id": "longmemeval:1cea1afa"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "pest_control_method",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+      "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+      "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+      "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+      "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168"
+    ],
+    "revision_slot_id": "db8dc540030e1196e162370da50af5cdad91de934f2782eb03b786bcc5b777e2",
+    "scope_id": "longmemeval:06878be2"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "purchased_silver_necklace_for_sister",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+      "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+    ],
+    "revision_slot_id": "e70370c5e29114f704e01536e4f6b7331357112c7824bbc316055bfaecac4e8f",
+    "scope_id": "longmemeval:8550ddae"
+  },
+  {
+    "admission_contract_sha256": "75f76da214ce4d5dee49bbf902b31efd96a528b6e6e7b6ea47352ddc02a619d7",
+    "diagnostic_attribute_key": "canon_ql17_appraisal_interest",
+    "diagnostic_subject_key": "user",
+    "member_memory_ids": [
+      "m10flat3-4410680c2dbcb581a9c84c30dc1f3ef79dbfe260eb106ebe4508d87fc8dff5f0",
+      "m10flat3-49a0856f0c06b8c7aea342f0664f5af9c3d4b954f4f041d812104955e2e1702b"
+    ],
+    "revision_slot_id": "f7efec9e7a25a6043c31789b0efcfa3274c3737c70f81c900478d2208978b8b8",
+    "scope_id": "longmemeval:1c549ce4"
+  }
+]

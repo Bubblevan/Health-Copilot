@@ -71,6 +71,9 @@ FALSE_SAFE_LABELS = (
     "aunt_and_uncle_relationship_support",
     "work_experience",
 )
+LEGACY_PRE_FREEZE_JSON_PAIRS_MODULE_SHA256 = (
+    "3cd19ed1c2fc3d7a99a4e49e6e5b1fa6c86053e68abc7dd36c3eb36906b26588"
+)
 
 
 class IntegrityFailure(RuntimeError):
@@ -851,7 +854,17 @@ def build_human_review_packet() -> dict[str, Any]:
         "decision_enum": ["true_singleton_slot", "false_revision_merge", "uncertain"],
         "reviewed_groups": review_rows,
     }
-    _freeze(RUN_DIR / "admitted_groups_human_review_packet.json", _json_bytes(packet))
+    packet_sha = _freeze(RUN_DIR / "admitted_groups_human_review_packet.json", _json_bytes(packet))
+    manifest = _read_manifest()
+    manifest.setdefault("frozen_artifacts", {})[
+        "admitted_groups_human_review_packet.json"
+    ] = packet_sha
+    manifest["post_inference_closeout_audit"] = {
+        "runner_sha256": _sha_file(Path(__file__)),
+        "scope": "human-review packet and artifact indexing only; pairwise inputs, prompts, calls, and verdicts unchanged",
+    }
+    _freeze(RUN_DIR / "run_manifest.json", _json_bytes(manifest))
+    _refresh_manifest_sidecar()
     return {"review_packet_created": True, "admitted_group_count": len(review_rows)}
 
 
@@ -1009,11 +1022,11 @@ def _critical_cases(
 
 
 def closeout(decisions_path: Path) -> dict[str, Any]:
-    semantic_marker = _load_semantic_freeze()
+    _load_semantic_freeze()
     manifest = _read_manifest()
     if decisions_path.resolve().parent != RUN_DIR.resolve():
         raise IntegrityFailure("human_review_decisions_must_be_inside_run_directory")
-    _verify_sidecar(decisions_path)
+    decision_input_sha = _verify_sidecar(decisions_path)
     universe = _read_frozen("candidate_groups.json")
     overlay = _read_frozen("revision_admission_overlay.jsonl")
     pair_rows = _read_frozen("pairwise_verdicts.jsonl")
@@ -1026,6 +1039,42 @@ def closeout(decisions_path: Path) -> dict[str, Any]:
 
     source_by_id, identity_by_id = _identity_source_maps()
     cases = _critical_cases(decisions, universe, overlay, pair_rows, source_by_id, identity_by_id)
+    legacy_projection = (
+        manifest.get("source_code_sha256", {}).get("admission_module")
+        == LEGACY_PRE_FREEZE_JSON_PAIRS_MODULE_SHA256
+    )
+    projection_rebuild_matches_frozen = False
+    if legacy_projection:
+        _, rebuilt, _, _, rebuilt_pairwise_sha, rebuilt_admission_sha = _initial_artifacts()
+        projection_rebuild_matches_frozen = (
+            _json_bytes(rebuilt["universe"]) == (RUN_DIR / "candidate_groups.json").read_bytes()
+            and _jsonl_bytes(rebuilt["decisions"]) == (RUN_DIR / "proposal_grounding_decisions.jsonl").read_bytes()
+            and _jsonl_bytes(rebuilt["pairs"]) == (RUN_DIR / "pair_manifest.jsonl").read_bytes()
+            and rebuilt_pairwise_sha == manifest["contract_sha256"]["pairwise_contract_canonical_sha256"]
+            and rebuilt_admission_sha == manifest["contract_sha256"]["admission_contract_canonical_sha256"]
+        )
+        if not projection_rebuild_matches_frozen:
+            raise IntegrityFailure("streaming_projection_rebuild_differs_from_frozen_candidate_artifacts")
+    timestamp_boundary_deviation = {
+        "issue_id": "MEM3B0P-TIME-BOUNDARY-001",
+        "detected_during": "post_inference_closeout_audit",
+        "pre_freeze_admission_module_sha256": manifest.get("source_code_sha256", {}).get("admission_module"),
+        "pre_freeze_parser_behavior": "json.loads(object_pairs_hook=...) decoded object values and passed complete key/value pairs to the hook before non-allowlisted values were discarded",
+        "timestamp_values_transiently_decoded": bool(legacy_projection),
+        "transient_timestamp_value_count": "UNQUANTIFIED" if legacy_projection else 0,
+        "timestamp_values_retained_in_projected_rows": 0,
+        "timestamp_values_used_for_candidates_or_prompts": 0,
+        "supersedes_timestamp_zero_claims_in": [
+            "initial run_manifest execution_policy",
+            "initial safety_statistics",
+            "semantic_freeze.json timestamp_fields_loaded_before_freeze",
+        ] if legacy_projection else [],
+        "post_freeze_projection_hardened_to_skip_non_allowlisted_values_before_decoding": True,
+        "hardened_projection_rebuild_matches_frozen_candidate_and_pair_artifacts": projection_rebuild_matches_frozen,
+        "frozen_pairwise_requests_repeated": False,
+        "structural_gate_effect": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO" if legacy_projection else "NONE",
+    }
+    _freeze(RUN_DIR / "timestamp_boundary_erratum.json", _json_bytes(timestamp_boundary_deviation))
     human_clear = all(row["human_review"]["decision"] == "true_singleton_slot" for row in human_review)
     pairwise_admitted_complete = all(
         all(verdict == "SAME_MUTABLE_SLOT" for verdict in row["pairwise_verdicts"])
@@ -1038,10 +1087,12 @@ def closeout(decisions_path: Path) -> dict[str, Any]:
             cases["all_historical_b0s_false_safe_examples_blocked"],
             human_clear,
             pairwise_admitted_complete,
-            semantic_marker["timestamp_fields_loaded_before_freeze"] == 0,
+            not timestamp_boundary_deviation["timestamp_values_transiently_decoded"],
         ]
     )
     stats = _read_frozen("safety_statistics.json")
+    stats.pop("timestamp_fields_loaded", None)
+    stats.pop("timestamp_fields_used", None)
     ledger = _read_frozen("pairwise_call_ledger.jsonl")
     pair_ids = {row["pair_id"] for row in _read_frozen("pair_manifest.jsonl")}
     if {row["pair_id"] for row in pair_rows} != pair_ids:
@@ -1056,6 +1107,7 @@ def closeout(decisions_path: Path) -> dict[str, Any]:
     review_payload = {
         **packet,
         "reviewed_groups": human_review,
+        "human_review_decisions_sha256": decision_input_sha,
         "review_summary": {
             "true_singleton_slot": sum(row["human_review"]["decision"] == "true_singleton_slot" for row in human_review),
             "false_revision_merge": sum(row["human_review"]["decision"] == "false_revision_merge" for row in human_review),
@@ -1077,33 +1129,64 @@ def closeout(decisions_path: Path) -> dict[str, Any]:
         "pairwise_latency_ms_p95": _percentile(latencies, 0.95),
         "same_request_retries": 0,
         "hosted_calls": 0,
-        "timestamp_fields_loaded": 0,
-        "timestamp_fields_used": 0,
+        "timestamp_values_transiently_decoded_before_freeze": timestamp_boundary_deviation[
+            "timestamp_values_transiently_decoded"
+        ],
+        "timestamp_value_count_before_freeze": timestamp_boundary_deviation[
+            "transient_timestamp_value_count"
+        ],
+        "timestamp_values_retained_or_used": 0,
+        "hardened_projection_rebuild_matches_frozen": projection_rebuild_matches_frozen,
         "full_identity_calls": 0,
         "memory_store_mutations": {"ADD": 0, "UPDATE": 0, "DELETE": 0, "SUPERSEDED": 0},
-        "completion_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=YES",
+        "completion_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
         "readiness_marker": f"MEM3B0P_MEM3B1_READY={'YES' if readiness else 'NO'}",
     }
     _freeze(RUN_DIR / "safety_statistics.json", _json_bytes(final_stats))
     _refresh_manifest_sidecar()
 
+    manifest["timestamp_boundary_erratum"] = timestamp_boundary_deviation
+    manifest.setdefault("execution_policy", {})[
+        "timestamp_fields_loaded"
+    ] = "UNQUANTIFIED_TRANSIENT_DECODER_EXPOSURE" if legacy_projection else 0
+    manifest["execution_policy"]["timestamp_fields_used"] = 0
+    manifest["post_inference_closeout_audit"] = {
+        "runner_sha256": _sha_file(Path(__file__)),
+        "scope": "projection hardening, erratum, human review, and final reporting only; no pairwise requests or verdicts changed",
+    }
     report = _render_report(manifest, final_stats, cases, review_payload, readiness)
     _freeze(RUN_DIR / "report.md", report.encode("utf-8"))
-    manifest["status"] = "COMPLETE"
-    manifest["completion_gate_marker"] = "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=YES"
+    manifest["status"] = "CLOSED_OUT_WITH_PROTOCOL_DEVIATION"
+    manifest["completion_gate_marker"] = "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO"
     manifest["readiness_gate_marker"] = f"MEM3B0P_MEM3B1_READY={'YES' if readiness else 'NO'}"
+    manifest["timestamp_boundary_erratum"] = timestamp_boundary_deviation
+    manifest["post_inference_closeout_audit"] = {
+        "runner_sha256": _sha_file(Path(__file__)),
+        "scope": "projection hardening, erratum, human review, and final reporting only; no pairwise requests or verdicts changed",
+    }
     manifest["completion"] = {
-        "structural_complete": True,
+        "structural_complete": False,
+        "failed_structural_gates": (
+            ["TIMESTAMP_VALUE_TRANSIENTLY_DECODED_BEFORE_SEMANTIC_FREEZE"]
+            if legacy_projection
+            else []
+        ),
         "readiness": "YES" if readiness else "NO",
         "human_review_summary": review_payload["review_summary"],
         "critical_case_review_sha256": _verify_sidecar(RUN_DIR / "critical_case_review.json"),
         "human_review_sha256": _verify_sidecar(RUN_DIR / "admitted_groups_human_review.json"),
         "report_sha256": _verify_sidecar(RUN_DIR / "report.md"),
+        "human_review_decisions_sha256": decision_input_sha,
+        "post_inference_closeout_code_sha256": _sha_file(Path(__file__)),
+        "post_inference_closeout_scope": "human-review input indexing and final reporting only; frozen pairwise decisions unchanged",
     }
     manifest.setdefault("frozen_artifacts", {}).update(
         {
             "critical_case_review.json": _verify_sidecar(RUN_DIR / "critical_case_review.json"),
             "admitted_groups_human_review.json": _verify_sidecar(RUN_DIR / "admitted_groups_human_review.json"),
+            "human_review_decisions.json": decision_input_sha,
+            "admitted_groups_human_review_packet.json": _verify_sidecar(RUN_DIR / "admitted_groups_human_review_packet.json"),
+            "timestamp_boundary_erratum.json": _verify_sidecar(RUN_DIR / "timestamp_boundary_erratum.json"),
             "safety_statistics.json": _verify_sidecar(RUN_DIR / "safety_statistics.json"),
             "report.md": _verify_sidecar(RUN_DIR / "report.md"),
         }
@@ -1112,8 +1195,11 @@ def closeout(decisions_path: Path) -> dict[str, Any]:
     _refresh_manifest_sidecar()
     validate_artifacts()
     return {
-        "structural_complete": True,
+        "structural_complete": False,
+        "completion_marker": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
         "readiness": "YES" if readiness else "NO",
+        "timestamp_boundary_deviation": legacy_projection,
+        "hardened_projection_rebuild_matches_frozen": projection_rebuild_matches_frozen,
         "false_safe_examples_blocked": cases["all_historical_b0s_false_safe_examples_blocked"],
         "instagram_pairwise_revision_admission": cases["instagram_pairwise_revision_admission"],
         "gym_revision_admission": cases["gym_revision_admission"],
@@ -1141,7 +1227,7 @@ def _render_report(
     lines = [
         "# MEM-3B0P Pairwise Revision Admission Closeout",
         "",
-        "This is a structural/safety admission experiment, not a QA benchmark or performance comparison.",
+        "This is a safety-admission experiment, not a QA benchmark or performance comparison. A protocol deviation means the structural completion gate does not pass.",
         "",
         "## Frozen Inputs",
         "",
@@ -1165,18 +1251,20 @@ def _render_report(
         f"- Historical B0S false-safe examples all blocked/not admitted: `{cases['all_historical_b0s_false_safe_examples_blocked']}`.",
         f"- Gym cross-key recall diagnostic: `{cases['gym_revision_admission']}`; no cross-key merge was introduced.",
         f"- Exhaustively human-reviewed admitted groups: {review['review_summary']}.",
+        f"- Human-review decision input SHA-256: `{review['human_review_decisions_sha256']}`.",
         "",
         "## Runtime And Safety",
         "",
         f"- Runtime model/server: `{manifest.get('runtime', {}).get('model_sha256', 'not recorded')}` / `{manifest.get('runtime', {}).get('server_build', 'not recorded')}`.",
         f"- Pairwise local provider calls: {stats['pairwise_provider_calls']}; hosted calls: {stats['hosted_calls']}; same-request retries: {stats['same_request_retries']}.",
         f"- Prompt tokens total / p50: {stats['pairwise_prompt_tokens_total']} / {stats['pairwise_prompt_tokens_p50']}; latency p50 / p95 ms: {stats['pairwise_latency_ms_p50']} / {stats['pairwise_latency_ms_p95']}.",
-        "- Timestamp fields loaded/used: `0/0`; no timestamp values appear in verifier prompts, decisions, human review, or this report.",
+        "- Timestamp-boundary deviation: the pre-freeze JSON decoder transiently decoded non-allowlisted values into its object-pairs hook before filtering. The count is unquantified; no timestamp value was retained in projected rows or used for candidates/prompts. This violates the literal freeze boundary.",
+        f"- Post-freeze streaming projection skips non-allowlisted values before decoding and reproduces the frozen candidate/pair artifacts byte-for-byte: `{manifest.get('timestamp_boundary_erratum', {}).get('hardened_projection_rebuild_matches_frozen_candidate_and_pair_artifacts', False)}`. Frozen pairwise requests were not repeated.",
         "- MemoryStore mutations `ADD/UPDATE/DELETE/SUPERSEDED`: `0/0/0/0`; embeddings, retrieval, answer-reader, judge, and benchmark calls: `0`.",
         "",
         "## Outcome",
         "",
-        "`MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=YES`.",
+        "`MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO` (timestamp-boundary protocol deviation).",
         f"`MEM3B0P_MEM3B1_READY={'YES' if readiness else 'NO'}`.",
         "",
         "No LongMemEval or MedMemoryBench performance claim is made from this stage.",
@@ -1186,8 +1274,10 @@ def _render_report(
 
 def validate_artifacts() -> dict[str, Any]:
     manifest = _read_manifest()
-    if manifest.get("status") != "COMPLETE":
-        raise IntegrityFailure("run_not_structurally_complete")
+    if manifest.get("status") != "CLOSED_OUT_WITH_PROTOCOL_DEVIATION":
+        raise IntegrityFailure("run_not_closed_out")
+    if manifest.get("completion_gate_marker") != "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO":
+        raise IntegrityFailure("structural_completion_marker_mismatch")
     sidecars = sorted(RUN_DIR.glob("*.sha256"))
     for sidecar in sidecars:
         name = sidecar.read_text(encoding="utf-8").strip().split()
@@ -1208,12 +1298,19 @@ def validate_artifacts() -> dict[str, Any]:
         "safety_statistics.json",
         "critical_case_review.json",
         "admitted_groups_human_review.json",
+        "admitted_groups_human_review_packet.json",
+        "human_review_decisions.json",
         "report.md",
         "semantic_freeze.json",
+        "timestamp_boundary_erratum.json",
     }
     missing = sorted(name for name in required if not (RUN_DIR / name).is_file())
     if missing:
         raise IntegrityFailure(f"required_artifact_missing:{','.join(missing)}")
+    for name, expected in manifest.get("frozen_artifacts", {}).items():
+        path = RUN_DIR / name
+        if path.is_file() and _verify_sidecar(path, expected) != expected:
+            raise IntegrityFailure(f"manifest_artifact_sha_mismatch:{name}")
     return {"validated_sha256_sidecars": len(sidecars), "required_artifacts": len(required)}
 
 

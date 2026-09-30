@@ -1,0 +1,19 @@
+{
+  "detected_during": "post_inference_closeout_audit",
+  "frozen_pairwise_requests_repeated": false,
+  "hardened_projection_rebuild_matches_frozen_candidate_and_pair_artifacts": true,
+  "issue_id": "MEM3B0P-TIME-BOUNDARY-001",
+  "post_freeze_projection_hardened_to_skip_non_allowlisted_values_before_decoding": true,
+  "pre_freeze_admission_module_sha256": "3cd19ed1c2fc3d7a99a4e49e6e5b1fa6c86053e68abc7dd36c3eb36906b26588",
+  "pre_freeze_parser_behavior": "json.loads(object_pairs_hook=...) decoded object values and passed complete key/value pairs to the hook before non-allowlisted values were discarded",
+  "structural_gate_effect": "MEM3B0P_PAIRWISE_REVISION_ADMISSION_COMPLETE=NO",
+  "supersedes_timestamp_zero_claims_in": [
+    "initial run_manifest execution_policy",
+    "initial safety_statistics",
+    "semantic_freeze.json timestamp_fields_loaded_before_freeze"
+  ],
+  "timestamp_values_retained_in_projected_rows": 0,
+  "timestamp_values_transiently_decoded": true,
+  "timestamp_values_used_for_candidates_or_prompts": 0,
+  "transient_timestamp_value_count": "UNQUANTIFIED"
+}
