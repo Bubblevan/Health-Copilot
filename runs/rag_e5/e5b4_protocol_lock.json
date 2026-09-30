@@ -1,0 +1,208 @@
+{
+  "202608_opened": false,
+  "b2_artifact_set_sha256": "e528263a5141e6ac476252a9bfb04a1a95fc53475c5617bec23fb106980168f1",
+  "b2_execution_manifest_file_sha256": "97f07eb828522afe523d757b0aead74791009f955f70d76ad42334d491075ca6",
+  "b2_protocol_lock_file_sha256": "9da6ec02c6a0e5dd393f2f19067a6b5f1131ecf1694ec6a77b8afcbc40aa1430",
+  "b2_protocol_lock_sha256": "d59609d97729b85dfcf5527c40671ea6bd012b78abbba605476e909bfe30c5bb",
+  "b2_report_file_sha256": "5385577dbdf86a9260e1a0bb3643cb2d6ffd518279f665a45f1282a1329f42f8",
+  "b2_retrieval_coverage_snapshot": {
+    "STANDARD": {
+      "eligible_cases": 40,
+      "required_recommendation_hit_at_100": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_recommendation_hit_at_5": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_source_hit_at_100": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_source_hit_at_5": {
+        "hits": 40,
+        "rate": 1.0
+      }
+    },
+    "STRONG": {
+      "eligible_cases": 40,
+      "required_recommendation_hit_at_100": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_recommendation_hit_at_5": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_source_hit_at_100": {
+        "hits": 40,
+        "rate": 1.0
+      },
+      "required_source_hit_at_5": {
+        "hits": 40,
+        "rate": 1.0
+      }
+    }
+  },
+  "b2_reuse_manifest_sha256": "ef170dc19813c2cb6c5325a7208de1778bebb4a10883f9b4d9a5ab3f055c20d1",
+  "b3_artifact_set_sha256": "96a59af7317555eb374cd7d3a24cdad3f3733abeebe22e264397087cf5df5741",
+  "b3_call_ledger_sha256": "be754da0f7f6959633b80eb98da9a64fe35add8167efaa5cc3f4752d8c805b43",
+  "b3_execution_manifest_sha256": "86b883dfb0dfce46bd9dde00377fd5e86432e6bdaeee55c5bce0da3951d56a97",
+  "b3_manifest_file_sha256": "bd2c208ce67b832815f262342166af8c8278a0189db92572c15be2c62e74bcd1",
+  "b3_recovery_lock_sha256": "530e511d1d16b23c6e9d861aa8fd18ad7a863a248e326fcd70daee912408e6fe",
+  "b3_report_file_sha256": "c32ff8f91392d90427a627f6778974964a46b7164eebc057a40583e35584c427",
+  "b3_status": "MEASUREMENT_RECOVERY_GATE_FAIL",
+  "base_main": "2e2d62ce93a84378a1cad314994a097a9007a6fb",
+  "branch": "codex/rag-e5-b4-decomposed-execution-20260930",
+  "code_sha256": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "b23e291bc8ba08ee181bf186192ad5c8dd994918e0ee09c3447c873611fa3562"
+    },
+    {
+      "path": "eval/rag_e5/b4_materializer.py",
+      "sha256": "47edc403d16a50c78fb9d8a81c294756cd0d1162128c0dded88eadaec0b746d9"
+    },
+    {
+      "path": "eval/rag_e5/b4_guidance.py",
+      "sha256": "693d405b318ca8652d23a6c579098d120f2e89ad796f7e60e7e2a900089e9356"
+    },
+    {
+      "path": "eval/rag_e5/b4_execution.py",
+      "sha256": "5bb871e9f2eac55a98a8ff9b8d52aa2a383bf00b14acef2e6a2c2c1aed2089a2"
+    },
+    {
+      "path": "eval/rag_e5/b4_evaluator.py",
+      "sha256": "bef3371270536799e9e8954b5c814465360281591ae7acef6c067c86d15eb93a"
+    },
+    {
+      "path": "eval/rag_e5/e5b3_recovery.py",
+      "sha256": "8b85115c287da56886630cc3c033561900a87f188df581691d383fb784f9110c"
+    },
+    {
+      "path": "eval/rag_e5/counterfactual.py",
+      "sha256": "228156521d7968e7a907504ba1016fd20974d00c7c6c146b76dae46468a2c428"
+    },
+    {
+      "path": "eval/rag_e5/e5b2_evaluator.py",
+      "sha256": "d98f32c7e3531a9e9534e3d46e8fcc9b1823ad1970cbe18617bb0bf41366834d"
+    },
+    {
+      "path": "eval/rag_e5/overlay.py",
+      "sha256": "6b4e76c60b2eebef4978407966cd7497fedbfec7a13c27b7f99b8921c822f121"
+    },
+    {
+      "path": "tools/research/rag_e5/freeze_e5b4_protocol.py",
+      "sha256": "f0e76c88feb539ae15e514044e1cdde8da4f10c4d259a67875d9c9caa39b4309"
+    },
+    {
+      "path": "tools/research/rag_e5/run_e5b4_counterfactual.py",
+      "sha256": "1b1111fc1fc0caa2acf1408d096305c44a015a9dd496fc2122132eace5ec6ac7"
+    },
+    {
+      "path": "tools/research/rag_e5/score_e5b4_counterfactual.py",
+      "sha256": "844a97d6b335a23c8403f0ff88d3fe95e278e36faacda0542d04c8b41d7a1bc6"
+    },
+    {
+      "path": "tests/test_rag_e5_b4.py",
+      "sha256": "9b04f9c06a01cca831dad9d1ad93e403feb67d001e1dbf81f7f1b811792af6aa"
+    },
+    {
+      "path": "docs/research/rag_e5/e5b4_protocol.md",
+      "sha256": "46ac3865fdac77eb302ccd863d1f71bd69dbadfbc83cf7d324f51a16aafecebf"
+    }
+  ],
+  "corpus_chunks_sha256": "92070cbb5f5961bf1f9cfdf628bbc9cc3ea7c4fdf3a317ca378fd450aa28b5ac",
+  "counterfactual_scoring_after_manifest_freeze": true,
+  "created_at_utc": "2026-09-30T03:38:59.580198+00:00",
+  "method": {
+    "actions": [
+      "OFF",
+      "STANDARD",
+      "STRONG"
+    ],
+    "citation_aliases": "E1-E5 assigned by frozen supplied-chunk rank order; only issued aliases resolve",
+    "evaluator_action_blind": true,
+    "evidence_source": "exact frozen B2 top-five supplied_chunks for STANDARD/STRONG; OFF receives none",
+    "execution_order": "sorted_case_id_then_OFF_STANDARD_STRONG",
+    "generation_call_count_per_guidance_arm": 1,
+    "guidance_calls": 120,
+    "json_schema_or_function_calling": false,
+    "new_bridge_calls": 0,
+    "new_retrieval_calls": 0,
+    "plain_text_only": true,
+    "state_materialization": "requested recent_measurement_trends field copied deterministically from LongitudinalStatePacket v4",
+    "t0_model_calls": 0
+  },
+  "model": {
+    "bytes": 5027783488,
+    "file": "Qwen3-8B-Q4_K_M.gguf",
+    "path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "quantization": "Q4_K_M",
+    "repository": "Qwen/Qwen3-8B-GGUF",
+    "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785"
+  },
+  "prompt": {
+    "guidance_prompt_template_sha256": "a5ba5b47b141eab7be7d3a7ced2d77624691d21b89dfcb1c8f05f1be2b0c47b7",
+    "system_prompt_sha256": "67d2844c8b3f20f8a98277eb65721f352602708454bfe8d71389db8d02b76462"
+  },
+  "protocol_lock_sha256": "008935efa97be22eb2771bf3753d1ce4e0b242e2a8c4a69e82c4997731ef34a5",
+  "protocol_source_commit": "a71cb23b1a041ed8ba79b309794e2f47b714ee83",
+  "question_set_sha256": "5a64a0aa9520d6f94f7e73172786a3970c4b49f00789a73d42ffe1db361ef2a6",
+  "runtime": {
+    "cache_type_k": "q4_0",
+    "cache_type_v": "q4_0",
+    "chat_template_overhead_reserve": 256,
+    "experimental_context_size": 32768,
+    "flash_attention": true,
+    "gpu": {
+      "memory_total_mib": 16376,
+      "memory_used_mib_at_freeze": 10543,
+      "name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+      "telemetry_is_not_a_method_variable": true,
+      "utilization_percent_at_freeze": 93
+    },
+    "gpu_offload_layers": 99,
+    "llama_cpp_build_info": "b10068-571d0d540",
+    "max_output_tokens": 8192,
+    "max_prompt_tokens": 24320,
+    "model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "observed_flags": {
+      "flash_attention": true,
+      "n_gpu_layers_99": true,
+      "parallel_1": true,
+      "q4_k_cache": true,
+      "q4_v_cache": true
+    },
+    "parallel_slots": 1,
+    "prompt_cache": false,
+    "reasoning": "disabled via chat_template_kwargs.enable_thinking=false",
+    "retry": 0,
+    "seed": 0,
+    "server_context_capacity": 131072,
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_executable_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_executable_sha256_method": "PowerShell Get-FileHash -Algorithm SHA256",
+    "server_pid": 59512,
+    "server_process_command_line": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe -m E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8081 --ctx-size 131072 --n-predict 8192 --rope-scaling yarn --rope-scale 4 --yarn-orig-ctx 32768 --override-kv qwen3.context_length=int:131072 --cache-type-k q4_0 --cache-type-v q4_0 --n-gpu-layers 99 --flash-attn on --parallel 1",
+    "server_url": "http://127.0.0.1:8081",
+    "shared_existing_server": true,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "runtime_cases_sha256": "afa168512ac269391b001a2c2fc74b08b2d87dfa8f9d84361d03f9c8f9bab177",
+  "schema_version": "rag-e5-e5b4-protocol-lock-v1",
+  "source_cohort": "202607_only",
+  "state_set_sha256": "860f5da64a6b94790944a5bd2d50aa4977a098bc51d1b6f822321bf4fbbd1d1c",
+  "status": "FROZEN_BEFORE_B4_GUIDANCE_CALLS",
+  "task_kind_counts_runtime_visible": {
+    "GUIDANCE_ONLY": 20,
+    "STATE_AND_GUIDANCE": 20,
+    "STATE_ONLY": 20
+  },
+  "task_set_sha256": "7ac2d95f98efc6fcced665f93977c76c4d219af0cfe7e16f05b1fdd67358979a",
+  "task_template_sha256": "fbb88634c855f9770637ad842a23ad20454d7962245496bad9351932be64c211",
+  "teacher_opened_before_generation": false
+}
