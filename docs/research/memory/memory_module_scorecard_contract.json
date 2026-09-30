@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "contract_id": "health-copilot-memory-module-scorecard-v1",
+  "status": "PRE_REGISTERED_FINAL_MEMORY_SCORECARD",
+  "locked_on": "2026-09-30",
+  "research_claim": "Revision-aware state handling improves revision-sensitive queries without materially degrading general memory performance.",
+  "controlled_local_transfer_stack": {
+    "answer_reader": "frozen local Qwen3-8B Q4_K_M",
+    "memory_internal_llm": "same frozen local Qwen3-8B Q4_K_M when required by a memory method",
+    "embedding_model": "local Qwen/Qwen3-Embedding-0.6B",
+    "judge": "NONE",
+    "hosted_api": "NONE",
+    "official_provider_results": "OFFICIAL_HISTORICAL; never mixed into controlled-local claims"
+  },
+  "longmemeval_one_shot_closeout": {
+    "track_id": "ONE_SHOT_GENERAL_MEMORY_CLOSEOUT",
+    "dataset": "LongMemEval-S frozen 102-case DEV",
+    "execution_timing": "only after architecture and method are frozen",
+    "post_result_tuning": false,
+    "required_comparators": [
+      "FullContext",
+      "M10-Base",
+      "RawSpan-Dense",
+      "PropMem",
+      "Final Health-Copilot Memory"
+    ],
+    "secondary_historical_comparators": [
+      "OpenClaw",
+      "Mem0 OSS",
+      "SimpleMem official"
+    ],
+    "primary_metrics": [
+      "overall token F1",
+      "normalized EM",
+      "knowledge-update token F1",
+      "temporal-reasoning token F1",
+      "multi-session token F1",
+      "CURRENT accuracy",
+      "CHANGE accuracy",
+      "AS_OF accuracy",
+      "answer-session Recall@8",
+      "MRR",
+      "gold-token coverage",
+      "reader-visible context tokens",
+      "ingestion latency",
+      "read latency",
+      "memory size",
+      "LLM-call count"
+    ],
+    "reader_and_judge": {
+      "reader": "same frozen local Qwen3-8B Q4_K_M for every compatible system",
+      "judge": "NONE; deterministic metrics only"
+    },
+    "uncertainty": {
+      "method": "paired bootstrap",
+      "replicates": 10000,
+      "stratification": "LongMemEval question type",
+      "interval": "95%"
+    },
+    "claim_thresholds": {
+      "strong_evidence": "paired revision-sensitive improvement is positive and its paired bootstrap 95% CI lower bound is greater than zero",
+      "practical_revision_gain_absolute": 0.05,
+      "overall_regression_tolerance_absolute": 0.02,
+      "overall_protection_comparator": "strongest required controlled non-revision comparator",
+      "thresholds_are_completion_gates": false
+    }
+  },
+  "medmemorybench_controlled_local_transfer": {
+    "track_id": "CONTROLLED_LOCAL_TRANSFER",
+    "required_comparators": [
+      "MEMORY_READ_BASELINE::FULL_CONTEXT",
+      "MEMORY_READ_BASELINE::BM25",
+      "MEMORY_READ_BASELINE::DENSE",
+      "MEMORY_READ_BASELINE::MEM0",
+      "MEMORY_READ_BASELINE::AMEM",
+      "MEMORY_READ_BASELINE::MEMOS",
+      "Health-Copilot Memory"
+    ],
+    "secondary_if_fairly_executable": [
+      "MEMRL",
+      "Letta",
+      "LightMem",
+      "ReMem",
+      "Graph/Hippo methods"
+    ],
+    "official_upstream_results": "OFFICIAL_HISTORICAL; never mixed into controlled-local claims",
+    "primary_endpoint": "state_update",
+    "additional_endpoints": [
+      "entity_exact_match",
+      "temporal_localization",
+      "inference_generation",
+      "multiple_choice",
+      "multi_hop_clinical_deduction"
+    ],
+    "retrieval_and_provenance_diagnostics": [
+      "source-session Recall@5",
+      "source-session MRR",
+      "multi-source session coverage",
+      "stale-context exposure",
+      "revision-resolution accuracy"
+    ],
+    "efficiency_metrics": [
+      "write LLM calls",
+      "write LLM tokens",
+      "retrieval latency",
+      "reader-visible tokens",
+      "memory-store size"
+    ],
+    "minimum_useful_transfer_claim": [
+      "state_update exceeds BM25",
+      "state_update exceeds Dense"
+    ],
+    "strong_transfer_target": {
+      "state_update_margin_absolute_over_best_of_Mem0_AMEM_MemOS": 0.05,
+      "paired_bootstrap_95_percent_ci_lower_bound": "> 0",
+      "report_overall_performance_alongside_target": true
+    }
+  },
+  "claim_guardrails": [
+    "Do not claim general superiority from a revision-sensitive slice alone.",
+    "Report overall performance alongside revision-sensitive gains.",
+    "Do not compare controlled-local results numerically with official provider-specific results.",
+    "Do not tune methods, prompts, thresholds, or splits after the one-shot closeout result."
+  ]
+}
