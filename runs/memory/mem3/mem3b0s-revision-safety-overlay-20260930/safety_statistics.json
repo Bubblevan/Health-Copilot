@@ -1,0 +1,96 @@
+{
+  "average_prompt_tokens": 437.342,
+  "benchmark_runs": 0,
+  "candidate_group_count": 73,
+  "eligibility_statistics": {
+    "assistant_origin_records_excluded_from_user_state": 4946,
+    "authority_gate_counts": {
+      "ELIGIBLE_USER_STATE": 1510,
+      "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+      "INELIGIBLE_REVISION_KIND": 5055,
+      "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+      "REVISION_INELIGIBLE": 4
+    },
+    "authority_namespace_counts": {
+      "ASSISTANT_ORIGIN": 4946,
+      "USER_ASSERTED": 2563,
+      "USER_MIXED": 603
+    },
+    "eligible_exact_groups": 1373,
+    "eligible_records_by_authority_namespace": {
+      "USER_ASSERTED": 1362,
+      "USER_MIXED": 148
+    },
+    "eligible_user_state_records": 1510,
+    "identity_records": 8112,
+    "repeated_candidate_groups": 73,
+    "repeated_candidate_members": 210,
+    "singletons_without_revision_history": 1300,
+    "source_propositions": 8112,
+    "user_asserted_records_retained": 1362,
+    "user_mixed_records_retained": 148
+  },
+  "embedding_calls": 0,
+  "full_identity_calls": 0,
+  "group_verifier_ledger_sha256": "3f00992d3f682a64a6b8b06b449972f049f2accbe1f62c67a9612c4e9e62284c",
+  "historical_b0r_repeated_group_count": 173,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "local_provider_calls": 73,
+  "materialization_status_counts": {
+    "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION": 48,
+    "MATERIALIZATION_SAFE": 25
+  },
+  "max_prompt_tokens": 1588,
+  "memory_store_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  },
+  "p50_verifier_latency_ms": 453.847,
+  "p95_verifier_latency_ms": 705.395,
+  "post_authority_gate_repeated_group_count": 73,
+  "reader_answer_calls": 0,
+  "retrieval_calls": 0,
+  "runtime": {
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "flash_attention": true,
+    "gpu_layers": 99,
+    "kv_cache": "GPU Q4_0",
+    "loopback_only": true,
+    "model": "Qwen3-8B Q4_K_M",
+    "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "provider": "local_qwen",
+    "proxy_environment_used": false,
+    "server_arguments": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn"
+    },
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_build": "10068 (571d0d540)",
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_pid": 24884,
+    "server_version_output": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "safety_overlay_sha256": "23eecff32adf83b8ebd16de52742db23959efa66d75dd4d6e689a79bb6d11c80",
+  "same_request_retries": 0,
+  "schema_version": 1,
+  "source_propositions": 8112,
+  "terminal_overlay_group_count": 73,
+  "uncertain_provider_call_count": 0,
+  "verdict_counts": {
+    "COHERENT_SINGLETON_SLOT": 25,
+    "INCOHERENT_GROUP": 48
+  }
+}
