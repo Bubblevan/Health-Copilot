@@ -52,4 +52,79 @@ This is an owned synthetic DEV characterization, not a public-clinical benchmark
 
 ## Results
 
-To be completed only from the frozen run artifacts. No numeric outcome should be inferred from protocol expectations or from B4's smaller mechanism-only sample.
+### Execution integrity
+
+The frozen run executed all `1,024` DEV episodes under all three arms (`3,072` counterfactual arms): `512 DEV_IID` and `512 DEV_STRUCTURAL`. The primary RAG-isolatable slice contains `582` episodes (`NONE=164`, `RAG=241`, `INSUFFICIENT=177`); the other `442` Memory-dependent episodes were executed but excluded from primary U3-R scoring.
+
+The CPU-only Qwen3-8B bridge produced `1,024/1,024` valid completions with one call per episode, zero truncations, and zero original-query fallbacks. The run freeze records `evaluator_truth_opened=false`; the scoring manifest confirms evaluator truth was opened only after the freeze, for the two DEV truth files (`1,024` rows total). TRAIN outcomes and reserved TEST/OOD were not opened; TEST/OOD rows remain unmaterialized. The bridge and counterfactual hashes match the frozen manifest and recovery checkpoints.
+
+### Fixed-action quality
+
+Rates below are over the `582` primary episodes. Grounded success requires both task success and grounding pass; it is not just evidence recall.
+
+| Fixed action | Grounded/task success | Answer-value coverage | Required external-fact coverage | Grounding pass | Correct abstention |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| OFF | **35.40%** | 28.18% | 0% by design | 58.59% | 23.73% |
+| STANDARD | 9.45% | 44.56% | 99.31% | 99.48% | 0% |
+| STRONG | 9.62% | 44.85% | 100.00% | 100.00% | 0% |
+
+The fixed-action winner is **OFF** on this synthetic primary slice. That aggregate hides the requirement-class split:
+
+| Derived class | n | OFF success / abstention | STANDARD success | STRONG success | External-fact coverage (STANDARD / STRONG) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| NONE | 164 | **100.00%** | 3.66% | 3.66% | n/a |
+| RAG | 241 | 0% | 20.33% | 20.75% | 99.31% / 100.00% |
+| INSUFFICIENT | 177 | 23.73% correct abstention | 0% | 0% | n/a |
+
+The same overall pattern appears in both development partitions. On `DEV_IID` (308 primary cases), grounded success is OFF `39.61%`, STANDARD `6.82%`, STRONG `7.14%`; on `DEV_STRUCTURAL` (274), it is OFF `30.66%`, STANDARD `12.41%`, STRONG `12.41%`. These are development characterization results, not a held-out public benchmark claim.
+
+### Quality and cost frontier
+
+The privileged quality oracle succeeds on `256/582 = 43.99%`; the best fixed action, OFF, succeeds on `206/582 = 35.40%`. Thus quality headroom over the best fixed action is **+8.59 percentage points**. STRONG has only **one unique success** beyond OFF and STANDARD.
+
+For the primary slice, Always-STRONG costs `582` retrieval activations, `2,328` actual channel-search invocations, `3,009` retrieved-document instances, `582` bridge activations/model calls, `171,457` input tokens, and `24,708` output tokens. The minimum-cost oracle, constrained to preserve per-case maximal grounded success, costs `50` retrieval activations, `102` search invocations, `224` retrieved-document instances, and `1` bridge/model call (`430` input / `20` output tokens). This corresponds to **91.41% fewer retrieval activations**, **95.62% fewer actual retrieval searches**, and **99.83% fewer bridge calls** than Always-STRONG. The protocol's cost-headroom threshold passes.
+
+These oracle reductions are **upper-bound headroom, not measured savings from a deployed or learned policy**. The oracle sees sibling counterfactual outcomes and is privileged. `UNRESOLVED` cases are assigned OFF for cost accounting only; their training label remains `UNRESOLVED`.
+
+### Minimal sufficient actions and predictability
+
+| Minimal-action label | Count | Share of primary slice | Distinct subjects |
+| --- | ---: | ---: | ---: |
+| OFF | 206 | 35.40% | 71 |
+| STANDARD | 49 | 8.42% | 30 |
+| STRONG | 1 | 0.17% | 1 |
+| UNRESOLVED (all arms fail) | 326 | 56.01% | — |
+
+The action-diversity gate **fails**: only OFF meets both the `>=10%` and `>=10 subjects` criteria. STANDARD has enough subjects but is below the 10% episode threshold; STRONG is rare. This is why the final status is `COST_AWARE_POLICY_SIGNAL=YES` but `POST_TRAINING_RETRIEVAL_POLICY=NOT_JUSTIFIED`: cost headroom exists, while the observed target distribution is not sufficiently diverse to justify policy training.
+
+The single subject-grouped, five-fold TF-IDF/logistic diagnostic yields query-only accuracy `92.44%` / macro-F1 `60.59%`; query plus runtime metadata yields `90.55%` / `59.76%`. The metadata variant does not improve this probe. Accuracy is inflated by the imbalanced action labels (especially `UNRESOLVED`) and synthetic task structure; these numbers are not a production-router result and do not override the failed action-diversity gate.
+
+### Failure attribution and interpretation
+
+- All `241` RAG-required cases are correctly marked retrieval-required; there are **zero candidate retrieval misses**. Ranking misses fall from `3` under STANDARD to `0` under STRONG.
+- Yet `189/241` STANDARD and `191/241` STRONG RAG cases are attributed `RETRIEVAL_NOT_SUFFICIENT`: required evidence was present in the candidate set and used, but the task still did not meet the success contract. The gap is therefore not explained by recall alone; evidence sufficiency/composition or downstream task semantics remains limiting.
+- Retrieval causes `CONTEXT_INTERFERENCE` on `200` cases for each retrieval arm. On NONE cases, OFF succeeds `164/164` while each retrieval arm succeeds only `6/164`. For INSUFFICIENT, OFF abstains correctly on `42/177`, while STANDARD and STRONG do not abstain correctly on any.
+- External-fact coverage is near-perfect when retrieval is required, but this does not translate into broad task success. Conversely, retrieval is harmful on many cases where no external evidence is needed or evidence is insufficient. This supports studying *when to spend retrieval capability*, not further tuning the already-frozen retriever.
+
+### Gate and next step
+
+```text
+REAL_RAG_BINDING_COMPLETE = YES
+DEV_EXECUTION_COMPLETE = YES
+QUALITY_HEADROOM = +0.08591 (8.59 percentage points)
+COST_AWARE_HEADROOM = 95.62% fewer channel searches; 99.83% fewer bridge calls (oracle)
+OFF_MINIMAL_COUNT = 206
+STANDARD_MINIMAL_COUNT = 49
+STRONG_MINIMAL_COUNT = 1
+UNRESOLVED_COUNT = 326
+QUERY_ONLY_PREDICTABILITY = 92.44% accuracy / 60.59% macro-F1
+CONTEXT_METADATA_PREDICTABILITY = 90.55% accuracy / 59.76% macro-F1
+ACTION_DIVERSITY = FAIL
+COST_AWARE_POLICY_SIGNAL = YES
+POST_TRAINING_RETRIEVAL_POLICY = NOT_JUSTIFIED
+RESERVED_TEST_OOD_MATERIALIZED = NO
+RESERVED_TEST_OOD_OPENED = NO
+TRAINING_STARTED = NO
+```
+
+Per the frozen gate, do not proceed to SFT/OPD/GRPO or claim a learned adaptive router from these labels. The best fixed action on this U3-R synthetic primary slice is OFF; this is scoped to this owned DEV characterization and does **not** invalidate the separate public R2MED retrieval results or prescribe disabling RAG in the product. Preserve these artifacts and wait for the next combined-capability decision after Memory is ready. No retriever, reranker, prompt, corpus, or retrieval configuration was tuned in U3-R.
