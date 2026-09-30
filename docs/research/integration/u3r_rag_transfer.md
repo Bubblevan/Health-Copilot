@@ -62,7 +62,7 @@ The CPU-only Qwen3-8B bridge produced `1,024/1,024` valid completions with one c
 
 Rates below are over the `582` primary episodes. Grounded success requires both task success and grounding pass; it is not just evidence recall.
 
-| Fixed action | Grounded/task success | Answer-value coverage | Required external-fact coverage | Grounding pass | Correct abstention |
+| Fixed action | Grounded success (task success in this run) | Answer-value coverage | Required external-fact coverage | Grounding pass | Correct abstention |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | OFF | **35.40%** | 28.18% | 0% by design | 58.59% | 23.73% |
 | STANDARD | 9.45% | 44.56% | 99.31% | 99.48% | 0% |
@@ -128,3 +128,7 @@ TRAINING_STARTED = NO
 ```
 
 Per the frozen gate, do not proceed to SFT/OPD/GRPO or claim a learned adaptive router from these labels. The best fixed action on this U3-R synthetic primary slice is OFF; this is scoped to this owned DEV characterization and does **not** invalidate the separate public R2MED retrieval results or prescribe disabling RAG in the product. Preserve these artifacts and wait for the next combined-capability decision after Memory is ready. No retriever, reranker, prompt, corpus, or retrieval configuration was tuned in U3-R.
+
+### Post-merge validation
+
+After merging the then-current `origin/main` snapshot, the full suite completed with `898 passed, 2 skipped`. Ruff passes on every Python file changed by U3-R. Repository-wide Ruff still reports `95` findings: `93` were present before U3-R, and `2` are in the separately merged MEM-3B0S files; U3-R adds **zero** Ruff findings. The run emitted one jieba deprecation warning and one pytest-cache permission warning; no test failed.
