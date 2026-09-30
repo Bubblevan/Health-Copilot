@@ -1,0 +1,2850 @@
+{
+  "202608_opened": false,
+  "approved_corpus_chunks_sha256": "92070cbb5f5961bf1f9cfdf628bbc9cc3ea7c4fdf3a317ca378fd450aa28b5ac",
+  "b2_outputs_read": false,
+  "bridge_calls": 0,
+  "budget_results": [
+    {
+      "case_results": [
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-01",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7449.567299976479,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "486f685c6c595d746596ed79fdce4e8d08db9687cc2574d3ad6ab3cc50e51d5e",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-02",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7671.96900001727,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "069bc14d613179e46e5746b7bf31af2000006dc27a5dd144e44785ba9ad05108",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-03",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7835.459599969909,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-04",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7754.515199980233,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-05",
+          "input_tokens": 304,
+          "invented_citations": [],
+          "latency_ms": 7921.782499994151,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 38,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "2a98f95352b34c095bf1e94c48828155d00e69d10895a21a36f82bc900a3ea16",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-06",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7711.275600013323,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "62f84049fd83a2e39bf7d506c44c6db38e659f081312b9db04f73470db595379",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-07",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7741.150300018489,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-08",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7769.050500006415,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-01",
+          "input_tokens": 626,
+          "invented_citations": [],
+          "latency_ms": 42302.64319997514,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "219e03d1bf833428b4fee259459f307015de531a6ad627dc8b2003bd082811ca",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Infants should be exclusively breastfed for the first 6 months of life to achieve optimal growth, development, and health.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The guideline focuses on preventing unhealthy weight gain, not managing existing overweight or obesity.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Lower fat, restricted-calorie diets may be effective for short-term weight loss in individuals actively pursuing weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d68409",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-02",
+          "input_tokens": 600,
+          "invented_citations": [],
+          "latency_ms": 41422.048199980054,
+          "length_failure": false,
+          "output_cap": 256,
+          "output_tokens": 253,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "0bf1f95b34d701cdcea8508d35062e55a09602cec945d6739be121da8a5e4a4c",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc"
+          ]
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-03",
+          "input_tokens": 532,
+          "invented_citations": [],
+          "latency_ms": 40768.25019996613,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "1da913ce64de2f3236f841a6d57a9e6a8dac903773f6af42d134aea9a455479f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"All adults living with disability should undertake regular physical activity.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should do at least 150–300 minutes of moderate-intensity aerobic physical activity or an equivalent combination of moderate- and vigorous-intensity activity throughout the week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should also do muscle-strengthening activities at moderate or greater intensity that involve all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults living with disability should do varied multicomponent physical activity that emphasizes functional balance and strength training",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-04",
+          "input_tokens": 524,
+          "invented_citations": [],
+          "latency_ms": 41355.41530000046,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "590d67a91609133547b2c1bd76e4f9706d25609754b48e56799ac17236207b6f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Older adults should engage in at least 150–300 minutes of moderate-intensity aerobic physical activity weekly.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults should also perform muscle-strengthening activities involving all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Varied multicomponent physical activity emphasizing functional balance and strength training should be done on 3 or more days a week to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults may increase aerobic activity beyond 300 minutes of moderate-intensity or 1",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-05",
+          "input_tokens": 499,
+          "invented_citations": [],
+          "latency_ms": 40956.2811999931,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "490c7e27e83683430b065befc2311e7f2ee5484f6e7b480fe1538110db4274e1",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"WHO recommends that adults limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"This recommendation is specifically relevant for individuals aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"The evidence was considered insufficient to support the formulation of a recommendation for children due to limited studies and inconsistent results.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"For children aged 6 months and above and adolescents, total fat intakes of up to 35% of total energy are appropriate to meet growth demands without leading to excess energy intake.\",\n      \"citations\": [\"who-guideline-5f9",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-06",
+          "input_tokens": 509,
+          "invented_citations": [],
+          "latency_ms": 41836.25009999378,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "7a9e88b7e27668a262311e1808923ce57b777547bca0441f362a64dc27c6df14",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that cardiovascular risk assessment should be conducted at or after the initiation of pharmacological treatment for hypertension.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"Cardiovascular risk assessment is most important for guiding decisions about initiating pharmacological treatment for hypertension in those with lower SBP (130–139 mmHg).\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"CVD risk assessment is critical in those with HTN that other risk factors must be identified and treated appropriately to lower total cardiovascular risk.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"In the absence of a calibrated equation for the local population, the choice of CVD risk-assessment systems should depend on resources available",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-07",
+          "input_tokens": 531,
+          "invented_citations": [],
+          "latency_ms": 41937.140099995304,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "a47506973b6c1f62a8a2bb85766f2f8d3d6e808b813797da3412cf3b80feb370",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO recommends initiating pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension and systolic blood pressure of ≥140 mmHg or diastolic blood pressure of ≥90 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"For individuals with existing cardiovascular disease, the WHO recommends pharmacological treatment if systolic blood pressure is 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"The WHO suggests pharmacological treatment for individuals without cardiovascular disease but with high cardiovascular risk, diabetes mellitus, or chronic kidney disease, and systolic blood pressure of 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q1-08",
+          "input_tokens": 465,
+          "invented_citations": [],
+          "latency_ms": 36576.16890000645,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "57d9cca5ec5e09619a9d481555f32313ccee3d710d7bb85d8256463df247fb6a",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Pharmacological treatment of hypertension can be provided by nonphysician professionals such as pharmacists and nurses.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Nonphysician professionals must have proper training, prescribing authority, specific management protocols, and physician oversight.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Community health care workers may assist in tasks such as education, delivery of medications, blood pressure measurement, and monitoring through a collaborative care model.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Telemonitoring and community or home-based self-care are encouraged to enhance blood pressure control as part of an integrated management system.\",\n      \"citations\": [\"who-guideline-5ca2",
+          "state_contract_match": false,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-01",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 52297.59380000178,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "765f696b0dda7ae45749b64cb316710bc442368879a550ecda73e3811bef9caa",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may lead to a decrease in weight as it can affect energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Physical activity is also recommended for older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-02",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 48600.04629998002,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "498efbf0c96cb120667af41f14afa8d181f4a35a61d266ef282d6c3926ad90cf",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-03",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 40911.44270001678,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-04",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 41728.11920003733,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\":",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-05",
+          "input_tokens": 1861,
+          "invented_citations": [],
+          "latency_ms": 50808.55100002373,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "614cc6b7c6d95281da056734967745dccf70fd8a24c56ef98436bda8d5aee7e1",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\":",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-06",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 50800.60900002718,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "ac9de1008ec6edea265883163ce4fef7582a7e7d0a47e45c4c9f77a543bbf566",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n     ",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-07",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 51052.28180001723,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": false,
+          "evidence_required": true,
+          "finish_reason": "length",
+          "fixture_id": "Q2-08",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 51128.56969999848,
+          "length_failure": true,
+          "output_cap": 256,
+          "output_tokens": 256,
+          "parsed_output": null,
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\":",
+          "state_contract_match": false,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": false,
+          "valid_supplied_citations": []
+        }
+      ],
+      "cases": 24,
+      "finish_reason_length": 15,
+      "gates": {
+        "p95_output_tokens_at_most_75_percent_cap": false,
+        "q0_q2_canonical_state_100_percent": false,
+        "q1_q2_citation_contract": false,
+        "valid_json_24_of_24": false,
+        "zero_finish_reason_length": false
+      },
+      "output_budget": 256,
+      "output_tokens": {
+        "count": 24,
+        "max": 256,
+        "p50": 256.0,
+        "p95_cap": 192.0,
+        "p95_nearest_rank": 256
+      },
+      "passed": false,
+      "q0_q2_state_contract_match": {
+        "matched": 8,
+        "total": 16
+      },
+      "q1_q2_citation_contract_match": {
+        "invented_citation_count": 0,
+        "matched": 1,
+        "total": 16
+      },
+      "valid_json": 9
+    },
+    {
+      "case_results": [
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-01",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7950.62489999691,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "486f685c6c595d746596ed79fdce4e8d08db9687cc2574d3ad6ab3cc50e51d5e",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-02",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 8297.719300026074,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "069bc14d613179e46e5746b7bf31af2000006dc27a5dd144e44785ba9ad05108",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-03",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7889.819199976046,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-04",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7932.908300019335,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-05",
+          "input_tokens": 304,
+          "invented_citations": [],
+          "latency_ms": 8160.701300017536,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 38,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "2a98f95352b34c095bf1e94c48828155d00e69d10895a21a36f82bc900a3ea16",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-06",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7929.335099994205,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "62f84049fd83a2e39bf7d506c44c6db38e659f081312b9db04f73470db595379",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-07",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7946.403599984478,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-08",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7804.59770001471,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-01",
+          "input_tokens": 626,
+          "invented_citations": [],
+          "latency_ms": 46145.8372999914,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 273,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Infants should be exclusively breastfed for the first 6 months of life to achieve optimal growth, development, and health."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "The guideline focuses on preventing unhealthy weight gain, not managing existing overweight or obesity."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Lower fat, restricted-calorie diets may be effective for short-term weight loss in individuals actively pursuing weight loss."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "219e03d1bf833428b4fee259459f307015de531a6ad627dc8b2003bd082811ca",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Infants should be exclusively breastfed for the first 6 months of life to achieve optimal growth, development, and health.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The guideline focuses on preventing unhealthy weight gain, not managing existing overweight or obesity.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Lower fat, restricted-calorie diets may be effective for short-term weight loss in individuals actively pursuing weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-02",
+          "input_tokens": 600,
+          "invented_citations": [],
+          "latency_ms": 42196.52270001825,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 253,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "0bf1f95b34d701cdcea8508d35062e55a09602cec945d6739be121da8a5e4a4c",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-03",
+          "input_tokens": 532,
+          "invented_citations": [],
+          "latency_ms": 48569.3855000427,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 316,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "All adults living with disability should undertake regular physical activity."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Adults living with disability should do at least 150–300 minutes of moderate-intensity aerobic physical activity or an equivalent combination of moderate- and vigorous-intensity activity throughout the week."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Adults living with disability should also do muscle-strengthening activities at moderate or greater intensity that involve all major muscle groups on 2 or more days a week."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Older adults living with disability should do varied multicomponent physical activity that emphasizes functional balance and strength training at moderate or greater intensity on 3 or more days a week to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "1da913ce64de2f3236f841a6d57a9e6a8dac903773f6af42d134aea9a455479f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"All adults living with disability should undertake regular physical activity.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should do at least 150–300 minutes of moderate-intensity aerobic physical activity or an equivalent combination of moderate- and vigorous-intensity activity throughout the week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should also do muscle-strengthening activities at moderate or greater intensity that involve all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults living with disability should do varied multicomponent physical activity that emphasizes functional balance and strength training at moderate or greater intensity on 3 or more days a week to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-04",
+          "input_tokens": 524,
+          "invented_citations": [],
+          "latency_ms": 47030.90959996916,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 308,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in at least 150–300 minutes of moderate-intensity aerobic physical activity weekly."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should also perform muscle-strengthening activities involving all major muscle groups on 2 or more days a week."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Varied multicomponent physical activity emphasizing functional balance and strength training should be done on 3 or more days a week to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults may increase aerobic activity beyond 300 minutes of moderate-intensity or 150 minutes of vigorous-intensity for additional health benefits."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "590d67a91609133547b2c1bd76e4f9706d25609754b48e56799ac17236207b6f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Older adults should engage in at least 150–300 minutes of moderate-intensity aerobic physical activity weekly.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults should also perform muscle-strengthening activities involving all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Varied multicomponent physical activity emphasizing functional balance and strength training should be done on 3 or more days a week to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults may increase aerobic activity beyond 300 minutes of moderate-intensity or 150 minutes of vigorous-intensity for additional health benefits.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-9c2ad627f2731d22c33e010d"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-05",
+          "input_tokens": 499,
+          "invented_citations": [],
+          "latency_ms": 42966.219199995976,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 279,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "WHO recommends that adults limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "This recommendation is specifically relevant for individuals aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The evidence was considered insufficient to support the formulation of a recommendation for children due to limited studies and inconsistent results."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "For children aged 6 months and above and adolescents, total fat intakes of up to 35% of total energy are appropriate to meet growth demands without leading to excess energy intake."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "490c7e27e83683430b065befc2311e7f2ee5484f6e7b480fe1538110db4274e1",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"WHO recommends that adults limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"This recommendation is specifically relevant for individuals aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"The evidence was considered insufficient to support the formulation of a recommendation for children due to limited studies and inconsistent results.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"For children aged 6 months and above and adolescents, total fat intakes of up to 35% of total energy are appropriate to meet growth demands without leading to excess energy intake.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-5f9f38ca0abb571b9420ada2"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-06",
+          "input_tokens": 509,
+          "invented_citations": [],
+          "latency_ms": 45708.73930002563,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 302,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "The WHO guideline suggests that cardiovascular risk assessment should be conducted at or after the initiation of pharmacological treatment for hypertension."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "Cardiovascular risk assessment is most important for guiding decisions about initiating pharmacological treatment for hypertension in those with lower SBP (130–139 mmHg)."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "CVD risk assessment is critical in those with HTN that other risk factors must be identified and treated appropriately to lower total cardiovascular risk."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "In the absence of a calibrated equation for the local population, the choice of CVD risk-assessment systems should depend on resources available, acceptability, and feasibility of application."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "7a9e88b7e27668a262311e1808923ce57b777547bca0441f362a64dc27c6df14",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that cardiovascular risk assessment should be conducted at or after the initiation of pharmacological treatment for hypertension.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"Cardiovascular risk assessment is most important for guiding decisions about initiating pharmacological treatment for hypertension in those with lower SBP (130–139 mmHg).\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"CVD risk assessment is critical in those with HTN that other risk factors must be identified and treated appropriately to lower total cardiovascular risk.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"In the absence of a calibrated equation for the local population, the choice of CVD risk-assessment systems should depend on resources available, acceptability, and feasibility of application.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-a88b56abfce6c49800316477"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-07",
+          "input_tokens": 531,
+          "invented_citations": [],
+          "latency_ms": 53045.62210000586,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 343,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "The WHO recommends initiating pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension and systolic blood pressure of ≥140 mmHg or diastolic blood pressure of ≥90 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "For individuals with existing cardiovascular disease, the WHO recommends pharmacological treatment if systolic blood pressure is 130–139 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "The WHO suggests pharmacological treatment for individuals without cardiovascular disease but with high cardiovascular risk, diabetes mellitus, or chronic kidney disease, and systolic blood pressure of 130–139 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "Pharmacological treatment for hypertension should start no later than four weeks following diagnosis, and earlier if blood pressure is very high or there is evidence of end organ damage."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "a47506973b6c1f62a8a2bb85766f2f8d3d6e808b813797da3412cf3b80feb370",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO recommends initiating pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension and systolic blood pressure of ≥140 mmHg or diastolic blood pressure of ≥90 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"For individuals with existing cardiovascular disease, the WHO recommends pharmacological treatment if systolic blood pressure is 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"The WHO suggests pharmacological treatment for individuals without cardiovascular disease but with high cardiovascular risk, diabetes mellitus, or chronic kidney disease, and systolic blood pressure of 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"Pharmacological treatment for hypertension should start no later than four weeks following diagnosis, and earlier if blood pressure is very high or there is evidence of end organ damage.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-7f385b69c8e66434d2fefc4c"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-08",
+          "input_tokens": 465,
+          "invented_citations": [],
+          "latency_ms": 42549.21989998547,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 282,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Pharmacological treatment of hypertension can be provided by nonphysician professionals such as pharmacists and nurses."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Nonphysician professionals must have proper training, prescribing authority, specific management protocols, and physician oversight."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Community health care workers may assist in tasks such as education, delivery of medications, blood pressure measurement, and monitoring through a collaborative care model."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Telemonitoring and community or home-based self-care are encouraged to enhance blood pressure control as part of an integrated management system."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "57d9cca5ec5e09619a9d481555f32313ccee3d710d7bb85d8256463df247fb6a",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Pharmacological treatment of hypertension can be provided by nonphysician professionals such as pharmacists and nurses.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Nonphysician professionals must have proper training, prescribing authority, specific management protocols, and physician oversight.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Community health care workers may assist in tasks such as education, delivery of medications, blood pressure measurement, and monitoring through a collaborative care model.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Telemonitoring and community or home-based self-care are encouraged to enhance blood pressure control as part of an integrated management system.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-5ca2f3d427b204da9c293c0f"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-01",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 53782.8285000287,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 286,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may lead to a decrease in weight as it can affect energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is also recommended for older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "765f696b0dda7ae45749b64cb316710bc442368879a550ecda73e3811bef9caa",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may lead to a decrease in weight as it can affect energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Physical activity is also recommended for older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-02",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 54660.829600004945,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 290,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in body weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in regular physical activity to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "498efbf0c96cb120667af41f14afa8d181f4a35a61d266ef282d6c3926ad90cf",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-03",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 58763.28780001495,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 322,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-04",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 57609.94310001843,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 309,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may help decrease weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability and older adults to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-05",
+          "input_tokens": 1861,
+          "invented_citations": [],
+          "latency_ms": 54293.96959999576,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 291,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in body weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in regular physical activity to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "614cc6b7c6d95281da056734967745dccf70fd8a24c56ef98436bda8d5aee7e1",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-06",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 59422.469199984334,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 323,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "ac9de1008ec6edea265883163ce4fef7582a7e7d0a47e45c4c9f77a543bbf566",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-07",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 58998.889600043185,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 322,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-08",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 57251.59719999647,
+          "length_failure": false,
+          "output_cap": 384,
+          "output_tokens": 309,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may help decrease weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability and older adults to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        }
+      ],
+      "cases": 24,
+      "finish_reason_length": 0,
+      "gates": {
+        "p95_output_tokens_at_most_75_percent_cap": false,
+        "q0_q2_canonical_state_100_percent": true,
+        "q1_q2_citation_contract": true,
+        "valid_json_24_of_24": true,
+        "zero_finish_reason_length": true
+      },
+      "output_budget": 384,
+      "output_tokens": {
+        "count": 24,
+        "max": 343,
+        "p50": 284.0,
+        "p95_cap": 288.0,
+        "p95_nearest_rank": 323
+      },
+      "passed": false,
+      "q0_q2_state_contract_match": {
+        "matched": 16,
+        "total": 16
+      },
+      "q1_q2_citation_contract_match": {
+        "invented_citation_count": 0,
+        "matched": 16,
+        "total": 16
+      },
+      "valid_json": 24
+    },
+    {
+      "case_results": [
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-01",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7576.000799948815,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "486f685c6c595d746596ed79fdce4e8d08db9687cc2574d3ad6ab3cc50e51d5e",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-02",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7654.7520000021905,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "069bc14d613179e46e5746b7bf31af2000006dc27a5dd144e44785ba9ad05108",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-03",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7577.0932000014,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-04",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7671.697499987204,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-05",
+          "input_tokens": 304,
+          "invented_citations": [],
+          "latency_ms": 7875.1278999843635,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 38,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "2a98f95352b34c095bf1e94c48828155d00e69d10895a21a36f82bc900a3ea16",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"falling\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-06",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7806.907800026238,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "62f84049fd83a2e39bf7d506c44c6db38e659f081312b9db04f73470db595379",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-07",
+          "input_tokens": 302,
+          "invented_citations": [],
+          "latency_ms": 7498.278999992181,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 36,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "e54d8cbfbc5add2f78691291ddb7f738f50c45c9368f5be54b257bb434f04646",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_weight\", \"value\": \"stable\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": false,
+          "finish_reason": "stop",
+          "fixture_id": "Q0-08",
+          "input_tokens": 303,
+          "invented_citations": [],
+          "latency_ms": 7695.818700012751,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 37,
+          "parsed_output": {
+            "guidance_facts": [],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a71403f67da2776734977389a3a2f8bd7dadb71af77e93155a081bc82315bfb",
+          "raw_output": "{\n  \"state_facts\": [\n    {\"field\": \"body_mass_index\", \"value\": \"rising\"}\n  ],\n  \"guidance_facts\": []\n}",
+          "state_contract_match": true,
+          "stratum": "Q0_STATE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": []
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-01",
+          "input_tokens": 626,
+          "invented_citations": [],
+          "latency_ms": 44210.43799998006,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 273,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Infants should be exclusively breastfed for the first 6 months of life to achieve optimal growth, development, and health."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "The guideline focuses on preventing unhealthy weight gain, not managing existing overweight or obesity."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Lower fat, restricted-calorie diets may be effective for short-term weight loss in individuals actively pursuing weight loss."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "219e03d1bf833428b4fee259459f307015de531a6ad627dc8b2003bd082811ca",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Infants should be exclusively breastfed for the first 6 months of life to achieve optimal growth, development, and health.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The guideline focuses on preventing unhealthy weight gain, not managing existing overweight or obesity.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"Lower fat, restricted-calorie diets may be effective for short-term weight loss in individuals actively pursuing weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-02",
+          "input_tokens": 600,
+          "invented_citations": [],
+          "latency_ms": 40620.12409995077,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 253,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "0bf1f95b34d701cdcea8508d35062e55a09602cec945d6739be121da8a5e4a4c",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The recommendation emphasizes that reducing total fat intake alone is not sufficient to prevent unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Total fat intake should be at least 15–20% of total energy intake to ensure adequate energy and essential fatty acids.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"The implementation of this recommendation must consider individual energy requirements and avoid excess energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"In populations where undernutrition is a concern, maintaining or increasing total fat intake may be important to achieve adequate energy intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-03",
+          "input_tokens": 532,
+          "invented_citations": [],
+          "latency_ms": 48100.40360002313,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 316,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "All adults living with disability should undertake regular physical activity."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Adults living with disability should do at least 150–300 minutes of moderate-intensity aerobic physical activity or an equivalent combination of moderate- and vigorous-intensity activity throughout the week."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Adults living with disability should also do muscle-strengthening activities at moderate or greater intensity that involve all major muscle groups on 2 or more days a week."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Older adults living with disability should do varied multicomponent physical activity that emphasizes functional balance and strength training at moderate or greater intensity on 3 or more days a week to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "1da913ce64de2f3236f841a6d57a9e6a8dac903773f6af42d134aea9a455479f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"All adults living with disability should undertake regular physical activity.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should do at least 150–300 minutes of moderate-intensity aerobic physical activity or an equivalent combination of moderate- and vigorous-intensity activity throughout the week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Adults living with disability should also do muscle-strengthening activities at moderate or greater intensity that involve all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults living with disability should do varied multicomponent physical activity that emphasizes functional balance and strength training at moderate or greater intensity on 3 or more days a week to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-04",
+          "input_tokens": 524,
+          "invented_citations": [],
+          "latency_ms": 46893.645000003744,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 308,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in at least 150–300 minutes of moderate-intensity aerobic physical activity weekly."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should also perform muscle-strengthening activities involving all major muscle groups on 2 or more days a week."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Varied multicomponent physical activity emphasizing functional balance and strength training should be done on 3 or more days a week to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults may increase aerobic activity beyond 300 minutes of moderate-intensity or 150 minutes of vigorous-intensity for additional health benefits."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "590d67a91609133547b2c1bd76e4f9706d25609754b48e56799ac17236207b6f",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Older adults should engage in at least 150–300 minutes of moderate-intensity aerobic physical activity weekly.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults should also perform muscle-strengthening activities involving all major muscle groups on 2 or more days a week.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Varied multicomponent physical activity emphasizing functional balance and strength training should be done on 3 or more days a week to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"Older adults may increase aerobic activity beyond 300 minutes of moderate-intensity or 150 minutes of vigorous-intensity for additional health benefits.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-9c2ad627f2731d22c33e010d"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-05",
+          "input_tokens": 499,
+          "invented_citations": [],
+          "latency_ms": 42277.9290000326,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 279,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "WHO recommends that adults limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "This recommendation is specifically relevant for individuals aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The evidence was considered insufficient to support the formulation of a recommendation for children due to limited studies and inconsistent results."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "For children aged 6 months and above and adolescents, total fat intakes of up to 35% of total energy are appropriate to meet growth demands without leading to excess energy intake."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "490c7e27e83683430b065befc2311e7f2ee5484f6e7b480fe1538110db4274e1",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"WHO recommends that adults limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"This recommendation is specifically relevant for individuals aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"The evidence was considered insufficient to support the formulation of a recommendation for children due to limited studies and inconsistent results.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"For children aged 6 months and above and adolescents, total fat intakes of up to 35% of total energy are appropriate to meet growth demands without leading to excess energy intake.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-5f9f38ca0abb571b9420ada2"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-06",
+          "input_tokens": 509,
+          "invented_citations": [],
+          "latency_ms": 46063.725500018336,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 302,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "The WHO guideline suggests that cardiovascular risk assessment should be conducted at or after the initiation of pharmacological treatment for hypertension."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "Cardiovascular risk assessment is most important for guiding decisions about initiating pharmacological treatment for hypertension in those with lower SBP (130–139 mmHg)."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "CVD risk assessment is critical in those with HTN that other risk factors must be identified and treated appropriately to lower total cardiovascular risk."
+              },
+              {
+                "citations": [
+                  "who-guideline-a88b56abfce6c49800316477"
+                ],
+                "statement": "In the absence of a calibrated equation for the local population, the choice of CVD risk-assessment systems should depend on resources available, acceptability, and feasibility of application."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "7a9e88b7e27668a262311e1808923ce57b777547bca0441f362a64dc27c6df14",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that cardiovascular risk assessment should be conducted at or after the initiation of pharmacological treatment for hypertension.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"Cardiovascular risk assessment is most important for guiding decisions about initiating pharmacological treatment for hypertension in those with lower SBP (130–139 mmHg).\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"CVD risk assessment is critical in those with HTN that other risk factors must be identified and treated appropriately to lower total cardiovascular risk.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    },\n    {\n      \"statement\": \"In the absence of a calibrated equation for the local population, the choice of CVD risk-assessment systems should depend on resources available, acceptability, and feasibility of application.\",\n      \"citations\": [\"who-guideline-a88b56abfce6c49800316477\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-a88b56abfce6c49800316477"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-07",
+          "input_tokens": 531,
+          "invented_citations": [],
+          "latency_ms": 51880.17779996153,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 343,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "The WHO recommends initiating pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension and systolic blood pressure of ≥140 mmHg or diastolic blood pressure of ≥90 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "For individuals with existing cardiovascular disease, the WHO recommends pharmacological treatment if systolic blood pressure is 130–139 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "The WHO suggests pharmacological treatment for individuals without cardiovascular disease but with high cardiovascular risk, diabetes mellitus, or chronic kidney disease, and systolic blood pressure of 130–139 mmHg."
+              },
+              {
+                "citations": [
+                  "who-guideline-7f385b69c8e66434d2fefc4c"
+                ],
+                "statement": "Pharmacological treatment for hypertension should start no later than four weeks following diagnosis, and earlier if blood pressure is very high or there is evidence of end organ damage."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "a47506973b6c1f62a8a2bb85766f2f8d3d6e808b813797da3412cf3b80feb370",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO recommends initiating pharmacological antihypertensive treatment for individuals with a confirmed diagnosis of hypertension and systolic blood pressure of ≥140 mmHg or diastolic blood pressure of ≥90 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"For individuals with existing cardiovascular disease, the WHO recommends pharmacological treatment if systolic blood pressure is 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"The WHO suggests pharmacological treatment for individuals without cardiovascular disease but with high cardiovascular risk, diabetes mellitus, or chronic kidney disease, and systolic blood pressure of 130–139 mmHg.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    },\n    {\n      \"statement\": \"Pharmacological treatment for hypertension should start no later than four weeks following diagnosis, and earlier if blood pressure is very high or there is evidence of end organ damage.\",\n      \"citations\": [\"who-guideline-7f385b69c8e66434d2fefc4c\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-7f385b69c8e66434d2fefc4c"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q1-08",
+          "input_tokens": 465,
+          "invented_citations": [],
+          "latency_ms": 42910.52689997014,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 282,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Pharmacological treatment of hypertension can be provided by nonphysician professionals such as pharmacists and nurses."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Nonphysician professionals must have proper training, prescribing authority, specific management protocols, and physician oversight."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Community health care workers may assist in tasks such as education, delivery of medications, blood pressure measurement, and monitoring through a collaborative care model."
+              },
+              {
+                "citations": [
+                  "who-guideline-5ca2f3d427b204da9c293c0f"
+                ],
+                "statement": "Telemonitoring and community or home-based self-care are encouraged to enhance blood pressure control as part of an integrated management system."
+              }
+            ],
+            "state_facts": []
+          },
+          "prompt_sha256": "57d9cca5ec5e09619a9d481555f32313ccee3d710d7bb85d8256463df247fb6a",
+          "raw_output": "{\n  \"state_facts\": [],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Pharmacological treatment of hypertension can be provided by nonphysician professionals such as pharmacists and nurses.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Nonphysician professionals must have proper training, prescribing authority, specific management protocols, and physician oversight.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Community health care workers may assist in tasks such as education, delivery of medications, blood pressure measurement, and monitoring through a collaborative care model.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    },\n    {\n      \"statement\": \"Telemonitoring and community or home-based self-care are encouraged to enhance blood pressure control as part of an integrated management system.\",\n      \"citations\": [\"who-guideline-5ca2f3d427b204da9c293c0f\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q1_EVIDENCE_ONLY",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-5ca2f3d427b204da9c293c0f"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-01",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 53966.6207000264,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 286,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may lead to a decrease in weight as it can affect energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is also recommended for older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "765f696b0dda7ae45749b64cb316710bc442368879a550ecda73e3811bef9caa",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may lead to a decrease in weight as it can affect energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Physical activity is also recommended for older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-02",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 54760.38089999929,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 290,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in body weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in regular physical activity to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "498efbf0c96cb120667af41f14afa8d181f4a35a61d266ef282d6c3926ad90cf",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-03",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 59274.57970002433,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 322,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-04",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 57245.1374999946,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 309,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may help decrease weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability and older adults to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-05",
+          "input_tokens": 1861,
+          "invented_citations": [],
+          "latency_ms": 54499.08510001842,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 291,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in body weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls."
+              },
+              {
+                "citations": [
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Older adults should engage in regular physical activity to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "falling"
+              }
+            ]
+          },
+          "prompt_sha256": "614cc6b7c6d95281da056734967745dccf70fd8a24c56ef98436bda8d5aee7e1",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"falling\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in body weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy intake is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\"]\n    },\n    {\n      \"statement\": \"Older adults should engage in regular physical activity to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-06",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 59548.803100013174,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 323,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "ac9de1008ec6edea265883163ce4fef7582a7e7d0a47e45c4c9f77a543bbf566",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-07",
+          "input_tokens": 1859,
+          "invented_citations": [],
+          "latency_ms": 59363.21979999775,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 322,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain."
+              },
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_weight",
+                "value": "stable"
+              }
+            ]
+          },
+          "prompt_sha256": "f594f98f719c71a3bb667fe58c69a10abdb11fb793810279f2dbe64ad56aa8e8",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_weight\",\n      \"value\": \"stable\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"The WHO guideline suggests that adults should limit total fat intake to 30% of total energy intake or less to reduce the risk of unhealthy weight gain.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Reducing total fat intake can lead to a decrease in total energy intake, which may result in weight loss.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors, not just total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults and older adults to enhance functional capacity and prevent falls.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        },
+        {
+          "citation_contract_match": true,
+          "evidence_required": true,
+          "finish_reason": "stop",
+          "fixture_id": "Q2-08",
+          "input_tokens": 1860,
+          "invented_citations": [],
+          "latency_ms": 57082.14900002349,
+          "length_failure": false,
+          "output_cap": 512,
+          "output_tokens": 309,
+          "parsed_output": {
+            "guidance_facts": [
+              {
+                "citations": [
+                  "who-guideline-4f47a8d684098dc3c22b7ad5"
+                ],
+                "statement": "Reducing total fat intake may help decrease weight by affecting energy balance."
+              },
+              {
+                "citations": [
+                  "who-guideline-5f9f38ca0abb571b9420ada2"
+                ],
+                "statement": "The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older."
+              },
+              {
+                "citations": [
+                  "who-guideline-e6e84b1a717d8c85db5f0454",
+                  "who-guideline-9c2ad627f2731d22c33e010d"
+                ],
+                "statement": "Physical activity is recommended for adults living with disability and older adults to enhance health benefits."
+              },
+              {
+                "citations": [
+                  "who-guideline-33511bbfac7ce4586cb7aadc"
+                ],
+                "statement": "The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake."
+              }
+            ],
+            "state_facts": [
+              {
+                "field": "body_mass_index",
+                "value": "rising"
+              }
+            ]
+          },
+          "prompt_sha256": "6a0c5de49316e70d6e096fd2243ae6e248ea49d0f8a31115f41eb71817666781",
+          "raw_output": "{\n  \"state_facts\": [\n    {\n      \"field\": \"body_mass_index\",\n      \"value\": \"rising\"\n    }\n  ],\n  \"guidance_facts\": [\n    {\n      \"statement\": \"Reducing total fat intake may help decrease weight by affecting energy balance.\",\n      \"citations\": [\"who-guideline-4f47a8d684098dc3c22b7ad5\"]\n    },\n    {\n      \"statement\": \"The recommendation to limit total fat intake to 30% of total energy is relevant for adults aged 20 years or older.\",\n      \"citations\": [\"who-guideline-5f9f38ca0abb571b9420ada2\"]\n    },\n    {\n      \"statement\": \"Physical activity is recommended for adults living with disability and older adults to enhance health benefits.\",\n      \"citations\": [\"who-guideline-e6e84b1a717d8c85db5f0454\", \"who-guideline-9c2ad627f2731d22c33e010d\"]\n    },\n    {\n      \"statement\": \"The etiology of unhealthy weight gain is complex and involves multiple factors beyond total fat intake.\",\n      \"citations\": [\"who-guideline-33511bbfac7ce4586cb7aadc\"]\n    }\n  ]\n}",
+          "state_contract_match": true,
+          "stratum": "Q2_STATE_AND_EVIDENCE",
+          "valid_json": true,
+          "valid_supplied_citations": [
+            "who-guideline-33511bbfac7ce4586cb7aadc",
+            "who-guideline-4f47a8d684098dc3c22b7ad5",
+            "who-guideline-5f9f38ca0abb571b9420ada2",
+            "who-guideline-9c2ad627f2731d22c33e010d",
+            "who-guideline-e6e84b1a717d8c85db5f0454"
+          ]
+        }
+      ],
+      "cases": 24,
+      "finish_reason_length": 0,
+      "gates": {
+        "p95_output_tokens_at_most_75_percent_cap": true,
+        "q0_q2_canonical_state_100_percent": true,
+        "q1_q2_citation_contract": true,
+        "valid_json_24_of_24": true,
+        "zero_finish_reason_length": true
+      },
+      "output_budget": 512,
+      "output_tokens": {
+        "count": 24,
+        "max": 343,
+        "p50": 284.0,
+        "p95_cap": 384.0,
+        "p95_nearest_rank": 323
+      },
+      "passed": true,
+      "q0_q2_state_contract_match": {
+        "matched": 16,
+        "total": 16
+      },
+      "q1_q2_citation_contract_match": {
+        "invented_citation_count": 0,
+        "matched": 16,
+        "total": 16
+      },
+      "valid_json": 24
+    }
+  ],
+  "call_ledger_sha256": "f2be1bf9d3d487d2ab9bc7d1a0d810cf84e6bbc050b4bd3c3c068d5458c90c22",
+  "fixture_set_sha256": "be08bef9ee465595696ad8dceaf6478594b40df599265da8ef9e74c7e2d30fef",
+  "llama_cpp": {
+    "endpoint": "http://127.0.0.1:8093/v1",
+    "executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "executable_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_args": [
+      "--host 127.0.0.1",
+      "--port 8093",
+      "--ctx-size 16384",
+      "--n-gpu-layers 0",
+      "--reasoning off",
+      "--chat-template-kwargs {\"enable_thinking\":false}",
+      "--no-cache-prompt",
+      "--parallel 1",
+      "--offline",
+      "--no-webui"
+    ],
+    "version": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "model": {
+    "bytes": 5027783488,
+    "file": "Qwen3-8B-Q4_K_M.gguf",
+    "reasoning": "disabled",
+    "repository": "Qwen/Qwen3-8B-GGUF",
+    "retry_on_error": false,
+    "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "temperature": 0.0
+  },
+  "qualification_cases": 24,
+  "qualification_code_commit": "bf3117cd877a953c5f8b34ddce7b2cd2deb38952",
+  "qualification_lock_sha256": "df095956f301bc3f519c003d7a1d2f7a197a918a2781a9f81e575e540ff46adb",
+  "qualification_model_calls": 72,
+  "qualification_report_sha256": "e98a1e69a69b7de198811587f8fa2dc89cbf07b84b3703a5490790c871da4fc1",
+  "reader_contract_qualified": true,
+  "reader_prompt_sha256": "2f9073d43f4bb01ea16602bea822525b73fe223a62eabe2ce2fd7d26c67fb7a5",
+  "reader_schema_sha256": "3b31dadccc42aa2bd703d9f2d47e8edec693491b79f6fb56f0d7fc3801a0369e",
+  "reader_state_projection_sha256": "631352e4e53c9690c3af81013374984a291380b4bd335243f060000d0e67fd23",
+  "retrieval_calls": 0,
+  "schema_version": "rag-e5-e5b3-reader-qualification-v1",
+  "selected_output_budget": 512,
+  "status": "QUALIFIED",
+  "tested_budgets": [
+    256,
+    384,
+    512
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "202608_opened": false,
+  "ACTION_DIVERSITY_GATE": "NOT_EVALUATED",
+  "E5C_RESEARCH_QUESTION_WORTH_CONTINUING": false,
+  "E5C_STARTED": false,
+  "MEASUREMENT_RECOVERY_GATE": "FAIL",
+  "ORACLE_HEADROOM_GATE": "NOT_EVALUATED",
+  "T2_DEPENDENCY_GATE": "NOT_EVALUATED",
+  "arms": 180,
+  "b2_artifact_set_sha256": "e528263a5141e6ac476252a9bfb04a1a95fc53475c5617bec23fb106980168f1",
+  "b2_artifacts_modified": false,
+  "b2_results_rescored": false,
+  "b2_reuse_manifest_sha256": "ef170dc19813c2cb6c5325a7208de1778bebb4a10883f9b4d9a5ab3f055c20d1",
+  "b3_recovery_lock_sha256": "530e511d1d16b23c6e9d861aa8fd18ad7a863a248e326fcd70daee912408e6fe",
+  "cases": 60,
+  "conditional_value_evaluated": false,
+  "execution_manifest_sha256": "86b883dfb0dfce46bd9dde00377fd5e86432e6bdaeee55c5bce0da3951d56a97",
+  "measurement_recovery_gate": "FAIL",
+  "new_bridge_calls": 0,
+  "new_reader_calls": 180,
+  "new_retrieval_calls": 0,
+  "qualification_report_sha256": "e98a1e69a69b7de198811587f8fa2dc89cbf07b84b3703a5490790c871da4fc1",
+  "reader_measurement_comparison": {
+    "B2": {
+      "arms": 180,
+      "comparison_scope": "reader measurement only; no B2 teacher score recomputed",
+      "finish_reason_length": 80,
+      "finish_reason_length_rate": 0.4444444444444444,
+      "reader_json_valid": 100,
+      "reader_json_valid_rate": 0.5555555555555556,
+      "state_contract_match_rate": 0.0,
+      "state_contract_matching_arms": 0,
+      "state_fact_present_arms": 80,
+      "state_fact_projection_match_rate": 0.0,
+      "state_facts": 80,
+      "state_facts_matching_runtime_projection": 0,
+      "stateful_arms": 120
+    },
+    "B3": {
+      "arms": 180,
+      "by_action": {
+        "OFF": {
+          "arms": 60,
+          "finish_reason_length": 0,
+          "json_valid": 20
+        },
+        "STANDARD": {
+          "arms": 60,
+          "finish_reason_length": 0,
+          "json_valid": 21
+        },
+        "STRONG": {
+          "arms": 60,
+          "finish_reason_length": 0,
+          "json_valid": 20
+        }
+      },
+      "finish_reason_length": 0,
+      "finish_reason_length_rate": 0.0,
+      "reader_json_valid": 61,
+      "reader_json_valid_rate": 0.3388888888888889,
+      "state_contract_match_rate": 0.008333333333333333,
+      "state_contract_matching_arms": 1,
+      "state_fact_present_arms": 1,
+      "state_fact_projection_match_rate": 1.0,
+      "state_facts": 2,
+      "state_facts_matching_runtime_projection": 2,
+      "stateful_arms": 120
+    }
+  },
+  "reader_model": {
+    "bytes": 5027783488,
+    "file": "Qwen3-8B-Q4_K_M.gguf",
+    "reasoning": "disabled",
+    "repository": "Qwen/Qwen3-8B-GGUF",
+    "retry_on_error": false,
+    "revision": "6a569868d07d3bd59e8b97fb001bf8c0b254bb20",
+    "sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "temperature": 0.0
+  },
+  "reader_output_budget": 512,
+  "reason": "Reader JSON validity below 95% or at least one length finish; teacher was not opened.",
+  "report_sha256": "efe191c4392fadfba1cdb3c260ef312f0f1a5706ecfe83e6f40250355ebf113a",
+  "schema_version": "rag-e5-e5b3-measurement-recovery-report-v1",
+  "scorer_module_sha256": "6b4e76c60b2eebef4978407966cd7497fedbfec7a13c27b7f99b8921c822f121",
+  "scorer_version": "e5b2-content-grounding-separated-v2",
+  "scoring_contract_sha256": "f4e191e53d1b500049d3847ac17442e6a46f0213d66228c062293eba2689461f",
+  "state_packet_set_sha256": "860f5da64a6b94790944a5bd2d50aa4977a098bc51d1b6f822321bf4fbbd1d1c",
+  "status": "MEASUREMENT_RECOVERY_GATE_FAIL",
+  "task_set_sha256": "7ac2d95f98efc6fcced665f93977c76c4d219af0cfe7e16f05b1fdd67358979a",
+  "teacher_opened": false
+}
