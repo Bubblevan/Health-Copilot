@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import statistics
 import subprocess
@@ -22,8 +23,8 @@ from eval.rag_e5.e5b3_recovery import read_jsonl, sha256_file
 from eval.rag_e5.overlay import score_case
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_REPORT_JSON = ROOT / "runs/rag_e5/e5b4_counterfactual_report.json"
-DEFAULT_REPORT_MARKDOWN = ROOT / "docs/research/rag_e5/e5b4_counterfactual_report.md"
+DEFAULT_REPORT_JSON = ROOT / "runs/rag_e5/e5b4_cpu_counterfactual_report.json"
+DEFAULT_REPORT_MARKDOWN = ROOT / "docs/research/rag_e5/e5b4_cpu_counterfactual_report.md"
 TEACHER_PATH = Path(r"D:\MyLab\Jianli\external\rag_e5\e5b1\teacher_cases.jsonl")
 B2_REPORT_PATH = ROOT / "runs/rag_e5/e5b2_counterfactual_report.json"
 BOOTSTRAP_SEED = 20260930
@@ -61,8 +62,12 @@ def _verify_manifest(
     lock: dict[str, Any],
     manifest_path: Path,
     private_root: Path,
+    protocol_path: Path,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    _require_committed_manifest(manifest_path)
+    expected_manifest_path = lock.get(
+        "execution_manifest_path", DEFAULT_EXECUTION_MANIFEST_PATH.relative_to(ROOT).as_posix()
+    )
+    _require_committed_manifest(manifest_path, expected_manifest_path)
     if not manifest_path.is_file():
         raise FileNotFoundError("B4 execution manifest must exist before scoring")
     manifest = _read_json(manifest_path)
@@ -71,8 +76,10 @@ def _verify_manifest(
         raise ValueError("B4 execution manifest self-hash mismatch")
     if (
         manifest.get("status") != "ALL_B4_ARMS_FROZEN_BEFORE_SCORING"
+        or manifest.get("execution_id") != lock.get("execution_id")
+        or manifest.get("runtime_backend") != lock["runtime"].get("backend")
         or manifest.get("protocol_lock_sha256") != lock["protocol_lock_sha256"]
-        or manifest.get("protocol_lock_file_sha256") != sha256_file(DEFAULT_PROTOCOL_PATH)
+        or manifest.get("protocol_lock_file_sha256") != sha256_file(protocol_path)
         or manifest.get("arms_expected") != 180
         or manifest.get("arms_completed") != 180
         or manifest.get("guidance_calls_expected") != 120
@@ -83,6 +90,29 @@ def _verify_manifest(
         or manifest.get("202608_opened") is not False
     ):
         raise ValueError("B4 execution is incomplete or violates the pre-score freeze contract")
+    runtime = manifest.get("inference_runtime")
+    locked_runtime = lock["runtime"]
+    if not isinstance(runtime, dict) or any(
+        runtime.get(field) != locked_runtime.get(locked_field)
+        for field, locked_field in (
+            ("backend", "backend"),
+            ("server_pid", "server_pid"),
+            ("build_info", "llama_cpp_build_info"),
+            ("server_context_capacity", "server_context_capacity"),
+            ("model_path", "model_path"),
+            ("server_executable", "server_executable"),
+            ("server_executable_sha256", "server_executable_sha256"),
+            ("gpu_offload_layers", "gpu_offload_layers"),
+            ("op_offload", "op_offload"),
+            ("cpu_threads", "cpu_threads"),
+        )
+    ):
+        raise ValueError("B4 execution runtime differs from the frozen CPU protocol lock")
+    expected_command_sha = hashlib.sha256(
+        locked_runtime["server_process_command_line"].encode("utf-8")
+    ).hexdigest()
+    if runtime.get("process_command_line_sha256") != expected_command_sha:
+        raise ValueError("B4 execution server flags differ from the frozen CPU protocol lock")
     recorded_root = Path(manifest.get("external_arm_root", "")).resolve()
     if recorded_root != private_root.resolve():
         raise ValueError("B4 manifest points to an unexpected private arm directory")
@@ -146,13 +176,17 @@ def _verify_manifest(
     return manifest, arms
 
 
-def _require_committed_manifest(manifest_path: Path) -> None:
+def _require_committed_manifest(
+    manifest_path: Path, expected_relative_path: str | None = None
+) -> None:
     """Require the frozen execution manifest to be tracked and clean before labels open."""
     try:
         relative_path = manifest_path.resolve().relative_to(ROOT.resolve()).as_posix()
     except ValueError as exc:
         raise ValueError("B4 execution manifest must be committed inside the repository") from exc
-    expected_path = DEFAULT_EXECUTION_MANIFEST_PATH.relative_to(ROOT).as_posix()
+    expected_path = expected_relative_path or DEFAULT_EXECUTION_MANIFEST_PATH.relative_to(
+        ROOT
+    ).as_posix()
     if relative_path != expected_path:
         raise ValueError("B4 scoring only accepts the canonical committed execution manifest")
     tracked = subprocess.run(
@@ -390,7 +424,10 @@ def score_frozen_run(
     frozen = load_verified_b2(lock)
     b3_identity = verify_b3_identity(lock)
     manifest, arms = _verify_manifest(
-        lock=lock, manifest_path=manifest_path, private_root=private_root
+        lock=lock,
+        manifest_path=manifest_path,
+        private_root=private_root,
+        protocol_path=protocol_path,
     )
     if manifest.get("b2_artifact_set_sha256") != frozen.artifact_set_sha256:
         raise ValueError("B4 run no longer matches the frozen B2 evidence set")
@@ -537,8 +574,10 @@ def score_frozen_run(
     report = {
         "schema_version": "rag-e5-e5b4-counterfactual-report-v1",
         "status": "COMPLETE_FROZEN_HARNESS_NATIVE_COUNTERFACTUAL",
+        "execution_id": lock["execution_id"],
         "protocol_lock_sha256": lock_sha,
         "execution_manifest_sha256": manifest["execution_manifest_sha256"],
+        "inference_runtime": manifest["inference_runtime"],
         "task_set_sha256": lock["task_set_sha256"],
         "state_set_sha256": lock["state_set_sha256"],
         "b2_artifact_set_sha256": frozen.artifact_set_sha256,
@@ -608,9 +647,9 @@ def _fmt(value: Any) -> str:
 def _write_markdown(path: Path, report: dict[str, Any]) -> None:
     matrix = report["fixed_action_matrix"]
     lines = [
-        "# RAG-E5-B4 — Harness-Native Counterfactual Recovery",
+        "# RAG-E5-B4 CPU — Harness-Native Counterfactual Recovery",
         "",
-        "State claims are deterministically materialized from frozen longitudinal packets; the same Qwen3-8B guidance generator receives only the case question and the action-specific frozen B2 evidence. The scorer is deterministic and opens teacher labels only after all B4 artifacts pass their freeze checks.",
+        "State claims are deterministically materialized from frozen longitudinal packets; the same Qwen3-8B CPU guidance generator receives only the case question and the action-specific frozen B2 evidence. The scorer is deterministic and opens teacher labels only after all B4 artifacts pass their freeze checks.",
         "",
         f"- Protocol lock: `{report['protocol_lock_sha256']}`",
         f"- Frozen B2 artifact set: `{report['b2_artifact_set_sha256']}`",

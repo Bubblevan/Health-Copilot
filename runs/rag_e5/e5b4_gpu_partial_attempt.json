@@ -1,0 +1,28 @@
+{
+  "schema_version": "rag-e5-e5b4-abandoned-attempt-v1",
+  "attempt_id": "e5b4-gpu-shared-20260930",
+  "status": "ABANDONED_INCOMPLETE_NOT_SCORED",
+  "reason": "Shared GPU slot remained continuously occupied until the frozen 1800-second idle wait expired; execution was stopped before the next call. The user then directed an isolated CPU run.",
+  "protocol_lock_path": "runs/rag_e5/e5b4_protocol_lock.json",
+  "protocol_lock_file_sha256": "d2357f34d2bda4d9a3d781bf7f53e100715576b9480bfabe058df4902de2ea47",
+  "protocol_lock_sha256": "008935efa97be22eb2771bf3753d1ce4e0b242e2a8c4a69e82c4997731ef34a5",
+  "private_root": "D:/MyLab/Jianli/external/rag_e5/e5b4",
+  "smoke_report_sha256": "88a51074ea7890220a72fbc6cc00695a18b2d7f944c1c5d5bc4cea66aaa28d41",
+  "execution_plan_file_sha256": "d99893cdb54d4121630e9e1051f6db9d4e1e8a17a5e827b3a7dad1f47b087e0c",
+  "call_ledger_path": "D:/MyLab/Jianli/external/rag_e5/e5b4/call_ledger.jsonl",
+  "call_ledger_sha256": "b6184d3be5515e8076873e3ca0eaddb96cc32baa1cd4bcc89d640733f2899a7b",
+  "model_calls_completed": 1,
+  "call_ledger_rows": 2,
+  "completed_arm_count": 1,
+  "completed_arm": {
+    "case_id": "e5b1-08afa41d2ec54204c59e3446351bdd9deb0de2dabe3ae4acbe84954a86a84c00",
+    "action": "OFF",
+    "run_id": "90243720c3fa55b59e9d918cfe509fc1001a9d965909c75725e268f6799c8095",
+    "file_sha256": "cb8e42b3c459e1be813a268afc86f366e041327f905e6c59230115613b5b165f"
+  },
+  "execution_manifest_created": false,
+  "teacher_opened": false,
+  "202608_opened": false,
+  "scoring_run": false,
+  "reused_by_cpu_attempt": false
+}

@@ -27,9 +27,9 @@ from eval.rag_e5.e5b3_recovery import (DEFAULT_B2_ARTIFACT_ROOT,
                                        load_and_verify_b2_inputs, sha256_file)
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_B4_PRIVATE_ROOT = Path(r"D:\MyLab\Jianli\external\rag_e5\e5b4")
-DEFAULT_PROTOCOL_PATH = ROOT / "runs/rag_e5/e5b4_protocol_lock.json"
-DEFAULT_EXECUTION_MANIFEST_PATH = ROOT / "runs/rag_e5/e5b4_execution_manifest.json"
+DEFAULT_B4_PRIVATE_ROOT = Path(r"D:\MyLab\Jianli\external\rag_e5\e5b4_cpu")
+DEFAULT_PROTOCOL_PATH = ROOT / "runs/rag_e5/e5b4_cpu_protocol_lock.json"
+DEFAULT_EXECUTION_MANIFEST_PATH = ROOT / "runs/rag_e5/e5b4_cpu_execution_manifest.json"
 DEFAULT_B2_LOCK_PATH = ROOT / "runs/rag_e5/e5b2_protocol_lock.json"
 DEFAULT_B2_EXECUTION_PATH = ROOT / "runs/rag_e5/e5b2_execution_manifest.json"
 DEFAULT_B2_REPORT_PATH = ROOT / "runs/rag_e5/e5b2_counterfactual_report.json"
@@ -38,7 +38,7 @@ DEFAULT_B3_REPORT_PATH = ROOT / "runs/rag_e5/e5b3_measurement_recovery_report.js
 DEFAULT_LLAMACPP_EXE = Path(
     r"C:\Users\bubblevan\AppData\Local\Microsoft\WinGet\Packages\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\llama-server.exe"
 )
-DEFAULT_SERVER_URL = "http://127.0.0.1:8081"
+DEFAULT_SERVER_URL = "http://127.0.0.1:8082"
 MAX_PROMPT_TOKENS = CONTEXT_SIZE - MAX_OUTPUT_TOKENS - CHAT_TEMPLATE_OVERHEAD_RESERVE
 ACTION_ORDER = ("OFF", "STANDARD", "STRONG")
 
@@ -78,6 +78,51 @@ def verify_protocol_lock(lock: dict[str, Any]) -> str:
         raise ValueError("B4 protocol was not frozen before guidance calls")
     if lock.get("202608_opened") is not False or lock.get("source_cohort") != "202607_only":
         raise ValueError("B4 protocol crosses the excluded 202608 cohort")
+    runtime = lock.get("runtime")
+    if not isinstance(runtime, dict) or runtime.get("backend") != "cpu":
+        raise ValueError("this B4 runner accepts only the separately frozen CPU execution")
+    prior_relative = lock.get("superseded_gpu_attempt_path")
+    prior_sha256 = lock.get("superseded_gpu_attempt_file_sha256")
+    if not isinstance(prior_relative, str) or not isinstance(prior_sha256, str):
+        raise ValueError("CPU B4 lock must bind the abandoned GPU partial attempt")
+    prior_path = ROOT / prior_relative
+    try:
+        prior_path.resolve().relative_to(ROOT.resolve())
+    except ValueError as exc:
+        raise ValueError("superseded GPU attempt record must be inside the repository") from exc
+    if not prior_path.is_file() or sha256_file(prior_path) != prior_sha256:
+        raise ValueError("superseded GPU partial-attempt record changed after CPU freeze")
+    prior = _read_json(prior_path)
+    prior_root = Path(prior.get("private_root", ""))
+    expected_prior_root = Path(r"D:\MyLab\Jianli\external\rag_e5\e5b4")
+    prior_arm = prior.get("completed_arm", {})
+    prior_arm_path = (
+        prior_root
+        / "arms"
+        / str(prior_arm.get("case_id", ""))
+        / str(prior_arm.get("action", ""))
+        / f"{prior_arm.get('run_id', '')}.json"
+    )
+    if (
+        prior_root.resolve() != expected_prior_root.resolve()
+        or prior.get("status") != "ABANDONED_INCOMPLETE_NOT_SCORED"
+        or prior.get("model_calls_completed") != 1
+        or prior.get("completed_arm_count") != 1
+        or prior.get("teacher_opened") is not False
+        or prior.get("scoring_run") is not False
+        or prior.get("execution_manifest_created") is not False
+        or sha256_file(ROOT / prior["protocol_lock_path"])
+        != prior.get("protocol_lock_file_sha256")
+        or not (prior_root / "call_ledger.jsonl").is_file()
+        or sha256_file(prior_root / "call_ledger.jsonl") != prior.get("call_ledger_sha256")
+        or sha256_file(prior_root / "execution_plan.json")
+        != prior.get("execution_plan_file_sha256")
+        or sha256_file(prior_root / "smoke" / "smoke_report.json")
+        != prior.get("smoke_report_sha256")
+        or sha256_file(prior_arm_path) != prior_arm.get("file_sha256")
+        or (prior_root / "execution_failure.json").exists()
+    ):
+        raise ValueError("superseded GPU artifacts are not the frozen unscored partial attempt")
     return lock_sha
 
 
@@ -91,12 +136,20 @@ def verify_frozen_code(lock: dict[str, Any]) -> None:
         path = ROOT / relative
         if not path.is_file() or sha256_file(path) != expected:
             raise ValueError(f"B4 frozen code changed: {relative}")
+    lock_relative = lock.get(
+        "protocol_lock_path", "runs/rag_e5/e5b4_protocol_lock.json"
+    )
+    lock_path = ROOT / lock_relative
+    try:
+        lock_relative = lock_path.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError as exc:
+        raise ValueError("B4 protocol lock must be committed inside the repository") from exc
     tracked = subprocess.run(
         [
             "git",
             "ls-files",
             "--error-unmatch",
-            "runs/rag_e5/e5b4_protocol_lock.json",
+            lock_relative,
             *(row["path"] for row in code_rows),
         ],
         cwd=ROOT,
@@ -151,26 +204,49 @@ def verify_server(client: LlamaServerClient, lock: dict[str, Any]) -> dict[str, 
     ).casefold():
         raise ValueError("loopback endpoint is no longer owned by the frozen server binary")
     command_line = process.get("CommandLine", "")
-    expected_flags = {
-        "n_gpu_layers_99": "--n-gpu-layers 99",
-        "flash_attention": "--flash-attn on",
-        "parallel_1": "--parallel 1",
-        "q4_k_cache": "--cache-type-k q4_0",
-        "q4_v_cache": "--cache-type-v q4_0",
-    }
+    backend = expected.get("backend", "gpu")
+    if backend == "cpu":
+        expected_flags = {
+            "n_gpu_layers_0": "--n-gpu-layers 0",
+            "no_op_offload": "--no-op-offload",
+            "flash_attention": "--flash-attn on",
+            "parallel_1": "--parallel 1",
+            "q4_k_cache": "--cache-type-k q4_0",
+            "q4_v_cache": "--cache-type-v q4_0",
+            "threads_12": "--threads 12",
+            "threads_batch_12": "--threads-batch 12",
+        }
+        if expected.get("gpu_offload_layers") != 0 or expected.get("op_offload") is not False:
+            raise ValueError("CPU B4 runtime lock must disable all GPU layer/op offload")
+    elif backend == "gpu":
+        expected_flags = {
+            "n_gpu_layers_99": "--n-gpu-layers 99",
+            "flash_attention": "--flash-attn on",
+            "parallel_1": "--parallel 1",
+            "q4_k_cache": "--cache-type-k q4_0",
+            "q4_v_cache": "--cache-type-v q4_0",
+        }
+    else:
+        raise ValueError(f"unsupported frozen B4 inference backend: {backend}")
     flags = expected["observed_flags"]
     if any(
         flags.get(key) is not True or expected_flag not in command_line
         for key, expected_flag in expected_flags.items()
     ):
-        raise ValueError("shared GPU offload/runtime flags differ from the B4 protocol lock")
+        raise ValueError(f"{backend} runtime flags differ from the B4 protocol lock")
     return {
+        "backend": backend,
         "model_path": props.get("model_path"),
         "build_info": props.get("build_info"),
         "server_context_capacity": actual_ctx,
         "model_ftype": props.get("model_ftype"),
         "server_pid": int(process["ProcessId"]),
+        "server_executable": str(server_executable.resolve()),
+        "server_executable_sha256": expected["server_executable_sha256"],
         "process_command_line_sha256": hashlib.sha256(command_line.encode("utf-8")).hexdigest(),
+        "gpu_offload_layers": expected["gpu_offload_layers"],
+        "op_offload": expected.get("op_offload"),
+        "cpu_threads": expected.get("cpu_threads"),
     }
 
 
@@ -178,7 +254,7 @@ def _inspect_server_process(port: int) -> dict[str, Any]:
     try:
         import psutil
     except ImportError as exc:
-        raise ValueError("install the research extra to inspect the shared GPU server process") from exc
+        raise ValueError("install the research extra to inspect the local llama-server process") from exc
     listeners = [
         connection
         for connection in psutil.net_connections(kind="tcp")
@@ -793,6 +869,8 @@ def run_counterfactual(
     manifest_body = {
         "schema_version": "rag-e5-e5b4-execution-manifest-v1",
         "status": "ALL_B4_ARMS_FROZEN_BEFORE_SCORING",
+        "execution_id": lock["execution_id"],
+        "runtime_backend": lock["runtime"]["backend"],
         "protocol_lock_sha256": lock_sha,
         "protocol_lock_file_sha256": sha256_file(protocol_path),
         "protocol_commit_sha": subprocess.run(
@@ -804,7 +882,7 @@ def run_counterfactual(
         "b2_artifact_reuse_manifest_sha256": frozen.reuse_manifest_sha256,
         **b3_identity,
         "smoke_report_sha256": sha256_file(smoke_path),
-        "shared_server_runtime": server,
+        "inference_runtime": server,
         "arms_expected": 180,
         "arms_completed": 180,
         "guidance_calls_expected": 120,

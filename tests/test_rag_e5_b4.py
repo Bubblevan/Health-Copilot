@@ -7,11 +7,12 @@ from types import SimpleNamespace
 
 import pytest
 
-from eval.rag_e5 import b4_evaluator
+from eval.rag_e5 import b4_evaluator, b4_execution
 from eval.rag_e5.b4_execution import (ACTION_ORDER, make_execution_plan,
                                       verify_protocol_lock)
 from eval.rag_e5.b4_guidance import (CONTEXT_SIZE, MAX_OUTPUT_TOKENS,
-                                     chat_payload, render_guidance_prompt)
+                                     GuidanceCompletion, chat_payload,
+                                     render_guidance_prompt)
 from eval.rag_e5.b4_materializer import (StateClaim, classify_runtime_task,
                                          extract_citations,
                                          materialize_final_response,
@@ -27,6 +28,24 @@ class FakeTokenizer:
     def count_prompt_tokens(self, prompt: str) -> int:
         self.prompts.append(prompt)
         return self.count
+
+
+class FakeUntrustedGuidanceClient:
+    def slots(self) -> list[dict[str, bool]]:
+        return [{"is_processing": False}]
+
+    def complete(self, prompt: str) -> GuidanceCompletion:
+        return GuidanceCompletion(
+            text=(
+                '{"action":"OFF","state_claims":[{"field":"body_weight",'
+                '"value":"rising"}]} [E999]'
+            ),
+            finish_reason="stop",
+            input_tokens=20,
+            output_tokens=12,
+            latency_ms=1.0,
+            request_payload={"messages": [{"role": "user", "content": prompt}]},
+        )
 
 
 def _runtime_case(case_id: str, question: str, state_ref: str | None) -> dict[str, object]:
@@ -166,6 +185,35 @@ def test_t2_state_is_not_sent_to_guidance_generator(tmp_path: Path) -> None:
     assert row["model_call_count"] == 1
 
 
+def test_untrusted_llm_fields_cannot_change_fixed_arm_or_state(
+    tmp_path: Path,
+) -> None:
+    frozen, _ = _frozen_fixture(tmp_path)
+    plan = make_execution_plan(frozen=frozen, client=FakeTokenizer(), private_root=tmp_path)
+    row = next(
+        item
+        for item in plan
+        if item["task_kind"] == "STATE_AND_GUIDANCE" and item["action"] == "STANDARD"
+    )
+    row["_call_ordinal"] = 1
+
+    arm = b4_execution._complete_arm(
+        plan_row=row,
+        lock_sha="frozen-lock",
+        client=FakeUntrustedGuidanceClient(),
+        private_root=tmp_path,
+        call_ledger=tmp_path / "call_ledger.jsonl",
+    )
+
+    assert arm["action"] == "STANDARD"
+    assert arm["state_claims"] == [
+        {"field": "body_weight", "value": "falling", "source": "longitudinal_state"}
+    ]
+    assert arm["resolved_citation_chunk_ids"] == []
+    assert arm["invented_evidence_aliases"] == ["E999"]
+    assert arm["new_retrieval_calls"] == arm["new_bridge_calls"] == 0
+
+
 def test_teacher_fields_are_not_part_of_guidance_prompt_interface() -> None:
     params = inspect.signature(render_guidance_prompt).parameters
     assert set(params) == {"question", "passages"}
@@ -263,6 +311,41 @@ def test_all_actions_use_the_same_8192_generation_ceiling() -> None:
 
 def test_evaluator_case_scorer_does_not_receive_action_name() -> None:
     assert "action" not in inspect.signature(b4_evaluator.score_materialized_case).parameters
+
+
+def test_llm_text_cannot_override_deterministic_state_or_provenance(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: dict[str, object] = {}
+
+    def capture_score_case(**kwargs: object) -> dict[str, float]:
+        captured.update(kwargs)
+        return {"test_score": 1.0}
+
+    monkeypatch.setattr(b4_evaluator, "score_case", capture_score_case)
+    model_text = (
+        '{"action":"STRONG","state_claims":[{"field":"body_weight",'
+        '"value":"rising"}]} Your weight is rising. [E999]'
+    )
+    score = b4_evaluator.score_materialized_case(
+        teacher={},
+        state_claims=[
+            {"field": "body_weight", "value": "falling", "source": "longitudinal_state"}
+        ],
+        guidance_text=model_text,
+        cited_chunk_ids=["frozen-b2-chunk"],
+        supplied_chunks=[],
+    )
+
+    reader_output = captured["reader_output"]
+    assert isinstance(reader_output, dict)
+    assert reader_output["state_facts"] == [
+        {"field": "body_weight", "value": "falling"}
+    ]
+    assert "Your weight is rising." in reader_output["guidance_facts"][0]["statement"]
+    assert reader_output["citations"] == ["frozen-b2-chunk"]
+    assert "action" not in inspect.signature(b4_evaluator.score_materialized_case).parameters
+    assert score == {"test_score": 1.0}
 
 
 def test_execution_manifest_must_be_committed_before_scoring(
