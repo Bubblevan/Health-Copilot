@@ -22,7 +22,7 @@ health-bench = "health_ai_copilot.benchmarks.cli:main"
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
 retrieval = ["sentence-transformers>=3.0"]
-research = ["scikit-learn>=1.5"]
+research = ["scikit-learn>=1.5", "psutil>=6.0; platform_system == 'Windows'"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

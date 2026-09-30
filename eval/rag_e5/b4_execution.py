@@ -174,26 +174,29 @@ def verify_server(client: LlamaServerClient, lock: dict[str, Any]) -> dict[str, 
 
 
 def _inspect_server_process(port: int) -> dict[str, Any]:
-    command = (
-        f"$connection = Get-NetTCPConnection -State Listen -LocalAddress 127.0.0.1 "
-        f"-LocalPort {port} -ErrorAction Stop | Select-Object -First 1; "
-        "$process = Get-CimInstance Win32_Process -Filter "
-        "\"ProcessId = $($connection.OwningProcess)\"; "
-        "$process | Select-Object ProcessId,ExecutablePath,CommandLine | ConvertTo-Json -Compress"
-    )
-    result = subprocess.run(
-        ["powershell.exe", "-NoProfile", "-Command", command],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if result.returncode != 0:
-        raise ValueError("could not verify shared llama.cpp process identity")
-    value = json.loads(result.stdout)
-    if not isinstance(value, dict):
-        raise ValueError("shared llama.cpp process identity is malformed")
-    return value
+    try:
+        import psutil
+    except ImportError as exc:
+        raise ValueError("install the research extra to inspect the shared GPU server process") from exc
+    listeners = [
+        connection
+        for connection in psutil.net_connections(kind="tcp")
+        if connection.status == psutil.CONN_LISTEN
+        and connection.laddr
+        and connection.laddr.ip == "127.0.0.1"
+        and connection.laddr.port == port
+    ]
+    if len(listeners) != 1 or listeners[0].pid is None:
+        raise ValueError("loopback port is not owned by exactly one inspectable server process")
+    try:
+        process = psutil.Process(listeners[0].pid)
+        return {
+            "ProcessId": process.pid,
+            "ExecutablePath": process.exe(),
+            "CommandLine": " ".join(process.cmdline()),
+        }
+    except psutil.Error as exc:
+        raise ValueError("could not verify shared llama.cpp process identity") from exc
 
 
 def load_verified_b2(lock: dict[str, Any]) -> FrozenB2Inputs:

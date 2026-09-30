@@ -11,7 +11,8 @@ from typing import Any
 
 from eval.rag_e5.b4_execution import (DEFAULT_B4_PRIVATE_ROOT,
                                       DEFAULT_PROTOCOL_PATH,
-                                      DEFAULT_SERVER_URL, ROOT, _read_json,
+                                      DEFAULT_SERVER_URL, ROOT,
+                                      _inspect_server_process, _read_json,
                                       load_verified_b2,
                                       read_and_verify_b3_identity)
 from eval.rag_e5.b4_guidance import (CHAT_TEMPLATE_OVERHEAD_RESERVE,
@@ -26,6 +27,7 @@ BASE_MAIN = "2e2d62ce93a84378a1cad314994a097a9007a6fb"
 BRANCH = "codex/rag-e5-b4-decomposed-execution-20260930"
 MODEL_PATH = Path(r"E:\Health-Copilot-Models\models\qwen3-8b\Qwen3-8B-Q4_K_M.gguf")
 CODE_PATHS = (
+    "pyproject.toml",
     "eval/rag_e5/b4_materializer.py",
     "eval/rag_e5/b4_guidance.py",
     "eval/rag_e5/b4_execution.py",
@@ -54,29 +56,6 @@ def _git(*args: str) -> str:
     if result.returncode != 0:
         raise RuntimeError(f"git {' '.join(args)} failed: {result.stderr.strip()}")
     return result.stdout.strip()
-
-
-def _server_process(port: int) -> dict[str, Any]:
-    command = (
-        f"$connection = Get-NetTCPConnection -State Listen -LocalAddress 127.0.0.1 "
-        f"-LocalPort {port} -ErrorAction Stop | Select-Object -First 1; "
-        "$process = Get-CimInstance Win32_Process -Filter "
-        "\"ProcessId = $($connection.OwningProcess)\"; "
-        "$process | Select-Object ProcessId,ExecutablePath,CommandLine | ConvertTo-Json -Compress"
-    )
-    result = subprocess.run(
-        ["powershell.exe", "-NoProfile", "-Command", command],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(f"could not inspect shared server process: {result.stderr.strip()}")
-    value = json.loads(result.stdout)
-    if not isinstance(value, dict):
-        raise RuntimeError("shared server process inspection returned an invalid payload")
-    return value
 
 
 def _gpu_snapshot() -> dict[str, Any]:
@@ -138,7 +117,7 @@ def freeze(*, server_url: str, executable_path: Path, output_path: Path) -> dict
     client.health()
     props = client.props()
     b2 = _read_json(B2_LOCK)
-    process = _server_process(8081)
+    process = _inspect_server_process(8081)
     process_executable = str(Path(process["ExecutablePath"]).resolve())
     requested_executable = str(executable_path.resolve())
     if process_executable.casefold() != requested_executable.casefold():
