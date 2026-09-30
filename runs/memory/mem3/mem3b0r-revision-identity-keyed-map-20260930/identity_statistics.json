@@ -1,0 +1,33 @@
+{
+  "candidate_singleton_groups": 173,
+  "counts_by_revision_kind": {
+    "EVENT": 704,
+    "NON_REVISIONAL": 4014,
+    "SET_STATE": 335,
+    "SINGLETON_STATE": 3053,
+    "UNKNOWN": 6
+  },
+  "event_count": 704,
+  "fallback_fraction": 0.0004930966469428008,
+  "fallback_reasons": {
+    "INVALID_ATTRIBUTE_KEY": 2,
+    "INVALID_SUBJECT_KEY": 2
+  },
+  "model_unknown_count": 2,
+  "model_unknown_rate": 0.000246669955599408,
+  "non_revisional_count": 4014,
+  "set_state_count": 335,
+  "singleton_groups_size_at_least_two": 173,
+  "singleton_groups_spanning_multiple_sessions": 116,
+  "singleton_groups_with_multiple_values": 105,
+  "singleton_orphan_count": 2565,
+  "singleton_orphan_rate": 0.8401572224041925,
+  "singleton_state_count": 3053,
+  "total_propositions": 8112,
+  "unique_attribute_keys": 6543,
+  "unique_subject_keys": 1449,
+  "unknown_count": 6,
+  "unknown_fallback_count": 4,
+  "unknown_rate": 0.0007396449704142012,
+  "unknown_rate_all_terminal_records": 0.0007396449704142012
+}

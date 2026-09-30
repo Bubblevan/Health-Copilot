@@ -1,0 +1,3065 @@
+{
+  "automatic_merges": 0,
+  "candidate_key_pairs": 166023,
+  "flagged_pair_count": 183,
+  "flagged_pairs": [
+    {
+      "heuristic": true,
+      "left_attribute_key": "module_id",
+      "left_memory_ids": [
+        "m10flat3-a5ff5e57f7a3c6fce638d77c59cbbef3ef3b7ab8ffffd1d060272c81e850dd01"
+      ],
+      "left_subject_key": "pm_ui_portfolio_exposures",
+      "merged": false,
+      "right_attribute_key": "moduleid",
+      "right_memory_ids": [
+        "m10flat3-da5fa99f4abf62db333cc67c5522b647fa30c4e1aa08973ab6fdb8a5b2e3a6d2"
+      ],
+      "right_subject_key": "pm_ui_portfolio_exposures",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.985507
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "interest_in_display_case",
+      "left_memory_ids": [
+        "m10flat3-1f6491c8f8dea2ae3666a4d3c36322d0f49fedd6676df77048ae24c8fcbf60b7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest_in_display_cases",
+      "right_memory_ids": [
+        "m10flat3-efa69014f82141890fc22d2b03655edc86aa7eb7dda10ca795e6a811b81003ee"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.983051
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "vintage_poster_interest",
+      "left_memory_ids": [
+        "m10flat3-cc97435ea68be9bf3014aeb1bd57230bf4eea804fbbf853f3c8a9ce3ae140fd2"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "vintage_posters_interest",
+      "right_memory_ids": [
+        "m10flat3-2fb66bee42595f166458074f3a790ad8eecf124ac91744f386853804b2fe31c7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.982456
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "music_preference",
+      "left_memory_ids": [
+        "m10flat3-0453626ff586f79795db74b1771fb7bf8465d5be39ced821b21a3476391010ea"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "music_preferences",
+      "right_memory_ids": [
+        "m10flat3-8ca3d5ffdd420cf881e76b650776138e59eaf41dc5ffc841196aa46e4d9eaeb8"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.976744
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "html_syntax_ordered_list",
+      "left_memory_ids": [
+        "m10flat3-3d2c8ffc613faf02b534f1de95c60c0671db051aa157b03be95c7931d1188ea5"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "html_syntax_unordered_list",
+      "right_memory_ids": [
+        "m10flat3-3b04750308c0c3e4e524323b6bedf72da41b2791391953f0432d76aa1d3863f4"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.971429
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_stay",
+      "left_memory_ids": [
+        "m10flat3-fc2af860a2327596a6e6ce58d1799673febb432850eba7cd6624e5666e832b29"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "hotel_stays",
+      "right_memory_ids": [
+        "m10flat3-51b999a34d39c23d557e34e21e46329c6162ef0d8c5b608ce3ee5bef026fee9d"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.967742
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "interest",
+      "left_memory_ids": [
+        "m10flat3-da24c1e09acefd4c6dcb0e0228070494c6c3f9f062ac9683d19ee5f13a5e1cd0"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interests",
+      "right_memory_ids": [
+        "m10flat3-9a8a858932bc937fcca6bd56100d5045e51df0dbfed479d5e50805d741253e0f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.962963
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020",
+      "left_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021",
+      "right_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.958333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "save_button_position",
+      "left_memory_ids": [
+        "m10flat3-ba1edf13b9f55154df27183fad615edeb3befaf36b31369cc06d9b02ea4fdf0b"
+      ],
+      "left_subject_key": "interface",
+      "merged": false,
+      "right_attribute_key": "share_button_position",
+      "right_memory_ids": [
+        "m10flat3-b069876772e49a4d3fbe19af075b665b8aa10a94f1f63c152f9e537354fc9acc"
+      ],
+      "right_subject_key": "interface",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.95082
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value",
+      "left_memory_ids": [
+        "m10flat3-0d53e8efe45650a7cbeb3dd1266c1aa4cfb9484f4fcb9c5929a8b3cc6a3697ac",
+        "m10flat3-171e631346aad6ad99e09be2952a7b9597913c0e7f75b1259994d00d51135ac8",
+        "m10flat3-1ad14200250f343e78e86b38ed96e37e52f689a88358ef736abefd986e52c874",
+        "m10flat3-36ffb9f6f0eeda47dffee8044a4782263a6fd57fe00e0f48089c7c7f1cb4e5c5",
+        "m10flat3-371a0d382a80b0a4c6634d008f3a32f4dddadd5694d29af858a6de1853534702",
+        "m10flat3-3aa048c5ec8b89c99da43eab94bb72ec083c62aa3b46551a4d44c054b7b74485",
+        "m10flat3-561e75f7e7514ae6fb66343924bf56e8465ec43e008087309c4846c9810f9d0a",
+        "m10flat3-6723696cfbf329eeb3de86f61df2582423b45c4da4d39ed1d10e42d75d85e7ee",
+        "m10flat3-768aebbe38e7a9115930763e9db2858ab9ad132cff8585aad0e46ade05cef4a3",
+        "m10flat3-783c9dd24071ff0ec5a1a7493175dceb4125ba5736ab745c9ed6ea451119917b",
+        "m10flat3-8e1ca4cb9c7ccfe49b5072ef9ef7a661964e9c6f28dbb7ef4ae49b317afc3fcd",
+        "m10flat3-8f15f8259ff15f739c554fde105ca0053cadfff202bd4c65c086a98d62aa03eb",
+        "m10flat3-f116bc0ca7b3c21160f75dc2579d32e248852d02f10d143d5fd6f7bbed2ab281",
+        "m10flat3-f4b2370a019316bc4506449bf0ad97a85050d276a0e19fc29ae5e9abc16be540",
+        "m10flat3-fe5c3070d15d7dd3ce1b72610850893ed5cb757ff7ecf216c6018f340b06936c"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2",
+      "right_memory_ids": [
+        "m10flat3-5a90ba62a619ae9f78c434afa64459153e2fde9a599fce88584585425891aa5d"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.95
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "childtargetdefinitions",
+      "left_memory_ids": [
+        "m10flat3-12c33e5a1e5ee1ec92dc15c8cb658461e2292c03083919f36c04993fad35f837",
+        "m10flat3-34ad95916f7e789fbe42937228f15e41b865d26d3616b9ea1803ffabf2b46d72"
+      ],
+      "left_subject_key": "pm_ui_portfolio_exposures",
+      "merged": false,
+      "right_attribute_key": "targetdefinitions",
+      "right_memory_ids": [
+        "m10flat3-3ed5e3ecce50434a246afe753e417eaa7145a6417c32ccd948975e3dfc44fe35"
+      ],
+      "right_subject_key": "pm_ui_portfolio_exposures",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.945055
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "budget_recommendation",
+      "left_memory_ids": [
+        "m10flat3-bd5961e35a1dbc06dfefc6a42809c2dac1fd0fd6c753213a9bdfe23ee8e0188e"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "diet_recommendation",
+      "right_memory_ids": [
+        "m10flat3-90362a4d29add0d06767fdd90451c2718252d5c450d6ad48a4bee789ef21fff4"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.933333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2",
+      "left_memory_ids": [
+        "m10flat3-5a90ba62a619ae9f78c434afa64459153e2fde9a599fce88584585425891aa5d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2020",
+      "right_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.933333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2",
+      "left_memory_ids": [
+        "m10flat3-5a90ba62a619ae9f78c434afa64459153e2fde9a599fce88584585425891aa5d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021",
+      "right_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.933333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "festival_app_suggestion",
+      "left_memory_ids": [
+        "m10flat3-3008960f11c709ad74ec1a31705dda13b2bbd00a7e9a4a3d98eb7671ec4d4e9b",
+        "m10flat3-3051c4fd85615672233766d685827d58a29e7cea434843494797e88a499e0da4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "festival_suggestion",
+      "right_memory_ids": [
+        "m10flat3-2f78143453c58fa553b3533bb61918931bfc5aedc9bf6b36ef23d001c4338a07"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.923077
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "grilled_chicken_and_veggie_containers",
+      "left_memory_ids": [
+        "m10flat3-f804b11c9152e111f3f008531888c43d25a525ebbf0ed6b9b8b7e5a6fe1b8dc9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "grilled_chicken_and_veggie_containers_recipe",
+      "right_memory_ids": [
+        "m10flat3-3286b3973784cecbd527b3b356672d9852f3e58f0b8eecd71858a6d05448e6ce"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.923077
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "habit_tracker_app_usage",
+      "left_memory_ids": [
+        "m10flat3-8df0c9e449eb57846b28eb2aeea63e3954a15bbaaf613334ecda4d9da666b8e0"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "habit_tracker_usage",
+      "right_memory_ids": [
+        "m10flat3-2582cbf9b06e20a939a93f413414b892a7e5de8465e78a965447cc806b645d3e"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.923077
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "sleep_product_intent",
+      "left_memory_ids": [
+        "m10flat3-55e0670045b1b60bcf8eb7982f91442bf8a2d9b354448af579c3d210accb604d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "sleep_product_interest",
+      "right_memory_ids": [
+        "m10flat3-033fcef5948d1dfd7477f7711b892d22952ce9736cb884f50fc8ee3177d23aec"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.923077
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "tripod_features",
+      "left_memory_ids": [
+        "m10flat3-e1435d61778d58b51d0a8cfd70c6b3ff8ab0492cc5af87ad3f65d35a02645322"
+      ],
+      "left_subject_key": "product",
+      "merged": false,
+      "right_attribute_key": "tripod_leg_features",
+      "right_memory_ids": [
+        "m10flat3-e1b3df552f9dacc9295972e786f9d59cfe00e4f65356cff9f0f18923576db2ed"
+      ],
+      "right_subject_key": "product",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.92
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "tourist_visa_processing",
+      "left_memory_ids": [
+        "m10flat3-fe431ccbc3605db56273a65232517d86bf1db6754ae366d74f49611151e1e96f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "tourist_visa_processing_time",
+      "right_memory_ids": [
+        "m10flat3-ff7e02454c78ac16349b8e428e6277c31c6c6fb31383d7a20a709a68708464af"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.918033
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "pm_ui_portfolio_exposures_property",
+      "left_memory_ids": [
+        "m10flat3-5af17083be8ad5b39c0b82e37301b0e131533e09c0f5cc5fb2157a1364a37c00"
+      ],
+      "left_subject_key": "code",
+      "merged": false,
+      "right_attribute_key": "pm_ui_portfolio_exposures_property",
+      "right_memory_ids": [
+        "m10flat3-bbbabb11a0e72d6aae19b6a2c9c78d4cca5791c172fba41842ba2df54d53aac0"
+      ],
+      "right_subject_key": "component",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.915663
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "diet_recommendation",
+      "left_memory_ids": [
+        "m10flat3-90362a4d29add0d06767fdd90451c2718252d5c450d6ad48a4bee789ef21fff4"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "tea_recommendation",
+      "right_memory_ids": [
+        "m10flat3-25d981dcb12943e9d2cc0fec1b3640bf5e2b1e709e5baf774d8a9397f761be22"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.912281
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "jam_recipe_interest",
+      "left_memory_ids": [
+        "m10flat3-763f8d40825e3a740874c09e1db8ff96c96506597c12951179d8d31532764d8c"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "recipe_interest",
+      "right_memory_ids": [
+        "m10flat3-151241c91c26fb96a16f8983ffe9fd211ab9dd7b991d4089a28e14c92ac3dee4",
+        "m10flat3-26986d1341691fd32f3f487c6c1649c7a6f671eca89a4b842c8c7ac20579757a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.909091
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "interest_in_recipe_ideas",
+      "left_memory_ids": [
+        "m10flat3-071eb8a1ca2beeb8eb5539518ce08b687145b8cceb68ddcbc5ed9934f44896c5"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest_in_recipes",
+      "right_memory_ids": [
+        "m10flat3-d9e2a0a9e0eb4a5e4c8263f699cfbf207603d30a430284879a9ea9cae6e4fe4a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.90566
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "memory_organization",
+      "left_memory_ids": [
+        "m10flat3-5437e68a9ac9b04cbdabbd8cff3debe1041a5e42549edc174f758cf9cca36f4f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "memory_organization_plan",
+      "right_memory_ids": [
+        "m10flat3-2df01fe2afa209861db72e91ff6025b8dd6be7a3a3a7b0ec7390a3de97ff2562"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.90566
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "workshop_attendance",
+      "left_memory_ids": [
+        "m10flat3-06790e5df0bed80c0ddd5b982aa4aa34cddbfbea85e821dfc95e77c2605998d4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "workshop_attendance_pace",
+      "right_memory_ids": [
+        "m10flat3-22b14d78622b6a96396ebb7f5d527806ae67831625c3ed54e7278c48ef1a08eb",
+        "m10flat3-23382c7afef3ee08a28ffb7fac6d8ea7a7723b9b87c535d24ba65a7ddf1da07b",
+        "m10flat3-23fde19574ba374bd0cbcedd5aae910a471f19cc57b512854c322ce67c31f028",
+        "m10flat3-25b7b0b83cf0089e3d27cf210c8d01fad5336cb26703b90d87998e3ebbd74688"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.90566
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "pm_ui_portfolio_exposures_property",
+      "left_memory_ids": [
+        "m10flat3-5af17083be8ad5b39c0b82e37301b0e131533e09c0f5cc5fb2157a1364a37c00"
+      ],
+      "left_subject_key": "code",
+      "merged": false,
+      "right_attribute_key": "property",
+      "right_memory_ids": [
+        "m10flat3-d98830735dc8e6899bb61d05262b7173c24233c751b1613713b9cc14665cc3f5"
+      ],
+      "right_subject_key": "pm_ui_portfolio_exposures",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.90411
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "spirit_airlines_baggage",
+      "left_memory_ids": [
+        "m10flat3-01fb21243f31f39f15145892ab7e2e9b27ee5f2760a3e64fe3ba99fea8264895"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "spirit_airlines_baggage_check",
+      "right_memory_ids": [
+        "m10flat3-afb7f5cefe70a19cd96954fa934e0e9eede7eaa8b69eabb37a6b4aff8db77e76"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.903226
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "travel_weather_preparation",
+      "left_memory_ids": [
+        "m10flat3-483e44651dcefad442ee9f35a5ed46e51e42087d7108869908e79bd72153a86b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "trip_weather_preparation",
+      "right_memory_ids": [
+        "m10flat3-45869b0e4a16e7c4494f0fd65a5db541ef226a72320b26b532826c2a267cb3e0"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.9
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "needs_student_visa_processing_time_info",
+      "left_memory_ids": [
+        "m10flat3-6f9d874d5a6f7f035bbc3934756742b1f3366c4d708e0706d7b43544c8ad62d3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "needs_visa_processing_time_info",
+      "right_memory_ids": [
+        "m10flat3-6c5350a4d8383c993dea5500744ff3211b966ab529a1ad4b515ea416f5e7e75c"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.9
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_16_12_2020",
+      "left_memory_ids": [
+        "m10flat3-c11cb895f5a5cfbadb94cdf873cf3e185310c18adc7c5b1adf05194696ad79c7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_25_11_2020",
+      "right_memory_ids": [
+        "m10flat3-c0bf1af99314144f849f9a893b2436b451cc68ac0d09c4cf6b5124f993f16f7f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.9
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020_09_12",
+      "left_memory_ids": [
+        "m10flat3-47cef221e7be944f636e2eb3af2dfd525e5ce204ac16a66773405c6be832dc3b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2022_07_09",
+      "right_memory_ids": [
+        "m10flat3-477fa7fb7abd35af4999715f183b77f0241295952c1a4145f908efdba6b2a2f1"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.9
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "preferred_monitor",
+      "left_memory_ids": [
+        "m10flat3-cd1f77464b47713c11539af5556c8cdc5035f92ac125c30906590d965a9f6ce5"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "preferred_monitor_type",
+      "right_memory_ids": [
+        "m10flat3-2c9727d6cd36b9248eec30f83dbbe5d2119021e8ac8eb912e8fc6f62573800c8"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.897959
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "power_saver_mode",
+      "left_memory_ids": [
+        "m10flat3-a6ebb1ae780e02e7d0d1382d462ed47d7a842fc0c61c60fd561cba4b65b29710"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "power_saver_mode_usage",
+      "right_memory_ids": [
+        "m10flat3-a7b7ff325207b63a73e79d41e91076905fd903cb2556ad39ea4c1b59431d3d5d"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.896552
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "guided_meditation_app",
+      "left_memory_ids": [
+        "m10flat3-2ac5df36636298e3f1558a732b6903bacb8f5bfd662379530c4bfadc3a8d34c3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "guided_meditation_app_usage",
+      "right_memory_ids": [
+        "m10flat3-18675b854856b010724430ef78286aeeeae5b49a12e2753db2950eea42c4592a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.896552
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "travel_intent",
+      "left_memory_ids": [
+        "m10flat3-15b6766532e4bbb711d977a3fca36c98e15a68fcdb33594dc2c8dafa3d95a110",
+        "m10flat3-c7fa193a84a0499c87ea38cd60519407c90a5dd851de73e93502909af777a5e5"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_interest",
+      "right_memory_ids": [
+        "m10flat3-45d79cd565ffd2b2a9165d9a373a212556203634649f861feb41ef9873546b29",
+        "m10flat3-8082e7992f5106f28dc62026b9c2e7de255e06baab539b7733387974d49cdc42",
+        "m10flat3-839d7245b8ab2f19d818230477a191b6c2a1595f0c284b4afaafc0d2b19b3357",
+        "m10flat3-84675ce47c461deb854c7a71448f2be7cc65044a03ad384fff78cf738d16cd17"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.894737
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "lamp_interest",
+      "left_memory_ids": [
+        "m10flat3-6840b73d955dad130e998caa0160b06c8c210ff7a32701a3a6cf00cb66ad1611"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "laptop_interest",
+      "right_memory_ids": [
+        "m10flat3-7506853d78bdcff22584719c6aabdd4698ed542e7b93be9fb603805de77b2b9a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.894737
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "fishing_interest",
+      "left_memory_ids": [
+        "m10flat3-4f3b0850a1cb676473c95a94a4c63155cd6604e00ae5ceacee4800ca9bf846b4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "fishing_spot_interest",
+      "right_memory_ids": [
+        "m10flat3-4ff9f03f9293d70c385cefd31b0fbdd8fd911d61645e313c8a589786266bf804",
+        "m10flat3-51706db0b15244c585b312e88580230ffb301e1e699230d39b05913ff78f4622"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.893617
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "fishing_interest",
+      "left_memory_ids": [
+        "m10flat3-4f3b0850a1cb676473c95a94a4c63155cd6604e00ae5ceacee4800ca9bf846b4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "fishing_trip_interest",
+      "right_memory_ids": [
+        "m10flat3-42cb2963dbbafce2e2114b52669375377797b8c67ecac25cb164fdf0c69485ad"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.893617
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "podcast_hook_interest",
+      "left_memory_ids": [
+        "m10flat3-2f7caf8aab3a005a5b0ee2754e5806d3bc1c1b6ff5d6ca2a37802903236776dd"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "podcast_interest",
+      "right_memory_ids": [
+        "m10flat3-5d3655a486bf1e3c7e09c98fef18b604f0bdd394dcc1736f19a10edcc79b02ed",
+        "m10flat3-c99cbe6e2c8d2e4ec24b93d42d0f1b5e2ddf0806fe1ef1e5b945e8b652293040"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.893617
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "charity_gala_interest",
+      "left_memory_ids": [
+        "m10flat3-6887c7c59b2e02ae10cf3b2dbe630abb88eb5ad0e4aa2abbc7eeb540ad21f6c9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "charity_interest",
+      "right_memory_ids": [
+        "m10flat3-19e60f5dcd04730ff6a2c6c9ce56d3cfebe33ccf4cf7373060bfd23a7f6f39f5"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.893617
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "event_attendance",
+      "left_memory_ids": [
+        "m10flat3-1850fb3ed3724901ab459e52f97a1deafee4e323ef29f4a25ea59507b330fdde"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "user_event_attendance",
+      "right_memory_ids": [
+        "m10flat3-5a3a1a3da42cb1f3a8a0f465cea08eb5bc4a7b568276ff5303becfa1cbf9bf37",
+        "m10flat3-5b488f33101c2df0685e179ec790ba9e3d9a61e61e50de5ee9f0dffdfe9e8323"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.893617
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "value_reported_on_11_03_2020",
+      "left_memory_ids": [
+        "m10flat3-db188e537ead9cd3fce6f6e634236bac07e7922140ddf29048f0babf9eead86a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "value_reported_on_5_05_2021",
+      "right_memory_ids": [
+        "m10flat3-dcb4718b1238a036769321f85a29b79ba26a34b19740b9570fe52a24fdae325c",
+        "m10flat3-df04cb94cbeff9aed34910335662735284d63f631efdbb27beca9887bc9e672e",
+        "m10flat3-e072c86547e2f71218e5497d5aaeaadd65dec77b05352ea005acb256fa763894",
+        "m10flat3-e0b10da20eaadd08c2734f3d3718e185f608537ea112f0c0fe2f977a47b7eab1",
+        "m10flat3-e0baf26322877359fa1a3fc6672ea61fd757b756b0ed19ff57f43dd71223b950"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.892308
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "game_interest",
+      "left_memory_ids": [
+        "m10flat3-22066b92e56537d4693afe82295620697363ae66a1b5a698dc48e4f7c6071d07"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "yoga_interest",
+      "right_memory_ids": [
+        "m10flat3-1a520c49443883686ee1723e813993435d61642afdf290d3b674c4b15081f0b1",
+        "m10flat3-42e7c1ff9d72674db6911982fe5594059fea8cfc8f1c1e09591a204b9c884587"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "planned_recipe",
+      "left_memory_ids": [
+        "m10flat3-61e3a7a372625e40c0b3505cd73e4ea8ca92bf1db453167f4150da87abf1ba0b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "planned_trip",
+      "right_memory_ids": [
+        "m10flat3-2e67c8d3eefa3d74ed48eb54cc579067a2906b412e48189ecffecea7034a7b67"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "aunt_and_uncle_relationship_support",
+      "left_memory_ids": [
+        "m10flat3-ac211249fc8e37cd59d840ad75dc179e5121e3110544b43b5f23c25ba3677617",
+        "m10flat3-b0089e5f9613ee65303c921c84c2743150fc72e7cff957791ab27583ca059108"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "aunt_and_uncle_relationship_support_follow_up",
+      "right_memory_ids": [
+        "m10flat3-b34f502ecae68b2076cdd2f5ae2a3ccbeb98c9a7f47815b099ee945a694dc609"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "view_button_label",
+      "left_memory_ids": [
+        "m10flat3-fe3781a8592648f164fcf21747476465677fa32814079dd0f5c777b5027e2c23"
+      ],
+      "left_subject_key": "interface_design",
+      "merged": false,
+      "right_attribute_key": "view_button_placement",
+      "right_memory_ids": [
+        "m10flat3-d09b470e188b74451008127567bced22809c0e92df8dae445444ed72b383df8e"
+      ],
+      "right_subject_key": "interface_design",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hybrid_bike_price_range",
+      "left_memory_ids": [
+        "m10flat3-f80837dd47a0770fe2c2c1ac6d77fa47a41729e3dcfd0801004e211c75d09733"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "road_bike_price_range",
+      "right_memory_ids": [
+        "m10flat3-bf4e1da2817948082f7deb0d6861fac4f020936397fc10381883fc025b0f4eab"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_16_12_2020",
+      "left_memory_ids": [
+        "m10flat3-c11cb895f5a5cfbadb94cdf873cf3e185310c18adc7c5b1adf05194696ad79c7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2020",
+      "right_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020",
+      "left_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2020_09_12",
+      "right_memory_ids": [
+        "m10flat3-47cef221e7be944f636e2eb3af2dfd525e5ce204ac16a66773405c6be832dc3b"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020",
+      "left_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021_12_05",
+      "right_memory_ids": [
+        "m10flat3-3e46112cb603266a43feb6fa97eaa8a43e46a9a38071e31b71b70c654d35abea"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020",
+      "left_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2022_07_09",
+      "right_memory_ids": [
+        "m10flat3-477fa7fb7abd35af4999715f183b77f0241295952c1a4145f908efdba6b2a2f1"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020",
+      "left_memory_ids": [
+        "m10flat3-f78dd93dadf2190af4bce9042a11c34e4a7828c4653ce43224dbd6831dc3ed66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_25_11_2020",
+      "right_memory_ids": [
+        "m10flat3-c0bf1af99314144f849f9a893b2436b451cc68ac0d09c4cf6b5124f993f16f7f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020_09_12",
+      "left_memory_ids": [
+        "m10flat3-47cef221e7be944f636e2eb3af2dfd525e5ce204ac16a66773405c6be832dc3b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021",
+      "right_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2021",
+      "left_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021_12_05",
+      "right_memory_ids": [
+        "m10flat3-3e46112cb603266a43feb6fa97eaa8a43e46a9a38071e31b71b70c654d35abea"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.888889
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "fishing_spot_interest",
+      "left_memory_ids": [
+        "m10flat3-4ff9f03f9293d70c385cefd31b0fbdd8fd911d61645e313c8a589786266bf804",
+        "m10flat3-51706db0b15244c585b312e88580230ffb301e1e699230d39b05913ff78f4622"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "fishing_trip_interest",
+      "right_memory_ids": [
+        "m10flat3-42cb2963dbbafce2e2114b52669375377797b8c67ecac25cb164fdf0c69485ad"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.884615
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_preference",
+      "left_memory_ids": [
+        "m10flat3-9221301a75730965c7657c3a6c2db56576e7478bd2f3232081077eac8b68c325"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_preference",
+      "right_memory_ids": [
+        "m10flat3-06900deaa846ccc177e3b18f562cea10aa6d2de7b96ffc79bb840b8a8dc72bc3"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.883721
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "citrus_based_cocktails_interest",
+      "left_memory_ids": [
+        "m10flat3-16fac73e7c144efdd16407e8a71b74e70ec508415a3204799ead1f787370172c"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "gin_based_cocktail_interest",
+      "right_memory_ids": [
+        "m10flat3-c396e39e2ea26a448bba7dc260edfc995a8729e43e6df99a7c73e037e165cd0f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.882353
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "recommendation_photographers_associations",
+      "left_memory_ids": [
+        "m10flat3-dbc2fe63e5c9593d4e52dfe8b889f44dcd58be47350cb88a5bfc047bf47cbe03"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "recommendation_photographers_social_media",
+      "right_memory_ids": [
+        "m10flat3-db4767fe2b67d628f8e9c78c8f6c561b0ac03527dfe380d47b31010eabca045e"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.882353
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "budget_recommendation",
+      "left_memory_ids": [
+        "m10flat3-bd5961e35a1dbc06dfefc6a42809c2dac1fd0fd6c753213a9bdfe23ee8e0188e"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "tea_recommendation",
+      "right_memory_ids": [
+        "m10flat3-25d981dcb12943e9d2cc0fec1b3640bf5e2b1e709e5baf774d8a9397f761be22"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.881356
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "charms_recommendation",
+      "left_memory_ids": [
+        "m10flat3-82af75ec02841a2c47a2814bdff4b9f1497ac1390b514fed903251c15ec12154"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "tea_recommendation",
+      "right_memory_ids": [
+        "m10flat3-25d981dcb12943e9d2cc0fec1b3640bf5e2b1e709e5baf774d8a9397f761be22"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.881356
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "luxury_item_maintenance",
+      "left_memory_ids": [
+        "m10flat3-f8211ca975fb4e112d8a1b9fe8c905a51d80813ab17fa2d251db671c51133719"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "luxury_watches_maintenance",
+      "right_memory_ids": [
+        "m10flat3-9df42bdd674832d116b4b4e32c8fe87f742129c3e29d3e46c9168d72e8c664dc"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.881356
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "candidate_resilience_interest",
+      "left_memory_ids": [
+        "m10flat3-a769ed7e20a42fe8128ad2bc1dab6f63cc04240706fd6f75f5a5a5c129c9f7bd"
+      ],
+      "left_subject_key": "hiring_manager",
+      "merged": false,
+      "right_attribute_key": "candidate_skills_interest",
+      "right_memory_ids": [
+        "m10flat3-a5c1ad144f3105cc8e742424a3daa6a4e705b4357e85372928950a19313d3824"
+      ],
+      "right_subject_key": "hiring_manager",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.880952
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "design_experience",
+      "left_memory_ids": [
+        "m10flat3-262963d487a7fe512f4c64297692d863661963080421cdc6f296ad2beffb715b"
+      ],
+      "left_subject_key": "mohammad_al_jubairy",
+      "merged": false,
+      "right_attribute_key": "design_proficiency",
+      "right_memory_ids": [
+        "m10flat3-28073317e3333adc2cfee778930c67d96c50d41982474141ae726546f1c4e33c"
+      ],
+      "right_subject_key": "mohammad_al_jubairy",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.88
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "vintage_camera_collection_interest",
+      "left_memory_ids": [
+        "m10flat3-e5f470df50697476ed266b350c4dc6966d0c23f9cf68348ca8a3a6f6134f2364"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "vintage_camera_selling_interest",
+      "right_memory_ids": [
+        "m10flat3-79f05d7b62ec1409c447f02d4a442d62fce2424dda1e0201518a5c4c4e046bb7",
+        "m10flat3-829884446aabd09e861edbf92599ff61554c05bc9461435f97732fa1f3e4785a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.88
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_mpa_interest",
+      "left_memory_ids": [
+        "m10flat3-71334af5ce0ddeb3314b351368f76500677b5e1bc7ccb878dec97b4d94be1c54"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_svg_interest",
+      "right_memory_ids": [
+        "m10flat3-6a3adabf648cddfbc3fc6065c168f6c3ec24296f1314ffd26a1a20c9d43073ef"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.88
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "value_reported_on_11_03_2020",
+      "left_memory_ids": [
+        "m10flat3-db188e537ead9cd3fce6f6e634236bac07e7922140ddf29048f0babf9eead86a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "value_reported_on_30_12_2020",
+      "right_memory_ids": [
+        "m10flat3-dbf74bb2872f3458a88219256503d4bcf6d87f89ee2c3282ab05a4d1e41aa4d9",
+        "m10flat3-df9aabe12385fddeb3e58841ced7130bf487a34307a1dc782f1f0ea297469ed5"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.878788
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_question",
+      "left_memory_ids": [
+        "m10flat3-93d1de1660aa0a673f1a40133d95768248bcd24c08d222b93c4afd794361e548",
+        "m10flat3-953928c7f8a0c7dd3bf4b2b543b543fef2d8faeb0648cd68ae3612581c0e59bc",
+        "m10flat3-958fcf90a548c0618aa0faa7e0757bd4e3258d77dfb97ea26604b44de1a680ec",
+        "m10flat3-9694cf453d0cc46df8ff404f7367eb31de398bb8cce73bfba90aa5a2f985e772"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_request",
+      "right_memory_ids": [
+        "m10flat3-c3ef11fbbafd65f54340c105aaa8f579f9bc8909861a28d939cfc13695d12bd8",
+        "m10flat3-c475c5581faa44c2a8ff1d2b9c632d1224560787e63e3f64d76a6577faeb3ca7",
+        "m10flat3-c56bf92d0a88ec819ccae6668e3b55eafa6566401f7b94aebacae42e3e988514",
+        "m10flat3-c656af184d1514917dd6ab32e2ee2aed7401d2f54241aca6223c9e047d671a7e",
+        "m10flat3-c6dfb411725a4fd6a2f76369f365073cf50316e1751f49f27bb827f9491a406f",
+        "m10flat3-c6e00bc7856581ee452ad1fe68fdc8921d93ca8a95cafe5783ee260abb11240c",
+        "m10flat3-c6e482da57f6fd889fd1625da745dc79de51761be1f2cdab6624907c10b90d72",
+        "m10flat3-c91419bcf62fe410d024f77498b1b23d7dfad64b1bd2f5d4e473aa3100617640",
+        "m10flat3-f983da333be004fe465ab141229f07f50acdd196e3216be1b9ad5e00607a0faf"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.878049
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "strength_training_advice",
+      "left_memory_ids": [
+        "m10flat3-f05dca29799857a1158a9951fdf6a60789f012906afd35c44a3972f8a663f840"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "strength_training_habit",
+      "right_memory_ids": [
+        "m10flat3-180e5dd80ed8dda2e195fc92b42f50cf7e1a368e0c59c574837ba2145d349aaf"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.877193
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "websocket_subscribers_check",
+      "left_memory_ids": [
+        "m10flat3-1c14ffbc0662a8d1246d2a7b3ac4840310809aed40eed7b10f3f3466d133bf43"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "websocket_unsubscribe_code",
+      "right_memory_ids": [
+        "m10flat3-b8986d35c2721a0df3493a7e2f3359e27f99fcad871cab99d58d377cbfb2ee5e"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.876712
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_interest",
+      "left_memory_ids": [
+        "m10flat3-649988599b9e855b4a5ef12001e80d1674802a01cc6e0d1a4f762c77e14fbbe3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_interest",
+      "right_memory_ids": [
+        "m10flat3-0ec72ccd0024196390efe282f3c28f71c98d065e0fbf7a722201212dcb11dd8c"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.871795
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "romania_problem_action",
+      "left_memory_ids": [
+        "m10flat3-3b79fdfa35a37f46d6942584b76d4ffe9539b6b3731a5124a87be459f5e9feec"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "romania_problem_goal",
+      "right_memory_ids": [
+        "m10flat3-3576628274b51bfb27b4719d2ce9db83b9c5c85c297036ad147929f6411c6a23"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.870968
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "strength_training_benefit",
+      "left_memory_ids": [
+        "m10flat3-854a03a16a4bd9103020e41a7738d2e93c9d5afa25edc99b3f88647cc08fa062"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "strength_training_weights",
+      "right_memory_ids": [
+        "m10flat3-ab51f7c047009b91013a3e4e2787c8dd6789a6102bfb3aa82606fab7ccda445c"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.866667
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_16_12_2020",
+      "left_memory_ids": [
+        "m10flat3-c11cb895f5a5cfbadb94cdf873cf3e185310c18adc7c5b1adf05194696ad79c7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021_12_05",
+      "right_memory_ids": [
+        "m10flat3-3e46112cb603266a43feb6fa97eaa8a43e46a9a38071e31b71b70c654d35abea"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.866667
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2020_09_12",
+      "left_memory_ids": [
+        "m10flat3-47cef221e7be944f636e2eb3af2dfd525e5ce204ac16a66773405c6be832dc3b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021_12_05",
+      "right_memory_ids": [
+        "m10flat3-3e46112cb603266a43feb6fa97eaa8a43e46a9a38071e31b71b70c654d35abea"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.866667
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2021_12_05",
+      "left_memory_ids": [
+        "m10flat3-3e46112cb603266a43feb6fa97eaa8a43e46a9a38071e31b71b70c654d35abea"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2022_07_09",
+      "right_memory_ids": [
+        "m10flat3-477fa7fb7abd35af4999715f183b77f0241295952c1a4145f908efdba6b2a2f1"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.866667
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "router_upgrade_consideration",
+      "left_memory_ids": [
+        "m10flat3-f62c539d8e62d8437d294599732e227fa0dfc596c0afd5396306836e8748e9b2"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "router_upgrade_recommendation",
+      "right_memory_ids": [
+        "m10flat3-a064e23db3b73369fbd25abb6b92cb3633d657680cd5051f53bf38a35bb1dd1d"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.865672
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "gym_intention",
+      "left_memory_ids": [
+        "m10flat3-f2506bc1f3bf0ced8c9345587a075f1f13c13d22251400226ba4e3022aad3298"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "yoga_intention",
+      "right_memory_ids": [
+        "m10flat3-43a17014f3115cbd6ce74cc45e5a850cf387a89a004d1afcdb11f732a1d68055"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.864865
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "dance_interest",
+      "left_memory_ids": [
+        "m10flat3-67b4c12bc73717c235e6a2abaf84dbe40ead5213ef1963be602288a9d3b46c37"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "game_interest",
+      "right_memory_ids": [
+        "m10flat3-49657f1cb5c47c38116472ea6b99dd2e4ec379e29e56627a1c935d447f0b44a9"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.864865
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "breeding_activity_water_temperature",
+      "left_memory_ids": [
+        "m10flat3-2b6df75c563acd40a92039370f6212794dadd20d9bbfd80d66f76e958761de1f"
+      ],
+      "left_subject_key": "perch",
+      "merged": false,
+      "right_attribute_key": "breeding_optimal_water_temperature",
+      "right_memory_ids": [
+        "m10flat3-23e42620ed63f308a5bd2b97454aa4d893c17cabf1da0469aa7e677589a303b9"
+      ],
+      "right_subject_key": "perch",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.864198
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "travel_preparation",
+      "left_memory_ids": [
+        "m10flat3-42e8b1a40d79d353209e4a2f146716330579ecb1283d915c7ab00bcbe410273d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "trip_preparation",
+      "right_memory_ids": [
+        "m10flat3-4155b0054bce28812ff330208648677e17de8969636cf0fbbbbab9c357514273"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.863636
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "growth_in_birmingham",
+      "left_memory_ids": [
+        "m10flat3-a2d23b6e42ad4b7ef51142e3c29e83ac279b8cdff4bf28e50b9bacad7ce4b17c"
+      ],
+      "left_subject_key": "construction_industry",
+      "merged": false,
+      "right_attribute_key": "innovation_in_birmingham",
+      "right_memory_ids": [
+        "m10flat3-a4745f1c5f214f2784677c768b31c822838078d9379122cbc6bc90114e76a1a5"
+      ],
+      "right_subject_key": "construction_industry",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.863636
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "pga_championship_rivalry",
+      "left_memory_ids": [
+        "m10flat3-b15c00113bf7c2fb0644ce3ce2e95cd70a5ff2ad7323a0a50e98ad13ec6245d8"
+      ],
+      "left_subject_key": "golfer",
+      "merged": false,
+      "right_attribute_key": "pga_championship_win",
+      "right_memory_ids": [
+        "m10flat3-aff2664cf6a4e10a320da078ebed1b38fdb6306a46b2f69ed2300caf868fd6ee"
+      ],
+      "right_subject_key": "golfer",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.862069
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "collage_element_selection",
+      "left_memory_ids": [
+        "m10flat3-aa11d507202022030264013b31ec36cca8eee39d059d836dde56f60f8ec8c206"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "collage_element_spacing",
+      "right_memory_ids": [
+        "m10flat3-a87bc3f4b2ba6e8a82681e408ba454d5b0ddd5ef56851e1b5340a77625086986"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.862069
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "value_reported_on_30_12_2020",
+      "left_memory_ids": [
+        "m10flat3-dbf74bb2872f3458a88219256503d4bcf6d87f89ee2c3282ab05a4d1e41aa4d9",
+        "m10flat3-df9aabe12385fddeb3e58841ced7130bf487a34307a1dc782f1f0ea297469ed5"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "value_reported_on_5_05_2021",
+      "right_memory_ids": [
+        "m10flat3-dcb4718b1238a036769321f85a29b79ba26a34b19740b9570fe52a24fdae325c",
+        "m10flat3-df04cb94cbeff9aed34910335662735284d63f631efdbb27beca9887bc9e672e",
+        "m10flat3-e072c86547e2f71218e5497d5aaeaadd65dec77b05352ea005acb256fa763894",
+        "m10flat3-e0b10da20eaadd08c2734f3d3718e185f608537ea112f0c0fe2f977a47b7eab1",
+        "m10flat3-e0baf26322877359fa1a3fc6672ea61fd757b756b0ed19ff57f43dd71223b950"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.861538
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "candle_pricing_interest",
+      "left_memory_ids": [
+        "m10flat3-4274addde806a5f270d00e133554bdb3417bff74f89b5b5a211011924a032b9d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "candle_product_interest",
+      "right_memory_ids": [
+        "m10flat3-8272a5fadbcdabdec7da66c679485c41d17f257ad90707c7611afec8211825d7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_gardening_request",
+      "left_memory_ids": [
+        "m10flat3-673f2d0ba2fef867f07ba5d2dcaa4e7e92e5e7c9446ec4fd097125747d3f931c"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_gardening_tip",
+      "right_memory_ids": [
+        "m10flat3-6d81c019134a1e4e7ed61c66acf68ee24ba3daa029713055017add4e2dd065bd"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "lunch_preference",
+      "left_memory_ids": [
+        "m10flat3-d5716619274aea89a96eb2531dc06fa6d0d78a4bc0f9e6e1a6923a899960a86f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "music_preference",
+      "right_memory_ids": [
+        "m10flat3-cc9603782bc572e697dfe21fd978886bbdc5ee2291f527663aab0c384bccf64a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-c669e95e8b472ce565126a46aa7ee708561f9a6fd93760c9a20aacf173288868",
+        "m10flat3-c6a22c62f4c8f1769e71e1d33ad0eee21113ae6439ffb7626d92069c451dde4f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_motivation",
+      "right_memory_ids": [
+        "m10flat3-ea9d0ee01e6c1a8bd653294acde5e50ee6a4fd97fe6fcc07be1e88d24c6a633a"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_state",
+      "left_memory_ids": [
+        "m10flat3-c5c8aef60369b2ce00a628b94b56266bdef087af74826a17fff207c783a74fb8",
+        "m10flat3-c714027b4ca2a49627b33961813f030c3f93f3ba3ab7a413fc6b6228039930c3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_task",
+      "right_memory_ids": [
+        "m10flat3-1d44dda210c8905eba04a805708b533f77b04cece3a37cb51aad2e5e40d03338"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "saddle_upgrade_interest",
+      "left_memory_ids": [
+        "m10flat3-6e5f11296c83c26386fc6c65ac6c61de954884da7dd9609172edbee2fa8ca3e3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_upgrade_interest",
+      "right_memory_ids": [
+        "m10flat3-7245b6fea0435785e1cc2f0082d5c80e3da41c87d1a5a848a475699cf7c5a849",
+        "m10flat3-731e48852056c178d6a7e9dde53a34c5dc2cf2d57fbe57ad218607c55d2f041c"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.857143
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "meditation_style_recommendation",
+      "left_memory_ids": [
+        "m10flat3-1b5545b6c7af84239177dd42a0ec05f8de478fca20e616d1a9e86f8d48015cea"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "sleep_meditation_recommendation",
+      "right_memory_ids": [
+        "m10flat3-bd7c945eeb65d5139649011de1e9817ab6a3629cbef3f59cf2da7d938fed8587"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.853659
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "language_exchange_routine",
+      "left_memory_ids": [
+        "m10flat3-a0a4861e4ef6e098a24741a76ca5c37dc5b4c11db88683b37e48ac880e2617f0"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "language_exchange_strategy",
+      "right_memory_ids": [
+        "m10flat3-c798ab27e5f8e9374dc4da625f2f403db36ecf1ad4f0db902e6bdeb7ca25b0b7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.852459
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "buyer_demographic",
+      "left_memory_ids": [
+        "m10flat3-b6209a3499d662545e907b7ae0097608a8663125568624431dc26bcae245e4f2"
+      ],
+      "left_subject_key": "legacy_space",
+      "merged": false,
+      "right_attribute_key": "target_demographic",
+      "right_memory_ids": [
+        "m10flat3-75dd8316350450a158f45272dbd9422246190d84b572034b3a17299364743b03"
+      ],
+      "right_subject_key": "legacy_space",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.852459
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "account_linking_intent",
+      "left_memory_ids": [
+        "m10flat3-4908d99e3cbc35ac18d148dd5e5386f2710629c75cb169cd839c1cd7b9075c56"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "account_linking_status",
+      "right_memory_ids": [
+        "m10flat3-49fe84c36ef4db60da620753870b9bd2432587069a08c6c63ea84c503e3f6c91"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.851852
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_16_12_2020",
+      "left_memory_ids": [
+        "m10flat3-c11cb895f5a5cfbadb94cdf873cf3e185310c18adc7c5b1adf05194696ad79c7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2021",
+      "right_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.851852
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2021",
+      "left_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_2022_07_09",
+      "right_memory_ids": [
+        "m10flat3-477fa7fb7abd35af4999715f183b77f0241295952c1a4145f908efdba6b2a2f1"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.851852
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "reported_value_2021",
+      "left_memory_ids": [
+        "m10flat3-f818d579a0e5d82a3c98e2cfec8f9225399936fa10fcfcc12048c452999550f7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "reported_value_25_11_2020",
+      "right_memory_ids": [
+        "m10flat3-c0bf1af99314144f849f9a893b2436b451cc68ac0d09c4cf6b5124f993f16f7f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.851852
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-d7d5faf50e2914fadd61a721a576bd788accf12cbc209670fde8319268a87342"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_activity",
+      "right_memory_ids": [
+        "m10flat3-e06d3e9fa05bccb3fa6d4c36f82ac49793b5eec44a09e91fc97d9e6977ee03d6"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.85
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-c669e95e8b472ce565126a46aa7ee708561f9a6fd93760c9a20aacf173288868",
+        "m10flat3-c6a22c62f4c8f1769e71e1d33ad0eee21113ae6439ffb7626d92069c451dde4f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_activity",
+      "right_memory_ids": [
+        "m10flat3-a954dfcd5c8f3e4f3a1063d00a4d33b3bb5e09918ed2089fc0803906209d1c97"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.85
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-c669e95e8b472ce565126a46aa7ee708561f9a6fd93760c9a20aacf173288868",
+        "m10flat3-c6a22c62f4c8f1769e71e1d33ad0eee21113ae6439ffb7626d92069c451dde4f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_question",
+      "right_memory_ids": [
+        "m10flat3-93d1de1660aa0a673f1a40133d95768248bcd24c08d222b93c4afd794361e548",
+        "m10flat3-953928c7f8a0c7dd3bf4b2b543b543fef2d8faeb0648cd68ae3612581c0e59bc",
+        "m10flat3-958fcf90a548c0618aa0faa7e0757bd4e3258d77dfb97ea26604b44de1a680ec",
+        "m10flat3-9694cf453d0cc46df8ff404f7367eb31de398bb8cce73bfba90aa5a2f985e772"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.85
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_interest",
+      "left_memory_ids": [
+        "m10flat3-649988599b9e855b4a5ef12001e80d1674802a01cc6e0d1a4f762c77e14fbbe3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "routine_interest",
+      "right_memory_ids": [
+        "m10flat3-07a273bbf977fa10a964b36fd549827f3f86de68e358014d61f49f8a0a837064"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.85
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_citation_tool_interest",
+      "left_memory_ids": [
+        "m10flat3-6b9caba15b4a038844e1b00efabcb8ef48cd1ea589c4e82892595f1dd5df09a9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_note_taking_tool_interest",
+      "right_memory_ids": [
+        "m10flat3-6c8e12b080531394b075c283ce0568e063f1bdc2c9d78694aaf19797da62e105"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.849315
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "cilantro_care",
+      "left_memory_ids": [
+        "m10flat3-e6fddb94c323ddcd22ae7acefb592f2b886fb6d6685be8b72425ca04d23eea9d"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "plant_care",
+      "right_memory_ids": [
+        "m10flat3-e6a46a83f55398e2b5380502715646a598019d183f66a1ba9d67dc10d2f2fb91"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.848485
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_recommendation",
+      "left_memory_ids": [
+        "m10flat3-4e65a63d2dbdedd50a408855458a190d1cd43d7a839bcb43f90fa1de39011e8f"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "risotto_oil_recommendation",
+      "right_memory_ids": [
+        "m10flat3-28ebefe1783cabc1ac0cb0f30f33ef24544f52ff46c61d45f6dc77a47a57ed94"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.848485
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "wildlife_rehabilitation_interest",
+      "left_memory_ids": [
+        "m10flat3-afedc9a5548e3df4986419ef395d866991a63f18a995c5b91b98e659d0dd3f96"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "wildlife_rehabilitation_volunteering",
+      "right_memory_ids": [
+        "m10flat3-b36ad160d24b23fa54f6d4176403eb67122729cda7eee6be01f411578c3bdebc"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.846154
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "img_tag_function",
+      "left_memory_ids": [
+        "m10flat3-92ed53473edb0ea9dc4e46bf762ef4de84250a2c294e06fa76dbc15aabd9155c"
+      ],
+      "left_subject_key": "html_tag",
+      "merged": false,
+      "right_attribute_key": "table_tag_function",
+      "right_memory_ids": [
+        "m10flat3-8b501c71719938883e5fe08ecbb020aa257f241e84989e13c47559f620db719e"
+      ],
+      "right_subject_key": "html_tag",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.846154
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "interest_in_character_development",
+      "left_memory_ids": [
+        "m10flat3-da837d89e5d952fbd9166e82335e0d172cf75ee590f6fc4478143357aeba97b8"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest_in_self_development",
+      "right_memory_ids": [
+        "m10flat3-db7a3032e48eeff30669d0455887aa40bd4a8c29db93ad252430079bb21a099f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.84507
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "interest_in_art",
+      "left_memory_ids": [
+        "m10flat3-88583ccb1b14488220a89780407474cad7421c4f74aba69263b5332a9483394b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest_in_crafting",
+      "right_memory_ids": [
+        "m10flat3-dbd8244b653eb01a8dab0be44aecf8c92fdf7eb2e38aecff4dbe3256b7a872d5"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.844444
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_interest",
+      "left_memory_ids": [
+        "m10flat3-0518b178b11f0b8a44f03955c8a094192bead2bd39b22e3248f73174813d4e3f",
+        "m10flat3-0538562ff2cbf10d3205f04b48680b9acb44f469fb46c250a6d51438b04a70b6",
+        "m10flat3-a80d1402bb15f17230be593428f2c7fd53a81faab1827aa04003a62db2f39515",
+        "m10flat3-c5ce4c672f2b1b33cb01cc2b2c882831083148fa8c7b0257acdc7473715832ae",
+        "m10flat3-c66e33660fbc57691ffe768895645de8bbef0eaedc416776659555f782ed961b",
+        "m10flat3-c6d5dd99a94460180bb6c59741d5d2d69c11e9d5baaf521c1914b2d0cd5fc0c2",
+        "m10flat3-c721acfa3e1d5678166b90d5b878dbea94b67ff10ed4fcb478989e61e4cd9d15",
+        "m10flat3-c83e02b2a8ef134698c3fbbfa111d5683a32fb4aa28d6797f81938a9e121939d",
+        "m10flat3-c95e2d4557eef0c6231058b0812c96a5713ec107f9a1c3bfb521cc2db6ac2847",
+        "m10flat3-ca1f738826db440553162a66c53d6b8b71062dae629c03313741bc8203548ef4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "tournament_interest",
+      "right_memory_ids": [
+        "m10flat3-2005f0bafca46c4f68fab387611248bdc58a47838b4a112c7d5b9795eeff2a94"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.844444
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "adjustment_for_ribs",
+      "left_memory_ids": [
+        "m10flat3-604fd27ee8d38ecb1b6955032d9fcc4bde08a2525e538c670886a5e140e1bc05"
+      ],
+      "left_subject_key": "sweet_heat_bbq_sauce",
+      "merged": false,
+      "right_attribute_key": "sugar_content_for_ribs",
+      "right_memory_ids": [
+        "m10flat3-117fa955b515744787f13f8d0c15f997d3854935ed3fbe65d2f43b82719f746b",
+        "m10flat3-13d56035cf2cd3713fe1678ff55635d50fda4c81baead7dc021f5140d3b4af18"
+      ],
+      "right_subject_key": "sweet_heat_bbq_sauce",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.843373
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "design_experience",
+      "left_memory_ids": [
+        "m10flat3-262963d487a7fe512f4c64297692d863661963080421cdc6f296ad2beffb715b"
+      ],
+      "left_subject_key": "mohammad_al_jubairy",
+      "merged": false,
+      "right_attribute_key": "software_experience",
+      "right_memory_ids": [
+        "m10flat3-420263e8bd860c4a718aaf9a3c39b4f027f366319639100573314b2263991976"
+      ],
+      "right_subject_key": "mohammad_al_jubairy",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "game_interest",
+      "left_memory_ids": [
+        "m10flat3-22066b92e56537d4693afe82295620697363ae66a1b5a698dc48e4f7c6071d07"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_interest",
+      "right_memory_ids": [
+        "m10flat3-45d79cd565ffd2b2a9165d9a373a212556203634649f861feb41ef9873546b29",
+        "m10flat3-8082e7992f5106f28dc62026b9c2e7de255e06baab539b7733387974d49cdc42",
+        "m10flat3-839d7245b8ab2f19d818230477a191b6c2a1595f0c284b4afaafc0d2b19b3357",
+        "m10flat3-84675ce47c461deb854c7a71448f2be7cc65044a03ad384fff78cf738d16cd17"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "laptop_gaming_intention",
+      "left_memory_ids": [
+        "m10flat3-84424405535d7dc6394a4f999c79152b13c7b2223051a086dd56424cfcd3c7c0"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "laptop_upgrade_intention",
+      "right_memory_ids": [
+        "m10flat3-863f62d54d0532668c8d416d46d9c378213034a885e243c127410059795f9b11"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "daily_routine_intention",
+      "left_memory_ids": [
+        "m10flat3-35bb3deacd0f6a9a3480180d5679d0c2371f9fcc608439d0b1349e98dfba3efd"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "daily_routine_motivation",
+      "right_memory_ids": [
+        "m10flat3-1477238b4b6f6ecf7c5abd2789aa5d52da2e87ae83f4c708435a96b804b4ffd4"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "streaming_client_services",
+      "left_memory_ids": [
+        "m10flat3-c38d8639390c46459dc13a5336ce6dbaf8e3852859098e7c63bd59a22aee1dce"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "streaming_client_setup",
+      "right_memory_ids": [
+        "m10flat3-c1a3ea1365b2a92eb88dfd13e451836c7f15bc0f329f7c59413327b4c59b7244"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hike_interest",
+      "left_memory_ids": [
+        "m10flat3-266624c959d25ff87431fa35892e9846cc455bbeabfe16e33a93ea9ec1ca9ffe"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "recipe_interest",
+      "right_memory_ids": [
+        "m10flat3-788af851f3d43c23790e08026f82b8466e71da85e1d3aa2391b13d696277fa6f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "family_interest",
+      "left_memory_ids": [
+        "m10flat3-26f78f7d15da2d1c1a96520177cd0848bc06bf3c011c4723def5ebf891eea7b3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "meal_interest",
+      "right_memory_ids": [
+        "m10flat3-8460d960269796e0ad8a8c2199b9e45ca8716cdfde2dfd75290401883a598a06"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "music_interest",
+      "left_memory_ids": [
+        "m10flat3-ac47fb94cc0d3a1b5e364e17984b0718d476b57a5911533ce61ee66fcf871849"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "user_interests",
+      "right_memory_ids": [
+        "m10flat3-500952d884980e739d1575e66120e16b885a43bfd9433ad9a7b4561fc332d3d2"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "bag_charges",
+      "left_memory_ids": [
+        "m10flat3-2907ac83bec4df9cbf466676babfcabc3a34699966b0ac7223379cb493e1f325"
+      ],
+      "left_subject_key": "spirit_airlines",
+      "merged": false,
+      "right_attribute_key": "bag_fee_ranges",
+      "right_memory_ids": [
+        "m10flat3-285dfe5cf210c782db7f7cecf56f10e87beeaddf7e480b6cf162326a154d6c41"
+      ],
+      "right_subject_key": "spirit_airlines",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "cruise_planning",
+      "left_memory_ids": [
+        "m10flat3-cd2d31480b43bb4f124225da1798cec88a1929306554a89cc6787938db3edef9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "trip_planning",
+      "right_memory_ids": [
+        "m10flat3-608c95c3ad5fedbc997e0c05a36bfcf660699b8c3dd23dc6819618d629dc0595"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "travel_planning",
+      "left_memory_ids": [
+        "m10flat3-481d71fda87ac3a2002977424de4f51015baf3ffc07c1b18d3e0c0726b1d0643"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "trip_planning",
+      "right_memory_ids": [
+        "m10flat3-608c95c3ad5fedbc997e0c05a36bfcf660699b8c3dd23dc6819618d629dc0595"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.842105
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "podcasting_consistency_interest",
+      "left_memory_ids": [
+        "m10flat3-5116bfb2da723bf85190ad8e953dbabc73c53de394ac3eef92849740a24f0ea3",
+        "m10flat3-513d4f2ad63ab66afa3075716e5f1fcdf79519d68e75e0a30894fb4e8ad6f829"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "podcasting_patience_interest",
+      "right_memory_ids": [
+        "m10flat3-54ba279dff88a3e2bb3e10b49686a348484c8879bf0866521bec0e70d9ad2062"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.84058
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "social_media_promotion_intent",
+      "left_memory_ids": [
+        "m10flat3-9bea58252d32cda68dc51baac6329cdbb2b109702fd1b6a54e776b5c343c9459"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "social_media_promotion_request",
+      "right_memory_ids": [
+        "m10flat3-9b9194ce280e9b61304be3dc5fc8769b66a73b48f255ffafb809dff16ea3ff7d"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.84058
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_banana_cotton_interest",
+      "left_memory_ids": [
+        "m10flat3-704c241f2317c864e3019f5bde59e41737165992fe60e1ee7f3c81b61d85339b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_banana_fiber_interest",
+      "right_memory_ids": [
+        "m10flat3-6bb6372527cd63e81be466e0206bc0aa4b7bb41ee135d2fa7058d2676f04c357"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.84058
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "recommendation",
+      "left_memory_ids": [
+        "m10flat3-6d637ab68c4214a70ceb589a5b356f82d37cf14ea9a7565e7257666f304e903b",
+        "m10flat3-6e2b2151016a31bd9f7ce0ed3475cb40f12de5665b51136082eb005b76ca712d",
+        "m10flat3-6e39f1d57dfebf158c1ab1d8c18ce8bac80abf60ef492cb1191890107edc042f",
+        "m10flat3-6fa5642a166221da1cdf9e2e67ddd30b7e103d0b3862a8b27431b6cb7cf8d1f1",
+        "m10flat3-72099027e406479f017277aaf3b1de2ad28fa110b67348d8ac8451b42f336468",
+        "m10flat3-734a8f0bd37af187bfa581cbd4a4a111a52bfd25cd604298dc8c3ea00775b889",
+        "m10flat3-7398923f7021f10dc0049fabec8a58f96ab7f5fc80df3f22612fb4b79f2b0738",
+        "m10flat3-747d4fa2f23494971b9cc60b2d403a831d0d179acd5869da83671f2f019f4b1f",
+        "m10flat3-7579f2b08fe90f20312927b4a9635fbc51f24275988eafadd3a46066b9f6bd8a",
+        "m10flat3-75951888f179173c63749c92533aade1ba98984e4428984eff9ef85a71c2eb81",
+        "m10flat3-75a56959016c239517cc94f13ad75fd41302361dd75909cabbdb2c3ee8e3c3db"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "recommended_tool",
+      "right_memory_ids": [
+        "m10flat3-c7f162bd0fcb7e682912f1b62787211b2064467ea111b71dc95bb6bcaa4382fb"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.84
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "vancouver_budgeting",
+      "left_memory_ids": [
+        "m10flat3-713063f0a6322a9b6a18773b3dbbf3c8bec198a76ac83b943a40b2c5c347725b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "vancouver_rent_budget",
+      "right_memory_ids": [
+        "m10flat3-74e9194fd9533d1b7dfea1aec08371e72df24e189a914d897677d703d23a8ca1"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.84
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "vip_experience_price",
+      "left_memory_ids": [
+        "m10flat3-03435d8263ca53aeddedbb811ce0f8f9ceb591c4e8e14f7609bc8ee968727230"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "vip_experience_terms",
+      "right_memory_ids": [
+        "m10flat3-f8fecf2436a765eb5a37957777f9b06028b57fc8112375a1a3a17759d363fd4e"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.84
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "belief_transportation",
+      "left_memory_ids": [
+        "m10flat3-5a7248c4b48070876f6db06e8c6dfd7f56f88d80b6daeff10458e4365898461c"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "city_transportation",
+      "right_memory_ids": [
+        "m10flat3-3e044689956436b033954611f5752b915338c84aff06b21bfffb5c90c2ced270"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.84
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "design_experience",
+      "left_memory_ids": [
+        "m10flat3-262963d487a7fe512f4c64297692d863661963080421cdc6f296ad2beffb715b"
+      ],
+      "left_subject_key": "mohammad_al_jubairy",
+      "merged": false,
+      "right_attribute_key": "image_editing_experience",
+      "right_memory_ids": [
+        "m10flat3-5ad0b56af095a7d0b6b5808592e2b94e920997da0e3a432415744c167ef42241"
+      ],
+      "right_subject_key": "mohammad_al_jubairy",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.839506
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "location_interest",
+      "left_memory_ids": [
+        "m10flat3-7bfd09cc72fe4f309116fad6abefaf7255080b2b7ecae12171c3b2176ab18c99"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "podcast_interest",
+      "right_memory_ids": [
+        "m10flat3-5d3655a486bf1e3c7e09c98fef18b604f0bdd394dcc1736f19a10edcc79b02ed",
+        "m10flat3-c99cbe6e2c8d2e4ec24b93d42d0f1b5e2ddf0806fe1ef1e5b945e8b652293040"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "keyboard_purchase",
+      "left_memory_ids": [
+        "m10flat3-63b3aa32ba76610e6b06d11bf4d79cb635371527ebb43c8afc87ca7108559205"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "keyboard_upgrade",
+      "right_memory_ids": [
+        "m10flat3-95c81f13c0fa7607442b574435849b6f9c327313a9b5d7fd474faf00f33c6740"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "shopping_interest",
+      "left_memory_ids": [
+        "m10flat3-46908e1cbd011a35b8e874462b01ceeb64102805eef054cc6fda350206b3a506"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "shopping_request",
+      "right_memory_ids": [
+        "m10flat3-d531dfabe89ae35605d9cb4996434b046af849cf68298f5825459bec0bbda761"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "gourmet_buffet_description",
+      "left_memory_ids": [
+        "m10flat3-a6a51d682a75830bb072be030ad770fb05fe0477708c5b055f566bffd3f15ba8"
+      ],
+      "left_subject_key": "vip_experience",
+      "merged": false,
+      "right_attribute_key": "gourmet_buffet_price_variation",
+      "right_memory_ids": [
+        "m10flat3-a64381307609229311cdb38d3e80b32899a36b53b27e63f45f8f8608665e3c97"
+      ],
+      "right_subject_key": "vip_experience",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "gourmet_buffet_price_variation",
+      "left_memory_ids": [
+        "m10flat3-a64381307609229311cdb38d3e80b32899a36b53b27e63f45f8f8608665e3c97"
+      ],
+      "left_subject_key": "vip_experience",
+      "merged": false,
+      "right_attribute_key": "price_range",
+      "right_memory_ids": [
+        "m10flat3-e02c91f4b04e45cf5490aa4135840496a7627e11604336f8df446b27d91a1647"
+      ],
+      "right_subject_key": "vip_experience_gourmet_buffet",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_motivation",
+      "left_memory_ids": [
+        "m10flat3-ea9d0ee01e6c1a8bd653294acde5e50ee6a4fd97fe6fcc07be1e88d24c6a633a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "user_motivation",
+      "right_memory_ids": [
+        "m10flat3-b6f5cc722d4d8acae470735377282117583630b224315416f5f783c382bfff4e"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.837209
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_literacy_interest",
+      "left_memory_ids": [
+        "m10flat3-6b1320d365b2a62cf61578e66e6887b5540f1cb02e3fa5afe23f5391f80a0aea"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_mpa_interest",
+      "right_memory_ids": [
+        "m10flat3-71334af5ce0ddeb3314b351368f76500677b5e1bc7ccb878dec97b4d94be1c54"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.836364
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "writing_prompt_interest",
+      "left_memory_ids": [
+        "m10flat3-bff43d619fb831868ac0d2143b840a0cf812f63bc5669e9addfd81e0f5be4df1"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "writing_theme_interest",
+      "right_memory_ids": [
+        "m10flat3-54f661d05f9a1c451cd116cca245c43bbcc22370cb94d4e04db03c0a9d5d0056"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.836364
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "fishing_spot_interest",
+      "left_memory_ids": [
+        "m10flat3-722382c754d6fec28b4378b6174cf6ae0240f9716c73b5f71f647827f74fe701"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "fly_fishing_kit_interest",
+      "right_memory_ids": [
+        "m10flat3-c203942d313085c42cb59e4d99ec46a89ef30e8996a49c34d9705fe34318e2a9",
+        "m10flat3-c781ba8728fde7da9f8003ee7d6bf5305d1b7c382a1311ec3e9c7444745b50e5"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.836364
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "romania_problem_action",
+      "left_memory_ids": [
+        "m10flat3-3b79fdfa35a37f46d6942584b76d4ffe9539b6b3731a5124a87be459f5e9feec"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "romania_problem_heuristic",
+      "right_memory_ids": [
+        "m10flat3-3ba98aa43aee3b57ad8360b2da6dc8972ad2ddff03a8d1f20a7fca2b8e9fe992"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.835821
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_banana_cotton_interest",
+      "left_memory_ids": [
+        "m10flat3-704c241f2317c864e3019f5bde59e41737165992fe60e1ee7f3c81b61d85339b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_navigation_interest",
+      "right_memory_ids": [
+        "m10flat3-6ee70c6249e2b0146df018daea0d6bf5ad0e674510536b19dd9890cbae7039dd"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.835821
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_citation_tool_interest",
+      "left_memory_ids": [
+        "m10flat3-6b9caba15b4a038844e1b00efabcb8ef48cd1ea589c4e82892595f1dd5df09a9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_navigation_interest",
+      "right_memory_ids": [
+        "m10flat3-6ee70c6249e2b0146df018daea0d6bf5ad0e674510536b19dd9890cbae7039dd"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.835821
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_storage_search_intent",
+      "left_memory_ids": [
+        "m10flat3-65747723655b2e97a01ec3ca9285f07158d1c7bb1b717a785f990077d20ae4d6"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_weapon_search_intent",
+      "right_memory_ids": [
+        "m10flat3-64fce910957a8dbfb9dc3489b33833d065f0f97b2566da7cc68487e37c0c9ceb"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.835821
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "aunt_and_uncle_relationship_support_continuation",
+      "left_memory_ids": [
+        "m10flat3-b1fb0ee0403663a46b4bc6e60329e612393ac6245957b281a67e56f786fd6f47"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "aunt_and_uncle_relationship_support_follow_up",
+      "right_memory_ids": [
+        "m10flat3-b34f502ecae68b2076cdd2f5ae2a3ccbeb98c9a7f47815b099ee945a694dc609"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.834951
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "game_interest",
+      "left_memory_ids": [
+        "m10flat3-22066b92e56537d4693afe82295620697363ae66a1b5a698dc48e4f7c6071d07"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "luau_interest",
+      "right_memory_ids": [
+        "m10flat3-3043a26356d24071a1618506368ddad3211abad72740ea1b7ff2e96e6c3ad4e3"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "luau_interest",
+      "left_memory_ids": [
+        "m10flat3-3043a26356d24071a1618506368ddad3211abad72740ea1b7ff2e96e6c3ad4e3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "yoga_interest",
+      "right_memory_ids": [
+        "m10flat3-1a520c49443883686ee1723e813993435d61642afdf290d3b674c4b15081f0b1",
+        "m10flat3-42e7c1ff9d72674db6911982fe5594059fea8cfc8f1c1e09591a204b9c884587"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "annotation_tool_login_status",
+      "left_memory_ids": [
+        "m10flat3-788f37e21e3b19cca442577c4e2c7b5f5f518f590697dcbbeae7e56e02ee7dee"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "annotation_tool_redirection_status",
+      "right_memory_ids": [
+        "m10flat3-7b8b639810d02d9b437b16829641bbec1a025ee14bba5ad4179c2a61fce04f72",
+        "m10flat3-808578ae50d97fcbfc1784c014ed3ecb2a063c57a18a71014b8fa06b71b46f02"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "podcast_genre_interest",
+      "left_memory_ids": [
+        "m10flat3-6c54fcedb72324ebb156d2db206a3d4badef979e927fb84d623edbd10d8b5633"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "podcasting_patience_interest",
+      "right_memory_ids": [
+        "m10flat3-54ba279dff88a3e2bb3e10b49686a348484c8879bf0866521bec0e70d9ad2062"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "collaboration_interest",
+      "left_memory_ids": [
+        "m10flat3-94834108cd4a114299030fea7282e8a394a358d8ad0c1d80fe2389b1ff60ae66"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest",
+      "right_memory_ids": [
+        "m10flat3-7d484100965ae14c3b0baee3e72c68525746a6ed07ad3841a625c541e8631e2b"
+      ],
+      "right_subject_key": "user_music_collaboration",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "charms_recommendation",
+      "left_memory_ids": [
+        "m10flat3-82af75ec02841a2c47a2814bdff4b9f1497ac1390b514fed903251c15ec12154"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "diet_recommendation",
+      "right_memory_ids": [
+        "m10flat3-90362a4d29add0d06767fdd90451c2718252d5c450d6ad48a4bee789ef21fff4"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-d7d5faf50e2914fadd61a721a576bd788accf12cbc209670fde8319268a87342"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_plan",
+      "right_memory_ids": [
+        "m10flat3-d69ce5c804a63f1a64a2f469a3fcda4e8acbea159faf474678874c88cc00e7ab"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "game_interest",
+      "left_memory_ids": [
+        "m10flat3-49657f1cb5c47c38116472ea6b99dd2e4ec379e29e56627a1c935d447f0b44a9"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "hike_interest",
+      "right_memory_ids": [
+        "m10flat3-47e2966e18f3fe3011218a4684c858763e7f6941af9e192c06ad19fc1cd28e62"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "intent",
+      "left_memory_ids": [
+        "m10flat3-86bb6ee5944bd47c5d1a9a04d0512aeb84af5dcf3817ebb58062fe25a3ae9f68",
+        "m10flat3-8914293882e93541577641181e0dd539a62788f95554c5e6098f10b49e10956d",
+        "m10flat3-8f66499334d9d2a2dc2fdd4dd94d5a9a1803e600f6fbfae69b53bf368bc475da"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "interest",
+      "right_memory_ids": [
+        "m10flat3-59a3510984ece2a4c9fad22018bdb7ac6856993e7037e3b383cc962796e1395a",
+        "m10flat3-86ad73e23efd9a71e675e8bca19c44a1296ef7109fa735914d0b9bf3d8607472",
+        "m10flat3-8950aeba8915a8340358218b0a43e8dd44c17ce8d7e99610b9d45f52f6fc29ae",
+        "m10flat3-8e866d7267ce5eecf1b89b89fd45a0625e3f0e6d3b2122ae22e60a6ef8f06d01",
+        "m10flat3-8f496308c65376be476c442ddcc46db8f6de1964c1c06867b62696e9ba2fb2da",
+        "m10flat3-a388e6c401d7df22e2d56f0b9dd592855f0a9403345780c385bd0c05dc279e0e",
+        "m10flat3-e1a3f3abe461868d66632e97cdc1bc84322678eb4961bd7060e28ada8e86f9b8"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_action",
+      "left_memory_ids": [
+        "m10flat3-c669e95e8b472ce565126a46aa7ee708561f9a6fd93760c9a20aacf173288868",
+        "m10flat3-c6a22c62f4c8f1769e71e1d33ad0eee21113ae6439ffb7626d92069c451dde4f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_plan",
+      "right_memory_ids": [
+        "m10flat3-c4994644301d29973c5b0ce785f6c5f229ff37a791fb1652a02842e6e8f510e7",
+        "m10flat3-c90a5a07f1aa7ddeacaeb0bcea2875aca037c0873193ef9ba5ee9626381068e3",
+        "m10flat3-c9f7587c3886cb01b74722b35363476cb3d819dbf2800227db1db374b1a8e223"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.833333
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "neon_lit_photo_booth_interest",
+      "left_memory_ids": [
+        "m10flat3-c63de384c9f729328d9553ed3ba8b82bd7b68d264025e4a2de4e908e7eb28849",
+        "m10flat3-c7fdd785d9d8e3ebb7175d65b11a82a0e34f47c7e81fc1eaad200680cc921bb1",
+        "m10flat3-c83cf14a5999162e990585a7accee1443b1a44775ff7f0b3a0862838a3c2f057"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "neon_lit_photo_booth_setup",
+      "right_memory_ids": [
+        "m10flat3-172ad0d7cb4e9ca0e6b8c9ff4b1c827acbe6762edc89daa127a89a949df74eed"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.830769
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "jewelry_organization_interest",
+      "left_memory_ids": [
+        "m10flat3-00d9eceee252820c39bf2fb426d746a2522596142c30340fb08f5b32ffe00632"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "task_organization_interest",
+      "right_memory_ids": [
+        "m10flat3-b17759224ae0d03c7d25a843dad2d90aefeba03f96f6d7fc3d16465bc6448c7e"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.830769
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "podcast_genre_interest",
+      "left_memory_ids": [
+        "m10flat3-6c54fcedb72324ebb156d2db206a3d4badef979e927fb84d623edbd10d8b5633"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "podcast_hook_interest",
+      "right_memory_ids": [
+        "m10flat3-2f7caf8aab3a005a5b0ee2754e5806d3bc1c1b6ff5d6ca2a37802903236776dd"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.830189
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "security_camera_choice",
+      "left_memory_ids": [
+        "m10flat3-90ca505b96c751d2794c1834c660239c5bb48e3d7ba451d8cde4b96d7474f12f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "security_camera_setup",
+      "right_memory_ids": [
+        "m10flat3-831f3474d1a9e90bfc71b05cd6a4f85906d615b2c74ea17149cf5f28c0f2ccc0"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:778164c6",
+      "surface_similarity": 0.830189
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "bike_purchase_factors",
+      "left_memory_ids": [
+        "m10flat3-30ab8a1f8c4711547320f8c234df4265ddcd99f6b14de029561f431d7a056316"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "bike_purchase_interest",
+      "right_memory_ids": [
+        "m10flat3-f9b8915500959ba9cd1eb6854c621bea077fdb3c1c6e85673c289d4838a8c9de"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.830189
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "macrame_interest",
+      "left_memory_ids": [
+        "m10flat3-38158bb10e84f8d902911b991426f13442bdc392f952d1c0efce3e0027599289",
+        "m10flat3-4dea8865fcfe46af4cdad4d139141652de205acd6c909629f0df3a739dfc4d1e",
+        "m10flat3-56d4f9cdd006b74eb9963f40976fb192c5a6f90802085c00efb0ee92c2e2722b",
+        "m10flat3-91bc98b5f88fd4b80e28f9e8aa677ec660fcd865102e3b6a56d404ad039dd2a2"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "travel_interest",
+      "right_memory_ids": [
+        "m10flat3-5562b19ad2d84c4d44589d9ceb316e218bbb83610f21e237042ec38394d04f83",
+        "m10flat3-9b08d707945107a112a86eed110ea40711ddd7defe8a81874ec34a0c69431c29"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.829268
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_interest",
+      "left_memory_ids": [
+        "m10flat3-0518b178b11f0b8a44f03955c8a094192bead2bd39b22e3248f73174813d4e3f",
+        "m10flat3-0538562ff2cbf10d3205f04b48680b9acb44f469fb46c250a6d51438b04a70b6",
+        "m10flat3-a80d1402bb15f17230be593428f2c7fd53a81faab1827aa04003a62db2f39515",
+        "m10flat3-c5ce4c672f2b1b33cb01cc2b2c882831083148fa8c7b0257acdc7473715832ae",
+        "m10flat3-c66e33660fbc57691ffe768895645de8bbef0eaedc416776659555f782ed961b",
+        "m10flat3-c6d5dd99a94460180bb6c59741d5d2d69c11e9d5baaf521c1914b2d0cd5fc0c2",
+        "m10flat3-c721acfa3e1d5678166b90d5b878dbea94b67ff10ed4fcb478989e61e4cd9d15",
+        "m10flat3-c83e02b2a8ef134698c3fbbfa111d5683a32fb4aa28d6797f81938a9e121939d",
+        "m10flat3-c95e2d4557eef0c6231058b0812c96a5713ec107f9a1c3bfb521cc2db6ac2847",
+        "m10flat3-ca1f738826db440553162a66c53d6b8b71062dae629c03313741bc8203548ef4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_request",
+      "right_memory_ids": [
+        "m10flat3-c3ef11fbbafd65f54340c105aaa8f579f9bc8909861a28d939cfc13695d12bd8",
+        "m10flat3-c475c5581faa44c2a8ff1d2b9c632d1224560787e63e3f64d76a6577faeb3ca7",
+        "m10flat3-c56bf92d0a88ec819ccae6668e3b55eafa6566401f7b94aebacae42e3e988514",
+        "m10flat3-c656af184d1514917dd6ab32e2ee2aed7401d2f54241aca6223c9e047d671a7e",
+        "m10flat3-c6dfb411725a4fd6a2f76369f365073cf50316e1751f49f27bb827f9491a406f",
+        "m10flat3-c6e00bc7856581ee452ad1fe68fdc8921d93ca8a95cafe5783ee260abb11240c",
+        "m10flat3-c6e482da57f6fd889fd1625da745dc79de51761be1f2cdab6624907c10b90d72",
+        "m10flat3-c91419bcf62fe410d024f77498b1b23d7dfad64b1bd2f5d4e473aa3100617640",
+        "m10flat3-f983da333be004fe465ab141229f07f50acdd196e3216be1b9ad5e00607a0faf"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.829268
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "cocktail_interest",
+      "left_memory_ids": [
+        "m10flat3-5d7a726ca4d6ff074a09b45f2884bff67cf13f325df911aa4c99ae6ba50b4c8b"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "hotel_interest",
+      "right_memory_ids": [
+        "m10flat3-649988599b9e855b4a5ef12001e80d1674802a01cc6e0d1a4f762c77e14fbbe3"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.829268
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "cleaning_product_interest",
+      "left_memory_ids": [
+        "m10flat3-ca24b4289d796aebdba54df234092c01b2ef2b19afcf6f8fbf9a5df09312992e"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "sewing_project_interest",
+      "right_memory_ids": [
+        "m10flat3-3147d3013d37d7586cad1e376f3fa67f2c0ea8688de94f115d8f167788ce4a05"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1c549ce4",
+      "surface_similarity": 0.827586
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "planning_to_consult_helmet_rental",
+      "left_memory_ids": [
+        "m10flat3-8a247d3773494d9c871986c6fb23a55be42ad0a9d916a8223d5cb9692d4c8a2a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "planning_to_consult_rental_shops",
+      "right_memory_ids": [
+        "m10flat3-8a1d41331f17c5cabef669d1d5d076b293298b4c544137eebda04edaa2094d9f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.826667
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "lunch_preference",
+      "left_memory_ids": [
+        "m10flat3-d5716619274aea89a96eb2531dc06fa6d0d78a4bc0f9e6e1a6923a899960a86f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "sunscreen_preference",
+      "right_memory_ids": [
+        "m10flat3-c4b26f1b5f97d1eb8b2e11d0ea93ee2ef46b3d7f311a52629c27e9361b5ff7fe"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.826087
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "music_preference",
+      "left_memory_ids": [
+        "m10flat3-cc9603782bc572e697dfe21fd978886bbdc5ee2291f527663aab0c384bccf64a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "sunscreen_preference",
+      "right_memory_ids": [
+        "m10flat3-c4b26f1b5f97d1eb8b2e11d0ea93ee2ef46b3d7f311a52629c27e9361b5ff7fe"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.826087
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "hotel_preference",
+      "left_memory_ids": [
+        "m10flat3-9221301a75730965c7657c3a6c2db56576e7478bd2f3232081077eac8b68c325"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "mom_style_preference",
+      "right_memory_ids": [
+        "m10flat3-b618d6959f4a005c25fa7de9f72f51d5313d49d3ada6d3cbdd6aa2f42331684f"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.826087
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "employer_preference",
+      "left_memory_ids": [
+        "m10flat3-8b327952a629dcbcf57e80fe9a0dc68e16dfca00f36e687895b189c99db317c4"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "needle_preference",
+      "right_memory_ids": [
+        "m10flat3-7139fcbfb0617ac7de2825e8fdb8c232a160bacc904868215fd2dbd91f932b2d"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.826087
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "display_case_customization",
+      "left_memory_ids": [
+        "m10flat3-768133b6fddefdd255e190f7e48d7db3e74179b085ee1169649ea6301cf26ebc",
+        "m10flat3-777c6f35484890e8cfbed1bddb7b8db199da3bb4d0402eb6f2160656dc0e2824"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "display_case_recommendation",
+      "right_memory_ids": [
+        "m10flat3-0f273022f4a0b9440d48d6bd79165214db1663b37fe6d0bdc0b16bd0fab839c0"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.825397
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "stock_market_prediction",
+      "left_memory_ids": [
+        "m10flat3-64588cc1d928eb669eb9e666f3922773856262da5ef8a9643f5eb714358d4d0a"
+      ],
+      "left_subject_key": "bill_miller",
+      "merged": false,
+      "right_attribute_key": "stock_market_prediction",
+      "right_memory_ids": [
+        "m10flat3-f807c44b8228826a8a98371b08dac6d1cf214679989af9d35e29bc969f3379a2"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_f420262c",
+      "surface_similarity": 0.825397
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "healthcare_interest",
+      "left_memory_ids": [
+        "m10flat3-1cbfc20efb51f36c3cf6ef3b97411029ddcf7a55d6ab97943443cf14cd68c4a7"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "healthy_snack_interest",
+      "right_memory_ids": [
+        "m10flat3-bcfd8669c068950ffcac44ae08bafad5a069ed7217e329b44c627a8f90899fb4"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.823529
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "laptop_battery_concern",
+      "left_memory_ids": [
+        "m10flat3-138ba90038e5656b7b2e83e3d61562b70b8363ecdcb0ba6eb080bd3072bf1668",
+        "m10flat3-146eb400f96bfbd6de3316460ff488d7cced838903cd3c0c7efc1a64f3fe2846"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "laptop_battery_life",
+      "right_memory_ids": [
+        "m10flat3-af95a998f9bce75317a4b427c33eced26aafac2a4c8d6434131f3acd1db8ce01"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.823529
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "moduleid",
+      "left_memory_ids": [
+        "m10flat3-da5fa99f4abf62db333cc67c5522b647fa30c4e1aa08973ab6fdb8a5b2e3a6d2"
+      ],
+      "left_subject_key": "pm_ui_portfolio_exposures",
+      "merged": false,
+      "right_attribute_key": "property",
+      "right_memory_ids": [
+        "m10flat3-d98830735dc8e6899bb61d05262b7173c24233c751b1613713b9cc14665cc3f5"
+      ],
+      "right_subject_key": "pm_ui_portfolio_exposures",
+      "scope_id": "longmemeval:c4ea545c",
+      "surface_similarity": 0.823529
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "moving_plan",
+      "left_memory_ids": [
+        "m10flat3-85e4e86e9d6c1bdb864385b5b21e5b32caf039cea60bece63c47f0cfefc868e2"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "shopping_plan",
+      "right_memory_ids": [
+        "m10flat3-fdbcb4040518b4187364a487042ae1a3aba248a9c24d6f1046fcf14b541a3728"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.823529
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "current_plan",
+      "left_memory_ids": [
+        "m10flat3-c4994644301d29973c5b0ce785f6c5f229ff37a791fb1652a02842e6e8f510e7",
+        "m10flat3-c90a5a07f1aa7ddeacaeb0bcea2875aca037c0873193ef9ba5ee9626381068e3",
+        "m10flat3-c9f7587c3886cb01b74722b35363476cb3d819dbf2800227db1db374b1a8e223"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "current_task",
+      "right_memory_ids": [
+        "m10flat3-1d44dda210c8905eba04a805708b533f77b04cece3a37cb51aad2e5e40d03338"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.823529
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "laptop_upgrade_benefit",
+      "left_memory_ids": [
+        "m10flat3-886606a3dd388a55670a89a1255d20e39fa49d81387ce5f16ca4f23367f1edf1"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "laptop_upgrade_intention",
+      "right_memory_ids": [
+        "m10flat3-863f62d54d0532668c8d416d46d9c378213034a885e243c127410059795f9b11"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:1cea1afa",
+      "surface_similarity": 0.821429
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "bike_sharing_preference",
+      "left_memory_ids": [
+        "m10flat3-96641f96a4b71ed4778a350a2f27f393d9ac18aafbb8f568886924248d230a82"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "gift_pairing_preference",
+      "right_memory_ids": [
+        "m10flat3-9d6f1f4134cba5cf070b65bc9c057d5f1a56b95d29261422c23453740ce396ce"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:a82c026e",
+      "surface_similarity": 0.821429
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "motivation_advice",
+      "left_memory_ids": [
+        "m10flat3-807e221ed28fb086cca5cac6089a97ad073b05d074d713225a654568f3514607"
+      ],
+      "left_subject_key": "assistant",
+      "merged": false,
+      "right_attribute_key": "motivation_strategy",
+      "right_memory_ids": [
+        "m10flat3-7a1113a3927e5d6417704714c8f58cd8a7df392cdb02044d5fc1c4b9aab254a9"
+      ],
+      "right_subject_key": "assistant",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.821429
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "podcast_interest",
+      "left_memory_ids": [
+        "m10flat3-24f1e1e30633bb1687da9fba71643aa77cd2663998b381b2e6cbe0b65e4869c0"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "yoga_interest",
+      "right_memory_ids": [
+        "m10flat3-1a520c49443883686ee1723e813993435d61642afdf290d3b674c4b15081f0b1",
+        "m10flat3-42e7c1ff9d72674db6911982fe5594059fea8cfc8f1c1e09591a204b9c884587"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:06878be2",
+      "surface_similarity": 0.820513
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "coffee_interest",
+      "left_memory_ids": [
+        "m10flat3-cdbf7938d34b4c3bce974179256f9277ea364343b8101e087cf633f3447bec65"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "dance_interest",
+      "right_memory_ids": [
+        "m10flat3-67b4c12bc73717c235e6a2abaf84dbe40ead5213ef1963be602288a9d3b46c37"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:8550ddae",
+      "surface_similarity": 0.820513
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "recipe_interest",
+      "left_memory_ids": [
+        "m10flat3-788af851f3d43c23790e08026f82b8466e71da85e1d3aa2391b13d696277fa6f"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "recipe_request",
+      "right_memory_ids": [
+        "m10flat3-69387c783eedf84de2d4f746bd16d357ebd7f164b51e2e314daa6aad9b6a27dc"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:fca70973",
+      "surface_similarity": 0.820513
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "family_interest",
+      "left_memory_ids": [
+        "m10flat3-26f78f7d15da2d1c1a96520177cd0848bc06bf3c011c4723def5ebf891eea7b3"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "music_interest",
+      "right_memory_ids": [
+        "m10flat3-ac47fb94cc0d3a1b5e364e17984b0718d476b57a5911533ce61ee66fcf871849"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.820513
+    },
+    {
+      "heuristic": true,
+      "left_attribute_key": "user_intentions",
+      "left_memory_ids": [
+        "m10flat3-50a716b6d670f7e606aaa0911741f53b777580882e934503f23906ebab81764a"
+      ],
+      "left_subject_key": "user",
+      "merged": false,
+      "right_attribute_key": "user_interests",
+      "right_memory_ids": [
+        "m10flat3-500952d884980e739d1575e66120e16b885a43bfd9433ad9a7b4561fc332d3d2"
+      ],
+      "right_subject_key": "user",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "surface_similarity": 0.820513
+    }
+  ],
+  "heuristic": true,
+  "method": "SequenceMatcher over subject_key + attribute_key within the same scope",
+  "threshold": 0.82
+}
