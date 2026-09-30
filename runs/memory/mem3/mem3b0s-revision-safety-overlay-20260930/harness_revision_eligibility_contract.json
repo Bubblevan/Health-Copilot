@@ -1,0 +1,46 @@
+{
+  "assistant_owned_subject_prefixes": [
+    "assistant",
+    "assistant:",
+    "assistant/",
+    "assistant_",
+    "assistant."
+  ],
+  "assistant_source_gate": "ASSISTANT_ORIGIN -> INELIGIBLE_ASSISTANT_ORIGIN",
+  "assistant_subject_gate": "INELIGIBLE_SUBJECT_NAMESPACE",
+  "contract_id": "mem3b0s-harness-governed-revision-safety-v1",
+  "eligible_authority_namespaces": [
+    "USER_ASSERTED",
+    "USER_MIXED"
+  ],
+  "fallback_identity_gate": "HARNESS_UNKNOWN_FALLBACK -> REVISION_INELIGIBLE",
+  "grouping_key_exact": [
+    "scope_id",
+    "subject_key",
+    "attribute_key"
+  ],
+  "identity_records_authority": "SEMANTIC_IDENTITY_PROPOSAL_NOT_AUTHORITATIVE_STATE_SCHEMA",
+  "key_canonicalization": "none; preserve proposed identity keys verbatim",
+  "memory_store_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  },
+  "repeated_groups": "only exact groups with at least two eligible members enter verifier",
+  "revision_kind_gate": {
+    "allowed": [
+      "SINGLETON_STATE"
+    ],
+    "others": "INELIGIBLE_REVISION_KIND"
+  },
+  "schema_version": 1,
+  "singleton_groups": "SINGLETON_WITHOUT_REVISION_HISTORY; no verifier request",
+  "source_authority_mapping": {
+    "assistant": "ASSISTANT_ORIGIN",
+    "mixed": "USER_MIXED",
+    "other_or_missing": "HARNESS_UNKNOWN_FALLBACK",
+    "user": "USER_ASSERTED"
+  },
+  "timestamp_access_before_safety_freeze": "prohibited; never used for grouping or verifier input"
+}

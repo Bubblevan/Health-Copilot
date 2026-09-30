@@ -1,0 +1,983 @@
+{
+  "gym_recall_control": {
+    "forced_cross_key_merge": false,
+    "revision_group_safe": "PARTIAL",
+    "target_memory_ids": [
+      "m10flat3-314a33a5e4483914ceab45913c3e5109690792b8b9077ab3793719d61c09aafb",
+      "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273",
+      "m10flat3-879b97cb6ff7d4fd11349aa2495b28f508d413e4764ebb81109d5113c58c4d38",
+      "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24",
+      "m10flat3-bb50df81a340ad42c50efce2d746f18ebaf7bb8d076dab866ade3d6feaf2d3c8",
+      "m10flat3-c39caf87d4f45e62193f764e0ae02cbfc7bd1b4196d5e4fa7a87a51b5408a529",
+      "m10flat3-d280a9b216c0ce6c047962ffa2e3e640020dc32241c4f76800ce4065e37841dc",
+      "m10flat3-e85964bffcecee632e197b5587a248b3ab672169fa9df1696654e07d7a3cc969"
+    ]
+  },
+  "historically_flagged_groups": [
+    {
+      "attribute_key": "recommendation",
+      "historical_group_id": "ea38970d1ffa9ba4a2a5e70128bc5dc0cb87b8ec691d9e44100d94978436893c",
+      "historical_member_count": 11,
+      "post_gate_member_statuses": {
+        "REMOVED_BY_HARNESS_GATES": 11
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-6d637ab68c4214a70ceb589a5b356f82d37cf14ea9a7565e7257666f304e903b",
+          "proposition_text": "The assistant recommends purchasing a park pass or America the Beautiful annual pass to offset the cost of private shuttle services.",
+          "source_authority": "assistant",
+          "value_text": "purchasing a park pass or America the Beautiful annual pass to offset the cost of private shuttle services"
+        },
+        {
+          "memory_id": "m10flat3-6e2b2151016a31bd9f7ce0ed3475cb40f12de5665b51136082eb005b76ca712d",
+          "proposition_text": "The assistant recommends making healthy choices most of the time and allowing occasional indulgence.",
+          "source_authority": "assistant",
+          "value_text": "making healthy choices most of the time and allowing occasional indulgence"
+        },
+        {
+          "memory_id": "m10flat3-6e39f1d57dfebf158c1ab1d8c18ce8bac80abf60ef492cb1191890107edc042f",
+          "proposition_text": "The assistant recommends granular fertilizers for herbs due to their slow release and promotion of strong growth.",
+          "source_authority": "assistant",
+          "value_text": "granular fertilizers for herbs due to their slow release and promotion of strong growth"
+        },
+        {
+          "memory_id": "m10flat3-6fa5642a166221da1cdf9e2e67ddd30b7e103d0b3862a8b27431b6cb7cf8d1f1",
+          "proposition_text": "Establishing a transition routine can help signal to the brain that it's time to switch gears between work and personal time.",
+          "source_authority": "assistant",
+          "value_text": "establishing a transition routine can help signal to the brain that it's time to switch gears between work and personal time"
+        },
+        {
+          "memory_id": "m10flat3-72099027e406479f017277aaf3b1de2ad28fa110b67348d8ac8451b42f336468",
+          "proposition_text": "The assistant suggests bringing a small towel or yoga grip for sweaty hands and feet.",
+          "source_authority": "assistant",
+          "value_text": "bringing a small towel or yoga grip for sweaty hands and feet"
+        },
+        {
+          "memory_id": "m10flat3-734a8f0bd37af187bfa581cbd4a4a111a52bfd25cd604298dc8c3ea00775b889",
+          "proposition_text": "The key to sustainable tourism is raising awareness of the value of cultural heritage and the importance of preserving it for future generations.",
+          "source_authority": "assistant",
+          "value_text": "the key to sustainable tourism is raising awareness of the value of cultural heritage and the importance of preserving it for future generations"
+        },
+        {
+          "memory_id": "m10flat3-7398923f7021f10dc0049fabec8a58f96ab7f5fc80df3f22612fb4b79f2b0738",
+          "proposition_text": "The assistant provides tips for packing for a camping trip in Yellowstone National Park.",
+          "source_authority": "mixed",
+          "value_text": "providing tips for packing for a camping trip in Yellowstone National Park"
+        },
+        {
+          "memory_id": "m10flat3-747d4fa2f23494971b9cc60b2d403a831d0d179acd5869da83671f2f019f4b1f",
+          "proposition_text": "Tracking progress in reading and note-taking helps monitor achievements and identify areas for improvement.",
+          "source_authority": "assistant",
+          "value_text": "tracking progress in reading and note-taking helps monitor achievements and identify areas for improvement"
+        },
+        {
+          "memory_id": "m10flat3-7579f2b08fe90f20312927b4a9635fbc51f24275988eafadd3a46066b9f6bd8a",
+          "proposition_text": "The assistant recommended wearing appropriate gear, including a good quality helmet and padded shorts.",
+          "source_authority": "assistant",
+          "value_text": "wearing appropriate gear, including a good quality helmet and padded shorts"
+        },
+        {
+          "memory_id": "m10flat3-75951888f179173c63749c92533aade1ba98984e4428984eff9ef85a71c2eb81",
+          "proposition_text": "The assistant recommended being aware of traffic and safely navigating road crossings.",
+          "source_authority": "assistant",
+          "value_text": "being aware of traffic and safely navigating road crossings"
+        },
+        {
+          "memory_id": "m10flat3-75a56959016c239517cc94f13ad75fd41302361dd75909cabbdb2c3ee8e3c3db",
+          "proposition_text": "The assistant recommends reducing the frequency of fertilization to every 2-3 weeks.",
+          "source_authority": "assistant",
+          "value_text": "reducing the frequency of fertilization to every 2-3 weeks"
+        }
+      ],
+      "subject_key": "assistant"
+    },
+    {
+      "attribute_key": "software_preference",
+      "historical_group_id": "bb6968eac4ca8b65a044270af2fbe227fe34f0553b3f99466f706b6c812fc713",
+      "historical_member_count": 14,
+      "post_gate_member_statuses": {
+        "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION": 6,
+        "REMOVED_BY_HARNESS_GATES": 8
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-9edb1b8b16a94cceea0b0c9f8c11e6ffea39d2f0c1ed52e4eb16503b6f27df41",
+          "proposition_text": "The user plans to try Mendeley first due to its user-friendly interface and powerful web importer feature.",
+          "source_authority": "user",
+          "value_text": "The user plans to try Mendeley first due to its user-friendly interface and powerful web importer feature."
+        },
+        {
+          "memory_id": "m10flat3-a0ba2cfb4e0faf33f9be85e225fbf95e2a5509a812aa9d69f1da426fc35aad7d",
+          "proposition_text": "Gaming tournaments have increased the popularity of gaming and brought it to mainstream audiences.",
+          "source_authority": "mixed",
+          "value_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options."
+        },
+        {
+          "memory_id": "m10flat3-a0c4b961ac937d75f3678037926d76cd4272511e6a3f963c388d54cfdb9ac33a",
+          "proposition_text": "The user believes that age is not a barrier to being active and that people should be more financially secure at 60 than at 40.",
+          "source_authority": "assistant",
+          "value_text": "Mendeley and Zotero support multiple citation formats, such as author-date, numeric, or footnote styles."
+        },
+        {
+          "memory_id": "m10flat3-a12dec2be8ae2565893ca2d252cec48e6c797381a6cd41c7ccace1598add6261",
+          "proposition_text": "The assistant suggests additional items needed for a complete vinyl setup.",
+          "source_authority": "assistant",
+          "value_text": "The user wants to consolidate their iTunes songs into a central library."
+        },
+        {
+          "memory_id": "m10flat3-a18176d4336d2a1fc4b9b65879d4e5d828fffbb52c524f266e49942ff625d83e",
+          "proposition_text": "The user wants to consolidate their iTunes songs into a central library.",
+          "source_authority": "user",
+          "value_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options."
+        },
+        {
+          "memory_id": "m10flat3-a1f34b988e27bb906d7eddce410298683e41274bb78f17007e69f81aff976645",
+          "proposition_text": "Finger independence is a crucial aspect of fingerpicking, and the pinky finger can be a bit tricky to master.",
+          "source_authority": "assistant",
+          "value_text": "Mendeley and Zotero have built-in error checking features to help identify and fix citation errors."
+        },
+        {
+          "memory_id": "m10flat3-a202f46c026f5e94e5c33560a8951b5962f01e85ef0408461d36ffd9b2844f1c",
+          "proposition_text": "Latch locks may not be as durable as deadbolts and may require more frequent replacement.",
+          "source_authority": "assistant",
+          "value_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options."
+        },
+        {
+          "memory_id": "m10flat3-a21e6ca63a1b5a70cab3c67891f8c98aeff8ac97db59dcbaabc7a64d092f36dd",
+          "proposition_text": "The narrator frequently commented on the characters' actions with sardonic wit and dry humor, making the audience chuckle with each quip.",
+          "source_authority": "assistant",
+          "value_text": "Mendeley and Zotero support multiple citation formats, such as author-date, numeric, or footnote styles."
+        },
+        {
+          "memory_id": "m10flat3-a23dc0f847ef02f6f8031bff94d30ce47f34ae92a024765f6d5232ffef48142c",
+          "proposition_text": "The user is aware of a cultural norm in the Czech Republic regarding eye contact during the act of clinking glasses.",
+          "source_authority": "user",
+          "value_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options."
+        },
+        {
+          "memory_id": "m10flat3-a2cf4759de2eab41c58d4e1d1d2f16ae9960c06b70fe59a1e5df8583d4088d13",
+          "proposition_text": "Next.js will call the `generateStaticParams` function during the build process to fetch the list of posts and create a static version of the page for each post with the corresponding slug.",
+          "source_authority": "assistant",
+          "value_text": "Mendeley and Zotero support multiple citation formats, such as author-date, numeric, or footnote styles."
+        },
+        {
+          "memory_id": "m10flat3-a34e707c160fa03f17930309e3671119844340aa4637faa836614fc0c74a1efd",
+          "proposition_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options.",
+          "source_authority": "user",
+          "value_text": "The user is keeping Zotero in mind as an alternative, especially if they need more advanced features or customization options."
+        },
+        {
+          "memory_id": "m10flat3-a3a9a3939717b05609cbfaa7a96c5871ec26606e0eb99d27cb497cd3de34cbbe",
+          "proposition_text": "Mendeley and Zotero support multiple citation formats, such as author-date, numeric, or footnote styles.",
+          "source_authority": "assistant",
+          "value_text": "Mendeley and Zotero support multiple citation formats, such as author-date, numeric, or footnote styles."
+        },
+        {
+          "memory_id": "m10flat3-a3d360393256857fdf77f2470379568ab14896f9efc83dfa551332448762ee60",
+          "proposition_text": "Esports tournaments and organizations have raised awareness about diversity, inclusion, and equity issues within the gaming community through positive messages and campaigns.",
+          "source_authority": "assistant",
+          "value_text": "Esports tournaments and organizations have raised awareness about diversity, inclusion, and equity issues within the gaming community through positive messages and campaigns."
+        },
+        {
+          "memory_id": "m10flat3-a443061178327aded08e5484d6ab6023505b5d7fd8415164d88151d17b896f1b",
+          "proposition_text": "The user is asking how to properly inflate their bike tires and what pressure they should use.",
+          "source_authority": "user",
+          "value_text": "The user is asking how to properly inflate their bike tires and what pressure they should use."
+        }
+      ],
+      "subject_key": "user"
+    },
+    {
+      "attribute_key": "current_interest",
+      "historical_group_id": "8be8fbcef9a8b89f59c0ca7951e6b83bb21919d2af9c2959c3afd63fd96e5a42",
+      "historical_member_count": 13,
+      "post_gate_member_statuses": {
+        "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION": 10,
+        "REMOVED_BY_HARNESS_GATES": 3
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-dd5049afa343f0097dfc060a6128120ff49d98b6c5d77dd8d426234a1601edca",
+          "proposition_text": "The assistant suggests getting morning sunlight to regulate circadian rhythms.",
+          "source_authority": "assistant",
+          "value_text": "getting morning sunlight to regulate circadian rhythms"
+        },
+        {
+          "memory_id": "m10flat3-ddf9139f756df3d58617fa1bfa15ff6f172cab4af6e105211adaf898e25f8318",
+          "proposition_text": "The user visited the local Modern Art Museum in their city.",
+          "source_authority": "user",
+          "value_text": "visiting the local Modern Art Museum"
+        },
+        {
+          "memory_id": "m10flat3-de904a1ab4a1ec1f568c006f779b5deaa09a64253ffbb378e64738cda747d55c",
+          "proposition_text": "The user is considering making their own simple syrup this weekend.",
+          "source_authority": "user",
+          "value_text": "making their own simple syrup this weekend"
+        },
+        {
+          "memory_id": "m10flat3-df3e534218b69ce9a72138ccc66edf15bdc152dbec70af305d5fd00db857f223",
+          "proposition_text": "The user has been experimenting with different spices and seasonings in their cooking.",
+          "source_authority": "user",
+          "value_text": "experimenting with different spices and seasonings in their cooking"
+        },
+        {
+          "memory_id": "m10flat3-df6100695eba4b7eea16ace3cf6a986752001200fdb1ee3cbd5f2bd52b6bb9dd",
+          "proposition_text": "The user has sent an email to the Youth Development organization inquiring about volunteer opportunities.",
+          "source_authority": "user",
+          "value_text": "sending an email to the Youth Development organization inquiring about volunteer opportunities"
+        },
+        {
+          "memory_id": "m10flat3-df7cfcc16bce0ff65e5d85d365de319bbd4e49b7fffe71b160a4c0c4783f4a14",
+          "proposition_text": "The assistant provides tips on making hot sauce, including choosing the right peppers, roasting them, and combining with vinegar and seasonings.",
+          "source_authority": "assistant",
+          "value_text": "making hot sauce, including choosing the right peppers, roasting them, and combining with vinegar and seasonings"
+        },
+        {
+          "memory_id": "m10flat3-e050aed88c23c51af0a37a99fd212e56a293090c91005e601b5d603f95c40099",
+          "proposition_text": "The user is interested in making a lavender syrup or infusion to create a unique and refreshing summer cocktail.",
+          "source_authority": "assistant",
+          "value_text": "making a lavender syrup or infusion to create a unique and refreshing summer cocktail"
+        },
+        {
+          "memory_id": "m10flat3-e0a695adaf983f24ce9d9b53223d0f127c2dbadb1bf349a96d8242873abe6e77",
+          "proposition_text": "The user is looking for Netflix recommendations similar to \"Stranger Things\" or \"Narcos\".",
+          "source_authority": "user",
+          "value_text": "looking for Netflix recommendations similar to \"Stranger Things\" or \"Narcos\""
+        },
+        {
+          "memory_id": "m10flat3-e0f4d5e406685e9668e81695992411432e5aab37581bab9ed0cc45ebcfd87ca7",
+          "proposition_text": "The user is interested in getting their comic book graded and certified.",
+          "source_authority": "mixed",
+          "value_text": "getting their comic book graded and certified"
+        },
+        {
+          "memory_id": "m10flat3-e110382761cd087b4754d03a958352153cc818bcb008772be39e64925327572a",
+          "proposition_text": "The user is interested in similar gift ideas, specifically personalized necklaces.",
+          "source_authority": "user",
+          "value_text": "similar gift ideas, specifically personalized necklaces"
+        },
+        {
+          "memory_id": "m10flat3-e26826ad9e585671e05226a2279fb97f514a7efa4d6c5adf0440d424e655b110",
+          "proposition_text": "The user is interested in the Lavender Dream cocktail and has tried using lavender syrup instead of infusing the gin.",
+          "source_authority": "user",
+          "value_text": "interested in the Lavender Dream cocktail and has tried using lavender syrup instead of infusing the gin"
+        },
+        {
+          "memory_id": "m10flat3-e2d05678c0ed8ff01bfaf1360eddf71d58f8526bf29e2a585cade55de26d55f7",
+          "proposition_text": "The user is open to advice on how to style their clothing and accessories for formal events.",
+          "source_authority": "user",
+          "value_text": "advice on how to style their clothing and accessories for formal events"
+        },
+        {
+          "memory_id": "m10flat3-e37d70354fe7fbbcf8ab8d37184959570c507ec51a1e3690e3207d1a73ef6d81",
+          "proposition_text": "The user is looking for decoration ideas to create a retro vibe.",
+          "source_authority": "user",
+          "value_text": "looking for decoration ideas to create a retro vibe"
+        }
+      ],
+      "subject_key": "user"
+    },
+    {
+      "attribute_key": "recommendation",
+      "historical_group_id": "5dd42bcea7bda3aac82a31b040c41debdaade19b438585fd2f1ab50fb02d4263",
+      "historical_member_count": 2,
+      "post_gate_member_statuses": {
+        "REMOVED_BY_HARNESS_GATES": 2
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-0542df8b4cb55ae846d4761b147cd2f491da3abc87f3d6a45194fb530b32854f",
+          "proposition_text": "The assistant recommends the Eagle's Nest Loop Trail for its scenic meadow and ridge views.",
+          "source_authority": "assistant",
+          "value_text": "Eagle's Nest Loop Trail for its scenic meadow and ridge views"
+        },
+        {
+          "memory_id": "m10flat3-b284761b122abcd260f97639909a1ae341d5061921ebfa584066917da13b1e28",
+          "proposition_text": "The assistant recommends considering pre-owned or certified pre-owned luxury watches for significant savings.",
+          "source_authority": "assistant",
+          "value_text": "pre-owned or certified pre-owned luxury watches"
+        }
+      ],
+      "subject_key": "assistant"
+    },
+    {
+      "attribute_key": "recommendation",
+      "historical_group_id": "45222e73d09189b5e1c60c063a17de908ffe899fedd156b83c2fe496302b628c",
+      "historical_member_count": 2,
+      "post_gate_member_statuses": {
+        "REMOVED_BY_HARNESS_GATES": 2
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-cdcf6ba65d020ce5d43b9ad7b2b75102134855ac22a8ad384ec4263a4543d75e",
+          "proposition_text": "The assistant suggests monitoring the impact of the free gift or free shipping offer on the business and adjusting as needed.",
+          "source_authority": "assistant",
+          "value_text": "monitoring the impact of the free gift or free shipping offer on the business and adjusting as needed"
+        },
+        {
+          "memory_id": "m10flat3-cf4c16a33824fe7728936492e250be270f01f89af0942f548a12f8ea5d850bc1",
+          "proposition_text": "The assistant recommends stretching exercises as part of the warm-up routine.",
+          "source_authority": "assistant",
+          "value_text": "suggesting stretching exercises as part of the warm-up routine"
+        }
+      ],
+      "subject_key": "assistant"
+    },
+    {
+      "attribute_key": "current_interest",
+      "historical_group_id": "b365a42d6c4d9e3e9160a3e7e3ff363a9d43e03acc08eae4843273d07196fcf9",
+      "historical_member_count": 10,
+      "post_gate_member_statuses": {
+        "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION": 4,
+        "REMOVED_BY_HARNESS_GATES": 6
+      },
+      "propositions": [
+        {
+          "memory_id": "m10flat3-0518b178b11f0b8a44f03955c8a094192bead2bd39b22e3248f73174813d4e3f",
+          "proposition_text": "The user is looking for new running shoes for racing.",
+          "source_authority": "user",
+          "value_text": "looking for new running shoes for racing"
+        },
+        {
+          "memory_id": "m10flat3-0538562ff2cbf10d3205f04b48680b9acb44f469fb46c250a6d51438b04a70b6",
+          "proposition_text": "The user is interested in dining at Bubba Gump Shrimp Co., a seafood-themed restaurant at Universal CityWalk.",
+          "source_authority": "assistant",
+          "value_text": "interested in dining at Bubba Gump Shrimp Co., a seafood-themed restaurant at Universal CityWalk"
+        },
+        {
+          "memory_id": "m10flat3-a80d1402bb15f17230be593428f2c7fd53a81faab1827aa04003a62db2f39515",
+          "proposition_text": "The user is looking for a nice jewelry store in the mall.",
+          "source_authority": "user",
+          "value_text": "looking for a nice jewelry store in the mall"
+        },
+        {
+          "memory_id": "m10flat3-c5ce4c672f2b1b33cb01cc2b2c882831083148fa8c7b0257acdc7473715832ae",
+          "proposition_text": "The assistant provides tips for maximizing weightlifting sessions, including using proper form, varying the routine, resting between sets, tracking progress, increasing resistance, and fueling the body with healthy foods.",
+          "source_authority": "assistant",
+          "value_text": "maximizing weightlifting sessions with proper form, varying routine, resting between sets, tracking progress, increasing resistance, and fueling with healthy foods"
+        },
+        {
+          "memory_id": "m10flat3-c66e33660fbc57691ffe768895645de8bbef0eaedc416776659555f782ed961b",
+          "proposition_text": "The user is interested in dining at Hash House A Go Go, a restaurant specializing in comfort food like chicken and waffles.",
+          "source_authority": "assistant",
+          "value_text": "dining at Hash House A Go Go, a restaurant specializing in comfort food like chicken and waffles"
+        },
+        {
+          "memory_id": "m10flat3-c6d5dd99a94460180bb6c59741d5d2d69c11e9d5baaf521c1914b2d0cd5fc0c2",
+          "proposition_text": "The user is interested in knowing if the gift should be a surprise or involve their sister in the selection process.",
+          "source_authority": "mixed",
+          "value_text": "knowing if the gift should be a surprise or involve their sister in the selection process"
+        },
+        {
+          "memory_id": "m10flat3-c721acfa3e1d5678166b90d5b878dbea94b67ff10ed4fcb478989e61e4cd9d15",
+          "proposition_text": "The assistant suggests choosing a baby book or journal that resonates with Rachel's style.",
+          "source_authority": "assistant",
+          "value_text": "choosing baby book or journal that resonates with Rachel's style"
+        },
+        {
+          "memory_id": "m10flat3-c83e02b2a8ef134698c3fbbfa111d5683a32fb4aa28d6797f81938a9e121939d",
+          "proposition_text": "Beef brisket is a thicker, fattier cut than ribs and benefits from a slightly different flavor balance.",
+          "source_authority": "assistant",
+          "value_text": "mix of neutral and fun colors for onesies and sleepers"
+        },
+        {
+          "memory_id": "m10flat3-c95e2d4557eef0c6231058b0812c96a5713ec107f9a1c3bfb521cc2db6ac2847",
+          "proposition_text": "The user is thinking of trying a seafood restaurant along the waterfront.",
+          "source_authority": "user",
+          "value_text": "trying seafood restaurant along the waterfront"
+        },
+        {
+          "memory_id": "m10flat3-ca1f738826db440553162a66c53d6b8b71062dae629c03313741bc8203548ef4",
+          "proposition_text": "The assistant recommends matching the jewelry to the size of the jewelry box.",
+          "source_authority": "assistant",
+          "value_text": "matching jewelry to size of the jewelry box"
+        }
+      ],
+      "subject_key": "user"
+    }
+  ],
+  "instagram_positive_control": {
+    "revision_group_safe": "NO",
+    "target_memory_ids": [
+      "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+      "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+    ]
+  },
+  "manual_semantic_reflection": {
+    "broad_or_multi_valued_false_safe_groups": [
+      {
+        "attribute_key": "aunt_and_uncle_relationship_support",
+        "finding": "Concern about a conversation and a general goal to support a relationship are related but distinct facets, not one clearly single-valued mutable attribute.",
+        "group_id": "6b37e1b0ed6495f62de92ea4e8004155c6a08b28032a0834bfcf0baab06601c8"
+      },
+      {
+        "attribute_key": "work_experience",
+        "finding": "Separate project/event experience and teamwork experience are multiple skills, not one single-valued mutable state.",
+        "group_id": "e1323dbe5a647579b42383466e4756e47f0151867c531621c8a2ca358bdf97c8"
+      }
+    ],
+    "clear_unrelated_fact_false_safe_groups": [
+      {
+        "attribute_key": "retro_game_night_interest",
+        "finding": "Netflix viewing history is unrelated to the retro-game-night interest.",
+        "group_id": "05ba91f36c0c9b02bd9a8c2df938633840b7522cdad09ac976afa10a0ba8b5b4"
+      },
+      {
+        "attribute_key": "value_reported_on_5_05_2021",
+        "finding": "Router/device obstructions and a separately reported numeric value are not observations of one mutable singleton slot.",
+        "group_id": "e3265cc2420c20b0da44f50617f61926c19d1fdd64d888ca01329543954987c1"
+      },
+      {
+        "attribute_key": "interest_in_documentary_series",
+        "finding": "An Ethiopian coffee exploration fact is unrelated to documentary-series interest.",
+        "group_id": "4236d5511792f8df7366dc9e01def34544562541d7835d398cd9f68488bba91e"
+      },
+      {
+        "attribute_key": "q_and_a_session_preparation",
+        "finding": "Following an artist and entering contests is not the same state as choosing the Q&A topic.",
+        "group_id": "7d6336bb6d010658491c5fda7df863f172ba743826c82064e7d18a8c37578647"
+      },
+      {
+        "attribute_key": "current_planner_search",
+        "finding": "Checking ArtistWorks is unrelated to searching for a planner.",
+        "group_id": "ab0d821712f53a4177241e6ba75302515ea080d91c66087f10b0d5629ea37834"
+      }
+    ],
+    "historical_collision_summary": {
+      "assistant_recommendation_groups": {
+        "groups": 3,
+        "members_removed_by_harness_gates": 15,
+        "semantic_verifier_calls": 0
+      },
+      "software_preference_groups": {
+        "groups": 1,
+        "members": 14,
+        "members_in_semantic_collision_blocks": 6,
+        "members_removed_by_harness_gates": 8
+      },
+      "user_current_interest_groups": {
+        "groups": 2,
+        "members": 23,
+        "members_in_semantic_collision_blocks": 14,
+        "members_removed_by_harness_gates": 9
+      }
+    },
+    "instagram_positive_control_finding": {
+      "finding": "Both user propositions describe the same mutable instagram_followers count slot (500 then 600), but verifier returned INCOHERENT_GROUP. Conservative current result is blocked; historical/current ordering remains outside this stage.",
+      "group_id": "1350b5cafe9611d6ae88c4827d09a41cf42cbc92d54f0bb0ff2fd5cc5c400128",
+      "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION"
+    },
+    "other_questionable_safe_group": {
+      "attribute_key": "gender_neutral_language_interest",
+      "finding": "Two distinct examples under a broad interest key; same broad topic but not clearly a single-valued state.",
+      "group_id": "6376a2ce39df8047fdb432a351306534dbe0c9abe7aa654e1531467c79f6b2f1"
+    },
+    "readiness_decision": "NO: the frozen safe sample contains clear unrelated-fact and multi-valued collisions; Instagram is a false negative; keep MEM-3B1 blocked pending a narrow verifier/identity-contract revision and human review.",
+    "reviewer_mode": "post-freeze qualitative Codex review; no LLM-as-judge and no prompt retuning",
+    "sample_interpretation": "diagnostic examples, not a population estimate or benchmark score",
+    "semantic_collision_possible_false_negative": {
+      "attribute_key": "pest_control_method",
+      "finding": "The propositions consistently describe neem oil/soap pest control, but the group was blocked; one proposed value_text says neem cake. This is a likely identity/value inconsistency and indicates the verifier may over-weight conflicting value_text.",
+      "group_id": "c7efb31581658fbcadfcb1cd6decec4160d5c00ea2c50f6feffa04652741bb09"
+    }
+  },
+  "method": "post-freeze deterministic audit; no LLM judge",
+  "pre_freeze_timestamp_access": "An exploratory display of one historical B0R candidate-group diagnostic exposed observed_at values before the safety artifacts were frozen. Timestamp fields/values were not projected to the candidate grouping result or verifier request and were not used by eligibility/grouping. Protocol deviation retained for review.",
+  "random_samples": {
+    "available_collision_blocked_groups": 48,
+    "available_safe_groups": 25,
+    "blocked_semantic_collision": [
+      {
+        "attribute_key": "vintage_camera_selling_interest",
+        "group_id": "fadc78da8d0c7931fc4cca04e88ead4b454b1ccae271c92d7d958ef0a8693479",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-79f05d7b62ec1409c447f02d4a442d62fce2424dda1e0201518a5c4c4e046bb7",
+            "proposition_text": "The user is looking for advice on pricing and selling their vintage cameras, including the Canon QL17.",
+            "source_authority": "user",
+            "value_text": "The user is looking for advice on pricing and selling their vintage cameras, including the Canon QL17."
+          },
+          {
+            "memory_id": "m10flat3-829884446aabd09e861edbf92599ff61554c05bc9461435f97732fa1f3e4785a",
+            "proposition_text": "The user has been interested in true crime stories but is open to exploring other genres.",
+            "source_authority": "user",
+            "value_text": "The user is looking for advice on pricing and selling their vintage cameras, including the Canon QL17."
+          }
+        ],
+        "scope_id": "longmemeval:1c549ce4",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "interest",
+        "group_id": "943680abf2e27ec20b980635f868eb2b1690dc9cc2126a56db27b7c33b4d6734",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-95b3ab4df5661bfa072db6f947d57e08f0271e59bccbbc0dc4cebc07dcb15d7f",
+            "proposition_text": "The user is interested in Afrobeat dance and enjoys its energy, fusion of styles, and rhythmic complexity.",
+            "source_authority": "mixed",
+            "value_text": "afrobeat_dance"
+          },
+          {
+            "memory_id": "m10flat3-9cc4ccce1aee4241c8b00e7a16931cb963ee12e5640cecad6f33cfef5be83485",
+            "proposition_text": "The user is interested in learning more about the art movement and its history.",
+            "source_authority": "user",
+            "value_text": "art_movement_history"
+          },
+          {
+            "memory_id": "m10flat3-ccd7bff3be9ae382c6ea41192906399c8b84b628ad725b7f59122b33d06f9970",
+            "proposition_text": "The user is interested in learning more about the current state of gender equality in the workplace.",
+            "source_authority": "user",
+            "value_text": "gender_equality_in_workplace"
+          },
+          {
+            "memory_id": "m10flat3-d5d3fcee5ba1b515b68742937d0ec9f19c5103301087f2cee651649747d58247",
+            "proposition_text": "The user is curious about how The Elder Scrolls 6 will incorporate Hammerfell and Redguard culture.",
+            "source_authority": "user",
+            "value_text": "elder_scrolls_6_culture"
+          },
+          {
+            "memory_id": "m10flat3-d69768b2e00f8609b35d46a7e13a3db906a52cbd3b983fe39e30c8e1e9505f60",
+            "proposition_text": "The user is interested in the potential sequel or DLC for The Last of Us Part II.",
+            "source_authority": "user",
+            "value_text": "last_of_us_part_ii_dlc"
+          }
+        ],
+        "scope_id": "longmemeval:8550ddae",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "interest",
+        "group_id": "ea1b80657cff40f83ce0cae8e9b6a7e683c89c1c89c98d980753b74a93ce1e27",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-86ad73e23efd9a71e675e8bca19c44a1296ef7109fa735914d0b9bf3d8607472",
+            "proposition_text": "The user is interested in trying local food in Kyoto, such as kaiseki or shojin-ryori.",
+            "source_authority": "user",
+            "value_text": "local food in Kyoto"
+          },
+          {
+            "memory_id": "m10flat3-a388e6c401d7df22e2d56f0b9dd592855f0a9403345780c385bd0c05dc279e0e",
+            "proposition_text": "The user is interested in understanding the specific requirements for building a cabin in a rural area in Illinois, including setbacks and minimum square footage.",
+            "source_authority": "user",
+            "value_text": "understanding the specific requirements for building a cabin in a rural area in Illinois, including setbacks and minimum square footage"
+          },
+          {
+            "memory_id": "m10flat3-e1a3f3abe461868d66632e97cdc1bc84322678eb4961bd7060e28ada8e86f9b8",
+            "proposition_text": "The user is interested in removing scuff marks from their brown loafers.",
+            "source_authority": "user",
+            "value_text": "removing scuff marks from brown loafers"
+          }
+        ],
+        "scope_id": "longmemeval:a82c026e",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "last_oil_change",
+        "group_id": "a154316eee75c5b5adb6ec0209a90388c80cdd92f888863b3a9637f821ea539d",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-1d5dc8937e5bb3dccbb0b0362cfdd6a045cf2d05fabd89a9be0d0ab73bf24b68",
+            "proposition_text": "The user has spent approximately two hours organizing their comic book collection.",
+            "source_authority": "user",
+            "value_text": "user's last oil change was about three weeks ago, at approximately 71,500 miles"
+          },
+          {
+            "memory_id": "m10flat3-1ea92e8fb09c182e7c6d663fdd84e0372d2276d501d638f15bed00d3d41919b3",
+            "proposition_text": "The user's last oil change was about three weeks ago, at approximately 71,500 miles.",
+            "source_authority": "user",
+            "value_text": "user's last oil change was about three weeks ago, at approximately 71,500 miles"
+          }
+        ],
+        "scope_id": "longmemeval:778164c6",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "spring_break_trip",
+        "group_id": "201d952605505f342db5afdcf132bbc15521cd27014d6952b61e390d5e7cce80",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-03f13ea05d277a230b07e06421b179898a0744674cd84fb55c542f6867e4c594",
+            "proposition_text": "The user is looking for a watch within the price range of $50-$70.",
+            "source_authority": "user",
+            "value_text": "the user is planning a round-trip ticket from Boston to Fort Lauderdale for their spring break trip in March"
+          },
+          {
+            "memory_id": "m10flat3-04d4623a273f057fa76a429ff6a904e7fbfdf7a5eda51cb3f516e9b0d7fbace2",
+            "proposition_text": "The user is planning a round-trip ticket from Boston to Fort Lauderdale for their spring break trip in March.",
+            "source_authority": "user",
+            "value_text": "the user is planning a round-trip ticket from Boston to Fort Lauderdale for their spring break trip in March"
+          }
+        ],
+        "scope_id": "longmemeval:gpt4_f420262c",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "project_interest",
+        "group_id": "72076701626cd8ac385ca02ed907dc338e51ba8999ea24397834fffaeffdacea",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-5cbfa7ac719b611aa2cab2d88423cb6a49524aa83ce3fe9059701f410d3e326d",
+            "proposition_text": "The user is interested in the JetBlue option from Boston to Fort Lauderdale (FLL) despite concerns about seat selection and amenities.",
+            "source_authority": "mixed",
+            "value_text": "is interested in the JetBlue option from Boston to Fort Lauderdale (FLL) despite concerns about seat selection and amenities"
+          },
+          {
+            "memory_id": "m10flat3-6e049d133789130d41a1846e14611819f5bdf24923336916e521439998aa4bab",
+            "proposition_text": "The user is planning to build a car model with intricate details, such as the GT500.",
+            "source_authority": "mixed",
+            "value_text": "building a car model with intricate details, such as the GT500"
+          },
+          {
+            "memory_id": "m10flat3-72bb7dc972df736425a70dfbcdc441c7fd4dd9a0916954506b8faf9313a3dc80",
+            "proposition_text": "The user is considering starting a new project, a 1/24 scale Ford Mustang Shelby GT500.",
+            "source_authority": "user",
+            "value_text": "considering starting a new project, a 1/24 scale Ford Mustang Shelby GT500"
+          }
+        ],
+        "scope_id": "longmemeval:gpt4_f420262c",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "pest_control_method",
+        "group_id": "c7efb31581658fbcadfcb1cd6decec4160d5c00ea2c50f6feffa04652741bb09",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-003939172fbfb702b33275233c3bd2109a866753e2f57e55da906608262d29de",
+            "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control strategy.",
+            "source_authority": "mixed",
+            "value_text": "neem oil and soap solution"
+          },
+          {
+            "memory_id": "m10flat3-77f7939d1c6022fb53298b0c6e89b44273784057a5fd1acd6e8389608a17c208",
+            "proposition_text": "The user has been using neem oil and soap solution for aphids and whiteflies in their garden.",
+            "source_authority": "user",
+            "value_text": "neem_oil_and_soap"
+          },
+          {
+            "memory_id": "m10flat3-8180e252dc3dbc99b4100c9276c14e3d77a078e47579366bec5d425a8ab2a433",
+            "proposition_text": "The user has been using neem oil and soap solution as part of their pest control strategy.",
+            "source_authority": "user",
+            "value_text": "neem cake"
+          },
+          {
+            "memory_id": "m10flat3-9c077b23e7cfd0c996118a87ead3306a24ba1530d36522baf497bd1af5982733",
+            "proposition_text": "The user has been using neem oil and soap solution as a natural and effective pest control method.",
+            "source_authority": "mixed",
+            "value_text": "neem oil and soap solution"
+          },
+          {
+            "memory_id": "m10flat3-fabb77ddc910ac3de7a7994a26bb8e714c50fc609aab8d650bf5a7e7363f3168",
+            "proposition_text": "The user has been using neem oil and soap solution as part of their natural pest control approach.",
+            "source_authority": "mixed",
+            "value_text": "neem_oil_and_soap_solution"
+          }
+        ],
+        "scope_id": "longmemeval:06878be2",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "trip_planning",
+        "group_id": "e0992d94412e8efded3b57cca252b5af764d6b8dffb04934e6b4290bd35c9364",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-bd6b7d069e8e74647348f128c90faa5bd6ecda14a307d59a6364bb10f6392e25",
+            "proposition_text": "The user is planning a trip to Japan and is seeking travel vlogs and guides on YouTube for tips and inspiration.",
+            "source_authority": "user",
+            "value_text": "planning a trip to Japan and is seeking travel vlogs and guides on YouTube for tips and inspiration"
+          },
+          {
+            "memory_id": "m10flat3-c0d1ef147fb7ebb50b92a1ec396b68f031ae650e96dc465740aeba35a618953d",
+            "proposition_text": "The user is planning a trip to India for their uncle's 60th birthday celebration in Pune.",
+            "source_authority": "user",
+            "value_text": "planning a trip to India for their uncle's 60th birthday celebration in Pune"
+          }
+        ],
+        "scope_id": "longmemeval:06878be2",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "device_battery_concern",
+        "group_id": "987bf1e9d015a25ebd585c61bf7c2dd34d5ffd4bc11b926cb7cd44c8721f9352",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-2fe94ec1f1905f421c7d5030410aeb42e7e0fb7e7f0221995bcdea8f273b1e41",
+            "proposition_text": "The user plans to use Instagram's built-in features, like polls, to gather feedback from followers.",
+            "source_authority": "mixed",
+            "value_text": "4k_oled_battery_life"
+          },
+          {
+            "memory_id": "m10flat3-3170926fc212109df4b4628639bb24a212281f59df32135b021a13beb71c21e0",
+            "proposition_text": "The user is considering the 4K OLED display but is concerned about its impact on battery life.",
+            "source_authority": "user",
+            "value_text": "4k_oled_battery_life"
+          },
+          {
+            "memory_id": "m10flat3-32cab65daaa1aa0e8c0cc9d0db84a5603351ec8a6cda591f1ff1c838b9e4b929",
+            "proposition_text": "The user is concerned about the battery life of the 4K OLED model of the Dell XPS 13.",
+            "source_authority": "user",
+            "value_text": "4k_oled_battery_life"
+          }
+        ],
+        "scope_id": "longmemeval:1cea1afa",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "music_festival_attendance_interest",
+        "group_id": "5f1a3879edb29980774154a9b60a3479dfc2d69135efa63276f577f23f383597",
+        "materialization_status": "MATERIALIZATION_BLOCKED_SEMANTIC_COLLISION",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-4d118975ec7fa44910e1e0034286a9535c8c95016e2e556f4bf6c97b412e0399",
+            "proposition_text": "The user intends to choose a photo that captures their excitement and anticipation for the concert.",
+            "source_authority": "user",
+            "value_text": "intends_to_choose_photo_that_captures_their_excitement_and_anticipation_for_the_concert"
+          },
+          {
+            "memory_id": "m10flat3-4e1035d90ba1e5ea5de8741e4814167a08f95da4dbb7fd0cc4177a6b313b9b71",
+            "proposition_text": "The user is a first-time attendee of a music festival and wants to prepare for it.",
+            "source_authority": "user",
+            "value_text": "is_a_first_time_attendee_of_a_music_festival_and_wants_to_prepare_for_it"
+          }
+        ],
+        "scope_id": "longmemeval:1c549ce4",
+        "subject_key": "user"
+      }
+    ],
+    "materialization_safe": [
+      {
+        "attribute_key": "aunt_and_uncle_relationship_support",
+        "group_id": "6b37e1b0ed6495f62de92ea4e8004155c6a08b28032a0834bfcf0baab06601c8",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-ac211249fc8e37cd59d840ad75dc179e5121e3110544b43b5f23c25ba3677617",
+            "proposition_text": "The user is concerned about how to bring up the topic of couples therapy without making their aunt and uncle feel pushed or defensive.",
+            "source_authority": "user",
+            "value_text": "concern about how to bring up the topic of couples therapy"
+          },
+          {
+            "memory_id": "m10flat3-b0089e5f9613ee65303c921c84c2743150fc72e7cff957791ab27583ca059108",
+            "proposition_text": "The user wants to support their aunt and uncle's relationship and help them strengthen it.",
+            "source_authority": "user",
+            "value_text": "wants to support their aunt and uncle's relationship"
+          }
+        ],
+        "scope_id": "longmemeval:1cea1afa",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "work_experience",
+        "group_id": "e1323dbe5a647579b42383466e4756e47f0151867c531621c8a2ca358bdf97c8",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-992aca9ec3a732f5c05acae006d6b599330ae5d3fa3c6cced7026ce6754e38b1",
+            "proposition_text": "MOHAMMAD AL JUBAIRY has experience in project managing presentations, events, seminars, and publications.",
+            "source_authority": "user",
+            "value_text": "experience in project managing presentations, events, seminars, and publications"
+          },
+          {
+            "memory_id": "m10flat3-9a1bed23aecbef8c69ffb31a773704ea573c450d192dd5fa61807b379ebc7053",
+            "proposition_text": "MOHAMMAD AL JUBAIRY has experience in working as part of a functional team to complete tasks according to schedule.",
+            "source_authority": "user",
+            "value_text": "experience in working as part of a functional team to complete tasks according to schedule"
+          }
+        ],
+        "scope_id": "longmemeval:06878be2",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "retro_game_night_interest",
+        "group_id": "05ba91f36c0c9b02bd9a8c2df938633840b7522cdad09ac976afa10a0ba8b5b4",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-a18c5e49cf894d1697522b5796c792cd971becb18866887cee73787ddc7de271",
+            "proposition_text": "The user has been using Netflix for about 6 months and has noticed an increase in watching original content.",
+            "source_authority": "user",
+            "value_text": "interested_in_retro_game_night"
+          },
+          {
+            "memory_id": "m10flat3-a64d6abb05b1d5987250295c849607b0bedb5c3466f5c9d8caf1817461f3bc4e",
+            "proposition_text": "The user is interested in a retro-themed game night to bring back memories.",
+            "source_authority": "user",
+            "value_text": "interested_in_retro_game_night"
+          }
+        ],
+        "scope_id": "longmemeval:8550ddae",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "purchased_silver_necklace_for_sister",
+        "group_id": "6dda6b7fb7cad34f16e6a7d798ad9d432b4ab5a2bd1fb5ce0d86a185d025652c",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+            "proposition_text": "The user previously purchased a silver necklace with a small pendant from Zara for $40.",
+            "source_authority": "user",
+            "value_text": "zara_for_25th_birthday"
+          },
+          {
+            "memory_id": "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c",
+            "proposition_text": "The user recently purchased a silver necklace with a small pendant from Zara for their sister's 25th birthday, costing $40.",
+            "source_authority": "user",
+            "value_text": "zara_for_25th_birthday"
+          }
+        ],
+        "scope_id": "longmemeval:8550ddae",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "gender_neutral_language_interest",
+        "group_id": "6376a2ce39df8047fdb432a351306534dbe0c9abe7aa654e1531467c79f6b2f1",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-50f78b268a6aa14386bf7b5822630c6fd5a5b53fbdd4eb3f638d65c5b85e1701",
+            "proposition_text": "The user wants to know more about the importance of using gender-neutral language in official communications and how it contributes to creating a more inclusive workplace culture.",
+            "source_authority": "user",
+            "value_text": "wants to know more about the importance of using gender-neutral language in official communications and how it contributes to creating a more inclusive workplace culture"
+          },
+          {
+            "memory_id": "m10flat3-c488c2b54df3d5f01bdda0dee1d5fe7d8c80d93dbc1f2230e5a4755a62a839a5",
+            "proposition_text": "The user is interested in examples of gender-neutral language in practice, such as using \"they\" as a singular pronoun or avoiding gendered titles.",
+            "source_authority": "user",
+            "value_text": "interested in examples of gender-neutral language in practice, such as using \"they\" as a singular pronoun or avoiding gendered titles"
+          }
+        ],
+        "scope_id": "longmemeval:8550ddae",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "value_reported_on_5_05_2021",
+        "group_id": "e3265cc2420c20b0da44f50617f61926c19d1fdd64d888ca01329543954987c1",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-e072c86547e2f71218e5497d5aaeaadd65dec77b05352ea005acb256fa763894",
+            "proposition_text": "The user has physical obstructions between their router and devices, such as walls and furniture.",
+            "source_authority": "user",
+            "value_text": "value of 0"
+          },
+          {
+            "memory_id": "m10flat3-e0baf26322877359fa1a3fc6672ea61fd757b756b0ed19ff57f43dd71223b950",
+            "proposition_text": "The user reported a value of 0 on 5/05/2021.",
+            "source_authority": "user",
+            "value_text": "value of 0"
+          }
+        ],
+        "scope_id": "longmemeval:fca70973",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "interest_in_documentary_series",
+        "group_id": "4236d5511792f8df7366dc9e01def34544562541d7835d398cd9f68488bba91e",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-97cc381355335b82a9fb1fff3b9bc1af2c6cd6057323be3394c5a42eb6fa63cf",
+            "proposition_text": "The user wants to try a different roast level or processing method to explore new flavors in Ethiopian beans.",
+            "source_authority": "user",
+            "value_text": "interested in documentaries similar to a \"Planet\" series on Amazon Prime Video"
+          },
+          {
+            "memory_id": "m10flat3-983e63a36b40e1d4602eabac9fe53f93144180313ebee3a8169804ceb829b2c5",
+            "proposition_text": "The user is interested in documentaries similar to a \"Planet\" series on Amazon Prime Video.",
+            "source_authority": "user",
+            "value_text": "interested in documentaries similar to a \"Planet\" series on Amazon Prime Video"
+          }
+        ],
+        "scope_id": "longmemeval:1c549ce4",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "q_and_a_session_preparation",
+        "group_id": "7d6336bb6d010658491c5fda7df863f172ba743826c82064e7d18a8c37578647",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-4383eea5952e577e897ff43c48f2b915954c35df92b654d8afcb0ff3c450e47a",
+            "proposition_text": "The user will start following the artist on social media and enter contests.",
+            "source_authority": "user",
+            "value_text": "specifying topic as writing process and experiences as a freelancer"
+          },
+          {
+            "memory_id": "m10flat3-43c6ab4bc50b892a147e9d78038f01e2b0e756aaea3243e3e40ce4fa5c8a7cf2",
+            "proposition_text": "The user will specify the topic of their Q&A session as their writing process and experiences as a freelancer.",
+            "source_authority": "user",
+            "value_text": "specifying topic as writing process and experiences as a freelancer"
+          }
+        ],
+        "scope_id": "longmemeval:1cea1afa",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "current_planner_search",
+        "group_id": "ab0d821712f53a4177241e6ba75302515ea080d91c66087f10b0d5629ea37834",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-6b9201dc5d024aa1594f8a2bf48d98b411c481c24824844b5e9b11be50050aac",
+            "proposition_text": "The user intends to check out ArtistWorks as well.",
+            "source_authority": "user",
+            "value_text": "looking for new planner"
+          },
+          {
+            "memory_id": "m10flat3-6c9f8fe653ddaebbf08ee4dd9867239e0111f7db266fa7dda334918d98c008aa",
+            "proposition_text": "The user is looking for a new planner.",
+            "source_authority": "user",
+            "value_text": "looking for new planner"
+          }
+        ],
+        "scope_id": "longmemeval:778164c6",
+        "subject_key": "user"
+      },
+      {
+        "attribute_key": "macrame_interest",
+        "group_id": "cc6d22a3bb1dc4d9a06e3b6c63ac8ce3b84452e978b9e2c4b9c597f028526057",
+        "materialization_status": "MATERIALIZATION_SAFE",
+        "propositions": [
+          {
+            "memory_id": "m10flat3-38158bb10e84f8d902911b991426f13442bdc392f952d1c0efce3e0027599289",
+            "proposition_text": "The user is planning to try macrame and has a beginner's kit that should arrive soon.",
+            "source_authority": "user",
+            "value_text": "user is planning to try macrame and has a beginner's kit that should arrive soon"
+          },
+          {
+            "memory_id": "m10flat3-4dea8865fcfe46af4cdad4d139141652de205acd6c909629f0df3a739dfc4d1e",
+            "proposition_text": "The user is interested in trying macrame and has a beginner's kit expected to arrive soon.",
+            "source_authority": "user",
+            "value_text": "the user is interested in trying macrame and has a beginner's kit expected to arrive soon"
+          },
+          {
+            "memory_id": "m10flat3-56d4f9cdd006b74eb9963f40976fb192c5a6f90802085c00efb0ee92c2e2722b",
+            "proposition_text": "The user is excited about starting their macrame journey.",
+            "source_authority": "user",
+            "value_text": "excited about starting their macrame journey"
+          },
+          {
+            "memory_id": "m10flat3-91bc98b5f88fd4b80e28f9e8aa677ec660fcd865102e3b6a56d404ad039dd2a2",
+            "proposition_text": "The user is a complete beginner in macrame and seeks tips for starting.",
+            "source_authority": "user",
+            "value_text": "complete_beginner_in_macrame_seeks_tips_for_starting"
+          }
+        ],
+        "scope_id": "longmemeval:a82c026e",
+        "subject_key": "user"
+      }
+    ],
+    "seed": 42,
+    "selection": "sort group IDs by SHA256('42:' + group_id), then take first 10 per stratum"
+  },
+  "schema_version": 1
+}
