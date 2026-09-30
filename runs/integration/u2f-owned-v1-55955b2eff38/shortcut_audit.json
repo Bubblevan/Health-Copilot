@@ -1,0 +1,1000 @@
+{
+  "features_considered": [
+    "history availability/length/span",
+    "available record/source/tool types",
+    "budget/deadline",
+    "query token/character counts",
+    "query keywords",
+    "top query token indicators"
+  ],
+  "gate_accuracy_max": 0.8,
+  "gate_lift_over_majority_max": 0.15,
+  "interpretation": "Univariate runtime-observable leakage diagnosis; not router performance.",
+  "maximum_single_feature_accuracy": 0.6531,
+  "maximum_single_feature_lift_over_majority": 0.0852,
+  "status": "PASS",
+  "target_scope": [
+    "memory_required",
+    "external_retrieval_required"
+  ],
+  "targets": {
+    "external_retrieval_required": {
+      "balanced_accuracy_of_best_single_feature": 0.6274,
+      "best_single_feature_accuracy": 0.6531,
+      "best_single_feature_lift_over_majority": 0.0531,
+      "majority_baseline_accuracy": 0.6,
+      "positive_rate": 0.4,
+      "probes": {
+        "available_external_family_set": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "available_record_type_set": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "available_tool_id_set": {
+          "accuracy": 0.6297,
+          "balanced_accuracy": 0.5493,
+          "lift_over_majority": 0.0297,
+          "rule": "category-majority"
+        },
+        "budget_class": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "deadline_class": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "history_exists": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "history_length_bucket": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "history_time_span": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_character_count_threshold": {
+          "accuracy": 0.6398,
+          "balanced_accuracy": 0.5634,
+          "lift_over_majority": 0.0398,
+          "rule": {
+            "inverted": false,
+            "threshold": 446
+          }
+        },
+        "query_contains_calculate": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_change": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_complete": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_compute": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_count": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_current": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_difference": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_earlier": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_effective": {
+          "accuracy": 0.6266,
+          "balanced_accuracy": 0.5332,
+          "lift_over_majority": 0.0266,
+          "rule": "category-majority"
+        },
+        "query_contains_entries": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5121,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_false": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_family": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_history": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_latest": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_now": {
+          "accuracy": 0.6225,
+          "balanced_accuracy": 0.5298,
+          "lift_over_majority": 0.0225,
+          "rule": "category-majority"
+        },
+        "query_contains_published": {
+          "accuracy": 0.6531,
+          "balanced_accuracy": 0.5664,
+          "lift_over_majority": 0.0531,
+          "rule": "category-majority"
+        },
+        "query_contains_record": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_sequence": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_set": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_source": {
+          "accuracy": 0.6178,
+          "balanced_accuracy": 0.5259,
+          "lift_over_majority": 0.0178,
+          "rule": "category-majority"
+        },
+        "query_contains_sum": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_supported": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_time": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_trend": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_true": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_valid": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_value": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_has_key": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_has_value": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_a": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_all": {
+          "accuracy": 0.6262,
+          "balanced_accuracy": 0.6135,
+          "lift_over_majority": 0.0262,
+          "rule": "category-majority"
+        },
+        "query_token_an": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_and": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_b": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_by": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_c": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_d": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_e": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_f": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_for": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_from": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_generated": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_has": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_here": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_include": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_indexed": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_is": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_item": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_its": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_key": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_no": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_observation": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_patient": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_provide": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_real": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_represented": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_requested": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_result": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_return": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_supported": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_synkey": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_synthetic": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_that": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_the": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_this": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_to": {
+          "accuracy": 0.6359,
+          "balanced_accuracy": 0.6274,
+          "lift_over_majority": 0.0359,
+          "rule": "category-majority"
+        },
+        "query_token_value": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_values": {
+          "accuracy": 0.6312,
+          "balanced_accuracy": 0.6178,
+          "lift_over_majority": 0.0312,
+          "rule": "category-majority"
+        },
+        "query_token_what": {
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_word_count_threshold": {
+          "accuracy": 0.642,
+          "balanced_accuracy": 0.5707,
+          "lift_over_majority": 0.042,
+          "rule": {
+            "inverted": false,
+            "threshold": 63
+          }
+        }
+      }
+    },
+    "memory_required": {
+      "balanced_accuracy_of_best_single_feature": 0.6657,
+      "best_single_feature_accuracy": 0.6334,
+      "best_single_feature_lift_over_majority": 0.0852,
+      "majority_baseline_accuracy": 0.5482,
+      "positive_rate": 0.4518,
+      "probes": {
+        "available_external_family_set": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "available_record_type_set": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "available_tool_id_set": {
+          "accuracy": 0.5779,
+          "balanced_accuracy": 0.5386,
+          "lift_over_majority": 0.0297,
+          "rule": "category-majority"
+        },
+        "budget_class": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "deadline_class": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "history_exists": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "history_length_bucket": {
+          "accuracy": 0.5574,
+          "balanced_accuracy": 0.5282,
+          "lift_over_majority": 0.0092,
+          "rule": "category-majority"
+        },
+        "history_time_span": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_character_count_threshold": {
+          "accuracy": 0.6014,
+          "balanced_accuracy": 0.5645,
+          "lift_over_majority": 0.0531,
+          "rule": {
+            "inverted": false,
+            "threshold": 444
+          }
+        },
+        "query_contains_calculate": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_change": {
+          "accuracy": 0.5535,
+          "balanced_accuracy": 0.5058,
+          "lift_over_majority": 0.0053,
+          "rule": "category-majority"
+        },
+        "query_contains_complete": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_compute": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_count": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_current": {
+          "accuracy": 0.6254,
+          "balanced_accuracy": 0.6559,
+          "lift_over_majority": 0.0771,
+          "rule": "category-majority"
+        },
+        "query_contains_difference": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_earlier": {
+          "accuracy": 0.5631,
+          "balanced_accuracy": 0.5164,
+          "lift_over_majority": 0.0148,
+          "rule": "category-majority"
+        },
+        "query_contains_effective": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_entries": {
+          "accuracy": 0.5627,
+          "balanced_accuracy": 0.5203,
+          "lift_over_majority": 0.0145,
+          "rule": "category-majority"
+        },
+        "query_contains_false": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_family": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_history": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_latest": {
+          "accuracy": 0.5607,
+          "balanced_accuracy": 0.5138,
+          "lift_over_majority": 0.0125,
+          "rule": "category-majority"
+        },
+        "query_contains_now": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_published": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_record": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_sequence": {
+          "accuracy": 0.5535,
+          "balanced_accuracy": 0.5058,
+          "lift_over_majority": 0.0053,
+          "rule": "category-majority"
+        },
+        "query_contains_set": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_source": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_sum": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_supported": {
+          "accuracy": 0.6229,
+          "balanced_accuracy": 0.6283,
+          "lift_over_majority": 0.0746,
+          "rule": "category-majority"
+        },
+        "query_contains_time": {
+          "accuracy": 0.5734,
+          "balanced_accuracy": 0.5279,
+          "lift_over_majority": 0.0252,
+          "rule": "category-majority"
+        },
+        "query_contains_trend": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_true": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_contains_valid": {
+          "accuracy": 0.5832,
+          "balanced_accuracy": 0.5422,
+          "lift_over_majority": 0.035,
+          "rule": "category-majority"
+        },
+        "query_contains_value": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_has_key": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_has_value": {
+          "accuracy": 0.6334,
+          "balanced_accuracy": 0.6657,
+          "lift_over_majority": 0.0852,
+          "rule": "category-majority"
+        },
+        "query_token_a": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_all": {
+          "accuracy": 0.6154,
+          "balanced_accuracy": 0.6081,
+          "lift_over_majority": 0.0672,
+          "rule": "category-majority"
+        },
+        "query_token_an": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_and": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_b": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_by": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_c": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_d": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_e": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_f": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_for": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_from": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_generated": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_has": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_here": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_include": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_indexed": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_is": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_item": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_its": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_key": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_no": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_observation": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_patient": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_provide": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_real": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_represented": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_requested": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_result": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_return": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_supported": {
+          "accuracy": 0.6229,
+          "balanced_accuracy": 0.6283,
+          "lift_over_majority": 0.0746,
+          "rule": "category-majority"
+        },
+        "query_token_synkey": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_synthetic": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_that": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_the": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_this": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_to": {
+          "accuracy": 0.6107,
+          "balanced_accuracy": 0.6052,
+          "lift_over_majority": 0.0625,
+          "rule": "category-majority"
+        },
+        "query_token_value": {
+          "accuracy": 0.5482,
+          "balanced_accuracy": 0.5,
+          "lift_over_majority": 0.0,
+          "rule": "category-majority"
+        },
+        "query_token_values": {
+          "accuracy": 0.6205,
+          "balanced_accuracy": 0.6128,
+          "lift_over_majority": 0.0723,
+          "rule": "category-majority"
+        },
+        "query_token_what": {
+          "accuracy": 0.5631,
+          "balanced_accuracy": 0.545,
+          "lift_over_majority": 0.0148,
+          "rule": "category-majority"
+        },
+        "query_word_count_threshold": {
+          "accuracy": 0.5936,
+          "balanced_accuracy": 0.5626,
+          "lift_over_majority": 0.0453,
+          "rule": {
+            "inverted": false,
+            "threshold": 61
+          }
+        }
+      }
+    }
+  }
+}

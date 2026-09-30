@@ -54,10 +54,10 @@ Dependency depths are 1: 2,689, 2: 967, 3: 370, 4: 68, and 5: 2. Depths 1–3 ar
 | LONG | HIGH 896; EXTREME 640 |
 | SATURATED | EXTREME 896 |
 
-The temporal/revision audit checked 342 future personal records and hid all 342; it made 71,456 publication/effectivity checks, 258 revision-chain checks, 166 decision-boundary checks, and 272 external-version selection checks. All checks passed in the deterministic candidate run.
+The temporal/revision audit checked 342 future personal records and hid all 342; it made 71,456 publication/effectivity checks, 258 revision-chain checks, 166 decision-boundary checks, and 272 external-version selection checks. All checks passed in the frozen run `55955b2eff38`.
 
 ## Matched-pair coverage and duplicate controls
 
-The generated universe contains 388 same-surface/different-requirement matched pairs (15.2% of episodes) and 1,616 different-surface/same-graph pairs (63.1% of episodes). Both exceed their 10% and 20% minima. Exact duplicates are permitted only for designated matched surface groups. The audited candidate had 388 duplicate rows wholly inside those groups, zero unapproved exact query duplicate groups, zero exact runtime-serialization duplicates, and zero normalized query overlap across splits. Latent graph duplicates remain confined to sibling groups.
+The generated universe contains 388 same-surface/different-requirement matched pairs (15.2% of episodes) and 1,616 different-surface/same-graph pairs (63.1% of episodes). Both exceed their 10% and 20% minima. Exact duplicates are permitted only for designated matched surface groups. The frozen run has 388 duplicate rows wholly inside those groups, zero unapproved exact query duplicate groups, zero exact runtime-serialization duplicates, and zero normalized query overlap across splits. Latent graph duplicates remain confined to sibling groups.
 
-The final frozen run's manifest and `distribution_report.json`, `matched_pair_diagnostics.json`, `temporal_revision_audit.json`, and `duplicate_audit.json` are the authoritative per-run records. This document is a compact distribution summary; the machine-readable reports preserve the full strata and checks.
+The final frozen run's manifest (`dataset_root_hash=e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134`) and `distribution_report.json`, `matched_pair_diagnostics.json`, `temporal_revision_audit.json`, and `duplicate_audit.json` are the authoritative per-run records. All scale, temporal, duplicate, lineage, source-independence, and counterfactual gates pass. This document is a compact distribution summary; the machine-readable reports preserve the full strata and checks.

@@ -1,0 +1,24 @@
+{
+  "invalid_hash_version_or_origin_artifact_ids": [],
+  "missing_field_rows": [],
+  "required_fields": [
+    "artifact_id",
+    "generator_version",
+    "spec_hash",
+    "seed",
+    "split_role",
+    "subject_id",
+    "timeline_generation_id",
+    "scenario_family",
+    "template_family",
+    "surface_variant",
+    "counterfactual_family_id",
+    "history_regime",
+    "evidence_world_regime",
+    "dependency_graph_id",
+    "parent_latent_fact_ids",
+    "content_origin"
+  ],
+  "rows_checked": 5120,
+  "status": "PASS"
+}

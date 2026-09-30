@@ -54,3 +54,9 @@ Six reserved roles cover IID_TEST and patient, task, temporal, source, and compo
 ## Reproduction
 
 Use the repository's pinned `uv` environment, the frozen U2-F plans/profile, and `tools/research/integration/generate_u2f_universe.py`. The wrapper requires separate isolated generation copies, byte-identical artifacts, explicit review status, and a unique output root. The generated manifest and run-specific closeout record the exact command inputs, hashes, gate measurements, and generator commit.
+
+## Frozen qualification
+
+The final run is `runs/integration/u2f-owned-v1-55955b2eff38`, with dataset root hash `e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134`. Its manifest status is `PASS`; the generator commit is `fdaf394be287c8523c394fc626c42cd86e602745`. The two isolated copies produced byte-identical artifacts, all 35 files are represented in the wrapper hash comparison, and the 64-example spot review passed.
+
+All 40,960 deterministic action arms passed with zero capability/evaluator mismatches and zero provider calls. Single-feature shortcut maxima were 0.6531 accuracy and 0.0852 lift over majority. Reserved test/OOD rows remain unmaterialized, and no training run started.

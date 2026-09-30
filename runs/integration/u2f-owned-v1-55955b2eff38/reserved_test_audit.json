@@ -1,0 +1,16 @@
+{
+  "materialized": false,
+  "ranges_overlap_train_dev": [],
+  "reserved_role_count": 6,
+  "reserved_roles": [
+    "IID_TEST",
+    "OOD_PATIENT",
+    "OOD_TASK",
+    "OOD_TEMPORAL",
+    "OOD_SOURCE",
+    "OOD_COMPOSITION"
+  ],
+  "rows_generated": 0,
+  "status": "PASS",
+  "test_rows_materialized": false
+}

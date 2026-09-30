@@ -1,0 +1,502 @@
+{
+  "different_surface_same_graph_examples": [
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00001",
+      "episode_ids": [
+        "U2F-2F2055DA174CD52A",
+        "U2F-F53C866607E865C2"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY+RAG",
+        "external_retrieval_required": true,
+        "memory_required": true
+      },
+      "template_families": [
+        "TRAIN_SEQUENCE",
+        "TRAIN_AGGREGATE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00002",
+      "episode_ids": [
+        "U2F-1D0A5AFA2927240C",
+        "U2F-49661D8B372D597A"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "TRAIN_COMPOSE",
+        "TRAIN_AGGREGATE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00003",
+      "episode_ids": [
+        "U2F-49CA944B6D30EF17",
+        "U2F-6B8E795EF93A3D5A"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_AGGREGATE",
+        "TRAIN_NUMERIC"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00004",
+      "episode_ids": [
+        "U2F-05F0E85DDE1C31F4",
+        "U2F-49B66A1FD1230B3F"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_AGGREGATE",
+        "TRAIN_UPDATE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00005",
+      "episode_ids": [
+        "U2F-CA1F28581D509694",
+        "U2F-CFFF407533A1D23F"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_TEMPORAL",
+        "TRAIN_SOURCE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00007",
+      "episode_ids": [
+        "U2F-52EB0F0BAEA205D2",
+        "U2F-60E85F3E4FC3DA69"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY+RAG",
+        "external_retrieval_required": true,
+        "memory_required": true
+      },
+      "template_families": [
+        "TRAIN_NUMERIC",
+        "TRAIN_SEQUENCE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00008",
+      "episode_ids": [
+        "U2F-37320514502D458E",
+        "U2F-A3A5E55CF1B3327B"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_NUMERIC",
+        "TRAIN_COMPOSE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00010",
+      "episode_ids": [
+        "U2F-3E45A8D1F85C7F6E",
+        "U2F-5981527679EC9733"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY+RAG",
+        "external_retrieval_required": true,
+        "memory_required": true
+      },
+      "template_families": [
+        "TRAIN_ABSTAIN",
+        "TRAIN_AGGREGATE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00012",
+      "episode_ids": [
+        "U2F-4FF8432A9C2966D5",
+        "U2F-9B6B59553B6E7351"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_CONVERSATION",
+        "TRAIN_ABSTAIN"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00013",
+      "episode_ids": [
+        "U2F-013BD010F2F38FFD",
+        "U2F-3300B71C3134DEA7"
+      ],
+      "requirement": {
+        "answerability": false,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "INSUFFICIENT",
+        "external_retrieval_required": false,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_AGGREGATE",
+        "TRAIN_BOOLEAN"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00014",
+      "episode_ids": [
+        "U2F-1382B51C5FEDD578",
+        "U2F-4A0A57A0237A5D98"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "RAG",
+        "external_retrieval_required": true,
+        "memory_required": false
+      },
+      "template_families": [
+        "TRAIN_BOOLEAN",
+        "TRAIN_SOURCE"
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00016",
+      "episode_ids": [
+        "U2F-2A26074873253188",
+        "U2F-820B34F05886341E"
+      ],
+      "requirement": {
+        "answerability": true,
+        "architecture_required": "UNKNOWN",
+        "derived_capability_class": "MEMORY",
+        "external_retrieval_required": false,
+        "memory_required": true
+      },
+      "template_families": [
+        "TRAIN_CURRENT",
+        "TRAIN_SEQUENCE"
+      ]
+    }
+  ],
+  "different_surface_same_latent_graph_pair_count": 1616,
+  "same_surface_different_requirement_examples": [
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00000",
+      "episode_ids": [
+        "U2F-582D81EB439D686C",
+        "U2F-8C7B1C718BE9E3A6"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00006",
+      "episode_ids": [
+        "U2F-B7A40C549FDAB64B",
+        "U2F-E6A1FFF65A27FD78"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00011",
+      "episode_ids": [
+        "U2F-4E951A3A5B93E449",
+        "U2F-E9088A77CFF863CF"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00015",
+      "episode_ids": [
+        "U2F-808CEBE1537E0793",
+        "U2F-D08C0F5F2097968D"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00019",
+      "episode_ids": [
+        "U2F-7CE7BAB7F8E03461",
+        "U2F-9F754849F5559AE4"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00020",
+      "episode_ids": [
+        "U2F-278D97C57ED397BF",
+        "U2F-2B3ADDD32F076E75"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00031",
+      "episode_ids": [
+        "U2F-E33C3A9541BA0913",
+        "U2F-F01184837D1AE3B8"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00032",
+      "episode_ids": [
+        "U2F-78092EB74BB8FC27",
+        "U2F-9B16D9DD95F53825"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00033",
+      "episode_ids": [
+        "U2F-467BD4268D5EFB79",
+        "U2F-F24638732A9A07E3"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00034",
+      "episode_ids": [
+        "U2F-97C871D65ACE830A",
+        "U2F-EC7C4323C5A05C14"
+      ],
+      "requirements": [
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        },
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00036",
+      "episode_ids": [
+        "U2F-48E76C06FB79CDC9",
+        "U2F-B969D250A7C09364"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "RAG",
+          "external_retrieval_required": true,
+          "memory_required": false
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    },
+    {
+      "counterfactual_family_id": "U2F-CF-DEV_IID-00043",
+      "episode_ids": [
+        "U2F-0F119709BC128A72",
+        "U2F-8EFCE3D06B9E3BE0"
+      ],
+      "requirements": [
+        {
+          "answerability": true,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "MEMORY",
+          "external_retrieval_required": false,
+          "memory_required": true
+        },
+        {
+          "answerability": false,
+          "architecture_required": "UNKNOWN",
+          "derived_capability_class": "INSUFFICIENT",
+          "external_retrieval_required": false,
+          "memory_required": false
+        }
+      ]
+    }
+  ],
+  "same_surface_different_requirement_pair_count": 388,
+  "sibling_groups": 2560,
+  "sibling_groups_with_multiple_episodes": 2560
+}

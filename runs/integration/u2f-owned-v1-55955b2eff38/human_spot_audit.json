@@ -1,0 +1,2303 @@
+{
+  "audit_seed": 2026093001,
+  "manual_example_edits": false,
+  "review_note": "Reviewed all 64 seeded spot examples (TRAIN=32, DEV_IID=16, DEV_STRUCTURAL=16): no blank query slots, exact duplicate queries, template artifacts, label leakage, impossible grammar, or unintended clinical claims. All observed records are project-owned synthetic content; no manual example edits.",
+  "review_scope": [
+    "obvious nonsense",
+    "template artifacts",
+    "label leakage",
+    "impossible grammar",
+    "unintended clinical claims",
+    "duplicate wording"
+  ],
+  "review_status": "PASS",
+  "reviewed_by": "Codex",
+  "sample_sizes": {
+    "DEV_IID": 16,
+    "DEV_STRUCTURAL": 16,
+    "TRAIN": 32
+  },
+  "samples": [
+    {
+      "episode_id": "U2F-1C3BD8A1E43351B4",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-09E1AE37D0EB"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-09E1AE37D0 for SYNKEY-7F380DD0; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-336E3BF99A for SYNKEY-9513C5F5.",
+          "Synthetic profile encodes SYNVAL-2A199C61C6 for SYNKEY-3B08CC61.",
+          "Synthetic event encodes SYNVAL-4C73B333FA for SYNKEY-B3901E68."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-23D98682B79180EF",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-CALC-876FAEA16332548A"
+        ]
+      },
+      "query": "For SYNKEY-F5592E2A, calculate sum; part_a=39; part_b=28; return the synthetic result. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. This exercise uses an opaque synthetic identifier.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-0E7FDC51BA for SYNKEY-F7D89DEB.",
+          "Synthetic profile encodes SYNVAL-10CF389EE3 for SYNKEY-7621F6CF.",
+          "Synthetic event encodes SYNVAL-1947F6BBBB for SYNKEY-48F30EA5."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-2CF32C61D28D6542",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-27813FC5811C"
+        ]
+      },
+      "query": "The current text carries SYNVAL-27813FC581 for SYNKEY-72C7C7E7; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. This exercise uses an opaque synthetic identifier. All values belong to a project-owned research world. The generated example has deterministic structured truth. No real patient observation is represented here.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-13F09D387B for SYNKEY-9B6BD5F7.",
+          "Synthetic profile encodes SYNVAL-DF3E23FAC6 for SYNKEY-C14F0A68.",
+          "Synthetic event encodes SYNVAL-384F80E5A5 for SYNKEY-FF65EB1E."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-477F1B9E0FE4335D",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-1108F2F58CB6"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-1108F2F58C for SYNKEY-905D42CA; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-2220E3A8A3 for SYNKEY-8D953ECC.",
+          "Synthetic profile encodes SYNVAL-725992CA9D for SYNKEY-932BBCDC.",
+          "Synthetic event encodes SYNVAL-A342E4729C for SYNKEY-DC2AC15D."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-596E18BA28D7E8A1",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-092905BBA7EB"
+        ]
+      },
+      "query": "The current packet already gives SYNVAL-092905BBA7 for SYNKEY-1445F20C; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-78CE9F98DD for SYNKEY-528C97F1.",
+          "Synthetic profile encodes SYNVAL-19C7ACACDE for SYNKEY-77681CEE.",
+          "Synthetic event encodes SYNVAL-3EC3B3FB34 for SYNKEY-4B6ABC35."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-5F8EE4AFBBE76DE0",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-99E92154C66D"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-99E92154C6 for SYNKEY-C464D80A; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here. The response is checked against a frozen contract.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-FB31573608 for SYNKEY-63525A5D.",
+          "Synthetic profile encodes SYNVAL-724EAFA1A9 for SYNKEY-F7C09834.",
+          "Synthetic event encodes SYNVAL-C28FFB6E32 for SYNKEY-C1D1367B."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-759DB769EC24822D",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-F1FCB6A590C0"
+        ]
+      },
+      "query": "Return the synthetic value associated with SYNKEY-E13588FF. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-4F9412436F for SYNKEY-72938AA2.",
+          "Synthetic event encodes SYNVAL-ED12BB17F0 for SYNKEY-DC2FD5BC.",
+          "Synthetic exam encodes SYNVAL-F1FCB6A590 for SYNKEY-E13588FF."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 7,
+          "EXAM": 6,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-7AB564E0855392CD",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-0F0B462AAB47"
+        ]
+      },
+      "query": "Does the synthetic condition for SYNKEY-3B82519A hold? Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-847E275CC0 for SYNKEY-B701E951.",
+          "Synthetic profile encodes SYNVAL-DC5688120A for SYNKEY-82A6C3F3.",
+          "Synthetic event encodes SYNVAL-99561B20A0 for SYNKEY-25F168A2."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-8E2B2E2A24AF2C38",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1,
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-1E4ED0E16B2F",
+          "LF-3179CB30D342",
+          "LF-DFB7CAE497AA"
+        ]
+      },
+      "query": "Return the requested result from the available records for SYNKEY-9701A0E6. Include the item indexed by SYNKEY-E5B26A2B. Synthetic inputs: part_a=3; part_b=4; sum. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. All values belong to a project-owned research world.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-10FE6DD744 for SYNKEY-AB1CE9D4.",
+          "Synthetic exam encodes SYNVAL-1E4ED0E16B for SYNKEY-9701A0E6.",
+          "Synthetic event encodes SYNVAL-4D5F523C8A for SYNKEY-ABB25705."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 14,
+          "EXAM": 14,
+          "MEASUREMENT": 13,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-8EFCE3D06B9E3BE0",
+      "expected_partial_capability_requirement": {
+        "answerability": "ABSTAIN",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "UNAVAILABLE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-MISSING-A40A5FD7CC629E"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-63BD97CC? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-6E272725F2 for SYNKEY-A1989D9B.",
+          "Synthetic event encodes SYNVAL-4BEF9CFB6F for SYNKEY-6ABCC714.",
+          "Synthetic measurement encodes 87 for SYNKEY-CA15E2C5."
+        ],
+        "record_count": 4,
+        "record_types": {
+          "EVENT": 1,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-9B6B59553B6E7351",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-EV-B1E01F5D48FFF919"
+        ]
+      },
+      "query": "Which published synthetic source value is effective now for SYNKEY-4E41EB1B? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. All values belong to a project-owned research world. The generated example has deterministic structured truth.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-88AF43FE15 for SYNKEY-5D082644.",
+          "Synthetic profile encodes SYNVAL-0DAB9ED96F for SYNKEY-0F16AEE4.",
+          "Synthetic event encodes SYNVAL-A0312C75C6 for SYNKEY-6C411423."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-A54FB79AC6350D8D",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-603C1328D5B6",
+          "LF-BF529510C505",
+          "LF-U2F-BRANCH-975F82D9E55DF16F"
+        ]
+      },
+      "query": "What synthetic result is supported for SYNKEY-526E178C? Include the item indexed by SYNKEY-FC404DA9. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-A297C791CE for SYNKEY-B2603678.",
+          "Synthetic event encodes SYNVAL-2C48650C14 for SYNKEY-6A986FFE.",
+          "Synthetic profile encodes SYNVAL-BF529510C5 for SYNKEY-526E178C."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 2,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 2
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-B57E63111597ACAF",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 2
+        },
+        "required_fact_ids": [
+          "LF-0EF1CF323485",
+          "LF-9F9EB89FA68F"
+        ]
+      },
+      "query": "Return the requested result from the available records for SYNKEY-5DAE240F. Include the item indexed by SYNKEY-F6AB054A. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-A9322A90E4 for SYNKEY-4F283FE6.",
+          "Synthetic event encodes SYNVAL-0856A40DFC for SYNKEY-CE5D57D0.",
+          "Synthetic measurement encodes SYNVAL-0EF1CF3234 for SYNKEY-5DAE240F."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 13,
+          "EXAM": 14,
+          "MEASUREMENT": 14,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-C274BFE3333FAF96",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-ABE5D8E9EF98",
+          "LF-E02E1C25616D",
+          "LF-U2F-BRANCH-D2C87E7B058DD2AC"
+        ]
+      },
+      "query": "Resolve the requested result from the synthetic entries indexed by SYNKEY-22B37FF7. Include the item indexed by SYNKEY-6814E87E. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. Each generated record has traceable synthetic lineage.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-2399C02574 for SYNKEY-0ABF0529.",
+          "Synthetic event encodes SYNVAL-52E67827BF for SYNKEY-B966E402.",
+          "Synthetic conversation records the prior user-confirmed plan code SYNVAL-ABE5D8E9EF for SYNKEY-22B37FF7."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 2,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-C79704B053BC1A99",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-96054682A85A"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-CB133B96? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-A543223298 for SYNKEY-FB47014C.",
+          "Synthetic profile encodes SYNVAL-7BA9E05B91 for SYNKEY-2BB0CFE2.",
+          "Synthetic event encodes SYNVAL-881CD079F8 for SYNKEY-17F63A51."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-DECBD891AA0096DF",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-REV-24DCD5EBC1147EEB"
+        ]
+      },
+      "query": "Which value was valid at the earlier requested time for SYNKEY-F9B89682? Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result.",
+      "split_role": "DEV_IID",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-285C6D632C for SYNKEY-D322A2D4.",
+          "Synthetic event encodes SYNVAL-CD7EEDB319 for SYNKEY-EC7F716B.",
+          "Synthetic event encodes SYNVAL-437EFD53C5 for SYNKEY-F9B89682."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 7,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 7
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-060F270068F71E2B",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-E12826317C51"
+        ]
+      },
+      "query": "The current text carries SYNVAL-E12826317C for SYNKEY-B02861DC; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The response is checked against a frozen contract.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-BF4A0980AD for SYNKEY-E0E8CE6E.",
+          "Synthetic profile encodes SYNVAL-660A6B9229 for SYNKEY-2A4DDCC5.",
+          "Synthetic event encodes SYNVAL-66EFC61F6F for SYNKEY-496654FF."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-18E64FF125427815",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 2
+        },
+        "required_fact_ids": [
+          "LF-036ECF9666E5",
+          "LF-0CC1ED0EB939",
+          "LF-U2F-BRANCH-6B095F2BD39E7DBD"
+        ]
+      },
+      "query": "Compare the linked synthetic evidence for SYNKEY-BEBC71A5 and report the supported result. Include the item indexed by SYNKEY-EB33B023. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-4F3229B435 for SYNKEY-3D10ADBF.",
+          "Synthetic profile encodes SYNVAL-0CC1ED0EB9 for SYNKEY-BEBC71A5.",
+          "Synthetic event encodes SYNVAL-AF8B3F9258 for SYNKEY-0FD4457D."
+        ],
+        "record_count": 11,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 3,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 3
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-1B8F1294D8F1D0C5",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-602E6AF1B65D"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-C9A15E26? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-1AFEA640DA for SYNKEY-C90E659C.",
+          "Synthetic event encodes SYNVAL-2FC8B704DF for SYNKEY-DD3BD9A9.",
+          "Synthetic measurement encodes SYNVAL-602E6AF1B6 for SYNKEY-C9A15E26."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 14,
+          "EXAM": 13,
+          "MEASUREMENT": 14,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-44BA54C397EB9115",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-A7BA0CAC0A05"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-A7BA0CAC0A for SYNKEY-81C0C8F6; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-FE3AEB9E34 for SYNKEY-9B9A8062.",
+          "Synthetic profile encodes SYNVAL-8EC8ACEF21 for SYNKEY-2FBC69A8.",
+          "Synthetic event encodes SYNVAL-8A2440632B for SYNKEY-F5967B02."
+        ],
+        "record_count": 72,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 19,
+          "EXAM": 13,
+          "MEASUREMENT": 13,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-64096D05A9238C35",
+      "expected_partial_capability_requirement": {
+        "answerability": "ABSTAIN",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 1,
+          "UNAVAILABLE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-STALE-B450F7FD4DED38",
+          "LF-U2F-STALE-MISSING-EDDC4D9B102BD4"
+        ]
+      },
+      "query": "Does SYNKEY-7CD52F68 have a non-stale personal value at the decision time? A supported answer must be present in the evidence. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-3D1B9F5B5F for SYNKEY-966C9445.",
+          "Synthetic conversation records the user's confirmed preference SYNVAL-56A0F5F717 for SYNKEY-E224339D.",
+          "Synthetic profile encodes SYNVAL-6FB661B11C for SYNKEY-2C8B3EDE."
+        ],
+        "record_count": 11,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-64446D719FD45BA2",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-53D8F84857B4"
+        ]
+      },
+      "query": "The current note from the last visit states SYNVAL-53D8F84857 for SYNKEY-A5AC6C77; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-F3AF1A5E38 for SYNKEY-8B34D1A0.",
+          "Synthetic profile encodes SYNVAL-2A9E4C1611 for SYNKEY-5C376816.",
+          "Synthetic event encodes SYNVAL-DED989C397 for SYNKEY-ED6A9473."
+        ],
+        "record_count": 33,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 12,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-64A1AE4C045E230C",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-B1F69CAA141B"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-00A41FF2? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-D08F6A1202 for SYNKEY-29D3E90D.",
+          "Synthetic profile encodes SYNVAL-619774CE6D for SYNKEY-6354F829.",
+          "Synthetic event encodes SYNVAL-195DB158C1 for SYNKEY-325D629F."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 15,
+          "EXAM": 13,
+          "MEASUREMENT": 13,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-6564AB9E80A7A197",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-06377124CACA"
+        ]
+      },
+      "query": "The current packet already gives SYNVAL-06377124CA for SYNKEY-FBC94656; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-7ED9C65961 for SYNKEY-E062A381.",
+          "Synthetic profile encodes SYNVAL-9381906260 for SYNKEY-B8B34AF2.",
+          "Synthetic event encodes SYNVAL-FD46DE7CA0 for SYNKEY-39FB2754."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-8649F94F942F2149",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-58438667D361"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-A075CEF9? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-EBA934DF21 for SYNKEY-4A91DD87.",
+          "Synthetic event encodes SYNVAL-90AE38B1B5 for SYNKEY-5F355A3E.",
+          "Synthetic conversation records the prior user-confirmed plan code SYNVAL-58438667D3 for SYNKEY-A075CEF9."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 6,
+          "EVENT": 7,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-88951A2A18D8195E",
+      "expected_partial_capability_requirement": {
+        "answerability": "ABSTAIN",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 1,
+          "UNAVAILABLE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-MISSING-SECOND-6FC474A846C37D",
+          "LF-U2F-PARTIAL-6FC474A846C37D"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-9C696896? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-8E1F616BC1 for SYNKEY-E5340A5F.",
+          "Synthetic event encodes SYNVAL-C26F156B57 for SYNKEY-9C696896.",
+          "Synthetic profile encodes SYNVAL-33BE2328EC for SYNKEY-2F4D2078."
+        ],
+        "record_count": 11,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 5,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-AC27E1EA35341294",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-EV-0E66C48A38FCD4C5"
+        ]
+      },
+      "query": "At query time, return the value for SYNKEY-C483976B that is both published and effective. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-BFD1171D36 for SYNKEY-9F41256E.",
+          "Synthetic profile encodes SYNVAL-B58A552439 for SYNKEY-F226C0D2.",
+          "Synthetic event encodes SYNVAL-D41062208A for SYNKEY-8AD92AF3."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-C80F41C85A1C6639",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-EDF45847112A"
+        ]
+      },
+      "query": "Is the synthetic condition linked to SYNKEY-BFA1EA61 satisfied? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-8965E3CC4F for SYNKEY-25A27CCA.",
+          "Synthetic profile encodes SYNVAL-F94C33E47B for SYNKEY-3A8FE883.",
+          "Synthetic event encodes SYNVAL-6B1B9AFA1D for SYNKEY-35ED2FEF."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-E09C4A08505B904D",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-777AE5F093E6"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-777AE5F093 for SYNKEY-1585E9A3; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-06A347CC58 for SYNKEY-F1BB5F4F.",
+          "Synthetic profile encodes SYNVAL-D98E238997 for SYNKEY-879685F9.",
+          "Synthetic event encodes SYNVAL-6C09BCA444 for SYNKEY-2DF478AA."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-E1684DDB0E171B58",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-0E93D8F2E5E3",
+          "LF-A219EABF772F"
+        ]
+      },
+      "query": "Check the linked synthetic facts for SYNKEY-45ABD020 and report the supported result. Include the item indexed by SYNKEY-512446F5. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier. All values belong to a project-owned research world.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-408A5A1D03 for SYNKEY-3B3AD030.",
+          "Synthetic event encodes SYNVAL-8DA1BCA636 for SYNKEY-2DC8679C.",
+          "Synthetic measurement encodes SYNVAL-A219EABF77 for SYNKEY-45ABD020."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 7,
+          "EXAM": 5,
+          "MEASUREMENT": 6,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-F002D6E499C0B22C",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-A80DDA6B5C8A"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-7947B612? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier. All values belong to a project-owned research world. The generated example has deterministic structured truth.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-1AFEA640DA for SYNKEY-C90E659C.",
+          "Synthetic event encodes SYNVAL-8FCBCE8177 for SYNKEY-199DDFB2.",
+          "Synthetic measurement encodes SYNVAL-A80DDA6B5C for SYNKEY-7947B612."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 2,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-FF9F36F4857B1C35",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-0992B5E79870",
+          "LF-B184B2D13A8A"
+        ]
+      },
+      "query": "Check the linked synthetic evidence for SYNKEY-BE8459BD and report the supported result. Include the item indexed by SYNKEY-B0A9E45D. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance.",
+      "split_role": "DEV_STRUCTURAL",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-16CA25D561 for SYNKEY-127597BE.",
+          "Synthetic event encodes SYNVAL-0992B5E798 for SYNKEY-BE8459BD.",
+          "Synthetic event encodes SYNVAL-CDA34ECBB0 for SYNKEY-5B4C555F."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-006901491263BAAC",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-F3846E86978E"
+        ]
+      },
+      "query": "The current packet already gives SYNVAL-F3846E8697 for SYNKEY-156AA37E; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-4A292B0948 for SYNKEY-3D1D239F.",
+          "Synthetic profile encodes SYNVAL-4C257E7D28 for SYNKEY-E8055FF4.",
+          "Synthetic event encodes SYNVAL-6606EA5599 for SYNKEY-41BB71B6."
+        ],
+        "record_count": 33,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 12,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-008F79C85E5DC459",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 2
+        },
+        "required_fact_ids": [
+          "LF-1354DF47908F",
+          "LF-C843D61B77B1"
+        ]
+      },
+      "query": "What result is associated with SYNKEY-4C69D1B2? Include the item indexed by SYNKEY-A689691A. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-37E94A9526 for SYNKEY-6C455386.",
+          "Synthetic event encodes SYNVAL-DBF867D3E7 for SYNKEY-D0F6C8B6.",
+          "Synthetic exam encodes SYNVAL-1354DF4790 for SYNKEY-4C69D1B2."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 1,
+          "EXAM": 2,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 12
+      }
+    },
+    {
+      "episode_id": "U2F-06FAB401658A9994",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-079B97004DB4"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-079B97004D for SYNKEY-20BEBF66; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-50F0625792 for SYNKEY-EB2128AA.",
+          "Synthetic profile encodes SYNVAL-CCBA9FF0D8 for SYNKEY-E19D57C6.",
+          "Synthetic event encodes SYNVAL-2A993DA891 for SYNKEY-CC3BC69B."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-0DF9D88F35BB676B",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-F72FB45629C4"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-F72FB45629 for SYNKEY-3082AA77; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-F69AE8A54A for SYNKEY-FDBC3FE8.",
+          "Synthetic profile encodes SYNVAL-A03956B744 for SYNKEY-600F2B2E.",
+          "Synthetic event encodes SYNVAL-4A61B27255 for SYNKEY-6A00E4BD."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-20EA9A7F45D86AE5",
+      "expected_partial_capability_requirement": {
+        "answerability": "ABSTAIN",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 1,
+          "UNAVAILABLE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-STALE-B68FF4D7F538DC",
+          "LF-U2F-STALE-MISSING-0A0366B58CA34F"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-E4A489E9? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The scenario remains separate from clinical guidance. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-3FCA72215B for SYNKEY-21092A71.",
+          "Synthetic exam encodes SYNVAL-85869C38C1 for SYNKEY-5E99B67B.",
+          "Synthetic profile encodes SYNVAL-E25CA554BB for SYNKEY-E6C8B921."
+        ],
+        "record_count": 69,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 15,
+          "EXAM": 14,
+          "MEASUREMENT": 13,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-22F497A2F61A203A",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-4214ADDF0237"
+        ]
+      },
+      "query": "The current text carries SYNVAL-4214ADDF02 for SYNKEY-5924CF87; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. All values belong to a project-owned research world. The generated example has deterministic structured truth.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-408984B720 for SYNKEY-C432379D.",
+          "Synthetic event encodes SYNVAL-E43BB9EE04 for SYNKEY-C3F043E8.",
+          "Synthetic measurement encodes 34 for SYNKEY-F041B70C."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 2,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 59
+      }
+    },
+    {
+      "episode_id": "U2F-2EC730BCB31741F7",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-8AA8EF2D6244"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-8AA8EF2D62 for SYNKEY-2948AAE5; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-7B7E7B51F3 for SYNKEY-B4AB87B8.",
+          "Synthetic profile encodes SYNVAL-6287DABB53 for SYNKEY-B7AC1248.",
+          "Synthetic event encodes SYNVAL-BA2CC77F26 for SYNKEY-ED4E5672."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-370431E0811E4595",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-5714BD86949F",
+          "LF-588B2A4A9D14",
+          "LF-U2F-BRANCH-FE20720B1B13F7BA"
+        ]
+      },
+      "query": "Using the available evidence, return the entry for SYNKEY-E0948677. Include the item indexed by SYNKEY-C3CAA89F. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-81C14E8369 for SYNKEY-82A60903.",
+          "Synthetic event encodes SYNVAL-3C7E8AE855 for SYNKEY-076F290B.",
+          "Synthetic profile encodes SYNVAL-5714BD8694 for SYNKEY-E0948677."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 2,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 2
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-37CD79C0C68FDCA3",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2
+        },
+        "required_fact_ids": [
+          "LF-4CCF9C717835",
+          "LF-6CF0D7CD1F09"
+        ]
+      },
+      "query": "Using evidence valid at the requested time, report the result for SYNKEY-43F949B9. Include the item indexed by SYNKEY-95D0DD05. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. Each generated record has traceable synthetic lineage.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-5BDC29F0F3 for SYNKEY-44011354.",
+          "Synthetic profile encodes SYNVAL-FC4AB696AB for SYNKEY-FBEBC191.",
+          "Synthetic event encodes SYNVAL-940D5749E7 for SYNKEY-D7BE2F0A."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-40C24A8A4EC1A602",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 4,
+        "dependency_locations": {
+          "PATIENT_STATE": 4
+        },
+        "required_fact_ids": [
+          "LF-U2F-REV-2E8BCFD9D3675989",
+          "LF-U2F-REV-3AF899FB9892EB53",
+          "LF-U2F-REV-701F08C622296978",
+          "LF-U2F-REV-A855EDE5508401C4"
+        ]
+      },
+      "query": "List each linked value in chronological order for SYNKEY-A8E9434E SYNKEY-69C381C6 SYNKEY-36283FBF SYNKEY-EC287BAD. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders. The scenario remains separate from clinical guidance.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-B28954C9D4 for SYNKEY-E4D22F10.",
+          "Synthetic event encodes SYNVAL-A32DE8E14E for SYNKEY-0192062C.",
+          "Synthetic measurement encodes SYNVAL-A554799ACC for SYNKEY-A8E9434E."
+        ],
+        "record_count": 70,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 14,
+          "EXAM": 14,
+          "MEASUREMENT": 15,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-43A0E8BFA3B060C4",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-30BC220295AC",
+          "LF-B0E3D76A2EFB"
+        ]
+      },
+      "query": "What result is supported by the records for SYNKEY-E62B1BF8? Include the item indexed by SYNKEY-D219193B. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-5080ABB224 for SYNKEY-442B8B20.",
+          "Synthetic event encodes SYNVAL-1484A17CC3 for SYNKEY-F12A7E9C.",
+          "Synthetic measurement encodes SYNVAL-30BC220295 for SYNKEY-E62B1BF8."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 14,
+          "EXAM": 13,
+          "MEASUREMENT": 14,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-4535643C2FCD473E",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-CALC-70D570CB097462FD"
+        ]
+      },
+      "query": "For SYNKEY-8FE6FB9F, compare the inputs: part_a=3; part_b=6; determine greater_than. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-57FB443D68 for SYNKEY-ECE619B9.",
+          "Synthetic profile encodes SYNVAL-AED49833B4 for SYNKEY-2B1DB04F.",
+          "Synthetic event encodes SYNVAL-A52BAF135A for SYNKEY-35CCDECC."
+        ],
+        "record_count": 52,
+        "record_types": {
+          "CONVERSATION": 10,
+          "EVENT": 12,
+          "EXAM": 10,
+          "MEASUREMENT": 10,
+          "PROFILE": 10
+        },
+        "time_span": 296
+      }
+    },
+    {
+      "episode_id": "U2F-4E060A60CB6CBEAF",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1,
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-4D1289F355A6",
+          "LF-C2952D5CFDCA",
+          "LF-CDB5CE83E146"
+        ]
+      },
+      "query": "What result is supported for SYNKEY-A3A979D4 at the requested time? Include the item indexed by SYNKEY-84CB75DF. Synthetic inputs: part_a=3; part_b=4; sum. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-F85B89C21F for SYNKEY-FC60A99E.",
+          "Synthetic event encodes SYNVAL-1C00069CD9 for SYNKEY-3D4F025E.",
+          "Synthetic event encodes SYNVAL-4D1289F355 for SYNKEY-A3A979D4."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-4F38865E1CBFB3F5",
+      "expected_partial_capability_requirement": {
+        "answerability": "ABSTAIN",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-MISSING-720A6A279EEBD6"
+        ]
+      },
+      "query": "What synthetic value is supported for SYNKEY-B210472B? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-A186B9E803 for SYNKEY-46F83408.",
+          "Synthetic profile encodes SYNVAL-B527232803 for SYNKEY-A6F35193.",
+          "Synthetic event encodes SYNVAL-72CBD84883 for SYNKEY-91485C04."
+        ],
+        "record_count": 12,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 4,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 59
+      }
+    },
+    {
+      "episode_id": "U2F-5336C25997BEFFB5",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-EV-10141DFB59B93DB8"
+        ]
+      },
+      "query": "At query time, return the value for SYNKEY-EA62B2FB that is both published and effective. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-1708172E4B for SYNKEY-13B1CAF5.",
+          "Synthetic profile encodes SYNVAL-6EB292DEAA for SYNKEY-A3C6C651.",
+          "Synthetic event encodes SYNVAL-96758193F6 for SYNKEY-310A45BC."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 4,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-5F867F4153B70D43",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-REV-6D19E4D8DB56A965"
+        ]
+      },
+      "query": "What is the latest valid value for SYNKEY-411FA41A? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The scenario remains separate from clinical guidance.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-0B44F26255 for SYNKEY-280788DD.",
+          "Synthetic event encodes SYNVAL-5D7742B701 for SYNKEY-C2B27BF7.",
+          "Synthetic measurement encodes SYNVAL-A2E7F3D168 for SYNKEY-672886DB."
+        ],
+        "record_count": 12,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 3,
+          "EXAM": 2,
+          "MEASUREMENT": 3,
+          "PROFILE": 2
+        },
+        "time_span": 59
+      }
+    },
+    {
+      "episode_id": "U2F-61FBA5BF49263463",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2,
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-3673618D5FA8",
+          "LF-8A00B0D95537",
+          "LF-U2F-BRANCH-891940E095A8EDA0"
+        ]
+      },
+      "query": "What result is supported for SYNKEY-76C0AB62? Include the item indexed by SYNKEY-1040956B. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-E1923F4CA3 for SYNKEY-61F5B127.",
+          "Synthetic measurement encodes SYNVAL-3673618D5F for SYNKEY-76C0AB62.",
+          "Synthetic event encodes SYNVAL-DF956E66B5 for SYNKEY-748D1B7A."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 14,
+          "EXAM": 13,
+          "MEASUREMENT": 14,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-764AD272B7818C42",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-REV-6155A16041F6BB2C"
+        ]
+      },
+      "query": "Report the current value valid at the query time for SYNKEY-DA5AFC1C. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. Each generated record has traceable synthetic lineage. This exercise uses an opaque synthetic identifier. All values belong to a project-owned research world.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-2661C9CD78 for SYNKEY-606C5717.",
+          "Synthetic event encodes SYNVAL-07A69DBBA3 for SYNKEY-56A27659.",
+          "Synthetic measurement encodes SYNVAL-ECE5F72594 for SYNKEY-F10DC549."
+        ],
+        "record_count": 53,
+        "record_types": {
+          "CONVERSATION": 10,
+          "EVENT": 10,
+          "EXAM": 10,
+          "MEASUREMENT": 11,
+          "PROFILE": 12
+        },
+        "time_span": 296
+      }
+    },
+    {
+      "episode_id": "U2F-7994A0188BB885F6",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 4,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 2,
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-10539530E21B",
+          "LF-B1C20216B63F",
+          "LF-F8C8F4661E36",
+          "LF-U2F-BRANCH-EF4B2D10011D0989"
+        ]
+      },
+      "query": "Determine the supported result for the synthetic entries associated with SYNKEY-712074C9. Include the item indexed by SYNKEY-0D7E20A5. Synthetic inputs: part_a=3; part_b=4; sum. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-7CBBDB14B8 for SYNKEY-11ECC934.",
+          "Synthetic event encodes SYNVAL-161D831E7C for SYNKEY-EE1C06CF.",
+          "Synthetic event encodes SYNVAL-B1C20216B6 for SYNKEY-712074C9."
+        ],
+        "record_count": 69,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 15,
+          "EXAM": 13,
+          "MEASUREMENT": 13,
+          "PROFILE": 15
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-8691F1982F2D9BE7",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2
+        },
+        "required_fact_ids": [
+          "LF-588D43496A6B",
+          "LF-7450B45C8BAF"
+        ]
+      },
+      "query": "What value is associated with SYNKEY-9F97E2C5? Include the item indexed by SYNKEY-D0285FFD. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-8C8B8EB95A for SYNKEY-9A26C86E.",
+          "Synthetic profile encodes SYNVAL-CCBA9FF0D8 for SYNKEY-E19D57C6.",
+          "Synthetic event encodes SYNVAL-B8CB279A05 for SYNKEY-61D20E9B."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-8E2830E3C4973E03",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 2
+        },
+        "required_fact_ids": [
+          "LF-6E97EF453317",
+          "LF-U2F-BRANCH-1FABD037835DFE82"
+        ]
+      },
+      "query": "Return the synthetic value associated with SYNKEY-B82E7461. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. All values belong to a project-owned research world.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-E25CA554BB for SYNKEY-E6C8B921.",
+          "Synthetic event encodes SYNVAL-FFD9FAF241 for SYNKEY-0C3EFD5D.",
+          "Synthetic conversation records user-confirmed synthetic state SYNVAL-1FABD03783 for SYNKEY-B82E7461."
+        ],
+        "record_count": 30,
+        "record_types": {
+          "CONVERSATION": 6,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-90EC9F2D7736709D",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2
+        },
+        "required_fact_ids": [
+          "LF-F6012C814EB5",
+          "LF-U2F-BRANCH-3D3E7C42B12DF10E"
+        ]
+      },
+      "query": "Resolve the requested result from the synthetic entries indexed by SYNKEY-C0466854. Return all supported values relevant to the request. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-ADC7964C6E for SYNKEY-98FFE4CF.",
+          "Synthetic profile encodes SYNVAL-4A4D933BF4 for SYNKEY-8BCDFFB8.",
+          "Synthetic event encodes SYNVAL-85BB5B1E21 for SYNKEY-4ADA98B8."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-979D116ACE0DEA2F",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-72A8585AF38D"
+        ]
+      },
+      "query": "Return the field indexed by SYNKEY-60C99772. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-7ACB58930C for SYNKEY-66F0B3FD.",
+          "Synthetic profile encodes SYNVAL-8808C12AC2 for SYNKEY-5135868C.",
+          "Synthetic event encodes SYNVAL-62F8138D60 for SYNKEY-F91C9430."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 13,
+          "EVENT": 15,
+          "EXAM": 13,
+          "MEASUREMENT": 13,
+          "PROFILE": 14
+        },
+        "time_span": 431
+      }
+    },
+    {
+      "episode_id": "U2F-9D8DDD4E7BF0DB8A",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 3,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1,
+          "PATIENT_STATE": 1,
+          "TOOL_OUTPUT": 1
+        },
+        "required_fact_ids": [
+          "LF-615DE96DE7C6",
+          "LF-71CD11A46748",
+          "LF-9C0720B43ECB"
+        ]
+      },
+      "query": "Return the supported result associated with SYNKEY-BEBF5DA9. Include the item indexed by SYNKEY-99934F20. Synthetic inputs: part_a=3; part_b=4; sum. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-DBE6BBFE9A for SYNKEY-6CCB5937.",
+          "Synthetic measurement encodes SYNVAL-615DE96DE7 for SYNKEY-BEBF5DA9.",
+          "Synthetic event encodes SYNVAL-D965B8A29B for SYNKEY-95053409."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 3,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-A692F4C508D7D09F",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 1
+        },
+        "required_fact_ids": [
+          "LF-89EB8C19C1F8"
+        ]
+      },
+      "query": "Does the synthetic condition for SYNKEY-153139B8 hold? Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The response is checked against a frozen contract.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-7B9757057D for SYNKEY-D1C53D69.",
+          "Synthetic profile encodes SYNVAL-5CE6B401EC for SYNKEY-6BC8A6E9.",
+          "Synthetic event encodes SYNVAL-1A626A312B for SYNKEY-7A47C90D."
+        ],
+        "record_count": 52,
+        "record_types": {
+          "CONVERSATION": 10,
+          "EVENT": 12,
+          "EXAM": 10,
+          "MEASUREMENT": 10,
+          "PROFILE": 10
+        },
+        "time_span": 296
+      }
+    },
+    {
+      "episode_id": "U2F-A8391E892251589A",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-DD718366E6BB"
+        ]
+      },
+      "query": "Resolve the requested result from the synthetic entries indexed by SYNKEY-9D551A2C. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-FEA93D3DFE for SYNKEY-91E61457.",
+          "Synthetic event encodes SYNVAL-5A744F81BC for SYNKEY-3046DB31.",
+          "Synthetic conversation records the prior user-confirmed plan code SYNVAL-DD718366E6 for SYNKEY-9D551A2C."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-A98CF13FAEC81C68",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "STANDARD",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "EXTERNAL_EVIDENCE": 2
+        },
+        "required_fact_ids": [
+          "LF-0B98D859D777",
+          "LF-A0572680F4D9"
+        ]
+      },
+      "query": "What value is associated with SYNKEY-6132AFA2? Include the item indexed by SYNKEY-5A0F3EB7. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-B9126E2DEC for SYNKEY-E1920D70.",
+          "Synthetic profile encodes SYNVAL-6EBFAC46FD for SYNKEY-578AF82E.",
+          "Synthetic event encodes SYNVAL-5A9F29963E for SYNKEY-D5177AB4."
+        ],
+        "record_count": 6,
+        "record_types": {
+          "EVENT": 3,
+          "EXAM": 1,
+          "MEASUREMENT": 1,
+          "PROFILE": 1
+        },
+        "time_span": 11
+      }
+    },
+    {
+      "episode_id": "U2F-AE5C3813A41AA79F",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-B2A35A1767CF"
+        ]
+      },
+      "query": "The current packet already gives SYNVAL-B2A35A1767 for SYNKEY-323BE96B; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Provide the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-E68E620808 for SYNKEY-79930F16.",
+          "Synthetic profile encodes SYNVAL-5CE6B401EC for SYNKEY-6BC8A6E9.",
+          "Synthetic event encodes SYNVAL-780FC774BA for SYNKEY-07C95C2C."
+        ],
+        "record_count": 29,
+        "record_types": {
+          "CONVERSATION": 5,
+          "EVENT": 8,
+          "EXAM": 5,
+          "MEASUREMENT": 5,
+          "PROFILE": 6
+        },
+        "time_span": 176
+      }
+    },
+    {
+      "episode_id": "U2F-BBB8249869181202",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "OFF"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "CURRENT_CONTEXT": 1
+        },
+        "required_fact_ids": [
+          "LF-3A293890DD3B"
+        ]
+      },
+      "query": "This request's current note says SYNVAL-3A293890DD for SYNKEY-F6A61A61; return that value. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. All values belong to a project-owned research world. The generated example has deterministic structured truth. No real patient observation is represented here.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic event encodes SYNVAL-78DFD91CE8 for SYNKEY-1FAE0675.",
+          "Synthetic profile encodes SYNVAL-FEA79045E6 for SYNKEY-F02F6BD3.",
+          "Synthetic event encodes SYNVAL-FB0253ECB4 for SYNKEY-9B06347F."
+        ],
+        "record_count": 12,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 4,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 59
+      }
+    },
+    {
+      "episode_id": "U2F-D8BFFF49E7C521AB",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-U2F-REV-FD74A4CEE9462380"
+        ]
+      },
+      "query": "What is the latest valid value for SYNKEY-35B0B34C? Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-084F0A8655 for SYNKEY-8857C882.",
+          "Synthetic event encodes SYNVAL-84E2988D36 for SYNKEY-116127FB.",
+          "Synthetic conversation records user-confirmed synthetic state SYNVAL-24085535DB for SYNKEY-9CE54C63."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 2,
+          "EVENT": 2,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-FAF196A6F432813E",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 1,
+        "dependency_locations": {
+          "PATIENT_STATE": 1
+        },
+        "required_fact_ids": [
+          "LF-0F9C60C345C8"
+        ]
+      },
+      "query": "Return the synthetic value associated with SYNKEY-4994222C. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The response is checked against a frozen contract. Dates and quantities are fictional placeholders.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-C96E1C5521 for SYNKEY-28CB2CC1.",
+          "Synthetic event encodes SYNVAL-AAF2AB2B9E for SYNKEY-B97CC596.",
+          "Synthetic exam encodes SYNVAL-0F9C60C345 for SYNKEY-4994222C."
+        ],
+        "record_count": 10,
+        "record_types": {
+          "CONVERSATION": 1,
+          "EVENT": 3,
+          "EXAM": 2,
+          "MEASUREMENT": 2,
+          "PROFILE": 2
+        },
+        "time_span": 39
+      }
+    },
+    {
+      "episode_id": "U2F-FAF74D197CD54C48",
+      "expected_partial_capability_requirement": {
+        "answerability": "ANSWER",
+        "external_retrieval": "OFF",
+        "memory_read": "READ"
+      },
+      "latent_dependency_summary": {
+        "dependency_count": 2,
+        "dependency_locations": {
+          "PATIENT_STATE": 2
+        },
+        "required_fact_ids": [
+          "LF-81960F0A2F39",
+          "LF-BB11A88BA095"
+        ]
+      },
+      "query": "Using the available evidence, return the entry for SYNKEY-DBB2FEEB. Include the item indexed by SYNKEY-ADE9676D. Include the item indexed by its synthetic key and return the requested result for that key. Return the requested synthetic result. The generated example has deterministic structured truth. No real patient observation is represented here. The response is checked against a frozen contract.",
+      "split_role": "TRAIN",
+      "visible_current_state_summary": {
+        "examples": [
+          "Synthetic profile encodes SYNVAL-544848550B for SYNKEY-0CA9070B.",
+          "Synthetic event encodes SYNVAL-A030541F97 for SYNKEY-5329BEFA.",
+          "Synthetic conversation records the user's confirmed correction SYNVAL-BB11A88BA0 for SYNKEY-DBB2FEEB."
+        ],
+        "record_count": 68,
+        "record_types": {
+          "CONVERSATION": 14,
+          "EVENT": 13,
+          "EXAM": 13,
+          "MEASUREMENT": 13,
+          "PROFILE": 15
+        },
+        "time_span": 431
+      }
+    }
+  ]
+}
