@@ -9,7 +9,9 @@ provenance-bearing claims helps answer multi-evidence questions.
    first four, and assigns `req_1`…`req_n`; model-generated IDs are never used.
 2. **Extract claims.** For each requirement, a separate call sees that
    requirement and the same rank-ordered top-10 evidence used by Vanilla. It
-   returns short claim lines citing issued `[E#]` aliases, or `UNSUPPORTED`.
+   returns short claim lines citing issued `[E#]` aliases with literal square
+   brackets (e.g. `[E1]`), or `UNSUPPORTED`. Parenthetical or bare aliases are
+   invalid and do not resolve to evidence.
    Unknown aliases are logged and ignored; claims without a valid issued alias
    are rejected.
 3. **Compose.** The final call sees the original question and the validated

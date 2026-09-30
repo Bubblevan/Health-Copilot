@@ -1,7 +1,16 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
+from eval.rag_e6.data import RUNTIME_EPISODE_FIELDS, E6Episode
+from eval.rag_e6.llm import (
+    COMMON_SYSTEM_PROMPT,
+    MODEL_NAME,
+    CallJournal,
+    LocalLlamaCppClient,
+    PromptContextExceeded,
+)
 from eval.rag_e6.reader import (
     assign_requirement_ids,
     claims_used_evidence,
@@ -13,6 +22,10 @@ from eval.rag_e6.reader import (
     parse_requirements,
     resolve_aliases,
     vanilla_prompt,
+)
+from eval.rag_e6.reader_executor import (
+    _retrieval_identity,
+    _verify_inherited_u3r_runtime_source,
 )
 from eval.rag_e6.split import assign_subjects, build_split_manifest
 
@@ -114,6 +127,18 @@ def test_claims_only_resolve_issued_aliases_and_provenance_is_harness_owned() ->
     assert unknown_final == ("[E11]",)
 
 
+def test_claim_parser_rejects_parenthetical_aliases() -> None:
+    evidence = issue_evidence_aliases([{"doc_id": "doc-a", "text": "A"}])
+    claims, unknown, failed = parse_claims(
+        "Claim with a non-contract citation (E1)",
+        requirement_id="req_1",
+        evidence=evidence,
+    )
+    assert claims == ()
+    assert unknown == ()
+    assert failed
+
+
 def test_final_composer_receives_claims_but_not_raw_evidence() -> None:
     claim = parse_claims(
         "Supported claim [E1]",
@@ -137,3 +162,133 @@ def test_no_requirements_or_invalid_claims_fail_closed_without_new_ids() -> None
     )
     assert claims == ()
     assert failed
+
+
+def test_runtime_episode_contract_rejects_teacher_fields() -> None:
+    row = {
+        "episode_id": "EP-1",
+        "environment_version": "env-v1",
+        "source_provenance": "synthetic",
+        "decision_time": "2026-01-01T00:00:00+00:00",
+        "subject_id": "SUBJ-1",
+        "query": "Question?",
+        "observable_state": {"available_external_source_families": ["PUBLIC_HEALTH"]},
+        "patient_state_ref": None,
+        "external_world_ref": {
+            "world_id": "EXT-1",
+            "version": "owned-evidence-v1",
+            "source_families": ["PUBLIC_HEALTH"],
+        },
+        "tool_surface_ref": None,
+        "budget": {},
+        "evaluator_ref": {},
+    }
+    assert set(row) == RUNTIME_EPISODE_FIELDS
+    episode = E6Episode.from_runtime_row(row, partition="BUILD")
+    assert episode.partition == "BUILD"
+    assert episode.split == "TRAIN"
+    contaminated = {**row, "required_external_evidence_ids": ["GOLD"]}
+    try:
+        E6Episode.from_runtime_row(contaminated, partition="BUILD")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("runtime loader accepted an evaluator-only field")
+
+
+def test_retrieval_identity_matches_frozen_u3r_configuration() -> None:
+    config = _retrieval_identity()
+    assert config["retrieval_config_changed"] is False
+    assert config["standard"]["bm25"] == {"analyzer": "Lucene", "k1": 0.9, "b": 0.4}
+    assert config["standard"]["rrf_k"] == 60
+    assert config["standard"]["weights"] == [1, 1]
+    assert config["standard"]["top_k"] == 10
+    assert config["strong"]["method"] == "pinned R2MED LameR-MV"
+    assert config["strong"]["rrf_k"] == 20
+    assert config["strong"]["weights"] == [1, 2, 1, 2]
+    assert config["strong"]["top_k"] == 10
+
+
+def test_inherited_u3r_runtime_modules_match_frozen_hashes() -> None:
+    repository_root = Path(__file__).resolve().parents[1]
+    identity = _verify_inherited_u3r_runtime_source(repository_root)
+    assert identity["code_commit"] == "2d2d3ca2de48dc5fb5a5f011e8fa5c5aa3003d0d"
+    assert len(identity["verified_source_sha256"]) == 6
+
+
+def test_call_journal_reuses_completed_calls_without_retry(tmp_path) -> None:
+    class FakeClient:
+        model_name = MODEL_NAME
+
+        def __init__(self):
+            self.attempts = 0
+
+        def complete(self, _prompt, *, system_prompt):
+            assert system_prompt == COMMON_SYSTEM_PROMPT
+            self.attempts += 1
+            return {
+                "text": "FINAL: synthetic",
+                "finish_reason": "stop",
+                "input_tokens": 3,
+                "output_tokens": 2,
+            }
+
+    journal_path = tmp_path / "calls.jsonl"
+    client = FakeClient()
+    journal = CallJournal(journal_path)
+    first = journal.call_once(
+        call_id="EP-1|VANILLA_OFF|reader",
+        prompt="synthetic prompt",
+        system_prompt=COMMON_SYSTEM_PROMPT,
+        client=client,
+    )
+    resumed = CallJournal(journal_path).call_once(
+        call_id="EP-1|VANILLA_OFF|reader",
+        prompt="synthetic prompt",
+        system_prompt=COMMON_SYSTEM_PROMPT,
+        client=client,
+    )
+    assert first == resumed
+    assert client.attempts == 1
+
+
+def test_interrupted_call_is_not_retried(tmp_path) -> None:
+    class FakeClient:
+        model_name = MODEL_NAME
+        attempts = 0
+
+        def complete(self, _prompt, *, system_prompt):
+            self.attempts += 1
+            return {"text": "unexpected", "finish_reason": "stop"}
+
+    journal_path = tmp_path / "calls.jsonl"
+    first_client = FakeClient()
+    CallJournal(journal_path).call_once(
+        call_id="EP-2|VANILLA_OFF|reader",
+        prompt="synthetic prompt",
+        system_prompt=COMMON_SYSTEM_PROMPT,
+        client=first_client,
+    )
+    start_record = journal_path.read_text(encoding="utf-8").splitlines()[0]
+    journal_path.write_text(start_record + "\n", encoding="utf-8")
+    resumed_client = FakeClient()
+    result = CallJournal(journal_path).call_once(
+        call_id="EP-2|VANILLA_OFF|reader",
+        prompt="synthetic prompt",
+        system_prompt=COMMON_SYSTEM_PROMPT,
+        client=resumed_client,
+    )
+    assert result["status"] == "interrupted_no_retry"
+    assert resumed_client.attempts == 0
+
+
+def test_oversized_prompt_is_rejected_before_generation_request() -> None:
+    client = LocalLlamaCppClient(
+        "http://127.0.0.1:8092/v1", effective_context_size=16384
+    )
+    try:
+        client.complete("x" * 8000, system_prompt="system")
+    except PromptContextExceeded as exc:
+        assert exc.prompt_bytes > exc.prompt_byte_limit
+    else:
+        raise AssertionError("context guard did not reject an oversized prompt")
