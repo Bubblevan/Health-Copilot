@@ -1,0 +1,44 @@
+{
+  "candidate_sources": {
+    "EXACT_HINT": "same scope_id + B0R subject_key + B0R attribute_key; all unordered eligible pairs",
+    "SEMANTIC_NEIGHBOR": {
+      "authority": "candidate generation only; never admits a revision slot",
+      "batch_size": 8,
+      "device": "cuda:0",
+      "dimension": 1024,
+      "document_instruction": null,
+      "dtype": "float16",
+      "exclude_self": true,
+      "input": "proposition_text only",
+      "max_batch_tokens": 8192,
+      "max_length": 8192,
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "model_tree_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+      "normalization": "L2 float32 output",
+      "scope_rule": "same scope_id only",
+      "threshold": null,
+      "tie_break": [
+        "cosine_similarity_descending",
+        "memory_id_ascending"
+      ],
+      "top_k": 4,
+      "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+    },
+    "pair_union": "unordered pair union of EXACT_HINT and SEMANTIC_NEIGHBOR; retain both source tags when applicable"
+  },
+  "contract_id": "mem3b0q-harness-candidate-generation-v1",
+  "eligibility": {
+    "identity_origin_excluded": [
+      "HARNESS_UNKNOWN_FALLBACK"
+    ],
+    "revision_kind": "SINGLETON_STATE",
+    "source_authority": [
+      "user",
+      "mixed"
+    ],
+    "value_grounding": "frozen MEM-3B0P deterministic local grounding; hint is not state authority"
+  },
+  "schema_version": 1,
+  "timestamp_or_question_metadata": "not read before semantic freeze"
+}

@@ -1,0 +1,15 @@
+{
+  "closure": "all missing intra-component pairs for preliminary positive components of size 2..16; larger components blocked without quadratic expansion",
+  "contract_id": "mem3b0q-harness-graph-clique-slot-admission-v1",
+  "grouping": "deterministic maximal cliques of size >=2; all memberships of any vertex in multiple maximal cliques are ambiguous and blocked",
+  "positive_edge": "same_state_dimension=YES AND state_cardinality=SINGLE_VALUE_AT_A_TIME; value_relation does not encode chronology",
+  "schema_version": 1,
+  "slot_id": "SHA256(UTF8(scope_id + concat(sorted(member_memory_ids)) + admission_contract_sha256))",
+  "slot_id_authority": "Harness only; B0R subject/attribute keys excluded",
+  "state_mutations": {
+    "ADD": 0,
+    "DELETE": 0,
+    "SUPERSEDED": 0,
+    "UPDATE": 0
+  }
+}
