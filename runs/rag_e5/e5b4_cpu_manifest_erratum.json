@@ -1,0 +1,37 @@
+{
+  "202608_opened": false,
+  "arms_cross_checked": 180,
+  "artifact_set_sha256": "ddb9eafd794c7d1c195bd6e0cc3be1f2b98bac448b0b043980c54577cf8e33aa",
+  "call_ledger_sha256": "c7f549d09511b8772d8b5041843c84bb35a0f27aeb68eca66e5beecd4a3b2aa9",
+  "cause": "The original accumulator included no-model-call arms (whose usage fields are zero) in its list-length check, then compared the 180-arm list length to 120 generation calls. The 120 model-call arms themselves all have usage values cross-checked between arm payloads and the append-only ledger.",
+  "corrected_execution_manifest_sha256": "bcd8b5577094eddfb8dbe6b088aab0292f811333f1dd676a97fdd5c8c4c0fa3d",
+  "corrected_manifest_file_sha256": "b92eddd60c870f7657ac83ecbe8c336cfde98365f53a22e40ceeeb703f00abca",
+  "corrected_manifest_path": "runs/rag_e5/e5b4_cpu_execution_manifest.json",
+  "erratum_id": "E5B4-CPU-USAGE-AGGREGATION-01",
+  "execution_id": "e5b4-cpu-20260930",
+  "generation_calls_cross_checked": 120,
+  "ledger_completed": 120,
+  "ledger_failed": 0,
+  "ledger_rows": 240,
+  "ledger_started": 120,
+  "new_values": {
+    "input_tokens": 114370,
+    "model_calls": 120,
+    "output_tokens": 6030,
+    "token_usage_complete": true
+  },
+  "old_values": {
+    "token_usage_complete": false,
+    "total_input_tokens": null,
+    "total_output_tokens": null
+  },
+  "original_execution_manifest_sha256": "3931f749a308e16c20af5754efe17d4d0f2bdd966d2d1497dcecebd3d270f877",
+  "original_manifest_file_sha256": "26d535b2a845b1e8af4a2c44d7ae7c3c98951e707d637d32f9f4601b1982966b",
+  "original_manifest_path": "runs/rag_e5/e5b4_cpu_execution_manifest_pre_erratum.json",
+  "protocol_lock_sha256": "0c56f636290239517fa7002fd6b28bd4a2ee7bf423c12ff4e265ac3fa7576e46",
+  "qrels_or_teacher_data_read_by_correction": false,
+  "schema_version": "rag-e5-e5b4-cpu-manifest-erratum-v1",
+  "scoring_run_before_correction": false,
+  "status": "PRE_SCORE_AGGREGATE_CORRECTION_ONLY",
+  "teacher_opened_before_correction": false
+}
