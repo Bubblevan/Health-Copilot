@@ -1,0 +1,126 @@
+{
+  "base_commit_sha": "d6e14b150d810c69b22a1c0cc7b32a4f5236a2bf",
+  "candidate_statistics": {
+    "assistant_origin_records_excluded_from_user_state": 4946,
+    "authority_gate_counts": {
+      "ELIGIBLE_USER_STATE": 1510,
+      "INELIGIBLE_ASSISTANT_ORIGIN": 1533,
+      "INELIGIBLE_REVISION_KIND": 5055,
+      "INELIGIBLE_SUBJECT_NAMESPACE": 10,
+      "REVISION_INELIGIBLE": 4
+    },
+    "authority_namespace_counts": {
+      "ASSISTANT_ORIGIN": 4946,
+      "USER_ASSERTED": 2563,
+      "USER_MIXED": 603
+    },
+    "eligible_exact_groups": 1373,
+    "eligible_records_by_authority_namespace": {
+      "USER_ASSERTED": 1362,
+      "USER_MIXED": 148
+    },
+    "eligible_user_state_records": 1510,
+    "identity_records": 8112,
+    "repeated_candidate_groups": 73,
+    "repeated_candidate_members": 210,
+    "singletons_without_revision_history": 1300,
+    "source_propositions": 8112,
+    "user_asserted_records_retained": 1362,
+    "user_mixed_records_retained": 148
+  },
+  "completion_gate_marker": "MEM3B0S_REVISION_SAFETY_OVERLAY_COMPLETE=YES",
+  "execution_policy": {
+    "allowed_semantic_calls": "one verifier call per repeated candidate group",
+    "embedding_calls": 0,
+    "full_identity_calls": 0,
+    "hosted_calls": 0,
+    "judge_calls": 0,
+    "memory_store_mutations": {
+      "ADD": 0,
+      "DELETE": 0,
+      "SUPERSEDED": 0,
+      "UPDATE": 0
+    },
+    "reader_answer_calls": 0,
+    "retrieval_calls": 0,
+    "same_request_retries": 0
+  },
+  "frozen_artifacts": {
+    "candidate_groups_after_authority_gate.json": "c3e6af1c85a708680232e6acba2bcf7c44d246ce3742021163f8f6563b3fd319",
+    "critical_case_review.json": "b1d59af07043f01429f056c0db88749867ec7d95c123d4e4165940134229c78f",
+    "docs/research/memory/mem_3b0s_semantic_quality_closeout.md": "d6f3f0be6e2d2839a35a6a2f8c9d7e168ff3fec2d8357290d24778e562f6304d",
+    "group_verifier_contract.json": "88763e64b6c257248422a6a843946244d750041dbfcb6051f107a03f693b03a7",
+    "group_verifier_ledger.jsonl": "3f00992d3f682a64a6b8b06b449972f049f2accbe1f62c67a9612c4e9e62284c",
+    "harness_revision_eligibility_contract.json": "771f99d890e8ba1fa0ffd659178b1493091a0db2a21f6968e35a1e4a8020eb02",
+    "report.md": "d6f3f0be6e2d2839a35a6a2f8c9d7e168ff3fec2d8357290d24778e562f6304d",
+    "revision_safety_overlay.jsonl": "23eecff32adf83b8ebd16de52742db23959efa66d75dd4d6e689a79bb6d11c80",
+    "safety_statistics.json": "ca74eee0e547e69c46627845c0aa8da436f6ea82a5ea195d86a493e9b431bc13"
+  },
+  "post_freeze_closeout_audit": {
+    "code_sha256": "ea79fb8be2bed86f4e80236470795de64526a4ac9b23c733544f129a96b13495",
+    "historical_b0r_repeated_group_count_source": "MEM-3B0R run_manifest.identity_counts.singleton_groups_size_at_least_two",
+    "scope": "reporting/statistics reconciliation only; frozen candidate universe, verifier ledger, and safety overlay unchanged; no additional model calls"
+  },
+  "protocol_deviation": "An exploratory display of one historical B0R candidate-group diagnostic exposed observed_at values before the safety artifacts were frozen. Timestamp fields/values were not projected to the candidate grouping result or verifier request and were not used by eligibility/grouping. Protocol deviation retained for review.",
+  "readiness_gate_marker": "MEM3B0S_MEM3B1_READY=NO",
+  "runtime": {
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "flash_attention": true,
+    "gpu_layers": 99,
+    "kv_cache": "GPU Q4_0",
+    "loopback_only": true,
+    "model": "Qwen3-8B Q4_K_M",
+    "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "provider": "local_qwen",
+    "proxy_environment_used": false,
+    "server_arguments": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn"
+    },
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_build": "10068 (571d0d540)",
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_pid": 24884,
+    "server_version_output": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "schema_version": 1,
+  "semantic_review": {
+    "MEM3B0S_MEM3B1_READY": "NO",
+    "reason": "clear unrelated-fact and multi-valued collisions in sampled MATERIALIZATION_SAFE groups; Instagram positive control blocked",
+    "reviewer_mode": "post-freeze qualitative Codex review; not LLM-as-judge"
+  },
+  "source_code_sha256": {
+    "protocol": "3e96e4a8095b03e970ba67c903430d91fc098348354ca69af79a562a91eb935e",
+    "runner": "f42c2e85569a9142a530ced7be4e98d241c2cc67dc1fdedef47056af0aaf7857",
+    "safety_module": "bcc8853d886eca316a359b74020e6b9f4b80e4ecc5123162fbe9766f45c470ce",
+    "server_launcher": "e51334f689db4c654a86ecd5b2920161db16ddd4acd633960f64905d31f4526c"
+  },
+  "stage": "mem3b0s-revision-safety-overlay-20260930",
+  "status": "COMPLETE_WITH_PROTOCOL_DEVIATION",
+  "topic_branch": "mem3b0s-revision-safety-20260930",
+  "upstream": {
+    "b0r_identity_path": "runs/memory/mem3/mem3b0r-revision-identity-keyed-map-20260930/revision_identity_records.jsonl",
+    "b0r_identity_sha256": "49af354bb535909a572df580cf02483ab56022dcf31873266154caf0086b4f75",
+    "flatprop_count": 8112,
+    "flatprop_path": "runs/memory/mem3/mem3a3r-recursive-flatprop-frozen-10-20260929/flatprop_inventory.jsonl",
+    "flatprop_sha256": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+    "identity_count": 8112,
+    "identity_role": "SEMANTIC_IDENTITY_PROPOSAL"
+  },
+  "verifier_summary": {
+    "candidate_groups": 73,
+    "hosted_calls": 0,
+    "provider_calls": 73,
+    "same_request_retries": 0
+  }
+}
