@@ -120,7 +120,10 @@ def test_completion_failures_are_classified_without_retry(
             {},
             frozen_pack,
             frozen_schema,
-            {"runner_sha256": "frozen-runner-hash"},
+            {
+                "runner_sha256": "frozen-runner-hash",
+                "runtime_preflight_amendment_sha256": "frozen-amendment-hash",
+            },
         ),
     )
     monkeypatch.setattr(gate, "_ps_process_snapshot", lambda: process)
@@ -387,4 +390,15 @@ def test_frozen_manifest_digest_is_pinned_before_artifact_map_is_trusted(
     monkeypatch.setattr(gate, "FROZEN_MANIFEST_SHA256", pinned_hash)
 
     with pytest.raises(RuntimeError, match="frozen_manifest_digest_mismatch"):
+        gate._load_frozen_inputs()
+
+
+def test_runtime_preflight_amendment_hash_is_pinned(monkeypatch, tmp_path: Path) -> None:
+    lock = json.loads(gate.RUNNER_LOCK_PATH.read_text("utf-8"))
+    lock["runtime_preflight_amendment_sha256"] = "0" * 64
+    lock_path = tmp_path / "runner-lock.json"
+    lock_path.write_text(json.dumps(lock), encoding="utf-8")
+    monkeypatch.setattr(gate, "RUNNER_LOCK_PATH", lock_path)
+
+    with pytest.raises(RuntimeError, match="runner_lock_mismatch"):
         gate._load_frozen_inputs()

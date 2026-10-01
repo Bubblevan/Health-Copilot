@@ -27,6 +27,9 @@ MANIFEST_PATH = MEMORY_DOCS / "mem3b0q_r4_freeze_manifest.json"
 MANIFEST_SIDECAR_PATH = MEMORY_DOCS / "mem3b0q_r4_freeze_manifest.sha256"
 RUNNER_LOCK_PATH = MEMORY_DOCS / "mem3b0q_r4_gate_runner_lock_v1.json"
 TRACE_CONTRACT_PATH = MEMORY_DOCS / "mem3b0q_r4_sampler_trace_instrumentation_v1.md"
+RUNTIME_PREFLIGHT_AMENDMENT_PATH = (
+    MEMORY_DOCS / "mem3b0q_r4_runtime_preflight_amendment_v1.md"
+)
 HOST = "127.0.0.1"
 PORT = 8081
 ENDPOINT_PATH = "/v1/chat/completions"
@@ -301,6 +304,10 @@ def _load_frozen_inputs() -> tuple[
         != "docs/research/memory/mem3b0q_r4_sampler_trace_instrumentation_v1.md"
         or runner_lock.get("trace_contract_sha256")
         != _file_sha256(TRACE_CONTRACT_PATH)
+        or runner_lock.get("runtime_preflight_amendment_path")
+        != "docs/research/memory/mem3b0q_r4_runtime_preflight_amendment_v1.md"
+        or runner_lock.get("runtime_preflight_amendment_sha256")
+        != _file_sha256(RUNTIME_PREFLIGHT_AMENDMENT_PATH)
         or runner_lock.get("sampler_parser_before") != "NOT_VERIFIED"
         or runner_lock.get("b1_status") != "MEM3B0Q_MEM3B1_READY=NO"
     ):
@@ -571,6 +578,9 @@ def run_gate() -> dict[str, Any]:
         result["protocol_manifest_sha256"] = FROZEN_MANIFEST_SHA256
         result["runner_sha256"] = runner_lock["runner_sha256"]
         result["runner_lock_sha256"] = _file_sha256(RUNNER_LOCK_PATH)
+        result["runtime_preflight_amendment_sha256"] = runner_lock[
+            "runtime_preflight_amendment_sha256"
+        ]
         proposition = pack["propositions"][0]
         if proposition["source_id"] != "R4-P01":
             raise RuntimeError("first_frozen_case_mismatch")
@@ -745,6 +755,9 @@ def run_gate() -> dict[str, Any]:
         "protocol_manifest_sha256": result.get("protocol_manifest_sha256"),
         "runner_lock_sha256": result.get("runner_lock_sha256"),
         "runner_sha256": result.get("runner_sha256"),
+        "runtime_preflight_amendment_sha256": result.get(
+            "runtime_preflight_amendment_sha256"
+        ),
         "branch": "mem3b0q-span-grounded-identity-20261001",
         "repository_head": subprocess.run(
             ["git", "rev-parse", "HEAD"],
