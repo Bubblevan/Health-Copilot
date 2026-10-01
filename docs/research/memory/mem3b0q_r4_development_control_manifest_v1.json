@@ -1,0 +1,32 @@
+{
+  "manifest_id": "mem3b0q-r4-development-control-manifest-v1",
+  "status": "MAINTAINED_OFFLINE_INVENTORY",
+  "scope": "Non-frozen proposition and candidate-builder inputs maintained by the R4 v1/v2/v3 and candidate-builder test suites. Frozen R4 v1 propositions remain separately sourced from mem3b0q_r4_control_pack_v1.json.",
+  "normalization_for_overlap_audit": "casefold plus collapse consecutive whitespace",
+  "controls": [
+    {"control_id": "V2-X1", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "My work laptop's operating system is Linux, and my personal laptop's operating system is Windows."},
+    {"control_id": "V2-X2", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "My wallet's color is black, and my wallet's color is blue."},
+    {"control_id": "V2-X3", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "My work laptop's color is green."},
+    {"control_id": "V2-X4-A", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "I completed the purchase. My bicycle is blue."},
+    {"control_id": "V2-X4-B", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "I completed the purchase and my bicycle is red."},
+    {"control_id": "V2-X5", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "I completed the purchase of my bicycle, which is blue."},
+    {"control_id": "V2-X6", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "My wallet has color black with material leather."},
+    {"control_id": "V2-X7", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition", "text": "My work laptop has operating system Linux and my personal laptop has operating system Windows."},
+    {"control_id": "V2-X8", "origin": "test_mem3b0q_r4_joint_binding_guard_v2", "control_type": "proposition_duplicate_fixture", "text": "My wallet has color black with material leather."},
+    {"control_id": "V3-X9-A", "origin": "test_mem3b0q_r4_joint_binding_guard_v3", "control_type": "proposition", "text": "My work laptop's operating system is Linux. A tablet's operating system is Windows."},
+    {"control_id": "V3-X9-B", "origin": "test_mem3b0q_r4_joint_binding_guard_v3", "control_type": "proposition", "text": "My work laptop has operating system Linux and a tablet has operating system Windows."},
+    {"control_id": "V3-X10", "origin": "test_mem3b0q_r4_joint_binding_guard_v3", "control_type": "proposition_duplicate_fixture", "text": "My work laptop's operating system is Linux."},
+    {"control_id": "V3-X11", "origin": "test_mem3b0q_r4_joint_binding_guard_v3", "control_type": "proposition", "text": "My work laptop has the operating system Linux."},
+    {"control_id": "BIND-D1", "origin": "test_mem3b0q_r4_candidate_binding_guard_v1", "control_type": "proposition", "text": "My wallet's color is 3.14."},
+    {"control_id": "BUILDER-01", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "My wallet and my wallet"},
+    {"control_id": "BUILDER-02", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "dummy running"},
+    {"control_id": "BUILDER-03", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "MY wallet's color is black."},
+    {"control_id": "BUILDER-04", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "My wallet and wallet have color black."},
+    {"control_id": "BUILDER-05", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "alias_registry_negative_input", "text": "foo"},
+    {"control_id": "BUILDER-06", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "alias_registry_negative_input", "text": "My wallet"},
+    {"control_id": "BUILDER-07", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "ß"},
+    {"control_id": "BUILDER-08", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "alias_registry_negative_input", "text": "foo bar"},
+    {"control_id": "BUILDER-09", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "proposition", "text": "MY plan"},
+    {"control_id": "BUILDER-10", "origin": "test_mem3b0q_r4_candidate_builder_v1", "control_type": "empty_source_negative_input", "text": ""}
+  ]
+}

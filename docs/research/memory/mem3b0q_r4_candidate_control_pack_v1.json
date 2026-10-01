@@ -1,0 +1,91 @@
+{
+  "pack_id": "mem3b0q-r4-candidate-control-pack-v1",
+  "status": "FROZEN_PROTOCOL_NO_INFERENCE_AUTHORIZATION",
+  "source_type": "project_authored_synthetic_english",
+  "clinical_content": false,
+  "cases": [
+    {
+      "case_id": "R4C-01",
+      "proposition_text": "My workout plan sets rowing as its activity. My work laptop runs Fedora as its operating system.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "EXERCISE_PLAN", "object_span": "workout plan", "attribute_id": "ACTIVITY", "attribute_span": "activity", "value_span": "rowing", "cardinality": "SINGLE_VALUE_AT_A_TIME"},
+        {"owner_id": "SELF", "owner_span": "My", "owner_occurrence": 1, "object_id": "WORK_LAPTOP", "object_span": "work laptop", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "value_span": "Fedora", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+      ],
+      "negative_value_bindings": [
+        {"object_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "wrong_value_span": "Fedora"},
+        {"object_id": "WORK_LAPTOP", "attribute_id": "OPERATING_SYSTEM", "wrong_value_span": "rowing"}
+      ]
+    },
+    {
+      "case_id": "R4C-02",
+      "proposition_text": "My personal laptop runs OpenBSD as its operating system. My wallet has color violet and material canvas.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "PERSONAL_LAPTOP", "object_span": "personal laptop", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "value_span": "OpenBSD", "cardinality": "SINGLE_VALUE_AT_A_TIME"},
+        {"owner_id": "SELF", "owner_span": "My", "owner_occurrence": 1, "object_id": "WALLET", "object_span": "wallet", "attribute_id": "COLOR", "attribute_span": "color", "value_span": "violet", "cardinality": "SINGLE_VALUE_AT_A_TIME"},
+        {"owner_id": "SELF", "owner_span": "My", "owner_occurrence": 1, "object_id": "WALLET", "object_span": "wallet", "attribute_id": "MATERIAL", "attribute_span": "material", "value_span": "canvas", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+      ],
+      "negative_value_bindings": [
+        {"object_id": "PERSONAL_LAPTOP", "attribute_id": "OPERATING_SYSTEM", "wrong_value_span": "violet"},
+        {"object_id": "WALLET", "attribute_id": "COLOR", "wrong_value_span": "canvas"},
+        {"object_id": "WALLET", "attribute_id": "MATERIAL", "wrong_value_span": "violet"}
+      ]
+    },
+    {
+      "case_id": "R4C-03",
+      "proposition_text": "My favorite-fruit set lists pears among its members. My wedding trip plan sets Lisbon as the destination.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "FAVORITE_FRUIT_SET", "object_span": "favorite-fruit set", "attribute_id": "MEMBERSHIP", "attribute_span": "members", "value_span": "pears", "cardinality": "MULTI_VALUE_CONCURRENT"},
+        {"owner_id": "SELF", "owner_span": "My", "owner_occurrence": 1, "object_id": "WEDDING_TRIP_PLAN", "object_span": "wedding trip plan", "attribute_id": "DESTINATION", "attribute_span": "destination", "value_span": "Lisbon", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+      ],
+      "negative_value_bindings": [
+        {"object_id": "FAVORITE_FRUIT_SET", "attribute_id": "MEMBERSHIP", "wrong_value_span": "Lisbon"},
+        {"object_id": "WEDDING_TRIP_PLAN", "attribute_id": "DESTINATION", "wrong_value_span": "pears"}
+      ]
+    },
+    {
+      "case_id": "R4C-04",
+      "proposition_text": "My hiking trip plan sets La Paz as the destination. I completed the purchase of my bicycle last month.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "HIKING_TRIP_PLAN", "object_span": "hiking trip plan", "attribute_id": "DESTINATION", "attribute_span": "destination", "value_span": "La Paz", "cardinality": "SINGLE_VALUE_AT_A_TIME"},
+        {"owner_id": "SELF", "owner_span": "my", "owner_occurrence": 1, "object_id": "BICYCLE", "object_span": "bicycle", "attribute_id": "PURCHASE_EVENT", "attribute_span": "purchase", "value_span": "completed the purchase", "cardinality": "EVENT_OR_NOT_STATE"}
+      ],
+      "negative_value_bindings": [
+        {"object_id": "HIKING_TRIP_PLAN", "attribute_id": "DESTINATION", "wrong_value_span": "completed the purchase"},
+        {"object_id": "BICYCLE", "attribute_id": "PURCHASE_EVENT", "wrong_value_span": "La Paz"}
+      ]
+    },
+    {
+      "case_id": "R4C-05",
+      "proposition_text": "My personal laptop runs Linux as its operating system. A tablet uses Windows as its operating system.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "PERSONAL_LAPTOP", "object_span": "personal laptop", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "value_span": "Linux", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+      ],
+      "unknown_object_distractors": ["tablet"],
+      "invalid_cross_bindings": [
+        {"object_id": "PERSONAL_LAPTOP", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "attribute_occurrence": 1, "wrong_value_span": "Windows"}
+      ]
+    },
+    {
+      "case_id": "R4C-06",
+      "proposition_text": "My favorite-fruit set lists apples among its members. A basket lists oranges among its members.",
+      "expected_atoms": [
+        {"owner_id": "SELF", "owner_span": "My", "object_id": "FAVORITE_FRUIT_SET", "object_span": "favorite-fruit set", "attribute_id": "MEMBERSHIP", "attribute_span": "members", "value_span": "apples", "cardinality": "MULTI_VALUE_CONCURRENT"}
+      ],
+      "unknown_object_distractors": ["basket"],
+      "invalid_cross_bindings": [
+        {"object_id": "FAVORITE_FRUIT_SET", "attribute_id": "MEMBERSHIP", "attribute_span": "members", "attribute_occurrence": 1, "wrong_value_span": "oranges"}
+      ]
+    }
+  ],
+  "required_slot_pairs": [
+    ["EXERCISE_PLAN", "ACTIVITY"],
+    ["WORK_LAPTOP", "OPERATING_SYSTEM"],
+    ["PERSONAL_LAPTOP", "OPERATING_SYSTEM"],
+    ["WALLET", "COLOR"],
+    ["WALLET", "MATERIAL"],
+    ["FAVORITE_FRUIT_SET", "MEMBERSHIP"],
+    ["WEDDING_TRIP_PLAN", "DESTINATION"],
+    ["HIKING_TRIP_PLAN", "DESTINATION"],
+    ["BICYCLE", "PURCHASE_EVENT"]
+  ]
+}
