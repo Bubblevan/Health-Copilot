@@ -1,0 +1,62 @@
+{
+  "pack_id": "mem3b0q-r4-event-value-confirmation-pack-v1",
+  "status": "FROZEN_BEFORE_REQUESTS_NO_INFERENCE_AUTHORIZATION",
+  "source_type": "project_authored_synthetic_english",
+  "clinical_content": false,
+  "purpose": "non_overlapping_event_predicate_vs_time_confirmation",
+  "cases": [
+    {
+      "case_id": "EVTCONF-01",
+      "proposition_text": "My sister confirmed that I completed the purchase of my bicycle last month.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ],
+      "temporal_expression_for_diagnostic_only": "last month"
+    },
+    {
+      "case_id": "EVTCONF-02",
+      "proposition_text": "My doctor remembers I completed the purchase of my bicycle two weeks ago.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "owner_occurrence": 1,
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ],
+      "temporal_expression_for_diagnostic_only": "two weeks ago"
+    },
+    {
+      "case_id": "EVTCONF-03",
+      "proposition_text": "My diary records that I completed the purchase of my bicycle on May 14.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "owner_occurrence": 1,
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ],
+      "temporal_expression_for_diagnostic_only": "on May 14"
+    }
+  ]
+}
