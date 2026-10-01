@@ -1,0 +1,32 @@
+{
+  "artifact_sha256": {
+    "gate_attempt.json": "ac80fc912c90dbdecb735f6a56cefcbf94ebab33ccd3e54204fb1872a66b0cd8",
+    "gate_run_manifest.json": "afe5af32d8581b3f9e0561f65fddab40e982e543375de041285c68fce537a830",
+    "postflight_snapshots.json": "2527d703e9bf4e653243cc0caf2d9034f60fc1e6c87ddd9db203a6d5833c569a",
+    "preflight_snapshots.json": "9471fbfd79eb9e5ce54e5345933c59b13c998d9ac3e7cb210fa5eadb81921f2b",
+    "request_body.json": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+    "request_issued.json": "06a90cd10b8104a079ad304a75660ad43da67829118e957d6c6c840bc0125db8",
+    "response_body.json": "b282bd6e327fdeeb5589759c3eb8c0904a48c36df6016ce151d3b1657a5a7e8c",
+    "sampler_evidence.json": "5d8f48500a0926518be8a3cc19b362c76445e996e9804eaacdeb71bb020ecd40",
+    "server_log_delta.txt": "924b8c685bb37a6799a7f0ba4f5c2ccc1fd2d7347de03d1829bc0ca62e0dad69",
+    "slot_observations.json": "f0e103aa9478a28eaa142e314fafd9bfa0c6179f8965948142cd2d3e42cfe77c",
+    "strict_overlay_manifest.json": "50ad62de329c17709b3b0263c327f1dc1c786c21706584aa407f70d320a5ce6d"
+  },
+  "case_id": "R4-P01",
+  "completion_posts_forwarded": 1,
+  "gate_status": "INFRA_FAILURE",
+  "historical_attempt_dir": "D:\\MyLab\\Jianli\\Health-Copilot-main-integration-mem3b0r\\runs\\memory\\mem3\\mem3b0q-r4-identity-qualification-v1\\pass1_r4-p01_sampler_init_gate",
+  "hosted_calls": 0,
+  "manifest_id": "mem3b0q-r4-p01-posthoc-repeat-v1",
+  "qualification_effect": "NONE_R4_V1_REMAINS_NO",
+  "quality_failure": "R4ContractError:owner_span:unsupported_exact_alias",
+  "quality_status": "QUALITY_FAILURE",
+  "repeat_attempt_dir": "D:\\MyLab\\Jianli\\Health-Copilot-main-integration-mem3b0r\\runs\\memory\\mem3\\mem3b0q-r4-identity-qualification-v1\\posthoc_repeat_r4_p01_20261001",
+  "repeat_request_sha256": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+  "request_attempts": 1,
+  "response_sha256": "b282bd6e327fdeeb5589759c3eb8c0904a48c36df6016ce151d3b1657a5a7e8c",
+  "retry_count": 0,
+  "sampler_attribution": "INFRA_FAILURE_UNCORRELATED_EVIDENCE",
+  "status": "NON_QUALIFYING_POSTHOC_DIAGNOSTIC",
+  "user_authorization": "去重试"
+}

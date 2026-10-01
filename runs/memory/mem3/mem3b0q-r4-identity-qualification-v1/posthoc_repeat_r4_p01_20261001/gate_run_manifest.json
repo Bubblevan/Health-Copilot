@@ -1,0 +1,28 @@
+{
+  "artifact_sha256": {
+    "gate_attempt.json": "ac80fc912c90dbdecb735f6a56cefcbf94ebab33ccd3e54204fb1872a66b0cd8",
+    "postflight_snapshots.json": "2527d703e9bf4e653243cc0caf2d9034f60fc1e6c87ddd9db203a6d5833c569a",
+    "preflight_snapshots.json": "9471fbfd79eb9e5ce54e5345933c59b13c998d9ac3e7cb210fa5eadb81921f2b",
+    "request_body.json": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+    "request_issued.json": "06a90cd10b8104a079ad304a75660ad43da67829118e957d6c6c840bc0125db8",
+    "response_body.json": "b282bd6e327fdeeb5589759c3eb8c0904a48c36df6016ce151d3b1657a5a7e8c",
+    "sampler_evidence.json": "5d8f48500a0926518be8a3cc19b362c76445e996e9804eaacdeb71bb020ecd40",
+    "server_log_delta.txt": "924b8c685bb37a6799a7f0ba4f5c2ccc1fd2d7347de03d1829bc0ca62e0dad69",
+    "slot_observations.json": "f0e103aa9478a28eaa142e314fafd9bfa0c6179f8965948142cd2d3e42cfe77c"
+  },
+  "b1_status": "MEM3B0Q_MEM3B1_READY=NO",
+  "branch": "mem3b0q-span-grounded-identity-20261001",
+  "case_id": "R4-P01",
+  "gate_attempt_status": "INFRA_FAILURE",
+  "manifest_id": "mem3b0q-r4-gate-run-manifest-v1",
+  "protocol_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "quality_status": "QUALITY_FAILURE",
+  "repository_head": "e08b61e464ceb41d0d887e039b2c4b7ddd100490",
+  "request_attempts": 1,
+  "retry_count": 0,
+  "runner_lock_sha256": "f23946c318a39829f02518b2dab338f0c6a4dc88ac497961c188bd57cba12950",
+  "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+  "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
+  "sampler_parser": "NOT_VERIFIED",
+  "status": "PENDING_REVIEW"
+}

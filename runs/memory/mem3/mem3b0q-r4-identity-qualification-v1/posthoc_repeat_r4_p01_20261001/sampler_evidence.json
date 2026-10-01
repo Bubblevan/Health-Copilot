@@ -1,0 +1,40 @@
+{
+  "active_prompt_witnesses": 91,
+  "active_slot_ids": [
+    0
+  ],
+  "active_task_ids": [
+    380
+  ],
+  "error_lines": [],
+  "grammar_prefill_correlated_line_count": 7,
+  "grammar_prefill_line_count": 7,
+  "grammar_prefill_uncorrelated_line_indices": [],
+  "input_witnessed_in_active_prompt": false,
+  "launch_processing_interval": [
+    2233,
+    2259
+  ],
+  "launch_rows": [
+    [
+      2233,
+      0,
+      -1
+    ]
+  ],
+  "matching_init_sampler_rows": [
+    [
+      0,
+      380
+    ]
+  ],
+  "observed_slot_id": 0,
+  "observed_task_id": 380,
+  "observer_failures": [],
+  "processing_task_ids": [
+    "380"
+  ],
+  "request_sha256": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+  "source_id": "R4-P01",
+  "status": "UNVERIFIED"
+}
