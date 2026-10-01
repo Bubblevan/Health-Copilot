@@ -83,6 +83,47 @@ def _selected_candidate(
     return matches[0]
 
 
+def _validate_value_anchor_locality(
+    atom_index: int,
+    atom: Mapping[str, Any],
+    selected: Mapping[str, Mapping[str, Any]],
+    candidates: Mapping[str, list[Mapping[str, Any]]],
+) -> None:
+    value = atom["witnesses"]["value_span"]
+    obj = selected["object"]
+    attribute = selected["attribute"]
+    if value["start"] < attribute["end"] and attribute["start"] < value["end"]:
+        raise JointBindingError(f"atom_{atom_index}:value_overlaps_attribute")
+
+    if value["start"] < obj["end"]:
+        raise JointBindingError(f"atom_{atom_index}:value_precedes_object")
+    if value["end"] <= attribute["start"]:
+        interval = (obj["end"], attribute["start"])
+    else:
+        interval = (attribute["end"], value["start"])
+
+    selected_keys = {
+        (field, row["start"], row["end"], row["canonical_id"])
+        for field, row in selected.items()
+    }
+    for field in ("owner", "object", "attribute"):
+        for candidate in candidates[field]:
+            key = (
+                field,
+                candidate["start"],
+                candidate["end"],
+                candidate["canonical_id"],
+            )
+            if key in selected_keys:
+                continue
+            if candidate["start"] < value["end"] and value["start"] < candidate["end"]:
+                raise JointBindingError(
+                    f"atom_{atom_index}:value_contains_typed_anchor"
+                )
+            if candidate["start"] < interval[1] and interval[0] < candidate["end"]:
+                raise JointBindingError(f"atom_{atom_index}:value_crosses_typed_anchor")
+
+
 def validate_joint_bound_candidate_proposal(
     content: bytes | str,
     proposition: Mapping[str, Any],
@@ -113,6 +154,7 @@ def validate_joint_bound_candidate_proposal(
         attribute = _selected_candidate(
             "attribute", atom, candidates["attribute"]
         )
+        selected = {"owner": owner, "object": obj, "attribute": attribute}
 
         policy = CARDINALITY_POLICY.get((atom["object_id"], atom["attribute_id"]))
         if policy is None:
@@ -169,5 +211,8 @@ def validate_joint_bound_candidate_proposal(
             )
             if owner_intervenes:
                 raise JointBindingError(f"atom_{atom_index}:owner_boundary_crossed")
+            _validate_value_anchor_locality(
+                atom_index, atom, selected, candidates
+            )
 
     return normalized

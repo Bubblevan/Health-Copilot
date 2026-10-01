@@ -247,6 +247,97 @@ def test_event_value_cannot_borrow_an_unrelated_same_clause_attribute() -> None:
         )
 
 
+def test_state_value_cannot_cross_wallet_attribute_anchor() -> None:
+    source_id = "R4-X6"
+    source = "My wallet has color black with material leather."
+    proposition = {"source_id": source_id, "proposition_text": source}
+
+    for attribute_id, value in (("COLOR", "black"), ("MATERIAL", "leather")):
+        result = validate_joint_bound_candidate_proposal(
+            _proposal(
+                source_id,
+                source,
+                object_id="WALLET",
+                attribute_id=attribute_id,
+                value=value,
+            ),
+            proposition,
+            scope_id=frozen_r4.FROZEN_SCOPE_ID,
+        )
+        assert len(result["atoms"]) == 1
+
+    for attribute_id, value in (("COLOR", "leather"), ("MATERIAL", "black")):
+        proposal = _proposal(
+            source_id,
+            source,
+            object_id="WALLET",
+            attribute_id=attribute_id,
+            value=value,
+        )
+        with pytest.raises(JointBindingError, match="value_crosses_typed_anchor"):
+            validate_joint_bound_candidate_proposal(
+                proposal, proposition, scope_id=frozen_r4.FROZEN_SCOPE_ID
+            )
+
+
+def test_state_value_cannot_cross_second_laptop_slot_in_same_clause() -> None:
+    source_id = "R4-X7"
+    source = (
+        "My work laptop has operating system Linux and my personal laptop "
+        "has operating system Windows."
+    )
+    proposition = {"source_id": source_id, "proposition_text": source}
+
+    for owner_occurrence, object_id, attribute_occurrence, value in (
+        (0, "WORK_LAPTOP", 0, "Linux"),
+        (1, "PERSONAL_LAPTOP", 1, "Windows"),
+    ):
+        result = validate_joint_bound_candidate_proposal(
+            _proposal(
+                source_id,
+                source,
+                object_id=object_id,
+                attribute_id="OPERATING_SYSTEM",
+                value=value,
+                owner_occurrence=owner_occurrence,
+                attribute_occurrence=attribute_occurrence,
+            ),
+            proposition,
+            scope_id=frozen_r4.FROZEN_SCOPE_ID,
+        )
+        assert len(result["atoms"]) == 1
+
+    cross_value = _proposal(
+        source_id,
+        source,
+        object_id="WORK_LAPTOP",
+        attribute_id="OPERATING_SYSTEM",
+        value="Windows",
+    )
+    with pytest.raises(JointBindingError, match="value_crosses_typed_anchor"):
+        validate_joint_bound_candidate_proposal(
+            cross_value, proposition, scope_id=frozen_r4.FROZEN_SCOPE_ID
+        )
+
+
+def test_value_span_cannot_swallow_another_typed_anchor() -> None:
+    source_id = "R4-X8"
+    source = "My wallet has color black with material leather."
+    proposition = {"source_id": source_id, "proposition_text": source}
+    proposal = _proposal(
+        source_id,
+        source,
+        object_id="WALLET",
+        attribute_id="COLOR",
+        value="black with material leather",
+    )
+
+    with pytest.raises(JointBindingError, match="value_contains_typed_anchor"):
+        validate_joint_bound_candidate_proposal(
+            proposal, proposition, scope_id=frozen_r4.FROZEN_SCOPE_ID
+        )
+
+
 def test_unknown_slot_pair_is_not_admitted_by_default() -> None:
     source_id = "R4-X3"
     source = "My work laptop's color is green."

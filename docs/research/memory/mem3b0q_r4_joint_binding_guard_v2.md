@@ -39,6 +39,9 @@ the frozen R4 v1 code/results nor its control pack.
 - The closed cardinality table validates the R4 fixture's known typed pairs.
   Unknown object/attribute pairs fail closed; the model's enum choice cannot
   independently authorize a state slot.
+- For mutable-state slots, a value must follow the selected object and cannot
+  cross an unselected owner/object/attribute anchor between the object,
+  attribute, and value. A value span cannot swallow another typed anchor.
 - The prior attribute/value clause-locality guard remains active.
 
 The guard is a conservative Harness rule for a small, project-authored
@@ -48,16 +51,29 @@ update, and does not implement ADD/UPDATE/DELETE or temporal materialization.
 It may reject valid but unrepresented combinations; that is preferable to
 silently admitting an unknown slot in this qualification fixture.
 
+Scope limitation: lexical typed-anchor checks cannot detect an intervening
+unregistered noun or entity. This proposal is not open-vocabulary semantic
+binding and must not be generalized beyond the closed R4 vocabulary. Any
+separate inference-control pack must include unknown-object distractors and
+value-binding negatives for every supported field type.
+
 ## Offline Controls
 
-The targeted suite exercises all 20 frozen oracle-shaped controls plus explicit counterexamples:
+The targeted suite exercises all 20 frozen oracle-shaped controls plus
+explicit counterexamples:
 
 - R4-P01 exact alias candidate construction, so the free-form
   `My workout plan` owner output cannot be represented as an owner candidate.
 - Cross-laptop owner/object/attribute/value mixing: local Linux and Windows
   tuples pass; combining `work laptop` with the second operating-system
   attribute and `Windows` is rejected.
-- Repeated `wallet` mentions fail closed instead of assuming one physical wallet from a shared type label.
+- Same-clause value cross-binding is rejected in both directions for
+  `color black with material leather`; value spans cannot cross or contain the
+  other typed attribute.
+- In a same-clause two-laptop proposition, the first laptop's operating
+  system cannot take the second laptop's `Windows` value.
+- Repeated `wallet` mentions fail closed instead of assuming one physical
+  wallet from a shared type label.
 - A `FAVORITE_FRUIT_SET / MEMBERSHIP` proposal labelled single-valued is rejected by the frozen policy.
 - Event/object pairs separated by a sentence boundary or coordination are
   rejected: `I completed the purchase. My bicycle is blue.` and
@@ -65,7 +81,8 @@ The targeted suite exercises all 20 frozen oracle-shaped controls plus explicit 
   `purchase of my bicycle` relation remains accepted.
 - In `I completed the purchase of my bicycle, which is blue.`, the unrelated
   but source-grounded `blue` span cannot be used as the event value.
-- An unregistered object/attribute pair is rejected rather than assigned a default cardinality.
+- An unregistered object/attribute pair is rejected rather than assigned a
+  default cardinality.
 
 These are deterministic unit controls, not model accuracy or benchmark
 evidence. The oracle-shaped 20-control check uses the frozen fixture's expected
@@ -77,23 +94,27 @@ semantic admission or revision authority.
 The independent reviewer approved the nearest-anchor rules, closed typed-pair
 policy, repeated-object veto, and event relation/value controls for this
 offline proposal. The reviewer also confirmed this does not authorize
-inference or B1.
+inference or B1, and noted the open-vocabulary limitation above.
 
 Verification completed without model calls:
 
-- Joint-guard and related candidate/contract suite: `61 passed`.
-- Full R4 and factorized-admission offline suite: `123 passed`.
+- Joint-guard and related candidate/contract suite: `64 passed`.
+- All `test_mem3b0q_r4*.py` files plus the factorized-revision-admission and
+  pairwise-admission suites: `150 passed`.
 - The full suite was rerun with an isolated writable workspace temp directory after the default Windows temp root returned permission errors.
 - Ruff was unavailable in the current Python environment (`No module named ruff`); pytest import/execution validated syntax.
 
 ## Next Gate Before Inference
 
 The next inference protocol must use a separately authored, non-overlapping
-control pack and include value-binding negatives for every supported field
-type. This fixture's exact event value phrase does not establish general value
-extraction. Freeze its prompt/schema, control pack, oracle, exact runtime,
-offline tests, and acceptance predicates before considering a bounded model
-request. The model must remain proposal-only, and validation must not be
-described as semantic admission or revision authority.
+control pack and include unknown-object distractors and value-binding negatives
+for every supported field type. This fixture's exact event value phrase does
+not establish general value extraction. Freeze its prompt/schema, control pack,
+oracle, exact runtime, offline tests, and acceptance predicates before
+considering a bounded model request. The model must remain proposal-only, and
+validation must not be described as semantic admission or revision authority.
 
-Current results remain `R4_V1=NO`, `MEM3B0Q_CANDIDATE_BOUNDED_EXTRACTOR_READY=NO`, and `MEM3B0Q_MEM3B1_READY=NO`. No benchmark, memory mutation, or performance claim is authorized by this proposal.
+Current results remain `R4_V1=NO`,
+`MEM3B0Q_CANDIDATE_BOUNDED_EXTRACTOR_READY=NO`, and
+`MEM3B0Q_MEM3B1_READY=NO`. No benchmark, memory mutation, or performance claim
+is authorized by this proposal.
