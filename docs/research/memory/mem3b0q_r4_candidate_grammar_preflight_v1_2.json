@@ -1,0 +1,53 @@
+{
+  "preflight_id": "mem3b0q-r4-candidate-grammar-preflight-v1.2",
+  "status": "PASS_GRAMMAR_CONVERSION_PRE_MODEL_LOAD",
+  "grammar_conversion": "PASS_PRE_MODEL_LOAD",
+  "sampler_initialization": "NOT_VERIFIED",
+  "model_quality": "NOT_RUN",
+  "inference_performed": false,
+  "model_loaded": false,
+  "local_endpoint_called": false,
+  "hosted_api_called": false,
+  "historical_positive_evidence": {
+    "artifact": "mem3b0q_r4_candidate_schema_preflight_v1_1.json",
+    "sha256": "98768cc9da38389c6eccd6f4278b02150b815c4ae4e763cedbd80bf600bd1e29",
+    "sidecar_verified": true,
+    "case_count": 20,
+    "passed": 20,
+    "schema_errors": 0,
+    "expected_missing_model_failures": 20,
+    "zero_candidate_schemas": 6,
+    "cli_version": "10068 (571d0d540)",
+    "cli_sha256_at_historical_run": "48566cf6e2969464b799dbcac7393b3549f9efd6884688074dc803125dbafa85",
+    "runner_sha256_in_json": "fd56a087d4e4340dc5c79c1ddea81c86e3890adff31429cc7502d11e5a0778a4",
+    "candidate_builder_sha256": "361c0e8d1aae1020f8ad76f973c586bd17bf7c19a1d71482e6c1d36c42cf243d"
+  },
+  "current_runtime_witness": {
+    "cli_path": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-cli.exe",
+    "cli_version": "10068 (571d0d540)",
+    "version_output_sha256": "c2fab25eddd59f96c453c4228bbd9597996719537aa11c1893a2bff313ff6598",
+    "cli_sha256_revalidated": false,
+    "cli_binary_read_denied": true
+  },
+  "conversion_negative_control": {
+    "schema": {
+      "$ref": "#/definitions/missing",
+      "definitions": {}
+    },
+    "option": "--json-schema",
+    "exit_code": 1,
+    "error": "JSON schema conversion failed: Error resolving ref #/definitions/missing",
+    "missing_model_failure": false,
+    "output_sha256": "c03414b68cb6d8a7f1081375563d3597030a0accac1c7e727994cda5094055d5",
+    "status": "PASS"
+  },
+  "source_order_audit": {
+    "upstream_commit": "571d0d540df04f25298d0e159e520d9fc62ed121",
+    "schema_file_argument_handler": "common/arg.cpp#L1978-L2000",
+    "cli_entry_order": "tools/cli/cli.cpp#L30-L59",
+    "conclusion": "json_schema_to_grammar is called synchronously in argument parsing, before cli_context initialization; valid schemas reaching the missing-model failure passed conversion."
+  },
+  "historical_markdown_runner_sha256_claim": "a5570918782303345fc7547f390a7978c15ca7f90a720786d40aba55dd3257dc",
+  "historical_markdown_runner_sha256_matches_json": false,
+  "scope_note": "Conversion is verified before model loading. Sampler initialization, generation, and quality remain unverified; no B1 authorization is implied."
+}
