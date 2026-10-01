@@ -1,0 +1,29 @@
+{
+  "api_key_required": false,
+  "attempt": 1,
+  "code_sha256": {
+    "pilot_gate": "0f240626b54078e4cade9edce3969e2d77a6cdaaefdc981c1f598b975f38b182",
+    "runner": "dbe98999ea5284b757295cb1762ec3c1778b59b98b92a38fee8e314dc57a176c",
+    "runtime_verifier": "e5cb456611f0dc86973986f2cc14957da7cf3bce7a5921d17e9329c1e60ce9e5",
+    "span_identity": "249b52e831cf724d2babb96ffb970348fa8db190e668535d8d31cecddf135cde"
+  },
+  "expected_runtime": {
+    "cache_type_k": "q4_0",
+    "cache_type_v": "q4_0",
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "flash_attn": "on",
+    "llama_cpp_build": "10068 (571d0d540)",
+    "llama_server_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "n_gpu_layers": 99
+  },
+  "failure": "IntegrityFailure:expected_exactly_one_loopback_reader",
+  "hosted_calls": 0,
+  "memory_store_mutations": 0,
+  "model_generation_calls": 0,
+  "observed_runtime": null,
+  "schema_version": 1,
+  "stage": "mem3b0q-span-identity-pilot-r3-20261001",
+  "status": "PREFLIGHT_BLOCKED"
+}

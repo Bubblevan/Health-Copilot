@@ -1,4 +1,4 @@
-"""Prepare, locally run, and score the frozen MEM-3B0Q-R2 identity pilot."""
+"""Prepare, locally run, and score the frozen MEM-3B0Q-R3 identity pilot."""
 
 from __future__ import annotations
 
@@ -19,14 +19,15 @@ if str(ROOT) not in sys.path:
 
 from tools.research.memory import run_mem3b0p_pairwise_admission as b0p_runner
 from tools.research.memory import span_grounded_identity as span_identity
+from tools.research.memory import span_identity_pilot_gate as span_gate
 
 SOURCE_RUN = ROOT / "runs/memory/mem3/mem3b0q-factorized-admission-20260930"
-RUN_ID = "mem3b0q-span-identity-pilot-20261001"
+RUN_ID = "mem3b0q-span-identity-pilot-r3-20261001"
 RUN_DIR = ROOT / "runs" / "memory" / "mem3" / RUN_ID
 SOURCE_PATH = SOURCE_RUN / "eligible_records.jsonl"
 CONTROL_AUDIT_PATH = SOURCE_RUN / "post_freeze_control_audit.json"
 REVIEW_DECISIONS_PATH = SOURCE_RUN / "human_review_decisions_user.json"
-PROTOCOL_PATH = ROOT / "docs/research/memory/mem_3b0q_span_identity_pilot_protocol.md"
+PROTOCOL_PATH = ROOT / "docs/research/memory/mem_3b0q_span_identity_pilot_r3_protocol.md"
 INPUT_PATH = RUN_DIR / "proposal_inputs.jsonl"
 CASE_PATH = RUN_DIR / "diagnostic_cases.json"
 RESPONSE_PATH = RUN_DIR / "provider_response.json"
@@ -256,6 +257,7 @@ def _code_identity() -> dict[str, str]:
     return {
         "runner": _sha_file(Path(__file__)),
         "span_identity": _sha_file(Path(span_identity.__file__)),
+        "pilot_gate": _sha_file(Path(span_gate.__file__)),
         "runtime_verifier": _sha_file(Path(b0p_runner.__file__)),
     }
 
@@ -456,52 +458,38 @@ def analyze() -> dict[str, Any]:
     proposal_by_id = {row["memory_id"]: row for row in proposals}
     if len(proposal_by_id) != len(proposals):
         raise PilotError("duplicate_proposal_memory_id")
-    case_results = []
-    for case in cases["cases"]:
-        ids = case["memory_ids"]
-        rows = [proposal_by_id[mid] for mid in ids]
-        keys = [tuple(row["slot_key"]) if row["slot_key"] is not None else None for row in rows]
-        expected = case["expected"]
-        if expected == "SAME_SLOT":
-            passed = all(row["slot_candidate"] for row in rows) and len(set(keys)) == 1
-        elif expected == "NOT_SAME_SLOT":
-            passed = not (all(row["slot_candidate"] for row in rows) and len(set(keys)) == 1)
-        elif expected == "NO_SLOT":
-            passed = all(not row["slot_candidate"] for row in rows)
-        elif expected == "BOTH_UNRESOLVED":
-            passed = all(row["identity_status"] == "UNRESOLVED" for row in rows)
-        else:
-            raise PilotError(f"unknown_expected_relation:{expected}")
-        case_results.append(
-            {
-                "case_id": case["case_id"],
-                "memory_ids": ids,
-                "expected": expected,
-                "observed_slot_keys": keys,
-                "identity_statuses": [row["identity_status"] for row in rows],
-                "property_kinds": [row["property_kind"] for row in rows],
-                "validation_reasons": [row["validation_reasons"] for row in rows],
-                "passed": passed,
-            }
-        )
+    input_rows = _read_jsonl(INPUT_PATH)
+    input_ids = {row["memory_id"] for row in input_rows}
+    case_ids = {row["memory_id"] for row in cases.get("records", [])}
+    if len(input_rows) != 19 or input_ids != case_ids:
+        raise PilotError("frozen_input_case_record_coverage_mismatch")
+    if manifest.get("proposal_inputs_sha256") != cases.get("proposal_inputs_sha256"):
+        raise PilotError("case_manifest_input_hash_mismatch")
+    try:
+        case_results = span_gate.evaluate_cases(cases.get("cases", []), proposals, input_ids)
+    except ValueError as exc:
+        raise PilotError(f"strict_gate_integrity_failure:{exc}") from exc
     valid_spans = sum(
         row["identity_status"] == "GROUNDED" for row in proposals
     )
+    unresolved_count = len(proposals) - valid_spans
+    pilot_pass = len(case_results) == 10 and all(row["passed"] for row in case_results)
     result = {
         "schema_version": 1,
         "stage": RUN_ID,
         "classification": "19_RECORD_DEVELOPMENT_CONTROL_PILOT_NOT_BENCHMARK_EVIDENCE",
+        "gate_version": "span_identity_pilot_gate_r3",
         "input_sha256": manifest["proposal_inputs_sha256"],
         "proposal_sha256": _verify_file(PROPOSALS_PATH),
         "model_calls": manifest["execution"]["provider_calls"],
         "hosted_calls": manifest["hosted_calls"],
         "records": len(proposals),
         "grounded_identity_count": valid_spans,
-        "unresolved_identity_count": len(proposals) - valid_spans,
+        "unresolved_identity_count": unresolved_count,
         "case_count": len(case_results),
         "case_pass_count": sum(row["passed"] for row in case_results),
         "case_results": case_results,
-        "pilot_pass": all(row["passed"] for row in case_results),
+        "pilot_pass": pilot_pass,
         "memory_store_mutations": 0,
         "reader_answer_calls": 0,
         "benchmark_scoring": False,
@@ -509,9 +497,9 @@ def analyze() -> dict[str, Any]:
     }
     _freeze(RESULT_PATH, _json_bytes(result))
     report = [
-        "# MEM-3B0Q-R2 Span-Grounded Identity Pilot",
+        "# MEM-3B0Q-R3 Span-Grounded Identity Pilot",
         "",
-        "Status: development control pilot only; not benchmark evidence or a final mechanism freeze.",
+        "Status: development control pilot only; strict gate R3; not benchmark evidence or a final mechanism freeze.",
         "",
         f"- Records: {result['records']}; grounded: {result['grounded_identity_count']}; unresolved: {result['unresolved_identity_count']}.",
         f"- Control cases: {result['case_pass_count']}/{result['case_count']} passed.",
@@ -519,12 +507,12 @@ def analyze() -> dict[str, Any]:
         "",
         "## Case outcomes",
         "",
-        "| Case | Expected | Passed | Slot keys |",
-        "|---|---|---:|---|",
+        "| Case | Expected | Passed | Gate reason | Slot keys |",
+        "|---|---|---:|---|---|",
     ]
     for row in case_results:
-        keys = "; ".join(str(key) if key is not None else "UNRESOLVED" for key in row["observed_slot_keys"])
-        report.append(f"| {row['case_id']} | {row['expected']} | {row['passed']} | {keys} |")
+        keys = "; ".join(str(key) if key is not None else "UNRESOLVED" for key in row["slot_keys"])
+        report.append(f"| {row['case_id']} | {row['expected']} | {row['passed']} | {row['gate_reason']} | {keys} |")
     report.extend(
         [
             "",

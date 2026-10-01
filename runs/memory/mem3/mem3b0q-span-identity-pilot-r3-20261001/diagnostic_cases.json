@@ -1,0 +1,173 @@
+{
+  "b0q_control_audit_sha256": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
+  "b0q_review_decisions_sha256": "766f602146776e114e6696fa3e404a7954a3ceb3e72c0f3516e51288a8bd5564",
+  "case_labels_may_not_enter_model_request": true,
+  "cases": [
+    {
+      "case_id": "instagram_follower_revision_candidate",
+      "expected": "SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a",
+        "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+      ]
+    },
+    {
+      "case_id": "node_version_same_slot",
+      "expected": "SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+        "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173"
+      ]
+    },
+    {
+      "case_id": "wallet_color_same_slot",
+      "expected": "SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+        "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77"
+      ]
+    },
+    {
+      "case_id": "wallet_color_vs_material",
+      "expected": "NOT_SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+        "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+      ]
+    },
+    {
+      "case_id": "wallet_neutral_vs_material",
+      "expected": "NOT_SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77",
+        "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+      ]
+    },
+    {
+      "case_id": "gym_false_key_collision",
+      "expected": "NOT_SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+        "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+      ]
+    },
+    {
+      "case_id": "completed_purchase_event",
+      "expected": "NO_SLOT",
+      "memory_ids": [
+        "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+        "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+      ]
+    },
+    {
+      "case_id": "distinct_trip_destinations",
+      "expected": "NOT_SAME_SLOT",
+      "memory_ids": [
+        "m10flat3-bd6b7d069e8e74647348f128c90faa5bd6ecda14a307d59a6364bb10f6392e25",
+        "m10flat3-c0d1ef147fb7ebb50b92a1ec396b68f031ae650e96dc465740aeba35a618953d"
+      ]
+    },
+    {
+      "case_id": "generic_numeric_attribute",
+      "expected": "BOTH_UNRESOLVED",
+      "memory_ids": [
+        "m10flat3-0d53e8efe45650a7cbeb3dd1266c1aa4cfb9484f4fcb9c5929a8b3cc6a3697ac",
+        "m10flat3-171e631346aad6ad99e09be2952a7b9597913c0e7f75b1259994d00d51135ac8"
+      ]
+    },
+    {
+      "case_id": "macrame_interest_not_singleton_revision",
+      "expected": "NO_SLOT",
+      "memory_ids": [
+        "m10flat3-38158bb10e84f8d902911b991426f13442bdc392f952d1c0efce3e0027599289",
+        "m10flat3-4dea8865fcfe46af4cdad4d139141652de205acd6c909629f0df3a739dfc4d1e",
+        "m10flat3-56d4f9cdd006b74eb9963f40976fb192c5a6f90802085c00efb0ee92c2e2722b",
+        "m10flat3-91bc98b5f88fd4b80e28f9e8aa677ec660fcd865102e3b6a56d404ad039dd2a2"
+      ]
+    }
+  ],
+  "development_only": true,
+  "input_count": 19,
+  "proposal_inputs_sha256": "4fb745b600762824d1fd19670bea7e0612af5a3d6d2eb82d3018694438f1c181",
+  "records": [
+    {
+      "label": "gym_pc",
+      "memory_id": "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+    },
+    {
+      "label": "gym_workout",
+      "memory_id": "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0"
+    },
+    {
+      "label": "instagram_500",
+      "memory_id": "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+    },
+    {
+      "label": "instagram_600",
+      "memory_id": "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+    },
+    {
+      "label": "macrame_1",
+      "memory_id": "m10flat3-38158bb10e84f8d902911b991426f13442bdc392f952d1c0efce3e0027599289"
+    },
+    {
+      "label": "macrame_2",
+      "memory_id": "m10flat3-4dea8865fcfe46af4cdad4d139141652de205acd6c909629f0df3a739dfc4d1e"
+    },
+    {
+      "label": "macrame_3",
+      "memory_id": "m10flat3-56d4f9cdd006b74eb9963f40976fb192c5a6f90802085c00efb0ee92c2e2722b"
+    },
+    {
+      "label": "macrame_4",
+      "memory_id": "m10flat3-91bc98b5f88fd4b80e28f9e8aa677ec660fcd865102e3b6a56d404ad039dd2a2"
+    },
+    {
+      "label": "node_version_a",
+      "memory_id": "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3"
+    },
+    {
+      "label": "node_version_b",
+      "memory_id": "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173"
+    },
+    {
+      "label": "purchase_a",
+      "memory_id": "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1"
+    },
+    {
+      "label": "purchase_b",
+      "memory_id": "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+    },
+    {
+      "label": "reported_value_a",
+      "memory_id": "m10flat3-0d53e8efe45650a7cbeb3dd1266c1aa4cfb9484f4fcb9c5929a8b3cc6a3697ac"
+    },
+    {
+      "label": "reported_value_b",
+      "memory_id": "m10flat3-171e631346aad6ad99e09be2952a7b9597913c0e7f75b1259994d00d51135ac8"
+    },
+    {
+      "label": "trip_india",
+      "memory_id": "m10flat3-c0d1ef147fb7ebb50b92a1ec396b68f031ae650e96dc465740aeba35a618953d"
+    },
+    {
+      "label": "trip_japan",
+      "memory_id": "m10flat3-bd6b7d069e8e74647348f128c90faa5bd6ecda14a307d59a6364bb10f6392e25"
+    },
+    {
+      "label": "wallet_black",
+      "memory_id": "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9"
+    },
+    {
+      "label": "wallet_material",
+      "memory_id": "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+    },
+    {
+      "label": "wallet_neutral",
+      "memory_id": "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+  "stage": "mem3b0q-span-identity-pilot-r3-20261001"
+}
