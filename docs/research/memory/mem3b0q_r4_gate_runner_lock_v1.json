@@ -1,0 +1,17 @@
+{
+  "b1_status": "MEM3B0Q_MEM3B1_READY=NO",
+  "freeze_id": "mem3b0q-r4-gate-runner-lock-v1",
+  "manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "runner_path": "tools/research/memory/run_mem3b0q_r4_gate.py",
+  "runner_sha256": "814fab1faf5f0983757f7435c3c04547740a3c4e5278945d1fb30b74833723ab",
+  "sampler_parser_before": "NOT_VERIFIED",
+  "sampler_trace_correlation": {
+    "all_prefill_lines_must_be_in_unique_interval": true,
+    "launch_pre_task_id": -1,
+    "method": "pinned_source_synchronous_launch_to_processing_interval",
+    "source_commit": "571d0d540df04f25298d0e159e520d9fc62ed121"
+  },
+  "status": "FROZEN",
+  "trace_contract_path": "docs/research/memory/mem3b0q_r4_sampler_trace_instrumentation_v1.md",
+  "trace_contract_sha256": "367d9fbc2cae6c56017be54471b2f070f8a75c0c0eecce387261ae2fa5505c14"
+}
