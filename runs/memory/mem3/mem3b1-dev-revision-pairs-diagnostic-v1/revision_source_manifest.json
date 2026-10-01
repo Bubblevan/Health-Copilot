@@ -1,0 +1,134 @@
+{
+  "candidate_input_sizes": [
+    {
+      "question_id": "4d6b87c8",
+      "source_record_sha256": "3ec2337f5dc6bfa685609e5e20884456b5d3443afcb827e07fd3b9ce6855f833",
+      "user_turn_characters": 49961,
+      "user_turn_count": 257
+    },
+    {
+      "question_id": "0977f2af",
+      "source_record_sha256": "b0e98b451d235632bb2cac3110e489160193042c759a1fb6a6e29bdfabfb5446",
+      "user_turn_characters": 50188,
+      "user_turn_count": 239
+    },
+    {
+      "question_id": "a1eacc2a",
+      "source_record_sha256": "7fb5cbf6380ab638b797370a70d3ba3831953d68c12cb8c3ad5c67c94a9a7cd3",
+      "user_turn_characters": 52553,
+      "user_turn_count": 235
+    },
+    {
+      "question_id": "69fee5aa",
+      "source_record_sha256": "0fd04258281e83ef8fa1ac5ccaa4a8af4cd3298944360bb5845fa0963e1c1630",
+      "user_turn_characters": 56307,
+      "user_turn_count": 240
+    },
+    {
+      "question_id": "6aeb4375_abs",
+      "source_record_sha256": "82d4809ab12e85c9fae14fcac423c244d6f0b6d8c5b30c1ab4bb9df55edd0982",
+      "user_turn_characters": 56490,
+      "user_turn_count": 259
+    },
+    {
+      "question_id": "031748ae",
+      "source_record_sha256": "2901b09f9429dd706fec0f699a370b938b49913f0cb67cc426d3b5350f6e5319",
+      "user_turn_characters": 56869,
+      "user_turn_count": 246
+    },
+    {
+      "question_id": "89941a94",
+      "source_record_sha256": "c972fd9dbf9eeca9140f199ebf8c56c03123179bf6e8e01c5e913ab93e86a753",
+      "user_turn_characters": 59393,
+      "user_turn_count": 260
+    },
+    {
+      "question_id": "01493427",
+      "source_record_sha256": "19cf0043077cd90b114a2862edc70cc167741ef26add37f08ce9ea92248141a0",
+      "user_turn_characters": 60861,
+      "user_turn_count": 242
+    },
+    {
+      "question_id": "b01defab",
+      "source_record_sha256": "49c9f7dfa361983ef0ff527d2dd062b255ec8927a3cfc0c51eb11aa91a7c95a5",
+      "user_turn_characters": 61277,
+      "user_turn_count": 250
+    },
+    {
+      "question_id": "945e3d21",
+      "source_record_sha256": "e31665389ccaa164c69d20814f9e77698dcd802e1aeed64ce8affaf0de5ba3c1",
+      "user_turn_characters": 61347,
+      "user_turn_count": 241
+    },
+    {
+      "question_id": "6a27ffc2",
+      "source_record_sha256": "5e9d78ab5fd053040af2095d8dc28eac1f021a1bf0d3e9fa769cdc02e3f80289",
+      "user_turn_characters": 63567,
+      "user_turn_count": 244
+    },
+    {
+      "question_id": "c4ea545c",
+      "source_record_sha256": "cefd100d24d3a5f4ac3b74117b2efa60a9001da88b2a5694df556f0c1b4c9cdb",
+      "user_turn_characters": 65234,
+      "user_turn_count": 244
+    },
+    {
+      "question_id": "1cea1afa",
+      "source_record_sha256": "481f48fd86369b2525f55fa18dfdf9ed00302845f735c39031da06bbe2cbdc1a",
+      "user_turn_characters": 68753,
+      "user_turn_count": 241
+    },
+    {
+      "question_id": "18bc8abd",
+      "source_record_sha256": "9d8a79aed7ad4dbbc02f43f5ac4e4e4f66cd04235cdc1b1a8a3799a4c8a15419",
+      "user_turn_characters": 71870,
+      "user_turn_count": 217
+    },
+    {
+      "question_id": "f9e8c073",
+      "source_record_sha256": "07128e4bd3ce1eda90d2315f08b35f722450f4d8f9c2d86672ed03aaf5cdacc9",
+      "user_turn_characters": 76070,
+      "user_turn_count": 250
+    },
+    {
+      "question_id": "db467c8c",
+      "source_record_sha256": "411bb764c93af0c80ca67093ee263f5ee6e446921a23920243a948efcf116735",
+      "user_turn_characters": 80442,
+      "user_turn_count": 234
+    },
+    {
+      "question_id": "852ce960",
+      "source_record_sha256": "9f7aea742ca7c6bac3ba103a7d2fd832428942f310f269cde527d74ed59a73e6",
+      "user_turn_characters": 119258,
+      "user_turn_count": 197
+    }
+  ],
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "dev_knowledge_update_count": 17,
+  "dev_question_count": 102,
+  "diagnostic_only": true,
+  "excluded_fields": [
+    "answer",
+    "answer_session_ids",
+    "has_answer",
+    "haystack_session_ids",
+    "question",
+    "question_date",
+    "question_type"
+  ],
+  "model_input_fields": [
+    "session_date",
+    "turn_index",
+    "user-authored turn text"
+  ],
+  "openai_or_hosted_calls": 0,
+  "request_sha256": "2479a62c8250d52a7f295fb71aab3ab5e5f0dac5de8568e996942d91c1118343",
+  "selected_question_id": "4d6b87c8",
+  "selected_session_count": 52,
+  "selected_source_record_sha256": "3ec2337f5dc6bfa685609e5e20884456b5d3443afcb827e07fd3b9ce6855f833",
+  "selected_user_turn_characters": 49961,
+  "selected_user_turn_count": 257,
+  "selection_rule": "minimum total user-turn character count among frozen DEV knowledge-update records; question_id tie-break",
+  "split_manifest_sha256": "931c288caeb27d5a3f4ab3463b11013f217f3f4c9973098f057f85c1edb4e686",
+  "test_ids_decoded": false
+}

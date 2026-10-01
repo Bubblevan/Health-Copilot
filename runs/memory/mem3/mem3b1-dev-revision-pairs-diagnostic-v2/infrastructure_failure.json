@@ -1,0 +1,9 @@
+{
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "exception_type": "HTTPStatusError",
+  "hosted_calls": 0,
+  "manifest_sha256": "ff82f409f8ca8c1a3f51b7665c3a83bbddd3851c95b3c4a82fcc70cffa78e388",
+  "message": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500",
+  "request_sha256": "b5bf7de04224f05c168a5adb3c904ec58fa12678429edaf8e995c464313be1ea",
+  "status": "INFRA_FAILURE"
+}

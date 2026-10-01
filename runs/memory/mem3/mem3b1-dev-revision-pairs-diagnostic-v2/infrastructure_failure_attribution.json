@@ -1,0 +1,35 @@
+{
+  "artifact_schema": "mem3b1-infra-attribution-v1",
+  "run_id": "mem3b1-dev-revision-pairs-diagnostic-v2",
+  "failure_classification": "INFRA_FAILURE",
+  "failure_artifact": "infrastructure_failure.json",
+  "failure_artifact_sha256": "ca18674d96d3b88fa4fe3735b4c645b08899dd60ce063989fbf738c59e3a0158",
+  "endpoint": "http://127.0.0.1:8081/v1/chat/completions",
+  "server_build": "b10068-571d0d540",
+  "server_backend": "Vulkan",
+  "server_task_id": 9152,
+  "source_log": "runs/memory/mem3/mem3b0q-r4-identity-qualification-v1/llama-server.log",
+  "source_log_sha256_at_capture": "11e91c4a2c5cf7099f0772fbd3c6c1ccb0dd0be71747ca7384af84486e10c7a5",
+  "frozen_log_excerpt": "infrastructure_failure_log_excerpt.json",
+  "frozen_log_excerpt_sha256": "0dbb87d2d1e6925efb9fb4f0095152684844f69ef7a445bbd67965533fc6d5f2",
+  "server_error": "decode() failed: vk::Device::waitForFences: ErrorDeviceLost",
+  "server_error_log_timestamp": "723.35.249.908",
+  "server_observation": {
+    "endpoint_health_status": 200,
+    "slot_n_ctx": 131072,
+    "slot_n_prompt_tokens": 18167,
+    "slot_n_prompt_tokens_processed": 17681,
+    "slot_n_decoded_before_error": 417,
+    "slot_truncated": false
+  },
+  "concurrent_gpu_server_observed": {
+    "pid": 62696,
+    "port": 8092,
+    "backend_device": "Vulkan1"
+  },
+  "causal_attribution": "The failure occurred in Vulkan decode and the GPU device was lost. A second GPU server was concurrently present, but this evidence does not establish that it was the sole cause.",
+  "model_output_available": false,
+  "quality_score": null,
+  "hosted_calls": 0,
+  "server_processes_modified": false
+}

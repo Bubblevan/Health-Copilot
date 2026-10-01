@@ -1,0 +1,18 @@
+{
+  "completion_tokens": 7,
+  "hosted_calls": 0,
+  "manifest_sha256": "86dc507a94ad87504fe269a275e65f2d2e1bb02e04a1f7cc101c7eedaa05a53e",
+  "prompt_token_count_match": true,
+  "prompt_tokens": 17643,
+  "proposal_count": 0,
+  "quality_accuracy": null,
+  "request_sha256": "2479a62c8250d52a7f295fb71aab3ab5e5f0dac5de8568e996942d91c1118343",
+  "response_sha256": "5cbd04a611bcd111d18efbba757818f2253bac1aa847a0d5ba069fed52dbdf33",
+  "revision_truth_scored": false,
+  "selected_question_id": "4d6b87c8",
+  "selected_user_turn_characters": 49961,
+  "selected_user_turn_count": 257,
+  "server_prompt_tokens": 17643,
+  "source_grounded_candidate_count": 0,
+  "status": "COMPLETED"
+}

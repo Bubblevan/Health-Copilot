@@ -1,0 +1,9 @@
+{
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "exception_type": "ReadError",
+  "hosted_calls": 0,
+  "manifest_sha256": "23d53d2c5f4df90b4a4e32f141d78f2b069d22a0000fc8eabc932ea442dcb7f7",
+  "message": "[WinError 10054] 远程主机强迫关闭了一个现有的连接。",
+  "request_sha256": "34c6586f1b71b9267a29480cd785ccbf8e38e27708c4e0d439dd810a0882dc3a",
+  "status": "INFRA_FAILURE"
+}

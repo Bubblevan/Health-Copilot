@@ -1,0 +1,14 @@
+{
+  "artifact_schema": "mem3b1-server-log-excerpt-v1",
+  "source_log": "runs/memory/mem3/mem3b0q-r4-identity-qualification-v1/llama-server.log",
+  "source_log_sha256_at_capture": "11e91c4a2c5cf7099f0772fbd3c6c1ccb0dd0be71747ca7384af84486e10c7a5",
+  "task_id": 9152,
+  "lines": [
+    "723.27.107.889 D slot process_toke: id  0 | task 9152 | n_decoded = 417, n_remaining = 1119, next token:    11 ','",
+    "723.35.249.908 E srv  update_slots: decode() failed: vk::Device::waitForFences: ErrorDeviceLost",
+    "723.35.249.914 E srv    send_error: task id = 9152, error: decode() failed: vk::Device::waitForFences: ErrorDeviceLost",
+    "723.35.249.921 I slot      release: id  0 | task 9152 | stop processing: n_tokens = 18167, truncated = 0"
+  ],
+  "interpretation": "The Vulkan decode backend reported a lost device during generation. This does not establish the cause of the device loss.",
+  "log_is_live_and_not_bundled": true
+}

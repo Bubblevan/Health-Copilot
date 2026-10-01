@@ -1,0 +1,34 @@
+{
+  "candidate_audit_sha256": "d1055626924dbed971368900ae1be2151e53d2f4309f146d1327908001877870",
+  "candidate_input_sizes": [],
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "dev_knowledge_update_count": 17,
+  "dev_question_count": 102,
+  "diagnostic_only": true,
+  "excluded_fields": [
+    "answer",
+    "answer_session_ids",
+    "has_answer",
+    "haystack_session_ids",
+    "question",
+    "question_date",
+    "question_type"
+  ],
+  "max_completion_tokens": 256,
+  "model_input_fields": [
+    "session_date",
+    "cue span",
+    "source quote"
+  ],
+  "openai_or_hosted_calls": 0,
+  "protocol_version": "v3",
+  "request_sha256": "34c6586f1b71b9267a29480cd785ccbf8e38e27708c4e0d439dd810a0882dc3a",
+  "selected_question_id": "4d6b87c8",
+  "selected_session_count": null,
+  "selected_source_record_sha256": "3ec2337f5dc6bfa685609e5e20884456b5d3443afcb827e07fd3b9ce6855f833",
+  "selected_user_turn_characters": 229,
+  "selected_user_turn_count": 1,
+  "selection_rule": "first exact time-revision cue by (question_id, source_position) from the frozen 17-history DEV cue audit",
+  "split_manifest_sha256": "931c288caeb27d5a3f4ab3463b11013f217f3f4c9973098f057f85c1edb4e686",
+  "test_ids_decoded": false
+}

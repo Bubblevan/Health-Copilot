@@ -1,0 +1,7 @@
+{
+  "audit_rows": [],
+  "proposal_count": 0,
+  "schema_pass": true,
+  "source_grounded_candidate_count": 0,
+  "validation_scope": "exact source quote/date/value binding only; not revision-truth scoring"
+}
