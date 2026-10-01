@@ -1,0 +1,59 @@
+{
+  "benchmark_scoring": false,
+  "code_sha256": {
+    "pilot_gate": "0f240626b54078e4cade9edce3969e2d77a6cdaaefdc981c1f598b975f38b182",
+    "runner": "dbe98999ea5284b757295cb1762ec3c1778b59b98b92a38fee8e314dc57a176c",
+    "runtime_verifier": "e5cb456611f0dc86973986f2cc14957da7cf3bce7a5921d17e9329c1e60ce9e5",
+    "span_identity": "249b52e831cf724d2babb96ffb970348fa8db190e668535d8d31cecddf135cde"
+  },
+  "execution": {
+    "assistant_content_sha256": "83cd7f824ddb9fc9be139f03f063d7c2bf461de162f860af2a037b548515ed67",
+    "batch_subdivision": 0,
+    "completion_tokens": 4417,
+    "dynamic_schema_tokens": 6661,
+    "elapsed_ms": 118241.414,
+    "prompt_tokens": 2163,
+    "provider_calls": 1,
+    "request_sha256": "342df26f785ce868c6a023d839959de92ba71ac6ff340977957d0bc573eb0737",
+    "same_request_retries": 0,
+    "truncated": false
+  },
+  "frozen_artifacts": {
+    "identity_proposals.jsonl": "e9053f2f488a5ede5d72d1688b5ee67a675b519992c24982721a367d0861a076",
+    "provider_response.json": "e62597b497f2018a186025519a46ff814d0788eba15a2e96dc8011be60602ad5"
+  },
+  "git_head": "33881353433d54158fa24ac9a03f28dc9a6c7f7c",
+  "hosted_calls": 0,
+  "memory_store_mutations": 0,
+  "proposal_inputs_sha256": "4fb745b600762824d1fd19670bea7e0612af5a3d6d2eb82d3018694438f1c181",
+  "protocol_sha256": "00aa51fb27f952c6da9eaa9d9e46ffca8ec642d1c102ab0fecba5bd430df3d6d",
+  "reader_answer_calls": 0,
+  "runtime": {
+    "api_key_required": false,
+    "context_tokens": 131072,
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "generation": {
+      "enable_thinking": false,
+      "max_tokens": 8192,
+      "seed": 42,
+      "temperature": 0
+    },
+    "hosted_calls": 0,
+    "loopback_only": true,
+    "model_artifact": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_id": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "provider": "local_qwen_loopback",
+    "proxy_environment_used": false,
+    "request_endpoint": "http://127.0.0.1:8081/v1",
+    "server_binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "server_build": "10068 (571d0d540)",
+    "server_executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+    "server_pid": 60420,
+    "server_version": "version: 10068 (571d0d540)\nbuilt with Clang 20.1.8 for Windows x86_64"
+  },
+  "schema_version": 1,
+  "source_sha256": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+  "stage": "mem3b0q-span-identity-pilot-r3-20261001",
+  "status": "PROPOSALS_FROZEN_AWAITING_DIAGNOSTIC_JOIN"
+}

@@ -1,0 +1,371 @@
+{
+  "b1_ready": false,
+  "benchmark_scoring": false,
+  "case_count": 10,
+  "case_pass_count": 3,
+  "case_results": [
+    {
+      "case_id": "instagram_follower_revision_candidate",
+      "expected": "SAME_SLOT",
+      "gate_reason": "grounded_same_candidate_slot",
+      "identity_statuses": [
+        "GROUNDED",
+        "GROUNDED"
+      ],
+      "memory_ids": [
+        "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a",
+        "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+      ],
+      "passed": true,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "instagram_followers",
+          "follower_count"
+        ],
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "instagram_followers",
+          "follower_count"
+        ]
+      ],
+      "validation_reasons": [
+        [],
+        []
+      ]
+    },
+    {
+      "case_id": "node_version_same_slot",
+      "expected": "SAME_SLOT",
+      "gate_reason": "grounded_same_candidate_slot",
+      "identity_statuses": [
+        "GROUNDED",
+        "GROUNDED"
+      ],
+      "memory_ids": [
+        "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+        "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173"
+      ],
+      "passed": true,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        [
+          "longmemeval:06878be2",
+          "user",
+          "node_version",
+          "version"
+        ],
+        [
+          "longmemeval:06878be2",
+          "user",
+          "node_version",
+          "version"
+        ]
+      ],
+      "validation_reasons": [
+        [],
+        []
+      ]
+    },
+    {
+      "case_id": "wallet_color_same_slot",
+      "expected": "SAME_SLOT",
+      "gate_reason": "requires_grounded_equal_candidate_slots",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "GROUNDED"
+      ],
+      "memory_ids": [
+        "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+        "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "wallet",
+          "color_preference"
+        ]
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:type"
+        ],
+        []
+      ]
+    },
+    {
+      "case_id": "wallet_color_vs_material",
+      "expected": "NOT_SAME_SLOT",
+      "gate_reason": "negative_control_contains_unresolved_identity",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "GROUNDED"
+      ],
+      "memory_ids": [
+        "m10flat3-4584f61a3f0358aecab7bdbb37873eb744b4bc3a126823b5e568239180b2b3d9",
+        "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "wallet",
+          "material_preference"
+        ]
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:type"
+        ],
+        []
+      ]
+    },
+    {
+      "case_id": "wallet_neutral_vs_material",
+      "expected": "NOT_SAME_SLOT",
+      "gate_reason": "distinct_grounded_candidate_slots",
+      "identity_statuses": [
+        "GROUNDED",
+        "GROUNDED"
+      ],
+      "memory_ids": [
+        "m10flat3-52f4266c1a011f9d651a2468bb75e9e2d04534f9d1c0a23a14f602da06fc7b77",
+        "m10flat3-6c4face118348f28323c1aa571e6a29478fbda072e0c9cfcd2b0a7d8052ea2c4"
+      ],
+      "passed": true,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "wallet",
+          "color_preference"
+        ],
+        [
+          "longmemeval:1cea1afa",
+          "user",
+          "wallet",
+          "material_preference"
+        ]
+      ],
+      "validation_reasons": [
+        [],
+        []
+      ]
+    },
+    {
+      "case_id": "gym_false_key_collision",
+      "expected": "NOT_SAME_SLOT",
+      "gate_reason": "negative_control_contains_unresolved_identity",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "UNRESOLVED"
+      ],
+      "memory_ids": [
+        "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+        "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        null
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:exercise"
+        ],
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:capabilities"
+        ]
+      ]
+    },
+    {
+      "case_id": "completed_purchase_event",
+      "expected": "NO_SLOT",
+      "gate_reason": "completed_event_must_be_grounded_and_vetoed",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "UNRESOLVED"
+      ],
+      "memory_ids": [
+        "m10flat3-fc6c941eafdd2e2a7d7302cee4a3ece31451ce9ec229cd05737883ff2e5e7eb1",
+        "m10flat3-fde8fbc2ddde5ca62c3d8337d423903bbd041dc5653d42cb28f71fb265bd934c"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        null
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:purchase"
+        ],
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:purchase"
+        ]
+      ]
+    },
+    {
+      "case_id": "distinct_trip_destinations",
+      "expected": "NOT_SAME_SLOT",
+      "gate_reason": "negative_control_contains_unresolved_identity",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "UNRESOLVED"
+      ],
+      "memory_ids": [
+        "m10flat3-bd6b7d069e8e74647348f128c90faa5bd6ecda14a307d59a6364bb10f6392e25",
+        "m10flat3-c0d1ef147fb7ebb50b92a1ec396b68f031ae650e96dc465740aeba35a618953d"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        null
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:destination"
+        ],
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:destination"
+        ]
+      ]
+    },
+    {
+      "case_id": "generic_numeric_attribute",
+      "expected": "BOTH_UNRESOLVED",
+      "gate_reason": "unresolved_not_limited_to_generic_attribute",
+      "identity_statuses": [
+        "UNRESOLVED",
+        "UNRESOLVED"
+      ],
+      "memory_ids": [
+        "m10flat3-0d53e8efe45650a7cbeb3dd1266c1aa4cfb9484f4fcb9c5929a8b3cc6a3697ac",
+        "m10flat3-171e631346aad6ad99e09be2952a7b9597913c0e7f75b1259994d00d51135ac8"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        null,
+        null
+      ],
+      "validation_reasons": [
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:",
+          "object_key:UNSUPPORTED_KEY_TOKENS:"
+        ],
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:",
+          "object_key:UNSUPPORTED_KEY_TOKENS:"
+        ]
+      ]
+    },
+    {
+      "case_id": "macrame_interest_not_singleton_revision",
+      "expected": "NO_SLOT",
+      "gate_reason": "negative_control_contains_unresolved_identity",
+      "identity_statuses": [
+        "GROUNDED",
+        "GROUNDED",
+        "GROUNDED",
+        "UNRESOLVED"
+      ],
+      "memory_ids": [
+        "m10flat3-38158bb10e84f8d902911b991426f13442bdc392f952d1c0efce3e0027599289",
+        "m10flat3-4dea8865fcfe46af4cdad4d139141652de205acd6c909629f0df3a739dfc4d1e",
+        "m10flat3-56d4f9cdd006b74eb9963f40976fb192c5a6f90802085c00efb0ee92c2e2722b",
+        "m10flat3-91bc98b5f88fd4b80e28f9e8aa677ec660fcd865102e3b6a56d404ad039dd2a2"
+      ],
+      "passed": false,
+      "property_kinds": [
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE",
+        "SINGLE_VALUE_STATE"
+      ],
+      "slot_keys": [
+        [
+          "longmemeval:a82c026e",
+          "user",
+          "macrame_kit",
+          "kit_status"
+        ],
+        [
+          "longmemeval:a82c026e",
+          "user",
+          "macrame_kit",
+          "kit_status"
+        ],
+        [
+          "longmemeval:a82c026e",
+          "user",
+          "macrame_journey",
+          "journey_status"
+        ],
+        null
+      ],
+      "validation_reasons": [
+        [],
+        [],
+        [],
+        [
+          "attribute_key:UNSUPPORTED_KEY_TOKENS:experience,level"
+        ]
+      ]
+    }
+  ],
+  "classification": "19_RECORD_DEVELOPMENT_CONTROL_PILOT_NOT_BENCHMARK_EVIDENCE",
+  "gate_version": "span_identity_pilot_gate_r3",
+  "grounded_identity_count": 9,
+  "hosted_calls": 0,
+  "input_sha256": "4fb745b600762824d1fd19670bea7e0612af5a3d6d2eb82d3018694438f1c181",
+  "memory_store_mutations": 0,
+  "model_calls": 1,
+  "pilot_pass": false,
+  "proposal_sha256": "e9053f2f488a5ede5d72d1688b5ee67a675b519992c24982721a367d0861a076",
+  "reader_answer_calls": 0,
+  "records": 19,
+  "schema_version": 1,
+  "stage": "mem3b0q-span-identity-pilot-r3-20261001",
+  "unresolved_identity_count": 10
+}
