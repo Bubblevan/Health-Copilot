@@ -46,6 +46,7 @@ def _locked_fixture(tmp_path: Path, monkeypatch) -> dict:
     lock_sha_path.write_text(f"{_sha(lock_bytes)}  lock.json\n", encoding="ascii")
     monkeypatch.setattr(runner, "LOCK_PATH", lock_path)
     monkeypatch.setattr(runner, "LOCK_SHA_PATH", lock_sha_path)
+    monkeypatch.setattr(runner, "OUTPUT_ROOT", tmp_path / "reserved-output")
     monkeypatch.setattr(runner.frozen_gate, "_load_frozen_inputs", lambda: None)
     return lock
 
