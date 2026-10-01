@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -38,20 +39,24 @@ def test_fallback_is_only_used_for_explicit_permission_denial() -> None:
 
 
 def test_retry_lock_preserves_dataset_and_exact_request_hashes() -> None:
-    old_lock_path = (
+    lock_path = (
         ROOT
-        / "docs/research/memory/mem3b0q_r4_event_value_confirmation_v1_lock.json"
+        / "docs/research/memory/mem3b0q_r4_event_value_confirmation_v1r1_lock.json"
     )
-    old_lock = json.loads(old_lock_path.read_text(encoding="utf-8"))
-    retry_lock = v1r1.build_lock_payload()
+    frozen_lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    pack, requests, _ = v1r1.engine._build_inputs()
+    pack_path = ROOT / "docs/research/memory/mem3b0q_r4_event_value_confirmation_pack_v1.json"
+    request_map = {
+        case_id: {
+            "request_sha256": row["request_sha256"],
+            "schema_sha256": row["schema_sha256"],
+        }
+        for case_id, row in requests.items()
+    }
 
-    assert retry_lock["dataset_sha256"] == old_lock["dataset_sha256"]
-    assert retry_lock["requests"] == old_lock["requests"]
-    assert retry_lock["case_ids"] == old_lock["case_ids"]
-    assert retry_lock["process_snapshot_policy"].startswith("primary_Get-NetTCPConnection")
-    assert retry_lock["run_id"] == v1r1.OUTPUT_ROOT.name
-    assert all(
-        relative.startswith("runs/memory/mem3/mem3b0q-r4-event-value-confirmation-v1/")
-        for relative in retry_lock["dependencies"]
-        if "event-value-confirmation-v1/" in relative
-    )
+    assert len(pack["cases"]) == 3
+    assert hashlib.sha256(pack_path.read_bytes()).hexdigest() == frozen_lock["dataset_sha256"]
+    assert request_map == frozen_lock["requests"]
+    assert frozen_lock["case_ids"] == ["EVTCONF-01", "EVTCONF-02", "EVTCONF-03"]
+    assert frozen_lock["process_snapshot_policy"].startswith("primary_Get-NetTCPConnection")
+    assert frozen_lock["run_id"] == "mem3b0q-r4-event-value-confirmation-v1r1"
