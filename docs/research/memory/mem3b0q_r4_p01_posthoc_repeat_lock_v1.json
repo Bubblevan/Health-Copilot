@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN",
+  "repeat_runner_sha256": "bbbfcdb8751dc822beb98948fe513d81c238342a2355a0f65ab59bb546d95ae1",
+  "strict_overlay_sha256": "12bd95014eaabb2ad94a629b3cdb7223cb0a25ef57b22875d36862f8e51fc2dc",
+  "strict_overlay_lock_sha256": "6c56fdc88897074b88b34d682ebb411f191e2caf3cfd34f5e16800a3cadb30eb",
+  "frozen_runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+  "manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "runtime_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
+  "historical_gate_attempt_sha256": "c92af4eacf0af001b4238ba20fdb724ca49f7c88a2641070ef2b87bd2f384ec6",
+  "historical_gate_manifest_sha256": "0458778a7e667db9de954049675e8ac595fab228ee4d36decbf8f813c4c90d23",
+  "historical_request_sha256": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+  "historical_response_sha256": "e693ecc7eba4e0b295ff0e45f9c53574b8075b0732a0fe6193093e23ad894523",
+  "repeat_request_sha256": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+  "case_id": "R4-P01",
+  "max_completion_posts": 1,
+  "qualification_status": "NON_QUALIFYING_POSTHOC_DIAGNOSTIC",
+  "user_authorization": "2026-10-01: 去重试"
+}
