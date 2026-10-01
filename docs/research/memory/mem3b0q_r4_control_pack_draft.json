@@ -1,0 +1,211 @@
+{
+  "pack_id": "mem3b0q-r4-identity-qualification-v1-draft",
+  "status": "DRAFT_NOT_FROZEN",
+  "scope_id": "r4-demo:subject-pair-pack-v1",
+  "source_type": "project_authored_synthetic_english",
+  "clinical_content": false,
+  "propositions": [
+    {
+      "source_id": "R4-P01",
+      "proposition_text": "My workout plan's activity is running.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "EXERCISE_PLAN", "object_span": "workout plan", "attribute_id": "ACTIVITY", "attribute_span": "activity", "value_span": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P02",
+      "proposition_text": "My exercise plan has running as its activity.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "EXERCISE_PLAN", "object_span": "exercise plan", "attribute_id": "ACTIVITY", "attribute_span": "activity", "value_span": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P03",
+      "proposition_text": "My exercise plan's activity is swimming.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "EXERCISE_PLAN", "object_span": "exercise plan", "attribute_id": "ACTIVITY", "attribute_span": "activity", "value_span": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P04",
+      "proposition_text": "My sister's exercise plan lists running as its activity.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SISTER", "owner_span": "My sister", "object_id": "EXERCISE_PLAN", "object_span": "exercise plan", "attribute_id": "ACTIVITY", "attribute_span": "activity", "value_span": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P05",
+      "proposition_text": "My work laptop's operating system is Linux.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WORK_LAPTOP", "object_span": "work laptop", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "value_span": "Linux", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P06",
+      "proposition_text": "My personal laptop's operating system is Linux.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "PERSONAL_LAPTOP", "object_span": "personal laptop", "attribute_id": "OPERATING_SYSTEM", "attribute_span": "operating system", "value_span": "Linux", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P07",
+      "proposition_text": "My wallet's color is black.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WALLET", "object_span": "wallet", "attribute_id": "COLOR", "attribute_span": "color", "value_span": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P08",
+      "proposition_text": "My wallet's material is leather.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WALLET", "object_span": "wallet", "attribute_id": "MATERIAL", "attribute_span": "material", "value_span": "leather", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P09",
+      "proposition_text": "My favorite-fruit set has apples and pears as members.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "FAVORITE_FRUIT_SET", "object_span": "favorite-fruit set", "attribute_id": "MEMBERSHIP", "attribute_span": "members", "value_span": "apples and pears", "cardinality": "MULTI_VALUE_CONCURRENT"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P10",
+      "proposition_text": "My favorite-fruit set includes oranges as another member.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "FAVORITE_FRUIT_SET", "object_span": "favorite-fruit set", "attribute_id": "MEMBERSHIP", "attribute_span": "member", "value_span": "oranges", "cardinality": "MULTI_VALUE_CONCURRENT"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P11",
+      "proposition_text": "My wedding trip plan's destination is Osaka.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WEDDING_TRIP_PLAN", "object_span": "wedding trip plan", "attribute_id": "DESTINATION", "attribute_span": "destination", "value_span": "Osaka", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P12",
+      "proposition_text": "My hiking trip plan's destination is Pune.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "HIKING_TRIP_PLAN", "object_span": "hiking trip plan", "attribute_id": "DESTINATION", "attribute_span": "destination", "value_span": "Pune", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P13",
+      "proposition_text": "My reported value is 7 on May 1.",
+      "expected": {
+        "atoms": [],
+        "abstention": "MISSING_OBJECT_AND_ATTRIBUTE"
+      }
+    },
+    {
+      "source_id": "R4-P14",
+      "proposition_text": "I completed the purchase of my bicycle last year.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "my", "object_id": "BICYCLE", "object_span": "bicycle", "attribute_id": "PURCHASE_EVENT", "attribute_span": "purchase", "value_span": "completed the purchase", "cardinality": "EVENT_OR_NOT_STATE"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P15",
+      "proposition_text": "My wallet has color black and material leather.",
+      "expected": {
+        "atoms": [
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WALLET", "object_span": "wallet", "attribute_id": "COLOR", "attribute_span": "color", "value_span": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME"},
+          {"owner_id": "SELF", "owner_span": "My", "object_id": "WALLET", "object_span": "wallet", "attribute_id": "MATERIAL", "attribute_span": "material", "value_span": "leather", "cardinality": "SINGLE_VALUE_AT_A_TIME"}
+        ],
+        "abstention": null
+      }
+    },
+    {
+      "source_id": "R4-P16",
+      "proposition_text": "It is now blue.",
+      "expected": {
+        "atoms": [],
+        "abstention": "AMBIGUOUS_REFERENCE"
+      }
+    },
+    {
+      "source_id": "R4-P17",
+      "proposition_text": "The work laptop's operating system is Linux.",
+      "expected": {
+        "atoms": [],
+        "abstention": "MISSING_OWNER"
+      }
+    },
+    {
+      "source_id": "R4-P18",
+      "proposition_text": "My wallet is black leather.",
+      "expected": {
+        "atoms": [],
+        "abstention": "UNSPLITTABLE_COMPOSITE"
+      }
+    },
+    {
+      "source_id": "R4-P19",
+      "proposition_text": "My work laptop runs Linux.",
+      "expected": {
+        "atoms": [],
+        "abstention": "INSUFFICIENT_GROUNDED_FIELDS"
+      }
+    },
+    {
+      "source_id": "R4-P20",
+      "proposition_text": "My scooter's color is red.",
+      "expected": {
+        "atoms": [],
+        "abstention": "UNSUPPORTED_ANCHOR"
+      }
+    }
+  ],
+  "relations": [
+    {"left": ["R4-P01", 0], "right": ["R4-P02", 0], "expected": "SAME_SLOT_SAME_VALUE"},
+    {"left": ["R4-P01", 0], "right": ["R4-P03", 0], "expected": "SAME_SLOT_DIFFERENT_VALUE_UNRESOLVED"},
+    {"left": ["R4-P01", 0], "right": ["R4-P04", 0], "expected": "DISTINCT_SLOT_OWNER"},
+    {"left": ["R4-P05", 0], "right": ["R4-P06", 0], "expected": "DISTINCT_SLOT_OBJECT"},
+    {"left": ["R4-P07", 0], "right": ["R4-P08", 0], "expected": "DISTINCT_SLOT_ATTRIBUTE"},
+    {"left": ["R4-P09", 0], "right": ["R4-P10", 0], "expected": "SAME_SLOT_COEXISTING_MULTI_VALUE"},
+    {"left": ["R4-P11", 0], "right": ["R4-P12", 0], "expected": "DISTINCT_SLOT_OBJECT"},
+    {"left": ["R4-P07", 0], "right": ["R4-P15", 0], "expected": "SAME_SLOT_SAME_VALUE"},
+    {"left": ["R4-P08", 0], "right": ["R4-P15", 1], "expected": "SAME_SLOT_SAME_VALUE"}
+  ],
+  "expected_revision_edges": 0,
+  "expected_memory_store_mutations": 0
+}

@@ -1,0 +1,41 @@
+{
+  "preflight_id": "mem3b0q-r4-offline-schema-preflight-v1",
+  "status": "PASS_WITH_SAMPLER_UNVERIFIED",
+  "inference_performed": false,
+  "endpoint_called": false,
+  "model_loaded": false,
+  "schema": {
+    "path": "docs/research/memory/mem3b0q_r4_response.schema.json",
+    "sha256": "5d0b1ed81fa8c208e4db19dba19a9bf11d8746bbc723f0b2e5876df392ade840",
+    "canonical_json_sha256": "10f976e77594c8e7a31f81ee73d93e964963e2e9e6bdf571ed697d726b246cbc"
+  },
+  "pinned_python_converter": {
+    "upstream": "https://raw.githubusercontent.com/ggml-org/llama.cpp/571d0d540df04f25298d0e159e520d9fc62ed121/examples/json_schema_to_grammar.py",
+    "sha256": "ee451dc460aa31185226e58988626f64e75ab735169fa3e484fcf16889475ae3",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "grammar_sha256_raw_stdout": "608dcd58950a60b1662b26450307514dc34d7d173ed55b6e6d2112ec78339d08",
+    "grammar_bytes_raw_stdout": 2028,
+    "grammar_lines": 20
+  },
+  "pinned_llama_cpp_cli_conversion_path": {
+    "version": "10068 (571d0d540)",
+    "llama_cli_sha256": "48566cf6e2969464b799dbcac7393b3549f9efd6884688074dc803125dbafa85",
+    "llama_server_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "arguments": [
+      "llama-cli.exe",
+      "-m",
+      "C:\\__mem3b0q_r4_no_model_must_not_exist__.gguf",
+      "--json-schema-file",
+      "docs/research/memory/mem3b0q_r4_response.schema.json",
+      "-n",
+      "0"
+    ],
+    "exit_code": 1,
+    "observed_failure": "intentional nonexistent GGUF model path; model load failed after argument parsing",
+    "schema_or_grammar_error_observed": false,
+    "interpretation": "confirms pinned CLI argument parsing/schema-conversion path only; does not verify grammar-sampler initialization"
+  },
+  "sampler_parser": "NOT_VERIFIED",
+  "scope": "offline schema and converter compatibility only; no model inference, no local endpoint request, and no hosted API call"
+}

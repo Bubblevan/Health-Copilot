@@ -1,0 +1,78 @@
+{
+  "manifest_id": "mem3b0q-r4-freeze-manifest-v1",
+  "status": "FROZEN",
+  "protocol_lock": "MEM3B0Q_R4_PROTOCOL_LOCK=YES",
+  "qualification_status": "MEM3B0Q_R4_IDENTITY_QUALIFICATION=PENDING",
+  "b1_status": "MEM3B0Q_MEM3B1_READY=NO",
+  "created_from_commit": "0d94acd9fdeb7f8944ed62e2e7ed84a1a49eacf5",
+  "branch": "mem3b0q-span-grounded-identity-20261001",
+  "review": {
+    "protocol": "APPROVE_FOR_PROTOCOL_FREEZE",
+    "harness": "APPROVE_FOR_HARNESS_FREEZE",
+    "inference_performed_during_review": false,
+    "scope_note": "R4 protocol/harness only; no benchmark claim, MemoryStore write, revision materialization, or B1 authorization"
+  },
+  "runtime": {
+    "reader_and_proposer": "Qwen3-8B Q4_K_M",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "memory_system": "R4 source-span proposal plus deterministic local Harness; no external memory system",
+    "embedding": "NONE",
+    "judge": "NONE",
+    "hosted_api": "NONE",
+    "required_api_key": "NONE",
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "llama_cpp_version": "10068 (571d0d540)",
+    "llama_server_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_cli_sha256": "48566cf6e2969464b799dbcac7393b3549f9efd6884688074dc803125dbafa85",
+    "context_tokens": 131072,
+    "gpu_layers": 99,
+    "flash_attention": true,
+    "kv_cache": "Q4_0",
+    "parallel_slots": 1,
+    "request_decoding": {
+      "temperature": 0,
+      "seed": 42,
+      "max_tokens": 256,
+      "stream": false,
+      "enable_thinking": false
+    }
+  },
+  "verification_state": {
+    "schema_converter": "VERIFIED",
+    "sampler_parser": "NOT_VERIFIED",
+    "offline_converter_artifact": "mem3b0q_r4_offline_preflight.json",
+    "overlap_audit_artifact": "mem3b0q_r4_overlap_audit.json",
+    "first_frozen_request": "R4-P01 pass 1 hard sampler-init gate",
+    "r4_inference_started": false,
+    "b1_started": false
+  },
+  "artifacts": {
+    "docs/research/memory/mem3b0q_r4_control_pack_v1.json": "281464afccf1c189485837bc2763f0b6c2f10e9ea226a80eff63e87b01d2bd5c",
+    "docs/research/memory/mem3b0q_r4_control_pack_draft.json": "fdc8899d821cbb6d278389f072748a895afa167c08344fe5f704189db9888801",
+    "docs/research/memory/mem3b0q_r4_response.schema.json": "5d0b1ed81fa8c208e4db19dba19a9bf11d8746bbc723f0b2e5876df392ade840",
+    "docs/research/memory/mem_3b0q_r4_protocol_v1.md": "666cb043234bc6200bab0b4848d6650fa07336e1d96e6152a06b24b2dd5762c8",
+    "docs/research/memory/mem_3b0q_r4_protocol_draft.md": "997a0b913f27c125276ee48eea7be2dca0da569aeb22cda57f56ae6bbac3a5f7",
+    "docs/research/memory/mem_3b0q_r4_witness_contract_amendment.md": "dbc441010be3e89e3e68d61eccf19fb77dc6a576c5e5550ddb4f2df93d79bce4",
+    "docs/research/memory/mem3b0q_r4_overlap_audit.json": "3ba792c23029be90c1e7ca808bb2bab216621e40f9e4e9071e94e7c07b1ff70a",
+    "docs/research/memory/mem3b0q_r4_offline_preflight.json": "3e855639ea77e90ad19a480d3ead9b71ec2fefa027f8bd6ae9afe4aaa15251bf",
+    "tools/research/memory/mem3b0q_r4.py": "a6ba406438732fdc3fece056cca2c980862c8671b61a25bca730565cb62ef51d",
+    "tests/test_mem3b0q_r4_contract.py": "5ecad59edb254885351870b99c3f06c0546e43700835506dacdc990b28ec02d7"
+  },
+  "semantic_subhashes": {
+    "canonical_schema_sha256": "10f976e77594c8e7a31f81ee73d93e964963e2e9e6bdf571ed697d726b246cbc",
+    "system_prompt_sha256": "44d45997cfe1ef9880e225d69868a350d782341023cf562fd2ad0de26341c2a9",
+    "alias_map_canonical_sha256": "97d8d90e806e543cfe6b2d3a99d988b9097524bcd2c113aab45ae1e779e57483",
+    "frozen_relation_signature_sha256": "d5e56543b570ba27ac28c768748d3d998cd616fa1010841bf566c5465d37a7c7",
+    "frozen_source_id_order_sha256": "e3e8e72846f1f838eb5b631c8a1f0f1ea1ea7f1ff1889aa8d2907c8d10e7a4eb"
+  },
+  "preserved_scorecard_hashes": {
+    "docs/research/memory/memory_module_scorecard_contract.md": "5492dfa093351c66f591c59f20c8df9cdb1eef848ca254a444a1f7f2f21540c1",
+    "docs/research/memory/memory_module_scorecard_contract.json": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568",
+    "runs/memory/mem3/mem3b0p-pairwise-admission-20260930/memory_module_scorecard_contract.json": "457efc4d3bb58766fafa4d2486b34a881326eef1983687b9fbd113857ab36568"
+  },
+  "offline_tests": {
+    "r4_contract_tests": "22 passed",
+    "r4_and_adjacent_identity_tests": "40 passed",
+    "ruff": "unavailable in this environment; Python compileall passed"
+  }
+}

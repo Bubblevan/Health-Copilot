@@ -1,0 +1,40 @@
+{
+  "audit_id": "mem3b0q-r4-overlap-audit-v1",
+  "status": "PASS",
+  "fixture_sha256": "281464afccf1c189485837bc2763f0b6c2f10e9ea226a80eff63e87b01d2bd5c",
+  "retained_draft_fixture_sha256": "fdc8899d821cbb6d278389f072748a895afa167c08344fe5f704189db9888801",
+  "fixture_propositions": 20,
+  "fixture_unique_source_ids": 20,
+  "fixture_unique_normalized_proposition_hashes": 20,
+  "normalization": "Unicode NFC, casefold, collapse all whitespace runs to one ASCII space, UTF-8, SHA-256",
+  "r3": {
+    "source": "runs/memory/mem3/mem3b0q-span-identity-pilot-r3-20261001/proposal_inputs.jsonl",
+    "source_sha256": "4fb745b600762824d1fd19670bea7e0612af5a3d6d2eb82d3018694438f1c181",
+    "rows": 19,
+    "id_intersection": 0,
+    "normalized_proposition_hash_intersection": 0
+  },
+  "b0q_eligible": {
+    "source": "runs/memory/mem3/mem3b0q-factorized-admission-20260930/eligible_records.jsonl",
+    "source_sha256": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+    "rows": 1366,
+    "unique_memory_ids": 1366,
+    "id_intersection": 0,
+    "normalized_proposition_hash_intersection": 0
+  },
+  "b0q_review_and_control_ids": {
+    "unique_ids": 219,
+    "id_intersection": 0,
+    "all_ids_are_in_b0q_eligible_records": true,
+    "normalized_text_audit_coverage": "all 219 reviewed/control IDs are contained in the 1,366 eligible-record IDs whose proposition hashes were checked",
+    "sources": {
+      "admitted_slot_human_review_packet.json": "bb35d9467dcc86bb1202bffc21804296298a27729ecf9587501319597ad2687e",
+      "admitted_slot_human_review.json": "6c261644ed7ab455deac4332e364457d3907de1c1186abccb1f5baf95b746ed8",
+      "critical_case_review.json": "8636672750a3004031a0519af6e097058e81a721d674ef38262569bb304cdf90",
+      "post_freeze_control_audit.json": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
+      "human_review_decisions_template.json": "596c789608b41781918ab3b07410b4123a198e754119f648a5f9dbb2e9d00514",
+      "human_review_decisions_user.json": "766f602146776e114e6696fa3e404a7954a3ceb3e72c0f3516e51288a8bd5564"
+    }
+  },
+  "expected_oracle_projected_to_model_request": false
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:health-copilot:mem3b0q-r4-span-proposal-v1",
+  "title": "MEM-3B0Q-R4 Span Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "atoms", "abstention_reason"],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "enum": [
+        "R4-P01", "R4-P02", "R4-P03", "R4-P04", "R4-P05", "R4-P06",
+        "R4-P07", "R4-P08", "R4-P09", "R4-P10", "R4-P11", "R4-P12",
+        "R4-P13", "R4-P14", "R4-P15", "R4-P16", "R4-P17", "R4-P18",
+        "R4-P19", "R4-P20"
+      ]
+    },
+    "atoms": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "owner_span", "object_span", "attribute_span", "value_span",
+          "cardinality_proposal"
+        ],
+        "properties": {
+          "owner_span": {"type": "string", "minLength": 1, "maxLength": 16},
+          "object_span": {"type": "string", "minLength": 1, "maxLength": 32},
+          "attribute_span": {"type": "string", "minLength": 1, "maxLength": 24},
+          "value_span": {"type": "string", "minLength": 1, "maxLength": 40},
+          "cardinality_proposal": {
+            "type": "string",
+            "enum": [
+              "SINGLE_VALUE_AT_A_TIME",
+              "MULTI_VALUE_CONCURRENT",
+              "EVENT_OR_NOT_STATE",
+              "UNKNOWN"
+            ]
+  }
+}
+      }
+    },
+    "abstention_reason": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "MISSING_OWNER",
+        "MISSING_OBJECT_AND_ATTRIBUTE",
+        "INSUFFICIENT_GROUNDED_FIELDS",
+        "AMBIGUOUS_REFERENCE",
+        "UNSUPPORTED_ANCHOR",
+        "UNSPLITTABLE_COMPOSITE"
+      ]
+    }
+  }
+}
