@@ -1,0 +1,35 @@
+{
+  "case_id": "R4C-05",
+  "grammar_conversion": "VERIFIED_PRE_MODEL_LOAD",
+  "hosted_api_called": false,
+  "inference_performed": false,
+  "interpretation": "The pinned CLI converted the exact R4C-05 JSON Schema through its pre-model-load schema/grammar path before failing on an intentionally absent model; malformed schema was rejected at schema parsing. This does not verify server-side sampler initialization or model output.",
+  "llama_cli": {
+    "path": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-cli.exe",
+    "sha256": "48566cf6e2969464b799dbcac7393b3549f9efd6884688074dc803125dbafa85",
+    "version": "10068 (571d0d540)",
+    "version_output_sha256": "105789ef5b95ae0b8c0771bfa34075e65500ebc4b3597e1ce4a19c3b019443db"
+  },
+  "local_endpoint_called": false,
+  "malformed_schema_negative_control": {
+    "combined_output_sha256": "467cf09e5ab137948ee31327eae7e99797b74e3fbe72d2adcfb5f4e6fd7f8489",
+    "exit_code": 1,
+    "missing_model_failure_detected": false,
+    "output_excerpt": "\nerror while handling argument \"--json-schema-file\": [json.exception.parse_error.101] parse error at line 1, column 3: syntax error while parsing object key - invalid literal; last read: '{no'; expected string literal\n\nusage:\n-jf,   --json-schema-file FILE          File containing a JSON schema to constrain generations\n                                        (https://json-schema.org/), e.g. `{}` for any JSON object\n                                        For schemas w/ external $refs, use --grammar +\n                                        example/json_schema_to_grammar.py instead\n\n\nto show co",
+    "schema_or_grammar_error_detected": true,
+    "status": "PASS"
+  },
+  "model_loaded": false,
+  "preflight_id": "mem3b0q-r4-candidate-local-smoke-grammar-preflight-v1",
+  "sampler_initialization": "NOT_VERIFIED",
+  "schema_sha256": "a5ea71399f2787581e53c0c2f669fc0c69b0c0a52184ac8f4b4480f18fd2c695",
+  "status": "PASS_GRAMMAR_CONVERSION_PRE_MODEL_LOAD",
+  "valid_schema_control": {
+    "combined_output_sha256": "4ef1597369bfa555fa346f82ebe7adbb7fdf191121de22fa942ca84506ef57f0",
+    "exit_code": 1,
+    "missing_model_failure_detected": true,
+    "output_excerpt": "\n\nLoading model... Error: the server exited before becoming ready\n\n0.00.450.144 E gguf_init_from_file: failed to open GGUF file 'C:\\Users\\BUBBLE~1\\AppData\\Local\\Temp\\__mem3b0q_r4_candidate_no_model__.gguf' (No such file or directory)\n0.00.450.597 E llama_model_load: error loading model: llama_model_loader: failed to load model from C:\\Users\\BUBBLE~1\\AppData\\Local\\Temp\\__mem3b0q_r4_candidate_no_model__.gguf\n0.00.450.602 E llama_model_load_from_file_impl: failed to load model\n0.00.450.812 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to load m",
+    "schema_or_grammar_error_detected": false,
+    "status": "PASS"
+  }
+}
