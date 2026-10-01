@@ -1,0 +1,104 @@
+[
+  {
+    "pair_id": "p001",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "IDENTICAL"
+  },
+  {
+    "pair_id": "p002",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "IDENTICAL"
+  },
+  {
+    "pair_id": "p003",
+    "same_entity_dimension": "NO",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "MUTUALLY_EXCLUSIVE"
+  },
+  {
+    "pair_id": "p004",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p005",
+    "same_entity_dimension": "NO",
+    "state_cardinality": "COMPOSITE_TASK_STATE",
+    "value_relation": "UNKNOWN"
+  },
+  {
+    "pair_id": "p006",
+    "same_entity_dimension": "NO",
+    "state_cardinality": "COMPOSITE_TASK_STATE",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p007",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SET_OR_MULTI_VALUE",
+    "value_relation": "COEXISTING"
+  },
+  {
+    "pair_id": "p008",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p009",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p010",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "COMPOSITE_TASK_STATE",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p011",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SET_OR_MULTI_VALUE",
+    "value_relation": "COEXISTING"
+  },
+  {
+    "pair_id": "p012",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p013",
+    "same_entity_dimension": "NO",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "MUTUALLY_EXCLUSIVE"
+  },
+  {
+    "pair_id": "p014",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p015",
+    "same_entity_dimension": "NO",
+    "state_cardinality": "COMPOSITE_TASK_STATE",
+    "value_relation": "COMPLEMENTARY"
+  },
+  {
+    "pair_id": "p016",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "value_relation": "IDENTICAL"
+  },
+  {
+    "pair_id": "p017",
+    "same_entity_dimension": "YES",
+    "state_cardinality": "COMPOSITE_TASK_STATE",
+    "value_relation": "UNKNOWN"
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "question_or_gold_in_prompt": false,
+  "records": [
+    {
+      "proposition": "The user is using node version 19.7.0.",
+      "record_id": "r028"
+    },
+    {
+      "proposition": "The user is planning to make a sewing project, specifically a tote bag or a zip pouch.",
+      "record_id": "r005"
+    },
+    {
+      "proposition": "The user is interested in incorporating simple embroidery designs, such as flowers or leaves, into their tote bag project.",
+      "record_id": "r010"
+    },
+    {
+      "proposition": "The user is browsing through the Bellroy website and considering the Bellroy Slim Sleeve.",
+      "record_id": "r012"
+    },
+    {
+      "proposition": "The user owns a Specialized Rockhopper mountain bike.",
+      "record_id": "r030"
+    },
+    {
+      "proposition": "The Highlight and Insight Review Process encourages users to celebrate daily successes and reflect on areas for improvement, transforming insights into highlights.",
+      "record_id": "r024"
+    },
+    {
+      "proposition": "The user's closet is cluttered and they want to organize their shoes in one place.",
+      "record_id": "r001"
+    },
+    {
+      "proposition": "The user spent around $250 on their sister's necklace.",
+      "record_id": "r003"
+    },
+    {
+      "proposition": "The user is considering a shoe rack for organizing their shoe collection.",
+      "record_id": "r004"
+    },
+    {
+      "proposition": "The user is seeking suggestions for flavored syrups that pair well with gin-based cocktails, especially those with earthy and herbal notes.",
+      "record_id": "r025"
+    },
+    {
+      "proposition": "The user is interested in recipe ideas for homemade jam.",
+      "record_id": "r031"
+    },
+    {
+      "proposition": "A joint resolution of disapproval of designation or a joint resolution of disapproval of removal of designation is referred to as a covered joint resolution.",
+      "record_id": "r014"
+    },
+    {
+      "proposition": "The user has node version v19.7.0.",
+      "record_id": "r007"
+    },
+    {
+      "proposition": "The user is planning to clean the center console this weekend.",
+      "record_id": "r026"
+    },
+    {
+      "proposition": "The user owns a Specialized Rockhopper mountain bike and is thinking of getting a spare set of tires.",
+      "record_id": "r009"
+    },
+    {
+      "proposition": "The user is excited to try out flavored syrups in their gin-based cocktails.",
+      "record_id": "r011"
+    },
+    {
+      "proposition": "The user is a billionaire, though his net worth has declined in the past year.",
+      "record_id": "r020"
+    },
+    {
+      "proposition": "DaySculpting involves three daily segments: the Morning Lift Process, the Mid-Day Reconnect Process, and the Highlight and Insight Review Process.",
+      "record_id": "r023"
+    },
+    {
+      "proposition": "The user is seeking tips on balancing the heat level of jalapeños with the sweetness of pineapple in the jam.",
+      "record_id": "r016"
+    },
+    {
+      "proposition": "The user practices flicks and circle jumps in training mode to improve aim.",
+      "record_id": "r021"
+    },
+    {
+      "proposition": "The user is interested in improving their aim in Overwatch, specifically in the training mode.",
+      "record_id": "r022"
+    },
+    {
+      "proposition": "The user is looking for tips on how to sell their old Ugg boots online or where to donate them.",
+      "record_id": "r018"
+    },
+    {
+      "proposition": "The user has a silver necklace from Tiffany's that cost around $250.",
+      "record_id": "r017"
+    },
+    {
+      "proposition": "If a motion to proceed to the consideration of the covered joint resolution is agreed to, the covered joint resolution shall remain the unfinished business until disposed of.",
+      "record_id": "r015"
+    },
+    {
+      "proposition": "The user has decided to look into the Whitmor shoe rack.",
+      "record_id": "r027"
+    },
+    {
+      "proposition": "The user is interested in wallet brands such as Bellroy and Fossil for their slim and stylish designs.",
+      "record_id": "r013"
+    },
+    {
+      "proposition": "The user is looking for tips on how to price their Ugg boots when selling them online.",
+      "record_id": "r029"
+    },
+    {
+      "proposition": "The user plans to clean the center console of their car this weekend.",
+      "record_id": "r006"
+    },
+    {
+      "proposition": "The user wants to create a green bean dish with macadamia nuts, shave jalapeños, and a dressing similar to a Caesar salad.",
+      "record_id": "r008"
+    },
+    {
+      "proposition": "The user wants to create a green bean dish with macadamia nuts, shave jalapeños, and a dressing that tastes similar to a caesar salad.",
+      "record_id": "r002"
+    },
+    {
+      "proposition": "The user's net worth has declined significantly in the past 12 months.",
+      "record_id": "r019"
+    }
+  ],
+  "review_group_membership_in_prompt": false,
+  "review_labels_in_prompt": false,
+  "scope_in_prompt": false,
+  "timestamps_in_prompt": false
+}

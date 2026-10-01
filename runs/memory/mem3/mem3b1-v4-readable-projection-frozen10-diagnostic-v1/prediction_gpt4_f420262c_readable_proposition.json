@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "The order of airlines you flew with from earliest to latest before today is: American Airlines, JetBlue, and Delta.",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2146,
+  "context_reader_tokens_v4": 506,
+  "finish_reason": "stop",
+  "gold": "JetBlue, Delta, United, American Airlines",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "What is the order of airlines I flew with from earliest to latest before today?",
+  "question_id": "gpt4_f420262c",
+  "question_type": "temporal-reasoning",
+  "reader_latency_ms": 2403.994399937801,
+  "reader_prompt_tokens_server": 635,
+  "reader_prompt_tokens_v3_raw": 2250,
+  "reader_prompt_tokens_v4": 635,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "56dda06947a8529d052234e5f3307db3523300a7bd8b0a9d43a53c9acf18f5a9",
+  "response_sha256": "d6f23fdc8e219dd1a9da272dc46513ec53e658b89673743b55cec90b7032c0a1",
+  "retrieval_unchanged": true
+}

@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "None",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 1919,
+  "context_reader_tokens_v4": 455,
+  "finish_reason": "stop",
+  "gold": "$140",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "What is the total cost of the car cover and detailing spray I purchased?",
+  "question_id": "1c549ce4",
+  "question_type": "multi-session",
+  "reader_latency_ms": 1833.2852999446914,
+  "reader_prompt_tokens_server": 583,
+  "reader_prompt_tokens_v3_raw": 2022,
+  "reader_prompt_tokens_v4": 583,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "e6c3678cd2258877205333d0e1242853a2163d730fa43061efce1f005c1958e7",
+  "response_sha256": "99dfe4424be82827fc05b4dbc1b9965f71f074f46dfb85bedc599e85a8bf42de",
+  "retrieval_unchanged": true
+}

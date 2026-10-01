@@ -1,0 +1,65 @@
+{
+  "baseline_mean_f1": 0.20096768726256026,
+  "baseline_mean_normalized_em": 0.0,
+  "by_question_type": {
+    "knowledge-update": {
+      "baseline_mean_f1": 0.0,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": 0.0,
+      "n": 2,
+      "readable_projection_mean_f1": 0.0,
+      "readable_projection_mean_normalized_em": 0.0
+    },
+    "multi-session": {
+      "baseline_mean_f1": 0.0,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": 0.0,
+      "n": 1,
+      "readable_projection_mean_f1": 0.0,
+      "readable_projection_mean_normalized_em": 0.0
+    },
+    "single-session-assistant": {
+      "baseline_mean_f1": 0.21052631578947364,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": -0.02005012531328318,
+      "n": 1,
+      "readable_projection_mean_f1": 0.19047619047619047,
+      "readable_projection_mean_normalized_em": 0.0
+    },
+    "single-session-preference": {
+      "baseline_mean_f1": 0.24240864642305712,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": -0.029548336001771078,
+      "n": 2,
+      "readable_projection_mean_f1": 0.21286031042128606,
+      "readable_projection_mean_normalized_em": 0.0
+    },
+    "single-session-user": {
+      "baseline_mean_f1": 0.4832535885167464,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": -0.4832535885167464,
+      "n": 2,
+      "readable_projection_mean_f1": 0.0,
+      "readable_projection_mean_normalized_em": 0.0
+    },
+    "temporal-reasoning": {
+      "baseline_mean_f1": 0.1739130434782609,
+      "baseline_mean_normalized_em": 0.0,
+      "mean_paired_delta_f1": 0.4302536231884058,
+      "n": 2,
+      "readable_projection_mean_f1": 0.6041666666666667,
+      "readable_projection_mean_normalized_em": 0.0
+    }
+  },
+  "mean_context_reader_tokens_after": 497.3,
+  "mean_context_reader_tokens_before": 2099.7,
+  "mean_paired_delta_f1": -0.01851467279735065,
+  "mean_reader_prompt_tokens_after": 600.7,
+  "mean_reader_prompt_tokens_before": 2203.1,
+  "n_infra_failure": 0,
+  "n_quality_ok": 10,
+  "n_reserved": 10,
+  "readable_projection_mean_f1": 0.18245301446520962,
+  "readable_projection_mean_normalized_em": 0.0,
+  "statistical_claim": "none; ten-case development diagnostic, no confidence interval"
+}

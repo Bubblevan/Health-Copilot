@@ -1,0 +1,74 @@
+{
+  "change_chain_memory_ids": [
+    "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273",
+    "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24"
+  ],
+  "current_memory_ids": [
+    "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24"
+  ],
+  "historical_memory_ids": [
+    "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273"
+  ],
+  "input_sha256": "6e1e571624dec9937c93bfcc26c6575e661dd3dce8b9334a63b2b5be0226c034",
+  "output_sha256": "6df6bcb3753317805a28ab0d65c4e97f2a651dd3ac7e65df7abb259e54b46acf",
+  "records": [
+    {
+      "provenance_hashes": [
+        "118f0df48888824d70abed299a11ba48269a65d7b7c456fea15e1d0f8562201b"
+      ],
+      "reason": null,
+      "record_id": "42af0bf104d106fe5ee1cbc40b3e192ad330a759e2eb4769b6c088595efe542f",
+      "slot_key": [
+        "longmemeval:c4ea545c",
+        "SELF",
+        "GYM_ROUTINE",
+        "SESSIONS_PER_WEEK"
+      ],
+      "source_memory_ids": [
+        "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273"
+      ],
+      "source_session_ids": [
+        "answer_d3bf812b_1"
+      ],
+      "source_turn_ids": [
+        "answer_d3bf812b_1:4"
+      ],
+      "status": "SUPERSEDED",
+      "supersedes_id": null,
+      "supersedes_ids": [],
+      "valid_from": "2023-06-01T09:48:00Z",
+      "valid_until": "2023-08-15T20:17:00Z",
+      "value_text": "Tuesday, Thursday, and Saturday"
+    },
+    {
+      "provenance_hashes": [
+        "ec7cf6af64b23c43d7880b98e487d8a2899d154dea4d6e0d44a8fe300430d0cc"
+      ],
+      "reason": null,
+      "record_id": "6640f7e135f5e20384b4cfd9b3e5c8a874dbd35b7cdc5f5256512adfaaad45dc",
+      "slot_key": [
+        "longmemeval:c4ea545c",
+        "SELF",
+        "GYM_ROUTINE",
+        "SESSIONS_PER_WEEK"
+      ],
+      "source_memory_ids": [
+        "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24"
+      ],
+      "source_session_ids": [
+        "answer_d3bf812b_2"
+      ],
+      "source_turn_ids": [
+        "answer_d3bf812b_2:0"
+      ],
+      "status": "ACTIVE",
+      "supersedes_id": "42af0bf104d106fe5ee1cbc40b3e192ad330a759e2eb4769b6c088595efe542f",
+      "supersedes_ids": [
+        "42af0bf104d106fe5ee1cbc40b3e192ad330a759e2eb4769b6c088595efe542f"
+      ],
+      "valid_from": "2023-08-15T20:17:00Z",
+      "valid_until": null,
+      "value_text": "four times a week"
+    }
+  ]
+}

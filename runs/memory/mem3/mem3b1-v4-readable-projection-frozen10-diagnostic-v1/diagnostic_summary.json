@@ -1,0 +1,159 @@
+{
+  "by_question_type": {
+    "knowledge-update": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      },
+      "readable_proposition": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      }
+    },
+    "multi-session": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 1
+      },
+      "readable_proposition": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 1
+      }
+    },
+    "single-session-assistant": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 1
+      },
+      "readable_proposition": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 1
+      }
+    },
+    "single-session-preference": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      },
+      "readable_proposition": {
+        "mean_f1": 0.07446808510638299,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      }
+    },
+    "single-session-user": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      },
+      "readable_proposition": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      }
+    },
+    "temporal-reasoning": {
+      "raw_json": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      },
+      "readable_proposition": {
+        "mean_f1": 0.0,
+        "mean_normalized_em": 0.0,
+        "n": 2
+      }
+    }
+  },
+  "mean_context_reader_tokens_by_mode": {
+    "raw_json": 2099.7,
+    "readable_proposition": 497.3
+  },
+  "mean_f1_by_mode": {
+    "raw_json": 0.0,
+    "readable_proposition": 0.014893617021276598
+  },
+  "mean_normalized_em_by_mode": {
+    "raw_json": 0.0,
+    "readable_proposition": 0.0
+  },
+  "mean_paired_delta_f1_readable_minus_raw": 0.014893617021276598,
+  "mean_reader_prompt_tokens_by_mode": {
+    "raw_json": 2228.1,
+    "readable_proposition": 625.7
+  },
+  "n_infra_failures": 0,
+  "n_local_reader_posts": 20,
+  "n_questions": 10,
+  "paired_case_deltas": [
+    {
+      "delta_f1": 0.0,
+      "question_id": "1cea1afa",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "1c549ce4",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "778164c6",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.14893617021276598,
+      "question_id": "fca70973",
+      "raw_f1": 0.0,
+      "readable_f1": 0.14893617021276598
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "a82c026e",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "gpt4_e061b84g",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "gpt4_f420262c",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "8550ddae",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "06878be2",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    },
+    {
+      "delta_f1": 0.0,
+      "question_id": "c4ea545c",
+      "raw_f1": 0.0,
+      "readable_f1": 0.0
+    }
+  ],
+  "statistical_claim": "none; frozen-10 DEV diagnostic with a diagnostic-only reader contract"
+}

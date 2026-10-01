@@ -1,0 +1,33 @@
+{
+  "claim_boundary": "frozen-10 public DEV diagnostic; readable serialization only; no revision admission or stale suppression; no benchmark ranking claim",
+  "diagnostic_summary_sha256": "10a46024827bb39b33b01a7e8ebe7c3d7afa4de56c74d69a42ad2b5f879b4ae3",
+  "embedding_calls": 0,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "predictions_sha256": "47b0536e56b7814170c344eb8c50bb593c980d9ce55d83421098630b82c943d6",
+  "question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_posts": 10,
+  "reservation_sha256": "49d4313763c737d49f42032cc70f6af7fdf40a9b7b76e2b7f2d92d0753078dca",
+  "retries": 0,
+  "run_id": "mem3b1-readable-context-frozen10-diagnostic-v1",
+  "source_hashes": {
+    "context_bundles.jsonl": "54d05a1583604a05fe46f73380114cbd70871bbe3336346d8dcb11da73dbd187",
+    "predictions.jsonl": "4b1c1afcf4d92b9fcd094693f7644e1fec5cad3be4dde36566649af9c49239e8",
+    "reader_call_ledger.jsonl": "c9c2a329ebf2d5e5cdda7e5254e5e3e9a40ee789d9fc34f6445e4c75f59b2bf2",
+    "run_manifest.json": "9a8534e980292c313780daf1bc3641f7833d5323b2be7d3943a149c997aa3fba",
+    "selection_manifest.json": "5a38ff79d79be6a9db531227d63d6dc22dc619d11d2c701b2b4cc0295f04c911"
+  },
+  "status": "COMPLETE"
+}

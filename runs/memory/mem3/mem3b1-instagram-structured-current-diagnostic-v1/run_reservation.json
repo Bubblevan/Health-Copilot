@@ -1,0 +1,18 @@
+{
+  "context_projection_sha256": "5250a01abc5f4189675340e85d95c8c0c703863e8105cd4c7c91a749952f90fa",
+  "embedding_model": "NONE (reused frozen retrieval output)",
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "hosted_calls": 0,
+  "judge_model": "NONE",
+  "local_posts_authorized": 1,
+  "materialized_state_sha256": "f29519f5195a03e355d1550d454e6f8f5aead25b59bcfc96e0cf5c257be536bf",
+  "memory_system": "FlatProp + deterministic temporal snapshot projection (structured-current)",
+  "prediction_sha_freeze_required": true,
+  "question_id": "1cea1afa",
+  "reader_model": "health-memory-qwen3-8b",
+  "reader_role": "answer model",
+  "request_file_sha256": "d41980e26dac4f86e58ebdcf626de9d500b28f05e3a4022d2c5f382575d58757",
+  "request_sha256": "e17036e498075607b771cdcf07bc510f0785ec2931eb32395c4b2e1261a85415",
+  "run_id": "mem3b1-instagram-structured-current-diagnostic-v1",
+  "status": "ONE_LOCAL_POST_RESERVED"
+}

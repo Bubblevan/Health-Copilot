@@ -1,0 +1,45 @@
+{
+  "baseline_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "baseline_prediction": "None",
+  "baseline_question_was_frozen_diagnostic_not_public_test": true,
+  "claim_boundary": "one public LongMemEval frozen-10 development case; manual slot/type assignment; no aggregate benchmark claim",
+  "context_bundle_sha256_before": "4a5286b40955fa49eb2ef59b3b2734ed1f058e9fac35dcac9054bbb6452d7a7c",
+  "context_items_after": 7,
+  "context_items_before": 8,
+  "context_projection_sha256": "0350d584a22ed8544ffe1ce8a6cddd6f6a1e10e8d441d6d2be604294bd3b6ab7",
+  "current_memory_ids": [
+    "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+  ],
+  "delta_f1": 0.0,
+  "finish_reason": "stop",
+  "gold": "600",
+  "historical_as_of_memory_ids": [
+    "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+  ],
+  "materialized_state_sha256": "f29519f5195a03e355d1550d454e6f8f5aead25b59bcfc96e0cf5c257be536bf",
+  "obsolete_memory_exposures_removed_from_current_context": [
+    "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+  ],
+  "quality_status": "OK",
+  "question": "How many Instagram followers do I currently have?",
+  "question_id": "1cea1afa",
+  "reader_context_tokens_after": 1896,
+  "reader_context_tokens_before": 2170,
+  "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_prompt_tokens_after_preflight": 1993,
+  "reader_prompt_tokens_after_server": 1993,
+  "reader_prompt_tokens_before": 2267,
+  "retrieval_unchanged": true,
+  "snapshot_projection_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "snapshot_projection_prediction": "None"
+}

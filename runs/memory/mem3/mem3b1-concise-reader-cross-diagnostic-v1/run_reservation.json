@@ -1,0 +1,80 @@
+{
+  "case_ids": [
+    "1cea1afa",
+    "c4ea545c"
+  ],
+  "embedding_model": "NONE (reused frozen retrieval bundles)",
+  "hosted_calls": 0,
+  "judge_model": "NONE",
+  "local_posts_authorized": 4,
+  "memory_system": "FlatProp; raw versus existing source-grounded state projection",
+  "modes": [
+    "raw_json",
+    "structured_state_or_change"
+  ],
+  "projection_sha256_by_case_mode": {
+    "1cea1afa:current_snapshot": "908dfa1563ba3276372f2bc68a432b0adbd237361d90b6a83dc51763e3772cff",
+    "1cea1afa:raw_json": "128eb822d2e88410136ae7256eff0a68b21561fbf07187aae2a302c2e533ea10",
+    "c4ea545c:change_chain": "7666069e3f3235b7ebda0ff4a57270b123521ded7a8862455028dad2f15710e4",
+    "c4ea545c:raw_json": "7a1d32ddececc9e3dbe640c70242d2ae5f39887d3ff19a864651105699147bd0"
+  },
+  "reader_contract_v3_sha256_reference_only": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_model": "health-memory-qwen3-8b",
+  "reader_role": "answer model",
+  "reader_system_prompt_sha256": "c2c8844c90c0a92a23dfeb42f11f4721dff7c703dd55c82f8685e2999893972c",
+  "request_file_sha256_by_case_mode": {
+    "1cea1afa:current_snapshot": "962d2412364c097ddf8791f432127e256b10e049295c365993d88c57d7a26544",
+    "1cea1afa:raw_json": "44dbe3aa71dcfe52fdeb9eb91d2e61b5f794d76fab9c938cfb77445de52ba0ad",
+    "c4ea545c:change_chain": "448fa6228341cb8f81989af0cc15b05d7eb80d283a170cb58de95c714f03752b",
+    "c4ea545c:raw_json": "bfaded87fe4c8c86872d0ddada68a317d92de13a29f826f7a6b4c04262b1de12"
+  },
+  "request_sha256_by_case_mode": {
+    "1cea1afa:current_snapshot": "f57439b282bb69334ffe8a57dc0ac413a443f3f50a4f247489206d8f1180ccb4",
+    "1cea1afa:raw_json": "5b6721746268bdf8858e555d4e9ae362747ffe24a209ad817e9164f7296e68ab",
+    "c4ea545c:change_chain": "8dea39203d05767b173f84a61f7687a3b3ca3a8339c333c105aacabb03c6089f",
+    "c4ea545c:raw_json": "9b8933db868752b973dbea803298a4017f2119a0c383d4d310f1644d896220e2"
+  },
+  "retries": 0,
+  "run_id": "mem3b1-concise-reader-cross-diagnostic-v1",
+  "runtime_preflight": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "source_hashes": {
+    "1cea1afa_structured_projection.json": "5250a01abc5f4189675340e85d95c8c0c703863e8105cd4c7c91a749952f90fa",
+    "c4ea545c_structured_projection.json": "63a05078648ccad4ac1169cfcc90dd8aeb9fad4a277a0c9df8516e7352601865",
+    "context_bundles.jsonl": "54d05a1583604a05fe46f73380114cbd70871bbe3336346d8dcb11da73dbd187",
+    "predictions.jsonl": "4b1c1afcf4d92b9fcd094693f7644e1fec5cad3be4dde36566649af9c49239e8",
+    "reader_call_ledger.jsonl": "c9c2a329ebf2d5e5cdda7e5254e5e3e9a40ee789d9fc34f6445e4c75f59b2bf2",
+    "run_manifest.json": "9a8534e980292c313780daf1bc3641f7833d5323b2be7d3943a149c997aa3fba"
+  },
+  "status": "FOUR_LOCAL_POSTS_RESERVED"
+}

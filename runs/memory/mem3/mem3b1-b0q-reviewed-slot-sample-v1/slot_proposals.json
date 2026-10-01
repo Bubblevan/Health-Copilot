@@ -1,0 +1,272 @@
+[
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "backpack",
+    "record_id": "r029",
+    "state_dimension": "usage_frequency",
+    "unit": "day",
+    "value": "daily"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "pair of ankle boots",
+    "record_id": "r005",
+    "state_dimension": "possession",
+    "unit": "none",
+    "value": "new"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "30 Years War",
+    "record_id": "r006",
+    "state_dimension": "historical_consequence",
+    "unit": "none",
+    "value": "massive power shift away from the Habsburgs to the Bourbons, epochal shift in religious authority, devastation of the Holy Roman Empire"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "literature themes",
+    "record_id": "r003",
+    "state_dimension": "interest",
+    "unit": "none",
+    "value": "identity, culture, and power"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "hat",
+    "record_id": "r010",
+    "state_dimension": "modification_intent",
+    "unit": "none",
+    "value": "embellishments"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "academic writing formats",
+    "record_id": "r022",
+    "state_dimension": "emotional_reaction",
+    "unit": "none",
+    "value": "anxiety"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "ankle",
+    "record_id": "r025",
+    "state_dimension": "health_status",
+    "unit": "none",
+    "value": "twisted"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "family-friendly attractions",
+    "record_id": "r026",
+    "state_dimension": "interest",
+    "unit": "none",
+    "value": "Orlando, Florida"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "dough consistency",
+    "record_id": "r020",
+    "state_dimension": "requirement",
+    "unit": "none",
+    "value": "right consistency"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "seasonal line of candles",
+    "record_id": "r018",
+    "state_dimension": "product_creation",
+    "unit": "none",
+    "value": "lavender and lemon scents"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "book themes",
+    "record_id": "r016",
+    "state_dimension": "interest",
+    "unit": "none",
+    "value": "relate to their own experiences as a woman"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "laptop connectivity",
+    "record_id": "r023",
+    "state_dimension": "technical_issue",
+    "unit": "none",
+    "value": "occasional connectivity drops"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "laptop",
+    "record_id": "r028",
+    "state_dimension": "storage_capacity",
+    "unit": "GB",
+    "value": "512GB SSD"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "baby gym or playmat",
+    "record_id": "r019",
+    "state_dimension": "purchase_intent",
+    "unit": "none",
+    "value": "purchase"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "homemade ravioli",
+    "record_id": "r030",
+    "state_dimension": "recipe_interest",
+    "unit": "none",
+    "value": "making"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "baby gym brands",
+    "record_id": "r002",
+    "state_dimension": "purchase_intent",
+    "unit": "none",
+    "value": "popular brands"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "seasonal line of candles",
+    "record_id": "r017",
+    "state_dimension": "product_creation",
+    "unit": "none",
+    "value": "hand-embroidered label with sister's initials"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "child-friendly attractions",
+    "record_id": "r027",
+    "state_dimension": "interest",
+    "unit": "none",
+    "value": "younger children"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "gift basket",
+    "record_id": "r013",
+    "state_dimension": "theme_selection",
+    "unit": "none",
+    "value": "Princess theme"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "savory scone",
+    "record_id": "r012",
+    "state_dimension": "recipe_creation",
+    "unit": "none",
+    "value": "caramelized onions and mushrooms"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "online workshop",
+    "record_id": "r007",
+    "state_dimension": "event_organization",
+    "unit": "none",
+    "value": "Academic Writing: Reduce Anxiety"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Thirty Years War",
+    "record_id": "r001",
+    "state_dimension": "historical_consequence",
+    "unit": "none",
+    "value": "declining economy and central weakness of Holy Roman Empire"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "first message",
+    "record_id": "r004",
+    "state_dimension": "message_selection",
+    "unit": "none",
+    "value": "\"Congratulations on the royal arrival of Princess Olivia! Wishing you all the joy, love, and sleep (when you can get it) as you embark on this amazing journey.\""
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "seasonal line of candles",
+    "record_id": "r024",
+    "state_dimension": "product_creation",
+    "unit": "none",
+    "value": "lavender and lemon scents"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "fall-themed baking recipes",
+    "record_id": "r008",
+    "state_dimension": "recipe_interest",
+    "unit": "none",
+    "value": "interest"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "H&M store",
+    "record_id": "r009",
+    "state_dimension": "shopping_interest",
+    "unit": "none",
+    "value": "trendy clothes and affordable prices"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "laptop connectivity",
+    "record_id": "r015",
+    "state_dimension": "technical_issue",
+    "unit": "none",
+    "value": "occasional drops"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "backpack",
+    "record_id": "r014",
+    "state_dimension": "usage_frequency",
+    "unit": "day",
+    "value": "daily"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "ankle",
+    "record_id": "r021",
+    "state_dimension": "health_status",
+    "unit": "none",
+    "value": "twisted"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "laptop",
+    "record_id": "r011",
+    "state_dimension": "purchase_intent",
+    "unit": "none",
+    "value": "mid-range configuration of 16GB RAM and 512GB SSD"
+  }
+]

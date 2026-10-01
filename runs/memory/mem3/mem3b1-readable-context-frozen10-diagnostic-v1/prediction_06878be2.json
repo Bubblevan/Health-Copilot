@@ -1,0 +1,36 @@
+{
+  "baseline_metrics": {
+    "f1": 0.27586206896551724,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.25,
+    "token_recall": 0.3076923076923077
+  },
+  "baseline_prediction": "The assistant is willing to help the user find camera bags compatible with Sony cameras. The assistant recommends several brands for high-quality camera bags compatible with Sony cameras. The user is seeking recommendations for camera bags specifically designed for Sony cameras. The user is a Sony camera user looking to upgrade their camera bag for comfort and durability.",
+  "completion_tokens": 91,
+  "context_bundle_sha256": "52455f071148ef11cebc0a6b2de2b99c5566e252c436f12129fcd07b3b39bbba",
+  "context_reader_tokens_after": 492,
+  "context_reader_tokens_before": 2127,
+  "delta_f1": -0.03195962994112697,
+  "finish_reason": "stop",
+  "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+  "infra_error_type": null,
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "Can you suggest some accessories that would complement my current photography setup?",
+  "question_id": "06878be2",
+  "question_type": "single-session-preference",
+  "readable_projection_metrics": {
+    "f1": 0.24390243902439027,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.17857142857142858,
+    "token_recall": 0.38461538461538464
+  },
+  "readable_projection_prediction": "Based on the provided context, the assistant is willing to help the user find camera bags compatible with Sony cameras and recommends several brands for high-quality camera bags. Additionally, the assistant mentions the Gitzo GT3543LS and the G-Lock Ultra system as accessories suitable for heavy-duty use. However, the context does not provide specific details about the user's current photography setup. Therefore, the assistant cannot provide tailored accessory recommendations. None.",
+  "reader_latency_ms": 54173.41369995847,
+  "reader_prompt_tokens_after": 593,
+  "reader_prompt_tokens_before": 2228,
+  "reader_prompt_tokens_server": 593,
+  "request_sha256": "32f9513d19c78830f0fe6cd6b87c107a4863e470e147694181aba14bd176dfda",
+  "response_sha256": "b6094921b94421b9d4bf867ec73d3d78a2c72cb5f5d4714b8aebb3672e54c005",
+  "retrieval_unchanged": true
+}

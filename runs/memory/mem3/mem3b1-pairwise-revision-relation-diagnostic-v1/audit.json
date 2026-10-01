@@ -1,0 +1,339 @@
+{
+  "completion_tokens": 533,
+  "diagnostic_only": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "evaluation_key_sha256": "0b9f3f023e4b6351a7834b04618943ed022b49c8a373994d26f52c4a110e44d1",
+  "hosted_calls": 0,
+  "input_hashes": {
+    "evaluation_key_sha256": "b9d308c2648b4a50f29d7475f0c8235b55a7782fc6199861019d22a26b02ab80",
+    "parent_validation_amendment_sha256": "1fe1c80b268461766838056b74696cb9dc2b9c266cffb7da4179e243ee1ebb4d",
+    "source_records_sha256": "6dd41e98df7080ad85100b2d5eb28c63ef55c6905414eed9397b3fb661ee19c3"
+  },
+  "local_posts": 1,
+  "model_response_root": "array",
+  "question_or_gold_in_prompt": false,
+  "reader_model": "health-memory-qwen3-8b",
+  "request_sha256": "55627b039ddf347c40b74dad325719030737ae1e550a109333c8c04942271a90",
+  "response_sha256": "23c96947f3ee48f8eedd6e46c61dc67276033f6b8bff04273d22ba3f58221038",
+  "results_sha256": "a63027a545df9b4676d22cfa32f5f890994ccd0470c65003c1ac1630b8b09464",
+  "review_labels_in_prompt": false,
+  "run_type": "pairwise semantic relation DEV diagnostic; not held-out evaluation",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "scope_in_prompt": false,
+  "score": {
+    "admission_precision": null,
+    "admission_recall": 0.0,
+    "auto_update_pair_count": 0,
+    "false_admissions": 0,
+    "group_accuracy": 0.6666666666666666,
+    "group_results": [
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p001",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "IDENTICAL"
+          }
+        ],
+        "pair_ids": [
+          "p001"
+        ],
+        "pass_against_review_label": false,
+        "predicted_revision_admission": false,
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p008",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "COMPLEMENTARY"
+          },
+          {
+            "pair_id": "p009",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "COMPLEMENTARY"
+          },
+          {
+            "pair_id": "p014",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p008",
+          "p009",
+          "p014"
+        ],
+        "pass_against_review_label": false,
+        "predicted_revision_admission": false,
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p002",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "IDENTICAL"
+          }
+        ],
+        "pair_ids": [
+          "p002"
+        ],
+        "pass_against_review_label": false,
+        "predicted_revision_admission": false,
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p016",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "IDENTICAL"
+          }
+        ],
+        "pair_ids": [
+          "p016"
+        ],
+        "pass_against_review_label": false,
+        "predicted_revision_admission": false,
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p005",
+            "same_entity_dimension": "NO",
+            "state_cardinality": "COMPOSITE_TASK_STATE",
+            "value_relation": "UNKNOWN"
+          }
+        ],
+        "pair_ids": [
+          "p005"
+        ],
+        "pass_against_review_label": false,
+        "predicted_revision_admission": false,
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p012",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p012"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p010",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "COMPOSITE_TASK_STATE",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p010"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p017",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "COMPOSITE_TASK_STATE",
+            "value_relation": "UNKNOWN"
+          }
+        ],
+        "pair_ids": [
+          "p017"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p011",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SET_OR_MULTI_VALUE",
+            "value_relation": "COEXISTING"
+          }
+        ],
+        "pair_ids": [
+          "p011"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p007",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SET_OR_MULTI_VALUE",
+            "value_relation": "COEXISTING"
+          }
+        ],
+        "pair_ids": [
+          "p007"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p013",
+            "same_entity_dimension": "NO",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "MUTUALLY_EXCLUSIVE"
+          }
+        ],
+        "pair_ids": [
+          "p013"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "uncertain",
+        "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p004",
+            "same_entity_dimension": "YES",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p004"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "uncertain",
+        "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p015",
+            "same_entity_dimension": "NO",
+            "state_cardinality": "COMPOSITE_TASK_STATE",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p015"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "uncertain",
+        "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p006",
+            "same_entity_dimension": "NO",
+            "state_cardinality": "COMPOSITE_TASK_STATE",
+            "value_relation": "COMPLEMENTARY"
+          }
+        ],
+        "pair_ids": [
+          "p006"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "uncertain",
+        "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6"
+      },
+      {
+        "all_pair_relations": [
+          {
+            "pair_id": "p003",
+            "same_entity_dimension": "NO",
+            "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+            "value_relation": "MUTUALLY_EXCLUSIVE"
+          }
+        ],
+        "pair_ids": [
+          "p003"
+        ],
+        "pass_against_review_label": true,
+        "predicted_revision_admission": false,
+        "review_label": "uncertain",
+        "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384"
+      }
+    ],
+    "missed_true_groups": 5,
+    "n_groups": 15,
+    "n_pairs": 17,
+    "schema_pass": true,
+    "true_admissions": 0
+  },
+  "source_inputs_sha256": "400dbf6eb7e644cf1a0c629b4481cf684c49c89d9c41ea88d6674dc82b2178c6",
+  "timestamps_in_prompt": false
+}

@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "The user tried a lavender gin fizz recipe.",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2148,
+  "context_reader_tokens_v4": 504,
+  "finish_reason": "stop",
+  "gold": "lavender gin fizz",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "What type of cocktail recipe did I try last weekend?",
+  "question_id": "8550ddae",
+  "question_type": "single-session-user",
+  "reader_latency_ms": 2408.3790000295267,
+  "reader_prompt_tokens_server": 628,
+  "reader_prompt_tokens_v3_raw": 2247,
+  "reader_prompt_tokens_v4": 628,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "d7c5504e1e0cbd521d883b1f37f85e2e5dc67c31b1e5883e8cc296dd6cf03ead",
+  "response_sha256": "3bb534918085af0608ce75b7e090ed5ad44391d37806ec543f95c1fe9e18f180",
+  "retrieval_unchanged": true
+}

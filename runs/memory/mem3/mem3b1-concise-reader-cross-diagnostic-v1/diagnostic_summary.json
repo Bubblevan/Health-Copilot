@@ -1,0 +1,26 @@
+{
+  "infra_failures": 0,
+  "mean_f1_by_mode": {
+    "change_chain": 1.0,
+    "current_snapshot": 0.6666666666666666,
+    "raw_json": 0.0
+  },
+  "mean_reader_context_tokens_by_mode": {
+    "change_chain": 1801.0,
+    "current_snapshot": 1721.0,
+    "raw_json": 2147.5
+  },
+  "mean_reader_prompt_tokens_by_mode": {
+    "change_chain": 1927.0,
+    "current_snapshot": 1843.0,
+    "raw_json": 2271.5
+  },
+  "n": 4,
+  "normalized_em_by_case_mode": {
+    "1cea1afa:current_snapshot": 0.0,
+    "1cea1afa:raw_json": 0.0,
+    "c4ea545c:change_chain": 1.0,
+    "c4ea545c:raw_json": 0.0
+  },
+  "statistical_claim": "none; two-case diagnostic only"
+}

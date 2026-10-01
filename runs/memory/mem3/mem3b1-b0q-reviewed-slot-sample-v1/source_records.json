@@ -1,0 +1,129 @@
+{
+  "question_or_gold_in_prompt": false,
+  "records": [
+    {
+      "proposition": "The user has been using a new backpack daily for their commute to work.",
+      "record_id": "r029"
+    },
+    {
+      "proposition": "The user has a new pair of ankle boots from H&M and is looking for trendy outfit combinations.",
+      "record_id": "r005"
+    },
+    {
+      "proposition": "The user indicated that the most significant consequence of the 30 Years War was the massive power shift away from the Habsburgs to the Bourbons, the epochal shift in religious authority, and the devastation of the Holy Roman Empire.",
+      "record_id": "r006"
+    },
+    {
+      "proposition": "The user is interested in learning more about the themes of identity, culture, and power in literature.",
+      "record_id": "r003"
+    },
+    {
+      "proposition": "The user is considering adding embellishments such as a pom-pom or a small flower to the hat.",
+      "record_id": "r010"
+    },
+    {
+      "proposition": "The user experiences anxiety when reading about highly structured academic writing formats, such as a four-paragraph essay scheme.",
+      "record_id": "r022"
+    },
+    {
+      "proposition": "The user recently twisted their ankle playing basketball.",
+      "record_id": "r025"
+    },
+    {
+      "proposition": "The user is looking for family-friendly attractions in Orlando, Florida.",
+      "record_id": "r026"
+    },
+    {
+      "proposition": "The user is seeking advice on how to measure the right consistency for the dough.",
+      "record_id": "r020"
+    },
+    {
+      "proposition": "The user is considering creating a seasonal line of candles with scents like lavender and lemon for the summer months.",
+      "record_id": "r018"
+    },
+    {
+      "proposition": "The user is interested in how the themes of the book relate to their own experiences as a woman.",
+      "record_id": "r016"
+    },
+    {
+      "proposition": "The user is still experiencing occasional connectivity drops when using their laptop in different rooms.",
+      "record_id": "r023"
+    },
+    {
+      "proposition": "The user is considering the storage capacity of their laptop, specifically whether the 512GB SSD will be sufficient for their needs.",
+      "record_id": "r028"
+    },
+    {
+      "proposition": "The user is considering purchasing a baby gym or playmat.",
+      "record_id": "r019"
+    },
+    {
+      "proposition": "The user is interested in making homemade ravioli from their new cookbook.",
+      "record_id": "r030"
+    },
+    {
+      "proposition": "The user is seeking recommendations for popular baby gym brands known for durability and safety.",
+      "record_id": "r002"
+    },
+    {
+      "proposition": "The user has decided to add a small, hand-embroidered label with their sister's initials to the hat.",
+      "record_id": "r017"
+    },
+    {
+      "proposition": "The user is interested in attractions suitable for younger children.",
+      "record_id": "r027"
+    },
+    {
+      "proposition": "The user has decided to go with a \"Princess\" theme for the gift basket.",
+      "record_id": "r013"
+    },
+    {
+      "proposition": "The user is planning to make a savory scone with caramelized onions and mushrooms.",
+      "record_id": "r012"
+    },
+    {
+      "proposition": "The user is running an online workshop titled 'Academic Writing: Reduce Anxiety' for PhD students.",
+      "record_id": "r007"
+    },
+    {
+      "proposition": "The user believes that the Thirty Years War hurt the Holy Roman Empire and contributed to its declining economy and central weakness.",
+      "record_id": "r001"
+    },
+    {
+      "proposition": "The user decided to use the first message: \"Congratulations on the royal arrival of Princess Olivia! Wishing you all the joy, love, and sleep (when you can get it) as you embark on this amazing journey.\"",
+      "record_id": "r004"
+    },
+    {
+      "proposition": "The user is planning to create a seasonal line of candles with scents like lavender and lemon for the summer months.",
+      "record_id": "r024"
+    },
+    {
+      "proposition": "The user is interested in fall-themed baking recipes.",
+      "record_id": "r008"
+    },
+    {
+      "proposition": "The user enjoys the trendy clothes and affordable prices at the new H&M store.",
+      "record_id": "r009"
+    },
+    {
+      "proposition": "The user has been experiencing occasional drops in connectivity despite upgrading their router to a TP-Link Archer AX50.",
+      "record_id": "r015"
+    },
+    {
+      "proposition": "The user's daily commute has been great with the new backpack.",
+      "record_id": "r014"
+    },
+    {
+      "proposition": "The user recently twisted their ankle playing basketball with friends two weeks ago and had to take a few days off from the gym to rest and recover.",
+      "record_id": "r021"
+    },
+    {
+      "proposition": "The user is looking for a laptop with a mid-range configuration of 16GB RAM and 512GB SSD.",
+      "record_id": "r011"
+    }
+  ],
+  "review_group_membership_in_prompt": false,
+  "review_labels_in_prompt": false,
+  "scope_in_prompt": false,
+  "timestamps_in_prompt": false
+}

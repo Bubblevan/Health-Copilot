@@ -1,0 +1,62 @@
+[
+  {
+    "attribute": "gym_days",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      0
+    ],
+    "record_id": "r01",
+    "value": "tuesday_thursday_saturday"
+  },
+  {
+    "attribute": "jewelry_store_search",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      0
+    ],
+    "record_id": "r02",
+    "value": "mall"
+  },
+  {
+    "attribute": "instagram_followers",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      0
+    ],
+    "record_id": "r03",
+    "value": "600"
+  },
+  {
+    "attribute": "gym_frequency",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      0
+    ],
+    "record_id": "r04",
+    "value": "four_times_a_week"
+  },
+  {
+    "attribute": "instagram_followers",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      0
+    ],
+    "record_id": "r05",
+    "value": "500"
+  },
+  {
+    "attribute": "running_shoes_search",
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "self",
+    "evidence_quote_indices": [
+      1
+    ],
+    "record_id": "r06",
+    "value": "racing"
+  }
+]

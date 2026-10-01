@@ -1,0 +1,42 @@
+{
+  "typed_slot_key_only": {
+    "accuracy": 0.6,
+    "admission_precision": 0.42857142857142855,
+    "admission_recall": 0.6,
+    "correct": 9,
+    "false_admissions": 4,
+    "missed_true_slots": 2,
+    "n": 15,
+    "true_admissions": 3
+  },
+  "typed_slot_plus_both": {
+    "accuracy": 0.7333333333333333,
+    "admission_precision": 1.0,
+    "admission_recall": 0.2,
+    "correct": 11,
+    "false_admissions": 0,
+    "missed_true_slots": 4,
+    "n": 15,
+    "true_admissions": 1
+  },
+  "typed_slot_plus_distinct_values": {
+    "accuracy": 0.6666666666666666,
+    "admission_precision": 0.5,
+    "admission_recall": 0.2,
+    "correct": 10,
+    "false_admissions": 1,
+    "missed_true_slots": 4,
+    "n": 15,
+    "true_admissions": 1
+  },
+  "typed_slot_plus_qualifier_equality": {
+    "accuracy": 0.8,
+    "admission_precision": 1.0,
+    "admission_recall": 0.4,
+    "correct": 12,
+    "false_admissions": 0,
+    "missed_true_slots": 3,
+    "n": 15,
+    "true_admissions": 2
+  }
+}

@@ -1,0 +1,1 @@
+Answer questions using only the supplied conversation memory context. Return the shortest direct answer that fully answers the question, using the exact answer wording or value from the context where possible. For yes/no questions, output only Yes or No. If the requested information is absent, output None. Do not add a preamble, explanation, or unsupported fact.

@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "The VIP Experience's Gourmet Buffet and Behind-the-Scenes Tour package at Universal Studios Hollywood combines the best of Halloween Horror Nights with exclusive behind-the-scenes access. The VIP Experience also provides front-of-line access to all mazes and attractions, including the most popular ones, reducing wait times even further. The Behind-the-Scenes Tour offers a unique opportunity to explore the inner workings of the event, getting up close and personal with the creative process behind the mazes, scare zones, and attractions. The VIP Experience's Gourmet Buffet at Halloween Horror Nights is recommended for those looking to elevate their Halloween Horror Nights adventure.",
+  "completion_tokens": 34,
+  "context_reader_tokens_v3_raw": 1922,
+  "context_reader_tokens_v4": 490,
+  "finish_reason": "stop",
+  "gold": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "I am planning another theme park weekend; do you have any suggestions?",
+  "question_id": "fca70973",
+  "question_type": "single-session-preference",
+  "reader_latency_ms": 21069.571599946357,
+  "reader_prompt_tokens_server": 617,
+  "reader_prompt_tokens_v3_raw": 2024,
+  "reader_prompt_tokens_v4": 617,
+  "reader_v4_metrics": {
+    "f1": 0.14893617021276598,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.28,
+    "token_recall": 0.10144927536231885
+  },
+  "reader_v4_prediction": "Yes, the VIP Experience's Gourmet Buffet and Behind-the-Scenes Tour package at Universal Studios Hollywood is recommended for elevating your Halloween Horror Nights adventure.",
+  "request_sha256": "087cbe6836bebf419dbec6a1b40206ee60ebd217ec8cf4b3563f5e4fa84ad74b",
+  "response_sha256": "e0274be2fac204c1b42d0fcc1a41b599e50916c52fa27b7a4bd842710d0f0836",
+  "retrieval_unchanged": true
+}

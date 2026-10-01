@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "The assistant is willing to help the user find camera bags compatible with Sony cameras. The assistant recommends several brands for high-quality camera bags compatible with Sony cameras. The user is seeking recommendations for camera bags specifically designed for Sony cameras. The user is a Sony camera user looking to upgrade their camera bag for comfort and durability.",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2127,
+  "context_reader_tokens_v4": 492,
+  "finish_reason": "stop",
+  "gold": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "Can you suggest some accessories that would complement my current photography setup?",
+  "question_id": "06878be2",
+  "question_type": "single-session-preference",
+  "reader_latency_ms": 2382.627399987541,
+  "reader_prompt_tokens_server": 618,
+  "reader_prompt_tokens_v3_raw": 2228,
+  "reader_prompt_tokens_v4": 618,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "f7144f28268ce07192a06ac55041e7f5cf8d0fa6e8c7a34e0dc12494a271eba5",
+  "response_sha256": "2e3d61aa21ff30f9023c8f593597b151bd59e31895465653f77cda530c2696b6",
+  "retrieval_unchanged": true
+}

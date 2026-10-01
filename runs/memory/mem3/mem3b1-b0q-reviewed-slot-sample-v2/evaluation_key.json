@@ -1,0 +1,196 @@
+{
+  "excluded_v1_slot_ids": [
+    "4c727cc26a526ac772849c461ccc554ec486c020ecba60032a76be01c1b6915f",
+    "515a8a605f96729500abfa7d90734e0849370230d1246c790c0ec888d9c57683",
+    "5a4090c910d5d4de244cfc03c17d53ba474e0dcff4cd7c331c551fa680ee4bb7",
+    "5b23d10f185b299beded7c300db0d21b7c2fc8ae311c3511cca7cb106aa2f5d6",
+    "5ce4a75fdd5cce8921f6cbc0bb0c34868935677455227880cd84cc0b522f5574",
+    "6c324f4f91817bd857a3b0a0e11da800bd279b18f9b039f5254f7b8c54a38d96",
+    "7139f97cb7473baddbc2861a9f641bad25a0b9e46a5d5464381078c4a84d8f6a",
+    "76a51fed62bcdcff918bad963aa4e5c99aad9d121f5761aadc23791384c1a304",
+    "baa450b9ee82165024cc6ccd07e661109d2606d4b33c9fbeb41ec2dd4359a5e1",
+    "cf2145285ac6d1c8f56cae12ce85b3bc75f7a9f247a9826c2121e59934246e48",
+    "d39c82a6132bffceb2245d8bc7ec87bf8c287f534f243d5aee86e4c56abb0032",
+    "dbab0df89f184b6c3a6be8b2a70cde4b6b9ca3383b7994e4f9eb44d1464845ce",
+    "f9d1b5fd109b1eea44f4c0a63303c4d1d9a1aa882be4f83a052b24ffab1e97ab",
+    "fc7a53115299a830dbc1cd3c7fd9a6d34c2d5baebe10a794370717fac4ac2eb1",
+    "fed21d9fb12101b0124851bc05cf854bfa932f63627647dc08ce897f408d8fad"
+  ],
+  "groups": [
+    {
+      "member_record_ids": [
+        "r007",
+        "r028"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892",
+      "scope_id": "longmemeval:06878be2"
+    },
+    {
+      "member_record_ids": [
+        "r001",
+        "r004",
+        "r027"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97",
+      "scope_id": "longmemeval:1c549ce4"
+    },
+    {
+      "member_record_ids": [
+        "r002",
+        "r008"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39",
+      "scope_id": "longmemeval:a82c026e"
+    },
+    {
+      "member_record_ids": [
+        "r006",
+        "r026"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f",
+      "scope_id": "longmemeval:1c549ce4"
+    },
+    {
+      "member_record_ids": [
+        "r021",
+        "r022"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f",
+      "scope_id": "longmemeval:a82c026e"
+    },
+    {
+      "member_record_ids": [
+        "r009",
+        "r030"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a",
+      "scope_id": "longmemeval:gpt4_f420262c"
+    },
+    {
+      "member_record_ids": [
+        "r005",
+        "r010"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053",
+      "scope_id": "longmemeval:1c549ce4"
+    },
+    {
+      "member_record_ids": [
+        "r023",
+        "r024"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9",
+      "scope_id": "longmemeval:fca70973"
+    },
+    {
+      "member_record_ids": [
+        "r012",
+        "r013"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1",
+      "scope_id": "longmemeval:1cea1afa"
+    },
+    {
+      "member_record_ids": [
+        "r014",
+        "r015"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c",
+      "scope_id": "longmemeval:06878be2"
+    },
+    {
+      "member_record_ids": [
+        "r019",
+        "r020"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3",
+      "scope_id": "longmemeval:gpt4_f420262c"
+    },
+    {
+      "member_record_ids": [
+        "r018",
+        "r029"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65",
+      "scope_id": "longmemeval:a82c026e"
+    },
+    {
+      "member_record_ids": [
+        "r016",
+        "r031"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05",
+      "scope_id": "longmemeval:gpt4_e061b84g"
+    },
+    {
+      "member_record_ids": [
+        "r011",
+        "r025"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6",
+      "scope_id": "longmemeval:gpt4_f420262c"
+    },
+    {
+      "member_record_ids": [
+        "r003",
+        "r017"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384",
+      "scope_id": "longmemeval:8550ddae"
+    }
+  ],
+  "record_map": {
+    "r001": "m10flat3-1094fce1832657c2fc6c8b12bb29611e296f1337eccec5dc9ce3fc4014bf6bef",
+    "r002": "m10flat3-109c87d235334ef0bf22a185151b62b88850d25f201bbe30f9e00d619196546c",
+    "r003": "m10flat3-12c3cab099514f78c7c5b1e29c1af1ec679ef6dc986339234f3409cff6a2452d",
+    "r004": "m10flat3-2c55b1dc3fc6e02133423cb44ee10e62e4e5ac450d8c72336b4b223c25149c73",
+    "r005": "m10flat3-3147d3013d37d7586cad1e376f3fa67f2c0ea8688de94f115d8f167788ce4a05",
+    "r006": "m10flat3-31979be05335c78ee744b03b020fac504a4fedbb0a464e4e36ed7de8a6a05a87",
+    "r007": "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+    "r008": "m10flat3-4e8d81c647103077ac78a95262cf6960af6195eb5f3836fa696daf5abd997d69",
+    "r009": "m10flat3-5aba1206a0429ef88f83852a32cfefdb026c81a9ef0957886d70676ad998e830",
+    "r010": "m10flat3-5c7e92ad0d3b835c1d8d138dc62a1f2fe971d2e4961191c13a684867d6956617",
+    "r011": "m10flat3-5d7a726ca4d6ff074a09b45f2884bff67cf13f325df911aa4c99ae6ba50b4c8b",
+    "r012": "m10flat3-6bf64f5a3015a730261f1c637ba2ea12afe2f702d213cc19bb4a94ca4e035186",
+    "r013": "m10flat3-6e9713b9b3dbf9e9a68e2a517821e5e20ff4f26159cb6196afdd54cfca4cb7c9",
+    "r014": "m10flat3-6f0893aa71d9481ab90fc805a13775ba9025e3d6399824b517cf3a2cda045ccc",
+    "r015": "m10flat3-736beb5d6cfd201d42d96d1f7f4daff39a63a62ae98be0c128230bcd60794131",
+    "r016": "m10flat3-763f8d40825e3a740874c09e1db8ff96c96506597c12951179d8d31532764d8c",
+    "r017": "m10flat3-860f4e0483e03948dd5e990f5d48318571025156af6fa627f51d5079f9ea1f90",
+    "r018": "m10flat3-86bb6ee5944bd47c5d1a9a04d0512aeb84af5dcf3817ebb58062fe25a3ae9f68",
+    "r019": "m10flat3-8aba58f49b0079b96052318ed3299a25e96d46eb55f13dadc5231b85044b4fc2",
+    "r020": "m10flat3-91003dfb5e3f2d78d9a4d4e554636a19c1311699ec35d272f23461b20b9c70e5",
+    "r021": "m10flat3-a9b8a26eb9a229550bdfc3fe654f76d345475afb694eda2ffae3fb38fd250a72",
+    "r022": "m10flat3-c05fc02bd3b0662780757b5cdcee12002de4d13e13fa2c32ac8b9609fa7d2d28",
+    "r023": "m10flat3-d9aea4d5367d84bdfd9dd0d25d765cbaf9cca900a2ee95cfaddb9a4156d16d12",
+    "r024": "m10flat3-da6090772ad4376cfd4fba5807c306ac2954dce03194e5dfb1de9f20757f4fdb",
+    "r025": "m10flat3-de4ebe4d7144f41723d26d57f0e79c2803429203be67d9389b7d0782b15282e3",
+    "r026": "m10flat3-de500f6cd7bf8c674dcf41c59ed98ad2b8d2d28b9f6ca1c73d7b6c0cdec5d145",
+    "r027": "m10flat3-e278fac96fc2a9beb2aa11ca168e8e681ee5606e8280b3d194c0f3c7992096b9",
+    "r028": "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173",
+    "r029": "m10flat3-eac45c4f7516242a2961b57d6202aea4d00d068cc0a0e120dfdc4bb9e6421751",
+    "r030": "m10flat3-fc97dfb0eb1ae823b635614fb4943621542d170761aaaeff1224c283fd7fa62a",
+    "r031": "m10flat3-fdc0c3870adbc5997344ea8c90c0c24f48d3c40acd06cfbae58f44f74a510121"
+  },
+  "selection": "next five by SHA256(slot_id) per stratum after excluding every v1 sample group",
+  "strata": [
+    "true_singleton_slot",
+    "false_revision_merge",
+    "uncertain"
+  ]
+}

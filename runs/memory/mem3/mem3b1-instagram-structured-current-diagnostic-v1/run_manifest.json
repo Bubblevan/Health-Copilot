@@ -1,0 +1,29 @@
+{
+  "context_projection_sha256": "5250a01abc5f4189675340e85d95c8c0c703863e8105cd4c7c91a749952f90fa",
+  "diagnostic_result_sha256": "70bcf2076d78c538bac88c6191c4b1148af2c461c6919fbd9d1f73cf5b59072c",
+  "embedding_calls": 0,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "local_posts": 1,
+  "materialized_state_sha256": "f29519f5195a03e355d1550d454e6f8f5aead25b59bcfc96e0cf5c257be536bf",
+  "prediction_sha_freeze": "PASS",
+  "question_ids": [
+    "1cea1afa"
+  ],
+  "reader_call_sha256": "d4b926e41cbc38ec7d97ebee260a556a1954e10453cf471a287d9fcbe7133f8d",
+  "reader_request_file_sha256": "d41980e26dac4f86e58ebdcf626de9d500b28f05e3a4022d2c5f382575d58757",
+  "reader_request_sha256": "e17036e498075607b771cdcf07bc510f0785ec2931eb32395c4b2e1261a85415",
+  "reader_response_sha256": "1c0d6b894372eec1873c9b6ea92b7f86e00d40f18842eafcfe89996a1980ff8b",
+  "reservation_sha256": "56399db22514844d4190e8699988d5c6f57e76d3d4c2e9f2b4c2055dc7cfe1c3",
+  "retries": 0,
+  "run_id": "mem3b1-instagram-structured-current-diagnostic-v1",
+  "source_hashes": {
+    "context_bundles.jsonl": "54d05a1583604a05fe46f73380114cbd70871bbe3336346d8dcb11da73dbd187",
+    "flatprop_inventory.jsonl": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+    "materialization_ledger.jsonl": "b04e0f1e646657c152e864fa6b701ab4e7ccc4290fa767597c720105296699e0",
+    "predictions.jsonl": "4b1c1afcf4d92b9fcd094693f7644e1fec5cad3be4dde36566649af9c49239e8",
+    "reader_call_ledger.jsonl": "c9c2a329ebf2d5e5cdda7e5254e5e3e9a40ee789d9fc34f6445e4c75f59b2bf2"
+  },
+  "source_run_manifest_sha256": "9a8534e980292c313780daf1bc3641f7833d5323b2be7d3943a149c997aa3fba",
+  "status": "COMPLETE"
+}

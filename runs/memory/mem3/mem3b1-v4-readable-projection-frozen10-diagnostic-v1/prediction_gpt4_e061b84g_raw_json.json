@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "None",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2134,
+  "context_reader_tokens_v4": 2134,
+  "finish_reason": "stop",
+  "gold": "The company's annual charity soccer tournament.",
+  "infra_error_type": null,
+  "mode": "raw_json",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+  "question_id": "gpt4_e061b84g",
+  "question_type": "temporal-reasoning",
+  "reader_latency_ms": 5802.202700055204,
+  "reader_prompt_tokens_server": 2263,
+  "reader_prompt_tokens_v3_raw": 2238,
+  "reader_prompt_tokens_v4": 2263,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "887b9b667b3ea96cf912358aaea842dfd90d5cd859502b04338863a6496997da",
+  "response_sha256": "9bfef6046a9a93d880e828df2d34c6705ededa30ae99fba5a8e2dc94284941f3",
+  "retrieval_unchanged": true
+}

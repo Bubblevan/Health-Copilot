@@ -1,0 +1,18 @@
+{
+  "case_ids": [
+    "1cea1afa",
+    "c4ea545c"
+  ],
+  "claim_boundary": "diagnostic-only v4 answer formatting counterfactual; frozen reader v3 remains unchanged",
+  "embedding_calls": 0,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "prediction_sha256": "d588d82684260aa7f26c2e18972a54e8281599d6e7f94974be2cc89adc8b7ac2",
+  "reader_posts": 4,
+  "reader_system_prompt_sha256": "c2c8844c90c0a92a23dfeb42f11f4721dff7c703dd55c82f8685e2999893972c",
+  "reservation_sha256": "44a1a335a2fe02b0ea2df87fb2a715ce6cbd8b9b30e5d409dca164047d3331bc",
+  "retries": 0,
+  "run_id": "mem3b1-concise-reader-cross-diagnostic-v1",
+  "status": "COMPLETE",
+  "summary_sha256": "5dc5a6fe708b0f2ef1159509b80845ed54e7e570976bfb48e58a24475219de8e"
+}

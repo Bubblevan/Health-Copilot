@@ -1,0 +1,26 @@
+{
+  "claim_boundary": "frozen-10 public DEV diagnostic; diagnostic-only reader v4; no revision admission; no benchmark ranking claim",
+  "diagnostic_summary_sha256": "73ebd96bd682e0fdbe667cbc6589d5e712e06db0e7f3307b1f595480f32e0c31",
+  "embedding_calls": 0,
+  "hosted_calls": 0,
+  "judge_calls": 0,
+  "predictions_sha256": "1c4df59a2a928db51975f9a72b242b1e02404d8549df100bc302ecfda1c0c01a",
+  "question_ids": [
+    "1cea1afa",
+    "1c549ce4",
+    "778164c6",
+    "fca70973",
+    "a82c026e",
+    "gpt4_e061b84g",
+    "gpt4_f420262c",
+    "8550ddae",
+    "06878be2",
+    "c4ea545c"
+  ],
+  "reader_posts": 20,
+  "reader_system_prompt_sha256": "c2c8844c90c0a92a23dfeb42f11f4721dff7c703dd55c82f8685e2999893972c",
+  "reservation_sha256": "974f58ba0fcd16fdebc7e31138b0b5f192a462ab869105cf46071f592fd84569",
+  "retries": 0,
+  "run_id": "mem3b1-v4-readable-projection-frozen10-diagnostic-v1",
+  "status": "COMPLETE"
+}

@@ -1,0 +1,143 @@
+{
+  "diagnostic_only": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "hosted_calls": 0,
+  "local_posts": 1,
+  "model_response_root": "array",
+  "proposal_sha256": "f99e44c1b3c4f9a88e6d4d7d549e38f579a4c4a871323fa0dbba603399d226d4",
+  "reader_model": "health-memory-qwen3-8b",
+  "request_local_completion_tokens": 379,
+  "request_prompt_has_timestamp_or_question_or_gold": false,
+  "request_sha256": "66e69ce9b4559cad6cbfd940582da72b2ed43421fbadf0a00029c9a8c28d72f9",
+  "research_track": "failure-driven DEV mechanism diagnostic; not benchmark performance evidence",
+  "response_envelope_contract_match": false,
+  "response_sha256": "d35a3ff39fb8fed6f3b4cbd48198ef499aab734948ae66e94a3cf55f22321b38",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "score": {
+    "coexistence_control_specificity": 1.0,
+    "false_revision_merges": 0,
+    "n_records": 6,
+    "pair_accuracy": 0.6666666666666666,
+    "pair_checks": [
+      {
+        "both_single_value": true,
+        "class": "revision_positive",
+        "expected": "SAME_SINGLE_VALUE_SLOT",
+        "pair": [
+          "r03",
+          "r05"
+        ],
+        "pass": true,
+        "predicted": "SAME_SINGLE_VALUE_SLOT",
+        "same_attribute": true,
+        "same_entity": true
+      },
+      {
+        "both_single_value": true,
+        "class": "revision_positive",
+        "expected": "SAME_SINGLE_VALUE_SLOT",
+        "pair": [
+          "r01",
+          "r04"
+        ],
+        "pass": false,
+        "predicted": "COEXIST_NOT_REVISION",
+        "same_attribute": false,
+        "same_entity": true
+      },
+      {
+        "both_single_value": true,
+        "class": "coexistence_negative",
+        "expected": "COEXIST_NOT_REVISION",
+        "pair": [
+          "r02",
+          "r06"
+        ],
+        "pass": true,
+        "predicted": "COEXIST_NOT_REVISION",
+        "same_attribute": false,
+        "same_entity": true
+      }
+    ],
+    "positive_slot_recall": 0.5,
+    "schema_pass": true,
+    "source_quote_ref_total": 6,
+    "source_quote_refs": [
+      {
+        "quote_indices": [
+          0
+        ],
+        "record_id": "r01",
+        "valid_source_quote_reference": true
+      },
+      {
+        "quote_indices": [
+          0
+        ],
+        "record_id": "r02",
+        "valid_source_quote_reference": true
+      },
+      {
+        "quote_indices": [
+          0
+        ],
+        "record_id": "r03",
+        "valid_source_quote_reference": true
+      },
+      {
+        "quote_indices": [
+          0
+        ],
+        "record_id": "r04",
+        "valid_source_quote_reference": true
+      },
+      {
+        "quote_indices": [
+          0
+        ],
+        "record_id": "r05",
+        "valid_source_quote_reference": true
+      },
+      {
+        "quote_indices": [
+          1
+        ],
+        "record_id": "r06",
+        "valid_source_quote_reference": true
+      }
+    ],
+    "valid_source_quote_refs": 6
+  },
+  "source_records_sha256": "1baa2a4e7439c391becea3c51324ea4fb935a5fca828bd2e94695c2a9e35eb62"
+}

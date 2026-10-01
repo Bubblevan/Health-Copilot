@@ -1,0 +1,266 @@
+{
+  "groups": [
+    {
+      "pair_ids": [
+        "p001"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892"
+    },
+    {
+      "pair_ids": [
+        "p008",
+        "p009",
+        "p014"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "pair_ids": [
+        "p002"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39"
+    },
+    {
+      "pair_ids": [
+        "p016"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f"
+    },
+    {
+      "pair_ids": [
+        "p005"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f"
+    },
+    {
+      "pair_ids": [
+        "p012"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a"
+    },
+    {
+      "pair_ids": [
+        "p010"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053"
+    },
+    {
+      "pair_ids": [
+        "p017"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9"
+    },
+    {
+      "pair_ids": [
+        "p011"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1"
+    },
+    {
+      "pair_ids": [
+        "p007"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c"
+    },
+    {
+      "pair_ids": [
+        "p013"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3"
+    },
+    {
+      "pair_ids": [
+        "p004"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65"
+    },
+    {
+      "pair_ids": [
+        "p015"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05"
+    },
+    {
+      "pair_ids": [
+        "p006"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6"
+    },
+    {
+      "pair_ids": [
+        "p003"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384"
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "p001",
+      "record_ids": [
+        "r007",
+        "r028"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892"
+    },
+    {
+      "pair_id": "p002",
+      "record_ids": [
+        "r002",
+        "r008"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39"
+    },
+    {
+      "pair_id": "p003",
+      "record_ids": [
+        "r003",
+        "r017"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384"
+    },
+    {
+      "pair_id": "p004",
+      "record_ids": [
+        "r018",
+        "r029"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65"
+    },
+    {
+      "pair_id": "p005",
+      "record_ids": [
+        "r021",
+        "r022"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f"
+    },
+    {
+      "pair_id": "p006",
+      "record_ids": [
+        "r011",
+        "r025"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6"
+    },
+    {
+      "pair_id": "p007",
+      "record_ids": [
+        "r014",
+        "r015"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c"
+    },
+    {
+      "pair_id": "p008",
+      "record_ids": [
+        "r004",
+        "r027"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "pair_id": "p009",
+      "record_ids": [
+        "r001",
+        "r027"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "pair_id": "p010",
+      "record_ids": [
+        "r005",
+        "r010"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053"
+    },
+    {
+      "pair_id": "p011",
+      "record_ids": [
+        "r012",
+        "r013"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1"
+    },
+    {
+      "pair_id": "p012",
+      "record_ids": [
+        "r009",
+        "r030"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a"
+    },
+    {
+      "pair_id": "p013",
+      "record_ids": [
+        "r019",
+        "r020"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3"
+    },
+    {
+      "pair_id": "p014",
+      "record_ids": [
+        "r001",
+        "r004"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97"
+    },
+    {
+      "pair_id": "p015",
+      "record_ids": [
+        "r016",
+        "r031"
+      ],
+      "review_label": "uncertain",
+      "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05"
+    },
+    {
+      "pair_id": "p016",
+      "record_ids": [
+        "r006",
+        "r026"
+      ],
+      "review_label": "true_singleton_slot",
+      "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f"
+    },
+    {
+      "pair_id": "p017",
+      "record_ids": [
+        "r023",
+        "r024"
+      ],
+      "review_label": "false_revision_merge",
+      "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9"
+    }
+  ]
+}

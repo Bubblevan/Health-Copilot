@@ -1,0 +1,130 @@
+{
+  "analysis_type": "same-six-record post-hoc deterministic normalization; not held-out",
+  "coexistence_negative_items_retained_as_separate_slots": 1,
+  "coexistence_specificity_after_normalization": 1.0,
+  "current_latest_correct": 2,
+  "diagnostic_only": true,
+  "false_revision_merges": 0,
+  "historical_asof_correct": 2,
+  "normalization_policy": {
+    "fitness_object": "gym/workout/exercise labels normalize to fitness_activity only for recurring_frequency",
+    "frequency_dimension": "schedule/frequency aliases collapse only when the unit denotes a weekly event rate",
+    "materializer_authority": "deterministic harness; timestamps are read only after proposal freeze",
+    "scope": "included in the slot key",
+    "weekly_unit": "times/sessions/visits/workouts per week collapse to sessions_per_week"
+  },
+  "pair_accuracy_after_normalization": 1.0,
+  "pairs": [
+    {
+      "control_type": "revision_positive",
+      "expected_control_pass": true,
+      "materialized_revision": {
+        "as_of_returns_older_value": true,
+        "change_chain": [
+          "500",
+          "600"
+        ],
+        "current_memory_id": "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+        "current_returns_latest_value": true,
+        "current_status": "ACTIVE",
+        "current_value": "600",
+        "historical_status": "SUPERSEDED",
+        "historical_value": "500",
+        "older_memory_id": "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+      },
+      "newer_or_second_record_id": "r03",
+      "normalized_slot_keys": {
+        "r03": [
+          "longmemeval:1cea1afa",
+          "self",
+          "follower_count",
+          "instagram_account",
+          "followers",
+          "single_value_at_a_time"
+        ],
+        "r05": [
+          "longmemeval:1cea1afa",
+          "self",
+          "follower_count",
+          "instagram_account",
+          "followers",
+          "single_value_at_a_time"
+        ]
+      },
+      "older_or_first_record_id": "r05",
+      "same_slot_after_deterministic_normalization": true,
+      "values_differ": true
+    },
+    {
+      "control_type": "revision_positive",
+      "expected_control_pass": true,
+      "materialized_revision": {
+        "as_of_returns_older_value": true,
+        "change_chain": [
+          "3",
+          "4"
+        ],
+        "current_memory_id": "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24",
+        "current_returns_latest_value": true,
+        "current_status": "ACTIVE",
+        "current_value": "4",
+        "historical_status": "SUPERSEDED",
+        "historical_value": "3",
+        "older_memory_id": "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273"
+      },
+      "newer_or_second_record_id": "r04",
+      "normalized_slot_keys": {
+        "r01": [
+          "longmemeval:c4ea545c",
+          "self",
+          "recurring_frequency",
+          "fitness_activity",
+          "sessions_per_week",
+          "single_value_at_a_time"
+        ],
+        "r04": [
+          "longmemeval:c4ea545c",
+          "self",
+          "recurring_frequency",
+          "fitness_activity",
+          "sessions_per_week",
+          "single_value_at_a_time"
+        ]
+      },
+      "older_or_first_record_id": "r01",
+      "same_slot_after_deterministic_normalization": true,
+      "values_differ": true
+    },
+    {
+      "control_type": "coexistence_negative",
+      "expected_control_pass": true,
+      "materialized_revision": null,
+      "newer_or_second_record_id": "r06",
+      "normalized_slot_keys": {
+        "r02": [
+          "longmemeval:gpt4_e061b84g",
+          "self",
+          "search_intent",
+          "jewelry_store",
+          "searches",
+          "single_value_at_a_time"
+        ],
+        "r06": [
+          "longmemeval:gpt4_e061b84g",
+          "self",
+          "search_intent",
+          "running_shoes",
+          "searches",
+          "single_value_at_a_time"
+        ]
+      },
+      "older_or_first_record_id": "r02",
+      "same_slot_after_deterministic_normalization": false,
+      "values_differ": false
+    }
+  ],
+  "parent_proposal_audit_sha256": "b1d3de0d0c1e67ed7f0d2eb953f967c9132c414f2ec67a3d800becf94c24cc55",
+  "raw_proposal_artifact_sha256": "446e215c598faba4f62d455a07033153b134aec7f49136bc0b7da7ed9508426c",
+  "revision_positive_recall_after_normalization": 1.0,
+  "temporal_chains_materialized": 2
+}

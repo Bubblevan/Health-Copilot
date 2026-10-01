@@ -1,0 +1,75 @@
+[
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0
+    ],
+    "object_qualifier": "gym visits",
+    "record_id": "r01",
+    "state_dimension": "schedule",
+    "unit": "sessions_per_week",
+    "value": "3"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0
+    ],
+    "object_qualifier": "jewelry store",
+    "record_id": "r02",
+    "state_dimension": "search intent",
+    "unit": "searches",
+    "value": "1"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0
+    ],
+    "object_qualifier": "Instagram account",
+    "record_id": "r03",
+    "state_dimension": "follower count",
+    "unit": "followers",
+    "value": "600"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0
+    ],
+    "object_qualifier": "gym routine",
+    "record_id": "r04",
+    "state_dimension": "frequency",
+    "unit": "times_per_week",
+    "value": "4"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0
+    ],
+    "object_qualifier": "Instagram account",
+    "record_id": "r05",
+    "state_dimension": "follower count",
+    "unit": "followers",
+    "value": "500"
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "evidence_quote_indices": [
+      0,
+      1
+    ],
+    "object_qualifier": "running shoes",
+    "record_id": "r06",
+    "state_dimension": "search intent",
+    "unit": "searches",
+    "value": "1"
+  }
+]

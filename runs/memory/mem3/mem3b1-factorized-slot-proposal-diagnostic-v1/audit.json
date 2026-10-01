@@ -1,0 +1,89 @@
+{
+  "completion_tokens": 317,
+  "diagnostic_only": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "hosted_calls": 0,
+  "local_posts": 1,
+  "model_response_root": "array",
+  "proposal_sha256": "446e215c598faba4f62d455a07033153b134aec7f49136bc0b7da7ed9508426c",
+  "question_or_gold_in_prompt": false,
+  "reader_model": "health-memory-qwen3-8b",
+  "request_sha256": "5594f49bfca7cddddbb8392891867823e1aa130c1ddcbdd06dbbd5ae35a9ed33",
+  "response_envelope_contract_match": false,
+  "response_sha256": "1934aec73200a49355fc2758a0dab0bdc8ae9dd59e8f24dd0eb3e00b0dddb7c5",
+  "run_type": "post-failure DEV method iteration; same six records reused, no generalization claim",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "score": {
+    "coexistence_specificity": 1,
+    "false_revision_merges": 0,
+    "pair_accuracy": 0.6666666666666666,
+    "pair_checks": [
+      {
+        "class": "revision_positive",
+        "expected": "SAME_SINGLE_VALUE_SLOT",
+        "pair": [
+          "r03",
+          "r05"
+        ],
+        "pass": true,
+        "prediction": "SAME_SINGLE_VALUE_SLOT"
+      },
+      {
+        "class": "revision_positive",
+        "expected": "SAME_SINGLE_VALUE_SLOT",
+        "pair": [
+          "r01",
+          "r04"
+        ],
+        "pass": false,
+        "prediction": "COEXIST_NOT_REVISION"
+      },
+      {
+        "class": "coexistence_negative",
+        "expected": "COEXIST_NOT_REVISION",
+        "pair": [
+          "r02",
+          "r06"
+        ],
+        "pass": true,
+        "prediction": "COEXIST_NOT_REVISION"
+      }
+    ],
+    "positive_pair_recall": 0.5,
+    "record_coverage": 6,
+    "schema_pass": true
+  },
+  "source_records_sha256": "a7647c2a80b9311c9feb29d4e8e8fc567f4035ba40d5546e66d556140f0d7448",
+  "timestamps_in_prompt": false
+}

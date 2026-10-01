@@ -1,0 +1,36 @@
+{
+  "baseline_metrics": {
+    "f1": 0.21052631578947364,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.14285714285714285,
+    "token_recall": 0.4
+  },
+  "baseline_prediction": "The Jamaican dish recommended with snapper that has fruit in it is Escovitch Fish.",
+  "completion_tokens": 21,
+  "context_bundle_sha256": "5d60215ff8b0066a5b408ace5a2ffe8b66d5124b3d27385649c6cae258613379",
+  "context_reader_tokens_after": 519,
+  "context_reader_tokens_before": 2170,
+  "delta_f1": -0.02005012531328318,
+  "finish_reason": "stop",
+  "gold": "Grilled Snapper with Mango Salsa",
+  "infra_error_type": null,
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+  "question_id": "778164c6",
+  "question_type": "single-session-assistant",
+  "readable_projection_metrics": {
+    "f1": 0.19047619047619047,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.125,
+    "token_recall": 0.4
+  },
+  "readable_projection_prediction": "None. The provided context does not mention a specific Jamaican dish with snapper that includes fruit.",
+  "reader_latency_ms": 13389.464400010183,
+  "reader_prompt_tokens_after": 645,
+  "reader_prompt_tokens_before": 2296,
+  "reader_prompt_tokens_server": 645,
+  "request_sha256": "a72c39f57f4ac3c6dff09641f39db898cb5b9de92d157918c09a143d30010a55",
+  "response_sha256": "c86a564ef0d4f17dc0f5252086865a03616bfd05c1561db77fdf93eff36b798e",
+  "retrieval_unchanged": true
+}

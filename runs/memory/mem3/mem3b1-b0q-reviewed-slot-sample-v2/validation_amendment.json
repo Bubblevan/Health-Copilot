@@ -1,0 +1,656 @@
+{
+  "amendment_type": "parser_semantics_correction; raw model response unchanged",
+  "evaluation_key_sha256": "b9d308c2648b4a50f29d7475f0c8235b55a7782fc6199861019d22a26b02ab80",
+  "hosted_calls": 0,
+  "model_response_modified": false,
+  "nullable_unit_semantics": "JSON null is equivalent to unit=none because prompt allowed no unit",
+  "original_audit_sha256": "43b7da6ba01a0a820aff8d516bacc6472d8ff281528424882b594d19e9290e0c",
+  "original_schema_pass": false,
+  "proposal_sha256": "e43a07804dcb6c89c6a4319feee74500a0a0eede1a50630df7ff1b2acd4ed729",
+  "raw_response_sha256": "f9c55417ec00e59dfab36e34b6cd3e3c980567721f4225e6d872dacd1f3a36c8",
+  "score_after_reparse": {
+    "admission_precision": 0.42857142857142855,
+    "admission_recall": 0.6,
+    "false_admissions": 4,
+    "group_accuracy": 0.6,
+    "group_results": [
+      {
+        "normalized_keys": {
+          "r007": [
+            "longmemeval:06878be2",
+            "self",
+            "software_version",
+            "software",
+            "node",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r028": [
+            "longmemeval:06878be2",
+            "self",
+            "software_version",
+            "software",
+            "node",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": true,
+        "record_ids": [
+          "r007",
+          "r028"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "1850f7873fa93d9fc30c3b83e1a498e81783f500598e40b064c30372a1b0d892",
+        "source_memory_ids": [
+          "m10flat3-44f9d51bd6816d4bdda4266af1d5df1653b2b2dbb4ca732fc3748e42f0d1b2a3",
+          "m10flat3-ea28c6527c3c1b95779b6612b7aedd8ba2ef685da23c3cb5c2cbc51e49234173"
+        ],
+        "value_qualifiers": {
+          "r007": [],
+          "r028": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r001": [
+            "longmemeval:1c549ce4",
+            "self",
+            "organization_need",
+            "space",
+            "closet",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r004": [
+            "longmemeval:1c549ce4",
+            "self",
+            "organization_tool",
+            "tool",
+            "shoe_rack",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r027": [
+            "longmemeval:1c549ce4",
+            "self",
+            "organization_tool",
+            "tool",
+            "shoe_rack",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": false,
+        "record_ids": [
+          "r001",
+          "r004",
+          "r027"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "c8a2e683d2ae52be7a158cf2657f7b92bc48d3853ed61dbc5f130f89f71f4f97",
+        "source_memory_ids": [
+          "m10flat3-1094fce1832657c2fc6c8b12bb29611e296f1337eccec5dc9ce3fc4014bf6bef",
+          "m10flat3-2c55b1dc3fc6e02133423cb44ee10e62e4e5ac450d8c72336b4b223c25149c73",
+          "m10flat3-e278fac96fc2a9beb2aa11ca168e8e681ee5606e8280b3d194c0f3c7992096b9"
+        ],
+        "value_qualifiers": {
+          "r001": [],
+          "r004": [],
+          "r027": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r002": [
+            "longmemeval:a82c026e",
+            "self",
+            "recipe_interest",
+            "recipe",
+            "green_bean_dish",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r008": [
+            "longmemeval:a82c026e",
+            "self",
+            "recipe_interest",
+            "recipe",
+            "green_bean_dish",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": true,
+        "record_ids": [
+          "r002",
+          "r008"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "dd589eacff3687d9624baac92163d854c7628ea53d2e96b20ee5e22e17ee9d39",
+        "source_memory_ids": [
+          "m10flat3-109c87d235334ef0bf22a185151b62b88850d25f201bbe30f9e00d619196546c",
+          "m10flat3-4e8d81c647103077ac78a95262cf6960af6195eb5f3836fa696daf5abd997d69"
+        ],
+        "value_qualifiers": {
+          "r002": [
+            "macadamia nuts",
+            "shave jalapeños",
+            "dressing that tastes similar to Caesar salad"
+          ],
+          "r008": [
+            "macadamia nuts",
+            "shave jalapeños",
+            "dressing similar to Caesar salad"
+          ]
+        }
+      },
+      {
+        "normalized_keys": {
+          "r006": [
+            "longmemeval:1c549ce4",
+            "self",
+            "cleaning_plan",
+            "cleaning",
+            "center_console",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r026": [
+            "longmemeval:1c549ce4",
+            "self",
+            "cleaning_plan",
+            "cleaning",
+            "center_console",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": true,
+        "record_ids": [
+          "r006",
+          "r026"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "e3c7ec3dbdd82831ef3ea2bbbdbaeda866914a5b3bebd2d7b427f8471820112f",
+        "source_memory_ids": [
+          "m10flat3-31979be05335c78ee744b03b020fac504a4fedbb0a464e4e36ed7de8a6a05a87",
+          "m10flat3-de500f6cd7bf8c674dcf41c59ed98ad2b8d2d28b9f6ca1c73d7b6c0cdec5d145"
+        ],
+        "value_qualifiers": {
+          "r006": [],
+          "r026": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r021": [
+            "longmemeval:a82c026e",
+            "self",
+            "training_preference",
+            "training",
+            "training_mode",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r022": [
+            "longmemeval:a82c026e",
+            "self",
+            "training_interest",
+            "training",
+            "overwatch",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": false,
+        "record_ids": [
+          "r021",
+          "r022"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "d821a7fd4b46a97ceaf1d72e8195bdefc53c2bfb0cd90d83118ef18c0203b90f",
+        "source_memory_ids": [
+          "m10flat3-a9b8a26eb9a229550bdfc3fe654f76d345475afb694eda2ffae3fb38fd250a72",
+          "m10flat3-c05fc02bd3b0662780757b5cdcee12002de4d13e13fa2c32ac8b9609fa7d2d28"
+        ],
+        "value_qualifiers": {
+          "r021": [],
+          "r022": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r009": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "possession",
+            "vehicle",
+            "specialized_rockhopper",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r030": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "possession",
+            "vehicle",
+            "specialized_rockhopper",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": true,
+        "record_ids": [
+          "r009",
+          "r030"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "d1570c16cb9f9ba3e40fd288400222d114335bc75b3164e54f04e987f09e364a",
+        "source_memory_ids": [
+          "m10flat3-5aba1206a0429ef88f83852a32cfefdb026c81a9ef0957886d70676ad998e830",
+          "m10flat3-fc97dfb0eb1ae823b635614fb4943621542d170761aaaeff1224c283fd7fa62a"
+        ],
+        "value_qualifiers": {
+          "r009": [
+            "spare set of tires"
+          ],
+          "r030": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r005": [
+            "longmemeval:1c549ce4",
+            "self",
+            "project_type",
+            "project",
+            "sewing",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r010": [
+            "longmemeval:1c549ce4",
+            "self",
+            "design_preference",
+            "design",
+            "embroidery",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r005",
+          "r010"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "3041ecabe84b5401e60634b8ecf948fb1dad410e50fda69d43800fbe4a507053",
+        "source_memory_ids": [
+          "m10flat3-3147d3013d37d7586cad1e376f3fa67f2c0ea8688de94f115d8f167788ce4a05",
+          "m10flat3-5c7e92ad0d3b835c1d8d138dc62a1f2fe971d2e4961191c13a684867d6956617"
+        ],
+        "value_qualifiers": {
+          "r005": [],
+          "r010": [
+            "flowers",
+            "leaves"
+          ]
+        }
+      },
+      {
+        "normalized_keys": {
+          "r023": [
+            "longmemeval:fca70973",
+            "self",
+            "process_type",
+            "proces",
+            "daysculpting",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r024": [
+            "longmemeval:fca70973",
+            "self",
+            "process_type",
+            "proces",
+            "highlight_and_insight_review_process",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r023",
+          "r024"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "076061dbce569d1882c8923aa4441c1377bd502240ac675e4fdae72d6081fae9",
+        "source_memory_ids": [
+          "m10flat3-d9aea4d5367d84bdfd9dd0d25d765cbaf9cca900a2ee95cfaddb9a4156d16d12",
+          "m10flat3-da6090772ad4376cfd4fba5807c306ac2954dce03194e5dfb1de9f20757f4fdb"
+        ],
+        "value_qualifiers": {
+          "r023": [
+            "Morning Lift Process",
+            "Mid-Day Reconnect Process",
+            "Highlight and Insight Review Process"
+          ],
+          "r024": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r012": [
+            "longmemeval:1cea1afa",
+            "self",
+            "product_interest",
+            "product",
+            "bellroy",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r013": [
+            "longmemeval:1cea1afa",
+            "self",
+            "product_interest",
+            "product",
+            "wallet_brands",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r012",
+          "r013"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "b62370e4ab0fc219cab9cdac3d96a9ce5856869723c5d91311a1affaa0ff22e1",
+        "source_memory_ids": [
+          "m10flat3-6bf64f5a3015a730261f1c637ba2ea12afe2f702d213cc19bb4a94ca4e035186",
+          "m10flat3-6e9713b9b3dbf9e9a68e2a517821e5e20ff4f26159cb6196afdd54cfca4cb7c9"
+        ],
+        "value_qualifiers": {
+          "r012": [],
+          "r013": [
+            "slim and stylish designs"
+          ]
+        }
+      },
+      {
+        "normalized_keys": {
+          "r014": [
+            "longmemeval:06878be2",
+            "unknown",
+            "resolution_type",
+            "resolution",
+            "covered_joint_resolution",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r015": [
+            "longmemeval:06878be2",
+            "unknown",
+            "resolution_process",
+            "resolution",
+            "covered_joint_resolution",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r014",
+          "r015"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "6ae2b998ff0b9e3a491fb1025399666908b4736497664e9d96bd45b6e5232e7c",
+        "source_memory_ids": [
+          "m10flat3-6f0893aa71d9481ab90fc805a13775ba9025e3d6399824b517cf3a2cda045ccc",
+          "m10flat3-736beb5d6cfd201d42d96d1f7f4daff39a63a62ae98be0c128230bcd60794131"
+        ],
+        "value_qualifiers": {
+          "r014": [],
+          "r015": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r019": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "net_worth_status",
+            "net_worth",
+            "billionaire",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r020": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "net_worth_status",
+            "net_worth",
+            "billionaire",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": true,
+        "record_ids": [
+          "r019",
+          "r020"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "690d2485bc3b7860294f6c5d1d7a52278c20aaff67d05e8901e8d9c7919e64c3",
+        "source_memory_ids": [
+          "m10flat3-8aba58f49b0079b96052318ed3299a25e96d46eb55f13dadc5231b85044b4fc2",
+          "m10flat3-91003dfb5e3f2d78d9a4d4e554636a19c1311699ec35d272f23461b20b9c70e5"
+        ],
+        "value_qualifiers": {
+          "r019": [
+            "past 12 months"
+          ],
+          "r020": [
+            "declined in the past year"
+          ]
+        }
+      },
+      {
+        "normalized_keys": {
+          "r018": [
+            "longmemeval:a82c026e",
+            "self",
+            "product_disposal_interest",
+            "product",
+            "ugg_boots",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r029": [
+            "longmemeval:a82c026e",
+            "self",
+            "selling_interest",
+            "selling",
+            "ugg_boots",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r018",
+          "r029"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "b31a8ac27c50886a0309b9189e436bbb43fe4b2c861c5f16fbebc4117daedd65",
+        "source_memory_ids": [
+          "m10flat3-86bb6ee5944bd47c5d1a9a04d0512aeb84af5dcf3817ebb58062fe25a3ae9f68",
+          "m10flat3-eac45c4f7516242a2961b57d6202aea4d00d068cc0a0e120dfdc4bb9e6421751"
+        ],
+        "value_qualifiers": {
+          "r018": [],
+          "r029": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r016": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "recipe_interest",
+            "recipe",
+            "homemade_jam",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r031": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "recipe_interest",
+            "recipe",
+            "homemade_jam",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": true,
+        "record_ids": [
+          "r016",
+          "r031"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "42a57622bba21f64846ae8610b96f1a1a18fb785b8979897bcad70c7df566d05",
+        "source_memory_ids": [
+          "m10flat3-763f8d40825e3a740874c09e1db8ff96c96506597c12951179d8d31532764d8c",
+          "m10flat3-fdc0c3870adbc5997344ea8c90c0c24f48d3c40acd06cfbae58f44f74a510121"
+        ],
+        "value_qualifiers": {
+          "r016": [
+            "balance heat level of jalapeños with sweetness of pineapple"
+          ],
+          "r031": []
+        }
+      },
+      {
+        "normalized_keys": {
+          "r011": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "flavor_preference",
+            "flavor",
+            "gin_based_cocktails",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r025": [
+            "longmemeval:gpt4_f420262c",
+            "self",
+            "flavor_preference",
+            "flavor",
+            "gin_based_cocktails",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admission": true,
+        "record_ids": [
+          "r011",
+          "r025"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "fb8d529fd61178bdab6b66910ceb2d33e3d0eaa867003f39eeaae9d51df030a6",
+        "source_memory_ids": [
+          "m10flat3-5d7a726ca4d6ff074a09b45f2884bff67cf13f325df911aa4c99ae6ba50b4c8b",
+          "m10flat3-de4ebe4d7144f41723d26d57f0e79c2803429203be67d9389b7d0782b15282e3"
+        ],
+        "value_qualifiers": {
+          "r011": [],
+          "r025": [
+            "earthly",
+            "herbal"
+          ]
+        }
+      },
+      {
+        "normalized_keys": {
+          "r003": [
+            "longmemeval:8550ddae",
+            "self",
+            "financial_transaction",
+            "transaction",
+            "sister_s_necklace",
+            "usd",
+            "single_value_at_a_time"
+          ],
+          "r017": [
+            "longmemeval:8550ddae",
+            "self",
+            "possession",
+            "jewelry",
+            "tiffany_s",
+            "usd",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admission": false,
+        "record_ids": [
+          "r003",
+          "r017"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "8acd04d7fe362e65d9d5cdebc972e1466f031d741d867fde9d1b2f4c7cc3d384",
+        "source_memory_ids": [
+          "m10flat3-12c3cab099514f78c7c5b1e29c1af1ec679ef6dc986339234f3409cff6a2452d",
+          "m10flat3-860f4e0483e03948dd5e990f5d48318571025156af6fa627f51d5079f9ea1f90"
+        ],
+        "value_qualifiers": {
+          "r003": [],
+          "r017": [
+            "cost around $250"
+          ]
+        }
+      }
+    ],
+    "missed_true_slots": 2,
+    "n_groups": 15,
+    "n_records": 31,
+    "schema_pass": true,
+    "strata": {
+      "false_revision_merge": {
+        "accuracy": 0.8,
+        "correct": 4,
+        "n": 5,
+        "predicted_admissions": 1
+      },
+      "true_singleton_slot": {
+        "accuracy": 0.6,
+        "correct": 3,
+        "n": 5,
+        "predicted_admissions": 3
+      },
+      "uncertain": {
+        "accuracy": 0.4,
+        "correct": 2,
+        "n": 5,
+        "predicted_admissions": 3
+      }
+    },
+    "true_admissions": 3
+  }
+}

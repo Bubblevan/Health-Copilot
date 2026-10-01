@@ -1,0 +1,373 @@
+[
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "node",
+    "object_type": "software",
+    "record_id": "r028",
+    "state_dimension": "software_version",
+    "unit": null,
+    "value": "19.7.0",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "sewing",
+    "object_type": "project",
+    "record_id": "r005",
+    "state_dimension": "project_type",
+    "unit": null,
+    "value": "tote bag or zip pouch",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "embroidery",
+    "object_type": "design",
+    "record_id": "r010",
+    "state_dimension": "design_preference",
+    "unit": null,
+    "value": "simple designs",
+    "value_qualifiers": [
+      "flowers",
+      "leaves"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Bellroy",
+    "object_type": "product",
+    "record_id": "r012",
+    "state_dimension": "product_interest",
+    "unit": null,
+    "value": "Slim Sleeve",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Specialized Rockhopper",
+    "object_type": "vehicle",
+    "record_id": "r030",
+    "state_dimension": "possession",
+    "unit": null,
+    "value": "mountain bike",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Highlight and Insight Review Process",
+    "object_type": "process",
+    "record_id": "r024",
+    "state_dimension": "process_type",
+    "unit": null,
+    "value": "celebrate daily successes and reflect on areas for improvement",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "closet",
+    "object_type": "space",
+    "record_id": "r001",
+    "state_dimension": "organization_need",
+    "unit": null,
+    "value": "shoes",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "sister's necklace",
+    "object_type": "transaction",
+    "record_id": "r003",
+    "state_dimension": "financial_transaction",
+    "unit": "USD",
+    "value": "$250",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "shoe rack",
+    "object_type": "tool",
+    "record_id": "r004",
+    "state_dimension": "organization_tool",
+    "unit": null,
+    "value": "considering",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "gin-based cocktails",
+    "object_type": "flavor",
+    "record_id": "r025",
+    "state_dimension": "flavor_preference",
+    "unit": null,
+    "value": "flavored syrups",
+    "value_qualifiers": [
+      "earthly",
+      "herbal"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "homemade jam",
+    "object_type": "recipe",
+    "record_id": "r031",
+    "state_dimension": "recipe_interest",
+    "unit": null,
+    "value": "recipe ideas",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "UNKNOWN",
+    "object_qualifier": "covered joint resolution",
+    "object_type": "resolution",
+    "record_id": "r014",
+    "state_dimension": "resolution_type",
+    "unit": null,
+    "value": "joint resolution of disapproval",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "node",
+    "object_type": "software",
+    "record_id": "r007",
+    "state_dimension": "software_version",
+    "unit": null,
+    "value": "v19.7.0",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "center console",
+    "object_type": "cleaning",
+    "record_id": "r026",
+    "state_dimension": "cleaning_plan",
+    "unit": null,
+    "value": "this weekend",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Specialized Rockhopper",
+    "object_type": "vehicle",
+    "record_id": "r009",
+    "state_dimension": "possession",
+    "unit": null,
+    "value": "mountain bike",
+    "value_qualifiers": [
+      "spare set of tires"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "gin-based cocktails",
+    "object_type": "flavor",
+    "record_id": "r011",
+    "state_dimension": "flavor_preference",
+    "unit": null,
+    "value": "flavored syrups",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "billionaire",
+    "object_type": "net_worth",
+    "record_id": "r020",
+    "state_dimension": "net_worth_status",
+    "unit": null,
+    "value": "billionaire",
+    "value_qualifiers": [
+      "declined in the past year"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "DaySculpting",
+    "object_type": "process",
+    "record_id": "r023",
+    "state_dimension": "process_type",
+    "unit": null,
+    "value": "three daily segments",
+    "value_qualifiers": [
+      "Morning Lift Process",
+      "Mid-Day Reconnect Process",
+      "Highlight and Insight Review Process"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "homemade jam",
+    "object_type": "recipe",
+    "record_id": "r016",
+    "state_dimension": "recipe_interest",
+    "unit": null,
+    "value": "recipe ideas",
+    "value_qualifiers": [
+      "balance heat level of jalapeños with sweetness of pineapple"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "training mode",
+    "object_type": "training",
+    "record_id": "r021",
+    "state_dimension": "training_preference",
+    "unit": null,
+    "value": "flicks and circle jumps",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Overwatch",
+    "object_type": "training",
+    "record_id": "r022",
+    "state_dimension": "training_interest",
+    "unit": null,
+    "value": "improve aim",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Ugg boots",
+    "object_type": "product",
+    "record_id": "r018",
+    "state_dimension": "product_disposal_interest",
+    "unit": null,
+    "value": "sell or donate",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Tiffany's",
+    "object_type": "jewelry",
+    "record_id": "r017",
+    "state_dimension": "possession",
+    "unit": "USD",
+    "value": "silver necklace",
+    "value_qualifiers": [
+      "cost around $250"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "UNKNOWN",
+    "object_qualifier": "covered joint resolution",
+    "object_type": "resolution",
+    "record_id": "r015",
+    "state_dimension": "resolution_process",
+    "unit": null,
+    "value": "consideration of the covered joint resolution",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "shoe rack",
+    "object_type": "tool",
+    "record_id": "r027",
+    "state_dimension": "organization_tool",
+    "unit": null,
+    "value": "Whitmor shoe rack",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "wallet brands",
+    "object_type": "product",
+    "record_id": "r013",
+    "state_dimension": "product_interest",
+    "unit": null,
+    "value": "Bellroy and Fossil",
+    "value_qualifiers": [
+      "slim and stylish designs"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "Ugg boots",
+    "object_type": "selling",
+    "record_id": "r029",
+    "state_dimension": "selling_interest",
+    "unit": null,
+    "value": "price tips",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "center console",
+    "object_type": "cleaning",
+    "record_id": "r006",
+    "state_dimension": "cleaning_plan",
+    "unit": null,
+    "value": "this weekend",
+    "value_qualifiers": []
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "green bean dish",
+    "object_type": "recipe",
+    "record_id": "r008",
+    "state_dimension": "recipe_interest",
+    "unit": null,
+    "value": "create a green bean dish",
+    "value_qualifiers": [
+      "macadamia nuts",
+      "shave jalapeños",
+      "dressing similar to Caesar salad"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "green bean dish",
+    "object_type": "recipe",
+    "record_id": "r002",
+    "state_dimension": "recipe_interest",
+    "unit": null,
+    "value": "create a green bean dish",
+    "value_qualifiers": [
+      "macadamia nuts",
+      "shave jalapeños",
+      "dressing that tastes similar to Caesar salad"
+    ]
+  },
+  {
+    "cardinality": "SINGLE_VALUE_AT_A_TIME",
+    "entity": "SELF",
+    "object_qualifier": "billionaire",
+    "object_type": "net_worth",
+    "record_id": "r019",
+    "state_dimension": "net_worth_status",
+    "unit": null,
+    "value": "declined significantly",
+    "value_qualifiers": [
+      "past 12 months"
+    ]
+  }
+]

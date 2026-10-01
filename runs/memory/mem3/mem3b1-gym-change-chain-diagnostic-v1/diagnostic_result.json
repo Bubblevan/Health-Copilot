@@ -1,0 +1,39 @@
+{
+  "baseline_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "baseline_prediction": "None",
+  "change_chain_metrics": {
+    "f1": 0.1,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.05263157894736842,
+    "token_recall": 1.0
+  },
+  "change_chain_prediction": "Yes, you go to the gym more frequently than previously. Previously, you had 3 sessions per week, but now you have 4 sessions per week.",
+  "claim_boundary": "one frozen public LongMemEval DEV case; manually adjudicated slot; deterministic frequency normalization; no aggregate claim",
+  "context_items_after": 8,
+  "context_items_before": 8,
+  "context_reader_tokens_after": 1801,
+  "context_reader_tokens_before": 2125,
+  "current_frequency": "4 sessions/week (stated by user)",
+  "current_memory_id": "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24",
+  "delta_f1": 0.1,
+  "finish_reason": "stop",
+  "gold": "Yes",
+  "historical_frequency": "3 sessions/week (derived from three user-listed weekdays)",
+  "historical_memory_id": "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273",
+  "historical_state_preserved_for_change_query": true,
+  "quality_status": "OK",
+  "query_mode": "CHANGE",
+  "question": "Do I go to the gym more frequently than I did previously?",
+  "question_id": "c4ea545c",
+  "question_type": "knowledge-update",
+  "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_prompt_tokens_after_preflight": 1902,
+  "reader_prompt_tokens_after_server": 1902,
+  "reader_prompt_tokens_before": 2226,
+  "retrieval_unchanged": true
+}

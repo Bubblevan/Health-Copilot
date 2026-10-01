@@ -1,0 +1,12 @@
+{
+  "8081_slot_after_timeout": "not_processing; 309 output tokens decoded before client timeout",
+  "attribution": "probable local GPU contention; not a model-quality failure",
+  "classification": "INFRA_FAILURE",
+  "endpoint_health_after_timeout": "ok",
+  "failure_mode": "httpx_read_timeout",
+  "hosted_calls": 0,
+  "observed_device_state_after_timeout": "15.2/16.4 GiB GPU memory; 98% utilization; 8092 slot also processing",
+  "request_sha256": "7c27242c020ec4adc279fa4a97e24490f11f423cd560474586190c5412c7c864",
+  "response_artifact_created": false,
+  "timeout_seconds": 180
+}

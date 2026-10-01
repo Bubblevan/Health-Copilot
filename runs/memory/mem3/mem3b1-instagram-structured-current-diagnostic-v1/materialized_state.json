@@ -1,0 +1,70 @@
+{
+  "current_projection_memory_ids": [
+    "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+  ],
+  "historical_as_of_memory_ids": [
+    "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+  ],
+  "input_sha256": "00ac1b1d4e4508cfa053bba8d3616d25e03a1bf055a54b52b0ff0ba2e63bb849",
+  "output_sha256": "0d7d722a5b07def3dc546c2124014029e958e74b085f8d8bd57a0ca1e98de34a",
+  "records": [
+    {
+      "provenance_hashes": [
+        "4b9c061d363d1365a474524593ac38d37a953e26b9488b3f0b3e5c530601dd4b"
+      ],
+      "reason": null,
+      "record_id": "17ed13f197eb09d965bc2408871f10abfa1977b80d78abc8c078f7424e1ffbd2",
+      "slot_key": [
+        "longmemeval:1cea1afa",
+        "SELF",
+        "INSTAGRAM_ACCOUNT",
+        "FOLLOWER_COUNT"
+      ],
+      "source_memory_ids": [
+        "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+      ],
+      "source_session_ids": [
+        "answer_79c395a9_1"
+      ],
+      "source_turn_ids": [
+        "answer_79c395a9_1:0"
+      ],
+      "status": "SUPERSEDED",
+      "supersedes_id": null,
+      "supersedes_ids": [],
+      "valid_from": "2023-05-27T07:39:00Z",
+      "valid_until": "2023-05-28T22:57:00Z",
+      "value_text": "500 followers"
+    },
+    {
+      "provenance_hashes": [
+        "3e91bc05ef83f54dd6d50fa418ff624a2fe690913f05880134031ae30c908054"
+      ],
+      "reason": null,
+      "record_id": "f31757aa729e55448d410a0572f4333288a3f07f27750b44f0f5e304f2e5513c",
+      "slot_key": [
+        "longmemeval:1cea1afa",
+        "SELF",
+        "INSTAGRAM_ACCOUNT",
+        "FOLLOWER_COUNT"
+      ],
+      "source_memory_ids": [
+        "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124"
+      ],
+      "source_session_ids": [
+        "answer_79c395a9_2"
+      ],
+      "source_turn_ids": [
+        "answer_79c395a9_2:0"
+      ],
+      "status": "ACTIVE",
+      "supersedes_id": "17ed13f197eb09d965bc2408871f10abfa1977b80d78abc8c078f7424e1ffbd2",
+      "supersedes_ids": [
+        "17ed13f197eb09d965bc2408871f10abfa1977b80d78abc8c078f7424e1ffbd2"
+      ],
+      "valid_from": "2023-05-28T22:57:00Z",
+      "valid_until": null,
+      "value_text": "600 followers"
+    }
+  ]
+}

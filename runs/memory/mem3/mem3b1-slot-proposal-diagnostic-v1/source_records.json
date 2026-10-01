@@ -1,0 +1,69 @@
+{
+  "pair_labels_in_prompt": false,
+  "questions_or_gold_in_prompt": false,
+  "records": [
+    {
+      "memory_id": "m10flat3-5f18753132f42768234fb06a27d804fbe9e026fb5d76bac3d152fadd16345273",
+      "observed_at": "2023-06-01T09:48:00Z",
+      "proposition": "The user has workout days on Tuesday, Thursday, and Saturday.",
+      "record_id": "r01",
+      "scope_id": "longmemeval:c4ea545c",
+      "user_quotes": [
+        "I go to the gym on Tuesdays, Thursdays, and Saturdays."
+      ]
+    },
+    {
+      "memory_id": "m10flat3-a80d1402bb15f17230be593428f2c7fd53a81faab1827aa04003a62db2f39515",
+      "observed_at": "2023-06-17T14:36:00Z",
+      "proposition": "The user is looking for a nice jewelry store in the mall.",
+      "record_id": "r02",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "user_quotes": [
+        "I'm looking for a nice jewelry store in the mall."
+      ]
+    },
+    {
+      "memory_id": "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+      "observed_at": "2023-05-28T22:57:00Z",
+      "proposition": "The user has reached 600 followers on Instagram, which they consider a milestone.",
+      "record_id": "r03",
+      "scope_id": "longmemeval:1cea1afa",
+      "user_quotes": [
+        "By the way, I just checked and I'm now at 600 followers, which is a nice milestone!"
+      ]
+    },
+    {
+      "memory_id": "m10flat3-9145d242341cbefbade9c64d1ba786f6f51f87b458f792fe5e8261dc17cadc24",
+      "observed_at": "2023-08-15T20:17:00Z",
+      "proposition": "The user has a consistent gym routine, working out four times a week.",
+      "record_id": "r04",
+      "scope_id": "longmemeval:c4ea545c",
+      "user_quotes": [
+        "By the way, I'm thinking of rewarding myself with a post-workout smoothie on Saturday, since I've been consistent with my gym routine - four times a week, actually."
+      ]
+    },
+    {
+      "memory_id": "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a",
+      "observed_at": "2023-05-27T07:39:00Z",
+      "proposition": "The user has recently reached 500 followers on Instagram and is hoping to maintain that growth.",
+      "record_id": "r05",
+      "scope_id": "longmemeval:1cea1afa",
+      "user_quotes": [
+        "By the way, I just reached 500 followers last week, and I'm hoping to keep that momentum going."
+      ]
+    },
+    {
+      "memory_id": "m10flat3-0518b178b11f0b8a44f03955c8a094192bead2bd39b22e3248f73174813d4e3f",
+      "observed_at": "2023-06-10T16:13:00Z",
+      "proposition": "The user is looking for new running shoes for racing.",
+      "record_id": "r06",
+      "scope_id": "longmemeval:gpt4_e061b84g",
+      "user_quotes": [
+        "I'm looking for some new running shoes.",
+        "Can you recommend some good running shoes for racing?"
+      ]
+    }
+  ],
+  "source_run": "mem3a3r-recursive-flatprop-frozen-10-20260929",
+  "timestamps_in_prompt": false
+}

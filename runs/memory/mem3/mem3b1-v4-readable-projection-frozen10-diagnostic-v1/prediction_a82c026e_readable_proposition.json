@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "The user has beaten the last boss in the Dark Souls 3 DLC after weeks of trying.",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2136,
+  "context_reader_tokens_v4": 514,
+  "finish_reason": "stop",
+  "gold": "Dark Souls 3 DLC",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "What game did I finally beat last weekend?",
+  "question_id": "a82c026e",
+  "question_type": "single-session-user",
+  "reader_latency_ms": 2382.9482999863103,
+  "reader_prompt_tokens_server": 636,
+  "reader_prompt_tokens_v3_raw": 2233,
+  "reader_prompt_tokens_v4": 636,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "7ccf756db9c4bd50bf49e8a29e101b4aeb6d3253763da5c6bca9b302223fcf19",
+  "response_sha256": "8fcc22e403049d31fdb952525ed6e0761e6dd94aab1229a278edb18db6f21d51",
+  "retrieval_unchanged": true
+}

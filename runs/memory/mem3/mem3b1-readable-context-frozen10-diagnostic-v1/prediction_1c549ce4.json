@@ -1,0 +1,36 @@
+{
+  "baseline_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "baseline_prediction": "None",
+  "completion_tokens": 2,
+  "context_bundle_sha256": "601d5f1a25abfa8314a19f419213d355aeea00412eca1a223d628c35cbfabd18",
+  "context_reader_tokens_after": 455,
+  "context_reader_tokens_before": 1919,
+  "delta_f1": 0.0,
+  "finish_reason": "stop",
+  "gold": "$140",
+  "infra_error_type": null,
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "What is the total cost of the car cover and detailing spray I purchased?",
+  "question_id": "1c549ce4",
+  "question_type": "multi-session",
+  "readable_projection_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "readable_projection_prediction": "None",
+  "reader_latency_ms": 1787.339000031352,
+  "reader_prompt_tokens_after": 558,
+  "reader_prompt_tokens_before": 2022,
+  "reader_prompt_tokens_server": 558,
+  "request_sha256": "92200bb533f75c2b1139b58dfd248815e0bb85753c6fcedbf0073773dbf4a586",
+  "response_sha256": "e1462415030c01c55e8341ac009cfd9cfdb337c935f82f7c5ae0f350114a6046",
+  "retrieval_unchanged": true
+}

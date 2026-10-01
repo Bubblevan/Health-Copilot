@@ -1,0 +1,36 @@
+{
+  "baseline_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "baseline_prediction": "None",
+  "completion_tokens": 3,
+  "context_bundle_sha256": "1236e73e26ace07946a1f4e62b09de9a6e1c192c20d506142e482890452838ca",
+  "context_reader_tokens_after": 492,
+  "context_reader_tokens_before": 2125,
+  "delta_f1": 0.0,
+  "finish_reason": "stop",
+  "gold": "Yes",
+  "infra_error_type": null,
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "Do I go to the gym more frequently than I did previously?",
+  "question_id": "c4ea545c",
+  "question_type": "knowledge-update",
+  "readable_projection_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "readable_projection_prediction": "None.",
+  "reader_latency_ms": 2950.2418000483885,
+  "reader_prompt_tokens_after": 593,
+  "reader_prompt_tokens_before": 2226,
+  "reader_prompt_tokens_server": 593,
+  "request_sha256": "66a057cb5e8fe9022f907c3a740e1c2f2408e2bc2ff6df196f73cda13a999c23",
+  "response_sha256": "cff5b08c01aba1dfc4f5f40dea2780184a60fe6558eab3f7ced51d376f6311b2",
+  "retrieval_unchanged": true
+}

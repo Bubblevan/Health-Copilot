@@ -1,0 +1,57 @@
+{
+  "context_projection_sha256": "63a05078648ccad4ac1169cfcc90dd8aeb9fad4a277a0c9df8516e7352601865",
+  "embedding_model": "NONE (reused frozen retrieval output)",
+  "hosted_calls": 0,
+  "judge_model": "NONE",
+  "local_posts_authorized": 1,
+  "materialized_state_sha256": "3748fd166f0e8d07d01607a96db070732585e9a641898d5f51cdbf3df9964821",
+  "memory_system": "FlatProp + source-grounded deterministic revision materializer + CHANGE projection",
+  "query_mode": "CHANGE",
+  "question_id": "c4ea545c",
+  "reader_contract_sha256": "57d3df897a1cf20a6ab0277e4dca3b6ad58cc0348e2057aacfffb1a8184535e3",
+  "reader_model": "health-memory-qwen3-8b",
+  "reader_role": "answer model",
+  "request_file_sha256": "ce449a16af7398efab51d37e4714515a9fbbf947b44ad3af11fdda8af49cc9c3",
+  "request_sha256": "14167bba462900fc864220b3bd5a198b7d8d62b0b203929d1cbe42a8e06384b5",
+  "run_id": "mem3b1-gym-change-chain-diagnostic-v1",
+  "runtime_preflight": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "source_hashes": {
+    "context_bundles.jsonl": "54d05a1583604a05fe46f73380114cbd70871bbe3336346d8dcb11da73dbd187",
+    "flatprop_inventory.jsonl": "250a24a10b532cb01bd841b965511df019fc0e597ec1e85ee12d7830c166c5fe",
+    "materialization_ledger.jsonl": "b04e0f1e646657c152e864fa6b701ab4e7ccc4290fa767597c720105296699e0",
+    "predictions.jsonl": "4b1c1afcf4d92b9fcd094693f7644e1fec5cad3be4dde36566649af9c49239e8",
+    "reader_call_ledger.jsonl": "c9c2a329ebf2d5e5cdda7e5254e5e3e9a40ee789d9fc34f6445e4c75f59b2bf2"
+  },
+  "status": "ONE_LOCAL_POST_RESERVED"
+}

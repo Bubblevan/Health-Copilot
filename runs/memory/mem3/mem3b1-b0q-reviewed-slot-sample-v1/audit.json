@@ -1,0 +1,569 @@
+{
+  "completion_tokens": 1546,
+  "diagnostic_only": true,
+  "endpoint": "http://127.0.0.1:8081/v1",
+  "hosted_calls": 0,
+  "local_posts": 1,
+  "model_response_root": "array",
+  "proposal_sha256": "21fdb20a484079183975f594ab310dcdd4f54c2027054d8f2157036df7bc731e",
+  "question_or_gold_in_prompt": false,
+  "reader_model": "health-memory-qwen3-8b",
+  "request_sha256": "6d3449aee28e4a1dc137dc72f16124de736d1a55e6fb244ff5b4d8948d4b8dee",
+  "response_sha256": "35a843277b8611d71104c09876358ac5ecbb2e211d474bfe74d0363f15ad700a",
+  "review_group_membership_in_prompt": false,
+  "review_labels_in_prompt": false,
+  "run_type": "stable stratified sample from previously reviewed groups; development diagnostic only",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "hosted_api_calls": 0,
+    "llama_server_hash_note": "protected WinGet binary unreadable in sandbox; expected SHA256 carried from frozen startup pin",
+    "llama_server_process_id": 73952,
+    "llama_server_sha256_active": null,
+    "llama_server_sha256_active_verified": false,
+    "llama_server_sha256_expected": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "llama_server_version": "b10068-571d0d540",
+    "loopback_only": true,
+    "reader_model": "health-memory-qwen3-8b",
+    "reader_model_role": "answer model",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "required_api_key": "NONE",
+    "runtime_args_verified": {
+      "--cache-type-k": "q4_0",
+      "--cache-type-v": "q4_0",
+      "--ctx-size": "131072",
+      "--flash-attn": "on",
+      "--host": "127.0.0.1",
+      "--n-gpu-layers": "99",
+      "--parallel": "1",
+      "--port": "8081",
+      "--rope-scale": "4",
+      "--rope-scaling": "yarn",
+      "--yarn-orig-ctx": "32768"
+    },
+    "served_model_ids": [
+      "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+    ],
+    "served_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+  },
+  "scope_in_prompt": false,
+  "score": {
+    "admission_precision": 1.0,
+    "admission_recall": 0.8,
+    "false_admissions": 0,
+    "group_accuracy": 0.9333333333333333,
+    "group_results": [
+      {
+        "normalized_keys": {
+          "r018": [
+            "longmemeval:06878be2",
+            "self",
+            "product_creation",
+            "seasonal_line_of_candles",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r024": [
+            "longmemeval:06878be2",
+            "self",
+            "product_creation",
+            "seasonal_line_of_candles",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": true,
+        "record_ids": [
+          "r018",
+          "r024"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "dbab0df89f184b6c3a6be8b2a70cde4b6b9ca3383b7994e4f9eb44d1464845ce",
+        "source_memory_ids": [
+          "m10flat3-839d7245b8ab2f19d818230477a191b6c2a1595f0c284b4afaafc0d2b19b3357",
+          "m10flat3-bdbad5883a34d03045fe1f3568b125c905edd02fba0b483fd0435f48a2de802d"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r015": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "technical_issue",
+            "laptop_connectivity",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r023": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "technical_issue",
+            "laptop_connectivity",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": true,
+        "record_ids": [
+          "r015",
+          "r023"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "6c324f4f91817bd857a3b0a0e11da800bd279b18f9b039f5254f7b8c54a38d96",
+        "source_memory_ids": [
+          "m10flat3-69748050354f99f286c579590d456a4ba88110255b14d86c2c9bfa735796e18e",
+          "m10flat3-b75de95c3e4c04dfb7ee2686273ab79a9c8ce8ae3e0d04fe9e2f643c0136dad1"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r014": [
+            "longmemeval:1cea1afa",
+            "self",
+            "usage_frequency",
+            "backpack",
+            "day",
+            "single_value_at_a_time"
+          ],
+          "r029": [
+            "longmemeval:1cea1afa",
+            "self",
+            "usage_frequency",
+            "backpack",
+            "day",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": true,
+        "record_ids": [
+          "r014",
+          "r029"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "fc7a53115299a830dbc1cd3c7fd9a6d34c2d5baebe10a794370717fac4ac2eb1",
+        "source_memory_ids": [
+          "m10flat3-63f5e713c30659944a0ba4db71d5a5d49a5fcf9e3250c1e2f450fad247018620",
+          "m10flat3-ec1394f07fded922baad2556e90d1e1047b8ea038a888a4ebc5a1b14fc09f055"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r021": [
+            "longmemeval:1cea1afa",
+            "self",
+            "health_status",
+            "ankle",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r025": [
+            "longmemeval:1cea1afa",
+            "self",
+            "health_status",
+            "ankle",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": true,
+        "record_ids": [
+          "r021",
+          "r025"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "5ce4a75fdd5cce8921f6cbc0bb0c34868935677455227880cd84cc0b522f5574",
+        "source_memory_ids": [
+          "m10flat3-ac6f1a93415d06ca77b8d035b4c02c631f52801f68e70ee805ced80dbf0f4fa5",
+          "m10flat3-c12d5bc00d0b3cdef71e25acb6309684e5ce1d5c4c74c3f6d64980209bf161ab"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r026": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "interest",
+            "family_friendly_attractions",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r027": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "interest",
+            "child_friendly_attractions",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": false,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r026",
+          "r027"
+        ],
+        "review_label": "true_singleton_slot",
+        "revision_slot_id": "baa450b9ee82165024cc6ccd07e661109d2606d4b33c9fbeb41ec2dd4359a5e1",
+        "source_memory_ids": [
+          "m10flat3-c656af184d1514917dd6ab32e2ee2aed7401d2f54241aca6223c9e047d671a7e",
+          "m10flat3-dd0a649adfacc64ee988cb2a7da60a96cc09d8d00473df68d0f97dfac32f2067"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r011": [
+            "longmemeval:1cea1afa",
+            "self",
+            "purchase_intent",
+            "laptop",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r028": [
+            "longmemeval:1cea1afa",
+            "self",
+            "storage_capacity",
+            "laptop",
+            "gb",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r011",
+          "r028"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "fed21d9fb12101b0124851bc05cf854bfa932f63627647dc08ce897f408d8fad",
+        "source_memory_ids": [
+          "m10flat3-54e26c4e3de0c5d087c2baf96ab14c3ac99d21cf5d54b8118e18eb73a17a68fe",
+          "m10flat3-e3e1b6c1e36b67404fe8aaa0ef0e67ef179a9062f307fedb580b3d255edf6c6f"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r001": [
+            "longmemeval:778164c6",
+            "self",
+            "historical_consequence",
+            "thirty_years_war",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r006": [
+            "longmemeval:778164c6",
+            "self",
+            "historical_consequence",
+            "30_years_war",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r001",
+          "r006"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "d39c82a6132bffceb2245d8bc7ec87bf8c287f534f243d5aee86e4c56abb0032",
+        "source_memory_ids": [
+          "m10flat3-07765a209b44a7f1b229186028d7349df04d0a33d77ac6312d17404a303d3e16",
+          "m10flat3-322ac0d0704f8742a29cdd7c0afd9234b9b6e80180959180da98cce694126f7d"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r005": [
+            "longmemeval:8550ddae",
+            "self",
+            "possession",
+            "pair_of_ankle_boots",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r009": [
+            "longmemeval:8550ddae",
+            "self",
+            "shopping_interest",
+            "h_m_store",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r005",
+          "r009"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "76a51fed62bcdcff918bad963aa4e5c99aad9d121f5761aadc23791384c1a304",
+        "source_memory_ids": [
+          "m10flat3-24a686fdcbedaa6adc6a60ff1bd947bbd58f0485f8aaad5c0c657b51dcf126d0",
+          "m10flat3-46908e1cbd011a35b8e874462b01ceeb64102805eef054cc6fda350206b3a506"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r007": [
+            "longmemeval:a82c026e",
+            "self",
+            "event_organization",
+            "online_workshop",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r022": [
+            "longmemeval:a82c026e",
+            "self",
+            "emotional_reaction",
+            "academic_writing_formats",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r007",
+          "r022"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "4c727cc26a526ac772849c461ccc554ec486c020ecba60032a76be01c1b6915f",
+        "source_memory_ids": [
+          "m10flat3-38ebada858e70638ee5bd04630a06b1dc999b1871ccaaabbc1526144dd00c698",
+          "m10flat3-b5cd95413145a194652bfc1c8d9a5f1aa4d66d7a16b6521deeb1d09d6ec15b3c"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r004": [
+            "longmemeval:778164c6",
+            "self",
+            "message_selection",
+            "first_message",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r013": [
+            "longmemeval:778164c6",
+            "self",
+            "theme_selection",
+            "gift_basket",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r004",
+          "r013"
+        ],
+        "review_label": "false_revision_merge",
+        "revision_slot_id": "cf2145285ac6d1c8f56cae12ce85b3bc75f7a9f247a9826c2121e59934246e48",
+        "source_memory_ids": [
+          "m10flat3-204f17dc50c818a16b4e2304053e275b15847829fdf00325929f96fb79d92412",
+          "m10flat3-63e8081d3e3401e25a840d51e607f92fa57d10ecdde687da53096b6116faec55"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r020": [
+            "longmemeval:fca70973",
+            "self",
+            "requirement",
+            "dough_consistency",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r030": [
+            "longmemeval:fca70973",
+            "self",
+            "recipe_interest",
+            "homemade_ravioli",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r020",
+          "r030"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "5b23d10f185b299beded7c300db0d21b7c2fc8ae311c3511cca7cb106aa2f5d6",
+        "source_memory_ids": [
+          "m10flat3-a86a834be196b329d9afc232090166a935979dfcef5bae2801b14bad15af933e",
+          "m10flat3-ecb4a6c86521aa624b2485ac3784ffd1c2b75aaedbc8334b79165c6bec70b893"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r008": [
+            "longmemeval:1c549ce4",
+            "self",
+            "recipe_interest",
+            "fall_themed_baking_recipes",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r012": [
+            "longmemeval:1c549ce4",
+            "self",
+            "recipe_creation",
+            "savory_scone",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r008",
+          "r012"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "7139f97cb7473baddbc2861a9f641bad25a0b9e46a5d5464381078c4a84d8f6a",
+        "source_memory_ids": [
+          "m10flat3-4145f6a29bbd508bacf3a97506926dfc42d553dad8d9eb9c84e0d179804b53ee",
+          "m10flat3-61e3a7a372625e40c0b3505cd73e4ea8ca92bf1db453167f4150da87abf1ba0b"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r002": [
+            "longmemeval:06878be2",
+            "self",
+            "purchase_intent",
+            "baby_gym_brands",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r019": [
+            "longmemeval:06878be2",
+            "self",
+            "purchase_intent",
+            "baby_gym_or_playmat",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r002",
+          "r019"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "f9d1b5fd109b1eea44f4c0a63303c4d1d9a1aa882be4f83a052b24ffab1e97ab",
+        "source_memory_ids": [
+          "m10flat3-169086ddf99a6cd2d947f4b37f003506e73a9fb1a86a8e77b7505d1890fef72a",
+          "m10flat3-86e8345fa264a10a54b5cd88b09ca02ff6fbce1a922ca0436bd4a90d2a1885c2"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r003": [
+            "longmemeval:1cea1afa",
+            "self",
+            "interest",
+            "literature_themes",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r016": [
+            "longmemeval:1cea1afa",
+            "self",
+            "interest",
+            "book_themes",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r003",
+          "r016"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "515a8a605f96729500abfa7d90734e0849370230d1246c790c0ec888d9c57683",
+        "source_memory_ids": [
+          "m10flat3-1817b5ac87b83af125e99f174a74e6fa6377f50c9131a3a6852775d26d040fb8",
+          "m10flat3-6afb6dbf01629c3d6b03bb9d62b6e07cc9b140d9468121e1840da807a9102d9d"
+        ]
+      },
+      {
+        "normalized_keys": {
+          "r010": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "modification_intent",
+            "hat",
+            "none",
+            "single_value_at_a_time"
+          ],
+          "r017": [
+            "longmemeval:gpt4_e061b84g",
+            "self",
+            "product_creation",
+            "seasonal_line_of_candles",
+            "none",
+            "single_value_at_a_time"
+          ]
+        },
+        "pass": true,
+        "predicted_admit_as_single_value_slot": false,
+        "record_ids": [
+          "r010",
+          "r017"
+        ],
+        "review_label": "uncertain",
+        "revision_slot_id": "5a4090c910d5d4de244cfc03c17d53ba474e0dcff4cd7c331c551fa680ee4bb7",
+        "source_memory_ids": [
+          "m10flat3-48fae2a6a7ce2c9c3141d517e5011bbbcdb5e32120ebd8018330cd1932677f30",
+          "m10flat3-7f5837852b353bda84577fdee8b2e957707da022a683d8f1d25a7331891f8442"
+        ]
+      }
+    ],
+    "missed_true_slots": 1,
+    "n_groups": 15,
+    "n_records": 30,
+    "schema_pass": true,
+    "strata": {
+      "false_revision_merge": {
+        "accuracy": 1.0,
+        "correct": 5,
+        "n": 5,
+        "predicted_admissions": 0
+      },
+      "true_singleton_slot": {
+        "accuracy": 0.8,
+        "correct": 4,
+        "n": 5,
+        "predicted_admissions": 4
+      },
+      "uncertain": {
+        "accuracy": 1.0,
+        "correct": 5,
+        "n": 5,
+        "predicted_admissions": 0
+      }
+    },
+    "true_admissions": 4
+  },
+  "source_hashes": {
+    "admitted_slot_human_review_sha256": "6c261644ed7ab455deac4332e364457d3907de1c1186abccb1f5baf95b746ed8",
+    "eligible_records_sha256": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+    "revision_slot_manifest_sha256": "7ba23005bea2f2d80706297d3e63c10d66417b7dfb57ebb2a56c234100b1c91d"
+  },
+  "source_records_sha256": "ccf88502d71924e350b3ae9a7096591fd2afb0d7eacc1efbb81b37a53a4ca0a0",
+  "timestamps_in_prompt": false
+}

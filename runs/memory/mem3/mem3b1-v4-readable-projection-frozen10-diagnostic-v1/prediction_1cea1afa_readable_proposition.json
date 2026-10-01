@@ -1,0 +1,29 @@
+{
+  "baseline_v3_prediction_coordinate": "None",
+  "completion_tokens": 2,
+  "context_reader_tokens_v3_raw": 2170,
+  "context_reader_tokens_v4": 502,
+  "finish_reason": "stop",
+  "gold": "600",
+  "infra_error_type": null,
+  "mode": "readable_proposition",
+  "prompt_tokens_match": true,
+  "quality_status": "OK",
+  "question": "How many Instagram followers do I currently have?",
+  "question_id": "1cea1afa",
+  "question_type": "knowledge-update",
+  "reader_latency_ms": 2425.948900054209,
+  "reader_prompt_tokens_server": 624,
+  "reader_prompt_tokens_v3_raw": 2267,
+  "reader_prompt_tokens_v4": 624,
+  "reader_v4_metrics": {
+    "f1": 0.0,
+    "normalized_exact_match": 0.0,
+    "token_precision": 0.0,
+    "token_recall": 0.0
+  },
+  "reader_v4_prediction": "None",
+  "request_sha256": "60842f9d7813000adfa843fe8151622e8a1aad1ce069710ee02108c7b9805467",
+  "response_sha256": "7b2397c58d0d969e223a4c7b964c41b27e16860fa51af8f6490c020fa2b02ff8",
+  "retrieval_unchanged": true
+}
