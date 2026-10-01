@@ -39,6 +39,7 @@ NUMBER_TOKEN = re.compile(r"(?<![\w.-])-?\d+(?![\w.])")
 ALIAS_TOKEN = re.compile(r"\[E\d+\]")
 FLOW_ARMS = ("VANILLA_STRONG", "CFEC_STRONG")
 PRIMARY_CLASS = "RAG"
+STRONG_RETRIEVAL_ARMS = frozenset({"VANILLA_STRONG", "CFEC_STRONG"})
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -339,8 +340,20 @@ def _observed_values(answer: str, truth: dict[str, Any]) -> tuple[str, ...]:
     return tuple(values)
 
 
+def _retrieval_contract_failed(arm: str, bridge: dict[str, Any]) -> bool:
+    if arm not in STRONG_RETRIEVAL_ARMS:
+        return False
+    return not (
+        bridge.get("valid") is True
+        and bridge.get("completed") is True
+        and bridge.get("fallback_original_query") is False
+        and bridge.get("truncated") is False
+    )
+
+
 def _score_arm(
-    *, truth: dict[str, Any], runtime_arm: dict[str, Any], visible_ids: set[str]
+    *, truth: dict[str, Any], runtime_arm: dict[str, Any], visible_ids: set[str],
+    retrieval_contract_failure: bool = False,
 ) -> dict[str, Any]:
     answer = str(runtime_arm.get("answer", ""))
     used = set(runtime_arm.get("used_evidence_ids", ()))
@@ -357,11 +370,13 @@ def _score_arm(
         and int(runtime_arm.get("claim_output_contract_failures", 0)) == 0
         and not runtime_arm.get("unknown_aliases", ())
     )
+    retrieval_contract_pass = not retrieval_contract_failure
+    execution_contract_pass = output_contract_pass and retrieval_contract_pass
 
     if not answerable:
         observed: tuple[str, ...] = ()
         answer_value_correct = answer == "INSUFFICIENT_EVIDENCE"
-        task_success = answer_value_correct and not used and output_contract_pass
+        task_success = answer_value_correct and not used and execution_contract_pass
     else:
         observed = _observed_values(answer, truth)
         answer_type = truth["answer_type"]
@@ -373,7 +388,7 @@ def _score_arm(
             answer_value_correct = (
                 set(observed) == set(expected) and len(observed) == len(set(observed))
             )
-        task_success = answer_value_correct and not missing_resources and output_contract_pass
+        task_success = answer_value_correct and not missing_resources and execution_contract_pass
 
     provenance_pass = used.issubset(ranked) and used.issubset(visible_ids)
     full_resource_grounding = not missing_resources
@@ -399,6 +414,9 @@ def _score_arm(
         "citation_present": bool(used),
         "output_contract_failure": bool(runtime_arm.get("output_contract_failure")),
         "output_contract_pass": output_contract_pass,
+        "retrieval_contract_failure": bool(retrieval_contract_failure),
+        "retrieval_contract_pass": retrieval_contract_pass,
+        "execution_contract_pass": execution_contract_pass,
         "claim_output_contract_failures": int(runtime_arm.get("claim_output_contract_failures", 0)),
         "unknown_alias_count": len(runtime_arm.get("unknown_aliases", ())),
     }
@@ -414,6 +432,7 @@ def _aggregate(rows: list[dict[str, Any]], arm: str) -> dict[str, Any]:
         "task_success", "grounded_task_success", "grounding_pass", "provenance_pass",
         "answer_value_correct", "answer_value_coverage", "external_evidence_coverage",
         "citation_present", "output_contract_failure", "output_contract_pass",
+        "retrieval_contract_failure", "retrieval_contract_pass", "execution_contract_pass",
     )
     result: dict[str, Any] = {"count": len(observations)}
     for name in metric_names:
@@ -516,6 +535,9 @@ def score_partition(
                 truth=truth,
                 runtime_arm=runtime_row["arms"][arm],
                 visible_ids=visible_docs[episode_id],
+                retrieval_contract_failure=_retrieval_contract_failed(
+                    arm, runtime_row.get("retrieval_bridge", {})
+                ),
             )
             for arm in ARM_ORDER
         }

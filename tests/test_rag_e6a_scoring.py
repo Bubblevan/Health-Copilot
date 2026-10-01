@@ -10,6 +10,7 @@ from eval.rag_e6.scoring import (
     _load_build_truth_slice,
     _load_partition_truth_slice,
     _paired_cluster_bootstrap,
+    _retrieval_contract_failed,
     _score_arm,
 )
 
@@ -153,15 +154,17 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
     assert lock["frozen_dev_truth_opened"] is False
 
     build_manifest["generator"]["generation_calls_truncated"] = 1
-    with pytest.raises(ValueError, match="truncated model call"):
-        create_protocol_lock(
-            build_manifest=build_manifest,
-            build_report=build_report,
-            build_manifest_sha256="manifest-sha",
-            build_report_sha256="report-sha",
-            scored_rows_sha256="scores-sha",
-            method_code_commit="abc123",
-        )
+    lock_with_truncation = create_protocol_lock(
+        build_manifest=build_manifest,
+        build_report=build_report,
+        build_manifest_sha256="manifest-sha",
+        build_report_sha256="report-sha",
+        scored_rows_sha256="scores-sha",
+        method_code_commit="abc123",
+    )
+    assert lock_with_truncation["build_selection_evidence"]["generation_health"][
+        "truncated"
+    ] == 1
     build_manifest["generator"]["generation_calls_truncated"] = 0
 
     build_report["development_gate"]["primary_build_ci_lower_above_zero"] = False
@@ -244,6 +247,45 @@ def test_output_contract_failure_cannot_count_as_task_success() -> None:
     assert not scored["output_contract_pass"]
     assert not scored["task_success"]
     assert not scored["grounded_task_success"]
+
+
+def test_failed_retrieval_contract_cannot_count_as_task_success() -> None:
+    truth = {
+        "answer_values": ["SYNVAL-0123456789"],
+        "answer_type": "EXACT_TOKEN",
+        "capability_requirement_oracle": {"answerability": True},
+        "required_memory_record_ids": [],
+        "required_external_evidence_ids": ["DOC-1"],
+    }
+    scored = _score_arm(
+        truth=truth,
+        runtime_arm={
+            "answer": "SYNVAL-0123456789 [E1]",
+            "used_evidence_ids": ["DOC-1"],
+            "ranked_evidence_ids": ["DOC-1"],
+        },
+        visible_ids={"DOC-1"},
+        retrieval_contract_failure=True,
+    )
+    assert scored["answer_value_correct"]
+    assert scored["output_contract_pass"]
+    assert scored["retrieval_contract_failure"]
+    assert not scored["execution_contract_pass"]
+    assert not scored["task_success"]
+    assert not scored["grounded_task_success"]
+
+
+def test_invalid_lamer_bridge_fails_only_strong_retrieval_arms() -> None:
+    invalid_bridge = {
+        "valid": False,
+        "completed": False,
+        "fallback_original_query": True,
+        "truncated": True,
+    }
+    assert _retrieval_contract_failed("VANILLA_STRONG", invalid_bridge)
+    assert _retrieval_contract_failed("CFEC_STRONG", invalid_bridge)
+    assert not _retrieval_contract_failed("VANILLA_STANDARD", invalid_bridge)
+    assert not _retrieval_contract_failed("CFEC_STANDARD", invalid_bridge)
 
 
 def test_subject_cluster_bootstrap_is_paired_and_reproducible() -> None:
