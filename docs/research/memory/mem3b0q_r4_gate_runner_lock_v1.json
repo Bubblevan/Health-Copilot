@@ -5,7 +5,7 @@
   "runner_path": "tools/research/memory/run_mem3b0q_r4_gate.py",
   "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
   "runtime_preflight_amendment_path": "docs/research/memory/mem3b0q_r4_runtime_preflight_amendment_v1.md",
-  "runtime_preflight_amendment_sha256": "c28b0755771c7dce1ae9cb7d95b5873245d0b5b3f8a6c87115e0826b60aa559e",
+  "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
   "sampler_parser_before": "NOT_VERIFIED",
   "sampler_trace_correlation": {
     "all_prefill_lines_must_be_in_unique_interval": true,

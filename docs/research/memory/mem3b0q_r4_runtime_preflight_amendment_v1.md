@@ -4,7 +4,7 @@ Status: `REVIEW_REQUIRED`; applies only to runtime-preflight evidence for the fr
 
 ## Finding
 
-The frozen protocol's runtime table names `/slots` as the source for sampler defaults before and after each completion. The pinned llama.cpp `10068 / 571d0d540` server does not expose sampler defaults in its `/slots` payload. The idle slot response reports slot/runtime state such as slot id, processing state, and context length; it has no `params` object. A runner that reads sampler values from `/slots` therefore cannot verify the frozen defaults and must not treat missing values as a mismatch or silently substitute an unverified source.
+The frozen protocol's runtime table names `/slots` as the source for sampler defaults before and after each completion. The pinned llama.cpp `10068 / 571d0d540` server does not expose global sampler defaults in its `/slots` payload. Before the first task, an idle slot response reports slot/runtime state such as slot id, processing state, and context length, and has no `params` object. After a task has completed, slot serialization may include `task_prev.params` from that previous request; these are request-specific historical parameters, not global defaults. A runner therefore must not infer global sampler defaults from `/slots`, whether `params` is absent or present.
 
 ## Authoritative Mapping
 
@@ -23,7 +23,7 @@ Continue using `/slots` for the separate facts it actually exposes: exactly one 
 
 ## Preflight And Postflight
 
-Immediately before the request, `/props` is authoritative for launch-time global sampler defaults and `/slots` is authoritative for slot count, idle state, and slot context. Immediately after the request, repeat both observations and require them to satisfy the same frozen values; additionally require the process snapshot to remain identical. Postflight does not claim that `/slots` exposes request-resolved sampler parameters or proves a slot-local parameter snapshot. The exact request body and its SHA-256 remain the evidence for per-request overrides; the correlated server trace remains the evidence for sampler initialization.
+Immediately before the request, `/props` is authoritative for launch-time global sampler defaults and `/slots` is authoritative for slot count, idle state, and slot context. Immediately after the request, repeat both observations and require them to satisfy the same frozen values; additionally require the process snapshot to remain identical. A postflight `/slots` record may contain the just-completed request's `task_prev.params`; those fields are not read as global defaults and do not replace the `/props` check. Postflight does not claim that `/slots` exposes a slot-local parameter snapshot. The exact request body and its SHA-256 remain the evidence for per-request overrides; the correlated server trace remains the evidence for sampler initialization.
 
 Any absent/malformed `/props` sampler field, default mismatch, `/slots` shape/state mismatch, process change, or endpoint error is a fail-closed preflight/runtime failure. Do not infer defaults from `/slots`, user-facing UI settings, or remembered launch configuration.
 
