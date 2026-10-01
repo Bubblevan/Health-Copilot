@@ -41,6 +41,17 @@ API_BASE = b0p_runner.API_BASE
 MODEL_SHA256 = b0p_runner.EXPECTED_MODEL_SHA256
 MAX_COMPLETION_TOKENS = 8192
 TIMEOUT_SECONDS = 900
+EXPECTED_RUNTIME = {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "llama_cpp_build": "10068 (571d0d540)",
+    "llama_server_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+    "model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "context_tokens": 131072,
+    "n_gpu_layers": 99,
+    "flash_attn": "on",
+    "cache_type_k": "q4_0",
+    "cache_type_v": "q4_0",
+}
 
 RECORD_SELECTORS = {
     "instagram_600": "has reached 600 followers on Instagram",
@@ -241,6 +252,80 @@ def prepare() -> dict[str, Any]:
     return result
 
 
+def _code_identity() -> dict[str, str]:
+    return {
+        "runner": _sha_file(Path(__file__)),
+        "span_identity": _sha_file(Path(span_identity.__file__)),
+        "runtime_verifier": _sha_file(Path(b0p_runner.__file__)),
+    }
+
+
+def _preflight_paths() -> list[Path]:
+    return sorted(RUN_DIR.glob("runtime_preflight_attempt_*.json"))
+
+
+def preflight() -> dict[str, Any]:
+    attempts = _preflight_paths()
+    attempt_number = len(attempts) + 1
+    path = RUN_DIR / f"runtime_preflight_attempt_{attempt_number:03d}.json"
+    runtime: dict[str, Any] | None = None
+    failure: str | None = None
+    with httpx.Client(timeout=httpx.Timeout(20.0, connect=3.0), trust_env=False) as client:
+        try:
+            runtime = b0p_runner._verify_runtime(client)
+        except (
+            b0p_runner.IntegrityFailure,
+            httpx.HTTPError,
+            OSError,
+            subprocess.SubprocessError,
+            ValueError,
+            KeyError,
+            TypeError,
+        ) as exc:
+            failure = f"{type(exc).__name__}:{exc}"
+    passed = runtime is not None
+    result = {
+        "schema_version": 1,
+        "stage": RUN_ID,
+        "attempt": attempt_number,
+        "status": "PREFLIGHT_PASS" if passed else "PREFLIGHT_BLOCKED",
+        "expected_runtime": EXPECTED_RUNTIME,
+        "observed_runtime": runtime,
+        "failure": failure,
+        "code_sha256": _code_identity(),
+        "model_generation_calls": 0,
+        "hosted_calls": 0,
+        "api_key_required": False,
+        "memory_store_mutations": 0,
+    }
+    _freeze(path, _json_bytes(result))
+    print(
+        json.dumps(
+            {
+                "status": result["status"],
+                "failure": failure,
+                "model_generation_calls": 0,
+                "preflight_artifact": path.name,
+            },
+            sort_keys=True,
+        )
+    )
+    return result
+
+
+def _latest_preflight() -> dict[str, Any]:
+    paths = _preflight_paths()
+    if not paths:
+        raise PilotError("runtime_preflight_required_before_generation")
+    latest = paths[-1]
+    result = _read_frozen_json(latest)
+    if result.get("status") != "PREFLIGHT_PASS":
+        raise PilotError(f"runtime_preflight_blocked:{result.get('failure')}")
+    if result.get("code_sha256") != _code_identity():
+        raise PilotError("runner_code_changed_after_runtime_preflight")
+    return result
+
+
 def _token_count(client: httpx.Client, text: str) -> int:
     response = client.post(
         "http://127.0.0.1:8081/tokenize",
@@ -254,6 +339,7 @@ def _token_count(client: httpx.Client, text: str) -> int:
 
 
 def generate() -> dict[str, Any]:
+    _latest_preflight()
     inputs = _read_jsonl(INPUT_PATH)
     if len(inputs) != 19:
         raise PilotError("frozen_proposal_input_count_mismatch")
@@ -307,9 +393,7 @@ def generate() -> dict[str, Any]:
         "proposal_inputs_sha256": _verify_file(INPUT_PATH),
         "protocol_sha256": _verify_file(PROTOCOL_PATH),
         "code_sha256": {
-            "runner": _sha_file(Path(__file__)),
-            "span_identity": _sha_file(Path(span_identity.__file__)),
-            "runtime_verifier": _sha_file(Path(b0p_runner.__file__)),
+            **_code_identity(),
         },
         "runtime": {
             **runtime,
@@ -365,11 +449,7 @@ def analyze() -> dict[str, Any]:
     manifest = _read_frozen_json(RUN_MANIFEST_PATH)
     if manifest.get("status") != "PROPOSALS_FROZEN_AWAITING_DIAGNOSTIC_JOIN":
         raise PilotError("proposals_not_frozen_before_analysis")
-    if manifest.get("code_sha256") != {
-        "runner": _sha_file(Path(__file__)),
-        "span_identity": _sha_file(Path(span_identity.__file__)),
-        "runtime_verifier": _sha_file(Path(b0p_runner.__file__)),
-    }:
+    if manifest.get("code_sha256") != _code_identity():
         raise PilotError("code_changed_after_proposal_freeze")
     proposals = _read_jsonl(PROPOSALS_PATH)
     cases = _read_frozen_json(CASE_PATH)
@@ -461,10 +541,12 @@ def analyze() -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=("prepare", "generate", "analyze"))
+    parser.add_argument("stage", choices=("prepare", "preflight", "generate", "analyze"))
     args = parser.parse_args()
     if args.stage == "prepare":
         prepare()
+    elif args.stage == "preflight":
+        preflight()
     elif args.stage == "generate":
         generate()
     else:
