@@ -4,7 +4,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+# Match run_build.py's import precedence so inherited runtime source paths are
+# identical during BUILD and scoring, even when an external checkout is on
+# PYTHONPATH.
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 
 from eval.rag_e6.scoring import (
     BUILD_ROOT,
