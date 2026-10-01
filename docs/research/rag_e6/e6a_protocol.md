@@ -125,9 +125,18 @@ The internal positive gate is at least +10 percentage points, subject-clustered
 grounding pass. The pre-registered utilization contrast is task success among
 episodes for which all required external evidence is in the supplied top-10; its
 positive threshold is also +10 pp. These are project gates, not literature
-standards. A protocol lock additionally requires zero truncated model calls.
-A failed gate authorizes no reserved-test materialization and no prompt iteration
-on FROZEN_DEV.
+standards. Truncated, malformed, failed, or fallback LameR bridge calls are
+recorded and fail the affected arm's task-success contract; their frequency is
+retained in the frozen generation-health report. A single such call does not
+invalidate an otherwise complete run, and no output is retried or repaired.
+A failed BUILD gate authorizes no FROZEN_DEV lock or reserved-test materialization.
+
+Protocol clarification before BUILD scoring: an earlier implementation added
+an all-or-nothing zero-truncation requirement to the method lock. This was
+removed because truncation is already a per-call, fail-closed task outcome; the
+extra run-level condition was not part of the registered uplift gates and would
+discard otherwise fully scored runs. No prompt, model, retrieval, output budget,
+or success metric changed in this clarification.
 
 Subject-clustered bootstrap: 10,000 resamples, seed `20260930`. Report task
 success, grounded task success, grounding/provenance pass, external-evidence
@@ -180,12 +189,14 @@ open evaluator truth.
 `build_v4` uses `CFEC-v1.3`: every call, across every arm, is capped at 512 output
 tokens; the parser accepts exactly one `FINAL:` line; unknown aliases invalidate
 the output; CFEC final citations must come from validated claims; and truncated,
-failed, or malformed calls fail closed in task-success scoring. The protocol lock
-also refuses any BUILD with a truncated generation call. This version executes
-all five arms on the same frozen BUILD subjects and evidence. Only after its
-complete run passes the pre-registered gate will the code/protocol be committed
-and locked, followed by FROZEN_DEV execution and scoring. A failed FROZEN_DEV gate
-means no reserved TEST/OOD materialization.
+failed, or malformed calls fail closed for the affected arm. The LameR bridge is
+also validated as a retrieval-stage contract; a missing, truncated, invalid, or
+fallback bridge makes both STRONG arms unsuccessful for that episode. These
+events remain counted in generation health and are not retried. This version
+executes all five arms on the same frozen BUILD subjects and evidence. Only after
+its complete run passes the pre-registered gate will the code/protocol be
+committed and locked, followed by FROZEN_DEV execution and scoring. A failed
+FROZEN_DEV gate means no reserved TEST/OOD materialization.
 
 ## Method positioning
 
