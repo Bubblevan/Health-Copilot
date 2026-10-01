@@ -1,0 +1,217 @@
+{
+  "admission_counts": {
+    "UNANCHORED_CHANGE_MENTION": 5
+  },
+  "benchmark_performance_claim": false,
+  "change_mention_projection_count": 5,
+  "current_successor_projection_count": 5,
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "diagnostic_only": true,
+  "first_person_assertion_span_validated_count": 5,
+  "limitations": [
+    "The five cases are hand-selected change mentions from DEV, not a random evaluation sample.",
+    "Prior-value linking uses exact case-insensitive text matching only; semantic aliases are not resolved.",
+    "Corpus session timestamps do not declare a timezone; UTC tagging is a deterministic ordering convention only.",
+    "Projection behavior is a contract demonstration, not answer accuracy or a benchmark score.",
+    "AS_OF before an unanchored predecessor interval is deliberately unresolved; the old value remains available only in CHANGE context with provenance."
+  ],
+  "model_calls": 0,
+  "pre_change_as_of_unresolved_count": 5,
+  "quality_accuracy": null,
+  "question_or_gold_decoded": false,
+  "rows": [
+    {
+      "admission_kind": "UNANCHORED_CHANGE_MENTION",
+      "admission_reason": "no_unique_earlier_same_slot_old_value_observation",
+      "as_of_day_before_projection": {
+        "reason": "predecessor_interval_not_independently_anchored",
+        "status": "UNRESOLVED",
+        "valid_from": null,
+        "value_text": null
+      },
+      "change_projection": {
+        "new_value_text": "soap bars",
+        "occurred_at": "2023-11-02T22:43:00Z",
+        "old_value_text": "liquid soap",
+        "predecessor_memory_id": null,
+        "predecessor_status": "UNANCHORED_CHANGE_MENTION",
+        "source_turn_id": "031748ae:user-turn-151",
+        "status": "CHANGE_MENTION"
+      },
+      "current_projection": {
+        "source_turn_id": "031748ae:user-turn-151",
+        "status": "CURRENT",
+        "valid_from": "2023-11-02T22:43:00Z",
+        "value_text": "soap bars"
+      },
+      "new_value_text": "soap bars",
+      "old_value_text": "liquid soap",
+      "owner_assertion_evidence": "I've actually started buying soap bars instead of liquid soap, and I've opted for shampoo and conditioner bars as well",
+      "prior_exact_anchor_candidate_count": 0,
+      "question_id": "031748ae",
+      "slot_key": [
+        "scope:031748ae",
+        "SELF",
+        "PERSONAL_CARE",
+        "SOAP_FORMAT"
+      ],
+      "source_position": 151,
+      "source_turn_sha256": "e36a6a661941bdfe84a63f2b33bd486d81c5392d9a0b2204c8c4b7b22ecd6731"
+    },
+    {
+      "admission_kind": "UNANCHORED_CHANGE_MENTION",
+      "admission_reason": "no_unique_earlier_same_slot_old_value_observation",
+      "as_of_day_before_projection": {
+        "reason": "predecessor_interval_not_independently_anchored",
+        "status": "UNRESOLVED",
+        "valid_from": null,
+        "value_text": null
+      },
+      "change_projection": {
+        "new_value_text": "cardboard or paper packaging",
+        "occurred_at": "2023-11-02T22:43:00Z",
+        "old_value_text": "plastic",
+        "predecessor_memory_id": null,
+        "predecessor_status": "UNANCHORED_CHANGE_MENTION",
+        "source_turn_id": "031748ae:user-turn-151",
+        "status": "CHANGE_MENTION"
+      },
+      "current_projection": {
+        "source_turn_id": "031748ae:user-turn-151",
+        "status": "CURRENT",
+        "valid_from": "2023-11-02T22:43:00Z",
+        "value_text": "cardboard or paper packaging"
+      },
+      "new_value_text": "cardboard or paper packaging",
+      "old_value_text": "plastic",
+      "owner_assertion_evidence": "I've also been choosing products with cardboard or paper packaging instead of plastic",
+      "prior_exact_anchor_candidate_count": 0,
+      "question_id": "031748ae",
+      "slot_key": [
+        "scope:031748ae",
+        "SELF",
+        "PRODUCT_PREFERENCE",
+        "PACKAGING_MATERIAL"
+      ],
+      "source_position": 151,
+      "source_turn_sha256": "e36a6a661941bdfe84a63f2b33bd486d81c5392d9a0b2204c8c4b7b22ecd6731"
+    },
+    {
+      "admission_kind": "UNANCHORED_CHANGE_MENTION",
+      "admission_reason": "no_unique_earlier_same_slot_old_value_observation",
+      "as_of_day_before_projection": {
+        "reason": "predecessor_interval_not_independently_anchored",
+        "status": "UNRESOLVED",
+        "valid_from": null,
+        "value_text": null
+      },
+      "change_projection": {
+        "new_value_text": "riding my bike to the grocery store on weekends",
+        "occurred_at": "2023-05-27T07:54:00Z",
+        "old_value_text": "driving",
+        "predecessor_memory_id": null,
+        "predecessor_status": "UNANCHORED_CHANGE_MENTION",
+        "source_turn_id": "1cea1afa:user-turn-43",
+        "status": "CHANGE_MENTION"
+      },
+      "current_projection": {
+        "source_turn_id": "1cea1afa:user-turn-43",
+        "status": "CURRENT",
+        "valid_from": "2023-05-27T07:54:00Z",
+        "value_text": "riding my bike to the grocery store on weekends"
+      },
+      "new_value_text": "riding my bike to the grocery store on weekends",
+      "old_value_text": "driving",
+      "owner_assertion_evidence": "I've started taking short walks during my lunch break at work, and I've also been riding my bike to the grocery store on weekends instead of driving",
+      "prior_exact_anchor_candidate_count": 0,
+      "question_id": "1cea1afa",
+      "slot_key": [
+        "scope:1cea1afa",
+        "SELF",
+        "WEEKEND_TRAVEL",
+        "GROCERY_TRANSPORT"
+      ],
+      "source_position": 43,
+      "source_turn_sha256": "08e15cebd9973ca92b4afe0100408e67d23d5d8244eca48fc72539d123bc091b"
+    },
+    {
+      "admission_kind": "UNANCHORED_CHANGE_MENTION",
+      "admission_reason": "no_unique_earlier_same_slot_old_value_observation",
+      "as_of_day_before_projection": {
+        "reason": "predecessor_interval_not_independently_anchored",
+        "status": "UNRESOLVED",
+        "valid_from": null,
+        "value_text": null
+      },
+      "change_projection": {
+        "new_value_text": "2:30 pm",
+        "occurred_at": "2023-05-04T11:22:00Z",
+        "old_value_text": "3 pm",
+        "predecessor_memory_id": null,
+        "predecessor_status": "UNANCHORED_CHANGE_MENTION",
+        "source_turn_id": "4d6b87c8:user-turn-30",
+        "status": "CHANGE_MENTION"
+      },
+      "current_projection": {
+        "source_turn_id": "4d6b87c8:user-turn-30",
+        "status": "CURRENT",
+        "valid_from": "2023-05-04T11:22:00Z",
+        "value_text": "2:30 pm"
+      },
+      "new_value_text": "2:30 pm",
+      "old_value_text": "3 pm",
+      "owner_assertion_evidence": "I've actually been having my tea break a bit earlier these days, at 2:30 pm instead of 3 pm, and it seems to be working better for me",
+      "prior_exact_anchor_candidate_count": 0,
+      "question_id": "4d6b87c8",
+      "slot_key": [
+        "scope:4d6b87c8",
+        "SELF",
+        "DAILY_ROUTINE",
+        "TEA_BREAK_TIME"
+      ],
+      "source_position": 30,
+      "source_turn_sha256": "1d539a2860dcd3ee0957709fa670569db7ba6f3bf97e67939719b6ae2420ebfc"
+    },
+    {
+      "admission_kind": "UNANCHORED_CHANGE_MENTION",
+      "admission_reason": "no_unique_earlier_same_slot_old_value_observation",
+      "as_of_day_before_projection": {
+        "reason": "predecessor_interval_not_independently_anchored",
+        "status": "UNRESOLVED",
+        "valid_from": null,
+        "value_text": null
+      },
+      "change_projection": {
+        "new_value_text": "walking to the train station",
+        "occurred_at": "2023-05-30T12:35:00Z",
+        "old_value_text": "taking the bus",
+        "predecessor_memory_id": null,
+        "predecessor_status": "UNANCHORED_CHANGE_MENTION",
+        "source_turn_id": "a1eacc2a:user-turn-156",
+        "status": "CHANGE_MENTION"
+      },
+      "current_projection": {
+        "source_turn_id": "a1eacc2a:user-turn-156",
+        "status": "CURRENT",
+        "valid_from": "2023-05-30T12:35:00Z",
+        "value_text": "walking to the train station"
+      },
+      "new_value_text": "walking to the train station",
+      "old_value_text": "taking the bus",
+      "owner_assertion_evidence": "By the way, I've been walking to the train station instead of taking the bus, and I've been feeling more energized and alert since I started doing this",
+      "prior_exact_anchor_candidate_count": 0,
+      "question_id": "a1eacc2a",
+      "slot_key": [
+        "scope:a1eacc2a",
+        "SELF",
+        "DAILY_TRAVEL",
+        "TRIP_TO_TRAIN_STATION"
+      ],
+      "source_position": 156,
+      "source_turn_sha256": "5f78012feca77f11a25ec4dcda9b40a853723a9a5fce19d59d3169cb3c7c405c"
+    }
+  ],
+  "scope": "five source-reviewed change mentions from frozen DEV knowledge-update user histories",
+  "split_manifest_sha256": "931c288caeb27d5a3f4ab3463b11013f217f3f4c9973098f057f85c1edb4e686",
+  "timestamp_policy": "corpus date labels are parsed as timezone-naive and tagged UTC solely for deterministic ordering; no user timezone is inferred"
+}

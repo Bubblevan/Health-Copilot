@@ -47,6 +47,23 @@ Reproduction artifacts:
 - `runs/memory/mem3/mem3b1-dev-alternative-cue-audit-v2/`
 - `tools/research/memory/audit_mem3b1_dev_change_predecessor_anchors_v1.py`
 - `runs/memory/mem3/mem3b1-dev-change-predecessor-anchor-audit-v1/`
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v1/`
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v2/`
+
+## Change-Mention Admission Diagnostic
+
+An eval-layer policy now separates an explicit source-grounded change mention from an anchored revision. The owner assertion evidence must be a unique source span containing both values and a first-person marker; a unique earlier observation for the same typed slot and old value is then required before linking a predecessor. Absent that, the successor can still become CURRENT, CHANGE can expose the source-grounded old→new mention with its unanchored status, and AS_OF before the change remains unresolved. This keeps the current answer useful without manufacturing a historical interval. The sentence-level first-person guard is not a nested-quotation detector; upstream source-role filtering still owns that boundary.
+
+On the five manually reviewed DEV change mentions, the contract validated first-person evidence spans 5/5, routed 5/5 to `UNANCHORED_CHANGE_MENTION`, projected the successor into current context 5/5, returned unresolved for pre-change AS_OF 5/5, and preserved the change mention 5/5. These are deterministic policy outcomes on selected inputs, not accuracy metrics or benchmark wins. Session timestamps are tagged UTC only for stable ordering; the corpus does not provide a user timezone.
+
+Implementation and run evidence:
+
+- `health_ai_copilot/research/memory/change_mention_admission_v1.py`
+- `tools/research/memory/run_mem3b1_dev_change_mention_admission_v1.py`
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v1/` (initial run capture)
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v2/`
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v3/`
+- `runs/memory/mem3/mem3b1-dev-change-mention-admission-v4/` (sentence-scoped owner evidence)
 
 ## Method Decision
 
@@ -58,7 +75,7 @@ The next evaluation set should come from frozen LongMemEval-S DEV `knowledge-upd
 
 `MEM3B1_SLOT_ADMISSION_READY=NO`
 
-Current focused-run evidence: the v1 model proposed 0 transitions; the 17-history narrow cue audit found 1 explicit time-replacement candidate; the broader audit found 5/37 explicit adopted personal-state change mentions and one task-plan change mention; the follow-up found 0/5 earlier exact old-value anchors for the five state-change mentions. These audits score neither semantic revision-chain quality nor answer accuracy. The full-history v2 and candidate-only v3 local reader calls produced infrastructure failures on the shared Vulkan reader. Regression tests are being extended around the revised evidence boundary.
+Current focused-run evidence: the v1 model proposed 0 transitions; the 17-history narrow cue audit found 1 explicit time-replacement candidate; the broader audit found 5/37 explicit adopted personal-state change mentions and one task-plan change mention; the follow-up found 0/5 earlier exact old-value anchors. The admission diagnostic handled the five unanchored mentions without exposing the old value as a dated AS_OF fact. These audits score neither semantic revision-chain quality nor answer accuracy. The full-history v2 and candidate-only v3 local reader calls produced infrastructure failures on the shared Vulkan reader. The focused regression tests now cover the amended policy boundary.
 
 Evidence reviewed:
 
