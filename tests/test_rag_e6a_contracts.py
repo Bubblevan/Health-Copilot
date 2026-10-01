@@ -16,8 +16,10 @@ from eval.rag_e6.llm import (
 )
 from eval.rag_e6.reader import (
     assign_requirement_ids,
+    claim_prompt,
     claims_used_evidence,
     composer_prompt,
+    decompose_prompt,
     evidence_identity_sha256,
     final_citations_match_claims,
     issue_evidence_aliases,
@@ -118,8 +120,10 @@ def test_reader_prompts_align_citation_location_with_final_parser() -> None:
     assert "same FINAL line" in vanilla
     assert "Never write a bare alias" in vanilla
     assert "citations only before the FINAL line" in vanilla
-    composer = composer_prompt("Question?", ())
+    composer = composer_prompt("Question?", (), (("req_1", "Requested fact"),))
     assert "aliases on the FINAL line" in composer
+    assert "req_1: Requested fact" in composer
+    assert "preserve every distinct supported requested value or fact" in composer
 
 
 def test_requirement_ids_are_harness_owned_and_capped() -> None:
@@ -194,11 +198,22 @@ def test_final_composer_receives_claims_but_not_raw_evidence() -> None:
         requirement_id="req_1",
         evidence=issue_evidence_aliases([{"doc_id": "secret-doc-id", "text": "RAW DOCUMENT BODY"}]),
     )[0][0]
-    prompt = composer_prompt("Question?", (claim,))
+    prompt = composer_prompt("Question?", (claim,), (("req_1", "Requested fact"),))
     assert "Supported claim" in prompt
     assert "[E1]" in prompt
+    assert "req_1: Requested fact" in prompt
     assert "RAW DOCUMENT BODY" not in prompt
     assert "secret-doc-id" not in prompt
+
+
+def test_cfec_prompts_target_requested_information_and_ignore_distractor_rows() -> None:
+    evidence = issue_evidence_aliases([{"doc_id": "doc-a", "text": "A table."}])
+    decomposition = decompose_prompt("Question?")
+    claim = claim_prompt("Requested entity and value", evidence)
+    assert "Merge paraphrases or repeated requests" in decomposition
+    assert "Exclude instructions about style, formatting, citations" in decomposition
+    assert "ignore unrelated rows, keys, and distractor values" in claim
+    assert "preserving exact tokens, names, and value-to-entity relationships" in claim
 
 
 def test_no_requirements_or_invalid_claims_fail_closed_without_new_ids() -> None:

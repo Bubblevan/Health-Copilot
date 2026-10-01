@@ -21,7 +21,7 @@ def create_protocol_lock(
     scored_rows_sha256: str,
     method_code_commit: str,
 ) -> dict[str, Any]:
-    """Freeze strict-output CFEC-v1.3 only after its BUILD gate passes."""
+    """Freeze strict-output CFEC-v1.4 only after its BUILD gate passes."""
     gate = build_report.get("development_gate", {})
     if (
         build_manifest.get("partition") != "BUILD"
@@ -33,7 +33,7 @@ def create_protocol_lock(
         or build_report.get("frozen_dev_truth_opened") is not False
         or any(gate.get(name) is not True for name in LOCKED_BUILD_GATES)
     ):
-        raise ValueError("CFEC-v1.3 cannot be frozen unless the complete BUILD gate passes")
+        raise ValueError("CFEC-v1.4 cannot be frozen unless the complete BUILD gate passes")
 
     generator = build_manifest.get("generator", {})
     attempted = int(generator.get("generation_calls_attempted", 0))
@@ -65,7 +65,7 @@ def create_protocol_lock(
 
     return {
         "schema_version": "rag-e6a-protocol-lock-v1",
-        "selected_method": "CFEC-v1.3",
+        "selected_method": "CFEC-v1.4",
         "primary_arm": "CFEC_STRONG",
         "primary_comparator": "VANILLA_STRONG",
         "secondary_arm": "CFEC_STANDARD",
