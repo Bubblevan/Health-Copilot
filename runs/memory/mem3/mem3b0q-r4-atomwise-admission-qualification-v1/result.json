@@ -1,0 +1,100 @@
+{
+  "actual_model_response_replay": {
+    "admitted_atoms": 1,
+    "atomwise_status": "PARTIAL",
+    "case_id": "R4C-05",
+    "exact_expected_atom_multiset_match": true,
+    "expected_atoms": 1,
+    "prior_response_sha256": "6f5fe736323fbda57edaf785d149c5d1a7b13ef9621986d24b1594249e575a8e",
+    "quarantined": [
+      {
+        "reason": "JointBindingError:atom_0:value_crosses_typed_anchor",
+        "source_atom_index": 1
+      }
+    ],
+    "quarantined_atoms": 1,
+    "strict_document_accepts": false
+  },
+  "clinical_content": false,
+  "evaluation_scope": "FROZEN_SYNTHETIC_CONTROLS_ONLY",
+  "frozen_r4_oracle_control_pack": {
+    "case_count": 20,
+    "exact_expected_results": 20,
+    "expected_atom_count": 15,
+    "quarantined_atoms": 0
+  },
+  "hosted_calls": 0,
+  "input_sha256": {
+    "atomwise_adapter": "e5198c4d0cf79f3080d23495082a4e23b42d276b7557ea4a20565925f80fd2e0",
+    "candidate_builder": "361c0e8d1aae1020f8ad76f973c586bd17bf7c19a1d71482e6c1d36c42cf243d",
+    "candidate_control_pack": "60bd21aac6037ab067c601a594f4619203a47e23ef02692e52876ac5fa9f6ef7",
+    "frozen_r4_control_pack": "281464afccf1c189485837bc2763f0b6c2f10e9ea226a80eff63e87b01d2bd5c",
+    "joint_guard_v2": "3afb34c01bc67797aa9b8c4eb8535e2de94718984df3c3efad371be32d4d256b",
+    "joint_guard_v3": "7ebd54f85c25d6253f679599964fe4a919fb56a6dd70ffe2033539cd43e5c588",
+    "prior_smoke_request": "6e8ba6d5b563c5df4430bb8f22616909ce0775ae86ae3aef6d8ddfbf121fa653",
+    "prior_smoke_response": "6f5fe736323fbda57edaf785d149c5d1a7b13ef9621986d24b1594249e575a8e",
+    "prior_smoke_result": "7a378420c1a9f10122f74bb108cfcf2e42d615d5bd859532098077592b2e14d1"
+  },
+  "limitations": [
+    "The two injected cases are deterministic negative-control corruptions, not model outputs.",
+    "The one recorded model response is development evidence and is not an unbiased generalization estimate.",
+    "No public LongMemEval or Memora benchmark was run.",
+    "Admission remains proposal validation only; no revision materializer or MemoryStore write is tested."
+  ],
+  "memory_store_mutations": 0,
+  "method": {
+    "duplicate_atom_policy": "keep_first_quarantine_later_exact_duplicates",
+    "failure_granularity_changed": true,
+    "invalid_atom_policy": "quarantine_atom_keep_valid_siblings",
+    "per_atom_validators_changed": false,
+    "version": "mem3b0q-r4-atomwise-admission-v1-development"
+  },
+  "mixed_valid_invalid_proposal_summary": {
+    "expected_valid_atoms": 3,
+    "invalid_atoms_quarantined": 3,
+    "scenarios": 3,
+    "strict_document_level_retention": 0,
+    "valid_atom_retention": 1.0,
+    "valid_atoms_retained": 3
+  },
+  "new_model_calls": 0,
+  "qualification_id": "mem3b0q-r4-atomwise-admission-qualification-v1",
+  "schema_version": 1,
+  "status": "PASS",
+  "synthetic_injected_invalid_binding_controls": [
+    {
+      "admitted_atoms": 1,
+      "atomwise_status": "PARTIAL",
+      "case_id": "R4C-05",
+      "exact_expected_atom_multiset_match": true,
+      "expected_atoms": 1,
+      "injected_invalid_atoms": 1,
+      "is_synthetic_injection_not_model_output": true,
+      "quarantined": [
+        {
+          "reason": "JointBindingError:atom_0:value_crosses_typed_anchor",
+          "source_atom_index": 1
+        }
+      ],
+      "quarantined_atoms": 1,
+      "strict_document_accepts": false
+    },
+    {
+      "admitted_atoms": 1,
+      "atomwise_status": "PARTIAL",
+      "case_id": "R4C-06",
+      "exact_expected_atom_multiset_match": true,
+      "expected_atoms": 1,
+      "injected_invalid_atoms": 1,
+      "is_synthetic_injection_not_model_output": true,
+      "quarantined": [
+        {
+          "reason": "JointBindingError:atom_0:value_crosses_typed_anchor",
+          "source_atom_index": 1
+        }
+      ],
+      "quarantined_atoms": 1,
+      "strict_document_accepts": false
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "adapter_version": "mem3b0q-r4-atomwise-admission-v1-development",
+  "case_ids": [
+    "R4C-01",
+    "R4C-02",
+    "R4C-03",
+    "R4C-04",
+    "R4C-05",
+    "R4C-06"
+  ],
+  "dependencies": {
+    "docs/research/memory/mem3b0q_r4_atomwise_candidate_devset_protocol_v1.md": "b8c68a3149bb11fd276b8e067a19864038a86757640e2e7e20756e693a803cca",
+    "docs/research/memory/mem3b0q_r4_candidate_control_pack_v1.json": "60bd21aac6037ab067c601a594f4619203a47e23ef02692e52876ac5fa9f6ef7",
+    "docs/research/memory/mem3b0q_r4_candidate_local_smoke_lock_v1.json": "104b083934104c899f735ecdbaf9cded11b28210b078da446cd28ea3cc3a77ec",
+    "docs/research/memory/mem3b0q_r4_candidate_local_smoke_lock_v1.json.sha256": "1264665f2a1179c9c19a5688712072bd147ecc5a39e02119d710b402114048ec",
+    "docs/research/memory/mem3b0q_r4_candidate_local_smoke_protocol_v1.md": "ec60a4f4d47a5569278395b2c0bac747ebe8cc5943e760be791439f8822ecaf9",
+    "docs/research/memory/mem3b0q_r4_candidate_local_smoke_result_v1.md": "8cc321c95fab285fba845762a834d3465079c5fc13805a293d8bb6ca099d5b5b",
+    "docs/research/memory/mem3b0q_r4_candidate_local_smoke_runner_v1.md": "62a891f9971be0f044dbe0687ba56e20708288b34bd342807fb4371868a8f3bd",
+    "runs/memory/mem3/mem3b0q-r4-candidate-local-smoke-v1/request.json": "6e8ba6d5b563c5df4430bb8f22616909ce0775ae86ae3aef6d8ddfbf121fa653",
+    "runs/memory/mem3/mem3b0q-r4-candidate-local-smoke-v1/reservation.json": "dc46180deb06407a99f3c257d5a59adb75ce661a10c69b2705c45eaf6720d38c",
+    "runs/memory/mem3/mem3b0q-r4-candidate-local-smoke-v1/response_body.bin": "6f5fe736323fbda57edaf785d149c5d1a7b13ef9621986d24b1594249e575a8e",
+    "runs/memory/mem3/mem3b0q-r4-candidate-local-smoke-v1/result.json": "7a378420c1a9f10122f74bb108cfcf2e42d615d5bd859532098077592b2e14d1",
+    "tools/research/memory/mem3b0q_r4.py": "a6ba406438732fdc3fece056cca2c980862c8671b61a25bca730565cb62ef51d",
+    "tools/research/memory/mem3b0q_r4_atomwise_admission_v1.py": "e5198c4d0cf79f3080d23495082a4e23b42d276b7557ea4a20565925f80fd2e0",
+    "tools/research/memory/mem3b0q_r4_candidate_binding_guard_v1.py": "2cb9fefb3ef00967df6238deaab0520a7457c4e1d702226dd857733676dd612e",
+    "tools/research/memory/mem3b0q_r4_candidate_builder_v1.py": "361c0e8d1aae1020f8ad76f973c586bd17bf7c19a1d71482e6c1d36c42cf243d",
+    "tools/research/memory/mem3b0q_r4_candidate_request_v1.py": "894d2dc9c89a67f360476eee26eecb938ef6110013f51e219fdf6a0a598d2f9c",
+    "tools/research/memory/mem3b0q_r4_joint_binding_guard_v2.py": "3afb34c01bc67797aa9b8c4eb8535e2de94718984df3c3efad371be32d4d256b",
+    "tools/research/memory/mem3b0q_r4_joint_binding_guard_v3.py": "7ebd54f85c25d6253f679599964fe4a919fb56a6dd70ffe2033539cd43e5c588",
+    "tools/research/memory/preflight_mem3b0q_r4_runtime_readonly_v1.py": "f71813101221e781b10b29afe0a65675f35e00e536773991b26c3ffb0b7b6273",
+    "tools/research/memory/run_mem3b0q_r4_candidate_local_smoke_v1.py": "9e460aff87540e6fb6620509df4b3451c8e3660422f831b8398093c50dc762db",
+    "tools/research/memory/run_mem3b0q_r4_gate.py": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09"
+  },
+  "hosted_api": "NONE",
+  "jsonschema_version": "4.19.2",
+  "llama_build": "b10068-571d0d540",
+  "lock_id": "mem3b0q-r4-atomwise-candidate-devset-lock-v1",
+  "max_new_completion_posts": 5,
+  "max_retries": 0,
+  "memory_store_mutations": 0,
+  "network_policy": {
+    "allowed_get_paths": [
+      "/health",
+      "/props",
+      "/slots",
+      "/v1/models"
+    ],
+    "allowed_host": "127.0.0.1",
+    "allowed_port": 8081,
+    "allowed_post_path": "/v1/chat/completions",
+    "ambient_proxy_used": false,
+    "https_outbound": "DENY",
+    "other_hosts": "DENY",
+    "transport": "direct_http_client_no_proxy_resolution"
+  },
+  "new_post_case_ids": [
+    "R4C-01",
+    "R4C-02",
+    "R4C-03",
+    "R4C-04",
+    "R4C-06"
+  ],
+  "output_policy": "append_never_overwrite_never_retry",
+  "python_version": "3.12.4",
+  "quality_metric": "exact_normalized_atom_multiset_precision_recall",
+  "reader_model_path": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+  "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+  "replayed_case_artifacts": {
+    "request_sha256": "6e8ba6d5b563c5df4430bb8f22616909ce0775ae86ae3aef6d8ddfbf121fa653",
+    "reservation_sha256": "dc46180deb06407a99f3c257d5a59adb75ce661a10c69b2705c45eaf6720d38c",
+    "response_sha256": "6f5fe736323fbda57edaf785d149c5d1a7b13ef9621986d24b1594249e575a8e",
+    "result_sha256": "7a378420c1a9f10122f74bb108cfcf2e42d615d5bd859532098077592b2e14d1"
+  },
+  "replayed_case_id": "R4C-05",
+  "request_controls": {
+    "max_tokens": 256,
+    "response_format": "strict_json_schema",
+    "seed": 42,
+    "stream": false,
+    "temperature": 0,
+    "thinking": false
+  },
+  "requests": {
+    "R4C-01": {
+      "request_sha256": "be5132f49012a5aca677bd8a81b098612a529ee987f71fbbf60c08cd05349a9b",
+      "schema_sha256": "92a279d95df10fa552f211ef9c3e0d2f94c21ff3b3ca0d620eded1eb165b54b4"
+    },
+    "R4C-02": {
+      "request_sha256": "7293a4fedb499ff6944c3cb9a8925ac5d2b5195678b8e6079b659a66d59d396a",
+      "schema_sha256": "a7295b7e67605bb77fa00cca6d537d15c577d0e34185ff3745934749fe4bfa27"
+    },
+    "R4C-03": {
+      "request_sha256": "e756bf3a4e7f0cb0369ed1c5e0dc561aeed47db4ed91a496e93195e0310ce4e4",
+      "schema_sha256": "1b96ff47777ed8d24bc450788804fe63899d4d0725c99179f3ce4f84ab7d4e37"
+    },
+    "R4C-04": {
+      "request_sha256": "b9fdcaef0225373f6fbc2980012ed1153fb4fad9a29597d1f691b2939298719d",
+      "schema_sha256": "bd7b2652bfdb2d9ec90149b0c754609f96f78ddf24ee96d90cffe22acbe39442"
+    },
+    "R4C-05": {
+      "request_sha256": "6e8ba6d5b563c5df4430bb8f22616909ce0775ae86ae3aef6d8ddfbf121fa653",
+      "schema_sha256": "a5ea71399f2787581e53c0c2f669fc0c69b0c0a52184ac8f4b4480f18fd2c695"
+    },
+    "R4C-06": {
+      "request_sha256": "4430e6e113d75964ebdfab3886e7e7ba72737e8e0e3e04aa9c72a6eaa5848cdc",
+      "schema_sha256": "5992b3e369ddc877674ff520314324b787143ee1c298130dc6c4855360a3bddf"
+    }
+  },
+  "required_api_key": "NONE",
+  "run_id": "mem3b0q-r4-atomwise-candidate-devset-v1",
+  "runner_sha256": "f6f1620aae6821c030c7bbaa3f527dd0b448182cfb6dfe0e3952280b42b1c18f",
+  "runtime": {
+    "context_tokens": 131072,
+    "flash_attention": true,
+    "gpu_layers": 99,
+    "host": "127.0.0.1",
+    "kv_cache": "q4_0",
+    "port": 8081,
+    "slots": 1
+  },
+  "schema_version": 1,
+  "server_path": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+  "server_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+  "status": "FROZEN"
+}
