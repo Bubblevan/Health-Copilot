@@ -1,0 +1,60 @@
+{
+  "pack_id": "mem3b0q-r4-factorized-event-slot-confirmation-pack-v1",
+  "status": "FROZEN_BEFORE_REQUESTS_NO_INFERENCE_AUTHORIZATION",
+  "source_type": "project_authored_synthetic_english",
+  "clinical_content": false,
+  "purpose": "confirm_model_selects_object_attribute_while_harness_projects_owner_and_event_value",
+  "cases": [
+    {
+      "case_id": "EVTPROJ-01",
+      "proposition_text": "My partner reminded me that I completed the purchase of my bicycle three weeks ago.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "owner_occurrence": 1,
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ]
+    },
+    {
+      "case_id": "EVTPROJ-02",
+      "proposition_text": "My sister was nearby when I completed the purchase of my bicycle on August 2.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "owner_occurrence": 0,
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ]
+    },
+    {
+      "case_id": "EVTPROJ-03",
+      "proposition_text": "The invoice says I completed the purchase of my bicycle on July 11 after the warranty call.",
+      "expected_atoms": [
+        {
+          "owner_id": "SELF",
+          "owner_span": "my",
+          "owner_occurrence": 0,
+          "object_id": "BICYCLE",
+          "object_span": "bicycle",
+          "attribute_id": "PURCHASE_EVENT",
+          "attribute_span": "purchase",
+          "value_span": "completed the purchase",
+          "cardinality": "EVENT_OR_NOT_STATE"
+        }
+      ]
+    }
+  ]
+}
