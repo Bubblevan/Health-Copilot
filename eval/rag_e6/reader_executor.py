@@ -364,7 +364,7 @@ def _run_cfec(
         journal,
         client,
         call_id=compose_call_id,
-        prompt=composer_prompt(episode.query, claims),
+        prompt=composer_prompt(episode.query, claims, requirements),
     )
     parsed = parse_last_final(compose_event["text"])
     arm_row = _answer_row(

@@ -1,6 +1,6 @@
 # RAG-E6A protocol
 
-Status: the initial BUILD remains diagnostic after a baseline prompt/parser alignment defect. `build_v2` was stopped at 232/818 after an output-contract/scoring defect; `build_v3` was stopped at 8/818 because the 256-token cap truncated ordinary claim outputs. Neither attempt was scored or opened evaluator truth. The next complete candidate is strict-output `CFEC-v1.3` in `build_v4`. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
+Status: `build_v4` completed and was scored as a negative BUILD diagnostic: CFEC-v1.3 substantially underperformed Vanilla on the primary RAG success metric despite near-saturated evidence coverage. A single targeted BUILD-only reader iteration, `CFEC-v1.4` in `build_v5`, is now authorized. It passes the Harness-assigned requirement mapping into composition and clarifies complete multi-value coverage / distractor exclusion. Retrieval, model, budgets, parser, scoring, and authority boundaries remain fixed. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
 
 ## Question and scope
 
@@ -113,7 +113,7 @@ headline result. Changes to prompts/parser/composition are allowed only here;
 retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
 are prohibited.
 
-Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.3 prompts, parser,
+Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.4 prompts, parser,
 model, retrieval identities/configuration, top-k, budgets, execution graph, metric
 definitions, code commit and BUILD-derived method choice. Then execute every
 FROZEN_DEV episode under all five arms, freeze all artifacts/hashes, and only then
@@ -186,17 +186,37 @@ too small for the normal claim contract and would force the pre-registered zero-
 truncation lock to fail; this partial run is retained but not scored and did not
 open evaluator truth.
 
-`build_v4` uses `CFEC-v1.3`: every call, across every arm, is capped at 512 output
+`build_v4` used `CFEC-v1.3`: every call, across every arm, was capped at 512 output
 tokens; the parser accepts exactly one `FINAL:` line; unknown aliases invalidate
 the output; CFEC final citations must come from validated claims; and truncated,
 failed, or malformed calls fail closed for the affected arm. The LameR bridge is
 also validated as a retrieval-stage contract; a missing, truncated, invalid, or
 fallback bridge makes both STRONG arms unsuccessful for that episode. These
-events remain counted in generation health and are not retried. This version
-executes all five arms on the same frozen BUILD subjects and evidence. Only after
-its complete run passes the pre-registered gate will the code/protocol be
-committed and locked, followed by FROZEN_DEV execution and scoring. A failed
-FROZEN_DEV gate means no reserved TEST/OOD materialization.
+events remain counted in generation health and are not retried. It executed all
+five arms on the same frozen BUILD subjects and evidence. BUILD scoring found
+`VANILLA_STRONG` grounded task success of 119/156 (76.28%) and `CFEC_STRONG` of
+75/156 (48.08%), a -28.2 pp difference (subject-clustered 95% CI -36.2 to
+-20.6 pp). Grounding and evidence coverage remained about 99%, so the failure is
+downstream of retrieval and is not explained by an absence of retrieved evidence.
+CFEC answered correctly on 109/156 (69.9%) versus Vanilla's 119/156 (76.3%); thus
+output-contract fixes alone cannot plausibly account for the gap. Among CFEC
+strong-arm rows, 56/156 failed the output contract, including 42 claim-contract
+failures, 19 unknown-alias rows, and 21 final-citation mismatches (categories can
+overlap). The registered uplift gate failed; no method lock or FROZEN_DEV/TEST run
+was authorized.
+
+The only follow-up allowed by the BUILD diagnostic is `CFEC-v1.4` in `build_v5`.
+It leaves retrieval and evidence fixed and changes only reader instructions and
+the information rendered to the final composer: the composer now sees each
+Harness-assigned requirement ID paired with its requirement text, while all IDs,
+claim-to-requirement assignments, aliases, provenance and scoring remain
+Harness-owned. Decomposition instructions merge duplicate asks and exclude
+metadata/format boilerplate; extraction/composition instructions emphasize
+relevant table rows and all distinct requested values. The cap remains 512 tokens,
+there are still no retries, and the strict parsers/contracts are unchanged. This
+is one bounded iteration, not permission for open-ended prompt tuning. If v5 does
+not pass the registered BUILD gates, stop this method family without opening
+FROZEN_DEV or reserved TEST/OOD.
 
 ## Method positioning
 
@@ -204,7 +224,7 @@ The diagnostic separation follows the motivation of
 [RAGChecker](https://arxiv.org/abs/2408.08067): retrieval coverage and generation/use
 must be measured separately. Claim-first decomposition is related in spirit to
 the retrieve-per-subquestion and evidence-pooling pattern in
-[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.3
+[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.4
 does not reproduce that pipeline: retrieval candidates are fixed, and the
 Harness validates claim aliases and owns provenance. It also is not
 [RankRAG](https://arxiv.org/abs/2407.02485), which instruction-tunes one model
