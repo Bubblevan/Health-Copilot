@@ -91,7 +91,15 @@ def test_completion_failures_are_classified_without_retry(
             "build_info": "b10068-571d0d540",
             "model_path": gate.MODEL_PATH,
             "model_alias": gate.MODEL_PATH,
-            "default_generation_settings": {"n_ctx": 131072},
+            "default_generation_settings": {
+                "n_ctx": 131072,
+                "params": {
+                    "top_k": 40,
+                    "top_p": 0.95,
+                    "min_p": 0.05,
+                    "repeat_penalty": 1.0,
+                },
+            },
             "total_slots": 1,
         },
         "models": {"data": [{"id": gate.MODEL_PATH}]},
@@ -99,12 +107,6 @@ def test_completion_failures_are_classified_without_retry(
             {
                 "n_ctx": 131072,
                 "is_processing": False,
-                "params": {
-                    "top_k": 40,
-                    "top_p": 0.95,
-                    "min_p": 0.05,
-                    "repeat_penalty": 1.0,
-                },
             }
         ],
         "raw_sha256": {},
@@ -316,6 +318,60 @@ slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
     assert evidence["launch_processing_interval"] == [0, 2]
     assert evidence["grammar_prefill_correlated_line_count"] == 1
     assert evidence["grammar_prefill_uncorrelated_line_indices"] == []
+
+
+@pytest.mark.parametrize(
+    "log",
+    [
+        """\
+slot launch_slot_: id 0 | task -1 | launching slot : {}
+common_sampler_init: grammar accepted prefill token (1)
+slot launch_slot_: id 0 | task 42 | processing task, is_child = 0
+slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
+slot launch_slot_: id 0 | task -1 | launching slot : {}
+""",
+        """\
+slot launch_slot_: id 0 | task -1 | launching slot : {}
+common_sampler_init: grammar accepted prefill token (1)
+slot launch_slot_: id 0 | task 42 | processing task, is_child = 0
+slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
+slot launch_slot_: id 0 | task 42 | processing task, is_child = 0
+""",
+        """\
+slot launch_slot_: id 0 | task -1 | launching slot : {}
+common_sampler_init: grammar accepted prefill token (1)
+slot launch_slot_: id 0 | task 42 | processing task, is_child = 0
+slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
+slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
+""",
+        """\
+slot launch_slot_: id 0 | task -1 | launching slot : {}
+common_sampler_init: grammar accepted prefill token (1)
+slot launch_slot_: id 0 | task 43 | processing task, is_child = 0
+slot init_sampler: id 0 | task 42 | init sampler, took 0.1 ms
+""",
+    ],
+)
+def test_duplicate_or_task_mismatched_trace_fails_closed(log: str) -> None:
+    observed_prompt = {
+        "slots": [
+            {
+                "slot_id": 0,
+                "task_id": 42,
+                "is_processing": True,
+                "prompt_contains_source_id": True,
+                "prompt_contains_proposition": True,
+            }
+        ]
+    }
+    evidence = gate._evaluate_sampler_evidence(
+        log,
+        [observed_prompt],
+        source_id="R4-P01",
+        proposition_text="My workout plan activity is running.",
+        observer_failures=[],
+    )
+    assert evidence["status"] == "UNVERIFIED"
 
 
 def test_frozen_manifest_digest_is_pinned_before_artifact_map_is_trusted(

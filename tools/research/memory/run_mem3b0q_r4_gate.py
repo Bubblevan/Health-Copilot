@@ -81,8 +81,18 @@ if ($listeners.Count -ne 1) {{ throw 'expected_exactly_one_listener' }}
 $ownerPid = [int]$listeners[0].OwningProcess
 $proc = Get-CimInstance Win32_Process -Filter "ProcessId = $ownerPid"
 if (-not $proc -or $proc.ExecutablePath -ne '{SERVER_PATH}') {{ throw 'listener_process_path_mismatch' }}
-$binaryHash = (Get-FileHash -Algorithm SHA256 $proc.ExecutablePath).Hash.ToLower()
-$modelHash = (Get-FileHash -Algorithm SHA256 '{MODEL_PATH}').Hash.ToLower()
+function Get-FileSha256([string]$path) {{
+  $algorithm = [System.Security.Cryptography.SHA256]::Create()
+  $stream = [System.IO.File]::OpenRead($path)
+  try {{
+    return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '').ToLowerInvariant()
+  }} finally {{
+    $stream.Dispose()
+    $algorithm.Dispose()
+  }}
+}}
+$binaryHash = Get-FileSha256 $proc.ExecutablePath
+$modelHash = Get-FileSha256 '{MODEL_PATH}'
 [pscustomobject]@{{
   pid = $ownerPid
   addresses = @($listeners | ForEach-Object {{ $_.LocalAddress }})
@@ -232,9 +242,9 @@ def _validate_preflight(process: dict[str, Any], service: dict[str, Any]) -> Non
         if len(slot) != 1:
             raise RuntimeError("slot_count_mismatch")
         slot = slot[0]
-    params = slot.get("params", {})
     if slot.get("n_ctx") != 131072 or slot.get("is_processing"):
         raise RuntimeError("slot_not_idle_or_context_mismatch")
+    params = props.get("default_generation_settings", {}).get("params", {})
     if (
         params.get("top_k") != 40
         or abs(float(params.get("top_p", 0.0)) - 0.95) > 0.001
