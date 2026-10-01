@@ -1,4 +1,4 @@
-"""Freeze the citation-parity CFEC-v1.1 protocol after the BUILD gate passes."""
+"""Freeze the strict-output CFEC-v1.2 protocol after the BUILD gate passes."""
 
 from __future__ import annotations
 

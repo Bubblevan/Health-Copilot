@@ -1,6 +1,6 @@
 # RAG-E6A protocol
 
-Status: initial BUILD was reclassified as diagnostic after a baseline prompt/parser alignment defect was found. A corrected, citation-parity BUILD rerun will select or reject `CFEC-v1.1` before any protocol lock. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
+Status: the initial BUILD remains diagnostic after a baseline prompt/parser alignment defect. A second attempt (`build_v2`) was stopped at 232/818 episodes after a second output-contract/scoring defect was found; it was not scored and no evaluator truth was opened. The next complete candidate is strict-output `CFEC-v1.2` in `build_v3`. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
 
 ## Question and scope
 
@@ -52,8 +52,9 @@ The U3-R retrieval code/configuration is reused without tuning:
   `d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785`.
 
 All generator requests use temperature 0, top-p 1, reasoning disabled, one attempt,
-8,192 completion tokens and the common 65,536-token context ceiling. Runtime
-backend/device details are recorded but are not method variables. The pinned GGUF
+and a uniform 256-token per-call output cap; the llama.cpp server itself retains
+its separately recorded 8,192-token ceiling. Runtime backend/device details are
+recorded but are not method variables. The pinned GGUF
 has a 40,960-token native/effective context despite the requested 65,536 setting;
 the client therefore applies a conservative UTF-8 prompt-byte guard before each
 generation request (reserving the full completion ceiling plus 1,024 bytes), then
@@ -79,10 +80,11 @@ of evidence/action; the harness then separately runs claim extraction and final
 composition for each condition. Both CFEC arms use the same requirement strings
 and harness-assigned `req_1`…`req_n` identities.
 
-Vanilla output parsing uses the last literal `FINAL:` marker and parses citation
-aliases only after that marker. Missing/empty FINAL is an output-contract failure;
-there is no retry. Issued aliases are `[E1]`…`[E10]` in frozen rank order. The
-model never sees underlying document IDs.
+Final-answer parsing accepts exactly one single-line response beginning with
+`FINAL:`; preambles, multiple markers, continuations, missing output, unknown
+aliases, and any truncated model call are output-contract failures. There is no
+retry. Issued aliases are `[E1]`…`[E10]` in frozen rank order. The model never
+sees underlying document IDs. Contract failures cannot count as task success.
 
 ## CFEC authority boundary
 
@@ -90,11 +92,13 @@ The decomposer receives only the original question. It emits at most four
 non-empty requirement lines; the harness keeps the first four and assigns stable
 IDs. Each claimant receives one requirement and the exact same ranked top-10
 passages shown to the corresponding Vanilla arm. Claimants return short claims
-with issued aliases or `UNSUPPORTED`. Unknown aliases are recorded and ignored;
-claims without any valid issued alias are rejected. The final composer receives
-the original question plus validated claim text and aliases, never raw passages
-or document IDs. Final used evidence is the harness union of validated claim
-provenance; model text cannot alter that set.
+with issued aliases or `UNSUPPORTED`. Unknown aliases are recorded and invalidate
+that output, even if a line also contains a valid alias; claims without any valid
+issued alias are rejected. The final composer receives the original question
+plus validated claim text and aliases, never raw passages or document IDs. Final
+used evidence is the harness union of validated claim provenance; model text
+cannot alter that set. Final citations must be a subset of aliases attached to
+those validated claims.
 
 All model prompts exclude evaluator truth, answer values, required fact/evidence
 IDs, derived capability classes, scenario family, oracle action, sibling outcomes,
@@ -109,7 +113,7 @@ headline result. Changes to prompts/parser/composition are allowed only here;
 retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
 are prohibited.
 
-Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.1 prompts, parser,
+Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.2 prompts, parser,
 model, retrieval identities/configuration, top-k, budgets, execution graph, metric
 definitions, code commit and BUILD-derived method choice. Then execute every
 FROZEN_DEV episode under all five arms, freeze all artifacts/hashes, and only then
@@ -121,8 +125,9 @@ The internal positive gate is at least +10 percentage points, subject-clustered
 grounding pass. The pre-registered utilization contrast is task success among
 episodes for which all required external evidence is in the supplied top-10; its
 positive threshold is also +10 pp. These are project gates, not literature
-standards. A failed gate authorizes no reserved-test materialization and no
-prompt iteration on FROZEN_DEV.
+standards. A protocol lock additionally requires zero truncated model calls.
+A failed gate authorizes no reserved-test materialization and no prompt iteration
+on FROZEN_DEV.
 
 Subject-clustered bootstrap: 10,000 resamples, seed `20260930`. Report task
 success, grounded task success, grounding/provenance pass, external-evidence
@@ -158,13 +163,22 @@ apparent grounded-success delta is confounded by citation formatting. The
 answer-value correctness delta (136/156 to 138/156, +1.28 pp) is retained only
 as a diagnostic, not evidence of a confirmed CFEC uplift.
 
-Before freezing any method, Vanilla and CFEC final-answer prompts now explicitly
-require exact bracketed evidence aliases on the `FINAL:` line. The corrected
-BUILD run is isolated at `runs/rag_e6/build_v2/`; it will execute all five arms
-on the same frozen BUILD subjects and evidence, and its score will replace the
-diagnostic run for selection. Only after that run passes its gate will the code
-and protocol be committed/locked, followed by FROZEN_DEV execution and scoring.
-A failed FROZEN_DEV gate means no reserved TEST/OOD materialization.
+The citation-parity `build_v2` attempt was stopped after 232 completed episodes
+because a CFEC compose call hit the old 8,192-token cap and emitted over 1,300
+unissued aliases. The runtime correctly kept claim provenance harness-owned, but
+the scorer only recorded `output_contract_failure` and did not require it to be
+false for task success. That partial run is retained as diagnostic data only;
+it has no completion manifest, was not scored, and did not open evaluator truth.
+
+`build_v3` uses `CFEC-v1.2`: every call, across every arm, is capped at 256 output
+tokens; the parser accepts exactly one `FINAL:` line; unknown aliases invalidate
+the output; CFEC final citations must come from validated claims; and truncated,
+failed, or malformed calls fail closed in task-success scoring. The protocol lock
+also refuses any BUILD with a truncated generation call. This version executes
+all five arms on the same frozen BUILD subjects and evidence. Only after its
+complete run passes the pre-registered gate will the code/protocol be committed
+and locked, followed by FROZEN_DEV execution and scoring. A failed FROZEN_DEV gate
+means no reserved TEST/OOD materialization.
 
 ## Method positioning
 
@@ -172,7 +186,7 @@ The diagnostic separation follows the motivation of
 [RAGChecker](https://arxiv.org/abs/2408.08067): retrieval coverage and generation/use
 must be measured separately. Claim-first decomposition is related in spirit to
 the retrieve-per-subquestion and evidence-pooling pattern in
-[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.1
+[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.2
 does not reproduce that pipeline: retrieval candidates are fixed, and the
 Harness validates claim aliases and owns provenance. It also is not
 [RankRAG](https://arxiv.org/abs/2407.02485), which instruction-tunes one model

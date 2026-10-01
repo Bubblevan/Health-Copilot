@@ -14,7 +14,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from eval.rag_e6.llm import COMPLETION_CEILING, CONTEXT_CEILING, MODEL_NAME, MODEL_SHA256
+from eval.rag_e6.llm import (
+    CONTEXT_CEILING,
+    MODEL_NAME,
+    MODEL_SHA256,
+    SERVER_COMPLETION_CEILING,
+)
 from eval.rag_e6.split import sha256_file, write_immutable_json
 
 DEFAULT_MODEL = Path(r"E:\Health-Copilot-Models\models\qwen3-8b\Qwen3-8B-Q4_K_M.gguf")
@@ -108,8 +113,8 @@ def main() -> None:
         "context_ceiling": CONTEXT_CEILING,
         "effective_context_size": effective_context_size,
         "model_native_context_size": effective_context_size,
-        "context_ceiling_note": "65,536 requested; llama.cpp caps this GGUF to its native 40,960 context; measured prompts must leave room for the common 8,192 output ceiling",
-        "completion_ceiling": COMPLETION_CEILING,
+        "context_ceiling_note": "65,536 requested; llama.cpp caps this GGUF to its native 40,960 context; client calls are capped at 256 output tokens",
+        "completion_ceiling": SERVER_COMPLETION_CEILING,
         "reasoning_enabled": False,
         "retries": 0,
         "server_props_sha256": hashlib.sha256(

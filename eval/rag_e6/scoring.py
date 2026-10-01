@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[2]
 U2F_ROOT = ROOT / "runs/integration/u2f-owned-v1-55955b2eff38"
 SPLIT_MANIFEST = ROOT / "runs/rag_e6/split_manifest.json"
 CORPUS_ROOT = ROOT / "runs/rag_e6/corpus"
-BUILD_ROOT = ROOT / "runs/rag_e6/build_v2"
+BUILD_ROOT = ROOT / "runs/rag_e6/build_v3"
 REPORT_JSON = BUILD_ROOT / "build_score_report.json"
 SCORED_ROWS = BUILD_ROOT / "build_scored_episodes.jsonl"
 PARTITION_EPISODE_COUNTS = {"BUILD": 818, "FROZEN_DEV": 1628}
@@ -140,7 +140,7 @@ def _verify_execution_freeze(
         lock_sha256 = sha256_file(protocol_lock_path)
         if (
             protocol_lock.get("schema_version") != "rag-e6a-protocol-lock-v1"
-            or protocol_lock.get("selected_method") != "CFEC-v1.1"
+            or protocol_lock.get("selected_method") != "CFEC-v1.2"
             or run_context.get("schema_version") != "rag-e6a-frozen-dev-run-context-v1"
             or protocol_lock.get("method_code_commit")
             != run_context.get("method_code_commit")
@@ -352,11 +352,16 @@ def _score_arm(
     oracle = truth["capability_requirement_oracle"]
     answerable = bool(oracle["answerability"])
     expected = tuple(str(value) for value in truth["answer_values"])
+    output_contract_pass = (
+        not bool(runtime_arm.get("output_contract_failure"))
+        and int(runtime_arm.get("claim_output_contract_failures", 0)) == 0
+        and not runtime_arm.get("unknown_aliases", ())
+    )
 
     if not answerable:
         observed: tuple[str, ...] = ()
         answer_value_correct = answer == "INSUFFICIENT_EVIDENCE"
-        task_success = answer_value_correct and not used
+        task_success = answer_value_correct and not used and output_contract_pass
     else:
         observed = _observed_values(answer, truth)
         answer_type = truth["answer_type"]
@@ -368,7 +373,7 @@ def _score_arm(
             answer_value_correct = (
                 set(observed) == set(expected) and len(observed) == len(set(observed))
             )
-        task_success = answer_value_correct and not missing_resources
+        task_success = answer_value_correct and not missing_resources and output_contract_pass
 
     provenance_pass = used.issubset(ranked) and used.issubset(visible_ids)
     full_resource_grounding = not missing_resources
@@ -393,6 +398,7 @@ def _score_arm(
         "used_evidence_count": len(used),
         "citation_present": bool(used),
         "output_contract_failure": bool(runtime_arm.get("output_contract_failure")),
+        "output_contract_pass": output_contract_pass,
         "claim_output_contract_failures": int(runtime_arm.get("claim_output_contract_failures", 0)),
         "unknown_alias_count": len(runtime_arm.get("unknown_aliases", ())),
     }
@@ -407,7 +413,7 @@ def _aggregate(rows: list[dict[str, Any]], arm: str) -> dict[str, Any]:
     metric_names = (
         "task_success", "grounded_task_success", "grounding_pass", "provenance_pass",
         "answer_value_correct", "answer_value_coverage", "external_evidence_coverage",
-        "citation_present", "output_contract_failure",
+        "citation_present", "output_contract_failure", "output_contract_pass",
     )
     result: dict[str, Any] = {"count": len(observations)}
     for name in metric_names:

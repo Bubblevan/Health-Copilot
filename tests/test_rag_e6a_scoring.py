@@ -106,7 +106,7 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
             "model_api_id": "qwen-local",
             "model_sha256": "model-sha",
             "context_ceiling": 65536,
-            "completion_ceiling": 8192,
+            "completion_ceiling": 256,
             "temperature": 0,
             "top_p": 1,
             "reasoning_enabled": False,
@@ -148,9 +148,21 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
         scored_rows_sha256="scores-sha",
         method_code_commit="abc123",
     )
-    assert lock["selected_method"] == "CFEC-v1.1"
+    assert lock["selected_method"] == "CFEC-v1.2"
     assert lock["primary_arm"] == "CFEC_STRONG"
     assert lock["frozen_dev_truth_opened"] is False
+
+    build_manifest["generator"]["generation_calls_truncated"] = 1
+    with pytest.raises(ValueError, match="truncated model call"):
+        create_protocol_lock(
+            build_manifest=build_manifest,
+            build_report=build_report,
+            build_manifest_sha256="manifest-sha",
+            build_report_sha256="report-sha",
+            scored_rows_sha256="scores-sha",
+            method_code_commit="abc123",
+        )
+    build_manifest["generator"]["generation_calls_truncated"] = 0
 
     build_report["development_gate"]["primary_build_ci_lower_above_zero"] = False
     with pytest.raises(ValueError, match="BUILD gate"):
@@ -207,6 +219,31 @@ def test_grounding_fails_closed_for_missing_required_evidence_and_unknown_source
     assert not scored["task_success"]
     assert not scored["provenance_pass"]
     assert not scored["grounding_pass"]
+
+
+def test_output_contract_failure_cannot_count_as_task_success() -> None:
+    truth = {
+        "answer_values": ["SYNVAL-0123456789"],
+        "answer_type": "EXACT_TOKEN",
+        "capability_requirement_oracle": {"answerability": True},
+        "required_memory_record_ids": [],
+        "required_external_evidence_ids": ["DOC-1"],
+    }
+    scored = _score_arm(
+        truth=truth,
+        runtime_arm={
+            "answer": "SYNVAL-0123456789 [E1]",
+            "used_evidence_ids": ["DOC-1"],
+            "ranked_evidence_ids": ["DOC-1"],
+            "output_contract_failure": True,
+            "unknown_aliases": ["[E11]"],
+        },
+        visible_ids={"DOC-1"},
+    )
+    assert scored["answer_value_correct"]
+    assert not scored["output_contract_pass"]
+    assert not scored["task_success"]
+    assert not scored["grounded_task_success"]
 
 
 def test_subject_cluster_bootstrap_is_paired_and_reproducible() -> None:

@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 from eval.rag_e6.data import RUNTIME_EPISODE_FIELDS, E6Episode
 from eval.rag_e6.llm import (
     COMMON_SYSTEM_PROMPT,
+    COMPLETION_CEILING,
     MODEL_NAME,
+    SERVER_COMPLETION_CEILING,
     CallJournal,
     LocalLlamaCppClient,
     PromptContextExceeded,
@@ -16,6 +19,7 @@ from eval.rag_e6.reader import (
     claims_used_evidence,
     composer_prompt,
     evidence_identity_sha256,
+    final_citations_match_claims,
     issue_evidence_aliases,
     parse_claims,
     parse_last_final,
@@ -24,6 +28,7 @@ from eval.rag_e6.reader import (
     vanilla_prompt,
 )
 from eval.rag_e6.reader_executor import (
+    _answer_row,
     _retrieval_identity,
     _verify_inherited_u3r_runtime_source,
 )
@@ -92,12 +97,18 @@ def test_vanilla_and_cfec_receive_identical_issued_evidence() -> None:
     assert "doc-a" not in vanilla_prompt("Question?", vanilla_evidence)
 
 
-def test_last_final_marker_controls_answer_and_citations() -> None:
-    parsed = parse_last_final("Draft [E8]\nFINAL: wrong [E2]\nFINAL: right [E1]")
+def test_final_parser_requires_one_single_line_without_preamble() -> None:
+    parsed = parse_last_final("FINAL: right [E1]")
     assert parsed.answer == "right [E1]"
     assert parsed.cited_aliases == ("[E1]",)
     assert not parsed.contract_failure
-    assert parse_last_final("No final marker").contract_failure
+    for invalid in (
+        "Draft\nFINAL: right [E1]",
+        "FINAL: first [E1]\nFINAL: second [E1]",
+        "FINAL: answer\ncontinuation [E1]",
+        "No final marker",
+    ):
+        assert parse_last_final(invalid).contract_failure
 
 
 def test_reader_prompts_align_citation_location_with_final_parser() -> None:
@@ -129,13 +140,40 @@ def test_claims_only_resolve_issued_aliases_and_provenance_is_harness_owned() ->
         requirement_id="req_1",
         evidence=evidence,
     )
-    assert not failed
+    assert failed
     assert unknown == ("[E11]",)
     assert claims[0].evidence_ids == ("doc-a",)
     assert claims_used_evidence(claims) == ("doc-a",)
+    assert final_citations_match_claims(("[E1]",), claims)
+    assert not final_citations_match_claims(("[E1]", "[E2]"), claims)
     resolved, unknown_final = resolve_aliases(("[E1]", "[E11]"), evidence)
     assert resolved == ("doc-a",)
     assert unknown_final == ("[E11]",)
+
+
+def test_answer_row_rejects_truncation_and_unissued_final_aliases() -> None:
+    evidence = issue_evidence_aliases([{"doc_id": "doc-a", "text": "Evidence."}])
+    episode = SimpleNamespace(partition="BUILD", query_sha256="query-sha")
+    for answer, finish_reason in (
+        ("FINAL: SYNVAL-0123456789 [E1]", "length"),
+        ("FINAL: SYNVAL-0123456789 [E11]", "stop"),
+    ):
+        journal = SimpleNamespace(completed={
+            "reader": {"status": "ok", "finish_reason": finish_reason}
+        })
+        row = _answer_row(
+            arm="VANILLA_STRONG",
+            episode=episode,
+            evidence=evidence,
+            parsed=parse_last_final(answer),
+            call_ids=["reader"],
+            unknown_aliases=(),
+            retrieval_ids=["doc-a"],
+            candidate_ids=["doc-a"],
+            channels=[["doc-a"]],
+            call_journal=journal,
+        )
+        assert row["output_contract_failure"]
 
 
 def test_claim_parser_rejects_parenthetical_aliases() -> None:
@@ -298,8 +336,13 @@ def test_oversized_prompt_is_rejected_before_generation_request() -> None:
         "http://127.0.0.1:8092/v1", effective_context_size=16384
     )
     try:
-        client.complete("x" * 8000, system_prompt="system")
+        client.complete("x" * 16000, system_prompt="system")
     except PromptContextExceeded as exc:
         assert exc.prompt_bytes > exc.prompt_byte_limit
     else:
         raise AssertionError("context guard did not reject an oversized prompt")
+
+
+def test_client_and_server_completion_budgets_are_separate() -> None:
+    assert COMPLETION_CEILING == 256
+    assert SERVER_COMPLETION_CEILING == 8192

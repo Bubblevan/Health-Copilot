@@ -32,6 +32,7 @@ from eval.rag_e6.llm import (
     MODEL_SHA256,
     PROMPT_BYTE_SAFETY_MARGIN,
     REASONING_ENABLED,
+    SERVER_COMPLETION_CEILING,
     TEMPERATURE,
     TOP_P,
     CallJournal,
@@ -45,6 +46,7 @@ from eval.rag_e6.reader import (
     composer_prompt,
     decompose_prompt,
     evidence_identity_sha256,
+    final_citations_match_claims,
     issue_evidence_aliases,
     parse_claims,
     parse_last_final,
@@ -173,7 +175,7 @@ def _verify_server_manifest(path: Path, *, qwen_path: Path) -> dict[str, Any]:
         or manifest.get("cache_type_k") != "q4_0"
         or manifest.get("cache_type_v") != "q4_0"
         or manifest.get("context_ceiling") != CONTEXT_CEILING
-        or manifest.get("completion_ceiling") != COMPLETION_CEILING
+        or manifest.get("completion_ceiling") != SERVER_COMPLETION_CEILING
         or manifest.get("effective_context_size") != 40960
         or manifest.get("model_native_context_size") != 40960
         or manifest.get("server_process_visible_in_nvidia_smi") is not True
@@ -236,6 +238,16 @@ def _answer_row(
 ) -> dict[str, Any]:
     used_ids, final_unknown = resolve_aliases(parsed.cited_aliases, evidence)
     unknown_all = tuple(dict.fromkeys((*unknown_aliases, *final_unknown)))
+    call_records = [call_journal.completed[call_id] for call_id in call_ids]
+    failed_call_contract = any(
+        row.get("status") != "ok" or row.get("finish_reason") == "length"
+        for row in call_records
+    )
+    factual_answer_without_citation = (
+        bool(evidence)
+        and parsed.answer != "INSUFFICIENT_EVIDENCE"
+        and not used_ids
+    )
     return {
         "arm": arm,
         "partition": episode.partition,
@@ -243,7 +255,12 @@ def _answer_row(
         "query_sha256": episode.query_sha256,
         "answer": parsed.answer,
         "answer_sha256": sha256_text(parsed.answer),
-        "output_contract_failure": parsed.contract_failure,
+        "output_contract_failure": (
+            parsed.contract_failure
+            or bool(unknown_all)
+            or failed_call_contract
+            or factual_answer_without_citation
+        ),
         "cited_aliases": list(parsed.cited_aliases),
         "unknown_aliases": list(unknown_all),
         "used_evidence_ids": list(used_ids),
@@ -380,6 +397,12 @@ def _run_cfec(
         "decomposition_call_id": decomposition_call_id,
         "decomposition_call_shared_between_cfec_arms": True,
     })
+    if (
+        claim_contract_failures > 0
+        or bool(unknown_aliases)
+        or not final_citations_match_claims(arm_row["cited_aliases"], claims)
+    ):
+        arm_row["output_contract_failure"] = True
     return arm_row, decomposition_call_id
 
 

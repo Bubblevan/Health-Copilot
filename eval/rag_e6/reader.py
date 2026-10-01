@@ -89,12 +89,18 @@ def vanilla_prompt(question: str, evidence: Sequence[EvidenceAlias]) -> str:
 
 
 def parse_last_final(response: str) -> ParsedFinal:
-    """Use the last literal FINAL: marker and aliases occurring after that marker."""
+    """Accept exactly one single-line FINAL response; reject preambles and continuations."""
     marker = "FINAL:"
-    position = response.rfind(marker)
-    if position < 0:
+    normalized = response.strip()
+    if (
+        not normalized
+        or "\n" in normalized
+        or "\r" in normalized
+        or not normalized.startswith(marker)
+        or normalized.count(marker) != 1
+    ):
         return ParsedFinal("", (), True)
-    answer = response[position + len(marker) :].strip()
+    answer = normalized[len(marker) :].strip()
     if not answer:
         return ParsedFinal("", (), True)
     aliases = tuple(dict.fromkeys(ALIAS_PATTERN.findall(answer)))
@@ -184,6 +190,8 @@ def parse_claims(
         aliases = tuple(dict.fromkeys(ALIAS_PATTERN.findall(line)))
         evidence_ids, unknown = resolve_aliases(aliases, evidence)
         unknown_aliases.extend(item for item in unknown if item not in unknown_aliases)
+        if unknown:
+            contract_failure = True
         claim_text = ALIAS_PATTERN.sub("", line).strip(" \t-:;,.[]")
         if not evidence_ids or not claim_text:
             contract_failure = True
@@ -226,3 +234,13 @@ def claims_used_evidence(claims: Sequence[ValidatedClaim]) -> tuple[str, ...]:
             if evidence_id not in result:
                 result.append(evidence_id)
     return tuple(result)
+
+
+def final_citations_match_claims(
+    cited_aliases: Sequence[str], claims: Sequence[ValidatedClaim]
+) -> bool:
+    """Final citations must come only from the evidence-backed claims given to the composer."""
+    allowed = {alias for claim in claims for alias in claim.cited_aliases}
+    if not cited_aliases:
+        return not claims
+    return bool(claims) and set(cited_aliases).issubset(allowed)
