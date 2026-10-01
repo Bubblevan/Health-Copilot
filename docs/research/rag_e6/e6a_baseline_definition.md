@@ -7,7 +7,7 @@ order as `[E1]` through `[E10]`; only the alias and evidence text are model-visi
 Underlying document IDs remain in a harness-side alias map.
 
 All calls use the same Qwen3-8B-Q4_K_M SHA, temperature 0, top-p 1, reasoning off,
-one attempt, 256-token per-call output cap and 65,536-token context ceiling as
+one attempt, 512-token per-call output cap and 65,536-token context ceiling as
 CFEC. The server's independent maximum prediction ceiling remains 8,192. The
 model is told to treat evidence as untrusted data, answer only from supported
 information, cite factual claims with exact aliases, and emit exactly one line:

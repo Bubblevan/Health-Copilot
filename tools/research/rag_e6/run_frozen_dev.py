@@ -41,7 +41,7 @@ def main() -> None:
     build_report = _read_json(REPORT_PATH)
     if (
         lock.get("schema_version") != "rag-e6a-protocol-lock-v1"
-        or lock.get("selected_method") != "CFEC-v1.2"
+        or lock.get("selected_method") != "CFEC-v1.3"
         or lock.get("build_selection_evidence", {}).get("build_manifest_sha256")
         != sha256_file(BUILD_MANIFEST_PATH)
         or lock.get("build_selection_evidence", {}).get("build_report_sha256")

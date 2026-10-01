@@ -344,5 +344,5 @@ def test_oversized_prompt_is_rejected_before_generation_request() -> None:
 
 
 def test_client_and_server_completion_budgets_are_separate() -> None:
-    assert COMPLETION_CEILING == 256
+    assert COMPLETION_CEILING == 512
     assert SERVER_COMPLETION_CEILING == 8192
