@@ -1,0 +1,25 @@
+{
+  "record_id": "mem3b0q-r4-p01-preflight-recovery-v1",
+  "case_id": "R4-P01",
+  "pass": 1,
+  "status": "ARCHIVED_PRE_INFERENCE_PREFLIGHT_FAILURE",
+  "archived_directory": "pass1_r4-p01_preflight_failure_20261001T065857Z",
+  "original_artifact_sha256": {
+    "gate_attempt.json": "2cbc6f859968458e3ec4fbf47e4fdcf2a976e0e568de991b1506a3be90b980ad",
+    "gate_run_manifest.json": "4a127354cdbe53b2e62d88e88a5c3b7c6f242719023772ed27eaa190275f16f7"
+  },
+  "failure": "PowerShell Get-NetTCPConnection access denied during local process preflight",
+  "request_attempts": 0,
+  "retry_count": 0,
+  "delivery_state": "NOT_SENT",
+  "hosted_calls": 0,
+  "recovery_authorization": "Independent reviewer approved continuing with the single pre-registered R4-P01 request because the archived run proves no HTTP request was issued; approval excludes any further retries or later R4 requests until the sampler gate passes.",
+  "frozen_inputs": {
+    "protocol_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+    "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+    "runner_lock_sha256": "f23946c318a39829f02518b2dab338f0c6a4dc88ac497961c188bd57cba12950",
+    "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955"
+  },
+  "protocol_changed": false,
+  "inference_performed": false
+}
