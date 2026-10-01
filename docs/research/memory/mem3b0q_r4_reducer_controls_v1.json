@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "fixture_id": "mem3b0q-r4-conservative-transition-reducer-v1",
+  "status": "OFFLINE_SYNTHETIC_CONTROLS_NOT_MODEL_QUALIFICATION",
+  "scope": "Pure pair classification only; no entity resolution, MemoryStore mutation, B1, or benchmark claim.",
+  "controls": [
+    {
+      "id": "same_resolved_slot_same_value_is_noop",
+      "previous": {"source_id": "s1", "source_text": "My exercise plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My plan still uses Running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "Running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "DUPLICATE_SUPPORT_NOOP"
+    },
+    {
+      "id": "same_alias_type_without_instance_link_is_unresolved",
+      "previous": {"source_id": "s1", "source_text": "My wallet color is black.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": null, "object_type_id": "WALLET", "attribute_id": "COLOR", "value_text": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My wallet color is black.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": null, "object_type_id": "WALLET", "attribute_id": "COLOR", "value_text": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "different_object_instances_remain_distinct",
+      "previous": {"source_id": "s1", "source_text": "My wallet color is black.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "wallet-1", "object_type_id": "WALLET", "attribute_id": "COLOR", "value_text": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My other wallet color is brown.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "wallet-2", "object_type_id": "WALLET", "attribute_id": "COLOR", "value_text": "brown", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "DISTINCT_SLOT"
+    },
+    {
+      "id": "different_owner_remains_distinct",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My sister's plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "sister-1", "object_entity_id": "sister-plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "DISTINCT_SLOT"
+    },
+    {
+      "id": "different_attribute_remains_distinct",
+      "previous": {"source_id": "s1", "source_text": "My wallet color is black.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "wallet-1", "object_type_id": "WALLET", "attribute_id": "COLOR", "value_text": "black", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My wallet material is leather.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "wallet-1", "object_type_id": "WALLET", "attribute_id": "MATERIAL", "value_text": "leather", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "DISTINCT_SLOT"
+    },
+    {
+      "id": "concurrent_values_coexist",
+      "previous": {"source_id": "s1", "source_text": "My set includes apples.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "fruit-set-1", "object_type_id": "FRUIT_SET", "attribute_id": "MEMBERS", "value_text": "apples", "cardinality": "MULTI_VALUE_CONCURRENT", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My set includes pears too.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "fruit-set-1", "object_type_id": "FRUIT_SET", "attribute_id": "MEMBERS", "value_text": "pears", "cardinality": "MULTI_VALUE_CONCURRENT", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "COEXISTING_VALUES"
+    },
+    {
+      "id": "different_single_values_without_update_stay_unresolved",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "explicit_grounded_replace_yields_candidate_only",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, I replaced running with swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "REPLACE", "source_id": "s2", "evidence_span": "On 2026-02-01, I replaced running with swimming.", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "running", "next_value": "swimming"},
+      "expected": "REVISION_CANDIDATE"
+    },
+    {
+      "id": "negated_replace_wording_does_not_admit",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, I did not replace running with swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "REPLACE", "source_id": "s2", "evidence_span": "On 2026-02-01, I did not replace running with swimming.", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "running", "next_value": "swimming"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "non_monotonic_time_does_not_admit",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-03-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, I replaced running with swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-03-02T00:00:00Z"},
+      "witness": {"operation": "REPLACE", "source_id": "s2", "evidence_span": "On 2026-02-01, I replaced running with swimming.", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "running", "next_value": "swimming"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "explicit_grounded_delete_yields_tombstone_candidate_only",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, I removed swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": null, "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "DELETE", "source_id": "s2", "evidence_span": "On 2026-02-01, I removed swimming.", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "swimming", "next_value": null},
+      "expected": "TOMBSTONE_CANDIDATE"
+    },
+    {
+      "id": "delete_witness_cannot_claim_a_successor_value",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, I removed swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": null, "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "DELETE", "source_id": "s2", "evidence_span": "On 2026-02-01, I removed swimming.", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "swimming", "next_value": "running"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "unknown_cardinality_cannot_enter_state_reducer",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "UNKNOWN", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "UNKNOWN", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "repeated_value_span_requires_occurrence_resolution",
+      "previous": {"source_id": "s1", "source_text": "My plan uses running on weekdays and running on weekends.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "My plan activity is swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-01T00:00:00Z"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "quoted_change_is_not_owner_assertion",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2026-02-01, my coach quoted: \"I replaced running with swimming.\"", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "REPLACE", "source_id": "s2", "evidence_span": "On 2026-02-01, my coach quoted: \"I replaced running with swimming.\"", "event_time_span": "2026-02-01", "event_at": "2026-02-01T00:00:00Z", "previous_value": "running", "next_value": "swimming"},
+      "expected": "UNRESOLVED"
+    },
+    {
+      "id": "backdated_event_does_not_supersede_later_observation",
+      "previous": {"source_id": "s1", "source_text": "My plan activity is running.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "running", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-01-01T00:00:00Z"},
+      "current": {"source_id": "s2", "source_text": "On 2025-12-01, I replaced running with swimming.", "scope_id": "scope-1", "owner_entity_id": "user-1", "object_entity_id": "plan-1", "object_type_id": "EXERCISE_PLAN", "attribute_id": "ACTIVITY", "value_text": "swimming", "cardinality": "SINGLE_VALUE_AT_A_TIME", "observed_at": "2026-02-02T00:00:00Z"},
+      "witness": {"operation": "REPLACE", "source_id": "s2", "evidence_span": "On 2025-12-01, I replaced running with swimming.", "event_time_span": "2025-12-01", "event_at": "2025-12-01T00:00:00Z", "previous_value": "running", "next_value": "swimming"},
+      "expected": "UNRESOLVED"
+    }
+  ]
+}
