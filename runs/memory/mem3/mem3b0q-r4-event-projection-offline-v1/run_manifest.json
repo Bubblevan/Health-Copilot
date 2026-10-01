@@ -1,0 +1,1 @@
+{"artifact_sha256":{"projection_result.json":"aa38c12ef34f2652daad025eb2afa48c387e7258ae7e0cde0185a0e5e3df75a6"},"manifest_id":"mem3b0q-r4-event-projection-offline-v1","projection_policy":"mem3b0q-r4-factorized-event-slot-projection-v1","source_run_manifest_sha256":"3c4601fb70bfbc93b78ee149ba4067a7ca7020a8af73beafae63efae7ae0429c","status":"COMPLETE"}

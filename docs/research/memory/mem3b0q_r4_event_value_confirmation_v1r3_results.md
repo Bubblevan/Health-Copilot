@@ -30,11 +30,19 @@ scoring-request wrapper defect was repaired in the v1r3 adapter only.
 | EVTCONF-02 | `completed the purchase of my bicycle two` | `completed the purchase` | quarantined | `event_value_unproven`; included object and a temporal fragment |
 | EVTCONF-03 | `completed the purchase of my bicycle on` | `completed the purchase` | quarantined | `event_value_unproven`; included object and date introducer |
 
-All responses passed JSON/schema validation, used the expected owner/object/
-attribute candidate IDs, and completed without truncation. The evidence points
-to unstable span selection under the extractor contract, not candidate binding
-or runtime failure. The lexical/slot-policy diagnosis is still a local
-failure-attribution hint, not a causal claim about model behavior.
+All responses passed JSON/schema validation and completed without truncation.
+The guard's first rejection was event-value mismatch. Reviewing the full raw
+candidate IDs later showed an additional owner-occurrence mismatch, initially
+masked by that first rejection. The lexical/slot-policy diagnosis is still a
+local failure-attribution hint, not a causal claim about model behavior.
+
+### Correction after guard progression
+
+The three responses also selected the wrong owner mention: EVTCONF-01 selected
+`My sister`; EVTCONF-02/03 selected the first `My`/`my` occurrence rather than
+the nearest `my` in `my bicycle`. Thus v1r3 raw results are 0/3 not only because
+of unstable event-value spans, but also because of unstable owner occurrence
+alignment. The original v1r3 raw score remains unchanged.
 
 The existing guard requires a full match to the frozen event predicate
 `completed the purchase`. This is intentionally strict for the diagnostic, but
@@ -44,12 +52,11 @@ would admit object/time text as event value and would weaken provenance.
 
 ## Next method iteration
 
-Keep the guard strict. Prototype a deterministic, slot-scoped event-value
-projection: the model proposes typed anchors; a frozen harness cue policy
-locates the event predicate in the same source clause and emits that exact
-source span. Compare it offline against these frozen responses before deciding
-whether a fresh confirmation pack is warranted. Any resulting pass rate must
-be labeled as a harness-projection ablation, not raw model extraction accuracy.
+Keep the guard strict. Prototype deterministic projection for both owner
+occurrence (using the frozen nearest-owner rule) and event value (using a
+slot-scoped cue policy), then compare offline against these frozen responses.
+Any resulting pass rate is a harness-projection ablation, not raw model
+extraction accuracy or independent confirmation.
 
 ## Reproducibility
 
