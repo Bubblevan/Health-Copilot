@@ -1,0 +1,22 @@
+{
+  "case_id": "R4-P01",
+  "delivery_state": "NOT_SENT",
+  "failure": "RuntimeError:process_preflight_failed:Get-NetTCPConnection : 拒绝访问 \nAt line:5 char:16\n+ $listeners = @(Get-NetTCPConnection -LocalPort 8081 -State Listen)\n+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : PermissionDenied: (MSFT_NetTCPConnection:ROOT/StandardCimv2/MSFT_NetTCPConnection) [Get- \n   NetTCPConnection], CimException\n    + FullyQualifiedErrorId : HRESULT 0x80041003,Get-NetTCPConnection",
+  "finished_at_utc": "2026-10-01T06:58:58.165345+00:00",
+  "hosted_calls": 0,
+  "memory_store_mutations": 0,
+  "pass": 1,
+  "protocol": "mem3b0q-r4-protocol-v1",
+  "protocol_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "request_attempts": 0,
+  "retry_count": 0,
+  "revision_edges": 0,
+  "runner_lock_sha256": "f23946c318a39829f02518b2dab338f0c6a4dc88ac497961c188bd57cba12950",
+  "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+  "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
+  "sampler_gate": "PENDING_REQUEST_CORRELATION_AND_POSITIVE_SIGNAL",
+  "sampler_parser_before": "NOT_VERIFIED",
+  "server_log_attribution": "TASK_CORRELATED_SLOT_TRACE_REQUIRED",
+  "started_at_utc": "2026-10-01T06:58:57.029353+00:00",
+  "status": "PREFLIGHT_FAILURE"
+}

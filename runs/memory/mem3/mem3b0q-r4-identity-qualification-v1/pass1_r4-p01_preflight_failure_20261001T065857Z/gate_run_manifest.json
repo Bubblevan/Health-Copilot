@@ -1,0 +1,20 @@
+{
+  "artifact_sha256": {
+    "gate_attempt.json": "2cbc6f859968458e3ec4fbf47e4fdcf2a976e0e568de991b1506a3be90b980ad"
+  },
+  "b1_status": "MEM3B0Q_MEM3B1_READY=NO",
+  "branch": "mem3b0q-span-grounded-identity-20261001",
+  "case_id": "R4-P01",
+  "gate_attempt_status": "PREFLIGHT_FAILURE",
+  "manifest_id": "mem3b0q-r4-gate-run-manifest-v1",
+  "protocol_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "quality_status": null,
+  "repository_head": "5e9eca3a6a3e5db5324293081fbe5c16c95cb911",
+  "request_attempts": 0,
+  "retry_count": 0,
+  "runner_lock_sha256": "f23946c318a39829f02518b2dab338f0c6a4dc88ac497961c188bd57cba12950",
+  "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+  "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
+  "sampler_parser": "NOT_VERIFIED",
+  "status": "PENDING_REVIEW"
+}

@@ -1,0 +1,28 @@
+{
+  "artifact_sha256": {
+    "gate_attempt.json": "c92af4eacf0af001b4238ba20fdb724ca49f7c88a2641070ef2b87bd2f384ec6",
+    "postflight_snapshots.json": "b3f696783a073ce6f79d8416cf719c331a67eb5b48c2975ede343c64851c4ee1",
+    "preflight_snapshots.json": "f254df765b2ee49daedacd8debb8afb08830351588c234c4cb5db69b0e9bef07",
+    "request_body.json": "f02e0f4960f7c71ab386a7b233334df24a3cd1290887e07e14273a7439b0ef7e",
+    "request_issued.json": "8756e14d6a5a4be588e0fc35ee0b31de5d9ffefa3fd56ac0f96dc16ecd1cfb6b",
+    "response_body.json": "e693ecc7eba4e0b295ff0e45f9c53574b8075b0732a0fe6193093e23ad894523",
+    "sampler_evidence.json": "90a1a74ab5028846de01b4a3083a4740c55954e02a8ae5f526c9986bfe5deb8b",
+    "server_log_delta.txt": "218cd4e7bf6cb300f87d08977907b1d7e88170b1ec43eedeeb8ab8dad6eaebea",
+    "slot_observations.json": "881513b1a4567ccaceb9deda5ef9b8a5812835710fc2c0f35c3560087c0412bc"
+  },
+  "b1_status": "MEM3B0Q_MEM3B1_READY=NO",
+  "branch": "mem3b0q-span-grounded-identity-20261001",
+  "case_id": "R4-P01",
+  "gate_attempt_status": "INFRA_FAILURE",
+  "manifest_id": "mem3b0q-r4-gate-run-manifest-v1",
+  "protocol_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "quality_status": "QUALITY_FAILURE",
+  "repository_head": "788796a7ac4807791a953665aa1fad550e9d5317",
+  "request_attempts": 1,
+  "retry_count": 0,
+  "runner_lock_sha256": "f23946c318a39829f02518b2dab338f0c6a4dc88ac497961c188bd57cba12950",
+  "runner_sha256": "207e4296ef5120593396af26a1ccd18dcea145b52e7866fcff2117369530fc09",
+  "runtime_preflight_amendment_sha256": "57564c2b834d4f798cf6415aacf200cf8b6bef9c3d3c1aeddb7ad0b2a79a2955",
+  "sampler_parser": "NOT_VERIFIED",
+  "status": "PENDING_REVIEW"
+}

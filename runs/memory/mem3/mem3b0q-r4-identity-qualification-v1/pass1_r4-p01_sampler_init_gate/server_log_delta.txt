@@ -1,0 +1,1994 @@
+59.20.476.820 D res  add_waiting_: add task 8 to waiting list. current waiting = 0 (before add)
+59.20.476.824 D que          post: new task, id = 8, front = 1
+59.20.476.836 D que    start_loop: processing new tasks
+59.20.476.840 D que    start_loop: processing task, id = 8
+59.20.476.847 D srv  process_sing: n_idle_slots = 1, n_processing_slots = 0
+59.20.476.847 D res          send: sending result for task id = 8
+59.20.476.848 D res          send: task id = 8 pushed to result queue
+59.20.476.852 D que    start_loop: update slots
+59.20.476.853 I srv  update_slots: all slots are idle
+59.20.476.854 D que    start_loop: waiting for new tasks
+59.20.476.865 D res  remove_waiti: remove task 8 from waiting list. current waiting = 1 (before remove)
+59.20.476.866 D srv          stop: all tasks already finished, no need to cancel
+59.20.477.007 D common_chat_templates_apply_jinja: using differential autoparser
+59.20.477.008 D [1m[38;5;126m=== Starting differential analysis ===
+[0m59.20.477.008 D [1m[38;5;214mPhase 1: Reasoning analysis
+[0m59.20.478.388 D Template application failed: 
+------------
+While executing CallExpression at line 41, column 134 in source:
+...\n') + '\n</think>\n\n' + content.lstrip('\n') }}↵            {%- else %}↵      ...
+                                           ^
+Error: Callee is not a function: got Undefined (hint: 'lstrip')
+59.20.478.399 D [1m[38;5;214mcompare_reasoning_scope: Template application failed
+[0m59.20.478.402 D [1m[38;5;214mPhase 2: Content analysis
+[0m59.20.479.609 D [1m[38;5;214mPhase 3: Tool call analysis
+[0m59.20.481.427 D 
+--- Reasoning & Content Structure ---
+59.20.481.431 D user_msg_start: <|im_start|>user
+59.20.481.431 D assistant_msg_start: <|im_start|>assistant
+59.20.481.432 D reasoning_mode: TAG_BASED
+59.20.481.432 D reasoning_start: '<think>
+'
+59.20.481.433 D reasoning_end: '
+</think>
+
+'
+59.20.481.433 D content_mode: PLAIN
+59.20.481.433 D content_start: ''
+59.20.481.434 D content_end: ''
+59.20.481.434 D 
+--- Tool Call Structure ---
+59.20.481.434 D tool_mode: JSON_NATIVE
+59.20.481.434 D supports_tools: true
+59.20.481.435 D supports_parallel_calls: true
+59.20.481.435 D tool_section_start: ''
+59.20.481.435 D tool_section_end: ''
+59.20.481.435 D per_call_start: '<tool_call>
+'
+59.20.481.435 D per_call_end: '</tool_call>'
+59.20.481.436 D func_name_prefix: ''
+59.20.481.436 D func_name_suffix: ''
+59.20.481.436 D func_args_separator: ''
+59.20.481.436 D func_close: ''
+59.20.481.436 D call_id_prefix: ''
+59.20.481.437 D call_id_suffix: ''
+59.20.481.437 D call_id_pos: 'NONE'
+59.20.481.437 D args_start: ''
+59.20.481.437 D args_end: ''
+59.20.481.437 D arg_name_prefix: ''
+59.20.481.438 D arg_name_suffix: ''
+59.20.481.438 D arg_value_prefix: ''
+59.20.481.438 D arg_value_suffix: ''
+59.20.481.438 D name_field: 'name'
+59.20.481.438 D args_field: 'arguments'
+59.20.481.438 D id_field: ''
+59.20.481.438 D gen_id_field: ''
+59.20.481.439 D parameter_order: 'name, arguments'
+59.20.481.439 D [1m[38;5;126m=== Differential analysis complete ===
+[0m59.20.482.644 D common_chat_templates_apply_jinja: generated parser:
+Sequence(Literal(<|im_start|>assistant
+), Space, Repetition(Sequence(Epsilon, Literal(<think>), Repetition(Literal(
+), 0, 1), Tag(reasoning, Until(</think>)), Epsilon, Repetition(Literal(
+), 0, 1), Literal(</think>), Repetition(Literal(
+), 0, 1), Repetition(Literal(
+), 0, 1)), 0, 1), Space, Choice(Sequence(Literal(```json), Space, Rule(response-format, Tag(content, Schema(Rule(json-value, Choice(Rule(json-object, Sequence(Literal({), Space, Choice(Literal(}), Sequence(Rule(json-string, Sequence(Literal("), String("), Literal("))), [cycle], Literal(:), [cycle], [cycle], Repetition(Sequence([cycle], Literal(,), [cycle], [cycle], [cycle], [cycle], [cycle], [cycle]), 0, unbounded), [cycle], Literal(}))))), Rule(json-array, Sequence(Literal([), Space, Choice(Literal(]), Sequence([cycle], Repetition(Sequence([cycle], Literal(,), [cycle], [cycle]), 0, unbounded), [cycle], Literal(]))))), [cycle], Rule(json-number, Sequence(Repetition(Literal(-), 0, 1), Choice(Literal(0), Sequence(CharRepeat([1-9], 1, 1), CharRepeat([0-9], 0, unbounded))), Repetition(Sequence(Literal(.), CharRepeat([0-9], 1, unbounded)), 0, 1), Repetition(Sequence(Choice(Literal(e), Literal(E)), Repetition(CharRepeat([+-], 1, 1), 0, 1), [cycle]), 0, 1), Not(CharRepeat([0-9.eE+-], 1, 1)))), Rule(json-bool, Choice(Literal(true), Literal(false))), Rule(json-null, Literal(null)))), {"$id":"urn:health-copilot:mem3b0q-r4-span-proposal-v1","$schema":"https://json-schema.org/draft/2020-12/schema","additionalProperties":false,"properties":{"abstention_reason":{"enum":["NONE","MISSING_OWNER","MISSING_OBJECT_AND_ATTRIBUTE","INSUFFICIENT_GROUNDED_FIELDS","AMBIGUOUS_REFERENCE","UNSUPPORTED_ANCHOR","UNSPLITTABLE_COMPOSITE"],"type":"string"},"atoms":{"items":{"additionalProperties":false,"properties":{"attribute_span":{"maxLength":24,"minLength":1,"type":"string"},"cardinality_proposal":{"enum":["SINGLE_VALUE_AT_A_TIME","MULTI_VALUE_CONCURRENT","EVENT_OR_NOT_STATE","UNKNOWN"],"type":"string"},"object_span":{"maxLength":32,"minLength":1,"type":"string"},"owner_span":{"maxLength":16,"minLength":1,"type":"string"},"value_span":{"maxLength":40,"minLength":1,"type":"string"}},"required":["owner_span","object_span","attribute_span","value_span","cardinality_proposal"],"type":"object"},"maxItems":4,"type":"array"},"source_id":{"enum":["R4-P01","R4-P02","R4-P03","R4-P04","R4-P05","R4-P06","R4-P07","R4-P08","R4-P09","R4-P10","R4-P11","R4-P12","R4-P13","R4-P14","R4-P15","R4-P16","R4-P17","R4-P18","R4-P19","R4-P20"],"type":"string"}},"required":["source_id","atoms","abstention_reason"],"title":"MEM-3B0Q-R4 Span Proposal","type":"object"}))), Space, Literal(```)), Sequence(Space, [cycle], Space)), End)
+
+parser generation prompt: <|im_start|>assistant
+<think>
+
+</think>
+
+
+59.20.482.706 I srv  server_strea: conv_id= (empty=1)
+59.20.483.746 D srv    operator(): Grammar (tool_calls): char ::= [^"\\\x7F\x00-\x1F] | [\\] (["\\bfnrt] | "u" [0-9a-fA-F]{4})
+json-array ::= "[" space ("]" | json-value (space "," space json-value)* space "]")
+json-bool ::= "true" | "false"
+json-null ::= "null"
+json-number ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? (("e" | "E") [+-]? [0-9]+)?
+json-object ::= "{" space ("}" | json-string space ":" space json-value (space "," space json-string space ":" space json-value)* space "}")
+json-string ::= "\"" ( [^"\\] | "\\" ( ["\\/ bfnrt] | "u" [0-9a-fA-F]{4} ) )* "\""
+json-value ::= json-object | json-array | json-string | json-number | json-bool | json-null
+response-format ::= response-format-schema
+response-format-schema ::= "{" space response-format-schema-source-id-kv "," space response-format-schema-atoms-kv "," space response-format-schema-abstention-reason-kv space "}"
+response-format-schema-abstention-reason ::= ("\"NONE\"" | "\"MISSING_OWNER\"" | "\"MISSING_OBJECT_AND_ATTRIBUTE\"" | "\"INSUFFICIENT_GROUNDED_FIELDS\"" | "\"AMBIGUOUS_REFERENCE\"" | "\"UNSUPPORTED_ANCHOR\"" | "\"UNSPLITTABLE_COMPOSITE\"")
+response-format-schema-abstention-reason-kv ::= "\"abstention_reason\"" space ":" space response-format-schema-abstention-reason
+response-format-schema-atoms ::= "[" space (response-format-schema-atoms-item ("," space response-format-schema-atoms-item){0,3})? space "]"
+response-format-schema-atoms-item ::= "{" space response-format-schema-atoms-item-owner-span-kv "," space response-format-schema-atoms-item-object-span-kv "," space response-format-schema-atoms-item-attribute-span-kv "," space response-format-schema-atoms-item-value-span-kv "," space response-format-schema-atoms-item-cardinality-proposal-kv space "}"
+response-format-schema-atoms-item-attribute-span ::= "\"" char{1,24} "\""
+response-format-schema-atoms-item-attribute-span-kv ::= "\"attribute_span\"" space ":" space response-format-schema-atoms-item-attribute-span
+response-format-schema-atoms-item-cardinality-proposal ::= ("\"SINGLE_VALUE_AT_A_TIME\"" | "\"MULTI_VALUE_CONCURRENT\"" | "\"EVENT_OR_NOT_STATE\"" | "\"UNKNOWN\"")
+response-format-schema-atoms-item-cardinality-proposal-kv ::= "\"cardinality_proposal\"" space ":" space response-format-schema-atoms-item-cardinality-proposal
+response-format-schema-atoms-item-object-span ::= "\"" char{1,32} "\""
+response-format-schema-atoms-item-object-span-kv ::= "\"object_span\"" space ":" space response-format-schema-atoms-item-object-span
+response-format-schema-atoms-item-owner-span ::= "\"" char{1,16} "\""
+response-format-schema-atoms-item-owner-span-kv ::= "\"owner_span\"" space ":" space response-format-schema-atoms-item-owner-span
+response-format-schema-atoms-item-value-span ::= "\"" char{1,40} "\""
+response-format-schema-atoms-item-value-span-kv ::= "\"value_span\"" space ":" space response-format-schema-atoms-item-value-span
+response-format-schema-atoms-kv ::= "\"atoms\"" space ":" space response-format-schema-atoms
+response-format-schema-source-id ::= ("\"R4-P01\"" | "\"R4-P02\"" | "\"R4-P03\"" | "\"R4-P04\"" | "\"R4-P05\"" | "\"R4-P06\"" | "\"R4-P07\"" | "\"R4-P08\"" | "\"R4-P09\"" | "\"R4-P10\"" | "\"R4-P11\"" | "\"R4-P12\"" | "\"R4-P13\"" | "\"R4-P14\"" | "\"R4-P15\"" | "\"R4-P16\"" | "\"R4-P17\"" | "\"R4-P18\"" | "\"R4-P19\"" | "\"R4-P20\"")
+response-format-schema-source-id-kv ::= "\"source_id\"" space ":" space response-format-schema-source-id
+root ::= "<|im_start|>assistant\n" space ("<think>" "\n"? until-7 "\n"? "</think>" "\n"? "\n"?)? space ("```json" space response-format space "```" | space response-format space)
+space ::= | " " | "\n"{1,2} [ \t]{0,20}
+until-7 ::= | [<] until-7-01 | [^<] until-7
+until-7-01 ::= | [<] until-7-01 | [/] until-7-02 | [^/<] until-7
+until-7-02 ::= | [<] until-7-01 | [t] until-7-03 | [^<t] until-7
+until-7-03 ::= | [<] until-7-01 | [h] until-7-04 | [^<h] until-7
+until-7-04 ::= | [<] until-7-01 | [i] until-7-05 | [^<i] until-7
+until-7-05 ::= | [<] until-7-01 | [n] until-7-06 | [^<n] until-7
+until-7-06 ::= | [<] until-7-01 | [k] until-7-07 | [^<k] until-7
+until-7-07 ::= | [<] until-7-01 | [^<>] until-7
+
+59.20.483.747 I srv    operator(): chat format: peg-native
+59.20.483.919 D srv  eval_llama_c: reasoning budget: tokens=-1, generation_prompt='<|im_start|>assistant
+<think>
+
+</think>
+
+', start=1 toks, end=1 toks, forced=1 toks
+59.20.483.944 D res  add_waiting_: add task 9 to waiting list. current waiting = 0 (before add)
+59.20.483.944 D que          post: new task, id = 9/1, front = 0
+59.20.483.955 D que    start_loop: processing new tasks
+59.20.483.960 D que    start_loop: processing task, id = 9
+59.20.483.964 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+59.20.483.965 I srv  get_availabl: updating prompt cache
+59.20.483.971 I srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
+59.20.483.973 I srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 131072 tokens, 8589934592 est)
+59.20.483.973 I srv  get_availabl: prompt cache update took 0.01 ms
+59.20.483.982 D slot launch_slot_: id  0 | task -1 | launching slot : {"id":0,"n_ctx":131072,"speculative":false,"is_processing":false}
+59.20.484.172 D common_sampler_init: prefill token: 151644 = <|im_start|>
+59.20.484.173 D common_sampler_init: prefill token: 77091 = assistant
+59.20.484.174 D common_sampler_init: prefill token: 198 = 
+
+59.20.484.175 D common_sampler_init: prefill token: 151667 = <think>
+59.20.484.176 D common_sampler_init: prefill token: 271 = 
+
+
+59.20.484.176 D common_sampler_init: prefill token: 151668 = </think>
+59.20.484.176 D common_sampler_init: prefill token: 271 = 
+
+
+59.20.484.185 D common_sampler_init: grammar accepted prefill token (151644)
+59.20.484.187 D common_sampler_init: grammar accepted prefill token (77091)
+59.20.484.193 D common_sampler_init: grammar accepted prefill token (198)
+59.20.484.199 D common_sampler_init: grammar accepted prefill token (151667)
+59.20.484.206 D common_sampler_init: grammar accepted prefill token (271)
+59.20.484.221 D common_sampler_init: grammar accepted prefill token (151668)
+59.20.484.246 D common_sampler_init: grammar accepted prefill token (271)
+59.20.484.259 I slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+59.20.484.430 I slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 131072
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+59.20.484.432 I slot launch_slot_: id  0 | task 9 | processing task, is_child = 0
+59.20.484.434 D que    start_loop: update slots
+59.20.484.434 D srv  update_slots: posting NEXT_RESPONSE
+59.20.484.436 D que          post: new task, id = 10, front = 0
+59.20.484.443 I slot   operator(): id  0 | task 9 | new prompt, n_ctx_slot = 131072, n_keep = 0, task.n_tokens = 360
+59.20.484.448 I slot   operator(): id  0 | task 9 | cached n_tokens = 0, memory_seq_rm [0, end)
+59.20.484.595 I slot init_sampler: id  0 | task 9 | init sampler, took 0.03 ms, tokens: text = 360, total = 360
+59.20.484.597 D slot   operator(): id  0 | task 9 | main/do_checkpoint = no, pos_min = -1, pos_max = -1
+59.20.484.609 D set_adapters_lora: adapters = 0000000000000000
+59.20.484.610 D adapters_lora_are_same: adapters = 0000000000000000
+59.20.484.611 D set_embeddings: value = 0
+59.20.484.611 D srv        decode: n_batch (effective) = 2048, off = 0
+59.20.553.863 D res  add_waiting_: add task 11 to waiting list. current waiting = 1 (before add)
+59.20.553.867 D que          post: new task, id = 11, front = 1
+59.23.197.298 D slot process_toke: id  0 | task 9 | n_decoded = 1, n_remaining = 255, next token:   515 '{
+'
+59.23.197.308 D que    start_loop: waiting for new tasks
+59.23.197.309 D que    start_loop: processing new tasks
+59.23.197.313 D que    start_loop: processing task, id = 11
+59.23.197.367 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.23.197.367 D res          send: sending result for task id = 11
+59.23.197.368 D res          send: task id = 11 pushed to result queue
+59.23.197.379 D que    start_loop: processing task, id = 10
+59.23.197.380 D que    start_loop: update slots
+59.23.197.381 D srv  update_slots: posting NEXT_RESPONSE
+59.23.197.383 D que          post: new task, id = 12, front = 0
+59.23.197.387 D slot handle_last_: id  0 | task 9 | slot decode token, id=515, n_ctx = 131072, n_tokens = 360, truncated = 0
+59.23.197.390 D set_adapters_lora: adapters = 0000000000000000
+59.23.197.390 D adapters_lora_are_same: adapters = 0000000000000000
+59.23.197.391 D set_embeddings: value = 0
+59.23.197.391 D srv        decode: n_batch (effective) = 2048, off = 0
+59.23.197.416 D res  remove_waiti: remove task 11 from waiting list. current waiting = 2 (before remove)
+59.23.197.418 D srv          stop: all tasks already finished, no need to cancel
+59.23.266.956 D res  add_waiting_: add task 13 to waiting list. current waiting = 1 (before add)
+59.23.266.964 D que          post: new task, id = 13, front = 1
+59.23.438.646 D slot process_toke: id  0 | task 9 | n_decoded = 2, n_remaining = 254, next token:   220 ' '
+59.23.438.661 D que    start_loop: waiting for new tasks
+59.23.438.661 D que    start_loop: processing new tasks
+59.23.438.665 D que    start_loop: processing task, id = 13
+59.23.438.722 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.23.438.723 D res          send: sending result for task id = 13
+59.23.438.724 D res          send: task id = 13 pushed to result queue
+59.23.438.732 D que    start_loop: processing task, id = 12
+59.23.438.733 D que    start_loop: update slots
+59.23.438.734 D srv  update_slots: posting NEXT_RESPONSE
+59.23.438.736 D que          post: new task, id = 14, front = 0
+59.23.438.739 D slot handle_last_: id  0 | task 9 | slot decode token, id=220, n_ctx = 131072, n_tokens = 361, truncated = 0
+59.23.438.742 D set_adapters_lora: adapters = 0000000000000000
+59.23.438.743 D adapters_lora_are_same: adapters = 0000000000000000
+59.23.438.744 D set_embeddings: value = 0
+59.23.438.744 D srv        decode: n_batch (effective) = 2048, off = 0
+59.23.438.837 D res  remove_waiti: remove task 13 from waiting list. current waiting = 2 (before remove)
+59.23.438.838 D srv          stop: all tasks already finished, no need to cancel
+59.23.512.648 D res  add_waiting_: add task 15 to waiting list. current waiting = 1 (before add)
+59.23.512.652 D que          post: new task, id = 15, front = 1
+59.23.677.266 D slot process_toke: id  0 | task 9 | n_decoded = 3, n_remaining = 253, next token:   330 ' "'
+59.23.677.275 D que    start_loop: waiting for new tasks
+59.23.677.275 D que    start_loop: processing new tasks
+59.23.677.278 D que    start_loop: processing task, id = 15
+59.23.677.331 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.23.677.332 D res          send: sending result for task id = 15
+59.23.677.332 D res          send: task id = 15 pushed to result queue
+59.23.677.341 D que    start_loop: processing task, id = 14
+59.23.677.342 D que    start_loop: update slots
+59.23.677.343 D srv  update_slots: posting NEXT_RESPONSE
+59.23.677.345 D que          post: new task, id = 16, front = 0
+59.23.677.348 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 362, truncated = 0
+59.23.677.352 D set_adapters_lora: adapters = 0000000000000000
+59.23.677.352 D adapters_lora_are_same: adapters = 0000000000000000
+59.23.677.353 D set_embeddings: value = 0
+59.23.677.354 D srv        decode: n_batch (effective) = 2048, off = 0
+59.23.677.390 D res  remove_waiti: remove task 15 from waiting list. current waiting = 2 (before remove)
+59.23.677.391 D srv          stop: all tasks already finished, no need to cancel
+59.23.730.335 D res  add_waiting_: add task 17 to waiting list. current waiting = 1 (before add)
+59.23.730.340 D que          post: new task, id = 17, front = 1
+59.23.929.840 D slot process_toke: id  0 | task 9 | n_decoded = 4, n_remaining = 252, next token:  2427 'source'
+59.23.929.848 D que    start_loop: waiting for new tasks
+59.23.929.849 D que    start_loop: processing new tasks
+59.23.929.852 D que    start_loop: processing task, id = 17
+59.23.929.900 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.23.929.901 D res          send: sending result for task id = 17
+59.23.929.902 D res          send: task id = 17 pushed to result queue
+59.23.929.910 D que    start_loop: processing task, id = 16
+59.23.929.911 D que    start_loop: update slots
+59.23.929.912 D srv  update_slots: posting NEXT_RESPONSE
+59.23.929.914 D que          post: new task, id = 18, front = 0
+59.23.929.918 D slot handle_last_: id  0 | task 9 | slot decode token, id=2427, n_ctx = 131072, n_tokens = 363, truncated = 0
+59.23.929.921 D set_adapters_lora: adapters = 0000000000000000
+59.23.929.922 D adapters_lora_are_same: adapters = 0000000000000000
+59.23.929.923 D set_embeddings: value = 0
+59.23.929.923 D srv        decode: n_batch (effective) = 2048, off = 0
+59.23.929.968 D res  remove_waiti: remove task 17 from waiting list. current waiting = 2 (before remove)
+59.23.929.969 D srv          stop: all tasks already finished, no need to cancel
+59.24.007.047 D res  add_waiting_: add task 19 to waiting list. current waiting = 1 (before add)
+59.24.007.053 D que          post: new task, id = 19, front = 1
+59.24.166.279 D slot process_toke: id  0 | task 9 | n_decoded = 5, n_remaining = 251, next token:   842 '_id'
+59.24.166.287 D que    start_loop: waiting for new tasks
+59.24.166.288 D que    start_loop: processing new tasks
+59.24.166.291 D que    start_loop: processing task, id = 19
+59.24.166.345 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.24.166.346 D res          send: sending result for task id = 19
+59.24.166.347 D res          send: task id = 19 pushed to result queue
+59.24.166.356 D que    start_loop: processing task, id = 18
+59.24.166.357 D que    start_loop: update slots
+59.24.166.358 D srv  update_slots: posting NEXT_RESPONSE
+59.24.166.360 D que          post: new task, id = 20, front = 0
+59.24.166.363 D slot handle_last_: id  0 | task 9 | slot decode token, id=842, n_ctx = 131072, n_tokens = 364, truncated = 0
+59.24.166.365 D set_adapters_lora: adapters = 0000000000000000
+59.24.166.366 D adapters_lora_are_same: adapters = 0000000000000000
+59.24.166.367 D set_embeddings: value = 0
+59.24.166.367 D srv        decode: n_batch (effective) = 2048, off = 0
+59.24.166.390 D res  remove_waiti: remove task 19 from waiting list. current waiting = 2 (before remove)
+59.24.166.391 D srv          stop: all tasks already finished, no need to cancel
+59.24.240.075 D res  add_waiting_: add task 21 to waiting list. current waiting = 1 (before add)
+59.24.240.079 D que          post: new task, id = 21, front = 1
+59.24.403.741 D slot process_toke: id  0 | task 9 | n_decoded = 6, n_remaining = 250, next token:   788 '":'
+59.24.403.750 D que    start_loop: waiting for new tasks
+59.24.403.750 D que    start_loop: processing new tasks
+59.24.403.754 D que    start_loop: processing task, id = 21
+59.24.403.802 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.24.403.803 D res          send: sending result for task id = 21
+59.24.403.804 D res          send: task id = 21 pushed to result queue
+59.24.403.813 D que    start_loop: processing task, id = 20
+59.24.403.814 D que    start_loop: update slots
+59.24.403.815 D srv  update_slots: posting NEXT_RESPONSE
+59.24.403.817 D que          post: new task, id = 22, front = 0
+59.24.403.820 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 365, truncated = 0
+59.24.403.823 D set_adapters_lora: adapters = 0000000000000000
+59.24.403.823 D adapters_lora_are_same: adapters = 0000000000000000
+59.24.403.824 D set_embeddings: value = 0
+59.24.403.825 D srv        decode: n_batch (effective) = 2048, off = 0
+59.24.403.843 D res  remove_waiti: remove task 21 from waiting list. current waiting = 2 (before remove)
+59.24.403.844 D srv          stop: all tasks already finished, no need to cancel
+59.24.472.371 D res  add_waiting_: add task 23 to waiting list. current waiting = 1 (before add)
+59.24.472.376 D que          post: new task, id = 23, front = 1
+59.24.639.924 D slot process_toke: id  0 | task 9 | n_decoded = 7, n_remaining = 249, next token:   330 ' "'
+59.24.639.932 D que    start_loop: waiting for new tasks
+59.24.639.933 D que    start_loop: processing new tasks
+59.24.639.936 D que    start_loop: processing task, id = 23
+59.24.639.985 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.24.639.986 D res          send: sending result for task id = 23
+59.24.639.986 D res          send: task id = 23 pushed to result queue
+59.24.639.996 D que    start_loop: processing task, id = 22
+59.24.639.997 D que    start_loop: update slots
+59.24.639.998 D srv  update_slots: posting NEXT_RESPONSE
+59.24.640.000 D que          post: new task, id = 24, front = 0
+59.24.640.003 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 366, truncated = 0
+59.24.640.006 D set_adapters_lora: adapters = 0000000000000000
+59.24.640.007 D adapters_lora_are_same: adapters = 0000000000000000
+59.24.640.008 D set_embeddings: value = 0
+59.24.640.009 D srv        decode: n_batch (effective) = 2048, off = 0
+59.24.640.039 D res  remove_waiti: remove task 23 from waiting list. current waiting = 2 (before remove)
+59.24.640.040 D srv          stop: all tasks already finished, no need to cancel
+59.24.703.663 D res  add_waiting_: add task 25 to waiting list. current waiting = 1 (before add)
+59.24.703.668 D que          post: new task, id = 25, front = 1
+59.24.877.016 D slot process_toke: id  0 | task 9 | n_decoded = 8, n_remaining = 248, next token:    49 'R'
+59.24.877.024 D que    start_loop: waiting for new tasks
+59.24.877.024 D que    start_loop: processing new tasks
+59.24.877.028 D que    start_loop: processing task, id = 25
+59.24.877.076 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.24.877.077 D res          send: sending result for task id = 25
+59.24.877.077 D res          send: task id = 25 pushed to result queue
+59.24.877.084 D que    start_loop: processing task, id = 24
+59.24.877.085 D que    start_loop: update slots
+59.24.877.086 D srv  update_slots: posting NEXT_RESPONSE
+59.24.877.088 D que          post: new task, id = 26, front = 0
+59.24.877.091 D slot handle_last_: id  0 | task 9 | slot decode token, id=49, n_ctx = 131072, n_tokens = 367, truncated = 0
+59.24.877.094 D set_adapters_lora: adapters = 0000000000000000
+59.24.877.095 D adapters_lora_are_same: adapters = 0000000000000000
+59.24.877.095 D set_embeddings: value = 0
+59.24.877.096 D srv        decode: n_batch (effective) = 2048, off = 0
+59.24.877.129 D res  remove_waiti: remove task 25 from waiting list. current waiting = 2 (before remove)
+59.24.877.130 D srv          stop: all tasks already finished, no need to cancel
+59.24.950.112 D res  add_waiting_: add task 27 to waiting list. current waiting = 1 (before add)
+59.24.950.116 D que          post: new task, id = 27, front = 1
+59.25.113.729 D slot process_toke: id  0 | task 9 | n_decoded = 9, n_remaining = 247, next token:    19 '4'
+59.25.113.736 D que    start_loop: waiting for new tasks
+59.25.113.737 D que    start_loop: processing new tasks
+59.25.113.740 D que    start_loop: processing task, id = 27
+59.25.113.789 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.25.113.790 D res          send: sending result for task id = 27
+59.25.113.790 D res          send: task id = 27 pushed to result queue
+59.25.113.799 D que    start_loop: processing task, id = 26
+59.25.113.800 D que    start_loop: update slots
+59.25.113.800 D srv  update_slots: posting NEXT_RESPONSE
+59.25.113.802 D que          post: new task, id = 28, front = 0
+59.25.113.806 D slot handle_last_: id  0 | task 9 | slot decode token, id=19, n_ctx = 131072, n_tokens = 368, truncated = 0
+59.25.113.808 D set_adapters_lora: adapters = 0000000000000000
+59.25.113.809 D adapters_lora_are_same: adapters = 0000000000000000
+59.25.113.809 D set_embeddings: value = 0
+59.25.113.810 D srv        decode: n_batch (effective) = 2048, off = 0
+59.25.113.869 D res  remove_waiti: remove task 27 from waiting list. current waiting = 2 (before remove)
+59.25.113.871 D srv          stop: all tasks already finished, no need to cancel
+59.25.168.758 D res  add_waiting_: add task 29 to waiting list. current waiting = 1 (before add)
+59.25.168.762 D que          post: new task, id = 29, front = 1
+59.25.350.444 D slot process_toke: id  0 | task 9 | n_decoded = 10, n_remaining = 246, next token:  9299 '-P'
+59.25.350.455 D que    start_loop: waiting for new tasks
+59.25.350.456 D que    start_loop: processing new tasks
+59.25.350.460 D que    start_loop: processing task, id = 29
+59.25.350.530 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.25.350.531 D res          send: sending result for task id = 29
+59.25.350.532 D res          send: task id = 29 pushed to result queue
+59.25.350.544 D que    start_loop: processing task, id = 28
+59.25.350.545 D que    start_loop: update slots
+59.25.350.546 D srv  update_slots: posting NEXT_RESPONSE
+59.25.350.549 D que          post: new task, id = 30, front = 0
+59.25.350.553 D slot handle_last_: id  0 | task 9 | slot decode token, id=9299, n_ctx = 131072, n_tokens = 369, truncated = 0
+59.25.350.557 D set_adapters_lora: adapters = 0000000000000000
+59.25.350.557 D adapters_lora_are_same: adapters = 0000000000000000
+59.25.350.558 D set_embeddings: value = 0
+59.25.350.559 D srv        decode: n_batch (effective) = 2048, off = 0
+59.25.350.595 D res  remove_waiti: remove task 29 from waiting list. current waiting = 2 (before remove)
+59.25.350.595 D srv          stop: all tasks already finished, no need to cancel
+59.25.419.082 D res  add_waiting_: add task 31 to waiting list. current waiting = 1 (before add)
+59.25.419.089 D que          post: new task, id = 31, front = 1
+59.25.589.249 D slot process_toke: id  0 | task 9 | n_decoded = 11, n_remaining = 245, next token:    15 '0'
+59.25.589.258 D que    start_loop: waiting for new tasks
+59.25.589.258 D que    start_loop: processing new tasks
+59.25.589.261 D que    start_loop: processing task, id = 31
+59.25.589.312 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.25.589.313 D res          send: sending result for task id = 31
+59.25.589.313 D res          send: task id = 31 pushed to result queue
+59.25.589.321 D que    start_loop: processing task, id = 30
+59.25.589.322 D que    start_loop: update slots
+59.25.589.323 D srv  update_slots: posting NEXT_RESPONSE
+59.25.589.324 D que          post: new task, id = 32, front = 0
+59.25.589.327 D slot handle_last_: id  0 | task 9 | slot decode token, id=15, n_ctx = 131072, n_tokens = 370, truncated = 0
+59.25.589.330 D set_adapters_lora: adapters = 0000000000000000
+59.25.589.331 D adapters_lora_are_same: adapters = 0000000000000000
+59.25.589.332 D set_embeddings: value = 0
+59.25.589.332 D srv        decode: n_batch (effective) = 2048, off = 0
+59.25.589.354 D res  remove_waiti: remove task 31 from waiting list. current waiting = 2 (before remove)
+59.25.589.355 D srv          stop: all tasks already finished, no need to cancel
+59.25.667.958 D res  add_waiting_: add task 33 to waiting list. current waiting = 1 (before add)
+59.25.667.963 D que          post: new task, id = 33, front = 1
+59.25.835.545 D slot process_toke: id  0 | task 9 | n_decoded = 12, n_remaining = 244, next token:    16 '1'
+59.25.835.554 D que    start_loop: waiting for new tasks
+59.25.835.554 D que    start_loop: processing new tasks
+59.25.835.558 D que    start_loop: processing task, id = 33
+59.25.835.607 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.25.835.608 D res          send: sending result for task id = 33
+59.25.835.608 D res          send: task id = 33 pushed to result queue
+59.25.835.616 D que    start_loop: processing task, id = 32
+59.25.835.617 D que    start_loop: update slots
+59.25.835.618 D srv  update_slots: posting NEXT_RESPONSE
+59.25.835.620 D que          post: new task, id = 34, front = 0
+59.25.835.623 D slot handle_last_: id  0 | task 9 | slot decode token, id=16, n_ctx = 131072, n_tokens = 371, truncated = 0
+59.25.835.625 D set_adapters_lora: adapters = 0000000000000000
+59.25.835.626 D adapters_lora_are_same: adapters = 0000000000000000
+59.25.835.626 D set_embeddings: value = 0
+59.25.835.627 D srv        decode: n_batch (effective) = 2048, off = 0
+59.25.835.722 D res  remove_waiti: remove task 33 from waiting list. current waiting = 2 (before remove)
+59.25.835.723 D srv          stop: all tasks already finished, no need to cancel
+59.25.913.908 D res  add_waiting_: add task 35 to waiting list. current waiting = 1 (before add)
+59.25.913.912 D que          post: new task, id = 35, front = 1
+59.26.083.015 D slot process_toke: id  0 | task 9 | n_decoded = 13, n_remaining = 243, next token:   756 '",
+'
+59.26.083.025 D que    start_loop: waiting for new tasks
+59.26.083.025 D que    start_loop: processing new tasks
+59.26.083.029 D que    start_loop: processing task, id = 35
+59.26.083.077 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.26.083.078 D res          send: sending result for task id = 35
+59.26.083.079 D res          send: task id = 35 pushed to result queue
+59.26.083.087 D que    start_loop: processing task, id = 34
+59.26.083.088 D que    start_loop: update slots
+59.26.083.089 D srv  update_slots: posting NEXT_RESPONSE
+59.26.083.091 D que          post: new task, id = 36, front = 0
+59.26.083.093 D slot handle_last_: id  0 | task 9 | slot decode token, id=756, n_ctx = 131072, n_tokens = 372, truncated = 0
+59.26.083.106 D set_adapters_lora: adapters = 0000000000000000
+59.26.083.106 D adapters_lora_are_same: adapters = 0000000000000000
+59.26.083.107 D set_embeddings: value = 0
+59.26.083.107 D srv        decode: n_batch (effective) = 2048, off = 0
+59.26.083.124 D res  remove_waiti: remove task 35 from waiting list. current waiting = 2 (before remove)
+59.26.083.125 D srv          stop: all tasks already finished, no need to cancel
+59.26.161.085 D res  add_waiting_: add task 37 to waiting list. current waiting = 1 (before add)
+59.26.161.088 D que          post: new task, id = 37, front = 1
+59.26.355.798 D slot process_toke: id  0 | task 9 | n_decoded = 14, n_remaining = 242, next token:   220 ' '
+59.26.355.805 D que    start_loop: waiting for new tasks
+59.26.355.805 D que    start_loop: processing new tasks
+59.26.355.809 D que    start_loop: processing task, id = 37
+59.26.355.857 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.26.355.858 D res          send: sending result for task id = 37
+59.26.355.859 D res          send: task id = 37 pushed to result queue
+59.26.355.867 D que    start_loop: processing task, id = 36
+59.26.355.868 D que    start_loop: update slots
+59.26.355.868 D srv  update_slots: posting NEXT_RESPONSE
+59.26.355.870 D que          post: new task, id = 38, front = 0
+59.26.355.874 D slot handle_last_: id  0 | task 9 | slot decode token, id=220, n_ctx = 131072, n_tokens = 373, truncated = 0
+59.26.355.876 D set_adapters_lora: adapters = 0000000000000000
+59.26.355.877 D adapters_lora_are_same: adapters = 0000000000000000
+59.26.355.877 D set_embeddings: value = 0
+59.26.355.878 D srv        decode: n_batch (effective) = 2048, off = 0
+59.26.355.920 D res  remove_waiti: remove task 37 from waiting list. current waiting = 2 (before remove)
+59.26.355.921 D srv          stop: all tasks already finished, no need to cancel
+59.26.425.669 D res  add_waiting_: add task 39 to waiting list. current waiting = 1 (before add)
+59.26.425.678 D que          post: new task, id = 39, front = 1
+59.26.593.159 D slot process_toke: id  0 | task 9 | n_decoded = 15, n_remaining = 241, next token:   330 ' "'
+59.26.593.168 D que    start_loop: waiting for new tasks
+59.26.593.168 D que    start_loop: processing new tasks
+59.26.593.172 D que    start_loop: processing task, id = 39
+59.26.593.219 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.26.593.220 D res          send: sending result for task id = 39
+59.26.593.220 D res          send: task id = 39 pushed to result queue
+59.26.593.229 D que    start_loop: processing task, id = 38
+59.26.593.229 D que    start_loop: update slots
+59.26.593.230 D srv  update_slots: posting NEXT_RESPONSE
+59.26.593.232 D que          post: new task, id = 40, front = 0
+59.26.593.234 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 374, truncated = 0
+59.26.593.237 D set_adapters_lora: adapters = 0000000000000000
+59.26.593.237 D adapters_lora_are_same: adapters = 0000000000000000
+59.26.593.238 D set_embeddings: value = 0
+59.26.593.238 D srv        decode: n_batch (effective) = 2048, off = 0
+59.26.593.309 D res  remove_waiti: remove task 39 from waiting list. current waiting = 2 (before remove)
+59.26.593.310 D srv          stop: all tasks already finished, no need to cancel
+59.26.658.864 D res  add_waiting_: add task 41 to waiting list. current waiting = 1 (before add)
+59.26.658.869 D que          post: new task, id = 41, front = 1
+59.26.830.517 D slot process_toke: id  0 | task 9 | n_decoded = 16, n_remaining = 240, next token: 65550 'atoms'
+59.26.830.525 D que    start_loop: waiting for new tasks
+59.26.830.525 D que    start_loop: processing new tasks
+59.26.830.529 D que    start_loop: processing task, id = 41
+59.26.830.579 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.26.830.580 D res          send: sending result for task id = 41
+59.26.830.580 D res          send: task id = 41 pushed to result queue
+59.26.830.588 D que    start_loop: processing task, id = 40
+59.26.830.589 D que    start_loop: update slots
+59.26.830.590 D srv  update_slots: posting NEXT_RESPONSE
+59.26.830.592 D que          post: new task, id = 42, front = 0
+59.26.830.606 D slot handle_last_: id  0 | task 9 | slot decode token, id=65550, n_ctx = 131072, n_tokens = 375, truncated = 0
+59.26.830.610 D set_adapters_lora: adapters = 0000000000000000
+59.26.830.610 D adapters_lora_are_same: adapters = 0000000000000000
+59.26.830.611 D set_embeddings: value = 0
+59.26.830.612 D srv        decode: n_batch (effective) = 2048, off = 0
+59.26.830.648 D res  remove_waiti: remove task 41 from waiting list. current waiting = 2 (before remove)
+59.26.830.649 D srv          stop: all tasks already finished, no need to cancel
+59.26.907.149 D res  add_waiting_: add task 43 to waiting list. current waiting = 1 (before add)
+59.26.907.153 D que          post: new task, id = 43, front = 1
+59.27.067.453 D slot process_toke: id  0 | task 9 | n_decoded = 17, n_remaining = 239, next token:   788 '":'
+59.27.067.460 D que    start_loop: waiting for new tasks
+59.27.067.461 D que    start_loop: processing new tasks
+59.27.067.465 D que    start_loop: processing task, id = 43
+59.27.067.515 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.27.067.515 D res          send: sending result for task id = 43
+59.27.067.516 D res          send: task id = 43 pushed to result queue
+59.27.067.524 D que    start_loop: processing task, id = 42
+59.27.067.525 D que    start_loop: update slots
+59.27.067.526 D srv  update_slots: posting NEXT_RESPONSE
+59.27.067.528 D que          post: new task, id = 44, front = 0
+59.27.067.530 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 376, truncated = 0
+59.27.067.533 D set_adapters_lora: adapters = 0000000000000000
+59.27.067.534 D adapters_lora_are_same: adapters = 0000000000000000
+59.27.067.534 D set_embeddings: value = 0
+59.27.067.535 D srv        decode: n_batch (effective) = 2048, off = 0
+59.27.067.555 D res  remove_waiti: remove task 43 from waiting list. current waiting = 2 (before remove)
+59.27.067.556 D srv          stop: all tasks already finished, no need to cancel
+59.27.137.526 D res  add_waiting_: add task 45 to waiting list. current waiting = 1 (before add)
+59.27.137.530 D que          post: new task, id = 45, front = 1
+59.27.304.186 D slot process_toke: id  0 | task 9 | n_decoded = 18, n_remaining = 238, next token:  2278 ' [
+'
+59.27.304.193 D que    start_loop: waiting for new tasks
+59.27.304.193 D que    start_loop: processing new tasks
+59.27.304.197 D que    start_loop: processing task, id = 45
+59.27.304.248 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.27.304.250 D res          send: sending result for task id = 45
+59.27.304.251 D res          send: task id = 45 pushed to result queue
+59.27.304.260 D que    start_loop: processing task, id = 44
+59.27.304.261 D que    start_loop: update slots
+59.27.304.261 D srv  update_slots: posting NEXT_RESPONSE
+59.27.304.264 D que          post: new task, id = 46, front = 0
+59.27.304.267 D slot handle_last_: id  0 | task 9 | slot decode token, id=2278, n_ctx = 131072, n_tokens = 377, truncated = 0
+59.27.304.270 D set_adapters_lora: adapters = 0000000000000000
+59.27.304.271 D adapters_lora_are_same: adapters = 0000000000000000
+59.27.304.271 D set_embeddings: value = 0
+59.27.304.272 D srv        decode: n_batch (effective) = 2048, off = 0
+59.27.304.308 D res  remove_waiti: remove task 45 from waiting list. current waiting = 2 (before remove)
+59.27.304.310 D srv          stop: all tasks already finished, no need to cancel
+59.27.369.767 D res  add_waiting_: add task 47 to waiting list. current waiting = 1 (before add)
+59.27.369.771 D que          post: new task, id = 47, front = 1
+59.27.542.586 D slot process_toke: id  0 | task 9 | n_decoded = 19, n_remaining = 237, next token:   262 '   '
+59.27.542.593 D que    start_loop: waiting for new tasks
+59.27.542.594 D que    start_loop: processing new tasks
+59.27.542.597 D que    start_loop: processing task, id = 47
+59.27.542.647 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.27.542.648 D res          send: sending result for task id = 47
+59.27.542.649 D res          send: task id = 47 pushed to result queue
+59.27.542.657 D que    start_loop: processing task, id = 46
+59.27.542.658 D que    start_loop: update slots
+59.27.542.658 D srv  update_slots: posting NEXT_RESPONSE
+59.27.542.661 D que          post: new task, id = 48, front = 0
+59.27.542.664 D slot handle_last_: id  0 | task 9 | slot decode token, id=262, n_ctx = 131072, n_tokens = 378, truncated = 0
+59.27.542.667 D set_adapters_lora: adapters = 0000000000000000
+59.27.542.668 D adapters_lora_are_same: adapters = 0000000000000000
+59.27.542.669 D set_embeddings: value = 0
+59.27.542.669 D srv        decode: n_batch (effective) = 2048, off = 0
+59.27.542.753 D res  remove_waiti: remove task 47 from waiting list. current waiting = 2 (before remove)
+59.27.542.754 D srv          stop: all tasks already finished, no need to cancel
+59.27.601.601 D res  add_waiting_: add task 49 to waiting list. current waiting = 1 (before add)
+59.27.601.605 D que          post: new task, id = 49, front = 1
+59.27.780.821 D slot process_toke: id  0 | task 9 | n_decoded = 20, n_remaining = 236, next token:   341 ' {
+'
+59.27.780.829 D que    start_loop: waiting for new tasks
+59.27.780.830 D que    start_loop: processing new tasks
+59.27.780.834 D que    start_loop: processing task, id = 49
+59.27.780.887 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.27.780.888 D res          send: sending result for task id = 49
+59.27.780.888 D res          send: task id = 49 pushed to result queue
+59.27.780.896 D que    start_loop: processing task, id = 48
+59.27.780.897 D que    start_loop: update slots
+59.27.780.898 D srv  update_slots: posting NEXT_RESPONSE
+59.27.780.900 D que          post: new task, id = 50, front = 0
+59.27.780.903 D slot handle_last_: id  0 | task 9 | slot decode token, id=341, n_ctx = 131072, n_tokens = 379, truncated = 0
+59.27.780.906 D set_adapters_lora: adapters = 0000000000000000
+59.27.780.907 D adapters_lora_are_same: adapters = 0000000000000000
+59.27.780.907 D set_embeddings: value = 0
+59.27.780.908 D srv        decode: n_batch (effective) = 2048, off = 0
+59.27.780.929 D res  remove_waiti: remove task 49 from waiting list. current waiting = 2 (before remove)
+59.27.780.930 D srv          stop: all tasks already finished, no need to cancel
+59.27.847.541 D res  add_waiting_: add task 51 to waiting list. current waiting = 1 (before add)
+59.27.847.561 D que          post: new task, id = 51, front = 1
+59.28.020.726 D slot process_toke: id  0 | task 9 | n_decoded = 21, n_remaining = 235, next token:   414 '     '
+59.28.020.733 D que    start_loop: waiting for new tasks
+59.28.020.733 D que    start_loop: processing new tasks
+59.28.020.738 D que    start_loop: processing task, id = 51
+59.28.020.796 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.28.020.797 D res          send: sending result for task id = 51
+59.28.020.797 D res          send: task id = 51 pushed to result queue
+59.28.020.806 D que    start_loop: processing task, id = 50
+59.28.020.807 D que    start_loop: update slots
+59.28.020.807 D srv  update_slots: posting NEXT_RESPONSE
+59.28.020.809 D que          post: new task, id = 52, front = 0
+59.28.020.812 D slot handle_last_: id  0 | task 9 | slot decode token, id=414, n_ctx = 131072, n_tokens = 380, truncated = 0
+59.28.020.815 D set_adapters_lora: adapters = 0000000000000000
+59.28.020.816 D adapters_lora_are_same: adapters = 0000000000000000
+59.28.020.816 D set_embeddings: value = 0
+59.28.020.817 D srv        decode: n_batch (effective) = 2048, off = 0
+59.28.020.842 D res  remove_waiti: remove task 51 from waiting list. current waiting = 2 (before remove)
+59.28.020.843 D srv          stop: all tasks already finished, no need to cancel
+59.28.095.302 D res  add_waiting_: add task 53 to waiting list. current waiting = 1 (before add)
+59.28.095.307 D que          post: new task, id = 53, front = 1
+59.28.258.622 D slot process_toke: id  0 | task 9 | n_decoded = 22, n_remaining = 234, next token:   330 ' "'
+59.28.258.630 D que    start_loop: waiting for new tasks
+59.28.258.630 D que    start_loop: processing new tasks
+59.28.258.636 D que    start_loop: processing task, id = 53
+59.28.258.694 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.28.258.695 D res          send: sending result for task id = 53
+59.28.258.696 D res          send: task id = 53 pushed to result queue
+59.28.258.703 D que    start_loop: processing task, id = 52
+59.28.258.704 D que    start_loop: update slots
+59.28.258.705 D srv  update_slots: posting NEXT_RESPONSE
+59.28.258.707 D que          post: new task, id = 54, front = 0
+59.28.258.710 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 381, truncated = 0
+59.28.258.715 D set_adapters_lora: adapters = 0000000000000000
+59.28.258.715 D adapters_lora_are_same: adapters = 0000000000000000
+59.28.258.716 D set_embeddings: value = 0
+59.28.258.716 D srv        decode: n_batch (effective) = 2048, off = 0
+59.28.258.742 D res  remove_waiti: remove task 53 from waiting list. current waiting = 2 (before remove)
+59.28.258.743 D srv          stop: all tasks already finished, no need to cancel
+59.28.310.588 D res  add_waiting_: add task 55 to waiting list. current waiting = 1 (before add)
+59.28.310.592 D que          post: new task, id = 55, front = 1
+59.28.496.622 D slot process_toke: id  0 | task 9 | n_decoded = 23, n_remaining = 233, next token:  8118 'owner'
+59.28.496.630 D que    start_loop: waiting for new tasks
+59.28.496.631 D que    start_loop: processing new tasks
+59.28.496.634 D que    start_loop: processing task, id = 55
+59.28.496.688 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.28.496.689 D res          send: sending result for task id = 55
+59.28.496.690 D res          send: task id = 55 pushed to result queue
+59.28.496.699 D que    start_loop: processing task, id = 54
+59.28.496.699 D que    start_loop: update slots
+59.28.496.700 D srv  update_slots: posting NEXT_RESPONSE
+59.28.496.702 D que          post: new task, id = 56, front = 0
+59.28.496.713 D slot handle_last_: id  0 | task 9 | slot decode token, id=8118, n_ctx = 131072, n_tokens = 382, truncated = 0
+59.28.496.717 D set_adapters_lora: adapters = 0000000000000000
+59.28.496.717 D adapters_lora_are_same: adapters = 0000000000000000
+59.28.496.718 D set_embeddings: value = 0
+59.28.496.719 D srv        decode: n_batch (effective) = 2048, off = 0
+59.28.496.735 D res  remove_waiti: remove task 55 from waiting list. current waiting = 2 (before remove)
+59.28.496.736 D srv          stop: all tasks already finished, no need to cancel
+59.28.573.485 D res  add_waiting_: add task 57 to waiting list. current waiting = 1 (before add)
+59.28.573.489 D que          post: new task, id = 57, front = 1
+59.28.746.053 D slot process_toke: id  0 | task 9 | n_decoded = 24, n_remaining = 232, next token: 37382 '_span'
+59.28.746.063 D que    start_loop: waiting for new tasks
+59.28.746.063 D que    start_loop: processing new tasks
+59.28.746.067 D que    start_loop: processing task, id = 57
+59.28.746.117 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.28.746.118 D res          send: sending result for task id = 57
+59.28.746.119 D res          send: task id = 57 pushed to result queue
+59.28.746.127 D que    start_loop: processing task, id = 56
+59.28.746.128 D que    start_loop: update slots
+59.28.746.128 D srv  update_slots: posting NEXT_RESPONSE
+59.28.746.131 D que          post: new task, id = 58, front = 0
+59.28.746.134 D slot handle_last_: id  0 | task 9 | slot decode token, id=37382, n_ctx = 131072, n_tokens = 383, truncated = 0
+59.28.746.136 D set_adapters_lora: adapters = 0000000000000000
+59.28.746.137 D adapters_lora_are_same: adapters = 0000000000000000
+59.28.746.137 D set_embeddings: value = 0
+59.28.746.138 D srv        decode: n_batch (effective) = 2048, off = 0
+59.28.746.160 D res  remove_waiti: remove task 57 from waiting list. current waiting = 2 (before remove)
+59.28.746.162 D srv          stop: all tasks already finished, no need to cancel
+59.28.822.538 D res  add_waiting_: add task 59 to waiting list. current waiting = 1 (before add)
+59.28.822.542 D que          post: new task, id = 59, front = 1
+59.28.981.595 D slot process_toke: id  0 | task 9 | n_decoded = 25, n_remaining = 231, next token:   788 '":'
+59.28.981.603 D que    start_loop: waiting for new tasks
+59.28.981.603 D que    start_loop: processing new tasks
+59.28.981.607 D que    start_loop: processing task, id = 59
+59.28.981.660 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.28.981.660 D res          send: sending result for task id = 59
+59.28.981.661 D res          send: task id = 59 pushed to result queue
+59.28.981.670 D que    start_loop: processing task, id = 58
+59.28.981.671 D que    start_loop: update slots
+59.28.981.672 D srv  update_slots: posting NEXT_RESPONSE
+59.28.981.674 D que          post: new task, id = 60, front = 0
+59.28.981.677 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 384, truncated = 0
+59.28.981.680 D set_adapters_lora: adapters = 0000000000000000
+59.28.981.680 D adapters_lora_are_same: adapters = 0000000000000000
+59.28.981.681 D set_embeddings: value = 0
+59.28.981.681 D srv        decode: n_batch (effective) = 2048, off = 0
+59.28.981.707 D res  remove_waiti: remove task 59 from waiting list. current waiting = 2 (before remove)
+59.28.981.708 D srv          stop: all tasks already finished, no need to cancel
+59.29.054.184 D res  add_waiting_: add task 61 to waiting list. current waiting = 1 (before add)
+59.29.054.188 D que          post: new task, id = 61, front = 1
+59.29.217.596 D slot process_toke: id  0 | task 9 | n_decoded = 26, n_remaining = 230, next token:   330 ' "'
+59.29.217.604 D que    start_loop: waiting for new tasks
+59.29.217.604 D que    start_loop: processing new tasks
+59.29.217.608 D que    start_loop: processing task, id = 61
+59.29.217.666 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.29.217.666 D res          send: sending result for task id = 61
+59.29.217.667 D res          send: task id = 61 pushed to result queue
+59.29.217.675 D que    start_loop: processing task, id = 60
+59.29.217.676 D que    start_loop: update slots
+59.29.217.676 D srv  update_slots: posting NEXT_RESPONSE
+59.29.217.679 D que          post: new task, id = 62, front = 0
+59.29.217.682 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 385, truncated = 0
+59.29.217.685 D set_adapters_lora: adapters = 0000000000000000
+59.29.217.686 D adapters_lora_are_same: adapters = 0000000000000000
+59.29.217.686 D set_embeddings: value = 0
+59.29.217.687 D srv        decode: n_batch (effective) = 2048, off = 0
+59.29.217.710 D res  remove_waiti: remove task 61 from waiting list. current waiting = 2 (before remove)
+59.29.217.711 D srv          stop: all tasks already finished, no need to cancel
+59.29.284.992 D res  add_waiting_: add task 63 to waiting list. current waiting = 1 (before add)
+59.29.284.996 D que          post: new task, id = 63, front = 1
+59.29.455.271 D slot process_toke: id  0 | task 9 | n_decoded = 27, n_remaining = 229, next token:  5050 'My'
+59.29.455.278 D que    start_loop: waiting for new tasks
+59.29.455.278 D que    start_loop: processing new tasks
+59.29.455.282 D que    start_loop: processing task, id = 63
+59.29.455.343 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.29.455.344 D res          send: sending result for task id = 63
+59.29.455.345 D res          send: task id = 63 pushed to result queue
+59.29.455.354 D que    start_loop: processing task, id = 62
+59.29.455.354 D que    start_loop: update slots
+59.29.455.355 D srv  update_slots: posting NEXT_RESPONSE
+59.29.455.357 D que          post: new task, id = 64, front = 0
+59.29.455.360 D slot handle_last_: id  0 | task 9 | slot decode token, id=5050, n_ctx = 131072, n_tokens = 386, truncated = 0
+59.29.455.363 D set_adapters_lora: adapters = 0000000000000000
+59.29.455.363 D adapters_lora_are_same: adapters = 0000000000000000
+59.29.455.364 D set_embeddings: value = 0
+59.29.455.365 D srv        decode: n_batch (effective) = 2048, off = 0
+59.29.455.403 D res  remove_waiti: remove task 63 from waiting list. current waiting = 2 (before remove)
+59.29.455.404 D srv          stop: all tasks already finished, no need to cancel
+59.29.531.346 D res  add_waiting_: add task 65 to waiting list. current waiting = 1 (before add)
+59.29.531.352 D que          post: new task, id = 65, front = 1
+59.29.692.537 D slot process_toke: id  0 | task 9 | n_decoded = 28, n_remaining = 228, next token: 25242 ' workout'
+59.29.692.546 D que    start_loop: waiting for new tasks
+59.29.692.546 D que    start_loop: processing new tasks
+59.29.692.549 D que    start_loop: processing task, id = 65
+59.29.692.602 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.29.692.602 D res          send: sending result for task id = 65
+59.29.692.603 D res          send: task id = 65 pushed to result queue
+59.29.692.611 D que    start_loop: processing task, id = 64
+59.29.692.612 D que    start_loop: update slots
+59.29.692.613 D srv  update_slots: posting NEXT_RESPONSE
+59.29.692.615 D que          post: new task, id = 66, front = 0
+59.29.692.617 D slot handle_last_: id  0 | task 9 | slot decode token, id=25242, n_ctx = 131072, n_tokens = 387, truncated = 0
+59.29.692.620 D set_adapters_lora: adapters = 0000000000000000
+59.29.692.620 D adapters_lora_are_same: adapters = 0000000000000000
+59.29.692.621 D set_embeddings: value = 0
+59.29.692.621 D srv        decode: n_batch (effective) = 2048, off = 0
+59.29.692.709 D res  remove_waiti: remove task 65 from waiting list. current waiting = 2 (before remove)
+59.29.692.710 D srv          stop: all tasks already finished, no need to cancel
+59.29.750.035 D res  add_waiting_: add task 67 to waiting list. current waiting = 1 (before add)
+59.29.750.039 D que          post: new task, id = 67, front = 1
+59.29.928.256 D slot process_toke: id  0 | task 9 | n_decoded = 29, n_remaining = 227, next token:  3119 ' plan'
+59.29.928.263 D que    start_loop: waiting for new tasks
+59.29.928.264 D que    start_loop: processing new tasks
+59.29.928.267 D que    start_loop: processing task, id = 67
+59.29.928.315 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.29.928.316 D res          send: sending result for task id = 67
+59.29.928.317 D res          send: task id = 67 pushed to result queue
+59.29.928.326 D que    start_loop: processing task, id = 66
+59.29.928.327 D que    start_loop: update slots
+59.29.928.328 D srv  update_slots: posting NEXT_RESPONSE
+59.29.928.330 D que          post: new task, id = 68, front = 0
+59.29.928.332 D slot handle_last_: id  0 | task 9 | slot decode token, id=3119, n_ctx = 131072, n_tokens = 388, truncated = 0
+59.29.928.336 D set_adapters_lora: adapters = 0000000000000000
+59.29.928.336 D adapters_lora_are_same: adapters = 0000000000000000
+59.29.928.337 D set_embeddings: value = 0
+59.29.928.338 D srv        decode: n_batch (effective) = 2048, off = 0
+59.29.928.370 D res  remove_waiti: remove task 67 from waiting list. current waiting = 2 (before remove)
+59.29.928.371 D srv          stop: all tasks already finished, no need to cancel
+59.29.996.214 D res  add_waiting_: add task 69 to waiting list. current waiting = 1 (before add)
+59.29.996.219 D que          post: new task, id = 69, front = 1
+59.30.163.701 D slot process_toke: id  0 | task 9 | n_decoded = 30, n_remaining = 226, next token:   756 '",
+'
+59.30.163.708 D que    start_loop: waiting for new tasks
+59.30.163.709 D que    start_loop: processing new tasks
+59.30.163.712 D que    start_loop: processing task, id = 69
+59.30.163.764 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.30.163.765 D res          send: sending result for task id = 69
+59.30.163.766 D res          send: task id = 69 pushed to result queue
+59.30.163.774 D que    start_loop: processing task, id = 68
+59.30.163.775 D que    start_loop: update slots
+59.30.163.775 D srv  update_slots: posting NEXT_RESPONSE
+59.30.163.777 D que          post: new task, id = 70, front = 0
+59.30.163.780 D slot handle_last_: id  0 | task 9 | slot decode token, id=756, n_ctx = 131072, n_tokens = 389, truncated = 0
+59.30.163.783 D set_adapters_lora: adapters = 0000000000000000
+59.30.163.783 D adapters_lora_are_same: adapters = 0000000000000000
+59.30.163.784 D set_embeddings: value = 0
+59.30.163.785 D srv        decode: n_batch (effective) = 2048, off = 0
+59.30.163.804 D res  remove_waiti: remove task 69 from waiting list. current waiting = 2 (before remove)
+59.30.163.806 D srv          stop: all tasks already finished, no need to cancel
+59.30.245.011 D res  add_waiting_: add task 71 to waiting list. current waiting = 1 (before add)
+59.30.245.019 D que          post: new task, id = 71, front = 1
+59.30.400.001 D slot process_toke: id  0 | task 9 | n_decoded = 31, n_remaining = 225, next token:   414 '     '
+59.30.400.009 D que    start_loop: waiting for new tasks
+59.30.400.009 D que    start_loop: processing new tasks
+59.30.400.014 D que    start_loop: processing task, id = 71
+59.30.400.065 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.30.400.065 D res          send: sending result for task id = 71
+59.30.400.066 D res          send: task id = 71 pushed to result queue
+59.30.400.080 D que    start_loop: processing task, id = 70
+59.30.400.081 D que    start_loop: update slots
+59.30.400.082 D srv  update_slots: posting NEXT_RESPONSE
+59.30.400.084 D que          post: new task, id = 72, front = 0
+59.30.400.087 D slot handle_last_: id  0 | task 9 | slot decode token, id=414, n_ctx = 131072, n_tokens = 390, truncated = 0
+59.30.400.091 D set_adapters_lora: adapters = 0000000000000000
+59.30.400.092 D adapters_lora_are_same: adapters = 0000000000000000
+59.30.400.092 D set_embeddings: value = 0
+59.30.400.093 D srv        decode: n_batch (effective) = 2048, off = 0
+59.30.400.160 D res  remove_waiti: remove task 71 from waiting list. current waiting = 2 (before remove)
+59.30.400.161 D srv          stop: all tasks already finished, no need to cancel
+59.30.475.512 D res  add_waiting_: add task 73 to waiting list. current waiting = 1 (before add)
+59.30.475.516 D que          post: new task, id = 73, front = 1
+59.30.637.673 D slot process_toke: id  0 | task 9 | n_decoded = 32, n_remaining = 224, next token:   330 ' "'
+59.30.637.682 D que    start_loop: waiting for new tasks
+59.30.637.682 D que    start_loop: processing new tasks
+59.30.637.686 D que    start_loop: processing task, id = 73
+59.30.637.738 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.30.637.739 D res          send: sending result for task id = 73
+59.30.637.740 D res          send: task id = 73 pushed to result queue
+59.30.637.749 D que    start_loop: processing task, id = 72
+59.30.637.750 D que    start_loop: update slots
+59.30.637.751 D srv  update_slots: posting NEXT_RESPONSE
+59.30.637.753 D que          post: new task, id = 74, front = 0
+59.30.637.756 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 391, truncated = 0
+59.30.637.759 D set_adapters_lora: adapters = 0000000000000000
+59.30.637.760 D adapters_lora_are_same: adapters = 0000000000000000
+59.30.637.760 D set_embeddings: value = 0
+59.30.637.761 D srv        decode: n_batch (effective) = 2048, off = 0
+59.30.637.794 D res  remove_waiti: remove task 73 from waiting list. current waiting = 2 (before remove)
+59.30.637.796 D srv          stop: all tasks already finished, no need to cancel
+59.30.707.107 D res  add_waiting_: add task 75 to waiting list. current waiting = 1 (before add)
+59.30.707.117 D que          post: new task, id = 75, front = 1
+59.30.887.952 D slot process_toke: id  0 | task 9 | n_decoded = 33, n_remaining = 223, next token:  1700 'object'
+59.30.887.958 D que    start_loop: waiting for new tasks
+59.30.887.958 D que    start_loop: processing new tasks
+59.30.887.962 D que    start_loop: processing task, id = 75
+59.30.888.011 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.30.888.011 D res          send: sending result for task id = 75
+59.30.888.012 D res          send: task id = 75 pushed to result queue
+59.30.888.021 D que    start_loop: processing task, id = 74
+59.30.888.022 D que    start_loop: update slots
+59.30.888.022 D srv  update_slots: posting NEXT_RESPONSE
+59.30.888.025 D que          post: new task, id = 76, front = 0
+59.30.888.027 D slot handle_last_: id  0 | task 9 | slot decode token, id=1700, n_ctx = 131072, n_tokens = 392, truncated = 0
+59.30.888.031 D set_adapters_lora: adapters = 0000000000000000
+59.30.888.031 D adapters_lora_are_same: adapters = 0000000000000000
+59.30.888.032 D set_embeddings: value = 0
+59.30.888.033 D srv        decode: n_batch (effective) = 2048, off = 0
+59.30.888.049 D res  remove_waiti: remove task 75 from waiting list. current waiting = 2 (before remove)
+59.30.888.050 D srv          stop: all tasks already finished, no need to cancel
+59.30.956.777 D res  add_waiting_: add task 77 to waiting list. current waiting = 1 (before add)
+59.30.956.781 D que          post: new task, id = 77, front = 1
+59.31.123.555 D slot process_toke: id  0 | task 9 | n_decoded = 34, n_remaining = 222, next token: 37382 '_span'
+59.31.123.564 D que    start_loop: waiting for new tasks
+59.31.123.564 D que    start_loop: processing new tasks
+59.31.123.567 D que    start_loop: processing task, id = 77
+59.31.123.616 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.31.123.616 D res          send: sending result for task id = 77
+59.31.123.617 D res          send: task id = 77 pushed to result queue
+59.31.123.625 D que    start_loop: processing task, id = 76
+59.31.123.626 D que    start_loop: update slots
+59.31.123.627 D srv  update_slots: posting NEXT_RESPONSE
+59.31.123.629 D que          post: new task, id = 78, front = 0
+59.31.123.632 D slot handle_last_: id  0 | task 9 | slot decode token, id=37382, n_ctx = 131072, n_tokens = 393, truncated = 0
+59.31.123.635 D set_adapters_lora: adapters = 0000000000000000
+59.31.123.635 D adapters_lora_are_same: adapters = 0000000000000000
+59.31.123.636 D set_embeddings: value = 0
+59.31.123.636 D srv        decode: n_batch (effective) = 2048, off = 0
+59.31.123.657 D res  remove_waiti: remove task 77 from waiting list. current waiting = 2 (before remove)
+59.31.123.658 D srv          stop: all tasks already finished, no need to cancel
+59.31.203.589 D res  add_waiting_: add task 79 to waiting list. current waiting = 1 (before add)
+59.31.203.594 D que          post: new task, id = 79, front = 1
+59.31.360.993 D slot process_toke: id  0 | task 9 | n_decoded = 35, n_remaining = 221, next token:   788 '":'
+59.31.360.999 D que    start_loop: waiting for new tasks
+59.31.361.000 D que    start_loop: processing new tasks
+59.31.361.004 D que    start_loop: processing task, id = 79
+59.31.361.057 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.31.361.058 D res          send: sending result for task id = 79
+59.31.361.059 D res          send: task id = 79 pushed to result queue
+59.31.361.068 D que    start_loop: processing task, id = 78
+59.31.361.068 D que    start_loop: update slots
+59.31.361.069 D srv  update_slots: posting NEXT_RESPONSE
+59.31.361.071 D que          post: new task, id = 80, front = 0
+59.31.361.074 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 394, truncated = 0
+59.31.361.077 D set_adapters_lora: adapters = 0000000000000000
+59.31.361.078 D adapters_lora_are_same: adapters = 0000000000000000
+59.31.361.078 D set_embeddings: value = 0
+59.31.361.079 D srv        decode: n_batch (effective) = 2048, off = 0
+59.31.361.102 D res  remove_waiti: remove task 79 from waiting list. current waiting = 2 (before remove)
+59.31.361.103 D srv          stop: all tasks already finished, no need to cancel
+59.31.435.063 D res  add_waiting_: add task 81 to waiting list. current waiting = 1 (before add)
+59.31.435.068 D que          post: new task, id = 81, front = 1
+59.31.598.684 D slot process_toke: id  0 | task 9 | n_decoded = 36, n_remaining = 220, next token:   330 ' "'
+59.31.598.693 D que    start_loop: waiting for new tasks
+59.31.598.693 D que    start_loop: processing new tasks
+59.31.598.696 D que    start_loop: processing task, id = 81
+59.31.598.747 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.31.598.748 D res          send: sending result for task id = 81
+59.31.598.748 D res          send: task id = 81 pushed to result queue
+59.31.598.757 D que    start_loop: processing task, id = 80
+59.31.598.758 D que    start_loop: update slots
+59.31.598.759 D srv  update_slots: posting NEXT_RESPONSE
+59.31.598.761 D que          post: new task, id = 82, front = 0
+59.31.598.763 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 395, truncated = 0
+59.31.598.766 D set_adapters_lora: adapters = 0000000000000000
+59.31.598.767 D adapters_lora_are_same: adapters = 0000000000000000
+59.31.598.767 D set_embeddings: value = 0
+59.31.598.768 D srv        decode: n_batch (effective) = 2048, off = 0
+59.31.598.869 D res  remove_waiti: remove task 81 from waiting list. current waiting = 2 (before remove)
+59.31.598.871 D srv          stop: all tasks already finished, no need to cancel
+59.31.652.467 D res  add_waiting_: add task 83 to waiting list. current waiting = 1 (before add)
+59.31.652.472 D que          post: new task, id = 83, front = 1
+59.31.837.497 D slot process_toke: id  0 | task 9 | n_decoded = 37, n_remaining = 219, next token:  7175 'activity'
+59.31.837.505 D que    start_loop: waiting for new tasks
+59.31.837.505 D que    start_loop: processing new tasks
+59.31.837.512 D que    start_loop: processing task, id = 83
+59.31.837.574 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.31.837.575 D res          send: sending result for task id = 83
+59.31.837.575 D res          send: task id = 83 pushed to result queue
+59.31.837.586 D que    start_loop: processing task, id = 82
+59.31.837.587 D que    start_loop: update slots
+59.31.837.587 D srv  update_slots: posting NEXT_RESPONSE
+59.31.837.591 D que          post: new task, id = 84, front = 0
+59.31.837.596 D slot handle_last_: id  0 | task 9 | slot decode token, id=7175, n_ctx = 131072, n_tokens = 396, truncated = 0
+59.31.837.602 D set_adapters_lora: adapters = 0000000000000000
+59.31.837.603 D adapters_lora_are_same: adapters = 0000000000000000
+59.31.837.604 D set_embeddings: value = 0
+59.31.837.604 D srv        decode: n_batch (effective) = 2048, off = 0
+59.31.837.639 D res  remove_waiti: remove task 83 from waiting list. current waiting = 2 (before remove)
+59.31.837.641 D srv          stop: all tasks already finished, no need to cancel
+59.31.914.427 D res  add_waiting_: add task 85 to waiting list. current waiting = 1 (before add)
+59.31.914.436 D que          post: new task, id = 85, front = 1
+59.32.075.723 D slot process_toke: id  0 | task 9 | n_decoded = 38, n_remaining = 218, next token:   756 '",
+'
+59.32.075.732 D que    start_loop: waiting for new tasks
+59.32.075.732 D que    start_loop: processing new tasks
+59.32.075.735 D que    start_loop: processing task, id = 85
+59.32.075.782 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.32.075.783 D res          send: sending result for task id = 85
+59.32.075.784 D res          send: task id = 85 pushed to result queue
+59.32.075.793 D que    start_loop: processing task, id = 84
+59.32.075.793 D que    start_loop: update slots
+59.32.075.794 D srv  update_slots: posting NEXT_RESPONSE
+59.32.075.796 D que          post: new task, id = 86, front = 0
+59.32.075.798 D slot handle_last_: id  0 | task 9 | slot decode token, id=756, n_ctx = 131072, n_tokens = 397, truncated = 0
+59.32.075.801 D set_adapters_lora: adapters = 0000000000000000
+59.32.075.801 D adapters_lora_are_same: adapters = 0000000000000000
+59.32.075.802 D set_embeddings: value = 0
+59.32.075.802 D srv        decode: n_batch (effective) = 2048, off = 0
+59.32.075.869 D res  remove_waiti: remove task 85 from waiting list. current waiting = 2 (before remove)
+59.32.075.871 D srv          stop: all tasks already finished, no need to cancel
+59.32.147.152 D res  add_waiting_: add task 87 to waiting list. current waiting = 1 (before add)
+59.32.147.157 D que          post: new task, id = 87, front = 1
+59.32.312.846 D slot process_toke: id  0 | task 9 | n_decoded = 39, n_remaining = 217, next token:   414 '     '
+59.32.312.853 D que    start_loop: waiting for new tasks
+59.32.312.854 D que    start_loop: processing new tasks
+59.32.312.857 D que    start_loop: processing task, id = 87
+59.32.312.911 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.32.312.912 D res          send: sending result for task id = 87
+59.32.312.912 D res          send: task id = 87 pushed to result queue
+59.32.312.920 D que    start_loop: processing task, id = 86
+59.32.312.920 D que    start_loop: update slots
+59.32.312.921 D srv  update_slots: posting NEXT_RESPONSE
+59.32.312.923 D que          post: new task, id = 88, front = 0
+59.32.312.926 D slot handle_last_: id  0 | task 9 | slot decode token, id=414, n_ctx = 131072, n_tokens = 398, truncated = 0
+59.32.312.929 D set_adapters_lora: adapters = 0000000000000000
+59.32.312.929 D adapters_lora_are_same: adapters = 0000000000000000
+59.32.312.930 D set_embeddings: value = 0
+59.32.312.931 D srv        decode: n_batch (effective) = 2048, off = 0
+59.32.312.978 D res  remove_waiti: remove task 87 from waiting list. current waiting = 2 (before remove)
+59.32.312.979 D srv          stop: all tasks already finished, no need to cancel
+59.32.374.221 D res  add_waiting_: add task 89 to waiting list. current waiting = 1 (before add)
+59.32.374.225 D que          post: new task, id = 89, front = 1
+59.32.549.614 D slot process_toke: id  0 | task 9 | n_decoded = 40, n_remaining = 216, next token:   330 ' "'
+59.32.549.621 D que    start_loop: waiting for new tasks
+59.32.549.622 D que    start_loop: processing new tasks
+59.32.549.626 D que    start_loop: processing task, id = 89
+59.32.549.683 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.32.549.684 D res          send: sending result for task id = 89
+59.32.549.685 D res          send: task id = 89 pushed to result queue
+59.32.549.695 D que    start_loop: processing task, id = 88
+59.32.549.697 D que    start_loop: update slots
+59.32.549.698 D srv  update_slots: posting NEXT_RESPONSE
+59.32.549.700 D que          post: new task, id = 90, front = 0
+59.32.549.704 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 399, truncated = 0
+59.32.549.707 D set_adapters_lora: adapters = 0000000000000000
+59.32.549.708 D adapters_lora_are_same: adapters = 0000000000000000
+59.32.549.709 D set_embeddings: value = 0
+59.32.549.709 D srv        decode: n_batch (effective) = 2048, off = 0
+59.32.549.737 D res  remove_waiti: remove task 89 from waiting list. current waiting = 2 (before remove)
+59.32.549.738 D srv          stop: all tasks already finished, no need to cancel
+59.32.605.113 D res  add_waiting_: add task 91 to waiting list. current waiting = 1 (before add)
+59.32.605.117 D que          post: new task, id = 91, front = 1
+59.32.790.967 D slot process_toke: id  0 | task 9 | n_decoded = 41, n_remaining = 215, next token:  9116 'attribute'
+59.32.790.974 D que    start_loop: waiting for new tasks
+59.32.790.975 D que    start_loop: processing new tasks
+59.32.790.978 D que    start_loop: processing task, id = 91
+59.32.791.030 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.32.791.031 D res          send: sending result for task id = 91
+59.32.791.033 D res          send: task id = 91 pushed to result queue
+59.32.791.042 D que    start_loop: processing task, id = 90
+59.32.791.043 D que    start_loop: update slots
+59.32.791.044 D srv  update_slots: posting NEXT_RESPONSE
+59.32.791.046 D que          post: new task, id = 92, front = 0
+59.32.791.048 D slot handle_last_: id  0 | task 9 | slot decode token, id=9116, n_ctx = 131072, n_tokens = 400, truncated = 0
+59.32.791.052 D set_adapters_lora: adapters = 0000000000000000
+59.32.791.052 D adapters_lora_are_same: adapters = 0000000000000000
+59.32.791.053 D set_embeddings: value = 0
+59.32.791.053 D srv        decode: n_batch (effective) = 2048, off = 0
+59.32.791.084 D res  remove_waiti: remove task 91 from waiting list. current waiting = 2 (before remove)
+59.32.791.085 D srv          stop: all tasks already finished, no need to cancel
+59.32.865.699 D res  add_waiting_: add task 93 to waiting list. current waiting = 1 (before add)
+59.32.865.703 D que          post: new task, id = 93, front = 1
+59.33.026.384 D slot process_toke: id  0 | task 9 | n_decoded = 42, n_remaining = 214, next token: 37382 '_span'
+59.33.026.392 D que    start_loop: waiting for new tasks
+59.33.026.393 D que    start_loop: processing new tasks
+59.33.026.396 D que    start_loop: processing task, id = 93
+59.33.026.450 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.33.026.451 D res          send: sending result for task id = 93
+59.33.026.452 D res          send: task id = 93 pushed to result queue
+59.33.026.460 D que    start_loop: processing task, id = 92
+59.33.026.461 D que    start_loop: update slots
+59.33.026.462 D srv  update_slots: posting NEXT_RESPONSE
+59.33.026.464 D que          post: new task, id = 94, front = 0
+59.33.026.467 D slot handle_last_: id  0 | task 9 | slot decode token, id=37382, n_ctx = 131072, n_tokens = 401, truncated = 0
+59.33.026.470 D set_adapters_lora: adapters = 0000000000000000
+59.33.026.470 D adapters_lora_are_same: adapters = 0000000000000000
+59.33.026.471 D set_embeddings: value = 0
+59.33.026.471 D srv        decode: n_batch (effective) = 2048, off = 0
+59.33.026.527 D res  remove_waiti: remove task 93 from waiting list. current waiting = 2 (before remove)
+59.33.026.528 D srv          stop: all tasks already finished, no need to cancel
+59.33.096.780 D res  add_waiting_: add task 95 to waiting list. current waiting = 1 (before add)
+59.33.096.785 D que          post: new task, id = 95, front = 1
+59.33.263.550 D slot process_toke: id  0 | task 9 | n_decoded = 43, n_remaining = 213, next token:   788 '":'
+59.33.263.557 D que    start_loop: waiting for new tasks
+59.33.263.557 D que    start_loop: processing new tasks
+59.33.263.560 D que    start_loop: processing task, id = 95
+59.33.263.607 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.33.263.607 D res          send: sending result for task id = 95
+59.33.263.608 D res          send: task id = 95 pushed to result queue
+59.33.263.616 D que    start_loop: processing task, id = 94
+59.33.263.616 D que    start_loop: update slots
+59.33.263.617 D srv  update_slots: posting NEXT_RESPONSE
+59.33.263.619 D que          post: new task, id = 96, front = 0
+59.33.263.622 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 402, truncated = 0
+59.33.263.625 D set_adapters_lora: adapters = 0000000000000000
+59.33.263.625 D adapters_lora_are_same: adapters = 0000000000000000
+59.33.263.626 D set_embeddings: value = 0
+59.33.263.626 D srv        decode: n_batch (effective) = 2048, off = 0
+59.33.263.676 D res  remove_waiti: remove task 95 from waiting list. current waiting = 2 (before remove)
+59.33.263.676 D srv          stop: all tasks already finished, no need to cancel
+59.33.330.104 D res  add_waiting_: add task 97 to waiting list. current waiting = 1 (before add)
+59.33.330.109 D que          post: new task, id = 97, front = 1
+59.33.500.933 D slot process_toke: id  0 | task 9 | n_decoded = 44, n_remaining = 212, next token:   330 ' "'
+59.33.500.940 D que    start_loop: waiting for new tasks
+59.33.500.940 D que    start_loop: processing new tasks
+59.33.500.944 D que    start_loop: processing task, id = 97
+59.33.500.998 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.33.500.999 D res          send: sending result for task id = 97
+59.33.500.999 D res          send: task id = 97 pushed to result queue
+59.33.501.007 D que    start_loop: processing task, id = 96
+59.33.501.008 D que    start_loop: update slots
+59.33.501.008 D srv  update_slots: posting NEXT_RESPONSE
+59.33.501.010 D que          post: new task, id = 98, front = 0
+59.33.501.013 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 403, truncated = 0
+59.33.501.016 D set_adapters_lora: adapters = 0000000000000000
+59.33.501.017 D adapters_lora_are_same: adapters = 0000000000000000
+59.33.501.017 D set_embeddings: value = 0
+59.33.501.018 D srv        decode: n_batch (effective) = 2048, off = 0
+59.33.501.042 D res  remove_waiti: remove task 97 from waiting list. current waiting = 2 (before remove)
+59.33.501.044 D srv          stop: all tasks already finished, no need to cancel
+59.33.579.034 D res  add_waiting_: add task 99 to waiting list. current waiting = 1 (before add)
+59.33.579.039 D que          post: new task, id = 99, front = 1
+59.33.739.060 D slot process_toke: id  0 | task 9 | n_decoded = 45, n_remaining = 211, next token:   285 'is'
+59.33.739.068 D que    start_loop: waiting for new tasks
+59.33.739.069 D que    start_loop: processing new tasks
+59.33.739.072 D que    start_loop: processing task, id = 99
+59.33.739.122 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.33.739.122 D res          send: sending result for task id = 99
+59.33.739.123 D res          send: task id = 99 pushed to result queue
+59.33.739.131 D que    start_loop: processing task, id = 98
+59.33.739.132 D que    start_loop: update slots
+59.33.739.132 D srv  update_slots: posting NEXT_RESPONSE
+59.33.739.135 D que          post: new task, id = 100, front = 0
+59.33.739.137 D slot handle_last_: id  0 | task 9 | slot decode token, id=285, n_ctx = 131072, n_tokens = 404, truncated = 0
+59.33.739.140 D set_adapters_lora: adapters = 0000000000000000
+59.33.739.141 D adapters_lora_are_same: adapters = 0000000000000000
+59.33.739.141 D set_embeddings: value = 0
+59.33.739.142 D srv        decode: n_batch (effective) = 2048, off = 0
+59.33.739.175 D res  remove_waiti: remove task 99 from waiting list. current waiting = 2 (before remove)
+59.33.739.176 D srv          stop: all tasks already finished, no need to cancel
+59.33.811.382 D res  add_waiting_: add task 101 to waiting list. current waiting = 1 (before add)
+59.33.811.387 D que          post: new task, id = 101, front = 1
+59.33.975.328 D slot process_toke: id  0 | task 9 | n_decoded = 46, n_remaining = 210, next token:   756 '",
+'
+59.33.975.335 D que    start_loop: waiting for new tasks
+59.33.975.335 D que    start_loop: processing new tasks
+59.33.975.339 D que    start_loop: processing task, id = 101
+59.33.975.388 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.33.975.389 D res          send: sending result for task id = 101
+59.33.975.390 D res          send: task id = 101 pushed to result queue
+59.33.975.398 D que    start_loop: processing task, id = 100
+59.33.975.399 D que    start_loop: update slots
+59.33.975.399 D srv  update_slots: posting NEXT_RESPONSE
+59.33.975.401 D que          post: new task, id = 102, front = 0
+59.33.975.404 D slot handle_last_: id  0 | task 9 | slot decode token, id=756, n_ctx = 131072, n_tokens = 405, truncated = 0
+59.33.975.407 D set_adapters_lora: adapters = 0000000000000000
+59.33.975.407 D adapters_lora_are_same: adapters = 0000000000000000
+59.33.975.407 D set_embeddings: value = 0
+59.33.975.408 D srv        decode: n_batch (effective) = 2048, off = 0
+59.33.975.541 D res  remove_waiti: remove task 101 from waiting list. current waiting = 2 (before remove)
+59.33.975.542 D srv          stop: all tasks already finished, no need to cancel
+59.34.042.128 D res  add_waiting_: add task 103 to waiting list. current waiting = 1 (before add)
+59.34.042.132 D que          post: new task, id = 103, front = 1
+59.34.212.255 D slot process_toke: id  0 | task 9 | n_decoded = 47, n_remaining = 209, next token:   414 '     '
+59.34.212.262 D que    start_loop: waiting for new tasks
+59.34.212.263 D que    start_loop: processing new tasks
+59.34.212.267 D que    start_loop: processing task, id = 103
+59.34.212.318 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.34.212.318 D res          send: sending result for task id = 103
+59.34.212.319 D res          send: task id = 103 pushed to result queue
+59.34.212.326 D que    start_loop: processing task, id = 102
+59.34.212.327 D que    start_loop: update slots
+59.34.212.328 D srv  update_slots: posting NEXT_RESPONSE
+59.34.212.330 D que          post: new task, id = 104, front = 0
+59.34.212.333 D slot handle_last_: id  0 | task 9 | slot decode token, id=414, n_ctx = 131072, n_tokens = 406, truncated = 0
+59.34.212.336 D set_adapters_lora: adapters = 0000000000000000
+59.34.212.336 D adapters_lora_are_same: adapters = 0000000000000000
+59.34.212.337 D set_embeddings: value = 0
+59.34.212.337 D srv        decode: n_batch (effective) = 2048, off = 0
+59.34.212.387 D res  remove_waiti: remove task 103 from waiting list. current waiting = 2 (before remove)
+59.34.212.388 D srv          stop: all tasks already finished, no need to cancel
+59.34.273.196 D res  add_waiting_: add task 105 to waiting list. current waiting = 1 (before add)
+59.34.273.200 D que          post: new task, id = 105, front = 1
+59.34.449.600 D slot process_toke: id  0 | task 9 | n_decoded = 48, n_remaining = 208, next token:   330 ' "'
+59.34.449.605 D que    start_loop: waiting for new tasks
+59.34.449.606 D que    start_loop: processing new tasks
+59.34.449.609 D que    start_loop: processing task, id = 105
+59.34.449.662 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.34.449.662 D res          send: sending result for task id = 105
+59.34.449.663 D res          send: task id = 105 pushed to result queue
+59.34.449.673 D que    start_loop: processing task, id = 104
+59.34.449.673 D que    start_loop: update slots
+59.34.449.674 D srv  update_slots: posting NEXT_RESPONSE
+59.34.449.676 D que          post: new task, id = 106, front = 0
+59.34.449.679 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 407, truncated = 0
+59.34.449.683 D set_adapters_lora: adapters = 0000000000000000
+59.34.449.683 D adapters_lora_are_same: adapters = 0000000000000000
+59.34.449.684 D set_embeddings: value = 0
+59.34.449.684 D srv        decode: n_batch (effective) = 2048, off = 0
+59.34.449.708 D res  remove_waiti: remove task 105 from waiting list. current waiting = 2 (before remove)
+59.34.449.710 D srv          stop: all tasks already finished, no need to cancel
+59.34.505.690 D res  add_waiting_: add task 107 to waiting list. current waiting = 1 (before add)
+59.34.505.694 D que          post: new task, id = 107, front = 1
+59.34.687.734 D slot process_toke: id  0 | task 9 | n_decoded = 49, n_remaining = 207, next token:   957 'value'
+59.34.687.741 D que    start_loop: waiting for new tasks
+59.34.687.742 D que    start_loop: processing new tasks
+59.34.687.746 D que    start_loop: processing task, id = 107
+59.34.687.801 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.34.687.802 D res          send: sending result for task id = 107
+59.34.687.802 D res          send: task id = 107 pushed to result queue
+59.34.687.812 D que    start_loop: processing task, id = 106
+59.34.687.813 D que    start_loop: update slots
+59.34.687.814 D srv  update_slots: posting NEXT_RESPONSE
+59.34.687.817 D que          post: new task, id = 108, front = 0
+59.34.687.820 D slot handle_last_: id  0 | task 9 | slot decode token, id=957, n_ctx = 131072, n_tokens = 408, truncated = 0
+59.34.687.823 D set_adapters_lora: adapters = 0000000000000000
+59.34.687.824 D adapters_lora_are_same: adapters = 0000000000000000
+59.34.687.825 D set_embeddings: value = 0
+59.34.687.825 D srv        decode: n_batch (effective) = 2048, off = 0
+59.34.687.847 D res  remove_waiti: remove task 107 from waiting list. current waiting = 2 (before remove)
+59.34.687.848 D srv          stop: all tasks already finished, no need to cancel
+59.34.768.469 D res  add_waiting_: add task 109 to waiting list. current waiting = 1 (before add)
+59.34.768.474 D que          post: new task, id = 109, front = 1
+59.34.924.887 D slot process_toke: id  0 | task 9 | n_decoded = 50, n_remaining = 206, next token: 37382 '_span'
+59.34.924.896 D que    start_loop: waiting for new tasks
+59.34.924.897 D que    start_loop: processing new tasks
+59.34.924.900 D que    start_loop: processing task, id = 109
+59.34.924.961 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.34.924.962 D res          send: sending result for task id = 109
+59.34.924.963 D res          send: task id = 109 pushed to result queue
+59.34.924.972 D que    start_loop: processing task, id = 108
+59.34.924.973 D que    start_loop: update slots
+59.34.924.974 D srv  update_slots: posting NEXT_RESPONSE
+59.34.924.976 D que          post: new task, id = 110, front = 0
+59.34.924.980 D slot handle_last_: id  0 | task 9 | slot decode token, id=37382, n_ctx = 131072, n_tokens = 409, truncated = 0
+59.34.924.984 D set_adapters_lora: adapters = 0000000000000000
+59.34.924.985 D adapters_lora_are_same: adapters = 0000000000000000
+59.34.924.986 D set_embeddings: value = 0
+59.34.924.986 D srv        decode: n_batch (effective) = 2048, off = 0
+59.34.925.020 D res  remove_waiti: remove task 109 from waiting list. current waiting = 2 (before remove)
+59.34.925.021 D srv          stop: all tasks already finished, no need to cancel
+59.34.981.520 D res  add_waiting_: add task 111 to waiting list. current waiting = 1 (before add)
+59.34.981.524 D que          post: new task, id = 111, front = 1
+59.35.183.262 D slot process_toke: id  0 | task 9 | n_decoded = 51, n_remaining = 205, next token:   788 '":'
+59.35.183.269 D que    start_loop: waiting for new tasks
+59.35.183.269 D que    start_loop: processing new tasks
+59.35.183.273 D que    start_loop: processing task, id = 111
+59.35.183.328 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.35.183.329 D res          send: sending result for task id = 111
+59.35.183.330 D res          send: task id = 111 pushed to result queue
+59.35.183.349 D que    start_loop: processing task, id = 110
+59.35.183.350 D que    start_loop: update slots
+59.35.183.351 D srv  update_slots: posting NEXT_RESPONSE
+59.35.183.353 D que          post: new task, id = 112, front = 0
+59.35.183.356 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 410, truncated = 0
+59.35.183.360 D set_adapters_lora: adapters = 0000000000000000
+59.35.183.360 D adapters_lora_are_same: adapters = 0000000000000000
+59.35.183.361 D set_embeddings: value = 0
+59.35.183.362 D srv        decode: n_batch (effective) = 2048, off = 0
+59.35.183.369 D res  remove_waiti: remove task 111 from waiting list. current waiting = 2 (before remove)
+59.35.183.370 D srv          stop: all tasks already finished, no need to cancel
+59.35.261.307 D res  add_waiting_: add task 113 to waiting list. current waiting = 1 (before add)
+59.35.261.314 D que          post: new task, id = 113, front = 1
+59.35.420.092 D slot process_toke: id  0 | task 9 | n_decoded = 52, n_remaining = 204, next token:   330 ' "'
+59.35.420.101 D que    start_loop: waiting for new tasks
+59.35.420.101 D que    start_loop: processing new tasks
+59.35.420.105 D que    start_loop: processing task, id = 113
+59.35.420.159 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.35.420.159 D res          send: sending result for task id = 113
+59.35.420.160 D res          send: task id = 113 pushed to result queue
+59.35.420.169 D que    start_loop: processing task, id = 112
+59.35.420.170 D que    start_loop: update slots
+59.35.420.171 D srv  update_slots: posting NEXT_RESPONSE
+59.35.420.173 D que          post: new task, id = 114, front = 0
+59.35.420.176 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 411, truncated = 0
+59.35.420.179 D set_adapters_lora: adapters = 0000000000000000
+59.35.420.179 D adapters_lora_are_same: adapters = 0000000000000000
+59.35.420.180 D set_embeddings: value = 0
+59.35.420.181 D srv        decode: n_batch (effective) = 2048, off = 0
+59.35.420.207 D res  remove_waiti: remove task 113 from waiting list. current waiting = 2 (before remove)
+59.35.420.208 D srv          stop: all tasks already finished, no need to cancel
+59.35.480.616 D res  add_waiting_: add task 115 to waiting list. current waiting = 1 (before add)
+59.35.480.620 D que          post: new task, id = 115, front = 1
+59.35.666.565 D slot process_toke: id  0 | task 9 | n_decoded = 53, n_remaining = 203, next token: 27173 'running'
+59.35.666.575 D que    start_loop: waiting for new tasks
+59.35.666.576 D que    start_loop: processing new tasks
+59.35.666.581 D que    start_loop: processing task, id = 115
+59.35.666.660 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.35.666.661 D res          send: sending result for task id = 115
+59.35.666.662 D res          send: task id = 115 pushed to result queue
+59.35.666.674 D que    start_loop: processing task, id = 114
+59.35.666.675 D que    start_loop: update slots
+59.35.666.676 D srv  update_slots: posting NEXT_RESPONSE
+59.35.666.679 D que          post: new task, id = 116, front = 0
+59.35.666.683 D slot handle_last_: id  0 | task 9 | slot decode token, id=27173, n_ctx = 131072, n_tokens = 412, truncated = 0
+59.35.666.687 D set_adapters_lora: adapters = 0000000000000000
+59.35.666.687 D adapters_lora_are_same: adapters = 0000000000000000
+59.35.666.688 D set_embeddings: value = 0
+59.35.666.689 D srv        decode: n_batch (effective) = 2048, off = 0
+59.35.666.722 D res  remove_waiti: remove task 115 from waiting list. current waiting = 2 (before remove)
+59.35.666.724 D srv          stop: all tasks already finished, no need to cancel
+59.35.739.945 D res  add_waiting_: add task 117 to waiting list. current waiting = 1 (before add)
+59.35.739.949 D que          post: new task, id = 117, front = 1
+59.35.904.205 D slot process_toke: id  0 | task 9 | n_decoded = 54, n_remaining = 202, next token:   756 '",
+'
+59.35.904.215 D que    start_loop: waiting for new tasks
+59.35.904.215 D que    start_loop: processing new tasks
+59.35.904.220 D que    start_loop: processing task, id = 117
+59.35.904.280 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.35.904.281 D res          send: sending result for task id = 117
+59.35.904.282 D res          send: task id = 117 pushed to result queue
+59.35.904.292 D que    start_loop: processing task, id = 116
+59.35.904.293 D que    start_loop: update slots
+59.35.904.293 D srv  update_slots: posting NEXT_RESPONSE
+59.35.904.296 D que          post: new task, id = 118, front = 0
+59.35.904.299 D slot handle_last_: id  0 | task 9 | slot decode token, id=756, n_ctx = 131072, n_tokens = 413, truncated = 0
+59.35.904.303 D set_adapters_lora: adapters = 0000000000000000
+59.35.904.303 D adapters_lora_are_same: adapters = 0000000000000000
+59.35.904.304 D set_embeddings: value = 0
+59.35.904.305 D srv        decode: n_batch (effective) = 2048, off = 0
+59.35.904.406 D res  remove_waiti: remove task 117 from waiting list. current waiting = 2 (before remove)
+59.35.904.408 D srv          stop: all tasks already finished, no need to cancel
+59.35.972.808 D res  add_waiting_: add task 119 to waiting list. current waiting = 1 (before add)
+59.35.972.813 D que          post: new task, id = 119, front = 1
+59.36.136.904 D slot process_toke: id  0 | task 9 | n_decoded = 55, n_remaining = 201, next token:   414 '     '
+59.36.136.910 D que    start_loop: waiting for new tasks
+59.36.136.910 D que    start_loop: processing new tasks
+59.36.136.914 D que    start_loop: processing task, id = 119
+59.36.136.971 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.36.136.972 D res          send: sending result for task id = 119
+59.36.136.973 D res          send: task id = 119 pushed to result queue
+59.36.136.980 D que    start_loop: processing task, id = 118
+59.36.136.981 D que    start_loop: update slots
+59.36.136.982 D srv  update_slots: posting NEXT_RESPONSE
+59.36.136.984 D que          post: new task, id = 120, front = 0
+59.36.136.987 D slot handle_last_: id  0 | task 9 | slot decode token, id=414, n_ctx = 131072, n_tokens = 414, truncated = 0
+59.36.136.991 D set_adapters_lora: adapters = 0000000000000000
+59.36.136.991 D adapters_lora_are_same: adapters = 0000000000000000
+59.36.136.992 D set_embeddings: value = 0
+59.36.136.993 D srv        decode: n_batch (effective) = 2048, off = 0
+59.36.137.030 D res  remove_waiti: remove task 119 from waiting list. current waiting = 2 (before remove)
+59.36.137.031 D srv          stop: all tasks already finished, no need to cancel
+59.36.193.340 D res  add_waiting_: add task 121 to waiting list. current waiting = 1 (before add)
+59.36.193.345 D que          post: new task, id = 121, front = 1
+59.36.371.557 D slot process_toke: id  0 | task 9 | n_decoded = 56, n_remaining = 200, next token:   330 ' "'
+59.36.371.564 D que    start_loop: waiting for new tasks
+59.36.371.564 D que    start_loop: processing new tasks
+59.36.371.568 D que    start_loop: processing task, id = 121
+59.36.371.630 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.36.371.631 D res          send: sending result for task id = 121
+59.36.371.632 D res          send: task id = 121 pushed to result queue
+59.36.371.641 D que    start_loop: processing task, id = 120
+59.36.371.642 D que    start_loop: update slots
+59.36.371.643 D srv  update_slots: posting NEXT_RESPONSE
+59.36.371.645 D que          post: new task, id = 122, front = 0
+59.36.371.648 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 415, truncated = 0
+59.36.371.652 D set_adapters_lora: adapters = 0000000000000000
+59.36.371.652 D adapters_lora_are_same: adapters = 0000000000000000
+59.36.371.653 D set_embeddings: value = 0
+59.36.371.653 D srv        decode: n_batch (effective) = 2048, off = 0
+59.36.371.692 D res  remove_waiti: remove task 121 from waiting list. current waiting = 2 (before remove)
+59.36.371.694 D srv          stop: all tasks already finished, no need to cancel
+59.36.424.306 D res  add_waiting_: add task 123 to waiting list. current waiting = 1 (before add)
+59.36.424.312 D que          post: new task, id = 123, front = 1
+59.36.607.887 D slot process_toke: id  0 | task 9 | n_decoded = 57, n_remaining = 199, next token:  4951 'card'
+59.36.607.896 D que    start_loop: waiting for new tasks
+59.36.607.897 D que    start_loop: processing new tasks
+59.36.607.901 D que    start_loop: processing task, id = 123
+59.36.607.963 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.36.607.965 D res          send: sending result for task id = 123
+59.36.607.965 D res          send: task id = 123 pushed to result queue
+59.36.607.976 D que    start_loop: processing task, id = 122
+59.36.607.977 D que    start_loop: update slots
+59.36.607.978 D srv  update_slots: posting NEXT_RESPONSE
+59.36.607.980 D que          post: new task, id = 124, front = 0
+59.36.607.983 D slot handle_last_: id  0 | task 9 | slot decode token, id=4951, n_ctx = 131072, n_tokens = 416, truncated = 0
+59.36.607.988 D set_adapters_lora: adapters = 0000000000000000
+59.36.607.989 D adapters_lora_are_same: adapters = 0000000000000000
+59.36.607.990 D set_embeddings: value = 0
+59.36.607.991 D srv        decode: n_batch (effective) = 2048, off = 0
+59.36.608.063 D res  remove_waiti: remove task 123 from waiting list. current waiting = 2 (before remove)
+59.36.608.064 D srv          stop: all tasks already finished, no need to cancel
+59.36.685.103 D res  add_waiting_: add task 125 to waiting list. current waiting = 1 (before add)
+59.36.685.114 D que          post: new task, id = 125, front = 1
+59.36.841.147 D slot process_toke: id  0 | task 9 | n_decoded = 58, n_remaining = 198, next token: 80777 'inality'
+59.36.841.159 D que    start_loop: waiting for new tasks
+59.36.841.161 D que    start_loop: processing new tasks
+59.36.841.167 D que    start_loop: processing task, id = 125
+59.36.841.268 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.36.841.269 D res          send: sending result for task id = 125
+59.36.841.270 D res          send: task id = 125 pushed to result queue
+59.36.841.286 D que    start_loop: processing task, id = 124
+59.36.841.287 D que    start_loop: update slots
+59.36.841.288 D srv  update_slots: posting NEXT_RESPONSE
+59.36.841.291 D que          post: new task, id = 126, front = 0
+59.36.841.296 D slot handle_last_: id  0 | task 9 | slot decode token, id=80777, n_ctx = 131072, n_tokens = 417, truncated = 0
+59.36.841.300 D set_adapters_lora: adapters = 0000000000000000
+59.36.841.301 D adapters_lora_are_same: adapters = 0000000000000000
+59.36.841.302 D set_embeddings: value = 0
+59.36.841.303 D srv        decode: n_batch (effective) = 2048, off = 0
+59.36.841.330 D res  remove_waiti: remove task 125 from waiting list. current waiting = 2 (before remove)
+59.36.841.331 D srv          stop: all tasks already finished, no need to cancel
+59.36.918.655 D res  add_waiting_: add task 127 to waiting list. current waiting = 1 (before add)
+59.36.918.661 D que          post: new task, id = 127, front = 1
+59.37.095.043 D slot process_toke: id  0 | task 9 | n_decoded = 59, n_remaining = 197, next token: 21663 '_prop'
+59.37.095.050 D que    start_loop: waiting for new tasks
+59.37.095.051 D que    start_loop: processing new tasks
+59.37.095.055 D que    start_loop: processing task, id = 127
+59.37.095.112 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.37.095.113 D res          send: sending result for task id = 127
+59.37.095.113 D res          send: task id = 127 pushed to result queue
+59.37.095.124 D que    start_loop: processing task, id = 126
+59.37.095.125 D que    start_loop: update slots
+59.37.095.126 D srv  update_slots: posting NEXT_RESPONSE
+59.37.095.128 D que          post: new task, id = 128, front = 0
+59.37.095.132 D slot handle_last_: id  0 | task 9 | slot decode token, id=21663, n_ctx = 131072, n_tokens = 418, truncated = 0
+59.37.095.136 D set_adapters_lora: adapters = 0000000000000000
+59.37.095.136 D adapters_lora_are_same: adapters = 0000000000000000
+59.37.095.137 D set_embeddings: value = 0
+59.37.095.138 D srv        decode: n_batch (effective) = 2048, off = 0
+59.37.095.169 D res  remove_waiti: remove task 127 from waiting list. current waiting = 2 (before remove)
+59.37.095.171 D srv          stop: all tasks already finished, no need to cancel
+59.37.164.632 D res  add_waiting_: add task 129 to waiting list. current waiting = 1 (before add)
+59.37.164.639 D que          post: new task, id = 129, front = 1
+59.37.340.785 D slot process_toke: id  0 | task 9 | n_decoded = 60, n_remaining = 196, next token: 32556 'osal'
+59.37.340.794 D que    start_loop: waiting for new tasks
+59.37.340.795 D que    start_loop: processing new tasks
+59.37.340.799 D que    start_loop: processing task, id = 129
+59.37.340.866 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.37.340.867 D res          send: sending result for task id = 129
+59.37.340.868 D res          send: task id = 129 pushed to result queue
+59.37.340.877 D que    start_loop: processing task, id = 128
+59.37.340.878 D que    start_loop: update slots
+59.37.340.879 D srv  update_slots: posting NEXT_RESPONSE
+59.37.340.881 D que          post: new task, id = 130, front = 0
+59.37.340.885 D slot handle_last_: id  0 | task 9 | slot decode token, id=32556, n_ctx = 131072, n_tokens = 419, truncated = 0
+59.37.340.889 D set_adapters_lora: adapters = 0000000000000000
+59.37.340.890 D adapters_lora_are_same: adapters = 0000000000000000
+59.37.340.890 D set_embeddings: value = 0
+59.37.340.891 D srv        decode: n_batch (effective) = 2048, off = 0
+59.37.340.922 D res  remove_waiti: remove task 129 from waiting list. current waiting = 2 (before remove)
+59.37.340.924 D srv          stop: all tasks already finished, no need to cancel
+59.37.415.845 D res  add_waiting_: add task 131 to waiting list. current waiting = 1 (before add)
+59.37.415.851 D que          post: new task, id = 131, front = 1
+59.37.584.426 D slot process_toke: id  0 | task 9 | n_decoded = 61, n_remaining = 195, next token:   788 '":'
+59.37.584.435 D que    start_loop: waiting for new tasks
+59.37.584.435 D que    start_loop: processing new tasks
+59.37.584.439 D que    start_loop: processing task, id = 131
+59.37.584.496 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.37.584.497 D res          send: sending result for task id = 131
+59.37.584.498 D res          send: task id = 131 pushed to result queue
+59.37.584.507 D que    start_loop: processing task, id = 130
+59.37.584.508 D que    start_loop: update slots
+59.37.584.508 D srv  update_slots: posting NEXT_RESPONSE
+59.37.584.511 D que          post: new task, id = 132, front = 0
+59.37.584.513 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 420, truncated = 0
+59.37.584.517 D set_adapters_lora: adapters = 0000000000000000
+59.37.584.517 D adapters_lora_are_same: adapters = 0000000000000000
+59.37.584.518 D set_embeddings: value = 0
+59.37.584.518 D srv        decode: n_batch (effective) = 2048, off = 0
+59.37.584.545 D res  remove_waiti: remove task 131 from waiting list. current waiting = 2 (before remove)
+59.37.584.546 D srv          stop: all tasks already finished, no need to cancel
+59.37.635.658 D res  add_waiting_: add task 133 to waiting list. current waiting = 1 (before add)
+59.37.635.663 D que          post: new task, id = 133, front = 1
+59.37.807.071 D slot process_toke: id  0 | task 9 | n_decoded = 62, n_remaining = 194, next token:   330 ' "'
+59.37.807.080 D que    start_loop: waiting for new tasks
+59.37.807.081 D que    start_loop: processing new tasks
+59.37.807.084 D que    start_loop: processing task, id = 133
+59.37.807.143 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.37.807.144 D res          send: sending result for task id = 133
+59.37.807.145 D res          send: task id = 133 pushed to result queue
+59.37.807.153 D que    start_loop: processing task, id = 132
+59.37.807.155 D que    start_loop: update slots
+59.37.807.156 D srv  update_slots: posting NEXT_RESPONSE
+59.37.807.158 D que          post: new task, id = 134, front = 0
+59.37.807.161 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 421, truncated = 0
+59.37.807.165 D set_adapters_lora: adapters = 0000000000000000
+59.37.807.165 D adapters_lora_are_same: adapters = 0000000000000000
+59.37.807.166 D set_embeddings: value = 0
+59.37.807.167 D srv        decode: n_batch (effective) = 2048, off = 0
+59.37.807.196 D res  remove_waiti: remove task 133 from waiting list. current waiting = 2 (before remove)
+59.37.807.197 D srv          stop: all tasks already finished, no need to cancel
+59.37.866.447 D res  add_waiting_: add task 135 to waiting list. current waiting = 1 (before add)
+59.37.866.457 D que          post: new task, id = 135, front = 1
+59.38.042.131 D slot process_toke: id  0 | task 9 | n_decoded = 63, n_remaining = 193, next token:    50 'S'
+59.38.042.139 D que    start_loop: waiting for new tasks
+59.38.042.139 D que    start_loop: processing new tasks
+59.38.042.143 D que    start_loop: processing task, id = 135
+59.38.042.195 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.38.042.196 D res          send: sending result for task id = 135
+59.38.042.197 D res          send: task id = 135 pushed to result queue
+59.38.042.206 D que    start_loop: processing task, id = 134
+59.38.042.207 D que    start_loop: update slots
+59.38.042.208 D srv  update_slots: posting NEXT_RESPONSE
+59.38.042.210 D que          post: new task, id = 136, front = 0
+59.38.042.213 D slot handle_last_: id  0 | task 9 | slot decode token, id=50, n_ctx = 131072, n_tokens = 422, truncated = 0
+59.38.042.216 D set_adapters_lora: adapters = 0000000000000000
+59.38.042.217 D adapters_lora_are_same: adapters = 0000000000000000
+59.38.042.217 D set_embeddings: value = 0
+59.38.042.218 D srv        decode: n_batch (effective) = 2048, off = 0
+59.38.042.250 D res  remove_waiti: remove task 135 from waiting list. current waiting = 2 (before remove)
+59.38.042.252 D srv          stop: all tasks already finished, no need to cancel
+59.38.112.682 D res  add_waiting_: add task 137 to waiting list. current waiting = 1 (before add)
+59.38.112.687 D que          post: new task, id = 137, front = 1
+59.38.260.013 D slot process_toke: id  0 | task 9 | n_decoded = 64, n_remaining = 192, next token: 25696 'INGLE'
+59.38.260.023 D que    start_loop: waiting for new tasks
+59.38.260.024 D que    start_loop: processing new tasks
+59.38.260.029 D que    start_loop: processing task, id = 137
+59.38.260.101 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.38.260.102 D res          send: sending result for task id = 137
+59.38.260.103 D res          send: task id = 137 pushed to result queue
+59.38.260.116 D que    start_loop: processing task, id = 136
+59.38.260.117 D que    start_loop: update slots
+59.38.260.118 D srv  update_slots: posting NEXT_RESPONSE
+59.38.260.121 D que          post: new task, id = 138, front = 0
+59.38.260.125 D slot handle_last_: id  0 | task 9 | slot decode token, id=25696, n_ctx = 131072, n_tokens = 423, truncated = 0
+59.38.260.129 D set_adapters_lora: adapters = 0000000000000000
+59.38.260.129 D adapters_lora_are_same: adapters = 0000000000000000
+59.38.260.130 D set_embeddings: value = 0
+59.38.260.131 D srv        decode: n_batch (effective) = 2048, off = 0
+59.38.260.162 D res  remove_waiti: remove task 137 from waiting list. current waiting = 2 (before remove)
+59.38.260.163 D srv          stop: all tasks already finished, no need to cancel
+59.38.331.058 D res  add_waiting_: add task 139 to waiting list. current waiting = 1 (before add)
+59.38.331.067 D que          post: new task, id = 139, front = 1
+59.38.477.890 D slot process_toke: id  0 | task 9 | n_decoded = 65, n_remaining = 191, next token:  6096 '_VAL'
+59.38.477.898 D que    start_loop: waiting for new tasks
+59.38.477.898 D que    start_loop: processing new tasks
+59.38.477.902 D que    start_loop: processing task, id = 139
+59.38.477.960 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.38.477.961 D res          send: sending result for task id = 139
+59.38.477.961 D res          send: task id = 139 pushed to result queue
+59.38.477.970 D que    start_loop: processing task, id = 138
+59.38.477.971 D que    start_loop: update slots
+59.38.477.972 D srv  update_slots: posting NEXT_RESPONSE
+59.38.477.974 D que          post: new task, id = 140, front = 0
+59.38.477.977 D slot handle_last_: id  0 | task 9 | slot decode token, id=6096, n_ctx = 131072, n_tokens = 424, truncated = 0
+59.38.477.981 D set_adapters_lora: adapters = 0000000000000000
+59.38.477.982 D adapters_lora_are_same: adapters = 0000000000000000
+59.38.477.982 D set_embeddings: value = 0
+59.38.477.983 D srv        decode: n_batch (effective) = 2048, off = 0
+59.38.478.033 D res  remove_waiti: remove task 139 from waiting list. current waiting = 2 (before remove)
+59.38.478.035 D srv          stop: all tasks already finished, no need to cancel
+59.38.549.488 D res  add_waiting_: add task 141 to waiting list. current waiting = 1 (before add)
+59.38.549.497 D que          post: new task, id = 141, front = 1
+59.38.709.266 D slot process_toke: id  0 | task 9 | n_decoded = 66, n_remaining = 190, next token:    52 'U'
+59.38.709.273 D que    start_loop: waiting for new tasks
+59.38.709.274 D que    start_loop: processing new tasks
+59.38.709.277 D que    start_loop: processing task, id = 141
+59.38.709.329 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.38.709.330 D res          send: sending result for task id = 141
+59.38.709.331 D res          send: task id = 141 pushed to result queue
+59.38.709.339 D que    start_loop: processing task, id = 140
+59.38.709.339 D que    start_loop: update slots
+59.38.709.340 D srv  update_slots: posting NEXT_RESPONSE
+59.38.709.342 D que          post: new task, id = 142, front = 0
+59.38.709.345 D slot handle_last_: id  0 | task 9 | slot decode token, id=52, n_ctx = 131072, n_tokens = 425, truncated = 0
+59.38.709.348 D set_adapters_lora: adapters = 0000000000000000
+59.38.709.349 D adapters_lora_are_same: adapters = 0000000000000000
+59.38.709.350 D set_embeddings: value = 0
+59.38.709.350 D srv        decode: n_batch (effective) = 2048, off = 0
+59.38.709.421 D res  remove_waiti: remove task 141 from waiting list. current waiting = 2 (before remove)
+59.38.709.422 D srv          stop: all tasks already finished, no need to cancel
+59.38.782.933 D res  add_waiting_: add task 143 to waiting list. current waiting = 1 (before add)
+59.38.782.937 D que          post: new task, id = 143, front = 1
+59.38.944.772 D slot process_toke: id  0 | task 9 | n_decoded = 67, n_remaining = 189, next token:    36 'E'
+59.38.944.780 D que    start_loop: waiting for new tasks
+59.38.944.781 D que    start_loop: processing new tasks
+59.38.944.785 D que    start_loop: processing task, id = 143
+59.38.944.834 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.38.944.835 D res          send: sending result for task id = 143
+59.38.944.835 D res          send: task id = 143 pushed to result queue
+59.38.944.843 D que    start_loop: processing task, id = 142
+59.38.944.844 D que    start_loop: update slots
+59.38.944.844 D srv  update_slots: posting NEXT_RESPONSE
+59.38.944.846 D que          post: new task, id = 144, front = 0
+59.38.944.849 D slot handle_last_: id  0 | task 9 | slot decode token, id=36, n_ctx = 131072, n_tokens = 426, truncated = 0
+59.38.944.852 D set_adapters_lora: adapters = 0000000000000000
+59.38.944.852 D adapters_lora_are_same: adapters = 0000000000000000
+59.38.944.853 D set_embeddings: value = 0
+59.38.944.854 D srv        decode: n_batch (effective) = 2048, off = 0
+59.38.944.928 D res  remove_waiti: remove task 143 from waiting list. current waiting = 2 (before remove)
+59.38.944.930 D srv          stop: all tasks already finished, no need to cancel
+59.39.018.381 D res  add_waiting_: add task 145 to waiting list. current waiting = 1 (before add)
+59.39.018.385 D que          post: new task, id = 145, front = 1
+59.39.175.314 D slot process_toke: id  0 | task 9 | n_decoded = 68, n_remaining = 188, next token:    62 '_'
+59.39.175.321 D que    start_loop: waiting for new tasks
+59.39.175.322 D que    start_loop: processing new tasks
+59.39.175.325 D que    start_loop: processing task, id = 145
+59.39.175.374 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.39.175.374 D res          send: sending result for task id = 145
+59.39.175.375 D res          send: task id = 145 pushed to result queue
+59.39.175.383 D que    start_loop: processing task, id = 144
+59.39.175.383 D que    start_loop: update slots
+59.39.175.384 D srv  update_slots: posting NEXT_RESPONSE
+59.39.175.386 D que          post: new task, id = 146, front = 0
+59.39.175.388 D slot handle_last_: id  0 | task 9 | slot decode token, id=62, n_ctx = 131072, n_tokens = 427, truncated = 0
+59.39.175.392 D set_adapters_lora: adapters = 0000000000000000
+59.39.175.392 D adapters_lora_are_same: adapters = 0000000000000000
+59.39.175.393 D set_embeddings: value = 0
+59.39.175.393 D srv        decode: n_batch (effective) = 2048, off = 0
+59.39.175.431 D res  remove_waiti: remove task 145 from waiting list. current waiting = 2 (before remove)
+59.39.175.432 D srv          stop: all tasks already finished, no need to cancel
+59.39.249.885 D res  add_waiting_: add task 147 to waiting list. current waiting = 1 (before add)
+59.39.249.891 D que          post: new task, id = 147, front = 1
+59.39.405.140 D slot process_toke: id  0 | task 9 | n_decoded = 69, n_remaining = 187, next token:   828 'AT'
+59.39.405.147 D que    start_loop: waiting for new tasks
+59.39.405.148 D que    start_loop: processing new tasks
+59.39.405.151 D que    start_loop: processing task, id = 147
+59.39.405.199 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.39.405.199 D res          send: sending result for task id = 147
+59.39.405.200 D res          send: task id = 147 pushed to result queue
+59.39.405.209 D que    start_loop: processing task, id = 146
+59.39.405.210 D que    start_loop: update slots
+59.39.405.210 D srv  update_slots: posting NEXT_RESPONSE
+59.39.405.212 D que          post: new task, id = 148, front = 0
+59.39.405.215 D slot handle_last_: id  0 | task 9 | slot decode token, id=828, n_ctx = 131072, n_tokens = 428, truncated = 0
+59.39.405.218 D set_adapters_lora: adapters = 0000000000000000
+59.39.405.219 D adapters_lora_are_same: adapters = 0000000000000000
+59.39.405.219 D set_embeddings: value = 0
+59.39.405.220 D srv        decode: n_batch (effective) = 2048, off = 0
+59.39.405.256 D res  remove_waiti: remove task 147 from waiting list. current waiting = 2 (before remove)
+59.39.405.258 D srv          stop: all tasks already finished, no need to cancel
+59.39.481.407 D res  add_waiting_: add task 149 to waiting list. current waiting = 1 (before add)
+59.39.481.412 D que          post: new task, id = 149, front = 1
+59.39.636.920 D slot process_toke: id  0 | task 9 | n_decoded = 70, n_remaining = 186, next token:    62 '_'
+59.39.636.928 D que    start_loop: waiting for new tasks
+59.39.636.929 D que    start_loop: processing new tasks
+59.39.636.932 D que    start_loop: processing task, id = 149
+59.39.636.981 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.39.636.982 D res          send: sending result for task id = 149
+59.39.636.983 D res          send: task id = 149 pushed to result queue
+59.39.636.991 D que    start_loop: processing task, id = 148
+59.39.636.992 D que    start_loop: update slots
+59.39.636.993 D srv  update_slots: posting NEXT_RESPONSE
+59.39.636.995 D que          post: new task, id = 150, front = 0
+59.39.636.998 D slot handle_last_: id  0 | task 9 | slot decode token, id=62, n_ctx = 131072, n_tokens = 429, truncated = 0
+59.39.637.001 D set_adapters_lora: adapters = 0000000000000000
+59.39.637.002 D adapters_lora_are_same: adapters = 0000000000000000
+59.39.637.002 D set_embeddings: value = 0
+59.39.637.003 D srv        decode: n_batch (effective) = 2048, off = 0
+59.39.637.047 D res  remove_waiti: remove task 149 from waiting list. current waiting = 2 (before remove)
+59.39.637.051 D srv          stop: all tasks already finished, no need to cancel
+59.39.713.840 D res  add_waiting_: add task 151 to waiting list. current waiting = 1 (before add)
+59.39.713.844 D que          post: new task, id = 151, front = 1
+59.39.869.613 D slot process_toke: id  0 | task 9 | n_decoded = 71, n_remaining = 185, next token:    32 'A'
+59.39.869.621 D que    start_loop: waiting for new tasks
+59.39.869.621 D que    start_loop: processing new tasks
+59.39.869.626 D que    start_loop: processing task, id = 151
+59.39.869.694 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.39.869.696 D res          send: sending result for task id = 151
+59.39.869.696 D res          send: task id = 151 pushed to result queue
+59.39.869.706 D que    start_loop: processing task, id = 150
+59.39.869.707 D que    start_loop: update slots
+59.39.869.707 D srv  update_slots: posting NEXT_RESPONSE
+59.39.869.709 D que          post: new task, id = 152, front = 0
+59.39.869.713 D slot handle_last_: id  0 | task 9 | slot decode token, id=32, n_ctx = 131072, n_tokens = 430, truncated = 0
+59.39.869.717 D set_adapters_lora: adapters = 0000000000000000
+59.39.869.717 D adapters_lora_are_same: adapters = 0000000000000000
+59.39.869.718 D set_embeddings: value = 0
+59.39.869.718 D srv        decode: n_batch (effective) = 2048, off = 0
+59.39.869.743 D res  remove_waiti: remove task 151 from waiting list. current waiting = 2 (before remove)
+59.39.869.744 D srv          stop: all tasks already finished, no need to cancel
+59.39.932.583 D res  add_waiting_: add task 153 to waiting list. current waiting = 1 (before add)
+59.39.932.589 D que          post: new task, id = 153, front = 1
+59.40.087.647 D slot process_toke: id  0 | task 9 | n_decoded = 72, n_remaining = 184, next token: 10051 '_TIME'
+59.40.087.656 D que    start_loop: waiting for new tasks
+59.40.087.656 D que    start_loop: processing new tasks
+59.40.087.660 D que    start_loop: processing task, id = 153
+59.40.087.711 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.40.087.712 D res          send: sending result for task id = 153
+59.40.087.712 D res          send: task id = 153 pushed to result queue
+59.40.087.721 D que    start_loop: processing task, id = 152
+59.40.087.722 D que    start_loop: update slots
+59.40.087.722 D srv  update_slots: posting NEXT_RESPONSE
+59.40.087.724 D que          post: new task, id = 154, front = 0
+59.40.087.728 D slot handle_last_: id  0 | task 9 | slot decode token, id=10051, n_ctx = 131072, n_tokens = 431, truncated = 0
+59.40.087.730 D set_adapters_lora: adapters = 0000000000000000
+59.40.087.731 D adapters_lora_are_same: adapters = 0000000000000000
+59.40.087.740 D set_embeddings: value = 0
+59.40.087.742 D srv        decode: n_batch (effective) = 2048, off = 0
+59.40.087.811 D res  remove_waiti: remove task 153 from waiting list. current waiting = 2 (before remove)
+59.40.087.812 D srv          stop: all tasks already finished, no need to cancel
+59.40.165.419 D res  add_waiting_: add task 155 to waiting list. current waiting = 1 (before add)
+59.40.165.424 D que          post: new task, id = 155, front = 1
+59.40.306.720 D slot process_toke: id  0 | task 9 | n_decoded = 73, n_remaining = 183, next token:   698 '"
+'
+59.40.306.726 D que    start_loop: waiting for new tasks
+59.40.306.726 D que    start_loop: processing new tasks
+59.40.306.729 D que    start_loop: processing task, id = 155
+59.40.306.779 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.40.306.780 D res          send: sending result for task id = 155
+59.40.306.781 D res          send: task id = 155 pushed to result queue
+59.40.306.787 D que    start_loop: processing task, id = 154
+59.40.306.788 D que    start_loop: update slots
+59.40.306.789 D srv  update_slots: posting NEXT_RESPONSE
+59.40.306.790 D que          post: new task, id = 156, front = 0
+59.40.306.793 D slot handle_last_: id  0 | task 9 | slot decode token, id=698, n_ctx = 131072, n_tokens = 432, truncated = 0
+59.40.306.796 D set_adapters_lora: adapters = 0000000000000000
+59.40.306.796 D adapters_lora_are_same: adapters = 0000000000000000
+59.40.306.797 D set_embeddings: value = 0
+59.40.306.797 D srv        decode: n_batch (effective) = 2048, off = 0
+59.40.306.827 D res  remove_waiti: remove task 155 from waiting list. current waiting = 2 (before remove)
+59.40.306.828 D srv          stop: all tasks already finished, no need to cancel
+59.40.383.546 D res  add_waiting_: add task 157 to waiting list. current waiting = 1 (before add)
+59.40.383.550 D que          post: new task, id = 157, front = 1
+59.40.525.765 D slot process_toke: id  0 | task 9 | n_decoded = 74, n_remaining = 182, next token:   262 '   '
+59.40.525.770 D que    start_loop: waiting for new tasks
+59.40.525.770 D que    start_loop: processing new tasks
+59.40.525.774 D que    start_loop: processing task, id = 157
+59.40.525.823 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.40.525.824 D res          send: sending result for task id = 157
+59.40.525.825 D res          send: task id = 157 pushed to result queue
+59.40.525.833 D que    start_loop: processing task, id = 156
+59.40.525.834 D que    start_loop: update slots
+59.40.525.834 D srv  update_slots: posting NEXT_RESPONSE
+59.40.525.836 D que          post: new task, id = 158, front = 0
+59.40.525.839 D slot handle_last_: id  0 | task 9 | slot decode token, id=262, n_ctx = 131072, n_tokens = 433, truncated = 0
+59.40.525.842 D set_adapters_lora: adapters = 0000000000000000
+59.40.525.842 D adapters_lora_are_same: adapters = 0000000000000000
+59.40.525.843 D set_embeddings: value = 0
+59.40.525.843 D srv        decode: n_batch (effective) = 2048, off = 0
+59.40.525.869 D res  remove_waiti: remove task 157 from waiting list. current waiting = 2 (before remove)
+59.40.525.870 D srv          stop: all tasks already finished, no need to cancel
+59.40.601.080 D res  add_waiting_: add task 159 to waiting list. current waiting = 1 (before add)
+59.40.601.086 D que          post: new task, id = 159, front = 1
+59.40.743.030 D slot process_toke: id  0 | task 9 | n_decoded = 75, n_remaining = 181, next token:   456 ' }
+'
+59.40.743.037 D que    start_loop: waiting for new tasks
+59.40.743.037 D que    start_loop: processing new tasks
+59.40.743.044 D que    start_loop: processing task, id = 159
+59.40.743.090 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.40.743.090 D res          send: sending result for task id = 159
+59.40.743.091 D res          send: task id = 159 pushed to result queue
+59.40.743.099 D que    start_loop: processing task, id = 158
+59.40.743.100 D que    start_loop: update slots
+59.40.743.100 D srv  update_slots: posting NEXT_RESPONSE
+59.40.743.102 D que          post: new task, id = 160, front = 0
+59.40.743.105 D slot handle_last_: id  0 | task 9 | slot decode token, id=456, n_ctx = 131072, n_tokens = 434, truncated = 0
+59.40.743.107 D set_adapters_lora: adapters = 0000000000000000
+59.40.743.108 D adapters_lora_are_same: adapters = 0000000000000000
+59.40.743.108 D set_embeddings: value = 0
+59.40.743.109 D srv        decode: n_batch (effective) = 2048, off = 0
+59.40.743.170 D res  remove_waiti: remove task 159 from waiting list. current waiting = 2 (before remove)
+59.40.743.171 D srv          stop: all tasks already finished, no need to cancel
+59.40.817.150 D res  add_waiting_: add task 161 to waiting list. current waiting = 1 (before add)
+59.40.817.159 D que          post: new task, id = 161, front = 1
+59.40.961.223 D slot process_toke: id  0 | task 9 | n_decoded = 76, n_remaining = 180, next token:   220 ' '
+59.40.961.232 D que    start_loop: waiting for new tasks
+59.40.961.232 D que    start_loop: processing new tasks
+59.40.961.236 D que    start_loop: processing task, id = 161
+59.40.961.289 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.40.961.289 D res          send: sending result for task id = 161
+59.40.961.290 D res          send: task id = 161 pushed to result queue
+59.40.961.299 D que    start_loop: processing task, id = 160
+59.40.961.300 D que    start_loop: update slots
+59.40.961.301 D srv  update_slots: posting NEXT_RESPONSE
+59.40.961.303 D que          post: new task, id = 162, front = 0
+59.40.961.305 D slot handle_last_: id  0 | task 9 | slot decode token, id=220, n_ctx = 131072, n_tokens = 435, truncated = 0
+59.40.961.308 D set_adapters_lora: adapters = 0000000000000000
+59.40.961.309 D adapters_lora_are_same: adapters = 0000000000000000
+59.40.961.309 D set_embeddings: value = 0
+59.40.961.310 D srv        decode: n_batch (effective) = 2048, off = 0
+59.40.961.334 D res  remove_waiti: remove task 161 from waiting list. current waiting = 2 (before remove)
+59.40.961.335 D srv          stop: all tasks already finished, no need to cancel
+59.41.020.908 D res  add_waiting_: add task 163 to waiting list. current waiting = 1 (before add)
+59.41.020.915 D que          post: new task, id = 163, front = 1
+59.41.193.903 D slot process_toke: id  0 | task 9 | n_decoded = 77, n_remaining = 179, next token:  3211 ' ],
+'
+59.41.193.910 D que    start_loop: waiting for new tasks
+59.41.193.911 D que    start_loop: processing new tasks
+59.41.193.915 D que    start_loop: processing task, id = 163
+59.41.193.963 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.41.193.963 D res          send: sending result for task id = 163
+59.41.193.964 D res          send: task id = 163 pushed to result queue
+59.41.193.973 D que    start_loop: processing task, id = 162
+59.41.193.974 D que    start_loop: update slots
+59.41.193.974 D srv  update_slots: posting NEXT_RESPONSE
+59.41.193.982 D que          post: new task, id = 164, front = 0
+59.41.193.984 D slot handle_last_: id  0 | task 9 | slot decode token, id=3211, n_ctx = 131072, n_tokens = 436, truncated = 0
+59.41.193.988 D set_adapters_lora: adapters = 0000000000000000
+59.41.193.988 D adapters_lora_are_same: adapters = 0000000000000000
+59.41.193.989 D set_embeddings: value = 0
+59.41.193.990 D srv        decode: n_batch (effective) = 2048, off = 0
+59.41.194.006 D res  remove_waiti: remove task 163 from waiting list. current waiting = 2 (before remove)
+59.41.194.007 D srv          stop: all tasks already finished, no need to cancel
+59.41.270.733 D res  add_waiting_: add task 165 to waiting list. current waiting = 1 (before add)
+59.41.270.737 D que          post: new task, id = 165, front = 1
+59.41.411.115 D slot process_toke: id  0 | task 9 | n_decoded = 78, n_remaining = 178, next token:   220 ' '
+59.41.411.123 D que    start_loop: waiting for new tasks
+59.41.411.123 D que    start_loop: processing new tasks
+59.41.411.127 D que    start_loop: processing task, id = 165
+59.41.411.183 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.41.411.184 D res          send: sending result for task id = 165
+59.41.411.184 D res          send: task id = 165 pushed to result queue
+59.41.411.194 D que    start_loop: processing task, id = 164
+59.41.411.195 D que    start_loop: update slots
+59.41.411.196 D srv  update_slots: posting NEXT_RESPONSE
+59.41.411.198 D que          post: new task, id = 166, front = 0
+59.41.411.201 D slot handle_last_: id  0 | task 9 | slot decode token, id=220, n_ctx = 131072, n_tokens = 437, truncated = 0
+59.41.411.204 D set_adapters_lora: adapters = 0000000000000000
+59.41.411.205 D adapters_lora_are_same: adapters = 0000000000000000
+59.41.411.205 D set_embeddings: value = 0
+59.41.411.206 D srv        decode: n_batch (effective) = 2048, off = 0
+59.41.411.257 D res  remove_waiti: remove task 165 from waiting list. current waiting = 2 (before remove)
+59.41.411.258 D srv          stop: all tasks already finished, no need to cancel
+59.41.490.593 D res  add_waiting_: add task 167 to waiting list. current waiting = 1 (before add)
+59.41.490.598 D que          post: new task, id = 167, front = 1
+59.41.629.050 D slot process_toke: id  0 | task 9 | n_decoded = 79, n_remaining = 177, next token:   330 ' "'
+59.41.629.062 D que    start_loop: waiting for new tasks
+59.41.629.063 D que    start_loop: processing new tasks
+59.41.629.070 D que    start_loop: processing task, id = 167
+59.41.629.139 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.41.629.141 D res          send: sending result for task id = 167
+59.41.629.141 D res          send: task id = 167 pushed to result queue
+59.41.629.153 D que    start_loop: processing task, id = 166
+59.41.629.154 D que    start_loop: update slots
+59.41.629.155 D srv  update_slots: posting NEXT_RESPONSE
+59.41.629.158 D que          post: new task, id = 168, front = 0
+59.41.629.161 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 438, truncated = 0
+59.41.629.166 D set_adapters_lora: adapters = 0000000000000000
+59.41.629.166 D adapters_lora_are_same: adapters = 0000000000000000
+59.41.629.167 D set_embeddings: value = 0
+59.41.629.167 D srv        decode: n_batch (effective) = 2048, off = 0
+59.41.629.191 D res  remove_waiti: remove task 167 from waiting list. current waiting = 2 (before remove)
+59.41.629.192 D srv          stop: all tasks already finished, no need to cancel
+59.41.706.757 D res  add_waiting_: add task 169 to waiting list. current waiting = 1 (before add)
+59.41.706.761 D que          post: new task, id = 169, front = 1
+59.41.863.815 D slot process_toke: id  0 | task 9 | n_decoded = 80, n_remaining = 176, next token:   370 'ab'
+59.41.863.823 D que    start_loop: waiting for new tasks
+59.41.863.823 D que    start_loop: processing new tasks
+59.41.863.828 D que    start_loop: processing task, id = 169
+59.41.863.881 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.41.863.882 D res          send: sending result for task id = 169
+59.41.863.882 D res          send: task id = 169 pushed to result queue
+59.41.863.891 D que    start_loop: processing task, id = 168
+59.41.863.893 D que    start_loop: update slots
+59.41.863.894 D srv  update_slots: posting NEXT_RESPONSE
+59.41.863.896 D que          post: new task, id = 170, front = 0
+59.41.863.899 D slot handle_last_: id  0 | task 9 | slot decode token, id=370, n_ctx = 131072, n_tokens = 439, truncated = 0
+59.41.863.902 D set_adapters_lora: adapters = 0000000000000000
+59.41.863.902 D adapters_lora_are_same: adapters = 0000000000000000
+59.41.863.903 D set_embeddings: value = 0
+59.41.863.904 D srv        decode: n_batch (effective) = 2048, off = 0
+59.41.863.946 D res  remove_waiti: remove task 169 from waiting list. current waiting = 2 (before remove)
+59.41.863.948 D srv          stop: all tasks already finished, no need to cancel
+59.41.937.537 D res  add_waiting_: add task 171 to waiting list. current waiting = 1 (before add)
+59.41.937.545 D que          post: new task, id = 171, front = 1
+59.42.082.859 D slot process_toke: id  0 | task 9 | n_decoded = 81, n_remaining = 175, next token:   267 'st'
+59.42.082.867 D que    start_loop: waiting for new tasks
+59.42.082.867 D que    start_loop: processing new tasks
+59.42.082.871 D que    start_loop: processing task, id = 171
+59.42.082.921 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.42.082.921 D res          send: sending result for task id = 171
+59.42.082.922 D res          send: task id = 171 pushed to result queue
+59.42.082.931 D que    start_loop: processing task, id = 170
+59.42.082.932 D que    start_loop: update slots
+59.42.082.932 D srv  update_slots: posting NEXT_RESPONSE
+59.42.082.934 D que          post: new task, id = 172, front = 0
+59.42.082.937 D slot handle_last_: id  0 | task 9 | slot decode token, id=267, n_ctx = 131072, n_tokens = 440, truncated = 0
+59.42.082.940 D set_adapters_lora: adapters = 0000000000000000
+59.42.082.940 D adapters_lora_are_same: adapters = 0000000000000000
+59.42.082.941 D set_embeddings: value = 0
+59.42.082.941 D srv        decode: n_batch (effective) = 2048, off = 0
+59.42.083.053 D res  remove_waiti: remove task 171 from waiting list. current waiting = 2 (before remove)
+59.42.083.054 D srv          stop: all tasks already finished, no need to cancel
+59.42.154.920 D res  add_waiting_: add task 173 to waiting list. current waiting = 1 (before add)
+59.42.154.928 D que          post: new task, id = 173, front = 1
+59.42.311.953 D slot process_toke: id  0 | task 9 | n_decoded = 82, n_remaining = 174, next token:  2939 'ention'
+59.42.311.960 D que    start_loop: waiting for new tasks
+59.42.311.961 D que    start_loop: processing new tasks
+59.42.311.965 D que    start_loop: processing task, id = 173
+59.42.312.012 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.42.312.012 D res          send: sending result for task id = 173
+59.42.312.013 D res          send: task id = 173 pushed to result queue
+59.42.312.023 D que    start_loop: processing task, id = 172
+59.42.312.024 D que    start_loop: update slots
+59.42.312.024 D srv  update_slots: posting NEXT_RESPONSE
+59.42.312.026 D que          post: new task, id = 174, front = 0
+59.42.312.029 D slot handle_last_: id  0 | task 9 | slot decode token, id=2939, n_ctx = 131072, n_tokens = 441, truncated = 0
+59.42.312.032 D set_adapters_lora: adapters = 0000000000000000
+59.42.312.032 D adapters_lora_are_same: adapters = 0000000000000000
+59.42.312.033 D set_embeddings: value = 0
+59.42.312.033 D srv        decode: n_batch (effective) = 2048, off = 0
+59.42.312.103 D res  remove_waiti: remove task 173 from waiting list. current waiting = 2 (before remove)
+59.42.312.105 D srv          stop: all tasks already finished, no need to cancel
+59.42.373.156 D res  add_waiting_: add task 175 to waiting list. current waiting = 1 (before add)
+59.42.373.162 D que          post: new task, id = 175, front = 1
+59.42.530.331 D slot process_toke: id  0 | task 9 | n_decoded = 83, n_remaining = 173, next token: 38229 '_reason'
+59.42.530.339 D que    start_loop: waiting for new tasks
+59.42.530.340 D que    start_loop: processing new tasks
+59.42.530.343 D que    start_loop: processing task, id = 175
+59.42.530.391 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.42.530.392 D res          send: sending result for task id = 175
+59.42.530.392 D res          send: task id = 175 pushed to result queue
+59.42.530.401 D que    start_loop: processing task, id = 174
+59.42.530.402 D que    start_loop: update slots
+59.42.530.402 D srv  update_slots: posting NEXT_RESPONSE
+59.42.530.404 D que          post: new task, id = 176, front = 0
+59.42.530.407 D slot handle_last_: id  0 | task 9 | slot decode token, id=38229, n_ctx = 131072, n_tokens = 442, truncated = 0
+59.42.530.409 D set_adapters_lora: adapters = 0000000000000000
+59.42.530.410 D adapters_lora_are_same: adapters = 0000000000000000
+59.42.530.410 D set_embeddings: value = 0
+59.42.530.411 D srv        decode: n_batch (effective) = 2048, off = 0
+59.42.530.510 D res  remove_waiti: remove task 175 from waiting list. current waiting = 2 (before remove)
+59.42.530.511 D srv          stop: all tasks already finished, no need to cancel
+59.42.608.207 D res  add_waiting_: add task 177 to waiting list. current waiting = 1 (before add)
+59.42.608.216 D que          post: new task, id = 177, front = 1
+59.42.748.228 D slot process_toke: id  0 | task 9 | n_decoded = 84, n_remaining = 172, next token:   788 '":'
+59.42.748.234 D que    start_loop: waiting for new tasks
+59.42.748.234 D que    start_loop: processing new tasks
+59.42.748.238 D que    start_loop: processing task, id = 177
+59.42.748.289 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.42.748.289 D res          send: sending result for task id = 177
+59.42.748.290 D res          send: task id = 177 pushed to result queue
+59.42.748.299 D que    start_loop: processing task, id = 176
+59.42.748.300 D que    start_loop: update slots
+59.42.748.300 D srv  update_slots: posting NEXT_RESPONSE
+59.42.748.302 D que          post: new task, id = 178, front = 0
+59.42.748.305 D slot handle_last_: id  0 | task 9 | slot decode token, id=788, n_ctx = 131072, n_tokens = 443, truncated = 0
+59.42.748.308 D set_adapters_lora: adapters = 0000000000000000
+59.42.748.308 D adapters_lora_are_same: adapters = 0000000000000000
+59.42.748.309 D set_embeddings: value = 0
+59.42.748.310 D srv        decode: n_batch (effective) = 2048, off = 0
+59.42.748.405 D res  remove_waiti: remove task 177 from waiting list. current waiting = 2 (before remove)
+59.42.748.406 D srv          stop: all tasks already finished, no need to cancel
+59.42.824.252 D res  add_waiting_: add task 179 to waiting list. current waiting = 1 (before add)
+59.42.824.257 D que          post: new task, id = 179, front = 1
+59.42.990.163 D slot process_toke: id  0 | task 9 | n_decoded = 85, n_remaining = 171, next token:   330 ' "'
+59.42.990.169 D que    start_loop: waiting for new tasks
+59.42.990.170 D que    start_loop: processing new tasks
+59.42.990.174 D que    start_loop: processing task, id = 179
+59.42.990.221 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.42.990.222 D res          send: sending result for task id = 179
+59.42.990.222 D res          send: task id = 179 pushed to result queue
+59.42.990.232 D que    start_loop: processing task, id = 178
+59.42.990.233 D que    start_loop: update slots
+59.42.990.233 D srv  update_slots: posting NEXT_RESPONSE
+59.42.990.235 D que          post: new task, id = 180, front = 0
+59.42.990.238 D slot handle_last_: id  0 | task 9 | slot decode token, id=330, n_ctx = 131072, n_tokens = 444, truncated = 0
+59.42.990.241 D set_adapters_lora: adapters = 0000000000000000
+59.42.990.241 D adapters_lora_are_same: adapters = 0000000000000000
+59.42.990.242 D set_embeddings: value = 0
+59.42.990.242 D srv        decode: n_batch (effective) = 2048, off = 0
+59.42.990.267 D res  remove_waiti: remove task 179 from waiting list. current waiting = 2 (before remove)
+59.42.990.268 D srv          stop: all tasks already finished, no need to cancel
+59.43.042.063 D res  add_waiting_: add task 181 to waiting list. current waiting = 1 (before add)
+59.43.042.068 D que          post: new task, id = 181, front = 1
+59.43.208.045 D slot process_toke: id  0 | task 9 | n_decoded = 86, n_remaining = 170, next token:  8996 'NO'
+59.43.208.052 D que    start_loop: waiting for new tasks
+59.43.208.052 D que    start_loop: processing new tasks
+59.43.208.056 D que    start_loop: processing task, id = 181
+59.43.208.110 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.43.208.111 D res          send: sending result for task id = 181
+59.43.208.112 D res          send: task id = 181 pushed to result queue
+59.43.208.120 D que    start_loop: processing task, id = 180
+59.43.208.121 D que    start_loop: update slots
+59.43.208.122 D srv  update_slots: posting NEXT_RESPONSE
+59.43.208.124 D que          post: new task, id = 182, front = 0
+59.43.208.127 D slot handle_last_: id  0 | task 9 | slot decode token, id=8996, n_ctx = 131072, n_tokens = 445, truncated = 0
+59.43.208.131 D set_adapters_lora: adapters = 0000000000000000
+59.43.208.131 D adapters_lora_are_same: adapters = 0000000000000000
+59.43.208.132 D set_embeddings: value = 0
+59.43.208.132 D srv        decode: n_batch (effective) = 2048, off = 0
+59.43.208.155 D res  remove_waiti: remove task 181 from waiting list. current waiting = 2 (before remove)
+59.43.208.156 D srv          stop: all tasks already finished, no need to cancel
+59.43.260.076 D res  add_waiting_: add task 183 to waiting list. current waiting = 1 (before add)
+59.43.260.081 D que          post: new task, id = 183, front = 1
+59.43.437.618 D slot process_toke: id  0 | task 9 | n_decoded = 87, n_remaining = 169, next token:  3944 'NE'
+59.43.437.625 D que    start_loop: waiting for new tasks
+59.43.437.626 D que    start_loop: processing new tasks
+59.43.437.630 D que    start_loop: processing task, id = 183
+59.43.437.674 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.43.437.675 D res          send: sending result for task id = 183
+59.43.437.676 D res          send: task id = 183 pushed to result queue
+59.43.437.684 D que    start_loop: processing task, id = 182
+59.43.437.685 D que    start_loop: update slots
+59.43.437.685 D srv  update_slots: posting NEXT_RESPONSE
+59.43.437.687 D que          post: new task, id = 184, front = 0
+59.43.437.690 D slot handle_last_: id  0 | task 9 | slot decode token, id=3944, n_ctx = 131072, n_tokens = 446, truncated = 0
+59.43.437.694 D set_adapters_lora: adapters = 0000000000000000
+59.43.437.694 D adapters_lora_are_same: adapters = 0000000000000000
+59.43.437.695 D set_embeddings: value = 0
+59.43.437.695 D srv        decode: n_batch (effective) = 2048, off = 0
+59.43.437.716 D res  remove_waiti: remove task 183 from waiting list. current waiting = 2 (before remove)
+59.43.437.717 D srv          stop: all tasks already finished, no need to cancel
+59.43.507.215 D res  add_waiting_: add task 185 to waiting list. current waiting = 1 (before add)
+59.43.507.219 D que          post: new task, id = 185, front = 1
+59.43.657.932 D slot process_toke: id  0 | task 9 | n_decoded = 88, n_remaining = 168, next token:   698 '"
+'
+59.43.657.941 D que    start_loop: waiting for new tasks
+59.43.657.941 D que    start_loop: processing new tasks
+59.43.657.945 D que    start_loop: processing task, id = 185
+59.43.658.001 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.43.658.001 D res          send: sending result for task id = 185
+59.43.658.002 D res          send: task id = 185 pushed to result queue
+59.43.658.010 D que    start_loop: processing task, id = 184
+59.43.658.011 D que    start_loop: update slots
+59.43.658.012 D srv  update_slots: posting NEXT_RESPONSE
+59.43.658.014 D que          post: new task, id = 186, front = 0
+59.43.658.017 D slot handle_last_: id  0 | task 9 | slot decode token, id=698, n_ctx = 131072, n_tokens = 447, truncated = 0
+59.43.658.021 D set_adapters_lora: adapters = 0000000000000000
+59.43.658.021 D adapters_lora_are_same: adapters = 0000000000000000
+59.43.658.022 D set_embeddings: value = 0
+59.43.658.022 D srv        decode: n_batch (effective) = 2048, off = 0
+59.43.658.052 D res  remove_waiti: remove task 185 from waiting list. current waiting = 2 (before remove)
+59.43.658.054 D srv          stop: all tasks already finished, no need to cancel
+59.43.727.199 D res  add_waiting_: add task 187 to waiting list. current waiting = 1 (before add)
+59.43.727.204 D que          post: new task, id = 187, front = 1
+59.43.879.090 D slot process_toke: id  0 | task 9 | n_decoded = 89, n_remaining = 167, next token:    92 '}'
+59.43.879.098 D que    start_loop: waiting for new tasks
+59.43.879.098 D que    start_loop: processing new tasks
+59.43.879.102 D que    start_loop: processing task, id = 187
+59.43.879.152 D srv  process_sing: n_idle_slots = 0, n_processing_slots = 1
+59.43.879.153 D res          send: sending result for task id = 187
+59.43.879.153 D res          send: task id = 187 pushed to result queue
+59.43.879.162 D que    start_loop: processing task, id = 186
+59.43.879.163 D que    start_loop: update slots
+59.43.879.163 D srv  update_slots: posting NEXT_RESPONSE
+59.43.879.165 D que          post: new task, id = 188, front = 0
+59.43.879.168 D slot handle_last_: id  0 | task 9 | slot decode token, id=92, n_ctx = 131072, n_tokens = 448, truncated = 0
+59.43.879.170 D set_adapters_lora: adapters = 0000000000000000
+59.43.879.170 D adapters_lora_are_same: adapters = 0000000000000000
+59.43.879.171 D set_embeddings: value = 0
+59.43.879.171 D srv        decode: n_batch (effective) = 2048, off = 0
+59.43.879.240 D res  remove_waiti: remove task 187 from waiting list. current waiting = 2 (before remove)
+59.43.879.243 D srv          stop: all tasks already finished, no need to cancel
+59.43.945.002 D res  add_waiting_: add task 189 to waiting list. current waiting = 1 (before add)
+59.43.945.007 D que          post: new task, id = 189, front = 1
+59.44.099.813 D slot process_toke: id  0 | task 9 | stopped by EOS
+59.44.099.821 D slot process_toke: id  0 | task 9 | n_decoded = 90, n_remaining = 166, next token: 151645 ''
+59.44.099.836 I slot print_timing: id  0 | task 9 | prompt eval time =    2712.82 ms /   360 tokens (    7.54 ms per token,   132.70 tokens per second)
+59.44.099.837 I slot print_timing: id  0 | task 9 |        eval time =   20902.33 ms /    90 tokens (  232.25 ms per token,     4.31 tokens per second)
+59.44.099.838 I slot print_timing: id  0 | task 9 |       total time =   23615.15 ms /   450 tokens
+59.44.099.838 I slot print_timing: id  0 | task 9 |    graphs reused =         89
+59.44.099.915 D res          send: sending result for task id = 9
+59.44.099.917 D res          send: task id = 9 pushed to result queue
+59.44.099.924 I slot      release: id  0 | task 9 | stop processing: n_tokens = 449, truncated = 0
+59.44.099.925 D slot        reset: id  0 | task 9 | 
+59.44.099.930 D que    start_loop: waiting for new tasks
+59.44.099.931 D que    start_loop: processing new tasks
+59.44.099.935 D que    start_loop: processing task, id = 189
+59.44.100.007 D srv  process_sing: n_idle_slots = 1, n_processing_slots = 0
+59.44.100.007 D res          send: sending result for task id = 189
+59.44.100.008 D res          send: task id = 189 pushed to result queue
+59.44.100.012 D que    start_loop: processing task, id = 188
+59.44.100.013 D que    start_loop: update slots
+59.44.100.013 I srv  update_slots: all slots are idle
+59.44.100.014 D que    start_loop: waiting for new tasks
+59.44.100.028 D Parsed message: {"role":"assistant","content":"{\n  \"source_id\": \"R4-P01\",\n  \"atoms\": [\n    {\n      \"owner_span\": \"My workout plan\",\n      \"object_span\": \"activity\",\n      \"attribute_span\": \"is\",\n      \"value_span\": \"running\",\n      \"cardinality_proposal\": \"SINGLE_VALUE_AT_A_TIME\"\n    }\n  ],\n  \"abstention_reason\": \"NONE\"\n}"}
+59.44.100.048 D res  remove_waiti: remove task 189 from waiting list. current waiting = 2 (before remove)
+59.44.100.049 D srv          stop: all tasks already finished, no need to cancel
+59.44.100.130 D srv          stop: all tasks already finished, no need to cancel
+59.44.100.133 D res  remove_waiti: remove task 9 from waiting list. current waiting = 1 (before remove)
+59.44.100.134 D srv          stop: all tasks already finished, no need to cancel

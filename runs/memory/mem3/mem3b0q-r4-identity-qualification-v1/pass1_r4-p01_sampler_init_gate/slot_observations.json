@@ -1,0 +1,1188 @@
+{
+  "failures": [],
+  "observations": [
+    {
+      "captured_at_utc": "2026-10-01T07:01:58.687078+00:00",
+      "slots": [
+        {
+          "is_processing": false,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": null
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:01.407256+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:01.649241+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:01.887271+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:02.139720+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:02.376734+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:02.614005+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:02.850212+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:03.086727+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:03.324213+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:03.560637+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:03.799265+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:04.045831+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:04.292781+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:04.565494+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:04.803840+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:05.040854+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:05.277414+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:05.514414+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:05.752395+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:05.990892+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:06.230498+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:06.469198+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:06.706991+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:06.955499+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:07.191748+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:07.427616+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:07.665732+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:07.902089+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:08.138329+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:08.374274+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:08.610167+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:08.847182+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:09.097707+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:09.334192+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:09.571268+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:09.808015+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:10.047068+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:10.285253+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:10.523318+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:10.759457+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:11.001555+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:11.236026+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:11.473774+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:11.710778+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:11.949332+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:12.186098+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:12.422805+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:12.659728+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:12.897568+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:13.135476+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:13.393900+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:13.629953+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:13.876899+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:14.114831+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:14.347025+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:14.581632+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:14.818255+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:15.051615+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:15.305137+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:15.551018+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:15.794445+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:16.017436+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:16.251790+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:16.470555+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:16.687962+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:16.919665+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:17.154820+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:17.385755+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:17.614789+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:17.847216+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:18.079451+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:18.297563+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:18.517147+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:18.736123+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:18.952794+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:19.170918+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:19.403037+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:19.621180+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:19.839418+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:20.074443+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:20.293020+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:20.522281+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:20.740959+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:20.958300+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:21.200137+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:21.418348+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:21.647647+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:21.868025+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:22.089515+00:00",
+      "slots": [
+        {
+          "is_processing": true,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    },
+    {
+      "captured_at_utc": "2026-10-01T07:02:22.310334+00:00",
+      "slots": [
+        {
+          "is_processing": false,
+          "prompt_contains_proposition": false,
+          "prompt_contains_source_id": false,
+          "prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "slot_id": 0,
+          "task_id": 9
+        }
+      ]
+    }
+  ]
+}
