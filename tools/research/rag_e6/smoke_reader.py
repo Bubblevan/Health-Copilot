@@ -22,10 +22,12 @@ from eval.rag_e6.reader import (
     claim_prompt,
     composer_prompt,
     decompose_prompt,
+    final_citations_match_claims,
     issue_evidence_aliases,
     parse_claims,
     parse_last_final,
     parse_requirements,
+    resolve_aliases,
     vanilla_prompt,
 )
 from eval.rag_e6.reader_executor import (
@@ -103,14 +105,22 @@ def main() -> None:
         client=client,
     )
     composed = parse_last_final(compose_event["text"])
+    vanilla_unknown_aliases = resolve_aliases(vanilla.cited_aliases, evidence)[1]
+    all_events = (lamer_event, vanilla_event, decomposer_event, claim_event, compose_event)
     checks = {
         "lamer_call_nonempty": lamer_event["status"] == "ok",
         "vanilla_final_contract": not vanilla.contract_failure,
+        "vanilla_aliases_issued": not vanilla_unknown_aliases,
         "decomposer_requirements": bool(requirements),
         "claim_valid_alias": bool(claims),
         "claim_no_contract_failure": not claim_failure,
         "composer_final_contract": not composed.contract_failure,
+        "composer_citations_match_claims": final_citations_match_claims(
+            composed.cited_aliases, claims
+        ),
         "unknown_aliases_absent": not unknown_aliases,
+        "no_truncated_calls": all(event.get("finish_reason") != "length" for event in all_events),
+        "all_calls_ok": all(event.get("status") == "ok" for event in all_events),
     }
     report = {
         "schema_version": "rag-e6a-synthetic-reader-smoke-v1",
