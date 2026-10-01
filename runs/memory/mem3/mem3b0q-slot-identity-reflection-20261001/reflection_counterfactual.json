@@ -1,0 +1,198 @@
+{
+  "analysis_code_sha256": "53fe79e25c29108ef01b90b785730c81627c8523ddac2e4b98c6b76b94ee581d",
+  "b0q_review": {
+    "exact_hint_intra_slot_pairs": {
+      "true_singleton_slot": 3,
+      "uncertain": 10
+    },
+    "intra_slot_pair_source_by_label": {
+      "false_revision_merge|NO_EXACT_HINT": 60,
+      "true_singleton_slot|EXACT_HINT": 3,
+      "true_singleton_slot|NO_EXACT_HINT": 46,
+      "uncertain|EXACT_HINT": 10,
+      "uncertain|NO_EXACT_HINT": 17
+    },
+    "reviewed_slots": 99,
+    "slot_labels": {
+      "false_revision_merge": 45,
+      "true_singleton_slot": 41,
+      "uncertain": 13
+    },
+    "slot_shape_by_attribute_key_cardinality": {
+      "false_revision_merge|multiple_attribute_keys": 45,
+      "true_singleton_slot|multiple_attribute_keys": 39,
+      "true_singleton_slot|same_attribute_key": 2,
+      "uncertain|multiple_attribute_keys": 13
+    }
+  },
+  "classification": "READ_ONLY_POST_FREEZE_COUNTERFACTUAL_NOT_A_NEW_ADMISSION_RESULT",
+  "dev_test_or_medmemorybench_opened": false,
+  "exact_hint_counterfactual": {
+    "candidate_pairs": 256,
+    "factor_cross_tab": {
+      "not_positive|same_key|anchor_missing|NOT_A_STATE|NO|UNKNOWN": 88,
+      "not_positive|same_key|anchor_missing|NOT_A_STATE|UNKNOWN|UNKNOWN": 2,
+      "not_positive|same_key|anchor_missing|NOT_A_STATE|YES|SAME": 1,
+      "not_positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|NO|DIFFERENT": 13,
+      "not_positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|NO|UNKNOWN": 17,
+      "not_positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|UNKNOWN|DIFFERENT": 1,
+      "not_positive|same_key|literal_key_anchors_both|NOT_A_STATE|NO|UNKNOWN": 1,
+      "not_positive|same_key|literal_key_anchors_both|SINGLE_VALUE_AT_A_TIME|NO|DIFFERENT": 8,
+      "positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|YES|DIFFERENT": 10,
+      "positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|YES|SAME": 17,
+      "positive|same_key|anchor_missing|SINGLE_VALUE_AT_A_TIME|YES|UNKNOWN": 5,
+      "positive|same_key|literal_key_anchors_both|SINGLE_VALUE_AT_A_TIME|YES|DIFFERENT": 34,
+      "positive|same_key|literal_key_anchors_both|SINGLE_VALUE_AT_A_TIME|YES|SAME": 56,
+      "positive|same_key|literal_key_anchors_both|SINGLE_VALUE_AT_A_TIME|YES|UNKNOWN": 3
+    },
+    "frozen_positive_pairs_in_reviewed_slots_by_label": {
+      "UNREVIEWED": 112,
+      "true_singleton_slot": 3,
+      "uncertain": 10
+    },
+    "pairs_meeting_frozen_b0q_positive_rule": 125
+  },
+  "hosted_calls": 0,
+  "inputs_sha256": {
+    "b0r_identity_hints_projection.jsonl": "e378e8b676d3a97ec2816ed06a30394ebb0a2a7e5c222da607460aca94388c6f",
+    "candidate_pair_manifest.jsonl": "4cc70617a34e4d4e50a5c9b75ea996cfb30be95b892666cc73f7950ce417def5",
+    "closure_pairwise_verdicts.jsonl": "25e6db530056ff1df55671fccd10d1595d5d9586d91918958882a153d22feff3",
+    "eligible_records.jsonl": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+    "human_review_decisions_user.json": "766f602146776e114e6696fa3e404a7954a3ceb3e72c0f3516e51288a8bd5564",
+    "post_freeze_control_audit.json": "0f2bb3c86f4666b12032395f7fbfbb96d06fb1e2c50d54f253de69dbea694a64",
+    "revision_slot_manifest.json": "7ba23005bea2f2d80706297d3e63c10d66417b7dfb57ebb2a56c234100b1c91d",
+    "seed_pairwise_verdicts.jsonl": "fc74b4e2d748ce4469411872111cab54533ffaef43427b341e99054b9d7bc7d6"
+  },
+  "inputs_unchanged": true,
+  "interpretation": {
+    "failure": "Pairwise same-dimension/cardinality is not a stable state-slot identity relation; it collapses propositions about related but distinct attributes, objects, and events.",
+    "identity_failure_examples": [
+      "workout_preference was attached to both a 7-minute workout and a gaming-PC plan; the key was not grounded in the latter proposition.",
+      "reported_value grouped 14 separately dated numeric reports despite the key carrying no measured-attribute identity.",
+      "trip_planning grouped two destination-specific plans; the user can hold both plans concurrently."
+    ],
+    "next_research_direction": "Prototype evidence-span-grounded subject/object/attribute/value proposals, deterministic validation and exact slot keys, plus a separate update-evidence gate. Unresolved identity remains coexisting history; no automatic merge.",
+    "readiness": "MEM3B1_READY=NO",
+    "revision_failure": "Even correct same-slot identity does not prove a revision: repeated same-value mentions can be corroboration/no-op, while changes need a valid time and update relation."
+  },
+  "literal_key_anchor_heuristic": {
+    "candidate_edges": 101,
+    "component_count": 6,
+    "component_size_histogram": {
+      "14": 1,
+      "2": 4,
+      "4": 1
+    },
+    "components": [
+      {
+        "attribute_keys": [
+          "reported_value"
+        ],
+        "sample_propositions": [
+          "The user reported a value of 0 on 18/11/2020.",
+          "The user reported a value of 0 on 17/02/2021.",
+          "The user reported a value of 0 on 10/03/2021."
+        ],
+        "size": 14
+      },
+      {
+        "attribute_keys": [
+          "macrame_interest"
+        ],
+        "sample_propositions": [
+          "The user is planning to try macrame and has a beginner's kit that should arrive soon.",
+          "The user is interested in trying macrame and has a beginner's kit expected to arrive soon.",
+          "The user is excited about starting their macrame journey."
+        ],
+        "size": 4
+      },
+      {
+        "attribute_keys": [
+          "instagram_followers"
+        ],
+        "sample_propositions": [
+          "The user has reached 600 followers on Instagram, which they consider a milestone.",
+          "The user has recently reached 500 followers on Instagram and is hoping to maintain that growth."
+        ],
+        "size": 2
+      },
+      {
+        "attribute_keys": [
+          "gender_neutral_language_interest"
+        ],
+        "sample_propositions": [
+          "The user wants to know more about the importance of using gender-neutral language in official communications and how it contributes to creating a more inclusive workplace culture.",
+          "The user is interested in examples of gender-neutral language in practice, such as using \"they\" as a singular pronoun or avoiding gendered titles."
+        ],
+        "size": 2
+      },
+      {
+        "attribute_keys": [
+          "value_reported"
+        ],
+        "sample_propositions": [
+          "The user reported a value of 3 on 24/08/2022.",
+          "The user reported a value of 0 on 4/11/2020."
+        ],
+        "size": 2
+      },
+      {
+        "attribute_keys": [
+          "trip_planning"
+        ],
+        "sample_propositions": [
+          "The user is planning a trip to Japan and is seeking travel vlogs and guides on YouTube for tips and inspiration.",
+          "The user is planning a trip to India for their uncle's 60th birthday celebration in Pune."
+        ],
+        "size": 2
+      }
+    ],
+    "controls": {
+      "completed_purchase": {
+        "b0q_admitted": false,
+        "counterfactual_grounded_exact_singleton_admitted": false,
+        "literal_attribute_anchor_both": false,
+        "propositions": [
+          "The user previously purchased a silver necklace with a small pendant from Zara for $40.",
+          "The user recently purchased a silver necklace with a small pendant from Zara for their sister's 25th birthday, costing $40."
+        ],
+        "same_state_dimension": "YES",
+        "same_subject_attribute_hint": true,
+        "state_cardinality": "NOT_A_STATE"
+      },
+      "gym": {
+        "b0q_admitted": false,
+        "counterfactual_grounded_exact_singleton_admitted": false,
+        "literal_attribute_anchor_both": false,
+        "propositions": [
+          "The user is considering starting with bodyweight exercises, specifically the 7-minute workout.",
+          "The user is planning to build a gaming PC capable of handling 4K resolution and high frame rates."
+        ],
+        "same_state_dimension": "NO",
+        "same_subject_attribute_hint": true,
+        "state_cardinality": "SINGLE_VALUE_AT_A_TIME"
+      },
+      "instagram": {
+        "b0q_admitted": false,
+        "counterfactual_grounded_exact_singleton_admitted": true,
+        "literal_attribute_anchor_both": true,
+        "propositions": [
+          "The user has reached 600 followers on Instagram, which they consider a milestone.",
+          "The user has recently reached 500 followers on Instagram and is hoping to maintain that growth."
+        ],
+        "same_state_dimension": "NO",
+        "same_subject_attribute_hint": true,
+        "state_cardinality": "SINGLE_VALUE_AT_A_TIME"
+      }
+    },
+    "definition": "All non-stopword tokens in attribute_key must occur as exact lowercase word tokens in both source propositions; diagnostic heuristic only, no synonym expansion.",
+    "heuristic_warning": "Literal token support is not semantic proof. Its errors do not establish causality and this rule is not recommended as a finalized method.",
+    "reviewed_intra_slot_pairs_admitted": {
+      "UNREVIEWED": 101
+    }
+  },
+  "memory_store_mutations": 0,
+  "model_calls": 0,
+  "schema_version": 1,
+  "stage": "MEM3B0Q_SLOT_IDENTITY_REFLECTION"
+}
