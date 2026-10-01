@@ -40,7 +40,7 @@ No model request is permitted until a separately reviewed protocol and implement
 - Maximal owner matching distinguishes P01 `My` from P04 `My sister`; typed matching distinguishes `activity` as attribute from `workout plan` as object.
 - Every frozen abstention control has a missing or ambiguous candidate condition consistent with the existing reason precedence; no proposed span may create an unsupported canonical identity.
 - Duplicate/overlapping aliases, repeated spans, case folding, punctuation, hyphenation, malformed IDs, cross-case candidate reuse, and unknown surface forms have positive and negative fixtures.
-- Request construction transmits the exact candidate table but never the expected oracle. Generated schema hash, candidate manifest hash, prompt hash, and request-builder hash are frozen before output collection.
+- Request construction transmits the exact candidate table but never the expected oracle. The candidate manifest binds the source hash, emitted candidate table, and exact registry hash. Generated schema hash, candidate manifest hash, prompt hash, and request-builder hash are frozen before output collection.
 - All original R4 v1 protocol, pack, prompt, schema, artifacts, and failure labels remain byte-identical and historical. Results from the new method receive a new version/marker and are never merged into R4 v1.
 
 The registry is currently a closed synthetic fixture inventory. This proposal would qualify candidate-bounded slot admission on that controlled inventory only; it would not establish open-world entity resolution, general memory extraction, revision accuracy, LongMemEval performance, or medical transfer.
