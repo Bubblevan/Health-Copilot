@@ -1,4 +1,4 @@
-# Claim-First Evidence Composer (CFEC-v1 candidate)
+# Claim-First Evidence Composer (CFEC-v1.1 candidate)
 
 CFEC is a reader-side execution graph over a frozen retrieval result, not a new
 retriever. It is designed to isolate whether converting passages into small,
@@ -17,7 +17,10 @@ provenance-bearing claims helps answer multi-evidence questions.
 3. **Compose.** The final call sees the original question and the validated
    claims only. It does not see raw evidence. Its final answer cannot set the
    used-evidence field: the harness computes that as the union of evidence IDs
-   attached to validated claims.
+   attached to validated claims. For the returned answer surface, the prompt
+   also requests exact bracketed aliases on the `FINAL:` line; the provenance
+   metric remains harness-derived from validated claims, not trusted from that
+   generated line.
 
 Requirement identity, evidence aliases, retrieval actions/results, provenance,
 and evaluation scope are deterministic harness state. LLM output is untrusted

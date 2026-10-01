@@ -1,4 +1,4 @@
-"""Post-freeze BUILD scoring with opaque skipping of non-BUILD truth rows."""
+"""Post-freeze E6A partition scoring with opaque skipping of hidden truth rows."""
 
 from __future__ import annotations
 
@@ -28,9 +28,10 @@ ROOT = Path(__file__).resolve().parents[2]
 U2F_ROOT = ROOT / "runs/integration/u2f-owned-v1-55955b2eff38"
 SPLIT_MANIFEST = ROOT / "runs/rag_e6/split_manifest.json"
 CORPUS_ROOT = ROOT / "runs/rag_e6/corpus"
-BUILD_ROOT = ROOT / "runs/rag_e6/build"
-REPORT_JSON = ROOT / "runs/rag_e6/build/build_score_report.json"
-SCORED_ROWS = ROOT / "runs/rag_e6/build/build_scored_episodes.jsonl"
+BUILD_ROOT = ROOT / "runs/rag_e6/build_v2"
+REPORT_JSON = BUILD_ROOT / "build_score_report.json"
+SCORED_ROWS = BUILD_ROOT / "build_scored_episodes.jsonl"
+PARTITION_EPISODE_COUNTS = {"BUILD": 818, "FROZEN_DEV": 1628}
 BOOTSTRAP_RESAMPLES = 10_000
 BOOTSTRAP_SEED = 20260930
 VALUE_TOKEN = re.compile(r"SYNVAL-[0-9A-F]{10}")
@@ -47,48 +48,61 @@ def _read_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _read_frozen_outputs(path: Path, manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
+def _read_frozen_outputs(
+    path: Path, manifest: dict[str, Any], *, partition: str
+) -> dict[str, dict[str, Any]]:
     if sha256_file(path) != manifest.get("reader_output_sha256"):
-        raise ValueError("BUILD reader outputs differ from their frozen manifest")
+        raise ValueError(f"{partition} reader outputs differ from their frozen manifest")
     result: dict[str, dict[str, Any]] = {}
     with path.open(encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, start=1):
             row = json.loads(line)
             episode_id = row.get("episode_id")
             if not isinstance(episode_id, str) or episode_id in result:
-                raise ValueError(f"malformed or duplicate BUILD output at row {line_number}")
-            if row.get("partition") != "BUILD" or set(row.get("arms", {})) != set(ARM_ORDER):
-                raise ValueError("BUILD output row has the wrong partition or arm set")
+                raise ValueError(f"malformed or duplicate {partition} output at row {line_number}")
+            if row.get("partition") != partition or set(row.get("arms", {})) != set(ARM_ORDER):
+                raise ValueError(f"{partition} output row has the wrong partition or arm set")
             result[episode_id] = row
     if len(result) != manifest.get("episode_count"):
-        raise ValueError("BUILD output row count differs from its frozen manifest")
+        raise ValueError(f"{partition} output row count differs from its frozen manifest")
     return result
 
 
 def _verify_execution_freeze(
-    *, u2f_root: Path, split_manifest_path: Path, corpus_root: Path, build_root: Path
+    *,
+    u2f_root: Path,
+    split_manifest_path: Path,
+    corpus_root: Path,
+    build_root: Path,
+    partition: str = "BUILD",
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, dict[str, Any]], dict[str, Any]]:
-    manifest_path = build_root / "build_manifest.json"
+    if partition not in PARTITION_EPISODE_COUNTS:
+        raise ValueError("scoring only supports BUILD or FROZEN_DEV")
+    stem = partition.lower()
+    manifest_path = build_root / f"{stem}_manifest.json"
     manifest = _read_json(manifest_path)
+    split_manifest = _read_json(split_manifest_path)
     if (
         manifest.get("schema_version") != "rag-e6a-runtime-freeze-v1"
-        or manifest.get("partition") != "BUILD"
+        or manifest.get("partition") != partition
         or manifest.get("all_partition_episodes_executed") is not True
         or manifest.get("primary_slice_applied_before_execution") is not False
-        or manifest.get("episode_count") != 818
-        or manifest.get("arm_execution_count") != 818 * len(ARM_ORDER)
+        or manifest.get("episode_count") != PARTITION_EPISODE_COUNTS[partition]
+        or manifest.get("episode_count")
+        != split_manifest.get("partition_episode_counts", {}).get(partition)
+        or manifest.get("arm_execution_count") != PARTITION_EPISODE_COUNTS[partition] * len(ARM_ORDER)
         or manifest.get("evaluator_truth_opened") is not False
         or manifest.get("future_train_outcomes_opened") is not False
         or manifest.get("reserved_test_ood_materialized") is not False
         or manifest.get("reserved_test_ood_opened") is not False
     ):
-        raise ValueError("BUILD execution manifest is not a complete gold-blind freeze")
+        raise ValueError(f"{partition} execution manifest is not a complete gold-blind freeze")
     code_hashes = manifest.get("code_sha256")
     if not isinstance(code_hashes, dict) or not code_hashes:
         raise ValueError("BUILD manifest has no frozen code hashes")
     for name, expected_hash in code_hashes.items():
         if sha256_file(ROOT / name) != expected_hash:
-            raise ValueError(f"BUILD implementation hash mismatch: {name}")
+            raise ValueError(f"{partition} implementation hash mismatch: {name}")
     frozen_commit = manifest.get("code_commit")
     current_commit = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
@@ -98,42 +112,68 @@ def _verify_execution_freeze(
         cwd=ROOT,
         check=False,
     ).returncode != 0:
-        raise ValueError("BUILD execution commit is not an ancestor of scoring HEAD")
+        raise ValueError(f"{partition} execution commit is not an ancestor of scoring HEAD")
     if manifest.get("retrieval") != _retrieval_identity():
-        raise ValueError("BUILD retrieval identity differs from the pinned U3-R configuration")
+        raise ValueError(f"{partition} retrieval identity differs from the pinned U3-R configuration")
     if manifest.get("inherited_u3r_runtime") != _verify_inherited_u3r_runtime_source(ROOT):
-        raise ValueError("BUILD inherited U3-R runtime source identity changed")
+        raise ValueError(f"{partition} inherited U3-R runtime source identity changed")
     if manifest.get("generator", {}).get("model_sha256") != MODEL_SHA256:
-        raise ValueError("BUILD generation model identity differs from the frozen Qwen GGUF")
+        raise ValueError(f"{partition} generation model identity differs from the frozen Qwen GGUF")
     if sha256_file(DEFAULT_QWEN_PATH) != MODEL_SHA256:
-        raise ValueError("pinned Qwen GGUF changed after BUILD execution")
+        raise ValueError(f"pinned Qwen GGUF changed after {partition} execution")
     if sha256_file(DEFAULT_BGE_PATH / "model.safetensors") != _retrieval_identity()[
         "standard"
     ]["bge_weights_sha256"]:
-        raise ValueError("pinned BGE-large weights changed after BUILD execution")
+        raise ValueError(f"pinned BGE-large weights changed after {partition} execution")
     server_manifest_path = build_root.parent / "runtime/gpu_server_manifest.json"
     server_manifest = _verify_server_manifest(server_manifest_path, qwen_path=DEFAULT_QWEN_PATH)
     if (
         sha256_file(server_manifest_path) != manifest.get("server_manifest_sha256")
         or server_manifest != manifest.get("server_manifest")
     ):
-        raise ValueError("BUILD llama.cpp server manifest changed after execution")
+        raise ValueError(f"{partition} llama.cpp server manifest changed after execution")
+    if partition == "FROZEN_DEV":
+        protocol_lock_path = build_root.parent / "protocol_lock.json"
+        run_context_path = build_root / "run_context.json"
+        protocol_lock = _read_json(protocol_lock_path)
+        run_context = _read_json(run_context_path)
+        lock_sha256 = sha256_file(protocol_lock_path)
+        if (
+            protocol_lock.get("schema_version") != "rag-e6a-protocol-lock-v1"
+            or protocol_lock.get("selected_method") != "CFEC-v1.1"
+            or run_context.get("schema_version") != "rag-e6a-frozen-dev-run-context-v1"
+            or protocol_lock.get("method_code_commit")
+            != run_context.get("method_code_commit")
+            or run_context.get("protocol_lock_sha256") != lock_sha256
+            or run_context.get("execution_code_commit") != manifest.get("code_commit")
+            or subprocess.run(
+                [
+                    "git", "merge-base", "--is-ancestor",
+                    protocol_lock.get("method_code_commit", ""),
+                    run_context.get("execution_code_commit", ""),
+                ],
+                cwd=ROOT,
+                check=False,
+            ).returncode != 0
+        ):
+            raise ValueError("FROZEN_DEV run context does not match the committed protocol lock")
 
-    if sha256_file(build_root / "build_reader_outputs.jsonl") != manifest.get(
+    output_path = build_root / f"{stem}_reader_outputs.jsonl"
+    journal_path = build_root / f"{stem}_generation_calls.jsonl"
+    if sha256_file(output_path) != manifest.get(
         "reader_output_sha256"
     ):
-        raise ValueError("BUILD reader output hash mismatch")
-    if sha256_file(build_root / "build_generation_calls.jsonl") != manifest.get(
+        raise ValueError(f"{partition} reader output hash mismatch")
+    if sha256_file(journal_path) != manifest.get(
         "generation_call_journal_sha256"
     ):
-        raise ValueError("BUILD generation-call journal hash mismatch")
-    split_manifest = _read_json(split_manifest_path)
+        raise ValueError(f"{partition} generation-call journal hash mismatch")
     if sha256_file(split_manifest_path) != manifest.get("subject_split_manifest_sha256"):
-        raise ValueError("BUILD subject split manifest hash mismatch")
+        raise ValueError(f"{partition} subject split manifest hash mismatch")
     if split_manifest.get("evaluator_truth_opened") is not False:
         raise ValueError("subject split manifest records premature truth access")
-    corpus_path = corpus_root / "build_runtime_corpus.jsonl"
-    corpus_manifest_path = corpus_root / "build_corpus_manifest.json"
+    corpus_path = corpus_root / f"{stem}_runtime_corpus.jsonl"
+    corpus_manifest_path = corpus_root / f"{stem}_corpus_manifest.json"
     corpus_manifest = _read_json(corpus_manifest_path)
     if (
         sha256_file(corpus_manifest_path) != manifest.get("runtime_corpus_manifest_sha256")
@@ -141,21 +181,21 @@ def _verify_execution_freeze(
         or corpus_manifest.get("evaluator_truth_opened") is not False
         or corpus_manifest.get("future_train_outcomes_opened") is not False
     ):
-        raise ValueError("gold-blind BUILD corpus failed its frozen identity checks")
-    rows = _read_frozen_outputs(build_root / "build_reader_outputs.jsonl", manifest)
+        raise ValueError(f"gold-blind {partition} corpus failed its frozen identity checks")
+    rows = _read_frozen_outputs(output_path, manifest, partition=partition)
     episodes = load_partition_episodes(
         u2f_root=u2f_root,
         split_manifest_path=split_manifest_path,
-        partition="BUILD",
+        partition=partition,
     )
     expected_ids = {item.episode_id for item in episodes}
     if set(rows) != expected_ids:
-        raise ValueError("frozen BUILD output IDs differ from selected runtime episodes")
-    if len(episodes) != 818:
-        raise ValueError("selected BUILD runtime episode count is not 818")
+        raise ValueError(f"frozen {partition} output IDs differ from selected runtime episodes")
+    if len(episodes) != PARTITION_EPISODE_COUNTS[partition]:
+        raise ValueError(f"selected {partition} runtime episode count is invalid")
 
     journal: dict[str, dict[str, Any]] = {}
-    with (build_root / "build_generation_calls.jsonl").open(encoding="utf-8") as handle:
+    with journal_path.open(encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, start=1):
             event = json.loads(line)
             call_id = event.get("call_id")
@@ -199,11 +239,17 @@ def _verify_execution_freeze(
     return manifest, split_manifest, rows, {item.episode_id: item for item in episodes}
 
 
-def _load_build_truth_slice(
-    *, u2f_root: Path, split_manifest: dict[str, Any], expected_ids: set[str]
+def _load_partition_truth_slice(
+    *,
+    u2f_root: Path,
+    split_manifest: dict[str, Any],
+    expected_ids: set[str],
+    partition: str,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    if partition not in PARTITION_EPISODE_COUNTS:
+        raise ValueError("truth scoring only supports BUILD or FROZEN_DEV")
     selected_subjects = {
-        item["subject_id"] for item in split_manifest["subjects_by_partition"]["BUILD"]
+        item["subject_id"] for item in split_manifest["subjects_by_partition"][partition]
     }
     runtime_path = u2f_root / "train/episodes.jsonl"
     truth_path = u2f_root / "train/evaluator_truth.jsonl"
@@ -224,7 +270,7 @@ def _load_build_truth_slice(
                 continue
             truth = json.loads(truth_line)
             if not isinstance(truth, dict):
-                raise TypeError("selected BUILD evaluator-truth row is not an object")
+                raise TypeError(f"selected {partition} evaluator-truth row is not an object")
             episode_id = runtime_id.get("episode_id")
             if (
                 not isinstance(episode_id, str)
@@ -232,27 +278,45 @@ def _load_build_truth_slice(
                 or episode_id not in expected_ids
                 or episode_id in truths
             ):
-                raise ValueError("selected BUILD evaluator-truth row is misaligned or duplicated")
+                raise ValueError(f"selected {partition} evaluator-truth row is misaligned or duplicated")
             required = {
                 "episode_id", "answer_type", "answer_values", "capability_requirement_oracle",
                 "required_memory_record_ids", "required_external_evidence_ids",
             }
             if not required.issubset(truth):
-                raise ValueError("selected BUILD evaluator-truth row misses required scoring fields")
+                raise ValueError(f"selected {partition} evaluator-truth row misses required scoring fields")
             selected_hash.update(truth_line.encode("utf-8"))
             truths[episode_id] = truth
-    if source_rows != 4096 or set(truths) != expected_ids:
-        raise ValueError("selected BUILD truth slice does not align to all 818 episodes")
-    return truths, {
+    if (
+        source_rows != 4096
+        or set(truths) != expected_ids
+        or len(truths) != PARTITION_EPISODE_COUNTS[partition]
+    ):
+        raise ValueError(f"selected {partition} truth slice does not align to its frozen episodes")
+    audit = {
         "truth_source_path": str(truth_path),
         "truth_file_rows_aligned": source_rows,
-        "build_truth_rows_decoded": len(truths),
-        "non_build_truth_rows_skipped_without_json_decode": opaque_truth_rows,
-        "build_truth_slice_sha256": selected_hash.hexdigest(),
-        "frozen_dev_truth_rows_decoded": 0,
+        f"{partition.lower()}_truth_rows_decoded": len(truths),
+        f"non_{partition.lower()}_truth_rows_skipped_without_json_decode": opaque_truth_rows,
+        f"{partition.lower()}_truth_slice_sha256": selected_hash.hexdigest(),
+        "build_truth_rows_decoded": len(truths) if partition == "BUILD" else 0,
+        "frozen_dev_truth_rows_decoded": len(truths) if partition == "FROZEN_DEV" else 0,
         "future_train_truth_rows_decoded": 0,
         "reserved_test_ood_opened": False,
     }
+    return truths, audit
+
+
+def _load_build_truth_slice(
+    *, u2f_root: Path, split_manifest: dict[str, Any], expected_ids: set[str]
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    """Compatibility wrapper for BUILD-only scoring and regression tests."""
+    return _load_partition_truth_slice(
+        u2f_root=u2f_root,
+        split_manifest=split_manifest,
+        expected_ids=expected_ids,
+        partition="BUILD",
+    )
 
 
 def _observed_values(answer: str, truth: dict[str, Any]) -> tuple[str, ...]:
@@ -402,23 +466,33 @@ def _paired_cluster_bootstrap(
     }
 
 
-def score_build(
-    *, u2f_root: Path = U2F_ROOT, split_manifest_path: Path = SPLIT_MANIFEST,
-    corpus_root: Path = CORPUS_ROOT, build_root: Path = BUILD_ROOT,
-    report_path: Path = REPORT_JSON, scored_rows_path: Path = SCORED_ROWS,
+def score_partition(
+    *,
+    partition: str,
+    u2f_root: Path = U2F_ROOT,
+    split_manifest_path: Path = SPLIT_MANIFEST,
+    corpus_root: Path = CORPUS_ROOT,
+    run_root: Path,
+    report_path: Path,
+    scored_rows_path: Path,
 ) -> dict[str, Any]:
+    if partition not in PARTITION_EPISODE_COUNTS:
+        raise ValueError("scoring only supports BUILD or FROZEN_DEV")
+    stem = partition.lower()
     manifest, split_manifest, runtime_by_id, episode_by_id = _verify_execution_freeze(
         u2f_root=u2f_root,
         split_manifest_path=split_manifest_path,
         corpus_root=corpus_root,
-        build_root=build_root,
+        build_root=run_root,
+        partition=partition,
     )
-    truth_by_id, truth_access = _load_build_truth_slice(
+    truth_by_id, truth_access = _load_partition_truth_slice(
         u2f_root=u2f_root,
         split_manifest=split_manifest,
         expected_ids=set(runtime_by_id),
+        partition=partition,
     )
-    with (corpus_root / "build_runtime_corpus.jsonl").open(encoding="utf-8") as handle:
+    with (corpus_root / f"{stem}_runtime_corpus.jsonl").open(encoding="utf-8") as handle:
         visible_docs: dict[str, set[str]] = {}
         for line in handle:
             row = json.loads(line)
@@ -462,7 +536,7 @@ def score_build(
     }
     rag_rows = slices.get(PRIMARY_CLASS, [])
     if not rag_rows:
-        raise ValueError("frozen BUILD contains no post-freeze RAG evaluation slice")
+        raise ValueError(f"frozen {partition} contains no post-freeze RAG evaluation slice")
     primary_delta = _paired_cluster_bootstrap(
         rag_rows, metric="grounded_task_success", arm_a=FLOW_ARMS[0], arm_b=FLOW_ARMS[1]
     )
@@ -479,33 +553,52 @@ def score_build(
         arm_b=FLOW_ARMS[1],
         only_full_evidence=True,
     )
-    gate = {
-        "primary_build_point_delta_at_least_10pp": (
+    gate_fields = {
+        "primary_point_delta_at_least_10pp": (
             primary_delta["delta"] is not None and primary_delta["delta"] >= 0.10
         ),
-        "primary_build_ci_lower_above_zero": (
+        "primary_ci_lower_above_zero": (
             primary_delta["ci95"] is not None and primary_delta["ci95"][0] > 0
         ),
         "grounding_degradation_no_more_than_1pp": (
             grounding_delta["delta"] is not None and grounding_delta["delta"] >= -0.01
         ),
-        "utilization_build_point_delta_at_least_10pp": (
+        "utilization_point_delta_at_least_10pp": (
             utilization_delta["delta"] is not None and utilization_delta["delta"] >= 0.10
         ),
-        "note": "BUILD is developmental only; this is not the frozen DEV gate.",
     }
+    if partition == "BUILD":
+        gate = {
+            "primary_build_point_delta_at_least_10pp": gate_fields[
+                "primary_point_delta_at_least_10pp"
+            ],
+            "primary_build_ci_lower_above_zero": gate_fields["primary_ci_lower_above_zero"],
+            "grounding_degradation_no_more_than_1pp": gate_fields[
+                "grounding_degradation_no_more_than_1pp"
+            ],
+            "utilization_build_point_delta_at_least_10pp": gate_fields[
+                "utilization_point_delta_at_least_10pp"
+            ],
+            "note": "BUILD is developmental only; this is not the frozen DEV gate.",
+        }
+    else:
+        gate = {
+            **gate_fields,
+            "all_gates_pass": all(gate_fields.values()),
+            "note": "FROZEN_DEV is the internal confirmation gate; it is not the reserved TEST.",
+        }
     rows_bytes = b"".join(canonical_json_bytes(row) + b"\n" for row in scored_rows)
     if scored_rows_path.exists() and scored_rows_path.read_bytes() != rows_bytes:
-        raise FileExistsError("refusing to overwrite a different BUILD scoring artifact")
+        raise FileExistsError(f"refusing to overwrite a different {partition} scoring artifact")
     if not scored_rows_path.exists():
         scored_rows_path.parent.mkdir(parents=True, exist_ok=True)
         with scored_rows_path.open("xb") as handle:
             handle.write(rows_bytes)
             handle.flush()
     result = {
-        "schema_version": "rag-e6a-build-score-v1",
-        "partition": "BUILD",
-        "runtime_manifest_sha256": sha256_file(build_root / "build_manifest.json"),
+        "schema_version": f"rag-e6a-{stem}-score-v1",
+        "partition": partition,
+        "runtime_manifest_sha256": sha256_file(run_root / f"{stem}_manifest.json"),
         "reader_output_sha256": manifest["reader_output_sha256"],
         "generation_call_journal_sha256": manifest["generation_call_journal_sha256"],
         "evaluator_truth_opened_after_execution_freeze": True,
@@ -524,12 +617,45 @@ def score_build(
             "grounding_pass_delta": grounding_delta,
             "utilization_given_full_evidence_task_success_delta": utilization_delta,
         },
-        "development_gate": gate,
+        "development_gate" if partition == "BUILD" else "frozen_dev_gate": gate,
         "scored_episode_rows_sha256": hashlib.sha256(rows_bytes).hexdigest(),
         "future_train_outcomes_decoded": False,
         "reserved_test_ood_materialized": False,
         "reserved_test_ood_opened": False,
-        "frozen_dev_truth_opened": False,
+        "frozen_dev_truth_opened": partition == "FROZEN_DEV",
     }
     write_immutable_json(report_path, result)
     return result
+
+
+def score_build(
+    *, u2f_root: Path = U2F_ROOT, split_manifest_path: Path = SPLIT_MANIFEST,
+    corpus_root: Path = CORPUS_ROOT, build_root: Path = BUILD_ROOT,
+    report_path: Path = REPORT_JSON, scored_rows_path: Path = SCORED_ROWS,
+) -> dict[str, Any]:
+    return score_partition(
+        partition="BUILD",
+        u2f_root=u2f_root,
+        split_manifest_path=split_manifest_path,
+        corpus_root=corpus_root,
+        run_root=build_root,
+        report_path=report_path,
+        scored_rows_path=scored_rows_path,
+    )
+
+
+def score_frozen_dev(
+    *, u2f_root: Path = U2F_ROOT, split_manifest_path: Path = SPLIT_MANIFEST,
+    corpus_root: Path = CORPUS_ROOT, run_root: Path | None = None,
+    report_path: Path | None = None, scored_rows_path: Path | None = None,
+) -> dict[str, Any]:
+    frozen_root = run_root or (ROOT / "runs/rag_e6/frozen_dev")
+    return score_partition(
+        partition="FROZEN_DEV",
+        u2f_root=u2f_root,
+        split_manifest_path=split_manifest_path,
+        corpus_root=corpus_root,
+        run_root=frozen_root,
+        report_path=report_path or frozen_root / "frozen_dev_score_report.json",
+        scored_rows_path=scored_rows_path or frozen_root / "frozen_dev_scored_episodes.jsonl",
+    )

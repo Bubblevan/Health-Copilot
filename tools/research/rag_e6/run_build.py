@@ -21,7 +21,7 @@ from eval.rag_e6.split import U2F_ROOT_SHA256
 
 U2F_ROOT = ROOT / "runs/integration/u2f-owned-v1-55955b2eff38"
 SPLIT_MANIFEST = ROOT / "runs/rag_e6/split_manifest.json"
-OUTPUT_ROOT = ROOT / "runs/rag_e6/build"
+OUTPUT_ROOT = ROOT / "runs/rag_e6/build_v2"
 
 
 def main() -> None:
@@ -67,4 +67,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

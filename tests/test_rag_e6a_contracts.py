@@ -100,6 +100,17 @@ def test_last_final_marker_controls_answer_and_citations() -> None:
     assert parse_last_final("No final marker").contract_failure
 
 
+def test_reader_prompts_align_citation_location_with_final_parser() -> None:
+    vanilla = vanilla_prompt(
+        "Question?", issue_evidence_aliases([{"doc_id": "doc-a", "text": "Evidence."}])
+    )
+    assert "same FINAL line" in vanilla
+    assert "Never write a bare alias" in vanilla
+    assert "citations only before the FINAL line" in vanilla
+    composer = composer_prompt("Question?", ())
+    assert "aliases on the FINAL line" in composer
+
+
 def test_requirement_ids_are_harness_owned_and_capped() -> None:
     requirements = parse_requirements("- one\n- two\n- three\n- four\n- five")
     assert requirements == ("one", "two", "three", "four")
