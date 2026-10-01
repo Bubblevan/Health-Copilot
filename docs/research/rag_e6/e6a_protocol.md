@@ -1,6 +1,6 @@
 # RAG-E6A protocol
 
-Status: the initial BUILD remains diagnostic after a baseline prompt/parser alignment defect. A second attempt (`build_v2`) was stopped at 232/818 episodes after a second output-contract/scoring defect was found; it was not scored and no evaluator truth was opened. The next complete candidate is strict-output `CFEC-v1.2` in `build_v3`. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
+Status: the initial BUILD remains diagnostic after a baseline prompt/parser alignment defect. `build_v2` was stopped at 232/818 after an output-contract/scoring defect; `build_v3` was stopped at 8/818 because the 256-token cap truncated ordinary claim outputs. Neither attempt was scored or opened evaluator truth. The next complete candidate is strict-output `CFEC-v1.3` in `build_v4`. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
 
 ## Question and scope
 
@@ -52,7 +52,7 @@ The U3-R retrieval code/configuration is reused without tuning:
   `d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785`.
 
 All generator requests use temperature 0, top-p 1, reasoning disabled, one attempt,
-and a uniform 256-token per-call output cap; the llama.cpp server itself retains
+and a uniform 512-token per-call output cap; the llama.cpp server itself retains
 its separately recorded 8,192-token ceiling. Runtime backend/device details are
 recorded but are not method variables. The pinned GGUF
 has a 40,960-token native/effective context despite the requested 65,536 setting;
@@ -113,7 +113,7 @@ headline result. Changes to prompts/parser/composition are allowed only here;
 retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
 are prohibited.
 
-Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.2 prompts, parser,
+Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.3 prompts, parser,
 model, retrieval identities/configuration, top-k, budgets, execution graph, metric
 definitions, code commit and BUILD-derived method choice. Then execute every
 FROZEN_DEV episode under all five arms, freeze all artifacts/hashes, and only then
@@ -170,7 +170,14 @@ the scorer only recorded `output_contract_failure` and did not require it to be
 false for task success. That partial run is retained as diagnostic data only;
 it has no completion manifest, was not scored, and did not open evaluator truth.
 
-`build_v3` uses `CFEC-v1.2`: every call, across every arm, is capped at 256 output
+The `build_v3` attempt used `CFEC-v1.2` with a 256-token cap. It was stopped after
+8 completed episodes: eight CFEC claim calls across those episodes reached the
+cap, although earlier valid claim calls commonly used about 325 tokens. This was
+too small for the normal claim contract and would force the pre-registered zero-
+truncation lock to fail; this partial run is retained but not scored and did not
+open evaluator truth.
+
+`build_v4` uses `CFEC-v1.3`: every call, across every arm, is capped at 512 output
 tokens; the parser accepts exactly one `FINAL:` line; unknown aliases invalidate
 the output; CFEC final citations must come from validated claims; and truncated,
 failed, or malformed calls fail closed in task-success scoring. The protocol lock
@@ -186,7 +193,7 @@ The diagnostic separation follows the motivation of
 [RAGChecker](https://arxiv.org/abs/2408.08067): retrieval coverage and generation/use
 must be measured separately. Claim-first decomposition is related in spirit to
 the retrieve-per-subquestion and evidence-pooling pattern in
-[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.2
+[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.3
 does not reproduce that pipeline: retrieval candidates are fixed, and the
 Harness validates claim aliases and owns provenance. It also is not
 [RankRAG](https://arxiv.org/abs/2407.02485), which instruction-tunes one model

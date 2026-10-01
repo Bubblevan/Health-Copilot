@@ -106,7 +106,7 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
             "model_api_id": "qwen-local",
             "model_sha256": "model-sha",
             "context_ceiling": 65536,
-            "completion_ceiling": 256,
+            "completion_ceiling": 512,
             "temperature": 0,
             "top_p": 1,
             "reasoning_enabled": False,
@@ -148,7 +148,7 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
         scored_rows_sha256="scores-sha",
         method_code_commit="abc123",
     )
-    assert lock["selected_method"] == "CFEC-v1.2"
+    assert lock["selected_method"] == "CFEC-v1.3"
     assert lock["primary_arm"] == "CFEC_STRONG"
     assert lock["frozen_dev_truth_opened"] is False
 

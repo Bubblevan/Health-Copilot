@@ -1,4 +1,4 @@
-# Claim-First Evidence Composer (CFEC-v1.2 candidate)
+# Claim-First Evidence Composer (CFEC-v1.3 candidate)
 
 CFEC is a reader-side execution graph over a frozen retrieval result, not a new
 retriever. It is designed to isolate whether converting passages into small,
@@ -23,7 +23,7 @@ provenance-bearing claims helps answer multi-evidence questions.
    task-success contract. Provenance remains harness-derived from validated
    claims, not trusted from generated text.
 
-All generator calls in every arm share a 256-token response cap. This bounds
+All generator calls in every arm share a 512-token response cap. This bounds
 runaway completion; exceeding the cap is recorded as truncation and cannot count
 as task success.
 

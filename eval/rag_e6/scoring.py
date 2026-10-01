@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[2]
 U2F_ROOT = ROOT / "runs/integration/u2f-owned-v1-55955b2eff38"
 SPLIT_MANIFEST = ROOT / "runs/rag_e6/split_manifest.json"
 CORPUS_ROOT = ROOT / "runs/rag_e6/corpus"
-BUILD_ROOT = ROOT / "runs/rag_e6/build_v3"
+BUILD_ROOT = ROOT / "runs/rag_e6/build_v4"
 REPORT_JSON = BUILD_ROOT / "build_score_report.json"
 SCORED_ROWS = BUILD_ROOT / "build_scored_episodes.jsonl"
 PARTITION_EPISODE_COUNTS = {"BUILD": 818, "FROZEN_DEV": 1628}
@@ -140,7 +140,7 @@ def _verify_execution_freeze(
         lock_sha256 = sha256_file(protocol_lock_path)
         if (
             protocol_lock.get("schema_version") != "rag-e6a-protocol-lock-v1"
-            or protocol_lock.get("selected_method") != "CFEC-v1.2"
+            or protocol_lock.get("selected_method") != "CFEC-v1.3"
             or run_context.get("schema_version") != "rag-e6a-frozen-dev-run-context-v1"
             or protocol_lock.get("method_code_commit")
             != run_context.get("method_code_commit")

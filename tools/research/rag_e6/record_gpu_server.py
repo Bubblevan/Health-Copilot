@@ -113,7 +113,7 @@ def main() -> None:
         "context_ceiling": CONTEXT_CEILING,
         "effective_context_size": effective_context_size,
         "model_native_context_size": effective_context_size,
-        "context_ceiling_note": "65,536 requested; llama.cpp caps this GGUF to its native 40,960 context; client calls are capped at 256 output tokens",
+        "context_ceiling_note": "65,536 requested; llama.cpp caps this GGUF to its native 40,960 context; client calls are capped at 512 output tokens",
         "completion_ceiling": SERVER_COMPLETION_CEILING,
         "reasoning_enabled": False,
         "retries": 0,
