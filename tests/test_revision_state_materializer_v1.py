@@ -247,6 +247,16 @@ def test_same_time_conflicting_values_are_exposed_not_arbitrarily_ordered() -> N
     assert all(row.status == "CONFLICT" for row in current)
 
 
+def test_same_turn_correction_cannot_fabricate_a_historical_predecessor() -> None:
+    at = "2026-01-01T00:00:00Z"
+    quote = "I've moved my tea break to 2:30 pm instead of 3 pm."
+    old = _obs("m1", "3 pm", at, source=quote)
+    new = _obs("m2", "2:30 pm", at, source=quote)
+
+    with pytest.raises(ValueError, match="outside observation interval"):
+        materialize([old, new], [_revision("m1", "m2", at)])
+
+
 def test_event_and_unknown_identity_do_not_enter_current_state() -> None:
     event = _obs("m1", "completed purchase", "2026-01-01T00:00:00Z", cardinality="EVENT_OR_NOT_STATE")
     unresolved = _obs("m2", "42", "2026-01-02T00:00:00Z", cardinality="UNKNOWN", owner=None)

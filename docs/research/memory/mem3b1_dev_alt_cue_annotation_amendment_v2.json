@@ -1,0 +1,17 @@
+{
+  "amendment": "The v1 label names overstated what a single source turn establishes. Preserve v1 as an immutable historical artifact, but interpret its EXPLICIT_STATE_REVISION as EXPLICIT_STATE_CHANGE_MENTION and EXPLICIT_TASK_PLAN_REVISION as EXPLICIT_TASK_PLAN_CHANGE_MENTION. These labels indicate explicit transition language/adoption in the source turn only; they do not establish a separately observed predecessor or a materializable revision chain.",
+  "source_annotation_sha256": "61181ca525905c58c8cee3c6050ab3687ce474633644b99c87cc479200b2fb50",
+  "label_renames": {
+    "EXPLICIT_STATE_REVISION": "EXPLICIT_STATE_CHANGE_MENTION",
+    "EXPLICIT_TASK_PLAN_REVISION": "EXPLICIT_TASK_PLAN_CHANGE_MENTION"
+  },
+  "anchor_check": {
+    "question_id": "4d6b87c8",
+    "source_position": 30,
+    "old_value_text": "3 pm",
+    "scope": "all earlier user-authored turns in this DEV history",
+    "check": "exact case-insensitive 3 pm mention before the cue turn",
+    "prior_exact_match_count": 0,
+    "interpretation": "No independent exact old-value mention was found before the correction. This one-case lexical anchor check is not semantic predecessor recall and cannot establish that no paraphrased or differently formatted mention exists."
+  }
+}
