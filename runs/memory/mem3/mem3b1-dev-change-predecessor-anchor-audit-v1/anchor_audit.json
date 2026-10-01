@@ -1,0 +1,83 @@
+{
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "diagnostic_only": true,
+  "exact_anchor_rate": 0.0,
+  "exact_prior_old_value_anchor_count": 0,
+  "limitations": [
+    "Only exact case-insensitive literal matches in earlier user turns are counted; semantic/paraphrased anchors are not assessed.",
+    "The five mentions were selected after source-only review and do not form a random or independent sample.",
+    "No revision-truth recall, end-to-end metric, or benchmark accuracy is measured."
+  ],
+  "model_calls": 0,
+  "question_or_gold_decoded": false,
+  "reviewed_change_mention_count": 5,
+  "scope": "five source-only adopted state-change mentions manually selected from frozen DEV cue audit v2",
+  "split_manifest_sha256": "931c288caeb27d5a3f4ab3463b11013f217f3f4c9973098f057f85c1edb4e686",
+  "targets": [
+    {
+      "attribute_hint": "soap_format",
+      "cue_session_date": "2023/11/02 (Thu) 22:43",
+      "cue_source_quote": "I've actually started buying soap bars instead of liquid soap, and I've opted for shampoo and conditioner bars as well. I've also been choosing products with cardboard or paper packaging instead of plastic. Do you have any recommendations for eco-friendly toothpaste options?",
+      "cue_turn_sha256": "e36a6a661941bdfe84a63f2b33bd486d81c5392d9a0b2204c8c4b7b22ecd6731",
+      "old_value_text": "liquid soap",
+      "prior_exact_literal_match_count": 0,
+      "prior_exact_literal_matches": [],
+      "prior_user_turn_count": 151,
+      "question_id": "031748ae",
+      "question_or_gold_used": false,
+      "source_position": 151
+    },
+    {
+      "attribute_hint": "product_packaging",
+      "cue_session_date": "2023/11/02 (Thu) 22:43",
+      "cue_source_quote": "I've actually started buying soap bars instead of liquid soap, and I've opted for shampoo and conditioner bars as well. I've also been choosing products with cardboard or paper packaging instead of plastic. Do you have any recommendations for eco-friendly toothpaste options?",
+      "cue_turn_sha256": "e36a6a661941bdfe84a63f2b33bd486d81c5392d9a0b2204c8c4b7b22ecd6731",
+      "old_value_text": "plastic",
+      "prior_exact_literal_match_count": 0,
+      "prior_exact_literal_matches": [],
+      "prior_user_turn_count": 151,
+      "question_id": "031748ae",
+      "question_or_gold_used": false,
+      "source_position": 151
+    },
+    {
+      "attribute_hint": "weekend_trip_to_grocery_store",
+      "cue_session_date": "2023/05/27 (Sat) 07:54",
+      "cue_source_quote": "Those are some great poses, I'll definitely try to incorporate them into my morning yoga routine. Speaking of my routine, I've also been trying to increase my physical activity throughout the day. I've started taking short walks during my lunch break at work, and I've also been riding my bike to the grocery store on weekends instead of driving. Do you have any other suggestions for ways I can increase my physical activity during the day?",
+      "cue_turn_sha256": "08e15cebd9973ca92b4afe0100408e67d23d5d8244eca48fc72539d123bc091b",
+      "old_value_text": "driving",
+      "prior_exact_literal_match_count": 0,
+      "prior_exact_literal_matches": [],
+      "prior_user_turn_count": 43,
+      "question_id": "1cea1afa",
+      "question_or_gold_used": false,
+      "source_position": 43
+    },
+    {
+      "attribute_hint": "tea_break_time",
+      "cue_session_date": "2023/05/04 (Thu) 11:22",
+      "cue_source_quote": "I've been sticking to the Earl Grey for now, but I might try some other flavors in the future. I've actually been having my tea break a bit earlier these days, at 2:30 pm instead of 3 pm, and it seems to be working better for me.",
+      "cue_turn_sha256": "1d539a2860dcd3ee0957709fa670569db7ba6f3bf97e67939719b6ae2420ebfc",
+      "old_value_text": "3 pm",
+      "prior_exact_literal_match_count": 0,
+      "prior_exact_literal_matches": [],
+      "prior_user_turn_count": 30,
+      "question_id": "4d6b87c8",
+      "question_or_gold_used": false,
+      "source_position": 30
+    },
+    {
+      "attribute_hint": "trip_to_train_station",
+      "cue_session_date": "2023/05/30 (Tue) 12:35",
+      "cue_source_quote": "I'll definitely look into those resources and tips. I've been thinking about my business idea and I want to make sure I'm prepared before I start. By the way, I've been walking to the train station instead of taking the bus, and I've been feeling more energized and alert since I started doing this. Do you have any recommendations for other ways I can incorporate more exercise into my daily routine?",
+      "cue_turn_sha256": "5f78012feca77f11a25ec4dcda9b40a853723a9a5fce19d59d3169cb3c7c405c",
+      "old_value_text": "taking the bus",
+      "prior_exact_literal_match_count": 0,
+      "prior_exact_literal_matches": [],
+      "prior_user_turn_count": 156,
+      "question_id": "a1eacc2a",
+      "question_or_gold_used": false,
+      "source_position": 156
+    }
+  ]
+}

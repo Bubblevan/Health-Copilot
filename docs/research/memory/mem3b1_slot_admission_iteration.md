@@ -35,7 +35,7 @@ The useful method change is to avoid asking one long-history generation to both 
 
 A zero-model-call follow-up reviewed every literal `instead of` / `rather than` occurrence in the 17 frozen DEV knowledge-update user histories. The miner found 37 occurrences across 32 turns. The initial v1 labels called five occurrences personal-state revisions and one a task-plan revision. A terminology correction in v2 narrows those labels: the five are **explicit adopted change mentions**, not verified revision chains; the task example is an explicit plan-change mention. Their cue-mention rates are 5/37 (13.5%) for personal-state changes and 6/37 (16.2%) including the task-plan mention. The other 31 occurrences were not source-asserted changes: three were assertions without a prior value, seven were proposals not yet adopted, and 21 came from questions, imported text, instructions, or other non-self content.
 
-This is not a recall estimate, benchmark gold, or system score. The histories are a small, non-random DEV slice, and the labels have one reviewer. It falsifies the broad rule "contrast marker => revision": most lexical hits are not even source-asserted state changes, and some occur inside pasted material. In the clearest tea-time example, a zero-model scan found no exact `3 pm` mention in any of the 30 earlier user turns; the old value appears only in the same correction sentence. The accepted extractor proposal therefore establishes a change mention, not an independently observed predecessor. The materializer correctly rejects a same-timestamp edge because it cannot assign a nonzero historical interval without temporal evidence. A safer gate must establish (1) the user is asserting their own state, (2) the successor is adopted rather than proposed, (3) both values map to the same typed single-valued slot, and (4) an independently grounded predecessor exists before closing its validity interval. Candidate detection can stay permissive; materialization cannot.
+This is not a recall estimate, benchmark gold, or system score. The histories are a small, non-random DEV slice, and the labels have one reviewer. It falsifies the broad rule "contrast marker => revision": most lexical hits are not even source-asserted state changes, and some occur inside pasted material. A follow-up checked the five explicit personal-state change mentions for exact old-value strings in earlier user turns and found 0/5. This is a conservative string-anchor result, not semantic predecessor recall; the utterances can assert prior behavior without independently dating it. In the clearest tea-time example, no exact `3 pm` mention appears in any of the 30 earlier user turns; it appears only in the correction sentence. The accepted extractor proposal therefore establishes a change mention, not an independently observed predecessor. The materializer correctly rejects a same-timestamp edge because it cannot assign a nonzero historical interval without temporal evidence. A safer gate must establish (1) the user is asserting their own state, (2) the successor is adopted rather than proposed, (3) both values map to the same typed single-valued slot, and (4) an independently grounded predecessor exists before closing its validity interval. Candidate detection can stay permissive; materialization cannot.
 
 Reproduction artifacts:
 
@@ -45,6 +45,8 @@ Reproduction artifacts:
 - `tools/research/memory/audit_mem3b1_dev_alternative_cues_v2.py`
 - `docs/research/memory/mem3b1_dev_alt_cue_annotation_amendment_v2.json`
 - `runs/memory/mem3/mem3b1-dev-alternative-cue-audit-v2/`
+- `tools/research/memory/audit_mem3b1_dev_change_predecessor_anchors_v1.py`
+- `runs/memory/mem3/mem3b1-dev-change-predecessor-anchor-audit-v1/`
 
 ## Method Decision
 
@@ -56,7 +58,7 @@ The next evaluation set should come from frozen LongMemEval-S DEV `knowledge-upd
 
 `MEM3B1_SLOT_ADMISSION_READY=NO`
 
-Current focused-run evidence: the v1 model proposed 0 transitions; the 17-history narrow cue audit found 1 explicit time-replacement candidate; the broader audit found 5/37 explicit adopted personal-state change mentions and one task-plan change mention, while the only checked predecessor anchor had no earlier exact old-value occurrence. This audit scores neither revision-chain quality nor answer accuracy. The full-history v2 and candidate-only v3 local reader calls produced infrastructure failures on the shared Vulkan reader. Regression tests are being extended around the revised evidence boundary.
+Current focused-run evidence: the v1 model proposed 0 transitions; the 17-history narrow cue audit found 1 explicit time-replacement candidate; the broader audit found 5/37 explicit adopted personal-state change mentions and one task-plan change mention; the follow-up found 0/5 earlier exact old-value anchors for the five state-change mentions. These audits score neither semantic revision-chain quality nor answer accuracy. The full-history v2 and candidate-only v3 local reader calls produced infrastructure failures on the shared Vulkan reader. Regression tests are being extended around the revised evidence boundary.
 
 Evidence reviewed:
 
@@ -72,5 +74,6 @@ Evidence reviewed:
 - `runs/memory/mem3/mem3b1-dev-explicit-time-cue-audit-v1/`
 - `runs/memory/mem3/mem3b1-dev-alternative-cue-audit-v1/`
 - `runs/memory/mem3/mem3b1-dev-alternative-cue-audit-v2/`
+- `runs/memory/mem3/mem3b1-dev-change-predecessor-anchor-audit-v1/`
 
 The next gate is a focused, DEV-only revision-pair study with the target label defined as actual temporal supersession rather than topical/single-slot membership, run against a healthy local reader endpoint.
