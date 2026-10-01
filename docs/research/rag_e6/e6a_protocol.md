@@ -1,6 +1,6 @@
 # RAG-E6A protocol
 
-Status: implementation in progress; no BUILD or FROZEN_DEV model execution has started.
+Status: initial BUILD was reclassified as diagnostic after a baseline prompt/parser alignment defect was found. A corrected, citation-parity BUILD rerun will select or reject `CFEC-v1.1` before any protocol lock. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
 
 ## Question and scope
 
@@ -109,7 +109,7 @@ headline result. Changes to prompts/parser/composition are allowed only here;
 retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
 are prohibited.
 
-Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1 prompts, parser,
+Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.1 prompts, parser,
 model, retrieval identities/configuration, top-k, budgets, execution graph, metric
 definitions, code commit and BUILD-derived method choice. Then execute every
 FROZEN_DEV episode under all five arms, freeze all artifacts/hashes, and only then
@@ -136,3 +136,46 @@ diagnostics where their post-freeze labels are available.
 See `runs/rag_e6/` for the immutable subject split, BUILD run/freeze/report,
 protocol lock, FROZEN_DEV run/freeze/report and failure attribution. Reserved
 TEST/OOD files must not be copied, decoded or materialized in E6A.
+
+## Initial BUILD audit (diagnostic only; excluded from method selection)
+
+The initial BUILD executed all 818 selected episodes under all five arms (4,090
+arm executions) before evaluator truth was opened. Its primary RAG slice contains
+156 episodes from 49 subjects. One interrupted generation request was not
+retried; total truncations were zero. These immutable artifacts are retained at
+`runs/rag_e6/build/` as diagnostics.
+
+The first score appeared to show `CFEC_STRONG` versus `VANILLA_STRONG` grounded
+task success moving from 0/156 to 138/156 (+88.46 pp). That result is **not
+accepted for method selection or as a headline**. Output audit found that the
+Vanilla prompt asked for exact aliases but did not say they had to appear after
+`FINAL:`, while the scorer intentionally counts only bracketed aliases in the
+returned FINAL segment. Among 156 Vanilla STRONG RAG completions, 59 contained
+bracketed aliases somewhere before/around the final segment, 37 used bare `E#`
+references, and zero had a bracketed alias after `FINAL:`; these categories are
+not mutually exclusive. This is a prompt/parser contract mismatch, so the
+apparent grounded-success delta is confounded by citation formatting. The
+answer-value correctness delta (136/156 to 138/156, +1.28 pp) is retained only
+as a diagnostic, not evidence of a confirmed CFEC uplift.
+
+Before freezing any method, Vanilla and CFEC final-answer prompts now explicitly
+require exact bracketed evidence aliases on the `FINAL:` line. The corrected
+BUILD run is isolated at `runs/rag_e6/build_v2/`; it will execute all five arms
+on the same frozen BUILD subjects and evidence, and its score will replace the
+diagnostic run for selection. Only after that run passes its gate will the code
+and protocol be committed/locked, followed by FROZEN_DEV execution and scoring.
+A failed FROZEN_DEV gate means no reserved TEST/OOD materialization.
+
+## Method positioning
+
+The diagnostic separation follows the motivation of
+[RAGChecker](https://arxiv.org/abs/2408.08067): retrieval coverage and generation/use
+must be measured separately. Claim-first decomposition is related in spirit to
+the retrieve-per-subquestion and evidence-pooling pattern in
+[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.1
+does not reproduce that pipeline: retrieval candidates are fixed, and the
+Harness validates claim aliases and owns provenance. It also is not
+[RankRAG](https://arxiv.org/abs/2407.02485), which instruction-tunes one model
+for ranking and answer generation. E6A isolates evidence utilization with the
+same frozen retrieval and generator across Vanilla and CFEC arms; it does not
+train a ranker or alter the retriever.
