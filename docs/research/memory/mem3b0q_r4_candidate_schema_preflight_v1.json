@@ -1,0 +1,248 @@
+{
+  "cases": [
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "39437cb6b5e2c14f8f96b24ee67913c7750352f5ad422965a549d59b3c0154ec",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "e2e596ee373c0a47dc2f55e20ffbf1b584cbfe83d10bae680921d076e7f6f013",
+      "schema_well_formed": true,
+      "source_id": "R4-P01",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "fe2e9d8877fd6e9c5fc6e685c8f42821a22ecc2135fbc11251c7998a6733f023",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "59cdb529599ffccaaf6f52414c85de2eaa0bb83cebf173d1a58d2e73019c907b",
+      "schema_well_formed": true,
+      "source_id": "R4-P02",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "2eca6620adede42dbf14daa33b04228818f1ed7d813fbd5436a008147c43cf89",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "5d388bcaaf6907ea9af81dafee34278770caa4dcd696f5ff2126b0a7d75fa036",
+      "schema_well_formed": true,
+      "source_id": "R4-P03",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "2b7f3c81634b9451eec24a7106e858494db9709b000949e1f40d2e38ee33e574",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "df3c292e8937e0641c16c7d5707ba5071116c3ddfc3741d09ba576eecec75898",
+      "schema_well_formed": true,
+      "source_id": "R4-P04",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "8c8e60c85428f703f30be4010a8d03d7327ba253eed20e3c47553b5281812285",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "f699b32d64895055bb5fce0989c0cbac925c52b3b36d8f1e3be5e7581b74d462",
+      "schema_well_formed": true,
+      "source_id": "R4-P05",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "3463e0938c92caf284c8ab13d74857a30e71a5ef1005cc03d96bb83b61c67a3a",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "28bd7944acdab8e0359cc1c4dd03acc87cbb4e66a488bf7b946f2d656e1a84ca",
+      "schema_well_formed": true,
+      "source_id": "R4-P06",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "c62af0f6664307408205cd5910db82db493c33240fe4232cda69e8dac4d8eafd",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "1a42a63cd807b4b5dbac05dda2e5ae824a1429fc0fec84a22d2a175fe05ae12d",
+      "schema_well_formed": true,
+      "source_id": "R4-P07",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "3a7d32f1a8e17df87bb0414d7b411844176951a3f4676eea1015e1c49c2f17f5",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "ce412dcefbd66f149b85667ab56f38443e58e9c8a88d5b013e0899fb7eb1c84f",
+      "schema_well_formed": true,
+      "source_id": "R4-P08",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "0833a9fa13e26b4546034ede642bb9802448e1d02ec4c2a6d660ce25abd915fc",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "59f905bf4a02e63b71a8578bc569bfe7ee4bde20cc9c51af2dfbe1af13fb78ba",
+      "schema_well_formed": true,
+      "source_id": "R4-P09",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "6bf26fabfe679dd7f83e622404ad82e296fc7cd7db42c9717416211a2221a653",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "b55402727f85ecd95d1b10ea6785a599936b414355b600399090040207a13cf4",
+      "schema_well_formed": true,
+      "source_id": "R4-P10",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "e8f07f6b214f9476194f7a5204499632eecd4045fb2d846afda95e45c3fc8e33",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "a2fa9b609fe572cac8e3bd1a7a630a249240b2ab95306c12e4b6ef69d234a59e",
+      "schema_well_formed": true,
+      "source_id": "R4-P11",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "99495d3c1087bc5a2986db7034f2b7575e06e3f9bc356ac64d4e7d9afcd4afdd",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "47491684064b23bb2e42225dd977ec74547ecb9528d3c230d69e6ab8c636e742",
+      "schema_well_formed": true,
+      "source_id": "R4-P12",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "c80c64dea754aa92dbe5b8f3ac7cb4148827f699660128b43342045065fd702b",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "a68ff870e21b5de963fc120ed725ca2cda8412c5153fa72711aeb87bacb4320f",
+      "schema_well_formed": true,
+      "source_id": "R4-P13",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "3012a54fe1d55948c544f382fc4f876de5703967a614c4ac06197bb2675d3204",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "6a79f13c54bb43f3f2acd484950570a0f34a833f31ced095ae459fb2b91f9577",
+      "schema_well_formed": true,
+      "source_id": "R4-P14",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 4,
+      "combined_output_sha256": "bc14ee1f9eda2f0b466a8e2cac6cd59b25c8333e51ed45ed75a1cd58aaa7bc32",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "a3fddd325d48e64c82d047f7cded0c38880c06d71e7100e7398824b0fd02d11b",
+      "schema_well_formed": true,
+      "source_id": "R4-P15",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "40fef8e227158d7bb754f593f1ddaf11cdaf5c779db43fa40ff47af7a2f099ec",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "efa8441a4c3abe0e920100d6ef991404425e74402214e8de1fd297b3c94ddfc4",
+      "schema_well_formed": true,
+      "source_id": "R4-P16",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "161292db6b9ded9890f1e8411ef707efbb1181fa11a137dd7f7ef44d461f0d7e",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "73faf980601c3acd981e93f401523fdf07e7493e2c6a7665ba0ed2c8d3bf9928",
+      "schema_well_formed": true,
+      "source_id": "R4-P17",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "c2e4472bbde3cf2ae6528fa7336f0e3d3d3873c967ae797275c775da95dabe1a",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "c61231866c86938232fecd3b88b2b02426fef2d29fed61d60757834982e79e4b",
+      "schema_well_formed": true,
+      "source_id": "R4-P18",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "3ee4d05f0edf45a022fd241bb29b63e646d01bd8ac3eefe4e2c258ad51a571f0",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "18549e0f104c25b0b9347d80d7764914350d521800b9a2987c14a9a02664b978",
+      "schema_well_formed": true,
+      "source_id": "R4-P19",
+      "status": "FAIL"
+    },
+    {
+      "atoms_max_items": 0,
+      "combined_output_sha256": "84c6f6ba3a0cf64090ecc86ae343c3ef23c13d1b7303ff3ebc57a7d41642ba32",
+      "exit_code": 1,
+      "missing_model_failure_detected": true,
+      "schema_error_detected": true,
+      "schema_sha256": "e5c3f7b5fd7cb8dc14def59c5195148914aa7ff7b5093f7be8f31fefb3f2616d",
+      "schema_well_formed": true,
+      "source_id": "R4-P20",
+      "status": "FAIL"
+    }
+  ],
+  "frozen_pack_sha256": "281464afccf1c189485837bc2763f0b6c2f10e9ea226a80eff63e87b01d2bd5c",
+  "frozen_r4_manifest_sha256": "278dd2079d0196a5d7b58111b3604a5a11ebe92bfdc22bc5fe868e8d3b547e1f",
+  "hosted_api_called": false,
+  "inference_performed": false,
+  "intentional_missing_model_path": "C:\\Users\\BUBBLE~1\\AppData\\Local\\Temp\\__mem3b0q_r4_candidate_schema_no_model__.gguf",
+  "interpretation": "Verifies Draft 2020-12 validity and the pinned CLI schema-conversion path using an intentionally absent model. Does not verify sampler initialization, serve a request, or establish model quality.",
+  "llama_cli": {
+    "observed_version_output_sha256": "105789ef5b95ae0b8c0771bfa34075e65500ebc4b3597e1ce4a19c3b019443db",
+    "path": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-cli.exe",
+    "sha256": "48566cf6e2969464b799dbcac7393b3549f9efd6884688074dc803125dbafa85",
+    "version": "10068 (571d0d540)"
+  },
+  "local_endpoint_called": false,
+  "model_loaded": false,
+  "preflight_id": "mem3b0q-r4-candidate-schema-preflight-v1",
+  "schema_conversion_negative_control": {
+    "combined_output_sha256": "467cf09e5ab137948ee31327eae7e99797b74e3fbe72d2adcfb5f4e6fd7f8489",
+    "exit_code": 1,
+    "missing_model_failure_detected": false,
+    "schema_error_detected": true,
+    "status": "PASS"
+  },
+  "schemas_checked": 20,
+  "status": "FAIL"
+}
