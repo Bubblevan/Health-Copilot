@@ -79,6 +79,53 @@ using that BUILD signal. The BUILD result only authorizes the one frozen DEV
 test; it is not confirmatory evidence, not a held-out gain, and not a resume
 headline.
 
+### FROZEN_DEV execution and internal confirmation
+
+The locked runner completed all 1,628 subject-split FROZEN_DEV episodes and
+all 8,140 arm executions before scoring. It made 6,512 completed model calls
+(one LameR bridge plus three paired Vanilla reader calls per episode); RSEL
+adds no calls. Across the 3,256 RSEL arm executions, the transform emitted
+1,336 structured relation ledgers and used 1,920 no-match Vanilla fallbacks.
+The call journal contains 6,512 matched started/completed pairs,
+with zero failed or truncated calls. The reader-output and call-journal hashes
+matched the frozen runtime manifest before the scorer opened truth. The scorer
+decoded only the 1,628 FROZEN_DEV truth rows; it skipped the other 2,468 rows
+without JSON decoding. FUTURE_TRAIN outcomes and reserved TEST/OOD remain
+unopened and unmaterialized.
+
+On the RAG-required slice (289 episodes across 97 subjects), RSEL-STRONG is
+compared with VANILLA-STRONG. Both arms use the same query, LameR bridge,
+retriever, and byte-identical top-10 evidence; RSEL transforms the paired
+Vanilla answer using exact visible key/value relations and harness-owned
+provenance. All 289 rows have the complete required external evidence in the
+shared top-10, so this comparison isolates answer/evidence utilization rather
+than retrieval recall.
+
+| FROZEN_DEV RAG metric (n=289) | Vanilla STRONG | RSEL STRONG | Delta |
+|---|---:|---:|---:|
+| Grounded task success | 203/289 (70.24%) | 289/289 (100.00%) | **+29.76 pp** |
+| Grounding pass | 237/289 (82.01%) | 289/289 (100.00%) | **+17.99 pp** |
+| Required external evidence used coverage | 91.29% | 100.00% | +8.71 pp |
+
+Paired subject-cluster bootstrap (10,000 resamples; 97 subjects) gives the
+primary grounded-task-success delta a 95% CI of **[+22.88, +36.84] pp**. The
+grounding-pass delta is **+17.99 pp**, 95% CI **[+12.99, +23.13] pp**. The
+full-evidence utilization comparison has the same 289 eligible rows and the
+same **+29.76 pp** task-success delta. All pre-registered FROZEN_DEV gates
+pass: primary point delta >= +10 pp, CI lower bound > 0, no grounding
+degradation, and utilization delta >= +10 pp.
+
+This is the first independent subject-level internal confirmation of the
+BUILD-selected RSEL-v1 method. It supports a narrow claim: on the owned
+synthetic longitudinal structured-evidence RAG slice, exact relation
+normalization plus deterministic, provenance-preserving composition improved
+grounded success over the same strong Vanilla reader, with no extra model
+calls. It is **not** a reserved TEST result, a public-benchmark result, or
+evidence of generalization to clinical prose. The 100% candidate score also
+makes the format-specific nature of this benchmark especially important to
+disclose. Do not claim a retrieval improvement: retrieval and top-10 evidence
+were held identical.
+
 ## Cost and parity
 
 RSEL adds zero generator calls relative to the paired Vanilla reader. The
@@ -101,11 +148,12 @@ RSEL uses the existing BUILD gate unchanged:
 - utilization-given-full-evidence point delta at least +10 percentage points;
 - generation health at least 99% nonempty calls.
 
-If all gates pass, commit the method lock and execute all 1,628 FROZEN_DEV
-episodes before opening FROZEN_DEV truth. A FROZEN_DEV score is the first
-independent RSEL result; a failed gate closes RSEL-v1 with no regex/prompt
-tuning against FROZEN_DEV. Do not open reserved TEST/OOD as a way to rescue a
-failed result.
+The registered procedure was followed: after BUILD passed, the method lock
+was committed and all 1,628 FROZEN_DEV episodes were executed before opening
+FROZEN_DEV truth. The preceding section records the resulting independent
+internal gate pass. No regex/prompt tuning was performed against FROZEN_DEV;
+reserved TEST/OOD remains closed and must not be used to rescue or extend this
+result without a separately approved protocol.
 
 ## Limits
 
