@@ -54,6 +54,31 @@ deterministic offline simulation with unchanged Vanilla fallback yielded
 post-selection BUILD diagnostics only. They must not be presented as a
 confirmatory result or resume headline; a frozen-dev result is required.
 
+### RSEL BUILD execution (development-only)
+
+The frozen gold-blind BUILD runtime was materialized from the paired Vanilla
+outputs and call journal. It covers all 818 episodes (156 in the RAG slice,
+49 subjects), reuses 3,272 completed model-call records, and adds zero model
+calls. The RSEL transform produced 622 structured-relation actions and 1,014
+no-match Vanilla fallbacks across the two RAG reader arms. BUILD evaluator
+truth was opened only after the output and call-journal hashes were verified.
+
+| BUILD RAG metric | Vanilla STRONG | RSEL STRONG |
+|---|---:|---:|
+| Grounded task success | 119/156 (76.28%) | 155/156 (99.36%) |
+| Grounding pass | 129/156 (82.69%) | 155/156 (99.36%) |
+| Full required evidence in top-10 | 155/156 (99.36%) | 155/156 (99.36%) |
+
+Paired subject-cluster bootstrap (10,000 resamples) gives grounded-success
+delta **+23.08 percentage points**, 95% CI **[+15.19, +31.13] pp**. Among the
+155 cases with full required evidence in both arms, task-success delta is
+**+23.23 pp**, 95% CI **[+14.97, +31.61] pp**. The pre-registered mechanical
+BUILD gates pass. This result is still **in-sample**: earlier CFEC/CAV
+diagnostics had already exposed BUILD truth, and the RSEL family was selected
+using that BUILD signal. The BUILD result only authorizes the one frozen DEV
+test; it is not confirmatory evidence, not a held-out gain, and not a resume
+headline.
+
 ## Cost and parity
 
 RSEL adds zero generator calls relative to the paired Vanilla reader. The
