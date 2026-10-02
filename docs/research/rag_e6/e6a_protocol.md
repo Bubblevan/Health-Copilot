@@ -1,0 +1,267 @@
+# RAG-E6A protocol
+
+Current status: CFEC-v1.4 and CAV-v1 are closed after negative BUILD results.
+RSEL-v1 is the active, narrowly scoped structured-evidence experiment; its
+selection provenance, exact relation grammar, and confirmation rule are in
+[`e6a_rsel_protocol.md`](e6a_rsel_protocol.md). RSEL has no frozen-dev result
+yet. The historical CFEC protocol and results below remain unchanged.
+
+Status: `build_v4` (CFEC-v1.3) and `build_v5` (CFEC-v1.4) are complete negative BUILD experiments. CFEC-v1.4 materially regressed versus the paired Vanilla reader and failed every uplift gate. The CFEC method family is closed for this protocol; no CFEC lock, FROZEN_DEV scoring, or reserved TEST/OOD access is authorized. This closes CFEC, not the broader RAG research objective: any different reader method requires its own pre-registered protocol and BUILD-only evaluation.
+
+## Question and scope
+
+E6A asks whether a claim-first reader can improve evidence use when the retrieval
+result is already fixed. It is not a retriever, reranker, router, memory, agent-team,
+or post-training experiment. The only primary contrast is `CFEC_STRONG` against
+`VANILLA_STRONG` on the evaluator-derived `RAG` slice. STANDARD is the secondary
+contrast; `VANILLA_OFF` is the parametric-only control. NONE and INSUFFICIENT are
+diagnostics, while MEMORY and MEMORY+RAG are reported separately and excluded from
+the primary comparison.
+
+## Source data and subject split
+
+The source is the frozen U2-F TRAIN runtime universe:
+
+- 4,096 runtime episodes, 320 subjects, 12–14 episodes per subject;
+- source manifest SHA-256 `34e6d1a8123ee63eea220c1a1b9b0b9b5f2e3349aeeec05a4504a508d4ca814e`;
+- dataset root SHA-256 `e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134`.
+
+Before any TRAIN evaluator truth is opened, subjects are sorted by
+`SHA256(UTF8("rag-e6a-subject-split-v1" + NUL + subject_id))` and allocated in
+fixed blocks: BUILD 64, FROZEN_DEV 128, FUTURE_TRAIN 128. The assignment unit is
+the subject. U2-F keeps counterfactual siblings within a subject, so disjoint
+subject assignment also prevents sibling leakage across E6A partitions. The
+split manifest records source/runtime hashes and counts, not evaluator labels.
+
+BUILD truth may be opened only after every BUILD episode has executed all five
+arms and the execution artifacts are frozen. FROZEN_DEV truth stays unopened
+until the final method/protocol lock is committed, all five arms have run on all
+FROZEN_DEV episodes, and the resulting output hashes are frozen. FUTURE_TRAIN
+outcomes and reserved TEST/OOD remain unopened and unmaterialized.
+
+All episodes for BUILD and FROZEN_DEV subjects are run before any evaluator-based
+slice is selected. No runtime query is filtered by a capability class, scenario
+family, fact ID, answerability, or other teacher label.
+
+## Frozen retrieval and generator
+
+The U3-R retrieval code/configuration is reused without tuning:
+
+- STANDARD: Lucene BM25 (`k1=0.9`, `b=0.4`) and pinned BGE-large, equal RRF
+  (`k=60`, weights `[1,1]`), fused top 10.
+- STRONG: pinned LameR-MV (BM25 query, BM25 query+bridge, BGE query, BGE bridge),
+  RRF (`k=20`, weights `[1,2,1,2]`), fused top 10.
+- BGE: `BAAI/bge-large-en-v1.5`, revision
+  `d4aa6901d3a41ba39fb536a557fa166f842b0e09`, weights SHA-256
+  `45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7`.
+- LameR and every reader call use Qwen3-8B-Q4_K_M, SHA-256
+  `d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785`.
+
+All generator requests use temperature 0, top-p 1, reasoning disabled, one attempt,
+and a uniform 512-token per-call output cap; the llama.cpp server itself retains
+its separately recorded 8,192-token ceiling. Runtime backend/device details are
+recorded but are not method variables. The pinned GGUF
+has a 40,960-token native/effective context despite the requested 65,536 setting;
+the client therefore applies a conservative UTF-8 prompt-byte guard before each
+generation request (reserving the full completion ceiling plus 1,024 bytes), then
+checks returned token usage against the effective context. This guard fails closed
+and never truncates or retries a request. No automatic retry is allowed. Retrieval
+output, query text, evidence aliases, requirement IDs, and evidence provenance are
+harness-owned.
+
+## Arms and execution order
+
+Every episode receives, in a fixed order:
+
+1. `VANILLA_OFF`: question-only reader.
+2. `VANILLA_STANDARD`: question plus the frozen STANDARD top-10 evidence.
+3. `VANILLA_STRONG`: question plus the frozen STRONG top-10 evidence.
+4. `CFEC_STANDARD`: requirements, per-requirement claims from the same STANDARD
+   evidence, then final composition from validated claims only.
+5. `CFEC_STRONG`: the same graph using the frozen STRONG evidence.
+
+No CFEC_OFF arm is defined. The question-only decomposition is shared between
+the two CFEC retrieval conditions within one episode because it is independent
+of evidence/action; the harness then separately runs claim extraction and final
+composition for each condition. Both CFEC arms use the same requirement strings
+and harness-assigned `req_1`…`req_n` identities.
+
+Final-answer parsing accepts exactly one single-line response beginning with
+`FINAL:`; preambles, multiple markers, continuations, missing output, unknown
+aliases, and any truncated model call are output-contract failures. There is no
+retry. Issued aliases are `[E1]`…`[E10]` in frozen rank order. The model never
+sees underlying document IDs. Contract failures cannot count as task success.
+
+## CFEC authority boundary
+
+The decomposer receives only the original question. It emits at most four
+non-empty requirement lines; the harness keeps the first four and assigns stable
+IDs. Each claimant receives one requirement and the exact same ranked top-10
+passages shown to the corresponding Vanilla arm. Claimants return short claims
+with issued aliases or `UNSUPPORTED`. Unknown aliases are recorded and invalidate
+that output, even if a line also contains a valid alias; claims without any valid
+issued alias are rejected. The final composer receives the original question
+plus validated claim text and aliases, never raw passages or document IDs. Final
+used evidence is the harness union of validated claim provenance; model text
+cannot alter that set. Final citations must be a subset of aliases attached to
+those validated claims.
+
+All model prompts exclude evaluator truth, answer values, required fact/evidence
+IDs, derived capability classes, scenario family, oracle action, sibling outcomes,
+and evaluator labels. LLM output cannot select/modify an action, query, retrieval
+result, evidence scope, requirement identity, provenance, or scoring slice.
+
+## Evaluation order and gates
+
+For BUILD: execute all episodes/all arms, freeze and hash execution artifacts,
+then open BUILD truth and score. BUILD is method development only and never the
+headline result. Changes to prompts/parser/composition are allowed only here;
+retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
+are prohibited.
+
+Before FROZEN_DEV truth is opened: a method must first pass its pre-registered
+BUILD gate, be frozen with its parser, model, retrieval identities/configuration,
+top-k, budgets, execution graph, metric definitions, code commit and BUILD-derived
+method choice, and then execute every FROZEN_DEV episode under all arms with
+artifacts/hashes frozen. CFEC-v1.3 and CFEC-v1.4 did not pass; neither may be
+promoted to FROZEN_DEV.
+
+Primary: `CFEC_STRONG - VANILLA_STRONG` grounded task success on the RAG slice.
+The internal positive gate is at least +10 percentage points, subject-clustered
+95% CI lower bound greater than zero, and no more than 1 pp degradation in
+grounding pass. The pre-registered utilization contrast is task success among
+episodes for which all required external evidence is in the supplied top-10; its
+positive threshold is also +10 pp. These are project gates, not literature
+standards. Truncated, malformed, failed, or fallback LameR bridge calls are
+recorded and fail the affected arm's task-success contract; their frequency is
+retained in the frozen generation-health report. A single such call does not
+invalidate an otherwise complete run, and no output is retried or repaired.
+A failed BUILD gate authorizes no FROZEN_DEV lock or reserved-test materialization.
+
+Protocol clarification before BUILD scoring: an earlier implementation added
+an all-or-nothing zero-truncation requirement to the method lock. This was
+removed because truncation is already a per-call, fail-closed task outcome; the
+extra run-level condition was not part of the registered uplift gates and would
+discard otherwise fully scored runs. No prompt, model, retrieval, output budget,
+or success metric changed in this clarification.
+
+Subject-clustered bootstrap: 10,000 resamples, seed `20260930`. Report task
+success, grounded task success, grounding/provenance pass, external-evidence
+coverage, answer-value correctness, valid citation/provenance, and
+utilization-given-full-evidence. Report predeclared NONE, INSUFFICIENT,
+multi-source, dependency-width/depth, scenario-family and versioned-evidence
+diagnostics where their post-freeze labels are available.
+
+## Expected artifacts
+
+See `runs/rag_e6/` for the immutable subject split, BUILD run/freeze/report,
+protocol lock, FROZEN_DEV run/freeze/report and failure attribution. Reserved
+TEST/OOD files must not be copied, decoded or materialized in E6A.
+
+## Initial BUILD audit (diagnostic only; excluded from method selection)
+
+The initial BUILD executed all 818 selected episodes under all five arms (4,090
+arm executions) before evaluator truth was opened. Its primary RAG slice contains
+156 episodes from 49 subjects. One interrupted generation request was not
+retried; total truncations were zero. These immutable artifacts are retained at
+`runs/rag_e6/build/` as diagnostics.
+
+The first score appeared to show `CFEC_STRONG` versus `VANILLA_STRONG` grounded
+task success moving from 0/156 to 138/156 (+88.46 pp). That result is **not
+accepted for method selection or as a headline**. Output audit found that the
+Vanilla prompt asked for exact aliases but did not say they had to appear after
+`FINAL:`, while the scorer intentionally counts only bracketed aliases in the
+returned FINAL segment. Among 156 Vanilla STRONG RAG completions, 59 contained
+bracketed aliases somewhere before/around the final segment, 37 used bare `E#`
+references, and zero had a bracketed alias after `FINAL:`; these categories are
+not mutually exclusive. This is a prompt/parser contract mismatch, so the
+apparent grounded-success delta is confounded by citation formatting. The
+answer-value correctness delta (136/156 to 138/156, +1.28 pp) is retained only
+as a diagnostic, not evidence of a confirmed CFEC uplift.
+
+The citation-parity `build_v2` attempt was stopped after 232 completed episodes
+because a CFEC compose call hit the old 8,192-token cap and emitted over 1,300
+unissued aliases. The runtime correctly kept claim provenance harness-owned, but
+the scorer only recorded `output_contract_failure` and did not require it to be
+false for task success. That partial run is retained as diagnostic data only;
+it has no completion manifest, was not scored, and did not open evaluator truth.
+
+The `build_v3` attempt used `CFEC-v1.2` with a 256-token cap. It was stopped after
+8 completed episodes: eight CFEC claim calls across those episodes reached the
+cap, although earlier valid claim calls commonly used about 325 tokens. This was
+too small for the normal claim contract and would force the pre-registered zero-
+truncation lock to fail; this partial run is retained but not scored and did not
+open evaluator truth.
+
+`build_v4` used `CFEC-v1.3`: every call, across every arm, was capped at 512 output
+tokens; the parser accepts exactly one `FINAL:` line; unknown aliases invalidate
+the output; CFEC final citations must come from validated claims; and truncated,
+failed, or malformed calls fail closed for the affected arm. The LameR bridge is
+also validated as a retrieval-stage contract; a missing, truncated, invalid, or
+fallback bridge makes both STRONG arms unsuccessful for that episode. These
+events remain counted in generation health and are not retried. It executed all
+five arms on the same frozen BUILD subjects and evidence. BUILD scoring found
+`VANILLA_STRONG` grounded task success of 119/156 (76.28%) and `CFEC_STRONG` of
+75/156 (48.08%), a -28.2 pp difference (subject-clustered 95% CI -36.2 to
+-20.6 pp). Grounding and evidence coverage remained about 99%, so the failure is
+downstream of retrieval and is not explained by an absence of retrieved evidence.
+CFEC answered correctly on 109/156 (69.9%) versus Vanilla's 119/156 (76.3%); thus
+output-contract fixes alone cannot plausibly account for the gap. Among CFEC
+strong-arm rows, 56/156 failed the output contract, including 42 claim-contract
+failures, 19 unknown-alias rows, and 21 final-citation mismatches (categories can
+overlap). The registered uplift gate failed; no method lock or FROZEN_DEV/TEST run
+was authorized.
+
+`build_v5` evaluated the single bounded CFEC-v1.4 iteration on the same frozen
+BUILD subjects, retrieval outputs, model and budgets. The method passed
+Harness-assigned requirement ID/text pairs to the composer and clarified
+multi-value coverage and distractor exclusion. Its complete-run manifest binds
+code commit `9389734ca0ad52d4d9f86b2ce52a93dc4d693bea`, reader-output SHA-256
+`45ce2fcf5ca0bacd7b100243f8cf081285bc976b5df937ccfca19ac15a280cfd`, and
+generation-journal SHA-256
+`6264e6f876f518b4bd3c19e321bb8630b832d4992df0638c9cf7a09915cbb536`. All 818
+episodes and 4,090 arm executions completed before scoring; the run manifest
+recorded `evaluator_truth_opened=false`. BUILD scoring then decoded only its 818
+truth rows; FROZEN_DEV, FUTURE_TRAIN and reserved TEST/OOD truth remained unopened.
+
+On the 156-query, 49-subject RAG slice, CFEC_STRONG grounded task success was
+3/156 (1.92%) versus VANILLA_STRONG 120/156 (76.92%): delta -75.00 pp, paired
+subject-clustered 95% CI [-82.95, -67.11] pp. Answer-value correctness was
+39/156 (25.00%) versus 120/156 (76.92%); grounding pass was 64/156 (41.03%)
+versus 129/156 (82.69%); output-contract pass was 3/156 (1.92%) versus 156/156
+(100%). Mean external-evidence coverage was 42.95% versus 92.09%. All four
+registered BUILD gates failed. The full report is retained at
+`runs/rag_e6/build_v5/build_score_report.json`.
+
+Failure attribution localizes this result to the reader decomposition/claim
+interface, not retrieval: the same Vanilla STRONG arm had full external-evidence
+coverage on 155/156 queries and no retrieval-contract failures. CFEC STRONG
+decomposed 144/156 questions into four requirements (11 into three, one into
+two); in inspected BUILD outputs, paraphrase-like requirement duplication caused
+extra claim calls. Across its 611 RAG claim calls, 512 emitted at least one
+whitespace-padded alias such as `[ E1 ]`, which the intentionally strict parser
+does not treat as the issued `[E1]`; 208 calls contained an exact alias, and 70
+contained bracketed synthetic keys/values that are not evidence aliases (these
+categories can overlap). The failure is contract-visible and fail-closed, not a
+Harness identity/provenance breach. The generator made 12,124 calls, with 13
+truncations and zero prompt-context rejections.
+
+This negative result closes the CFEC method family for E6A. It is not evidence
+that all RAG improvements failed and does not authorize reading later splits. A
+different reader method may be explored only under a new, explicit BUILD-only
+protocol, with a preflight that checks model output against the strict alias
+contract before any full BUILD execution.
+
+## Method positioning
+
+The diagnostic separation follows the motivation of
+[RAGChecker](https://arxiv.org/abs/2408.08067): retrieval coverage and generation/use
+must be measured separately. Claim-first decomposition is related in spirit to
+the retrieve-per-subquestion and evidence-pooling pattern in
+[Question Decomposition for RAG](https://arxiv.org/abs/2507.00355), but CFEC-v1.4
+does not reproduce that pipeline: retrieval candidates are fixed, and the
+Harness validates claim aliases and owns provenance. It also is not
+[RankRAG](https://arxiv.org/abs/2407.02485), which instruction-tunes one model
+for ranking and answer generation. E6A isolates evidence utilization with the
+same frozen retrieval and generator across Vanilla and CFEC arms; it does not
+train a ranker or alter the retriever.
