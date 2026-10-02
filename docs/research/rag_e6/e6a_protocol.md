@@ -1,6 +1,6 @@
 # RAG-E6A protocol
 
-Status: `build_v4` completed and was scored as a negative BUILD diagnostic: CFEC-v1.3 substantially underperformed Vanilla on the primary RAG success metric despite near-saturated evidence coverage. A single targeted BUILD-only reader iteration, `CFEC-v1.4` in `build_v5`, is now authorized. It passes the Harness-assigned requirement mapping into composition and clarifies complete multi-value coverage / distractor exclusion. Retrieval, model, budgets, parser, scoring, and authority boundaries remain fixed. FROZEN_DEV and reserved TEST/OOD truth remain unopened; reserved TEST/OOD remains unmaterialized.
+Status: `build_v4` (CFEC-v1.3) and `build_v5` (CFEC-v1.4) are complete negative BUILD experiments. CFEC-v1.4 materially regressed versus the paired Vanilla reader and failed every uplift gate. The CFEC method family is closed for this protocol; no CFEC lock, FROZEN_DEV scoring, or reserved TEST/OOD access is authorized. This closes CFEC, not the broader RAG research objective: any different reader method requires its own pre-registered protocol and BUILD-only evaluation.
 
 ## Question and scope
 
@@ -113,11 +113,12 @@ headline result. Changes to prompts/parser/composition are allowed only here;
 retrieval tuning, gold-aware features, case-specific rules and hard-coded answers
 are prohibited.
 
-Before FROZEN_DEV truth is opened: freeze the selected CFEC-v1.4 prompts, parser,
-model, retrieval identities/configuration, top-k, budgets, execution graph, metric
-definitions, code commit and BUILD-derived method choice. Then execute every
-FROZEN_DEV episode under all five arms, freeze all artifacts/hashes, and only then
-open FROZEN_DEV truth for scoring.
+Before FROZEN_DEV truth is opened: a method must first pass its pre-registered
+BUILD gate, be frozen with its parser, model, retrieval identities/configuration,
+top-k, budgets, execution graph, metric definitions, code commit and BUILD-derived
+method choice, and then execute every FROZEN_DEV episode under all arms with
+artifacts/hashes frozen. CFEC-v1.3 and CFEC-v1.4 did not pass; neither may be
+promoted to FROZEN_DEV.
 
 Primary: `CFEC_STRONG - VANILLA_STRONG` grounded task success on the RAG slice.
 The internal positive gate is at least +10 percentage points, subject-clustered
@@ -205,18 +206,45 @@ failures, 19 unknown-alias rows, and 21 final-citation mismatches (categories ca
 overlap). The registered uplift gate failed; no method lock or FROZEN_DEV/TEST run
 was authorized.
 
-The only follow-up allowed by the BUILD diagnostic is `CFEC-v1.4` in `build_v5`.
-It leaves retrieval and evidence fixed and changes only reader instructions and
-the information rendered to the final composer: the composer now sees each
-Harness-assigned requirement ID paired with its requirement text, while all IDs,
-claim-to-requirement assignments, aliases, provenance and scoring remain
-Harness-owned. Decomposition instructions merge duplicate asks and exclude
-metadata/format boilerplate; extraction/composition instructions emphasize
-relevant table rows and all distinct requested values. The cap remains 512 tokens,
-there are still no retries, and the strict parsers/contracts are unchanged. This
-is one bounded iteration, not permission for open-ended prompt tuning. If v5 does
-not pass the registered BUILD gates, stop this method family without opening
-FROZEN_DEV or reserved TEST/OOD.
+`build_v5` evaluated the single bounded CFEC-v1.4 iteration on the same frozen
+BUILD subjects, retrieval outputs, model and budgets. The method passed
+Harness-assigned requirement ID/text pairs to the composer and clarified
+multi-value coverage and distractor exclusion. Its complete-run manifest binds
+code commit `9389734ca0ad52d4d9f86b2ce52a93dc4d693bea`, reader-output SHA-256
+`45ce2fcf5ca0bacd7b100243f8cf081285bc976b5df937ccfca19ac15a280cfd`, and
+generation-journal SHA-256
+`6264e6f876f518b4bd3c19e321bb8630b832d4992df0638c9cf7a09915cbb536`. All 818
+episodes and 4,090 arm executions completed before scoring; the run manifest
+recorded `evaluator_truth_opened=false`. BUILD scoring then decoded only its 818
+truth rows; FROZEN_DEV, FUTURE_TRAIN and reserved TEST/OOD truth remained unopened.
+
+On the 156-query, 49-subject RAG slice, CFEC_STRONG grounded task success was
+3/156 (1.92%) versus VANILLA_STRONG 120/156 (76.92%): delta -75.00 pp, paired
+subject-clustered 95% CI [-82.95, -67.11] pp. Answer-value correctness was
+39/156 (25.00%) versus 120/156 (76.92%); grounding pass was 64/156 (41.03%)
+versus 129/156 (82.69%); output-contract pass was 3/156 (1.92%) versus 156/156
+(100%). Mean external-evidence coverage was 42.95% versus 92.09%. All four
+registered BUILD gates failed. The full report is retained at
+`runs/rag_e6/build_v5/build_score_report.json`.
+
+Failure attribution localizes this result to the reader decomposition/claim
+interface, not retrieval: the same Vanilla STRONG arm had full external-evidence
+coverage on 155/156 queries and no retrieval-contract failures. CFEC STRONG
+decomposed 144/156 questions into four requirements (11 into three, one into
+two); in inspected BUILD outputs, paraphrase-like requirement duplication caused
+extra claim calls. Across its 611 RAG claim calls, 512 emitted at least one
+whitespace-padded alias such as `[ E1 ]`, which the intentionally strict parser
+does not treat as the issued `[E1]`; 208 calls contained an exact alias, and 70
+contained bracketed synthetic keys/values that are not evidence aliases (these
+categories can overlap). The failure is contract-visible and fail-closed, not a
+Harness identity/provenance breach. The generator made 12,124 calls, with 13
+truncations and zero prompt-context rejections.
+
+This negative result closes the CFEC method family for E6A. It is not evidence
+that all RAG improvements failed and does not authorize reading later splits. A
+different reader method may be explored only under a new, explicit BUILD-only
+protocol, with a preflight that checks model output against the strict alias
+contract before any full BUILD execution.
 
 ## Method positioning
 

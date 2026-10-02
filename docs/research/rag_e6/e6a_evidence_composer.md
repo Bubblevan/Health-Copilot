@@ -1,4 +1,11 @@
-# Claim-First Evidence Composer (CFEC-v1.4 BUILD candidate)
+# Claim-First Evidence Composer (CFEC-v1.4 — failed BUILD candidate)
+
+Status: closed after a complete, gold-blind BUILD execution followed by authorized
+BUILD-only scoring. On the RAG slice, CFEC-STRONG grounded task success was 3/156
+(1.92%) versus Vanilla-STRONG 120/156 (76.92%); output-contract pass was 3/156.
+The structured requirement/claim interface caused requirement duplication and
+frequent alias-format violations. This document records the tested design, not a
+promoted method. No FROZEN_DEV or reserved TEST/OOD results exist for CFEC.
 
 CFEC is a reader-side execution graph over a frozen retrieval result, not a new
 retriever. It is designed to isolate whether converting passages into small,
