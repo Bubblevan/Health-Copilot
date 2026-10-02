@@ -1,0 +1,97 @@
+{
+  "adapter_error_type": null,
+  "adapter_log_sha256": "1e2e530e95f30c056f306e728625276ce069a84cd1304b2539351fe0e2107f96",
+  "compatibility_patch_sha256": "c7e44015527a17d43cf9bbd2e2a6e50d007943ee2efaa244899d3b048fd80eab",
+  "dataset": {
+    "conversation_id": "conv-26",
+    "file_sha256": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+    "id": "locomo10",
+    "license": "CC BY-NC 4.0; non-commercial use only",
+    "question_ids": [
+      "conv-26:qa:3",
+      "conv-26:qa:4",
+      "conv-26:qa:7",
+      "conv-26:qa:11",
+      "conv-26:qa:0",
+      "conv-26:qa:1",
+      "conv-26:qa:5",
+      "conv-26:qa:6",
+      "conv-26:qa:2",
+      "conv-26:qa:14",
+      "conv-26:qa:22",
+      "conv-26:qa:27",
+      "conv-26:qa:82",
+      "conv-26:qa:83",
+      "conv-26:qa:84",
+      "conv-26:qa:85",
+      "conv-26:qa:152",
+      "conv-26:qa:153",
+      "conv-26:qa:154",
+      "conv-26:qa:155"
+    ],
+    "repository": "https://github.com/snap-research/locomo",
+    "revision": "3eb6f2c585f5e1699204e3c3bdf7adc5c28cb376"
+  },
+  "embedding": {
+    "batch_size": 8,
+    "cuda_version": "12.8",
+    "device": "cuda:0",
+    "device_name": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "dimensions": 1024,
+    "document_instruction": "",
+    "dtype": "float16",
+    "max_batch_tokens": 8192,
+    "max_length": 8192,
+    "model_sha256": "9d2d790d6448ef2c0911ffeb03f959d035c71ac3d2b14b7d586f2d2b39fb0efa",
+    "normalized": true,
+    "query_instruction": "Given a conversation-history question, retrieve memory passages that provide evidence needed to answer the question.",
+    "repo": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "torch_version": "2.10.0+cu128",
+    "truncation": true,
+    "weights_sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd"
+  },
+  "hosted_calls": 0,
+  "interpretation": "Exploratory 20-question LoCoMo pilot; not a full-benchmark or performance-ranking claim.",
+  "judge": "NONE",
+  "mean_token_f1": 0.40444444444444444,
+  "memeval_revision": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+  "n_questions": 20,
+  "per_category": {
+    "Adversarial": {
+      "mean_token_f1": 0.5,
+      "n": 4
+    },
+    "Factual": {
+      "mean_token_f1": 0.625,
+      "n": 4
+    },
+    "Inferential": {
+      "mean_token_f1": 0.1388888888888889,
+      "n": 4
+    },
+    "Multi-hop": {
+      "mean_token_f1": 0.42500000000000004,
+      "n": 4
+    },
+    "Temporal": {
+      "mean_token_f1": 0.3333333333333333,
+      "n": 4
+    }
+  },
+  "prediction_frozen": true,
+  "predictions_sha256": "07d89d3fb8d9d5362e47b92d02439b7783b265d55f9330c8ea94492fb1014199",
+  "provider_calls": 49,
+  "provider_failure_count": 0,
+  "reader": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "model": "health-memory-qwen3-8b",
+    "openai_api_key_required": false,
+    "provider": "local_qwen"
+  },
+  "run_dir": "D:\\MyLab\\Jianli\\Health-Copilot-main-integration-mem3b0r\\runs\\memory\\locomo\\openclaw-conv26-category-balanced-20-20261002T054418Z",
+  "run_id": "openclaw-conv26-category-balanced-20-20261002T054418Z",
+  "status": "COMPLETED_DIAGNOSTIC",
+  "system": "OpenClaw (upstream MemEval implementation; attributed baseline)",
+  "system_wall_time_seconds": 423.356
+}

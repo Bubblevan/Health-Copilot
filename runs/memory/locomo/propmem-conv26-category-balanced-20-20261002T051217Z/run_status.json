@@ -1,0 +1,16 @@
+{
+  "status": "ABORTED_PERFORMANCE_LIMIT_NO_SCORE",
+  "system": "PropMem upstream MemEval implementation; attributed baseline",
+  "conversation_id": "conv-26",
+  "planned_questions": 20,
+  "completed_question_answers": 0,
+  "completed_provider_calls": 11,
+  "successful_embedding_calls": 9,
+  "successful_memory_ingest_calls": 2,
+  "successful_reader_answer_calls": 0,
+  "hosted_calls": 0,
+  "completed_ingest_latency_ms": [123206.723, 149912.509],
+  "interrupted_generation": true,
+  "quality_score": null,
+  "reason": "Stopped during long-conversation ingestion after local Qwen generation remained near 4.36 tokens/s; no predictions or benchmark metric were produced."
+}

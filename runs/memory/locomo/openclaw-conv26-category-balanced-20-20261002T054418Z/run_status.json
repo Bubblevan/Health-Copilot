@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETED_DIAGNOSTIC",
+  "system": "OpenClaw upstream MemEval implementation; attributed baseline",
+  "conversation_id": "conv-26",
+  "planned_questions": 20,
+  "completed_question_answers": 20,
+  "prediction_sha256": "07d89d3fb8d9d5362e47b92d02439b7783b265d55f9330c8ea94492fb1014199",
+  "mean_token_f1": 0.40444444444444444,
+  "per_category_token_f1": {
+    "factual": 0.625,
+    "temporal": 0.3333333333333333,
+    "inferential": 0.1388888888888889,
+    "multi_hop": 0.42500000000000004,
+    "adversarial": 0.5
+  },
+  "reader_provider": "local_qwen_loopback",
+  "embedding_provider": "local_transformers_cuda_fp16",
+  "reader_calls": 20,
+  "embedding_calls": 29,
+  "provider_failures": 0,
+  "hosted_calls": 0,
+  "mean_reader_prompt_tokens": 9375.5,
+  "mean_reader_latency_ms": 20567.5,
+  "mean_retrieval_latency_ms": 297.3,
+  "session_recall_available": false,
+  "session_recall_unavailable_reason": "LoCoMo source turns omit session_id; the temporary provenance sidecar read an empty field, yielding empty session groups. QA F1 remains valid because chunk text, ranking, prompts, and predictions are unaffected.",
+  "interpretation": "20-question, one-conversation exploratory diagnostic; not a full-benchmark result or ranking claim."
+}

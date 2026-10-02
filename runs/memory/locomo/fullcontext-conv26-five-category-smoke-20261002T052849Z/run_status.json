@@ -1,0 +1,12 @@
+{
+  "status": "INVALID_RUNNER_ATTEMPT_NO_SCORE",
+  "completed_reader_calls": 4,
+  "hosted_calls": 0,
+  "predictions_written": false,
+  "quality_score": null,
+  "reasons": [
+    "Qwen enable_thinking=false was omitted, so the 50-token output cap was consumed by internal reasoning and no visible answer was returned.",
+    "LoCoMo category 5 uses an empty answer field; the initial runner assumed every category had an answer key and crashed during aggregation."
+  ],
+  "superseded_by": "fullcontext-conv26-five-category-smoke-20261002T053213Z"
+}

@@ -1,0 +1,46 @@
+{
+  "dataset": {
+    "conversation_id": "conv-26",
+    "file_sha256": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+    "license": "CC BY-NC 4.0; non-commercial use only",
+    "n_questions": 5,
+    "question_ids": [
+      "conv-26:qa:3",
+      "conv-26:qa:0",
+      "conv-26:qa:2",
+      "conv-26:qa:82",
+      "conv-26:qa:152"
+    ],
+    "repository": "https://github.com/snap-research/locomo",
+    "revision": "3eb6f2c585f5e1699204e3c3bdf7adc5c28cb376"
+  },
+  "embedding": "NONE",
+  "generation": {
+    "enable_thinking": false,
+    "max_tokens": 50,
+    "seed": 42,
+    "temperature": 0.1
+  },
+  "hosted_calls": 0,
+  "infra_failures": 0,
+  "interpretation": "Five-question LoCoMo smoke only; not a benchmark result or ranking claim.",
+  "judge": "NONE",
+  "mean_token_f1": 0.5504761904761905,
+  "per_category": {
+    "1": 0.8,
+    "2": 0.6666666666666666,
+    "3": 0.28571428571428575,
+    "4": 1.0,
+    "5": 0.0
+  },
+  "prediction_frozen": true,
+  "predictions_sha256": "03f27e239efd19d5d4fe2bcd3467f6cc281d4d88c06f2affbf848568094e6108",
+  "reader": {
+    "endpoint": "http://127.0.0.1:8081/v1",
+    "model": "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf",
+    "provider": "local_qwen_loopback"
+  },
+  "run_id": "fullcontext-conv26-five-category-smoke-20261002T053213Z",
+  "status": "COMPLETED_DIAGNOSTIC",
+  "system": "MemEval FullContext, local runtime adaptation; no memory ingestion or retrieval."
+}
