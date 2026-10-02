@@ -1,0 +1,197 @@
+{
+  "audit_id": "mem3b1-grounded-snapshot-pairs-audit-v1",
+  "b0q_artifact_sha256": {
+    "b0r_identity_hints_projection.jsonl": "e378e8b676d3a97ec2816ed06a30394ebb0a2a7e5c222da607460aca94388c6f",
+    "candidate_pair_manifest.jsonl": "4cc70617a34e4d4e50a5c9b75ea996cfb30be95b892666cc73f7950ce417def5",
+    "eligible_records.jsonl": "1ed014923a7213106e4da384929c6d303ee60a4a607e8b2942231dc03718da7c",
+    "pairwise_verdicts.jsonl": "5babc1e6c9b11dcbc9b46ba2cf334a8c0404604e9f3f1fe686b06990df19eb65",
+    "revision_semantic_source_projection.jsonl": "7acd97a0516f7fa59d33c369c1e62b120b9ccd0ac8c9def01fff00f5cf635990"
+  },
+  "dataset_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "diagnostic_only": true,
+  "exact_hint_pair_audit": {
+    "both_propositions_fully_support_all_literal_attribute_key_terms": 94,
+    "grounded_model_no_by_attribute_key": {
+      "instagram_followers": 1,
+      "reported_value": 6,
+      "trip_planning": 1
+    },
+    "interpretation": "Exploratory disagreement inventory only; exact-key membership and lexical support do not establish supersession.",
+    "model_same_dimension_no_count": 127,
+    "pair_count": 256
+  },
+  "frozen_dev_ids": [
+    "06878be2",
+    "1cea1afa",
+    "a82c026e"
+  ],
+  "hard_negatives": [
+    {
+      "finding": "The shared workout_preference key is not grounded in the gaming-PC proposition; retain separate facts and do not override the verifier.",
+      "label": "SAME_KEY_BUT_UNGROUNDED_ATTRIBUTE_COLLISION",
+      "pair": {
+        "attribute_key": "workout_preference",
+        "attribute_key_lexically_grounded_in_both_propositions": false,
+        "candidate_sources": [
+          "EXACT_HINT"
+        ],
+        "memory_ids": [
+          "m10flat3-5b8cb70232349acb63ecf75f3a3c9bbf85fade60a842c0696e38cdf4897ddeb0",
+          "m10flat3-6642ca6db6f039d258703c590652827e8bc35b9c86557aa665867d753876135f"
+        ],
+        "model_verdict": {
+          "same_state_dimension": "NO",
+          "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+          "value_relation": "UNKNOWN"
+        },
+        "pair_id": "6f7047640ac84be5c60bc9ccf9f94ce0110d51c839ceaf6403baf1ee4cc317c9",
+        "propositions": [
+          "The user is considering starting with bodyweight exercises, specifically the 7-minute workout.",
+          "The user is planning to build a gaming PC capable of handling 4K resolution and high frame rates."
+        ],
+        "scope_id": "longmemeval:a82c026e",
+        "subject_keys": [
+          "user"
+        ]
+      },
+      "review_status": "source-only manual hard negative"
+    },
+    {
+      "finding": "Both propositions concern trip planning, but the source describes different destination trips; the broad key is not a same-trip identifier, so preserve coexistence.",
+      "label": "SAME_BROAD_EVENT_KEY_DIFFERENT_EVENT_INSTANCES",
+      "pair": {
+        "attribute_key": "trip_planning",
+        "attribute_key_lexically_grounded_in_both_propositions": true,
+        "candidate_sources": [
+          "EXACT_HINT"
+        ],
+        "memory_ids": [
+          "m10flat3-bd6b7d069e8e74647348f128c90faa5bd6ecda14a307d59a6364bb10f6392e25",
+          "m10flat3-c0d1ef147fb7ebb50b92a1ec396b68f031ae650e96dc465740aeba35a618953d"
+        ],
+        "model_verdict": {
+          "same_state_dimension": "NO",
+          "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+          "value_relation": "DIFFERENT"
+        },
+        "pair_id": "b3e689bba5559818cb7af7523def42224478a8762a13970305840904756ff72e",
+        "propositions": [
+          "The user is planning a trip to Japan and is seeking travel vlogs and guides on YouTube for tips and inspiration.",
+          "The user is planning a trip to India for their uncle's 60th birthday celebration in Pune."
+        ],
+        "scope_id": "longmemeval:06878be2",
+        "subject_keys": [
+          "user"
+        ]
+      },
+      "review_status": "source-only manual hard negative"
+    }
+  ],
+  "hosted_calls": 0,
+  "method_boundary": [
+    "Do not equate exact key equality with a revision: the gym and trip controls block that shortcut.",
+    "A narrowly typed scalar snapshot path is a candidate for prospective testing only when the metric key is grounded in both source-backed propositions, each has one distinct scalar value, and independent observation times are ordered.",
+    "The current artifact has one clear scalar-snapshot positive and two selected hard negatives; no admission precision or benchmark score is estimated."
+  ],
+  "model_calls": 0,
+  "positive_control": {
+    "finding": "Distinct dated observations of the same explicitly named Instagram follower-count metric; B0Q pair verifier rejected the shared dimension despite identical, proposition-grounded typed identity.",
+    "label": "SOURCE_ANCHORED_SCALAR_SNAPSHOT_PAIR",
+    "not_a_general_accuracy_estimate": true,
+    "ordered_scalar_values": [
+      "500",
+      "600"
+    ],
+    "ordered_source_positions": [
+      35,
+      217
+    ],
+    "pair": {
+      "attribute_key": "instagram_followers",
+      "attribute_key_lexically_grounded_in_both_propositions": true,
+      "candidate_sources": [
+        "EXACT_HINT",
+        "SEMANTIC_NEIGHBOR"
+      ],
+      "memory_ids": [
+        "m10flat3-07ac40706e41096e3d9fd02724b63bebc480cdc607e8e661d8889d757d89c124",
+        "m10flat3-33043d264ad7e8aca606b5998811aa46713126de5958e035196791146989a33a"
+      ],
+      "model_verdict": {
+        "same_state_dimension": "NO",
+        "state_cardinality": "SINGLE_VALUE_AT_A_TIME",
+        "value_relation": "DIFFERENT"
+      },
+      "pair_id": "8900c587e3c6a0a441a19e0fc1e87f6613199bc64b2b6749612a4e3f760d45a5",
+      "propositions": [
+        "The user has reached 600 followers on Instagram, which they consider a milestone.",
+        "The user has recently reached 500 followers on Instagram and is hoping to maintain that growth."
+      ],
+      "scope_id": "longmemeval:1cea1afa",
+      "subject_keys": [
+        "user"
+      ]
+    },
+    "review_status": "manual source review for this diagnostic only"
+  },
+  "question_or_gold_decoded": false,
+  "schema_version": 1,
+  "scope": "three frozen DEV source histories and the pinned B0Q identity/pair artifacts; no TEST rows",
+  "source_evidence": {
+    "500": {
+      "question_id": "1cea1afa",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/27 (Sat) 07:39",
+      "source_position": 35,
+      "source_quote": "I just reached 500 followers last week",
+      "source_role": "user",
+      "source_turn_sha256": "17a189120b9f49d50d86b9920b582b24960ffb054ac089313b4508496803bf2f"
+    },
+    "600": {
+      "question_id": "1cea1afa",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/28 (Sun) 22:57",
+      "source_position": 217,
+      "source_quote": "I'm now at 600 followers",
+      "source_role": "user",
+      "source_turn_sha256": "973de3a2aad0cc0fedf9ccfeaac2762891ec8f999f13d75e68f75b365a14d4e2"
+    },
+    "bodyweight": {
+      "question_id": "a82c026e",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/22 (Mon) 01:36",
+      "source_position": 39,
+      "source_quote": "some bodyweight exercises, maybe the 7-minute workout",
+      "source_role": "user",
+      "source_turn_sha256": "7bb642b85206d603bd7c28914388ac5c0861a561dac1fe89e6681a72de4a1025"
+    },
+    "gaming_pc": {
+      "question_id": "a82c026e",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/26 (Fri) 22:24",
+      "source_position": 155,
+      "source_quote": "building a gaming PC",
+      "source_role": "user",
+      "source_turn_sha256": "c61307e2a8a8bcc109ea8047b7d903bde6e0c1dc40972e92c5b49921aac2d32d"
+    },
+    "trip_india": {
+      "question_id": "06878be2",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/23 (Tue) 06:14",
+      "source_position": 81,
+      "source_quote": "trip to India for my uncle's 60th birthday celebration in Pune",
+      "source_role": "user",
+      "source_turn_sha256": "36e92c1fddb8858e0a178febb0a7abce5bf443cd203c8c8d8a29923d043557c7"
+    },
+    "trip_japan": {
+      "question_id": "06878be2",
+      "question_or_gold_used": false,
+      "session_date": "2023/05/26 (Fri) 14:52",
+      "source_position": 150,
+      "source_quote": "trip to Japan soon",
+      "source_role": "user",
+      "source_turn_sha256": "bcee868c324d8fef332d686491a283f5dfcf706fd15cab5376bdda2222898f07"
+    }
+  },
+  "split_manifest_sha256": "931c288caeb27d5a3f4ab3463b11013f217f3f4c9973098f057f85c1edb4e686"
+}
