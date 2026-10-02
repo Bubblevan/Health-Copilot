@@ -1,4 +1,4 @@
-"""Execute frozen RAG views with Vanilla or CFEC readers, without evaluator data."""
+"""Execute frozen RAG views with Vanilla or CAV readers, without evaluator data."""
 
 from __future__ import annotations
 
@@ -41,6 +41,7 @@ from eval.rag_e6.llm import (
 )
 from eval.rag_e6.reader import (
     assign_requirement_ids,
+    cav_verifier_prompt,
     claim_prompt,
     claims_used_evidence,
     composer_prompt,
@@ -48,6 +49,7 @@ from eval.rag_e6.reader import (
     evidence_identity_sha256,
     final_citations_match_claims,
     issue_evidence_aliases,
+    parse_cav_response,
     parse_claims,
     parse_last_final,
     parse_requirements,
@@ -79,7 +81,7 @@ from eval.u3r_rag_transfer import (
 
 ARM_ORDER = (
     "VANILLA_OFF", "VANILLA_STANDARD", "VANILLA_STRONG",
-    "CFEC_STANDARD", "CFEC_STRONG",
+    "CAV_STANDARD", "CAV_STRONG",
 )
 PARTITION_ARMS = {
     "BUILD": ARM_ORDER,
@@ -251,7 +253,9 @@ def _answer_row(
     return {
         "arm": arm,
         "partition": episode.partition,
-        "retrieval_action": arm.removeprefix("VANILLA_").removeprefix("CFEC_"),
+        "retrieval_action": (
+            arm.removeprefix("VANILLA_").removeprefix("CFEC_").removeprefix("CAV_")
+        ),
         "query_sha256": episode.query_sha256,
         "answer": parsed.answer,
         "answer_sha256": sha256_text(parsed.answer),
@@ -279,6 +283,103 @@ def _answer_row(
             for call_id in call_ids
         ],
     }
+
+
+def _run_cav(
+    *,
+    arm: str,
+    episode: E6Episode,
+    evidence,
+    baseline_row: dict[str, Any],
+    retrieval_ids: list[str],
+    candidate_ids: list[str],
+    channels: list[list[str]],
+    journal: CallJournal,
+    client: LocalLlamaCppClient,
+) -> dict[str, Any]:
+    if arm not in {"CAV_STANDARD", "CAV_STRONG"}:
+        raise ValueError("CAV requires a STANDARD or STRONG evidence arm")
+    if baseline_row.get("evidence_identity_sha256") != evidence_identity_sha256(evidence):
+        raise ValueError("CAV draft and verifier evidence identities differ")
+    baseline_call_id = baseline_row["generation_call_ids"][0]
+    baseline_event = journal.completed[baseline_call_id]
+    verification_call_id = f"{episode.episode_id}|{arm}|verify"
+    verification_prompt = cav_verifier_prompt(
+        episode.query, baseline_event["text"], evidence
+    )
+    try:
+        verification_event = _call_event(
+            journal,
+            client,
+            call_id=verification_call_id,
+            prompt=verification_prompt,
+        )
+    except RuntimeError:
+        # Prompt-budget rejection is a recorded fail-closed event; preserve the
+        # already generated Vanilla answer instead of aborting the BUILD run.
+        verification_event = journal.completed.get(verification_call_id)
+        if verification_event is None or verification_event.get("status") != (
+            "context_contract_violation"
+        ):
+            raise
+
+    verifier_call_bad = (
+        verification_event.get("status") != "ok"
+        or verification_event.get("finish_reason") == "length"
+    )
+    decision = (
+        None if verifier_call_bad
+        else parse_cav_response(verification_event["text"], evidence)
+    )
+    if decision is not None and decision.action == "REPAIR":
+        selected_parsed = decision.parsed
+        if selected_parsed is None:
+            raise ValueError("CAV repair decision has no parsed final answer")
+        selected_call_id = verification_call_id
+        selected_unknown_aliases: tuple[str, ...] = ()
+        action = "REPAIR"
+        verification_contract_failure = False
+        verification_unknown_aliases: tuple[str, ...] = ()
+    else:
+        selected_parsed = parse_last_final(baseline_event["text"])
+        selected_call_id = baseline_call_id
+        selected_unknown_aliases = tuple(baseline_row.get("unknown_aliases", ()))
+        action = "KEEP" if decision is not None and decision.action == "KEEP" else "FALLBACK"
+        verification_contract_failure = (
+            verifier_call_bad
+            or decision is None
+            or decision.contract_failure
+        )
+        verification_unknown_aliases = (
+            () if decision is None else decision.unknown_aliases
+        )
+
+    row = _answer_row(
+        arm=arm,
+        episode=episode,
+        evidence=evidence,
+        parsed=selected_parsed,
+        call_ids=[selected_call_id],
+        unknown_aliases=selected_unknown_aliases,
+        retrieval_ids=retrieval_ids,
+        candidate_ids=candidate_ids,
+        channels=channels,
+        call_journal=journal,
+    )
+    all_call_ids = [baseline_call_id, verification_call_id]
+    row["generation_call_ids"] = all_call_ids
+    row["generation_call_records_sha256"] = [
+        sha256_bytes(canonical_json_bytes(journal.completed[call_id]))
+        for call_id in all_call_ids
+    ]
+    row.update({
+        "verification_action": action,
+        "verification_call_id": verification_call_id,
+        "verification_contract_failure": verification_contract_failure,
+        "verification_unknown_aliases": list(verification_unknown_aliases),
+        "baseline_answer_sha256": baseline_row["answer_sha256"],
+    })
+    return row
 
 
 def _run_vanilla(
@@ -451,15 +552,21 @@ def _code_manifest() -> dict[str, str]:
     names = (
         "eval/rag_e6/data.py",
         "eval/rag_e6/llm.py",
+        "eval/rag_e6/protocol.py",
         "eval/rag_e6/reader.py",
         "eval/rag_e6/reader_executor.py",
+        "eval/rag_e6/scoring.py",
         "eval/rag_e6/split.py",
         "eval/u3r_rag_transfer.py",
         "eval/r2med_gar_generation.py",
         "eval/r2med_multiview.py",
+        "tools/research/rag_e6/freeze_protocol.py",
         "tools/research/rag_e6/materialize_partition.py",
         "tools/research/rag_e6/record_gpu_server.py",
         "tools/research/rag_e6/run_build.py",
+        "tools/research/rag_e6/run_frozen_dev.py",
+        "tools/research/rag_e6/score_build.py",
+        "tools/research/rag_e6/smoke_cav.py",
         "tools/research/rag_e6/start_gpu_server.ps1",
     )
     return {name: sha256_file(root / name) for name in names}
@@ -687,35 +794,35 @@ def execute_partition(
             journal=journal,
             client=client,
         )
-        cfec_standard, shared_decomposition_call = _run_cfec(
-            arm="CFEC_STANDARD",
+        cav_standard = _run_cav(
+            arm="CAV_STANDARD",
             episode=episode,
             evidence=standard_evidence,
+            baseline_row=vanilla_standard,
             retrieval_ids=standard_ids,
             candidate_ids=standard_candidates,
             channels=standard_channels,
             journal=journal,
             client=client,
         )
-        cfec_strong, second_decomposition_call = _run_cfec(
-            arm="CFEC_STRONG",
+        cav_strong = _run_cav(
+            arm="CAV_STRONG",
             episode=episode,
             evidence=strong_evidence,
+            baseline_row=vanilla_strong,
             retrieval_ids=strong_ids,
             candidate_ids=strong_candidates,
             channels=strong_channels,
             journal=journal,
             client=client,
         )
-        if shared_decomposition_call != second_decomposition_call:
-            raise ValueError("CFEC requirement decomposition must be shared within episode")
         if (
             vanilla_standard["evidence_identity_sha256"]
-            != cfec_standard["evidence_identity_sha256"]
+            != cav_standard["evidence_identity_sha256"]
             or vanilla_strong["evidence_identity_sha256"]
-            != cfec_strong["evidence_identity_sha256"]
+            != cav_strong["evidence_identity_sha256"]
         ):
-            raise ValueError("Vanilla and CFEC did not receive byte-identical evidence")
+            raise ValueError("Vanilla and CAV did not receive byte-identical evidence")
         row = {
             "episode_id": episode.episode_id,
             "subject_id": episode.subject_id,
@@ -735,10 +842,9 @@ def execute_partition(
                 "VANILLA_OFF": off,
                 "VANILLA_STANDARD": vanilla_standard,
                 "VANILLA_STRONG": vanilla_strong,
-                "CFEC_STANDARD": cfec_standard,
-                "CFEC_STRONG": cfec_strong,
+                "CAV_STANDARD": cav_standard,
+                "CAV_STRONG": cav_strong,
             },
-            "shared_cfec_decomposition_call_id": shared_decomposition_call,
         }
         _append_jsonl(checkpoint_path, row)
         runtime_rows[episode.episode_id] = row
@@ -770,6 +876,7 @@ def execute_partition(
     }
     manifest = {
         "schema_version": "rag-e6a-runtime-freeze-v1",
+        "method": "CAV-v1",
         "partition": partition,
         "arms": list(ARM_ORDER),
         "episode_count": len(episodes),
@@ -818,6 +925,11 @@ def execute_partition(
             ),
             "actual_backend": server_manifest["backend"],
         },
+        "verification_outcomes": dict(sorted(Counter(
+            row["arms"][arm].get("verification_action", "NOT_APPLICABLE")
+            for row in ordered_rows
+            for arm in ("CAV_STANDARD", "CAV_STRONG")
+        ).items())),
         "retrieval": _retrieval_identity(),
         "upstream_lamer": upstream_identity,
         "inherited_u3r_runtime": inherited_u3r_identity,
