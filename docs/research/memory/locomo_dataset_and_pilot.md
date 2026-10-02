@@ -67,6 +67,29 @@ Mean deterministic token F1 is `0.5505` over only five hand-selected questions. 
 
 The first FullContext script attempt is separately marked invalid: Qwen thinking was not disabled, so its 50-token allowance was consumed before a visible answer; it produced no scored artifact. A runner fix and the rerun above disabled thinking and added the category-5 empty-gold contract.
 
+### FullContext Full-Set Local Run
+
+`runs/memory/locomo/fullcontext-locomo10-qwen-local-parallel2-v1`
+
+The full official `locomo10.json` QA set was run once end to end: 10/10 conversations, 1,986/1,986 unique question IDs, zero infrastructure failures, and no hosted calls. This is the local Qwen FullContext baseline only; it is **not** a full multi-system benchmark closeout or a memory-architecture win.
+
+The reader was the frozen Qwen3-8B Q4_K_M (`d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785`) on the pinned llama.cpp `10068 / 571d0d540` runtime (binary SHA256 `3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb`), loopback `127.0.0.1:8081`, 99 GPU layers, Flash Attention, Q4_0 KV, total server context 131,072 with two 65,536-token slots. The maximum measured reader prompt was 22,813 tokens, so the full conversation fit in every slot with the 50-token answer reserve; runtime logs report `truncated=0`. Temperature was `0.1`, seed `42`, thinking disabled, and answer cap 50. Embedding and judge were `NONE`; all reader calls were local.
+
+Primary score is deterministic MemEval token F1 (set-based token overlap, including its empty-gold refusal rule):
+
+| LoCoMo category | n | Token F1 | Normalized EM |
+|---|---:|---:|---:|
+| Factual | 282 | 0.4088 | 0.1064 |
+| Temporal | 321 | 0.3217 | 0.0467 |
+| Inferential | 96 | 0.1158 | 0.0521 |
+| Multi-hop | 841 | 0.5229 | 0.2806 |
+| Adversarial | 446 | 0.4641 | 0/2 non-empty-gold cases; 444 are empty-gold |
+| **Overall** | **1,986** | **0.4413** | **0.1855 answerable-only (286/1,542)** |
+
+Adversarial deterministic refusal accuracy on empty-gold cases was `0.4662` (207/444 under the scorer's refusal markers). Mean reader prompt was `19,642` tokens; mean reader latency `9.32s`, p95 `19.69s`; wall time was `10,475s` (`2h 54m`). The prediction artifact is frozen at SHA256 `cf40f1fdf2deda465003df6fb44d5c04b7c736eb3276e1ef94a43afe5f4ec794`. Its raw predictions remain local because they contain benchmark answers; the aggregate and hash are recorded here.
+
+The strongest measured failure slices are inferential and temporal, not basic multi-hop recall. Adversarial refusal is also weak: fewer than half of empty-gold questions were refused. These are useful failure diagnostics, but without a full local memory-system comparator they do not establish a memory benefit. The full-set FullContext score must not be compared directly with the pinned MemEval README's GPT-backed `0.542` coordinate.
+
 ### OpenClaw Diagnostic
 
 The local 20-question OpenClaw run is recorded at `runs/memory/locomo/openclaw-conv26-category-balanced-20-20261002T054418Z`. It uses the pinned MemEval OpenClaw chunk + BM25/vector implementation with the shared local embedding and Qwen answer model.
@@ -81,8 +104,8 @@ Session-provenance diagnostics are **not available** for this run. The temporary
 
 ## Runtime Cleanup
 
-The temporary local reader on `127.0.0.1:8081` was stopped after the pilot. The pre-existing `127.0.0.1:8092` llama.cpp service was left untouched. MemEval's temporary compatibility patch from the PropMem attempt was reversed; checkout remains at the pinned commit and clean. No API key was required; hosted calls were zero.
+The temporary local reader on `127.0.0.1:8081` was stopped after the full-set run. The pre-existing `127.0.0.1:8092` llama.cpp service was left untouched. MemEval's temporary compatibility patch from the PropMem attempt was reversed; checkout remains at the pinned commit and clean. No API key was required; hosted calls were zero.
 
 ## Next Honest Step
 
-Use PropMem as the named strong OSS comparator, but first make its local ingestion budget practical without changing its algorithm. The proposed Health-Copilot extension is a deterministic temporal revision/validity gate plus the medical memory/evidence boundary, not a renamed proposition-memory algorithm. Then evaluate the full frozen LoCoMo set and the forgetting-aware track; until those runs complete, the present diagnostics are not résumé evidence and do not show that any memory architecture beats another.
+The next quantitative step is a full-set run of at least one memory architecture under the same local Qwen reader; PropMem remains the named strong OSS comparator, but its local ingestion budget must be made practical without changing its algorithm. The proposed Health-Copilot extension is a deterministic temporal revision/validity gate plus the medical memory/evidence boundary, not a renamed proposition-memory algorithm. The full-set FullContext result now provides the brute-force control; until a memory-system comparator and the forgetting-aware track are complete, these measurements are not résumé evidence and do not show that any memory architecture beats another.
