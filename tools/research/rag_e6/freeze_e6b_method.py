@@ -33,7 +33,6 @@ FROZEN_METHOD_PATHS = (
     "eval/rag_e6/split.py",
     "eval/u3r_rag_transfer.py",
     "eval/r2med_multiview.py",
-    "eval/r2med_crb_data.py",
     "eval/r2med_gar_generation.py",
 )
 E6B_PATHS = (
