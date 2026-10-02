@@ -137,7 +137,7 @@ def freeze_method(repository_root: Path) -> dict[str, Any]:
         "retrieval_source_hashes": {
             path: code_hashes[path] for path in (
                 "eval/u3r_rag_transfer.py", "eval/r2med_multiview.py",
-                "eval/r2med_crb_data.py", "eval/r2med_gar_generation.py",
+                "eval/r2med_gar_generation.py",
             )
         },
         "scoring_source_hashes": {
