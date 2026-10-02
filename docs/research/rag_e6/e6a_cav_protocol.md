@@ -101,3 +101,46 @@ Vanilla answer. This asymmetric fallback intentionally protects baseline
 quality from malformed model output, but does not guarantee a positive result:
 the verifier can make valid yet incorrect edits, or may fail to identify the
 actual omission. BUILD will measure that risk rather than assume it away.
+
+## Completed BUILD result and decision
+
+The 24-example gold-blind preflight passed with 24/24 valid responses, zero
+truncations, and no unknown aliases. This established output-contract health,
+not expected answer-quality gain.
+
+The complete BUILD then executed all 818 episodes and all 4,090 arm executions
+before BUILD truth was opened. It made 4,908 calls (4,908 nonempty; two
+truncated at the 512-token limit). The frozen reader-output SHA-256 is
+`ae09201b003cf53e9af137d709253b8f39b5580ae8215afa2cf93f667c485e38`; the
+generation-journal SHA-256 is
+`686e13650118563ad302d12d51d6ecb5e737be5f0fc7db475c5f9c1cd1148238`. The
+runtime manifest and report are retained under
+`runs/rag_e6/build_cav_v1/`. BUILD scoring verified the output and journal
+hashes before decoding BUILD truth; FROZEN_DEV/FUTURE_TRAIN and reserved
+TEST/OOD remained unopened.
+
+| BUILD RAG-slice metric (n=156) | VANILLA_STRONG | CAV_STRONG | delta |
+|---|---:|---:|---:|
+| Grounded task success | 119/156 (76.28%) | 119/156 (76.28%) | 0.00 pp |
+| Answer-value correctness | 119/156 (76.28%) | 119/156 (76.28%) | 0.00 pp |
+| Grounding pass | 129/156 (82.69%) | 128/156 (82.05%) | -0.64 pp |
+| Mean external-evidence coverage | 91.99% | 91.67% | -0.32 pp |
+| Output-contract pass | 156/156 (100%) | 156/156 (100%) | 0.00 pp |
+
+The paired subject-clustered 10,000-resample 95% CI for grounded-task-success
+delta was `[0.00, 0.00]` pp. Utilization-given-full-evidence was also
+`0.00` pp, CI `[0.00, 0.00]`; 155/156 queries had full required external
+evidence in both arms. The grounding delta CI was `[-2.13, 0.00]` pp. Thus
+only the grounding-protection gate passed; the +10 pp primary point, positive
+CI, and +10 pp utilization gates all failed. No method lock was created and
+FROZEN_DEV was not opened.
+
+The RAG-slice action diagnostic explains the null result: CAV_STRONG returned
+`KEEP` on 153/156 queries and `REPAIR` on three. Only one answer hash changed;
+it did not convert any task failure to success and reduced grounding pass for
+one query. This was not a formatting failure. The verifier was too
+conservative to change most answers and its sole changed output did not help.
+Close CAV-v1 here: do not tune its prompt against these BUILD labels or create
+CAV-v2 under this protocol. The overall RAG objective remains open for a
+different, pre-registered method family with BUILD-only execution followed by
+the required frozen gate if passed.
