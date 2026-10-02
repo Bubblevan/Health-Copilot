@@ -1,0 +1,10 @@
+{
+  "device": "cuda:0",
+  "dtype": "bfloat16",
+  "embedding_dimension": 1024,
+  "embedding_failures": 0,
+  "embedding_successes": 181,
+  "model_id": "Qwen/Qwen3-Embedding-0.6B",
+  "resolved_revision": "local-files-sha256:1bae8c15874434017ed2f5310c98c4445c0ebc485b4dcb83812b981a1bb6adfc",
+  "vectors_sha256": "46ed5119340b88f2823ffdac2cd7162ea21130a14eacc4a2646e1c530801916b"
+}

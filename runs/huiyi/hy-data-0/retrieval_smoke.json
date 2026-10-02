@@ -1,0 +1,4800 @@
+{
+  "candidate_k": 20,
+  "corpus_identity_sha256": "cb013b2258a2872af37c1b2830da97566f4be0970ab2e5e2ff7f08755d40a22b",
+  "label": "HY-DATA-0 SMOKE; NOT FROZEN BENCHMARK; NOT CLINICAL ACCURACY",
+  "metadata_filter_smoke": {
+    "filter": "document_type == \"department\"",
+    "passed": true,
+    "result_count": 5
+  },
+  "metrics": {
+    "bm25": {
+      "hit_at_1": 0.8703703703703703,
+      "hit_at_3": 0.9444444444444444,
+      "hit_at_5": 0.9629629629629629,
+      "latency_p50_ms": 1.31,
+      "latency_p95_ms": 1.759,
+      "mrr_at_5": 0.9080246913580247,
+      "query_count": 54
+    },
+    "dense": {
+      "hit_at_1": 0.9074074074074074,
+      "hit_at_3": 0.9259259259259259,
+      "hit_at_5": 0.9444444444444444,
+      "latency_p50_ms": 141.249,
+      "latency_p95_ms": 156.531,
+      "mrr_at_5": 0.9212962962962963,
+      "query_count": 54
+    },
+    "hybrid": {
+      "hit_at_1": 0.9074074074074074,
+      "hit_at_3": 0.9259259259259259,
+      "hit_at_5": 0.9629629629629629,
+      "latency_p50_ms": 0.082,
+      "latency_p95_ms": 0.139,
+      "mrr_at_5": 0.925,
+      "query_count": 54
+    }
+  },
+  "query_count": 54,
+  "results": [
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院属于什么类型的医院？",
+        "query_id": "hy-smoke-001",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-fa3d661786bd632798efd66f",
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-9b82451c42a6bf2db2f7c88b"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院属于什么类型的医院？",
+        "query_id": "hy-smoke-001",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-4702c74196e9669f8a61e59a",
+          "huiyi-chunk-fe444f187f808b1177caccc6"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/info/1022/1023.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院属于什么类型的医院？",
+        "query_id": "hy-smoke-001",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-fa3d661786bd632798efd66f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm"
+        ]
+      },
+      "query_id": "hy-smoke-001"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院目前开放多少张床位？",
+        "query_id": "hy-smoke-002",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-fa3d661786bd632798efd66f",
+          "huiyi-chunk-9b82451c42a6bf2db2f7c88b"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院目前开放多少张床位？",
+        "query_id": "hy-smoke-002",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-4702c74196e9669f8a61e59a",
+          "huiyi-chunk-fe444f187f808b1177caccc6"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/info/1022/1023.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "恩施慧宜眼科医院目前开放多少张床位？",
+        "query_id": "hy-smoke-002",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-38a5757d150f90f9e6718091",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-htm-60f85f2ab3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about.htm"
+        ]
+      },
+      "query_id": "hy-smoke-002"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院目前有多少名职工？",
+        "query_id": "hy-smoke-003",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-c98e17d86d416af350e5cf0e",
+          "huiyi-chunk-f2b3f6de90800a9673086a0e",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1025-1119-htm-5088499cc2",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1025/1119.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院目前有多少名职工？",
+        "query_id": "hy-smoke-003",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院目前有多少名职工？",
+        "query_id": "hy-smoke-003",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-fe239a9045b9182d33fdef2f",
+          "huiyi-chunk-4e5a23f8ad35375a30431f1c",
+          "huiyi-chunk-38a5757d150f90f9e6718091",
+          "huiyi-chunk-60625f270065ad6bcea76289",
+          "huiyi-chunk-03116dccf22bab29d0f29725"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-about-wenhua-htm-3973f4cc74",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/about/wenhua.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm"
+        ]
+      },
+      "query_id": "hy-smoke-003"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "恩施慧宜眼科医院金龙大道院区的地址是什么？",
+        "query_id": "hy-smoke-004",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-fa3d661786bd632798efd66f",
+          "huiyi-chunk-9b82451c42a6bf2db2f7c88b",
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "恩施慧宜眼科医院金龙大道院区的地址是什么？",
+        "query_id": "hy-smoke-004",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-4702c74196e9669f8a61e59a",
+          "huiyi-chunk-fe444f187f808b1177caccc6"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/info/1022/1023.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "恩施慧宜眼科医院金龙大道院区的地址是什么？",
+        "query_id": "hy-smoke-004",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-fa3d661786bd632798efd66f",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-about-htm-60f85f2ab3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/about.htm"
+        ]
+      },
+      "query_id": "hy-smoke-004"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "在恩施市内可以乘坐哪些公交线路到医院？",
+        "query_id": "hy-smoke-005",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-f86f76ea01c8d54c6f569424",
+          "huiyi-chunk-14ce5388180ad754e3e22b44",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-e975297b3756805f6c31759a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/Service/line.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "在恩施市内可以乘坐哪些公交线路到医院？",
+        "query_id": "hy-smoke-005",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-e112f48b41cf0b9c6f07d2a1",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-4702c74196e9669f8a61e59a",
+          "huiyi-chunk-e368fd33f13a018017753e75",
+          "huiyi-chunk-f86f76ea01c8d54c6f569424"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/Service/line.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "query": "在恩施市内可以乘坐哪些公交线路到医院？",
+        "query_id": "hy-smoke-005",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-f86f76ea01c8d54c6f569424",
+          "huiyi-chunk-e975297b3756805f6c31759a",
+          "huiyi-chunk-e112f48b41cf0b9c6f07d2a1",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-14ce5388180ad754e3e22b44"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-service-line-htm-bccc204017",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-service-line-htm-bccc204017"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/Service/line.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/Service/line.htm"
+        ]
+      },
+      "query_id": "hy-smoke-005"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-about-wenhua-htm-3973f4cc74"
+        ],
+        "query": "慧宜眼科医院的办院理念是什么？",
+        "query_id": "hy-smoke-006",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-24d02477e8ca672a3fd61204",
+          "huiyi-chunk-4e5a23f8ad35375a30431f1c",
+          "huiyi-chunk-c4777381c92d5cf73c377344",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-fa3d661786bd632798efd66f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-wenhua-htm-3973f4cc74",
+          "huiyi-official-about-wenhua-htm-3973f4cc74",
+          "huiyi-official-about-wenhua-htm-3973f4cc74",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/wenhua.htm",
+          "https://yk.huiyi9e.com/about/wenhua.htm",
+          "https://yk.huiyi9e.com/about/wenhua.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-about-wenhua-htm-3973f4cc74"
+        ],
+        "query": "慧宜眼科医院的办院理念是什么？",
+        "query_id": "hy-smoke-006",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-a606aeb9fca8975b80308444",
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-38a5757d150f90f9e6718091",
+          "huiyi-chunk-60625f270065ad6bcea76289"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-zhici-htm-9a5e2f1bb9",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/zhici.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-about-wenhua-htm-3973f4cc74"
+        ],
+        "query": "慧宜眼科医院的办院理念是什么？",
+        "query_id": "hy-smoke-006",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-03116dccf22bab29d0f29725",
+          "huiyi-chunk-d7a897cad5c9ab53cb2b027d",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-a606aeb9fca8975b80308444",
+          "huiyi-chunk-4e5a23f8ad35375a30431f1c"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-about-zhici-htm-9a5e2f1bb9",
+          "huiyi-official-about-wenhua-htm-3973f4cc74"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/about/zhici.htm",
+          "https://yk.huiyi9e.com/about/wenhua.htm"
+        ]
+      },
+      "query_id": "hy-smoke-006"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院公开介绍了哪些眼科手术和治疗项目？",
+        "query_id": "hy-smoke-007",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-85a9fc837e57e77f6b89c860",
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-0fb4c8cea7956a951ad146c7",
+          "huiyi-chunk-4702c74196e9669f8a61e59a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1021-1253-htm-f29fa89f02",
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1021/1253.htm",
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm"
+        ]
+      },
+      "category": "hospital_info",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院公开介绍了哪些眼科手术和治疗项目？",
+        "query_id": "hy-smoke-007",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-38a5757d150f90f9e6718091",
+          "huiyi-chunk-60625f270065ad6bcea76289",
+          "huiyi-chunk-dad9e00c39449be167baf08f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-about-htm-60f85f2ab3",
+          "huiyi-official-about-yyjs-htm-116b12ab7b",
+          "huiyi-official-1022-1027-htm-675f2e5854"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/about.htm",
+          "https://yk.huiyi9e.com/about/yyjs.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-about-yyjs-htm-116b12ab7b"
+        ],
+        "query": "医院公开介绍了哪些眼科手术和治疗项目？",
+        "query_id": "hy-smoke-007",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-85a9fc837e57e77f6b89c860",
+          "huiyi-chunk-4837f7e101478b597b7831d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1253-htm-f29fa89f02",
+          "huiyi-official-1022-1003-htm-f8e320af0c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1253.htm",
+          "https://yk.huiyi9e.com/info/1022/1003.htm"
+        ]
+      },
+      "query_id": "hy-smoke-007"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c"
+        ],
+        "query": "白内障专科开展哪些手术？",
+        "query_id": "hy-smoke-008",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-b484b54eb69e74cfd0b3f5ea",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-dde4a25f84399389215bbc52"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1021-1254-htm-524565fbda",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1021/1254.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c"
+        ],
+        "query": "白内障专科开展哪些手术？",
+        "query_id": "hy-smoke-008",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6",
+          "huiyi-chunk-48f8c8cb23399427ea8c434c",
+          "huiyi-chunk-846e4dab5cc05114cfb2a7c1",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1025-1106-htm-0290333d1e",
+          "huiyi-official-1021-1259-htm-15aa104f1e",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1025/1106.htm",
+          "https://yk.huiyi9e.com/info/1021/1259.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c"
+        ],
+        "query": "白内障专科开展哪些手术？",
+        "query_id": "hy-smoke-008",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-846e4dab5cc05114cfb2a7c1",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm"
+        ]
+      },
+      "query_id": "hy-smoke-008"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "query": "青光眼专科有哪些检查和手术项目？",
+        "query_id": "hy-smoke-009",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-9d6183df3758e8f2dcf946f3",
+          "huiyi-chunk-5c91a21a1632496ae227f8bc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1260-htm-a15092d9f4"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1260.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "query": "青光眼专科有哪些检查和手术项目？",
+        "query_id": "hy-smoke-009",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-846e4dab5cc05114cfb2a7c1"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1012-htm-a804ae2fef",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1239-htm-d4dda2a17a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1012.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "query": "青光眼专科有哪些检查和手术项目？",
+        "query_id": "hy-smoke-009",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006",
+          "huiyi-chunk-846e4dab5cc05114cfb2a7c1",
+          "huiyi-chunk-9d6183df3758e8f2dcf946f3",
+          "huiyi-chunk-828334732496c5d639ab1f68"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1012-htm-a804ae2fef",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1025-1114-htm-e14a3fa0df"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm"
+        ]
+      },
+      "query_id": "hy-smoke-009"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "query": "近视防控专科有哪些儿童验配项目？",
+        "query_id": "hy-smoke-010",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-fe444f187f808b1177caccc6",
+          "huiyi-chunk-4b394d8af80f30dc59cd2856",
+          "huiyi-chunk-c1d39bc388d6bdf697848a5d",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1023-htm-1247e5e4a3",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1023.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "query": "近视防控专科有哪些儿童验配项目？",
+        "query_id": "hy-smoke-010",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-fe444f187f808b1177caccc6",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462",
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-08b2eec8e468895eede389f2"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1023-htm-1247e5e4a3",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1023.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1023-htm-1247e5e4a3"
+        ],
+        "query": "近视防控专科有哪些儿童验配项目？",
+        "query_id": "hy-smoke-010",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-fe444f187f808b1177caccc6",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1023-htm-1247e5e4a3",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1023.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm"
+        ]
+      },
+      "query_id": "hy-smoke-010"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854"
+        ],
+        "query": "屈光诊疗中心常规开展哪些屈光手术？",
+        "query_id": "hy-smoke-011",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-5617f31c94fcab670cb9da3c",
+          "huiyi-chunk-96e4f763c259dbb6fa95894c",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1022-1014-htm-b6ece951d7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854"
+        ],
+        "query": "屈光诊疗中心常规开展哪些屈光手术？",
+        "query_id": "hy-smoke-011",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-5617f31c94fcab670cb9da3c",
+          "huiyi-chunk-a17774de1d5610f46e00b5e0"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854"
+        ],
+        "query": "屈光诊疗中心常规开展哪些屈光手术？",
+        "query_id": "hy-smoke-011",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-5617f31c94fcab670cb9da3c",
+          "huiyi-chunk-a17774de1d5610f46e00b5e0",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "query_id": "hy-smoke-011"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "query": "角膜病与眼表专科诊治哪些疾病？",
+        "query_id": "hy-smoke-012",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-57992c0881d15298da5666ef",
+          "huiyi-chunk-a4a4b832b132cb6236953ab5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "query": "角膜病与眼表专科诊治哪些疾病？",
+        "query_id": "hy-smoke-012",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-0d1875e47a7c3b27b6490959"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "query": "角膜病与眼表专科诊治哪些疾病？",
+        "query_id": "hy-smoke-012",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-57992c0881d15298da5666ef",
+          "huiyi-chunk-a4a4b832b132cb6236953ab5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm"
+        ]
+      },
+      "query_id": "hy-smoke-012"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "query": "视光、斜弱视与小儿眼科提供哪些服务？",
+        "query_id": "hy-smoke-013",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-bdf8b9d6197131923e2a759b",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-9b82451c42a6bf2db2f7c88b",
+          "huiyi-chunk-8e5504b2e760549ef4a14318",
+          "huiyi-chunk-e704b275ce77c3ed204a166f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "query": "视光、斜弱视与小儿眼科提供哪些服务？",
+        "query_id": "hy-smoke-013",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-8e5504b2e760549ef4a14318",
+          "huiyi-chunk-e704b275ce77c3ed204a166f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "query": "视光、斜弱视与小儿眼科提供哪些服务？",
+        "query_id": "hy-smoke-013",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-8e5504b2e760549ef4a14318",
+          "huiyi-chunk-bdf8b9d6197131923e2a759b",
+          "huiyi-chunk-9b82451c42a6bf2db2f7c88b",
+          "huiyi-chunk-e704b275ce77c3ed204a166f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "query_id": "hy-smoke-013"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c"
+        ],
+        "query": "神经眼科关注哪些视神经和视路疾病？",
+        "query_id": "hy-smoke-014",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-85a9fc837e57e77f6b89c860",
+          "huiyi-chunk-dde4a25f84399389215bbc52"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1253-htm-f29fa89f02",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1253.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c"
+        ],
+        "query": "神经眼科关注哪些视神经和视路疾病？",
+        "query_id": "hy-smoke-014",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-e368fd33f13a018017753e75",
+          "huiyi-chunk-3c894c348f7ba23724c20e64"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c"
+        ],
+        "query": "神经眼科关注哪些视神经和视路疾病？",
+        "query_id": "hy-smoke-014",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-dce5b508c4d216682503994e",
+          "huiyi-chunk-85a9fc837e57e77f6b89c860"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1253-htm-f29fa89f02"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1253.htm"
+        ]
+      },
+      "query_id": "hy-smoke-014"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049"
+        ],
+        "query": "泪道与整形专科能诊治哪些问题？",
+        "query_id": "hy-smoke-015",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-2dba7af396b19854293db148",
+          "huiyi-chunk-3c4a31bd9fb2a9b2146e2819",
+          "huiyi-chunk-b484b54eb69e74cfd0b3f5ea",
+          "huiyi-chunk-e704b275ce77c3ed204a166f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1256-htm-bf075e266a",
+          "huiyi-official-1021-1254-htm-524565fbda",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1256.htm",
+          "https://yk.huiyi9e.com/info/1021/1254.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049"
+        ],
+        "query": "泪道与整形专科能诊治哪些问题？",
+        "query_id": "hy-smoke-015",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-bb03031d69c9af8cb152c9d5",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049"
+        ],
+        "query": "泪道与整形专科能诊治哪些问题？",
+        "query_id": "hy-smoke-015",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-b484b54eb69e74cfd0b3f5ea"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1254-htm-524565fbda"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1254.htm"
+        ]
+      },
+      "query_id": "hy-smoke-015"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "query": "综合眼病专科处理哪些常见眼病？",
+        "query_id": "hy-smoke-016",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-e44509549e50ef9c4b7bec9a",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462",
+          "huiyi-chunk-c1d39bc388d6bdf697848a5d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "query": "综合眼病专科处理哪些常见眼病？",
+        "query_id": "hy-smoke-016",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006",
+          "huiyi-chunk-4837f7e101478b597b7831d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1022-1012-htm-a804ae2fef",
+          "huiyi-official-1022-1003-htm-f8e320af0c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm",
+          "https://yk.huiyi9e.com/info/1022/1003.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "query": "综合眼病专科处理哪些常见眼病？",
+        "query_id": "hy-smoke-016",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm"
+        ]
+      },
+      "query_id": "hy-smoke-016"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1014-htm-b6ece951d7"
+        ],
+        "query": "眼底病专科开展哪些眼底病治疗？",
+        "query_id": "hy-smoke-017",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-b484b54eb69e74cfd0b3f5ea",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-987eb5da3180a2c43112c422",
+          "huiyi-chunk-2f759b65e610c4d69f6633f9"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1254-htm-524565fbda",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1022-1006-htm-faaa0bb049"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1254.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1022/1006.htm"
+        ]
+      },
+      "category": "department",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1014-htm-b6ece951d7"
+        ],
+        "query": "眼底病专科开展哪些眼底病治疗？",
+        "query_id": "hy-smoke-017",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1022-1012-htm-a804ae2fef",
+          "huiyi-official-1021-1238-htm-d9d0657a36"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1022-1014-htm-b6ece951d7"
+        ],
+        "query": "眼底病专科开展哪些眼底病治疗？",
+        "query_id": "hy-smoke-017",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-b484b54eb69e74cfd0b3f5ea",
+          "huiyi-chunk-4837f7e101478b597b7831d5",
+          "huiyi-chunk-987eb5da3180a2c43112c422"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1254-htm-524565fbda",
+          "huiyi-official-1022-1003-htm-f8e320af0c",
+          "huiyi-official-1021-1238-htm-d9d0657a36"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1254.htm",
+          "https://yk.huiyi9e.com/info/1022/1003.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm"
+        ]
+      },
+      "query_id": "hy-smoke-017"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "query": "杨昊医生擅长诊治哪些眼科疾病？",
+        "query_id": "hy-smoke-018",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-42bc4e2d4b8772830b95e96c",
+          "huiyi-chunk-9d6183df3758e8f2dcf946f3",
+          "huiyi-chunk-48f8c8cb23399427ea8c434c"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1259-htm-15aa104f1e"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1259.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "query": "杨昊医生擅长诊治哪些眼科疾病？",
+        "query_id": "hy-smoke-018",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e",
+          "huiyi-chunk-42bc4e2d4b8772830b95e96c",
+          "huiyi-chunk-a08b69c5a96df31af51a8135",
+          "huiyi-chunk-3c894c348f7ba23724c20e64"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1258-htm-06e627eca9",
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1258.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "query": "杨昊医生擅长诊治哪些眼科疾病？",
+        "query_id": "hy-smoke-018",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-42bc4e2d4b8772830b95e96c",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1021-1238-htm-d9d0657a36"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm"
+        ]
+      },
+      "query_id": "hy-smoke-018"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "query": "包煜芝医生公开介绍的主要擅长是什么？",
+        "query_id": "hy-smoke-019",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-cf07f8e3aeebe2a2d98d7261",
+          "huiyi-chunk-2c49de379aa73b85c5ece6dd",
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1117-htm-2c1ebc1581"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "query": "包煜芝医生公开介绍的主要擅长是什么？",
+        "query_id": "hy-smoke-019",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-58b11a92e4e2fae0d435ddba",
+          "huiyi-chunk-d686d516dbe708c873e0a894",
+          "huiyi-chunk-4b394d8af80f30dc59cd2856",
+          "huiyi-chunk-00786907ecea497d8cfc798a",
+          "huiyi-chunk-91c36d5b67ef2481331090df"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "query": "包煜芝医生公开介绍的主要擅长是什么？",
+        "query_id": "hy-smoke-019",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-cf07f8e3aeebe2a2d98d7261",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-498b106280d1ab3f7cf30cf2",
+          "huiyi-chunk-528f3b69f822766385add06e",
+          "huiyi-chunk-58b11a92e4e2fae0d435ddba"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm"
+        ]
+      },
+      "query_id": "hy-smoke-019"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "query": "芦晓磊医生的主要擅长领域有哪些？",
+        "query_id": "hy-smoke-020",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c49de379aa73b85c5ece6dd",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-48f8c8cb23399427ea8c434c",
+          "huiyi-chunk-71eb98d30d3e53ff05a38338",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1021-1259-htm-15aa104f1e",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1021/1259.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "query": "芦晓磊医生的主要擅长领域有哪些？",
+        "query_id": "hy-smoke-020",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c49de379aa73b85c5ece6dd",
+          "huiyi-chunk-71eb98d30d3e53ff05a38338",
+          "huiyi-chunk-a4a4b832b132cb6236953ab5",
+          "huiyi-chunk-63ec9fb7cc9f3054701fb8d7",
+          "huiyi-chunk-36d8da4c701b5a328ac71ffb"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d"
+        ],
+        "query": "芦晓磊医生的主要擅长领域有哪些？",
+        "query_id": "hy-smoke-020",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c49de379aa73b85c5ece6dd",
+          "huiyi-chunk-71eb98d30d3e53ff05a38338",
+          "huiyi-chunk-63ec9fb7cc9f3054701fb8d7",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-f2b3f6de90800a9673086a0e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1237-htm-a4a1c4199d",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1237.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "query_id": "hy-smoke-020"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "query": "张晓峰医生主要擅长哪些眼科治疗？",
+        "query_id": "hy-smoke-021",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-6cdb87be5906d30f7a3ec311",
+          "huiyi-chunk-c1d39bc388d6bdf697848a5d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "query": "张晓峰医生主要擅长哪些眼科治疗？",
+        "query_id": "hy-smoke-021",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-f2b3f6de90800a9673086a0e",
+          "huiyi-chunk-a17774de1d5610f46e00b5e0",
+          "huiyi-chunk-96e4f763c259dbb6fa95894c",
+          "huiyi-chunk-801c14cd84ec7a7e242383a3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "query": "张晓峰医生主要擅长哪些眼科治疗？",
+        "query_id": "hy-smoke-021",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a",
+          "huiyi-chunk-4a7f5e2a5af8d2749da33fef",
+          "huiyi-chunk-bb03031d69c9af8cb152c9d5",
+          "huiyi-chunk-801c14cd84ec7a7e242383a3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "query_id": "hy-smoke-021"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6"
+        ],
+        "query": "向雪梅医生提供哪些视光相关服务？",
+        "query_id": "hy-smoke-022",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-a0ddbd88dce6ff278a53f0c8",
+          "huiyi-chunk-41a916ca662f0f2a6039dd72",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6"
+        ],
+        "query": "向雪梅医生提供哪些视光相关服务？",
+        "query_id": "hy-smoke-022",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-a0ddbd88dce6ff278a53f0c8",
+          "huiyi-chunk-41a916ca662f0f2a6039dd72",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6"
+        ],
+        "query": "向雪梅医生提供哪些视光相关服务？",
+        "query_id": "hy-smoke-022",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-a0ddbd88dce6ff278a53f0c8",
+          "huiyi-chunk-41a916ca662f0f2a6039dd72",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "query_id": "hy-smoke-022"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389"
+        ],
+        "query": "施继光医生公开简介提到哪些专业方向？",
+        "query_id": "hy-smoke-023",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6cdb87be5906d30f7a3ec311",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-fe239a9045b9182d33fdef2f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1021-1531-htm-490d336389"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm"
+        ]
+      },
+      "category": "doctor_profile",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389"
+        ],
+        "query": "施继光医生公开简介提到哪些专业方向？",
+        "query_id": "hy-smoke-023",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6cdb87be5906d30f7a3ec311",
+          "huiyi-chunk-fe239a9045b9182d33fdef2f",
+          "huiyi-chunk-19f28b8dd1330dace0da09f3",
+          "huiyi-chunk-e6bc347dfc147368453d79ed",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1255-htm-95c2f39bd5",
+          "huiyi-official-1021-1238-htm-d9d0657a36",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1255.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389"
+        ],
+        "query": "施继光医生公开简介提到哪些专业方向？",
+        "query_id": "hy-smoke-023",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6cdb87be5906d30f7a3ec311",
+          "huiyi-chunk-fe239a9045b9182d33fdef2f",
+          "huiyi-chunk-e704b275ce77c3ed204a166f",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-19f28b8dd1330dace0da09f3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1255-htm-95c2f39bd5"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1255.htm"
+        ]
+      },
+      "query_id": "hy-smoke-023"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "query": "RGP眼镜是什么，哪些人群适合配戴？",
+        "query_id": "hy-smoke-024",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-92cce4230f4e1d1e1df6279b",
+          "huiyi-chunk-30b43cf153e991850af8b7fd",
+          "huiyi-chunk-e61286f52e49f2a204e10d6f",
+          "huiyi-chunk-6b01f391ff6bbb06194e9067",
+          "huiyi-chunk-eee782e525443271aee19328"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "category": "patient_education",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "query": "RGP眼镜是什么，哪些人群适合配戴？",
+        "query_id": "hy-smoke-024",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-92cce4230f4e1d1e1df6279b",
+          "huiyi-chunk-788505b0cecc71436a0a263e",
+          "huiyi-chunk-8aff25d7cc342e1d37324c01",
+          "huiyi-chunk-30b43cf153e991850af8b7fd",
+          "huiyi-chunk-eee782e525443271aee19328"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "query": "RGP眼镜是什么，哪些人群适合配戴？",
+        "query_id": "hy-smoke-024",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-92cce4230f4e1d1e1df6279b",
+          "huiyi-chunk-30b43cf153e991850af8b7fd",
+          "huiyi-chunk-eee782e525443271aee19328",
+          "huiyi-chunk-8aff25d7cc342e1d37324c01",
+          "huiyi-chunk-6b01f391ff6bbb06194e9067"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "query_id": "hy-smoke-024"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "query": "暑期护眼文章建议怎样安排用眼和户外活动？",
+        "query_id": "hy-smoke-025",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-47e142b1fbb6322cd634088f",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-218555e6b66400737010dfb4",
+          "huiyi-chunk-40487a83d85a9f933ec74b6a",
+          "huiyi-chunk-25507f166dbfb814f9329365"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "category": "patient_education",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "query": "暑期护眼文章建议怎样安排用眼和户外活动？",
+        "query_id": "hy-smoke-025",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-98449e2279bad835e4f88a78",
+          "huiyi-chunk-47e142b1fbb6322cd634088f",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-218555e6b66400737010dfb4",
+          "huiyi-chunk-2b58833c65858b217d63189a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "query": "暑期护眼文章建议怎样安排用眼和户外活动？",
+        "query_id": "hy-smoke-025",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-47e142b1fbb6322cd634088f",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-218555e6b66400737010dfb4",
+          "huiyi-chunk-40487a83d85a9f933ec74b6a",
+          "huiyi-chunk-98449e2279bad835e4f88a78"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "query_id": "hy-smoke-025"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "query": "宝宝歪头可能和哪些眼科视觉问题有关？",
+        "query_id": "hy-smoke-026",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-c7c81dcaf2c9f870f3e29949",
+          "huiyi-chunk-dd566513c0330ce5a6925334",
+          "huiyi-chunk-58d4a5db1e896e403b7c0e4b"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "patient_education",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "query": "宝宝歪头可能和哪些眼科视觉问题有关？",
+        "query_id": "hy-smoke-026",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-0bf0cf5003b940287b0e3c54",
+          "huiyi-chunk-c7c81dcaf2c9f870f3e29949",
+          "huiyi-chunk-dd566513c0330ce5a6925334",
+          "huiyi-chunk-269505cf76a2f473c4086910",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "query": "宝宝歪头可能和哪些眼科视觉问题有关？",
+        "query_id": "hy-smoke-026",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-c7c81dcaf2c9f870f3e29949",
+          "huiyi-chunk-0bf0cf5003b940287b0e3c54",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-dd566513c0330ce5a6925334",
+          "huiyi-chunk-dde4a25f84399389215bbc52"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "query_id": "hy-smoke-026"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前需要做哪些准备？",
+        "query_id": "hy-smoke-027",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-77bfecdbfc92b5bcffad27bc",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1100-htm-f11fee4da1",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1100.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm"
+        ]
+      },
+      "category": "perioperative_instruction",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前需要做哪些准备？",
+        "query_id": "hy-smoke-027",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83",
+          "huiyi-chunk-d3ca2bf02003b8610e3b7299"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1021-1257-htm-627a9b4b48"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1021/1257.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前需要做哪些准备？",
+        "query_id": "hy-smoke-027",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-353f899002112b4ec561be08"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "query_id": "hy-smoke-027"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前后大约需要安排几天？",
+        "query_id": "hy-smoke-028",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-4cb748dffa3d8ee60a358654",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-eee782e525443271aee19328"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "category": "perioperative_instruction",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前后大约需要安排几天？",
+        "query_id": "hy-smoke-028",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-353f899002112b4ec561be08"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术前后大约需要安排几天？",
+        "query_id": "hy-smoke-028",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-eee782e525443271aee19328"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "query_id": "hy-smoke-028"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术后多久可以正常用眼？",
+        "query_id": "hy-smoke-029",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "category": "perioperative_instruction",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术后多久可以正常用眼？",
+        "query_id": "hy-smoke-029",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83",
+          "huiyi-chunk-353f899002112b4ec561be08"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "query": "近视手术后多久可以正常用眼？",
+        "query_id": "hy-smoke-029",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "query_id": "hy-smoke-029"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33"
+        ],
+        "query": "近视手术后能否进行重体力训练？",
+        "query_id": "hy-smoke-030",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-77bfecdbfc92b5bcffad27bc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1100-htm-f11fee4da1"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1100.htm"
+        ]
+      },
+      "category": "perioperative_instruction",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33"
+        ],
+        "query": "近视手术后能否进行重体力训练？",
+        "query_id": "hy-smoke-030",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33"
+        ],
+        "query": "近视手术后能否进行重体力训练？",
+        "query_id": "hy-smoke-030",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1102-htm-b7531ff151"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm"
+        ]
+      },
+      "query_id": "hy-smoke-030"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65"
+        ],
+        "query": "血糖控制得好还需要做糖尿病视网膜眼底检查吗？",
+        "query_id": "hy-smoke-031",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6",
+          "huiyi-chunk-2c3ff32d4f124992148219cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1106-htm-0290333d1e",
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1106.htm",
+          "https://yk.huiyi9e.com/info/1025/1111.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65"
+        ],
+        "query": "血糖控制得好还需要做糖尿病视网膜眼底检查吗？",
+        "query_id": "hy-smoke-031",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65"
+        ],
+        "query": "血糖控制得好还需要做糖尿病视网膜眼底检查吗？",
+        "query_id": "hy-smoke-031",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-182f44de3276d2789d9fc14a",
+          "huiyi-chunk-dba2b012df12b9eb9c7b0e0a"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1021-1238-htm-d9d0657a36"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1021/1238.htm"
+        ]
+      },
+      "query_id": "hy-smoke-031"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "query": "突然出现眼前闪光感可能是什么原因？",
+        "query_id": "hy-smoke-032",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c3ff32d4f124992148219cc",
+          "huiyi-chunk-dd566513c0330ce5a6925334",
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1111.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "query": "突然出现眼前闪光感可能是什么原因？",
+        "query_id": "hy-smoke-032",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c3ff32d4f124992148219cc",
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-f2b3f6de90800a9673086a0e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f",
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1111.htm",
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "query": "突然出现眼前闪光感可能是什么原因？",
+        "query_id": "hy-smoke-032",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-2c3ff32d4f124992148219cc",
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-c9997d4d722974eaa1583f58"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1111-htm-1c36454c3f",
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1111.htm",
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1025/1105.htm"
+        ]
+      },
+      "query_id": "hy-smoke-032"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d"
+        ],
+        "query": "孩子患斜视后，页面建议先了解哪些信息？",
+        "query_id": "hy-smoke-033",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d"
+        ],
+        "query": "孩子患斜视后，页面建议先了解哪些信息？",
+        "query_id": "hy-smoke-033",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-2c2438fc5b3470ae022297c6",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-dde4a25f84399389215bbc52"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d"
+        ],
+        "query": "孩子患斜视后，页面建议先了解哪些信息？",
+        "query_id": "hy-smoke-033",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-6688fc1ffa5b295d7779e97a",
+          "huiyi-chunk-dde4a25f84399389215bbc52",
+          "huiyi-chunk-2c2438fc5b3470ae022297c6",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "query_id": "hy-smoke-033"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821"
+        ],
+        "query": "怎样分辨真性近视与假性近视？",
+        "query_id": "hy-smoke-034",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-72df970278c1dd6fb33f2ee9",
+          "huiyi-chunk-e704b275ce77c3ed204a166f",
+          "huiyi-chunk-c1d39bc388d6bdf697848a5d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1021-1528-htm-074b743764"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821"
+        ],
+        "query": "怎样分辨真性近视与假性近视？",
+        "query_id": "hy-smoke-034",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-435968883e650d3e6f350836",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-6b01f391ff6bbb06194e9067",
+          "huiyi-chunk-5a31d11d9951319e45227f35"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821"
+        ],
+        "query": "怎样分辨真性近视与假性近视？",
+        "query_id": "hy-smoke-034",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-5a31d11d9951319e45227f35",
+          "huiyi-chunk-435968883e650d3e6f350836",
+          "huiyi-chunk-08b2eec8e468895eede389f2",
+          "huiyi-chunk-353f899002112b4ec561be08"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "query_id": "hy-smoke-034"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f"
+        ],
+        "query": "人工晶体是否需要清洗或者更换？",
+        "query_id": "hy-smoke-035",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-2c3ff32d4f124992148219cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1025/1111.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f"
+        ],
+        "query": "人工晶体是否需要清洗或者更换？",
+        "query_id": "hy-smoke-035",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-6560618f295f3fa337e09d1d",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83",
+          "huiyi-chunk-748cd7c39b0164351689cae3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1022-1018-htm-5c4883238c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f"
+        ],
+        "query": "人工晶体是否需要清洗或者更换？",
+        "query_id": "hy-smoke-035",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-6560618f295f3fa337e09d1d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "query_id": "hy-smoke-035"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "query": "弱视治愈后会不会复发，页面提到怎样预防？",
+        "query_id": "hy-smoke-036",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-c9997d4d722974eaa1583f58",
+          "huiyi-chunk-b094d5ba2af696e57e902cd8",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1105-htm-5f50eae666",
+          "huiyi-official-1021-1528-htm-074b743764",
+          "huiyi-official-1025-1126-htm-a835ca4d25"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1105.htm",
+          "https://yk.huiyi9e.com/info/1021/1528.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "query": "弱视治愈后会不会复发，页面提到怎样预防？",
+        "query_id": "hy-smoke-036",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-c98e17d86d416af350e5cf0e",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1025-1119-htm-5088499cc2",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1025/1119.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9"
+        ],
+        "query": "弱视治愈后会不会复发，页面提到怎样预防？",
+        "query_id": "hy-smoke-036",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-c98e17d86d416af350e5cf0e",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1119-htm-5088499cc2",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1119.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm"
+        ]
+      },
+      "query_id": "hy-smoke-036"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25"
+        ],
+        "query": "眼部受伤后没有明显视力下降和疼痛，还需要检查吗？",
+        "query_id": "hy-smoke-037",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-2c3ff32d4f124992148219cc",
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-32b406eb2777595a3fcad68c"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1025-1111-htm-1c36454c3f",
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1123-htm-d830ae8c8c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1025/1111.htm",
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25"
+        ],
+        "query": "眼部受伤后没有明显视力下降和疼痛，还需要检查吗？",
+        "query_id": "hy-smoke-037",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-daf42785137effcc20436bed",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25"
+        ],
+        "query": "眼部受伤后没有明显视力下降和疼痛，还需要检查吗？",
+        "query_id": "hy-smoke-037",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-32b406eb2777595a3fcad68c"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1123-htm-d830ae8c8c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm"
+        ]
+      },
+      "query_id": "hy-smoke-037"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02"
+        ],
+        "query": "眼睑长了痒的小包块可以挤吗？",
+        "query_id": "hy-smoke-038",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-3f8ac37cb55584c818b9cb53"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1021-1527-htm-8b54440a89"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02"
+        ],
+        "query": "眼睑长了痒的小包块可以挤吗？",
+        "query_id": "hy-smoke-038",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-daf42785137effcc20436bed",
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1022-1002-htm-6491ff9455"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02"
+        ],
+        "query": "眼睑长了痒的小包块可以挤吗？",
+        "query_id": "hy-smoke-038",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-2f759b65e610c4d69f6633f9",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-daf42785137effcc20436bed"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1022-1006-htm-faaa0bb049",
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1022/1006.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "query_id": "hy-smoke-038"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "query": "经常散瞳对眼睛有没有影响？",
+        "query_id": "hy-smoke-039",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-c9997d4d722974eaa1583f58",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-9e08ed8db7f0e25970457ba4"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1105.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "query": "经常散瞳对眼睛有没有影响？",
+        "query_id": "hy-smoke-039",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-c9997d4d722974eaa1583f58",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83",
+          "huiyi-chunk-e0bc9664a1d9a101c68b2be1",
+          "huiyi-chunk-0d1875e47a7c3b27b6490959"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1105.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "query": "经常散瞳对眼睛有没有影响？",
+        "query_id": "hy-smoke-039",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-c9997d4d722974eaa1583f58",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1105-htm-5f50eae666",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1025-1106-htm-0290333d1e"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1105.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1025/1106.htm"
+        ]
+      },
+      "query_id": "hy-smoke-039"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499"
+        ],
+        "query": "什么是人工晶体植入手术？",
+        "query_id": "hy-smoke-040",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-4c7459a124a87b225238b057"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1025-1101-htm-fa5db15b33"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499"
+        ],
+        "query": "什么是人工晶体植入手术？",
+        "query_id": "hy-smoke-040",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-dad9e00c39449be167baf08f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1027-htm-675f2e5854"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499"
+        ],
+        "query": "什么是人工晶体植入手术？",
+        "query_id": "hy-smoke-040",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-e75b1ebb0f628efa9ba0b4e4",
+          "huiyi-chunk-46b31bce6996598fcb15a95f",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-6a442e94a75acc67035da84d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1108-htm-233cfeb499",
+          "huiyi-official-1025-1107-htm-227671a34f",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1025-1099-htm-28f8c93b98"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1108.htm",
+          "https://yk.huiyi9e.com/info/1025/1107.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm"
+        ]
+      },
+      "query_id": "hy-smoke-040"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a"
+        ],
+        "query": "眼前总有蚊虫样黑影舞动可能是什么情况？",
+        "query_id": "hy-smoke-041",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-30b43cf153e991850af8b7fd",
+          "huiyi-chunk-41f9af716e58c8aef56933d4",
+          "huiyi-chunk-dd566513c0330ce5a6925334"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1025-1103-htm-d31f4fa214",
+          "huiyi-official-1024-1566-htm-0f1d986125"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1025/1103.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a"
+        ],
+        "query": "眼前总有蚊虫样黑影舞动可能是什么情况？",
+        "query_id": "hy-smoke-041",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-2c3ff32d4f124992148219cc",
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1111-htm-1c36454c3f",
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1025-1116-htm-265301ed5b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1111.htm",
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a"
+        ],
+        "query": "眼前总有蚊虫样黑影舞动可能是什么情况？",
+        "query_id": "hy-smoke-041",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-2c3ff32d4f124992148219cc"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1111-htm-1c36454c3f"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1111.htm"
+        ]
+      },
+      "query_id": "hy-smoke-041"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b"
+        ],
+        "query": "什么情况下可能诱发青光眼发作？",
+        "query_id": "hy-smoke-042",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-41f9af716e58c8aef56933d4",
+          "huiyi-chunk-353f899002112b4ec561be08"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1025-1103-htm-d31f4fa214",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1025/1103.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b"
+        ],
+        "query": "什么情况下可能诱发青光眼发作？",
+        "query_id": "hy-smoke-042",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b"
+        ],
+        "query": "什么情况下可能诱发青光眼发作？",
+        "query_id": "hy-smoke-042",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1113-htm-9e72ae6235"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm"
+        ]
+      },
+      "query_id": "hy-smoke-042"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e"
+        ],
+        "query": "医院答疑页面如何描述白内障手术效果？",
+        "query_id": "hy-smoke-043",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6",
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-40487a83d85a9f933ec74b6a",
+          "huiyi-chunk-fe239a9045b9182d33fdef2f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e",
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1531-htm-490d336389"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1106.htm",
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e"
+        ],
+        "query": "医院答疑页面如何描述白内障手术效果？",
+        "query_id": "hy-smoke-043",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-846e4dab5cc05114cfb2a7c1",
+          "huiyi-chunk-9d6183df3758e8f2dcf946f3",
+          "huiyi-chunk-48f8c8cb23399427ea8c434c"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1259-htm-15aa104f1e"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1106.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1259.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e"
+        ],
+        "query": "医院答疑页面如何描述白内障手术效果？",
+        "query_id": "hy-smoke-043",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6",
+          "huiyi-chunk-748cd7c39b0164351689cae3",
+          "huiyi-chunk-fe239a9045b9182d33fdef2f",
+          "huiyi-chunk-9d6183df3758e8f2dcf946f3",
+          "huiyi-chunk-f6fc0d1df18cadcdbda189fa"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1106-htm-0290333d1e",
+          "huiyi-official-1022-1018-htm-5c4883238c",
+          "huiyi-official-1021-1531-htm-490d336389",
+          "huiyi-official-1021-1239-htm-d4dda2a17a",
+          "huiyi-official-1021-1953-htm-b96b3d9cf0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1106.htm",
+          "https://yk.huiyi9e.com/info/1022/1018.htm",
+          "https://yk.huiyi9e.com/info/1021/1531.htm",
+          "https://yk.huiyi9e.com/info/1021/1239.htm",
+          "https://yk.huiyi9e.com/info/1021/1953.htm"
+        ]
+      },
+      "query_id": "hy-smoke-043"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde"
+        ],
+        "query": "做完近视手术可以参军吗？",
+        "query_id": "hy-smoke-044",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-4c7459a124a87b225238b057"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1101-htm-fa5db15b33"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde"
+        ],
+        "query": "做完近视手术可以参军吗？",
+        "query_id": "hy-smoke-044",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83",
+          "huiyi-chunk-5a21872ea8ae655847bdcdb6"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1025-1106-htm-0290333d1e"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1025/1106.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde"
+        ],
+        "query": "做完近视手术可以参军吗？",
+        "query_id": "hy-smoke-044",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6da0da84f75576d27ed7705e",
+          "huiyi-chunk-4c7459a124a87b225238b057",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1098-htm-da79053fde",
+          "huiyi-official-1025-1101-htm-fa5db15b33",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1098.htm",
+          "https://yk.huiyi9e.com/info/1025/1101.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm"
+        ]
+      },
+      "query_id": "hy-smoke-044"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c"
+        ],
+        "query": "眼角长了息肉样组织是否正常，需要处理吗？",
+        "query_id": "hy-smoke-045",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-ebfde5375ca9fb04b8700e64",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-478cda3cd498e6ab88f0db62"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1025-1102-htm-b7531ff151",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1109-htm-deddcbda3a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1025/1102.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1109.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c"
+        ],
+        "query": "眼角长了息肉样组织是否正常，需要处理吗？",
+        "query_id": "hy-smoke-045",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48",
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e",
+          "huiyi-chunk-75de2b3a26f80a4036ca8e83"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1022-1004-htm-4736a0aa1b",
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1021-1530-htm-8a0c66452c",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm",
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c"
+        ],
+        "query": "眼角长了息肉样组织是否正常，需要处理吗？",
+        "query_id": "hy-smoke-045",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-32b406eb2777595a3fcad68c",
+          "huiyi-chunk-ac753e6a98d9ff6a7c4ef322",
+          "huiyi-chunk-478cda3cd498e6ab88f0db62",
+          "huiyi-chunk-97566a747948db62b053f663",
+          "huiyi-chunk-14492c5c8835c45bb9ab2a48"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1123-htm-d830ae8c8c",
+          "huiyi-official-1022-1002-htm-6491ff9455",
+          "huiyi-official-1025-1109-htm-deddcbda3a",
+          "huiyi-official-1025-1125-htm-01931c0a02",
+          "huiyi-official-1022-1004-htm-4736a0aa1b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1123.htm",
+          "https://yk.huiyi9e.com/info/1022/1002.htm",
+          "https://yk.huiyi9e.com/info/1025/1109.htm",
+          "https://yk.huiyi9e.com/info/1025/1125.htm",
+          "https://yk.huiyi9e.com/info/1022/1004.htm"
+        ]
+      },
+      "query_id": "hy-smoke-045"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153"
+        ],
+        "query": "长时间使用电脑导致眼睛疲劳怎么办？",
+        "query_id": "hy-smoke-046",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9597750798a56845b69982dc",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-25507f166dbfb814f9329365",
+          "huiyi-chunk-990879d32e644e4985d357e5",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1124-htm-2a68ea4db2",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1122.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1124.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153"
+        ],
+        "query": "长时间使用电脑导致眼睛疲劳怎么办？",
+        "query_id": "hy-smoke-046",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9597750798a56845b69982dc",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-47e142b1fbb6322cd634088f",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1122.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153"
+        ],
+        "query": "长时间使用电脑导致眼睛疲劳怎么办？",
+        "query_id": "hy-smoke-046",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-9597750798a56845b69982dc",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9",
+          "huiyi-chunk-4cb748dffa3d8ee60a358654",
+          "huiyi-chunk-daf42785137effcc20436bed"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1122-htm-60e4200153",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1122.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "query_id": "hy-smoke-046"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4"
+        ],
+        "query": "妊娠会对青光眼产生影响吗？",
+        "query_id": "hy-smoke-047",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-c9997d4d722974eaa1583f58",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1105-htm-5f50eae666",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1126-htm-a835ca4d25"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1105.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4"
+        ],
+        "query": "妊娠会对青光眼产生影响吗？",
+        "query_id": "hy-smoke-047",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4"
+        ],
+        "query": "妊娠会对青光眼产生影响吗？",
+        "query_id": "hy-smoke-047",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "query_id": "hy-smoke-047"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5"
+        ],
+        "query": "孩子弱视戴上眼镜后还能摘吗？",
+        "query_id": "hy-smoke-048",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-84515dff44c6e1fb3325a403",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5"
+        ],
+        "query": "孩子弱视戴上眼镜后还能摘吗？",
+        "query_id": "hy-smoke-048",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-c98e17d86d416af350e5cf0e",
+          "huiyi-chunk-6560618f295f3fa337e09d1d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1025-1119-htm-5088499cc2",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1025/1119.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5"
+        ],
+        "query": "孩子弱视戴上眼镜后还能摘吗？",
+        "query_id": "hy-smoke-048",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-64a35d1aa0d8d840a7b835f7",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-19f9fb780e5f30a5753230d5",
+          "huiyi-chunk-c98e17d86d416af350e5cf0e",
+          "huiyi-chunk-4d82a6a4558afc8128840e15"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1118-htm-d46e44a2c5",
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0",
+          "huiyi-official-1025-1119-htm-5088499cc2",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1118.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm",
+          "https://yk.huiyi9e.com/info/1025/1119.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "query_id": "hy-smoke-048"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235"
+        ],
+        "query": "青光眼会遗传吗？",
+        "query_id": "hy-smoke-049",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-c9997d4d722974eaa1583f58"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1025/1105.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235"
+        ],
+        "query": "青光眼会遗传吗？",
+        "query_id": "hy-smoke-049",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1022-1012-htm-a804ae2fef",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235"
+        ],
+        "query": "青光眼会遗传吗？",
+        "query_id": "hy-smoke-049",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "query_id": "hy-smoke-049"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "query": "高度近视并伴有散光需要检查眼底吗？",
+        "query_id": "hy-smoke-050",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-8aff25d7cc342e1d37324c01",
+          "huiyi-chunk-dd566513c0330ce5a6925334",
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-6da0da84f75576d27ed7705e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1566-htm-0f1d986125",
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1025-1098-htm-da79053fde"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1566.htm",
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1025/1098.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "query": "高度近视并伴有散光需要检查眼底吗？",
+        "query_id": "hy-smoke-050",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-7f4b08623cf4719d3f47099f",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-114ca8d4adc70c1374cbe20e"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1022-1014-htm-b6ece951d7",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1530-htm-8a0c66452c"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1022/1014.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1530.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "query": "高度近视并伴有散光需要检查眼底吗？",
+        "query_id": "hy-smoke-050",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-51fa95332fc98e72c080cfe3",
+          "huiyi-chunk-9e8ca3b7323ac4e91af87ae3",
+          "huiyi-chunk-7a5758bf38d8c00a46503670",
+          "huiyi-chunk-353f899002112b4ec561be08",
+          "huiyi-chunk-e0bc9664a1d9a101c68b2be1"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1112-htm-45f66330e0",
+          "huiyi-official-1025-1110-htm-afeba98a65",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1573-htm-db1593d7a7"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1112.htm",
+          "https://yk.huiyi9e.com/info/1025/1110.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm"
+        ]
+      },
+      "query_id": "hy-smoke-050"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2"
+        ],
+        "query": "孩子放学回家眼睛变红了怎么办？",
+        "query_id": "hy-smoke-051",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-990879d32e644e4985d357e5",
+          "huiyi-chunk-25507f166dbfb814f9329365",
+          "huiyi-chunk-84515dff44c6e1fb3325a403",
+          "huiyi-chunk-dae67999873389847368c188",
+          "huiyi-chunk-c9997d4d722974eaa1583f58"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1121-htm-f4192c1c3d",
+          "huiyi-official-1025-1105-htm-5f50eae666"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1124.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1121.htm",
+          "https://yk.huiyi9e.com/info/1025/1105.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2"
+        ],
+        "query": "孩子放学回家眼睛变红了怎么办？",
+        "query_id": "hy-smoke-051",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-990879d32e644e4985d357e5",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-eed454dddce0e3be9a9fb993",
+          "huiyi-chunk-df8737cbf5601e6d25cf6eb9"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1126-htm-a835ca4d25",
+          "huiyi-official-1024-1568-htm-61f827069b"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1124.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1126.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2"
+        ],
+        "query": "孩子放学回家眼睛变红了怎么办？",
+        "query_id": "hy-smoke-051",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-990879d32e644e4985d357e5",
+          "huiyi-chunk-4bae94ca36b45f6465f1e054",
+          "huiyi-chunk-daf42785137effcc20436bed",
+          "huiyi-chunk-2b58833c65858b217d63189a",
+          "huiyi-chunk-dae67999873389847368c188"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1124-htm-2a68ea4db2",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1025-1121-htm-f4192c1c3d"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1124.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1025/1121.htm"
+        ]
+      },
+      "query_id": "hy-smoke-051"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df"
+        ],
+        "query": "青光眼可以预防吗？",
+        "query_id": "hy-smoke-052",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-694005c9767f6eb3e8c9c0cc",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-51fa95332fc98e72c080cfe3"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1120-htm-b4980c08d9",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1025-1112-htm-45f66330e0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1120.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1025/1112.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df"
+        ],
+        "query": "青光眼可以预防吗？",
+        "query_id": "hy-smoke-052",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-9e98e84dab0fbce4bf30e3ca",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1025-1116-htm-265301ed5b",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1025/1116.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df"
+        ],
+        "query": "青光眼可以预防吗？",
+        "query_id": "hy-smoke-052",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-828334732496c5d639ab1f68",
+          "huiyi-chunk-bb836a70a951f64c7e5abf30",
+          "huiyi-chunk-8b2ccc7453976f1f878aa0d1",
+          "huiyi-chunk-0982c9ece3cce85fb4b0a67e",
+          "huiyi-chunk-f763a3b41cfa58f6f07a8006"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1114-htm-e14a3fa0df",
+          "huiyi-official-1025-1113-htm-9e72ae6235",
+          "huiyi-official-1025-1117-htm-2c1ebc1581",
+          "huiyi-official-1025-1115-htm-ee8eeb35f4",
+          "huiyi-official-1022-1012-htm-a804ae2fef"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1114.htm",
+          "https://yk.huiyi9e.com/info/1025/1113.htm",
+          "https://yk.huiyi9e.com/info/1025/1117.htm",
+          "https://yk.huiyi9e.com/info/1025/1115.htm",
+          "https://yk.huiyi9e.com/info/1022/1012.htm"
+        ]
+      },
+      "query_id": "hy-smoke-052"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214"
+        ],
+        "query": "什么是医学验光？",
+        "query_id": "hy-smoke-053",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-41f9af716e58c8aef56933d4",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-41a916ca662f0f2a6039dd72",
+          "huiyi-chunk-30b43cf153e991850af8b7fd",
+          "huiyi-chunk-4caca2dac079a53bec29e74d"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1024-1573-htm-db1593d7a7",
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1103.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1024/1573.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214"
+        ],
+        "query": "什么是医学验光？",
+        "query_id": "hy-smoke-053",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-41f9af716e58c8aef56933d4",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-e4c447ccabff5d78ea498b2f",
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-9cb7e6b7bfc7b37f74537462"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1533-htm-9322333596",
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1022-1008-htm-9ebb7d28f0"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1103.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1533.htm",
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1022/1008.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214"
+        ],
+        "query": "什么是医学验光？",
+        "query_id": "hy-smoke-053",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-41f9af716e58c8aef56933d4",
+          "huiyi-chunk-4e6aef2564ba2bbd21a11956",
+          "huiyi-chunk-41a916ca662f0f2a6039dd72",
+          "huiyi-chunk-8f0f509a52a412909718f8ad",
+          "huiyi-chunk-e4c447ccabff5d78ea498b2f"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1103-htm-d31f4fa214",
+          "huiyi-official-1024-1568-htm-61f827069b",
+          "huiyi-official-1021-1534-htm-51b88e56c6",
+          "huiyi-official-1025-1104-htm-8c8d872821",
+          "huiyi-official-1021-1533-htm-9322333596"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1103.htm",
+          "https://yk.huiyi9e.com/info/1024/1568.htm",
+          "https://yk.huiyi9e.com/info/1021/1534.htm",
+          "https://yk.huiyi9e.com/info/1025/1104.htm",
+          "https://yk.huiyi9e.com/info/1021/1533.htm"
+        ]
+      },
+      "query_id": "hy-smoke-053"
+    },
+    {
+      "bm25": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98"
+        ],
+        "query": "ICL和飞秒手术有什么区别？",
+        "query_id": "hy-smoke-054",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-cf07f8e3aeebe2a2d98d7261",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-77bfecdbfc92b5bcffad27bc",
+          "huiyi-chunk-38a5757d150f90f9e6718091"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1025-1100-htm-f11fee4da1",
+          "huiyi-official-about-htm-60f85f2ab3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1025/1100.htm",
+          "https://yk.huiyi9e.com/about.htm"
+        ]
+      },
+      "category": "faq",
+      "dense": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98"
+        ],
+        "query": "ICL和飞秒手术有什么区别？",
+        "query_id": "hy-smoke-054",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-77bfecdbfc92b5bcffad27bc",
+          "huiyi-chunk-96e4f763c259dbb6fa95894c",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-cf07f8e3aeebe2a2d98d7261"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1025-1100-htm-f11fee4da1",
+          "huiyi-official-1021-1527-htm-8b54440a89",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-1021-1236-htm-a0995f806a"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1025/1100.htm",
+          "https://yk.huiyi9e.com/info/1021/1527.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm"
+        ]
+      },
+      "hybrid": {
+        "expected_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98"
+        ],
+        "query": "ICL和飞秒手术有什么区别？",
+        "query_id": "hy-smoke-054",
+        "ranked_chunk_ids": [
+          "huiyi-chunk-6a442e94a75acc67035da84d",
+          "huiyi-chunk-77bfecdbfc92b5bcffad27bc",
+          "huiyi-chunk-cf07f8e3aeebe2a2d98d7261",
+          "huiyi-chunk-dad9e00c39449be167baf08f",
+          "huiyi-chunk-38a5757d150f90f9e6718091"
+        ],
+        "ranked_source_ids": [
+          "huiyi-official-1025-1099-htm-28f8c93b98",
+          "huiyi-official-1025-1100-htm-f11fee4da1",
+          "huiyi-official-1021-1236-htm-a0995f806a",
+          "huiyi-official-1022-1027-htm-675f2e5854",
+          "huiyi-official-about-htm-60f85f2ab3"
+        ],
+        "ranked_urls": [
+          "https://yk.huiyi9e.com/info/1025/1099.htm",
+          "https://yk.huiyi9e.com/info/1025/1100.htm",
+          "https://yk.huiyi9e.com/info/1021/1236.htm",
+          "https://yk.huiyi9e.com/info/1022/1027.htm",
+          "https://yk.huiyi9e.com/about.htm"
+        ]
+      },
+      "query_id": "hy-smoke-054"
+    }
+  ],
+  "rrf": {
+    "bm25_weight": 1.0,
+    "dense_weight": 1.0,
+    "k": 60
+  },
+  "top_k": 5
+}

@@ -1,0 +1,11 @@
+{
+  "discovered_urls": 151,
+  "failed": 0,
+  "failures": [],
+  "fetched_successfully": 151,
+  "max_depth": 2,
+  "max_pages": 240,
+  "parser_version": "huiyi-html-links-v1",
+  "raw_only_dynamic": 68,
+  "scope_domain": "yk.huiyi9e.com"
+}

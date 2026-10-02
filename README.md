@@ -119,6 +119,10 @@ KnowledgeCard；`benchmarks` 将 HealthBench 与 MIRAGE 下载到 Git 忽略的
 `artifacts/benchmarks/`。工具不会把整页 HTML 或未经审核的内容写入
 `data/knowledge_cards/`。
 
+慧宜官网公开内容的独立采集、规范化、原子切分与 BM25/Qwen3/Milvus 检索 smoke
+流程见 [`data/huiyi/README.md`](data/huiyi/README.md)。它不修改既有 KnowledgeCard
+或冻结研究产物，也不代表临床审核或验证。
+
 标准检索评测使用 BEIR NFCorpus：下载并解压后可运行
 `python -m health_ai_copilot.eval.nfcorpus --data-dir artifacts/benchmarks/nfcorpus`，
 输出 Recall@K、MRR 和 nDCG@K。NFCorpus 的 qrels 保留在独立的 retrieval-eval adapter

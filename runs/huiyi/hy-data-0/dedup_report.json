@@ -1,0 +1,17 @@
+{
+  "exact_duplicate_documents": 2,
+  "exact_duplicate_groups": [
+    {
+      "action": "preserve_provenance",
+      "content_sha256": "4ab0093d95c7be6c209d1e80e096c063f50d28ce96c3f696c75b2b33184a299e",
+      "document_ids": [
+        "huiyi-doc-87997bbf254d47438ce0c886",
+        "huiyi-doc-e9214d45ec189332c6d8b6f1"
+      ]
+    }
+  ],
+  "near_duplicate_flag_count": 0,
+  "near_duplicate_pairs": [],
+  "near_duplicate_threshold": 0.88,
+  "policy": "Exact copies retain each source provenance; near duplicates are flagged and never merged."
+}

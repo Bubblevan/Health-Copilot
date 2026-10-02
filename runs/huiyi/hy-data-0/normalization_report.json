@@ -1,0 +1,31 @@
+{
+  "document_count": 67,
+  "document_types": {
+    "department": 10,
+    "doctor_profile": 20,
+    "faq": 27,
+    "hospital_info": 5,
+    "patient_education": 3,
+    "perioperative_instruction": 2
+  },
+  "documents_jsonl_sha256": "5b5ae92e3668cf9a68a563fd12cc39dbe6aa4475348828d0839f18326b7aef8e",
+  "exact_duplicate_count": 2,
+  "freshness_classes": {
+    "POTENTIALLY_STALE": 50,
+    "STATIC_EDUCATION": 3,
+    "STATIC_PROFILE": 14
+  },
+  "near_duplicate_flag_count": 0,
+  "normalizer_version": "huiyi-normalizer-v1",
+  "parser_failures": 3,
+  "raw_manifest_sha256": "c3f776bc5a5b7666f508edb08b1c35588916610fa8b18e1e42f2196ba69c87b2",
+  "raw_only_dynamic": 70,
+  "rejected_count": 84,
+  "rejected_jsonl_sha256": "8a230c25e614c880c45551dafc734a93988b586def86d4a7f014e01c07918e9c",
+  "review_statuses": {
+    "AUTO_ACCEPTED_PUBLIC_INFO": 35,
+    "NEEDS_HUMAN_REVIEW": 32
+  },
+  "schema_version": "huiyi-knowledge-corpus-v0",
+  "source_catalog_sha256": "b6f38fe9b9ddf9419ac9b6902761d70594ace63d74eaec2d6132c11b513e6d05"
+}

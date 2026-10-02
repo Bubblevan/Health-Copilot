@@ -1,0 +1,20 @@
+{
+  "chunk_count": 181,
+  "chunker_version": "huiyi-atomic-heading-paragraph-list-v1",
+  "chunks_jsonl_sha256": "ac2ffb84c4a25300a3fc1d26d36b133dc2de649003f5d004dd745363ff382611",
+  "chunks_sha256": "ac2ffb84c4a25300a3fc1d26d36b133dc2de649003f5d004dd745363ff382611",
+  "corpus_identity_sha256": "cb013b2258a2872af37c1b2830da97566f4be0970ab2e5e2ff7f08755d40a22b",
+  "document_count": 67,
+  "documents_jsonl_sha256": "5b5ae92e3668cf9a68a563fd12cc39dbe6aa4475348828d0839f18326b7aef8e",
+  "documents_sha256": "5b5ae92e3668cf9a68a563fd12cc39dbe6aa4475348828d0839f18326b7aef8e",
+  "embedding_manifest_sha256": "1736c85b48560da89f9260466ae647cce2b1210b5ff3bec22838295203048c7d",
+  "embedding_model_identity": {
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "resolved_revision": "local-files-sha256:1bae8c15874434017ed2f5310c98c4445c0ebc485b4dcb83812b981a1bb6adfc"
+  },
+  "raw_manifest_sha256": "c3f776bc5a5b7666f508edb08b1c35588916610fa8b18e1e42f2196ba69c87b2",
+  "raw_snapshot_count": 151,
+  "schema_version": "huiyi-knowledge-corpus-v0",
+  "source_catalog_sha256": "b6f38fe9b9ddf9419ac9b6902761d70594ace63d74eaec2d6132c11b513e6d05",
+  "source_count": 151
+}
