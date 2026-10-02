@@ -21,7 +21,7 @@ def create_protocol_lock(
     scored_rows_sha256: str,
     method_code_commit: str,
 ) -> dict[str, Any]:
-    """Freeze CAV-v1 only after its BUILD gate passes."""
+    """Freeze RSEL-v1 only after its BUILD gate passes."""
     gate = build_report.get("development_gate", {})
     if (
         build_manifest.get("partition") != "BUILD"
@@ -33,7 +33,7 @@ def create_protocol_lock(
         or build_report.get("frozen_dev_truth_opened") is not False
         or any(gate.get(name) is not True for name in LOCKED_BUILD_GATES)
     ):
-        raise ValueError("CAV-v1 cannot be frozen unless the complete BUILD gate passes")
+        raise ValueError("RSEL-v1 cannot be frozen unless the complete BUILD gate passes")
 
     generator = build_manifest.get("generator", {})
     attempted = int(generator.get("generation_calls_attempted", 0))
@@ -53,7 +53,7 @@ def create_protocol_lock(
     delta = comparison.get("grounded_task_success_delta", {})
     utilization = comparison.get("utilization_given_full_evidence_task_success_delta", {})
     if (
-        comparison.get("candidate") != "CAV_STRONG"
+        comparison.get("candidate") != "RSEL_STRONG"
         or comparison.get("baseline") != "VANILLA_STRONG"
         or comparison.get("slice") != "RAG"
         or delta.get("delta") is None
@@ -65,10 +65,10 @@ def create_protocol_lock(
 
     return {
         "schema_version": "rag-e6a-protocol-lock-v1",
-        "selected_method": "CAV-v1",
-        "primary_arm": "CAV_STRONG",
+        "selected_method": "RSEL-v1",
+        "primary_arm": "RSEL_STRONG",
         "primary_comparator": "VANILLA_STRONG",
-        "secondary_arm": "CAV_STANDARD",
+        "secondary_arm": "RSEL_STANDARD",
         "secondary_comparator": "VANILLA_STANDARD",
         "control_arm": "VANILLA_OFF",
         "method_code_commit": method_code_commit,
@@ -97,11 +97,11 @@ def create_protocol_lock(
             )
         },
         "execution_graph": [
-            "vanilla_draft_with_frozen_ranked_evidence",
-            "one_conservative_verifier_call_per_evidence_arm",
-            "keep_or_single_final_answer_only",
-            "invalid_repair_falls_back_to_unchanged_vanilla_draft",
-            "final_alias_resolution_and_used_evidence_are_harness_owned",
+            "same_vanilla_draft_and_frozen_top10_evidence",
+            "harness_extracts_exact_query_key_to_value_relations",
+            "answer_values_and_aliases_derived_only_from_visible_relations",
+            "no_match_falls_back_to_unchanged_vanilla_answer",
+            "used_evidence_and_provenance_are_harness_owned",
         ],
         "primary_metric": "RAG-slice grounded_task_success",
         "utilization_metric": "task_success when both arms retrieve all required external evidence in top-10",

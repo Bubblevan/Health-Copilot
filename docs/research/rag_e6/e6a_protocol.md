@@ -1,10 +1,10 @@
 # RAG-E6A protocol
 
-Current status: CFEC-v1.4 and CAV-v1 are both closed after negative BUILD
-results. CAV-v1's authoritative design, preflight, cost disclosure, and result
-are in [`e6a_cav_protocol.md`](e6a_cav_protocol.md). Neither method was
-promoted to FROZEN_DEV; the historical CFEC protocol and results below remain
-unchanged evidence about that closed method family.
+Current status: CFEC-v1.4 and CAV-v1 are closed after negative BUILD results.
+RSEL-v1 is the active, narrowly scoped structured-evidence experiment; its
+selection provenance, exact relation grammar, and confirmation rule are in
+[`e6a_rsel_protocol.md`](e6a_rsel_protocol.md). RSEL has no frozen-dev result
+yet. The historical CFEC protocol and results below remain unchanged.
 
 Status: `build_v4` (CFEC-v1.3) and `build_v5` (CFEC-v1.4) are complete negative BUILD experiments. CFEC-v1.4 materially regressed versus the paired Vanilla reader and failed every uplift gate. The CFEC method family is closed for this protocol; no CFEC lock, FROZEN_DEV scoring, or reserved TEST/OOD access is authorized. This closes CFEC, not the broader RAG research objective: any different reader method requires its own pre-registered protocol and BUILD-only evaluation.
 

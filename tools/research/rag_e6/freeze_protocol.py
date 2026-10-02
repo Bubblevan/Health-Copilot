@@ -1,4 +1,4 @@
-"""Freeze the CAV-v1 protocol after the BUILD gate passes."""
+"""Freeze the RSEL-v1 protocol after the BUILD gate passes."""
 
 from __future__ import annotations
 

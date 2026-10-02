@@ -3,8 +3,10 @@
 ## Executive result
 
 Current program state: CFEC-v1.4 and CAV-v1 both failed their BUILD uplift
-gates and were not promoted. The CAV result and frozen method decision are in
-[`e6a_cav_protocol.md`](e6a_cav_protocol.md). This report preserves the
+gates and were not promoted. RSEL-v1 is now the active structured-evidence
+development method; its in-sample diagnostic is explicitly not a headline.
+See [`e6a_cav_protocol.md`](e6a_cav_protocol.md) and
+[`e6a_rsel_protocol.md`](e6a_rsel_protocol.md). This report preserves the
 original CFEC result below.
 
 The CFEC evidence-utilization hypothesis did not survive BUILD evaluation.

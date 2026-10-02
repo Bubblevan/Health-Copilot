@@ -1,4 +1,4 @@
-"""Execute frozen RAG views with Vanilla or CAV readers, without evaluator data."""
+"""Execute frozen RAG views with Vanilla and RSEL readers, without evaluator data."""
 
 from __future__ import annotations
 
@@ -56,6 +56,7 @@ from eval.rag_e6.reader import (
     resolve_aliases,
     vanilla_prompt,
 )
+from eval.rag_e6.rsel import rsel_output_row
 from eval.rag_e6.split import canonical_json_bytes, sha256_file, write_immutable_json
 from eval.u3r_rag_transfer import (
     ANSWER_CONTEXT_K,
@@ -81,7 +82,7 @@ from eval.u3r_rag_transfer import (
 
 ARM_ORDER = (
     "VANILLA_OFF", "VANILLA_STANDARD", "VANILLA_STRONG",
-    "CAV_STANDARD", "CAV_STRONG",
+    "RSEL_STANDARD", "RSEL_STRONG",
 )
 PARTITION_ARMS = {
     "BUILD": ARM_ORDER,
@@ -382,6 +383,21 @@ def _run_cav(
     return row
 
 
+def _run_rsel(
+    *,
+    arm: str,
+    episode: E6Episode,
+    evidence,
+    baseline_row: dict[str, Any],
+) -> dict[str, Any]:
+    return rsel_output_row(
+        arm=arm,
+        question=episode.query,
+        evidence=evidence,
+        baseline_row=baseline_row,
+    )
+
+
 def _run_vanilla(
     *,
     arm: str,
@@ -555,6 +571,7 @@ def _code_manifest() -> dict[str, str]:
         "eval/rag_e6/protocol.py",
         "eval/rag_e6/reader.py",
         "eval/rag_e6/reader_executor.py",
+        "eval/rag_e6/rsel.py",
         "eval/rag_e6/scoring.py",
         "eval/rag_e6/split.py",
         "eval/u3r_rag_transfer.py",
@@ -565,6 +582,7 @@ def _code_manifest() -> dict[str, str]:
         "tools/research/rag_e6/record_gpu_server.py",
         "tools/research/rag_e6/run_build.py",
         "tools/research/rag_e6/run_frozen_dev.py",
+        "tools/research/rag_e6/run_rsel_build.py",
         "tools/research/rag_e6/score_build.py",
         "tools/research/rag_e6/smoke_cav.py",
         "tools/research/rag_e6/start_gpu_server.ps1",
@@ -794,35 +812,25 @@ def execute_partition(
             journal=journal,
             client=client,
         )
-        cav_standard = _run_cav(
-            arm="CAV_STANDARD",
+        rsel_standard = _run_rsel(
+            arm="RSEL_STANDARD",
             episode=episode,
             evidence=standard_evidence,
             baseline_row=vanilla_standard,
-            retrieval_ids=standard_ids,
-            candidate_ids=standard_candidates,
-            channels=standard_channels,
-            journal=journal,
-            client=client,
         )
-        cav_strong = _run_cav(
-            arm="CAV_STRONG",
+        rsel_strong = _run_rsel(
+            arm="RSEL_STRONG",
             episode=episode,
             evidence=strong_evidence,
             baseline_row=vanilla_strong,
-            retrieval_ids=strong_ids,
-            candidate_ids=strong_candidates,
-            channels=strong_channels,
-            journal=journal,
-            client=client,
         )
         if (
             vanilla_standard["evidence_identity_sha256"]
-            != cav_standard["evidence_identity_sha256"]
+            != rsel_standard["evidence_identity_sha256"]
             or vanilla_strong["evidence_identity_sha256"]
-            != cav_strong["evidence_identity_sha256"]
+            != rsel_strong["evidence_identity_sha256"]
         ):
-            raise ValueError("Vanilla and CAV did not receive byte-identical evidence")
+            raise ValueError("Vanilla and RSEL did not receive byte-identical evidence")
         row = {
             "episode_id": episode.episode_id,
             "subject_id": episode.subject_id,
@@ -842,8 +850,8 @@ def execute_partition(
                 "VANILLA_OFF": off,
                 "VANILLA_STANDARD": vanilla_standard,
                 "VANILLA_STRONG": vanilla_strong,
-                "CAV_STANDARD": cav_standard,
-                "CAV_STRONG": cav_strong,
+                "RSEL_STANDARD": rsel_standard,
+                "RSEL_STRONG": rsel_strong,
             },
         }
         _append_jsonl(checkpoint_path, row)
@@ -876,7 +884,7 @@ def execute_partition(
     }
     manifest = {
         "schema_version": "rag-e6a-runtime-freeze-v1",
-        "method": "CAV-v1",
+        "method": "RSEL-v1",
         "partition": partition,
         "arms": list(ARM_ORDER),
         "episode_count": len(episodes),
@@ -925,10 +933,10 @@ def execute_partition(
             ),
             "actual_backend": server_manifest["backend"],
         },
-        "verification_outcomes": dict(sorted(Counter(
-            row["arms"][arm].get("verification_action", "NOT_APPLICABLE")
+        "rsel_outcomes": dict(sorted(Counter(
+            row["arms"][arm].get("rsel_action", "NOT_APPLICABLE")
             for row in ordered_rows
-            for arm in ("CAV_STANDARD", "CAV_STRONG")
+            for arm in ("RSEL_STANDARD", "RSEL_STRONG")
         ).items())),
         "retrieval": _retrieval_identity(),
         "upstream_lamer": upstream_identity,

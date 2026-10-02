@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[2]
 U2F_ROOT = ROOT / "runs/integration/u2f-owned-v1-55955b2eff38"
 SPLIT_MANIFEST = ROOT / "runs/rag_e6/split_manifest.json"
 CORPUS_ROOT = ROOT / "runs/rag_e6/corpus"
-BUILD_ROOT = ROOT / "runs/rag_e6/build_cav_v1"
+BUILD_ROOT = ROOT / "runs/rag_e6/build_rsel_v1"
 REPORT_JSON = BUILD_ROOT / "build_score_report.json"
 SCORED_ROWS = BUILD_ROOT / "build_scored_episodes.jsonl"
 PARTITION_EPISODE_COUNTS = {"BUILD": 818, "FROZEN_DEV": 1628}
@@ -37,9 +37,9 @@ BOOTSTRAP_SEED = 20260930
 VALUE_TOKEN = re.compile(r"SYNVAL-[0-9A-F]{10}")
 NUMBER_TOKEN = re.compile(r"(?<![\w.-])-?\d+(?![\w.])")
 ALIAS_TOKEN = re.compile(r"\[E\d+\]")
-FLOW_ARMS = ("VANILLA_STRONG", "CAV_STRONG")
+FLOW_ARMS = ("VANILLA_STRONG", "RSEL_STRONG")
 PRIMARY_CLASS = "RAG"
-STRONG_RETRIEVAL_ARMS = frozenset({"VANILLA_STRONG", "CAV_STRONG"})
+STRONG_RETRIEVAL_ARMS = frozenset({"VANILLA_STRONG", "RSEL_STRONG"})
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -141,7 +141,7 @@ def _verify_execution_freeze(
         lock_sha256 = sha256_file(protocol_lock_path)
         if (
             protocol_lock.get("schema_version") != "rag-e6a-protocol-lock-v1"
-            or protocol_lock.get("selected_method") != "CAV-v1"
+            or protocol_lock.get("selected_method") != "RSEL-v1"
             or run_context.get("schema_version") != "rag-e6a-frozen-dev-run-context-v1"
             or protocol_lock.get("method_code_commit")
             != run_context.get("method_code_commit")
@@ -225,13 +225,13 @@ def _verify_execution_freeze(
                 if record is None or hashlib.sha256(canonical_json_bytes(record)).hexdigest() != expected_hash:
                     raise ValueError("reader output references a different generation-call record")
         for vanilla_name, candidate_name in (
-            ("VANILLA_STANDARD", "CAV_STANDARD"),
-            ("VANILLA_STRONG", "CAV_STRONG"),
+            ("VANILLA_STANDARD", "RSEL_STANDARD"),
+            ("VANILLA_STRONG", "RSEL_STRONG"),
         ):
             vanilla, candidate = output["arms"][vanilla_name], output["arms"][candidate_name]
             for field in ("ranked_evidence_ids", "candidate_union_ids", "channel_ids", "evidence_identity_sha256"):
                 if vanilla.get(field) != candidate.get(field):
-                    raise ValueError(f"Vanilla and CAV evidence mismatch for {field}")
+                    raise ValueError(f"Vanilla and RSEL evidence mismatch for {field}")
         for arm in output["arms"].values():
             if not set(arm.get("used_evidence_ids", ())).issubset(
                 set(arm.get("ranked_evidence_ids", ()))
