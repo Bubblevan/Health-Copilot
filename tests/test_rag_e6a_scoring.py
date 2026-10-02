@@ -134,7 +134,7 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
             "reserved_test_ood_opened": False,
         },
         "primary_comparison": {
-            "candidate": "CFEC_STRONG",
+            "candidate": "CAV_STRONG",
             "baseline": "VANILLA_STRONG",
             "slice": "RAG",
             "grounded_task_success_delta": {"delta": 0.2, "ci95": [0.1, 0.3]},
@@ -149,8 +149,8 @@ def test_protocol_lock_requires_every_prespecified_build_gate() -> None:
         scored_rows_sha256="scores-sha",
         method_code_commit="abc123",
     )
-    assert lock["selected_method"] == "CFEC-v1.4"
-    assert lock["primary_arm"] == "CFEC_STRONG"
+    assert lock["selected_method"] == "CAV-v1"
+    assert lock["primary_arm"] == "CAV_STRONG"
     assert lock["frozen_dev_truth_opened"] is False
 
     build_manifest["generator"]["generation_calls_truncated"] = 1
@@ -283,9 +283,9 @@ def test_invalid_lamer_bridge_fails_only_strong_retrieval_arms() -> None:
         "truncated": True,
     }
     assert _retrieval_contract_failed("VANILLA_STRONG", invalid_bridge)
-    assert _retrieval_contract_failed("CFEC_STRONG", invalid_bridge)
+    assert _retrieval_contract_failed("CAV_STRONG", invalid_bridge)
     assert not _retrieval_contract_failed("VANILLA_STANDARD", invalid_bridge)
-    assert not _retrieval_contract_failed("CFEC_STANDARD", invalid_bridge)
+    assert not _retrieval_contract_failed("CAV_STANDARD", invalid_bridge)
 
 
 def test_subject_cluster_bootstrap_is_paired_and_reproducible() -> None:
@@ -296,15 +296,15 @@ def test_subject_cluster_bootstrap_is_paired_and_reproducible() -> None:
                 "subject_id": f"S-{subject_index}",
                 "arms": {
                     "VANILLA_STRONG": {"task_success": False},
-                    "CFEC_STRONG": {"task_success": bool(episode_index)},
+                    "CAV_STRONG": {"task_success": bool(episode_index)},
                 },
             })
     first = _paired_cluster_bootstrap(
-        rows, metric="task_success", arm_a="VANILLA_STRONG", arm_b="CFEC_STRONG",
+        rows, metric="task_success", arm_a="VANILLA_STRONG", arm_b="CAV_STRONG",
         resamples=200, seed=7,
     )
     second = _paired_cluster_bootstrap(
-        rows, metric="task_success", arm_a="VANILLA_STRONG", arm_b="CFEC_STRONG",
+        rows, metric="task_success", arm_a="VANILLA_STRONG", arm_b="CAV_STRONG",
         resamples=200, seed=7,
     )
     assert first == second

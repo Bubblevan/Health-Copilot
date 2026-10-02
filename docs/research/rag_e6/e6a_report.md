@@ -2,6 +2,11 @@
 
 ## Executive result
 
+Current program state: CFEC-v1.4 was rejected on BUILD. CAV-v1 is a separate,
+preregistered verifier treatment with a fixed gold-blind preflight; no CAV
+quality score or promotion decision exists until its BUILD experiment is
+completed and scored. See [`e6a_cav_protocol.md`](e6a_cav_protocol.md).
+
 The CFEC evidence-utilization hypothesis did not survive BUILD evaluation.
 CFEC-v1.4 is not resume evidence and was not promoted to FROZEN_DEV. On the
 predeclared 156-query RAG slice, its strong arm underperformed the matched
