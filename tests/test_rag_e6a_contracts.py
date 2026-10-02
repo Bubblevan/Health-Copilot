@@ -37,6 +37,7 @@ from eval.rag_e6.reader_executor import (
     _run_cav,
     _verify_inherited_u3r_runtime_source,
 )
+from eval.rag_e6.rsel import relation_ledger, rsel_output_row
 from eval.rag_e6.split import assign_subjects, build_split_manifest
 
 
@@ -316,6 +317,83 @@ def test_cav_unknown_alias_falls_back_to_unchanged_vanilla_answer() -> None:
     assert result["generation_call_ids"] == [
         baseline_call_id, "EP-1|CAV_STRONG|verify"
     ]
+
+
+def test_rsel_ledgers_only_query_key_relations_and_binds_source_aliases() -> None:
+    evidence = issue_evidence_aliases([
+        {
+            "doc_id": "doc-a",
+            "text": "Synthetic guideline record maps SYNKEY-A1B2C3D4 to SYNVAL-0123456789.",
+        },
+        {
+            "doc_id": "doc-b",
+            "text": "Synthetic literature record maps SYNKEY-A1B2C3D4 to SYNVAL-ABCDEF0123.",
+        },
+        {
+            "doc_id": "doc-c",
+            "text": "Synthetic record maps SYNKEY-FFFFFFFF to SYNVAL-FFFFFFFFFF.",
+        },
+    ])
+    ledger = relation_ledger("Return all values for SYNKEY-A1B2C3D4.", evidence)
+    assert [(item["key"], item["value"], item["document_id"]) for item in ledger] == [
+        ("SYNKEY-A1B2C3D4", "SYNVAL-0123456789", "doc-a"),
+        ("SYNKEY-A1B2C3D4", "SYNVAL-ABCDEF0123", "doc-b"),
+    ]
+    baseline = {
+        "arm": "VANILLA_STRONG",
+        "answer": "wrong [E1]",
+        "answer_sha256": "baseline-sha",
+        "cited_aliases": ["[E1]"],
+        "used_evidence_ids": ["doc-a"],
+        "unknown_aliases": [],
+        "output_contract_failure": False,
+        "ranked_evidence_ids": ["doc-a", "doc-b", "doc-c"],
+        "evidence_identity_sha256": evidence_identity_sha256(evidence),
+        "generation_call_ids": ["baseline-call"],
+        "generation_call_records_sha256": ["baseline-record-sha"],
+    }
+    row = rsel_output_row(
+        arm="RSEL_STRONG",
+        question="Return all values for SYNKEY-A1B2C3D4.",
+        evidence=evidence,
+        baseline_row=baseline,
+    )
+    assert row["answer"] == "SYNVAL-0123456789 SYNVAL-ABCDEF0123 [E1] [E2]"
+    assert row["used_evidence_ids"] == ["doc-a", "doc-b"]
+    assert row["cited_aliases"] == ["[E1]", "[E2]"]
+    assert row["generation_call_ids"] == ["baseline-call"]
+    assert row["output_contract_failure"] is False
+    assert row["rsel_action"] == "STRUCTURED_RELATION_LEDGER"
+
+
+def test_rsel_no_match_preserves_vanilla_answer_and_provenance() -> None:
+    evidence = issue_evidence_aliases([
+        {"doc_id": "doc-a", "text": "No explicit structured relation here."}
+    ])
+    baseline = {
+        "arm": "VANILLA_STANDARD",
+        "answer": "Vanilla answer [E1]",
+        "answer_sha256": "baseline-sha",
+        "cited_aliases": ["[E1]"],
+        "used_evidence_ids": ["doc-a"],
+        "unknown_aliases": [],
+        "output_contract_failure": False,
+        "ranked_evidence_ids": ["doc-a"],
+        "evidence_identity_sha256": evidence_identity_sha256(evidence),
+        "generation_call_ids": ["baseline-call"],
+        "generation_call_records_sha256": ["baseline-record-sha"],
+    }
+    row = rsel_output_row(
+        arm="RSEL_STANDARD",
+        question="Answer this prose question.",
+        evidence=evidence,
+        baseline_row=baseline,
+    )
+    assert row["answer"] == baseline["answer"]
+    assert row["cited_aliases"] == baseline["cited_aliases"]
+    assert row["used_evidence_ids"] == baseline["used_evidence_ids"]
+    assert row["generation_call_ids"] == baseline["generation_call_ids"]
+    assert row["rsel_action"] == "FALLBACK_NO_MATCH"
 
 
 def test_no_requirements_or_invalid_claims_fail_closed_without_new_ids() -> None:
