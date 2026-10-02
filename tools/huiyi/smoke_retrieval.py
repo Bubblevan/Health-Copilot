@@ -95,6 +95,7 @@ def main() -> int:
     by_retriever: dict[str, list[dict[str, Any]]] = {"bm25": [], "dense": [], "hybrid": []}
     for row in queries:
         expected = list(row["expected_source_ids"])
+        hybrid_start = time.perf_counter()
         start = time.perf_counter()
         lexical = bm25.search(row["query"], args.candidate_k)
         bm25_latencies.append((time.perf_counter() - start) * 1000)
@@ -104,7 +105,6 @@ def main() -> int:
         dense = store.search(query_vector, top_k=args.candidate_k)
         dense_latencies.append((time.perf_counter() - start) * 1000)
 
-        start = time.perf_counter()
         hybrid_rows = hybrid_search(
             row["query"],
             lambda _query, k, hits=lexical: hits[:k],
@@ -112,7 +112,7 @@ def main() -> int:
             top_k=args.top_k,
             candidate_k=args.candidate_k,
         )
-        hybrid_latencies.append((time.perf_counter() - start) * 1000)
+        hybrid_latencies.append((time.perf_counter() - hybrid_start) * 1000)
 
         for name, hits, latencies in (
             ("bm25", lexical[:args.top_k], bm25_latencies),
