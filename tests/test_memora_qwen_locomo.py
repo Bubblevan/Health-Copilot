@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import importlib.util
+import logging
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from types import SimpleNamespace
 
 
 SCRIPT = Path(__file__).parents[1] / "tools" / "research" / "memory" / "run_memora_qwen_locomo.py"
@@ -94,3 +96,43 @@ def test_local_judge_rejects_ambiguous_or_missing_suffix():
         except RuntimeError:
             continue
         raise AssertionError(f"Ambiguous judge output should not be scored: {output!r}")
+
+
+def test_each_locomo_conversation_gets_an_isolated_chroma_directory(tmp_path):
+    from omegaconf import OmegaConf
+
+    cfg = OmegaConf.create({
+        "general": {"memory_store_path": "old"},
+        "memory": {"persist_path": "old"},
+    })
+    first = MODULE._conversation_config(cfg, tmp_path, 0)
+    second = MODULE._conversation_config(cfg, tmp_path, 1)
+    assert first.memory.persist_path != second.memory.persist_path
+    assert first.general.memory_store_path == first.memory.persist_path
+    assert second.general.memory_store_path == second.memory.persist_path
+    assert cfg.memory.persist_path == "old"
+
+
+def test_each_strategy_conversation_pair_gets_an_isolated_upstream_trace_file(tmp_path):
+    semantic_first = MODULE._conversation_output_path(tmp_path, "semantic", 0)
+    semantic_second = MODULE._conversation_output_path(tmp_path, "semantic", 1)
+    prompt_first = MODULE._conversation_output_path(tmp_path, "prompt", 0)
+    assert len({semantic_first, semantic_second, prompt_first}) == 3
+
+
+def test_chroma_query_failures_are_audited_and_terminal_failures_are_counted(tmp_path):
+    logger = logging.getLogger("memora.core.local_memory_store")
+    context = SimpleNamespace(question_id="q-1", system="Memora-semantic", role="memory_reasoning")
+    event_path = MODULE._install_storage_event_handler(tmp_path, "identity-1", lambda: context)
+    try:
+        logger.warning("Query attempt 1/3 failed, retrying in 0.1s: transient")
+        logger.error("Query failed after 3 attempts: terminal")
+        rows = MODULE._read_jsonl(event_path)
+        assert [row["event_type"] for row in rows] == ["query_retry", "query_terminal_failure"]
+        assert all(row["question_id"] == "q-1" for row in rows)
+        assert all(row["run_identity"] == "identity-1" for row in rows)
+    finally:
+        for handler in list(logger.handlers):
+            if getattr(handler, "_healthcopilot_storage_event_path", None) == str(event_path):
+                logger.removeHandler(handler)
+                handler.close()

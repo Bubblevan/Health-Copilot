@@ -11,6 +11,7 @@ import concurrent.futures
 import hashlib
 import ipaddress
 import json
+import logging
 import os
 import re
 import socket
@@ -34,7 +35,7 @@ LOCOMO_ROOT = EXTERNAL_MEMORY / "LoCoMo"
 MEMEVAL_ROOT = EXTERNAL_MEMORY / "MemEval"
 DATASET_PATH = LOCOMO_ROOT / "data" / "locomo10.json"
 MEMENTAL_PATCH = ROOT / "tools" / "research" / "memory" / "patches" / "memeval_qwen_main_v1.patch"
-RUN_ROOT = ROOT / "runs" / "memory" / "memora-locomo-qwen-v4-parallel"
+RUN_ROOT = ROOT / "runs" / "memory" / "memora-locomo-qwen-v7-isolated-output"
 REPORT_PATH = ROOT / "docs" / "research" / "memory" / "memora_qwen_locomo_results.md"
 
 EXPECTED_MEMORA_COMMIT = "dec3f8f2444eace7004fc084abe1be9f3d88270e"
@@ -97,6 +98,42 @@ def _append_jsonl(path: Path, value: Any) -> None:
             stream.write(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
             stream.flush()
             os.fsync(stream.fileno())
+
+
+def _install_storage_event_handler(run_root: Path, identity: str, current_call_context: Any) -> Path:
+    logger = logging.getLogger("memora.core.local_memory_store")
+    event_path = run_root / "storage_events.jsonl"
+    for handler in list(logger.handlers):
+        if getattr(handler, "_healthcopilot_storage_event_path", None) == str(event_path):
+            logger.removeHandler(handler)
+            handler.close()
+
+    class StorageEventHandler(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            message = record.getMessage()
+            if message.startswith("Query attempt "):
+                event_type = "query_retry"
+            elif message.startswith("Query failed after "):
+                event_type = "query_terminal_failure"
+            else:
+                return
+            context = current_call_context()
+            _append_jsonl(event_path, {
+                "run_identity": identity,
+                "event_type": event_type,
+                "timestamp_utc": datetime.now(UTC).isoformat(),
+                "question_id": context.question_id,
+                "system": context.system,
+                "role": context.role,
+                "logger": record.name,
+                "level": record.levelname,
+                "message": message[:1000],
+            })
+
+    handler = StorageEventHandler(level=logging.WARNING)
+    handler._healthcopilot_storage_event_path = str(event_path)
+    logger.addHandler(handler)
+    return event_path
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -348,6 +385,8 @@ def _prepare_manifests(identity: dict[str, Any], dataset: list[dict[str, Any]], 
             "combined_user": True,
             "prompted_policy_max_steps": 4,
             "workers": WORKERS,
+            "storage_partition": "one embedded Chroma directory per independent LoCoMo conversation",
+            "retrieval_trace_partition": "one upstream search output JSON per strategy and conversation",
             "grpo": "not trained or evaluated",
         },
         "scoring": {
@@ -402,7 +441,7 @@ def _install_utils_shim(dataset_path: Path) -> None:
     sys.modules["utils"] = module
 
 
-def _install_local_adapters(provider: Any, config: Any) -> dict[str, Any]:
+def _install_local_adapters(provider: Any, config: Any, run_root: Path, identity: str) -> dict[str, Any]:
     sys.path.insert(0, str(MEMORA_ROOT / "src"))
     sys.path.insert(0, str(MEMORA_ROOT / "app" / "locomo"))
     _install_utils_shim(DATASET_PATH)
@@ -416,6 +455,7 @@ def _install_local_adapters(provider: Any, config: Any) -> dict[str, Any]:
 
     from agents_memory.healthcopilot_embedding import get_local_embedding_runtime
     from agents_memory.healthcopilot_provider import call_context, current_call_context, reader_client, record_call
+    storage_events_path = _install_storage_event_handler(run_root, identity, current_call_context)
 
     def client_factory(cfg):
         context = current_call_context()
@@ -537,6 +577,7 @@ def _install_local_adapters(provider: Any, config: Any) -> dict[str, Any]:
         "ACCURACY_PROMPT": ACCURACY_PROMPT,
         "extract_json": extract_json,
         "count_reader_tokens": local_reader_token_count,
+        "storage_events_path": storage_events_path,
     }
 
 
@@ -576,6 +617,24 @@ def _config(run_root: Path, strategy: str):
     cfg.retrieval.prompted_policy.max_steps = 4
     cfg.retrieval.enable_llm_filter = False
     return cfg
+
+
+def _conversation_store_path(run_root: Path, conversation_index: int) -> Path:
+    return run_root / "memory_store" / f"conversation-{conversation_index:02d}"
+
+
+def _conversation_output_path(run_root: Path, strategy: str, conversation_index: int) -> Path:
+    return run_root / "outputs" / f"official-{strategy}-conversation-{conversation_index:02d}-output.json"
+
+
+def _conversation_config(cfg: Any, run_root: Path, conversation_index: int):
+    from omegaconf import OmegaConf
+
+    scoped = OmegaConf.create(OmegaConf.to_container(cfg, resolve=True))
+    store_path = str(_conversation_store_path(run_root, conversation_index))
+    scoped.general.memory_store_path = store_path
+    scoped.memory.persist_path = store_path
+    return scoped
 
 
 def _existing_rows(path: Path, expected_ids: set[str], run_identity: str) -> dict[str, dict[str, Any]]:
@@ -709,7 +768,7 @@ def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str,
         if checkpoint.get("run_identity") != identity:
             raise RuntimeError(f"Conversation checkpoint identity mismatch: {idx}")
     def process_conversation(idx: int, item: dict[str, Any]) -> dict[str, Any]:
-        manager = helpers["MemoraADD"](cfg)
+        manager = helpers["MemoraADD"](_conversation_config(cfg, run_root, idx))
         segmenter_method = manager.segmenter._segment_with_llm
 
         def tracked_segmenter(messages):
@@ -734,6 +793,7 @@ def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str,
             "conversation_index": idx,
             "wall_time_ms": round(elapsed_ms, 3),
             "memory_count": client.count(),
+            "memory_store_path": str(_conversation_store_path(run_root, idx)),
             "segments": len(build_log),
             "segmenter_fallback_count": manager.segmenter._hc_fallback_count,
             "build_log": build_log,
@@ -781,40 +841,36 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
     expected = {row["question_id"] for row in questions}
     predictions = _existing_rows(predictions_path, expected, identity)
     judgments = _existing_rows(judgments_path, expected, identity)
-    searcher_local = threading.local()
-
-    def get_searcher():
-        searcher = getattr(searcher_local, "searcher", None)
-        if searcher is None:
-            searcher = helpers["MemoraSearch"](
-                cfg,
-                output_path=str(run_root / "outputs" / f"official-{strategy}-output.json"),
-                top_k=30,
-                retrieval_strategy=strategy,
-            )
-            original_search_memory = searcher.search_memory
-
-            def search_with_memory_role(user_id, query, *args, **kwargs):
-                active = helpers["current_call_context"]()
-                with helpers["call_context"](f"Memora-{strategy}", active.question_id, "memory_reasoning"):
-                    return original_search_memory(user_id, query, *args, **kwargs)
-
-            searcher.search_memory = search_with_memory_role
-            searcher_local.searcher = searcher
-        return searcher
-
     items_by_sample = {str(item["sample_id"]): item for item in dataset}
     indices_by_sample = {str(item["sample_id"]): index for index, item in enumerate(dataset)}
     totals = {"generated": len(predictions), "judged": len(judgments), "infra_failures": 0}
     state_lock = threading.Lock()
 
-    def process_question(row: dict[str, Any]) -> None:
+    def create_searcher(sample_id: str):
+        index = indices_by_sample[sample_id]
+        scoped_cfg = _conversation_config(cfg, run_root, index)
+        searcher = helpers["MemoraSearch"](
+            scoped_cfg,
+            output_path=str(_conversation_output_path(run_root, strategy, index)),
+            top_k=30,
+            retrieval_strategy=strategy,
+        )
+        original_search_memory = searcher.search_memory
+
+        def search_with_memory_role(user_id, query, *args, **kwargs):
+            active = helpers["current_call_context"]()
+            with helpers["call_context"](f"Memora-{strategy}", active.question_id, "memory_reasoning"):
+                return original_search_memory(user_id, query, *args, **kwargs)
+
+        searcher.search_memory = search_with_memory_role
+        return searcher
+
+    def process_question(row: dict[str, Any], searcher: Any) -> None:
         qid = row["question_id"]
         sample_id = row["sample_id"]
         item = items_by_sample[sample_id]
         qa = item["qa"][row["qa_index"]]
         category = int(qa.get("category", -1))
-        searcher = get_searcher()
         with state_lock:
             prediction = predictions.get(qid)
         if prediction is None:
@@ -888,15 +944,24 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
                 judgments[qid] = judge_row
                 totals["judged"] += 1
 
-    worker_count = min(WORKERS, len(questions))
+    questions_by_sample: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in questions:
+        questions_by_sample[row["sample_id"]].append(row)
+    worker_count = min(WORKERS, len(questions_by_sample))
     completed = 0
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(worker_count, 1)) as executor:
-        futures = [executor.submit(process_question, row) for row in questions]
+        futures = []
+        for sample_id, rows in questions_by_sample.items():
+            def process_conversation_questions(sample_id=sample_id, rows=rows):
+                searcher = create_searcher(sample_id)
+                for row in rows:
+                    process_question(row, searcher)
+                return len(rows)
+
+            futures.append(executor.submit(process_conversation_questions))
         for future in concurrent.futures.as_completed(futures):
-            future.result()
-            completed += 1
-            if completed % 25 == 0 or completed == len(questions):
-                print(f"[{strategy} {completed}/{len(questions)}] answers={len(predictions)} judges={len(judgments)} (workers={worker_count})")
+            completed += future.result()
+            print(f"[{strategy} {completed}/{len(questions)}] answers={len(predictions)} judges={len(judgments)} (conversation-workers={worker_count})")
     return {
         "strategy": strategy,
         "predictions": len(predictions),
@@ -961,6 +1026,13 @@ def _summarize(
     predictions_by_strategy = {}
     call_ledger = _read_jsonl(run_root / "call_ledger.jsonl")
     unresolved_failures = []
+    storage_events = _read_jsonl(run_root / "storage_events.jsonl")
+    terminal_storage_failures = [
+        event for event in storage_events
+        if event.get("event_type") == "query_terminal_failure"
+    ]
+    for event in terminal_storage_failures:
+        unresolved_failures.append({"stage": "memory_store_query", **event})
     shared_ingestion_usage = {}
     ingestion_calls = [row for row in call_ledger if str(row.get("question_id", "")).startswith("ingest:")]
     for role in ("memory_ingest", "embedding"):
@@ -1049,6 +1121,12 @@ def _summarize(
         "question_count": len(questions),
         "expected_local_judgments": expected_judgments,
         "unresolved_infrastructure_failures": unresolved_failures,
+        "storage_diagnostics": {
+            "event_count": len(storage_events),
+            "query_retry_count": sum(event.get("event_type") == "query_retry" for event in storage_events),
+            "terminal_failure_count": len(terminal_storage_failures),
+            "events_path": str(run_root / "storage_events.jsonl"),
+        },
         "shared_ingestion_model_usage": shared_ingestion_usage,
         "strategies": strategy_results,
         "prompt_minus_semantic_official_f1": paired,
@@ -1121,16 +1199,22 @@ def _write_markdown_report(result: dict[str, Any], run_root: Path) -> None:
             lines.append(
                 f"| {strategy} | {role} | {usage['calls']} | {usage['prompt_tokens']} / {usage['prompt_token_calls_known']} calls | {usage['completion_tokens']} / {usage['completion_token_calls_known']} calls | {_fmt(usage['latency_seconds'])} |"
             )
+    storage = result.get("storage_diagnostics", {})
     lines.extend([
+        "",
+        "## Storage Diagnostics",
+        "",
+        f"Captured Chroma query retries: `{storage.get('query_retry_count', 0)}`; terminal query failures: `{storage.get('terminal_failure_count', 0)}`. Terminal failures prevent a complete status. Raw events: `{storage.get('events_path', 'not recorded')}`.",
         "",
         "## Protocol Notes",
         "",
         "- Reader, memory-internal LLM, and judge: the same frozen Qwen3-8B Q4_K_M through the loopback llama.cpp service.",
         "- Embedding: frozen Qwen3-Embedding-0.6B, local CUDA FP16, 1024 dimensions, normalized vectors.",
-        "- Memory method: Memora's LLM segmentation, primary abstraction plus specific memory values, cue anchors, episodic links, update decisions, local Chroma storage, BM25 hybrid retrieval, and the official semantic/prompted-policy retrieval paths.",
+        "- Memory method: Memora's LLM segmentation, primary abstraction plus specific memory values, cue anchors, episodic links, update decisions, per-conversation local Chroma storage, BM25 hybrid retrieval, and the official semantic/prompted-policy retrieval paths.",
         "- No hosted model or embedding APIs; no API keys; no GRPO training. Category 5 is omitted only from the Memora-style judge accuracy, matching its official LoCoMo evaluation code; deterministic metrics include it.",
         "- Memory-context token counts use the pinned Qwen reader's local llama.cpp tokenizer on formatted memory lines joined by newlines; they are not full reader-prompt token counts. Model prompt/completion token totals are reported from the local server only when it supplies usage fields.",
         "- Predictions, judge rows, call ledger, and persisted memories are resumable local artifacts under the run directory.",
+        "- Conversations have disjoint users and no cross-conversation retrieval, so Chroma persistence is partitioned by conversation and upstream trace JSON by strategy/conversation; QA within each conversation is sequential while conversations run concurrently.",
         "- The paper's published GPT-based results are external historical coordinates, not a directly comparable baseline for this Qwen run.",
         "",
         f"Run artifacts: `{run_root}`",
@@ -1177,6 +1261,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             keep = {"speaker_a", "speaker_b", "session_1", "session_1_date_time"}
             item["conversation"] = {key: value for key, value in conversation.items() if key in keep}
         run_root = RUN_ROOT / "parallel-smoke-v3"
+    elif args.phase == "store-stress-smoke":
+        dataset = json.loads(json.dumps(dataset[:4]))
+        for item in dataset:
+            item["qa"] = item["qa"][:2]
+            conversation = item["conversation"]
+            keep = {"speaker_a", "speaker_b"}
+            for session_index in range(1, 4):
+                session_key = f"session_{session_index}"
+                if session_key in conversation:
+                    keep.add(session_key)
+                    keep.add(f"{session_key}_date_time")
+            item["conversation"] = {key: value for key, value in conversation.items() if key in keep}
+        run_root = RUN_ROOT / "store-stress-smoke"
     else:
         run_root = RUN_ROOT
     base_identity = {
@@ -1198,7 +1295,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         from agents_memory.healthcopilot_provider import ProviderConfig, configure_call_ledger, initialize_local_embedding
         config = ProviderConfig.from_env()
         configure_call_ledger(run_root / "call_ledger.jsonl")
-        helpers = _install_local_adapters(sys.modules["agents_memory.healthcopilot_provider"], config)
+        helpers = _install_local_adapters(
+            sys.modules["agents_memory.healthcopilot_provider"], config, run_root, run_identity
+        )
         _install_outbound_network_guard()
         embedding_runtime = initialize_local_embedding(config)
         if embedding_runtime.artifact.revision != EMBEDDING_REVISION or embedding_runtime.artifact.weights_sha256 != EMBEDDING_WEIGHTS_SHA256:
@@ -1207,6 +1306,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "reader": reader,
             "server_context_tokens": 131072,
             "context_tokens_per_sequence": 131072 // WORKERS,
+            "memory_store_layout": "one isolated local Chroma directory per LoCoMo conversation",
+            "retrieval_trace_layout": "one upstream output JSON per strategy and conversation",
+            "qa_scheduling": "sequential within conversation, concurrent across conversations",
             "embedding": {
                 "repo": embedding_runtime.artifact.repo,
                 "revision": embedding_runtime.artifact.revision,
@@ -1236,7 +1338,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         }
         _write_json(run_root / "runtime_manifest.json", runtime_info)
         cfg = _config(run_root, "semantic")
-        if args.phase in {"smoke", "parallel-smoke", "full"}:
+        if args.phase in {"smoke", "parallel-smoke", "store-stress-smoke", "full"}:
             ingestion = _run_ingestion(dataset, run_root, run_identity, cfg, helpers)
             questions = _question_rows(dataset)
             strategies = args.strategies
@@ -1267,7 +1369,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--phase", choices=("smoke", "parallel-smoke", "full"), default="full")
+    parser.add_argument("--phase", choices=("smoke", "parallel-smoke", "store-stress-smoke", "full"), default="full")
     parser.add_argument("--strategies", nargs="+", choices=("semantic", "prompt"), default=["semantic", "prompt"])
     return parser.parse_args()
 
