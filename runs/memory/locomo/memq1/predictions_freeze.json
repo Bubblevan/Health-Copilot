@@ -1,0 +1,20 @@
+{
+  "ingestion_root_sha256": "8c355eba569dc416f0bb4a7cc50279350e22b6b9d878ecd0191329c0b2b4ab07",
+  "n": 1986,
+  "predictions": {
+    "propmem": {
+      "n": 1986,
+      "path": "propmem_predictions.jsonl",
+      "retrieval_signature_set_sha256": "ecf923e92cc1fdb79efa9cb7ce65b8f4903f8d330606b130d4c3a980a92873a7",
+      "sha256": "a759491abdd844d29a3478e054f6f4f96529a5492d600843223e459834e12e65"
+    },
+    "propmem_tvr": {
+      "n": 1986,
+      "path": "propmem_tvr_predictions.jsonl",
+      "retrieval_signature_set_sha256": "ecf923e92cc1fdb79efa9cb7ce65b8f4903f8d330606b130d4c3a980a92873a7",
+      "sha256": "f71e6f86c372c4eda911779373c21a67ae97312349afdc9aea971d85182af1ca"
+    }
+  },
+  "question_manifest_sha256": "38546c06108cfea3fb65cb6bab1edce090b41f9f30d6616d500bd9d8a8923a2c",
+  "status": "FROZEN_BEFORE_SCORING"
+}

@@ -1,0 +1,324 @@
+{
+  "benchmark": "LoCoMo",
+  "bootstrap": {
+    "categories": {
+      "Adversarial": {
+        "ci95": [
+          -0.008968609865470852,
+          0.02466367713004484
+        ],
+        "mean_delta": 0.006726457399103139,
+        "paired": true,
+        "replicates": 10000,
+        "seed": 42,
+        "stratified_by": "LoCoMo category"
+      },
+      "Factual": {
+        "ci95": [
+          -0.017054636738793007,
+          0.013108359607331062
+        ],
+        "mean_delta": -0.002469195269038645,
+        "paired": true,
+        "replicates": 10000,
+        "seed": 42,
+        "stratified_by": "LoCoMo category"
+      },
+      "Inferential": {
+        "ci95": [
+          -0.0319988760026318,
+          0.001394382343221598
+        ],
+        "mean_delta": -0.01399875323686806,
+        "paired": true,
+        "replicates": 10000,
+        "seed": 42,
+        "stratified_by": "LoCoMo category"
+      },
+      "Multi-hop": {
+        "ci95": [
+          -0.019593667066172087,
+          0.0051975624459900775
+        ],
+        "mean_delta": -0.007090239971855108,
+        "paired": true,
+        "replicates": 10000,
+        "seed": 42,
+        "stratified_by": "LoCoMo category"
+      },
+      "Temporal": {
+        "ci95": [
+          -0.019630568332291206,
+          0.01895507686384478
+        ],
+        "mean_delta": -3.318004088921715e-05,
+        "paired": true,
+        "replicates": 10000,
+        "seed": 42,
+        "stratified_by": "LoCoMo category"
+      }
+    },
+    "overall": {
+      "ci95": [
+        -0.009864899871936107,
+        0.004853519401627318
+      ],
+      "mean_delta": -0.002524539771431931,
+      "paired": true,
+      "replicates": 10000,
+      "seed": 42,
+      "stratified_by": "LoCoMo category"
+    },
+    "temporal": {
+      "ci95": [
+        -0.019630568332291206,
+        0.01895507686384478
+      ],
+      "mean_delta": -3.318004088921715e-05,
+      "paired": true,
+      "replicates": 10000,
+      "seed": 42,
+      "stratified_by": "LoCoMo category"
+    }
+  },
+  "efficiency": {
+    "calls_by_role": {
+      "embedding": 3080,
+      "memory_ingest": 272,
+      "reader_answer": 3972
+    },
+    "hosted_calls": 0,
+    "ingestion_embedding_calls": 1106,
+    "ingestion_wall_seconds": 13896.167,
+    "ingestion_writer_llm_calls": 272,
+    "ingestion_writer_tokens": 523245,
+    "local_embedding_calls_total": 3080,
+    "local_llm_calls": 4244,
+    "num_chunks": 889,
+    "num_propositions": 7884,
+    "permanent_infra_failures": 0,
+    "propmem": {
+      "mean_completion_tokens": 78.85850956696878,
+      "mean_reader_latency_ms": 8617.669205941591,
+      "mean_reader_prompt_tokens": 2993.5684793554883,
+      "mean_resolver_latency_ms": 0.0,
+      "mean_retrieval_latency_ms": 350.886336858006,
+      "median_reader_prompt_tokens": 2990.0,
+      "n": 1986,
+      "p95_reader_latency_ms": 15846.806,
+      "p95_reader_prompt_tokens": 3194.0,
+      "p95_retrieval_latency_ms": 526.639
+    },
+    "propmem_tvr": {
+      "mean_completion_tokens": 78.49949647532729,
+      "mean_reader_latency_ms": 7141.589480362538,
+      "mean_reader_prompt_tokens": 3000.5785498489427,
+      "mean_resolver_latency_ms": 0.4749889224572004,
+      "mean_retrieval_latency_ms": 350.886336858006,
+      "median_reader_prompt_tokens": 2995.0,
+      "n": 1986,
+      "p95_reader_latency_ms": 14333.148,
+      "p95_reader_prompt_tokens": 3216.0,
+      "p95_retrieval_latency_ms": 526.639
+    },
+    "qa_wall_seconds": 32039.573,
+    "reader_context_reduction_vs_fullcontext": {
+      "propmem": 0.8475931893072031,
+      "propmem_tvr": 0.8472362966909136
+    },
+    "retry_count": 0,
+    "store_bytes": 42246506,
+    "transient_infra_failure_events": 0,
+    "tvr_resolver_mean_ms": 0.4749889224572004
+  },
+  "fullcontext": {
+    "answerable_only_normalized_em": 0.1855,
+    "answerable_only_normalized_em_denominator": 1542,
+    "answerable_only_normalized_em_numerator": 286,
+    "empty_gold_adversarial_refusal_accuracy": 0.4662,
+    "mean_reader_prompt_tokens": 19641.96,
+    "overall_token_f1": 0.44128651157614884,
+    "per_category_token_f1": {
+      "Adversarial": 0.4641256,
+      "Factual": 0.4088017,
+      "Inferential": 0.1157723,
+      "Multi-hop": 0.5228659,
+      "Temporal": 0.321709
+    },
+    "prediction_sha256": "cf40f1fdf2deda465003df6fb44d5c04b7c736eb3276e1ef94a43afe5f4ec794",
+    "source": "frozen local Qwen FullContext control; not rerun in MEM-Q1"
+  },
+  "integrity": {
+    "baseline_predictions_sha256": "a759491abdd844d29a3478e054f6f4f96529a5492d600843223e459834e12e65",
+    "compatibility_patch_sha256": "c7e44015527a17d43cf9bbd2e2a6e50d007943ee2efaa244899d3b048fd80eab",
+    "dataset_sha256": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4",
+    "hosted_calls": 0,
+    "ingestion_cache_sha256": "8c355eba569dc416f0bb4a7cc50279350e22b6b9d878ecd0191329c0b2b4ab07",
+    "llama_8092_untouched": true,
+    "locomo_commit": "3eb6f2c585f5e1699204e3c3bdf7adc5c28cb376",
+    "memeval_commit": "807ae6d7d8a5b76f6fe964d5a581d96c036e2ac4",
+    "n_baseline": 1986,
+    "n_tvr": 1986,
+    "permanent_infra_failures": 0,
+    "predictions_frozen_before_scoring": true,
+    "question_id_sets_identical": true,
+    "question_manifest_sha256": "38546c06108cfea3fb65cb6bab1edce090b41f9f30d6616d500bd9d8a8923a2c",
+    "reader_model_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "reader_runtime": {
+      "binary_sha256": "3a8aea5f889c4b4c2ec41c98f4e1ed484bb7a40c4096883acb23d3cfe26b59fb",
+      "build": "571d0d540",
+      "command_line": "\"C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe\" -m E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf --host 127.0.0.1 --port 8081 --ctx-size 131072 --n-predict 8192 --rope-scaling yarn --rope-scale 4 --yarn-orig-ctx 32768 --override-kv qwen3.context_length=int:131072 --cache-type-k q4_0 --cache-type-v q4_0 --n-gpu-layers 99 --flash-attn on --parallel 1 --no-kv-offload ",
+      "endpoint": "http://127.0.0.1:8081/v1",
+      "executable": "C:\\Users\\bubblevan\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ggml.llamacpp_Microsoft.Winget.Source_8wekyb3d8bbwe\\llama-server.exe",
+      "kv_cache_location": "cpu",
+      "model_ids": [
+        "E:\\Health-Copilot-Models\\models\\qwen3-8b\\Qwen3-8B-Q4_K_M.gguf"
+      ],
+      "pid": 70748,
+      "slot_context_tokens": 131072,
+      "version": "10068"
+    },
+    "retrieval_signature_sets_identical": true,
+    "tvr_predictions_sha256": "f71e6f86c372c4eda911779373c21a67ae97312349afdc9aea971d85182af1ca"
+  },
+  "n": 1986,
+  "paired_delta": {
+    "categories": {
+      "Adversarial": 0.006726457399103139,
+      "Factual": -0.002469195269038645,
+      "Inferential": -0.01399875323686806,
+      "Multi-hop": -0.007090239971855108,
+      "Temporal": -3.318004088921715e-05
+    },
+    "overall_token_f1": -0.002524539771431931,
+    "temporal_token_f1": -3.318004088921715e-05
+  },
+  "propmem": {
+    "adversarial_refusal_accuracy": 0.9031531531531531,
+    "answerable_n": 1542,
+    "answerable_only_normalized_em": 0.07133592736705577,
+    "categories": {
+      "Adversarial": {
+        "adversarial_refusal_accuracy": 0.9031531531531531,
+        "answerable_n": 2,
+        "answerable_only_normalized_em": 0.0,
+        "empty_gold_n": 444,
+        "n": 446,
+        "normalized_em": 0.899103139013453,
+        "token_f1": 0.9147982062780269
+      },
+      "Factual": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 282,
+        "answerable_only_normalized_em": 0.0035460992907801418,
+        "empty_gold_n": 0,
+        "n": 282,
+        "normalized_em": 0.0035460992907801418,
+        "token_f1": 0.16712813958227316
+      },
+      "Inferential": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 96,
+        "answerable_only_normalized_em": 0.020833333333333332,
+        "empty_gold_n": 0,
+        "n": 96,
+        "normalized_em": 0.020833333333333332,
+        "token_f1": 0.09700507218110627
+      },
+      "Multi-hop": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 841,
+        "answerable_only_normalized_em": 0.11533888228299644,
+        "empty_gold_n": 0,
+        "n": 841,
+        "normalized_em": 0.11533888228299644,
+        "token_f1": 0.26917534283353317
+      },
+      "Temporal": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 321,
+        "answerable_only_normalized_em": 0.03115264797507788,
+        "empty_gold_n": 0,
+        "n": 321,
+        "normalized_em": 0.03115264797507788,
+        "token_f1": 0.2078873810323451
+      }
+    },
+    "empty_gold_n": 444,
+    "n": 1986,
+    "normalized_em": 0.25730110775427995,
+    "retrieval": {
+      "answer_session_mrr": 0.45235896056946107,
+      "answer_session_recall_at_10": 0.6763753402220777,
+      "answer_session_recall_at_5": 0.5336436479835569,
+      "n_with_gold_sessions": 1977
+    },
+    "token_f1": 0.3814455865689685
+  },
+  "propmem_tvr": {
+    "adversarial_refusal_accuracy": 0.9166666666666666,
+    "answerable_n": 1542,
+    "answerable_only_normalized_em": 0.07133592736705577,
+    "categories": {
+      "Adversarial": {
+        "adversarial_refusal_accuracy": 0.9166666666666666,
+        "answerable_n": 2,
+        "answerable_only_normalized_em": 0.0,
+        "empty_gold_n": 444,
+        "n": 446,
+        "normalized_em": 0.9125560538116592,
+        "token_f1": 0.92152466367713
+      },
+      "Factual": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 282,
+        "answerable_only_normalized_em": 0.010638297872340425,
+        "empty_gold_n": 0,
+        "n": 282,
+        "normalized_em": 0.010638297872340425,
+        "token_f1": 0.1646589443132345
+      },
+      "Inferential": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 96,
+        "answerable_only_normalized_em": 0.020833333333333332,
+        "empty_gold_n": 0,
+        "n": 96,
+        "normalized_em": 0.020833333333333332,
+        "token_f1": 0.08300631894423821
+      },
+      "Multi-hop": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 841,
+        "answerable_only_normalized_em": 0.11058263971462545,
+        "empty_gold_n": 0,
+        "n": 841,
+        "normalized_em": 0.11058263971462545,
+        "token_f1": 0.2620851028616781
+      },
+      "Temporal": {
+        "adversarial_refusal_accuracy": null,
+        "answerable_n": 321,
+        "answerable_only_normalized_em": 0.037383177570093455,
+        "empty_gold_n": 0,
+        "n": 321,
+        "normalized_em": 0.037383177570093455,
+        "token_f1": 0.20785420099145588
+      }
+    },
+    "empty_gold_n": 444,
+    "n": 1986,
+    "normalized_em": 0.26032225579053375,
+    "retrieval": {
+      "answer_session_mrr": 0.45235896056946107,
+      "answer_session_recall_at_10": 0.6763753402220777,
+      "answer_session_recall_at_5": 0.5336436479835569,
+      "n_with_gold_sessions": 1977
+    },
+    "token_f1": 0.3789210467975366
+  },
+  "resume_claim": {
+    "claim": "RESUME_METHOD_IMPROVEMENT_CLAIM=NO",
+    "eligibility": "NO"
+  }
+}
