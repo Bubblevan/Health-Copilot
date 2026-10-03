@@ -8,7 +8,7 @@
     "patient_education": 3,
     "perioperative_instruction": 2
   },
-  "documents_jsonl_sha256": "5b5ae92e3668cf9a68a563fd12cc39dbe6aa4475348828d0839f18326b7aef8e",
+  "documents_jsonl_sha256": "46dc13f5525d75f809bc250db54d82274f57e48a8f1af6b2814588dfc13d04ac",
   "exact_duplicate_count": 2,
   "freshness_classes": {
     "POTENTIALLY_STALE": 50,
@@ -16,7 +16,7 @@
     "STATIC_PROFILE": 14
   },
   "near_duplicate_flag_count": 0,
-  "normalizer_version": "huiyi-normalizer-v1",
+  "normalizer_version": "huiyi-normalizer-v0.1",
   "parser_failures": 3,
   "raw_manifest_sha256": "c3f776bc5a5b7666f508edb08b1c35588916610fa8b18e1e42f2196ba69c87b2",
   "raw_only_dynamic": 70,
@@ -26,6 +26,6 @@
     "AUTO_ACCEPTED_PUBLIC_INFO": 35,
     "NEEDS_HUMAN_REVIEW": 32
   },
-  "schema_version": "huiyi-knowledge-corpus-v0",
+  "schema_version": "huiyi-knowledge-corpus-v0.1",
   "source_catalog_sha256": "b6f38fe9b9ddf9419ac9b6902761d70594ace63d74eaec2d6132c11b513e6d05"
 }

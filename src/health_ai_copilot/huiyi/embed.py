@@ -13,6 +13,17 @@ MODEL_ID = "Qwen/Qwen3-Embedding-0.6B"
 DEFAULT_MODEL_ROOT = Path("E:/Health-Copilot-Models/models/Qwen3-Embedding-0.6B")
 EXPECTED_DIMENSION = 1024
 MAX_LENGTH = 8192
+INFERENCE_FILES = (
+    "1_Pooling/config.json",
+    "config.json",
+    "config_sentence_transformers.json",
+    "merges.txt",
+    "model.safetensors",
+    "modules.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json",
+)
 QUERY_INSTRUCTION = (
     "Given a Chinese patient or hospital-service query, retrieve relevant passages from an "
     "ophthalmology hospital knowledge base that answer the query."
@@ -25,16 +36,18 @@ class LocalModelUnavailable(RuntimeError):
 
 def _file_hashes(model_root: Path) -> dict[str, str]:
     result: dict[str, str] = {}
-    for path in sorted(model_root.rglob("*")):
-        if not path.is_file() or ".git" in path.parts:
-            continue
+    missing = [name for name in INFERENCE_FILES if not (model_root / name).is_file()]
+    if missing:
+        raise LocalModelUnavailable(
+            f"Qwen3 embedding model is missing inference-critical files: {', '.join(missing)}"
+        )
+    for name in INFERENCE_FILES:
+        path = model_root / name
         digest = hashlib.sha256()
         with path.open("rb") as handle:
             for block in iter(lambda: handle.read(8 * 1024 * 1024), b""):
                 digest.update(block)
-        result[path.relative_to(model_root).as_posix()] = digest.hexdigest()
-    if not result:
-        raise LocalModelUnavailable(f"Qwen3 embedding model has no local files at {model_root}")
+        result[name] = digest.hexdigest()
     return result
 
 
@@ -48,12 +61,7 @@ class Qwen3LocalEmbedder:
                 f"Qwen3 embedding model not found at {self.model_root}; "
                 f"download {MODEL_ID} into this directory before building the index."
             )
-        required = ("config.json", "modules.json", "model.safetensors", "tokenizer.json")
-        missing = [name for name in required if not (self.model_root / name).is_file()]
-        if missing:
-            raise LocalModelUnavailable(
-                f"Qwen3 embedding model at {self.model_root} is incomplete; missing: {', '.join(missing)}"
-            )
+        self.file_hashes = _file_hashes(self.model_root)
         # The explicit local path plus offline flags prevent Hub resolution or
         # hidden network fallback during load and inference.
         os.environ["HF_HUB_OFFLINE"] = "1"
@@ -83,7 +91,6 @@ class Qwen3LocalEmbedder:
             )
         self.device = str(self.model.device)
         self.dtype = str(next(self.model.parameters()).dtype).replace("torch.", "")
-        self.file_hashes = _file_hashes(self.model_root)
         self.weights_identity = hashlib.sha256(
             "\n".join(f"{name}:{digest}" for name, digest in sorted(self.file_hashes.items())).encode("utf-8")
         ).hexdigest()

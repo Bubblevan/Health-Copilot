@@ -1,6 +1,6 @@
 {
-  "chunk_count": 181,
-  "chunks_jsonl_sha256": "ac2ffb84c4a25300a3fc1d26d36b133dc2de649003f5d004dd745363ff382611",
+  "chunk_count": 138,
+  "chunks_jsonl_sha256": "698e44b6f02f0947146bb483e60f362f8df4029de45918fd28e47526bfb4f2d5",
   "collection_name": "huiyi_knowledge_v0",
   "collection_schema": [
     {
@@ -46,8 +46,14 @@
     },
     {
       "max_length": 128,
-      "name": "topic",
+      "name": "primary_topic",
       "type": "VARCHAR"
+    },
+    {
+      "max_capacity": 32,
+      "max_length": 128,
+      "name": "topics",
+      "type": "ARRAY<VARCHAR>"
     },
     {
       "max_length": 64,
@@ -70,7 +76,9 @@
       "type": "VARCHAR"
     }
   ],
-  "entity_count": 181,
+  "corpus_identity_sha256": "f257e09f6e6ac5d708ec953d5f1f78d196fd13a3eda669b5e681c316aee74a7e",
+  "entity_count": 138,
+  "index_identity_sha256": "af1a5fe749f91971250476d8c731a08d205519cc1636cacd168a9dc641897b8b",
   "index_params": {
     "M": 16,
     "efConstruction": 128
@@ -82,5 +90,6 @@
   "search_params": {
     "ef": 64
   },
-  "uri": "http://127.0.0.1:19530"
+  "uri": "http://127.0.0.1:19530",
+  "vectors_sha256": "cc059c547f4b0f83e14d342d77c550245ce7ae70259e2691e012e941589d5610"
 }

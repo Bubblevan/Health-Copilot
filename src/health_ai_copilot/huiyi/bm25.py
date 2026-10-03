@@ -24,7 +24,8 @@ class HuiyiBM25:
                     "source_id": row["source_id"],
                     "document_type": row["document_type"],
                     "department": row.get("department"),
-                    "topic": row.get("topic"),
+                    "primary_topic": row.get("primary_topic"),
+                    "topics": list(row.get("topics", [])),
                     "tags": list(row.get("section_path", [])),
                 },
             )

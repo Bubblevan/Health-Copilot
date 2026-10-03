@@ -1,14 +1,14 @@
 {
-  "chunk_count": 181,
-  "chunker_version": "huiyi-atomic-heading-paragraph-list-v1",
-  "chunks_jsonl_sha256": "ac2ffb84c4a25300a3fc1d26d36b133dc2de649003f5d004dd745363ff382611",
+  "chunk_count": 138,
+  "chunker_version": "huiyi-atomic-heading-paragraph-list-doctor-profile-v2",
+  "chunks_jsonl_sha256": "698e44b6f02f0947146bb483e60f362f8df4029de45918fd28e47526bfb4f2d5",
   "jieba_version": "0.42.1",
   "max_chunk_chars": 383,
   "max_chunk_tokens": 172,
-  "median_chars": 45,
-  "median_tokens": 21,
-  "p95_chars": 236,
-  "p95_tokens": 107,
-  "source_documents_sha256": "5b5ae92e3668cf9a68a563fd12cc39dbe6aa4475348828d0839f18326b7aef8e",
+  "median_chars": 77.0,
+  "median_tokens": 37.0,
+  "p95_chars": 256,
+  "p95_tokens": 132,
+  "source_documents_sha256": "46dc13f5525d75f809bc250db54d82274f57e48a8f1af6b2814588dfc13d04ac",
   "tokenizer": "jieba"
 }

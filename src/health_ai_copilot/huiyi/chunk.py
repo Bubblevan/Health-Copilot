@@ -14,12 +14,17 @@ import jieba
 from ..retrieval.tokenizer import tokenize
 from .schema import AtomicChunk, jsonl_bytes, sha256_bytes, sha256_text
 
-CHUNKER_VERSION = "huiyi-atomic-heading-paragraph-list-v1"
+CHUNKER_VERSION = "huiyi-atomic-heading-paragraph-list-doctor-profile-v2"
 MAX_CHUNK_CHARS = 1100
 MAX_CHUNK_TOKENS = 420
 _HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 _LIST = re.compile(r"^(?:[-*+]\s+|\d+[.)、]\s+)(.+?)\s*$")
 _SENTENCE = re.compile(r"(?<=[。！？；!?;])")
+_PROFILE_SPECIALTY = re.compile(r"主要擅长|专业特长|业务专长|擅长领域|擅长")
+_PROFILE_EXPERIENCE = re.compile(
+    r"从事|曾在|先后|进修|毕业|工作(?:近|于|以来|超过|\d)|任职|担任|委员|会员|"
+    r"获.*奖|发表|参与|经历|个人简介|工作简历"
+)
 
 
 def _semantic_units(content: str) -> list[tuple[tuple[str, ...], str]]:
@@ -83,13 +88,81 @@ def _split_long_unit(text: str) -> list[str]:
     return pieces
 
 
+def _is_profile_specialty(unit: tuple[tuple[str, ...], str]) -> bool:
+    section_path, text = unit
+    return bool(_PROFILE_SPECIALTY.search(" ".join((*section_path, text))))
+
+
+def _pack_profile_units(units: list[tuple[tuple[str, ...], str]], label: str) -> list[tuple[tuple[str, ...], str]]:
+    packed: list[tuple[tuple[str, ...], str]] = []
+    current: list[str] = []
+    for _, text in units:
+        for piece in _split_long_unit(text):
+            candidate = "\n".join((*current, piece))
+            if current and (len(candidate) > MAX_CHUNK_CHARS or len(tokenize(candidate)) > MAX_CHUNK_TOKENS):
+                packed.append(((label,), "\n".join(current)))
+                current = [piece]
+            else:
+                current.append(piece)
+    if current:
+        packed.append(((label,), "\n".join(current)))
+    return packed
+
+
+def _doctor_profile_groups(
+    units: list[tuple[tuple[str, ...], str]],
+) -> list[tuple[tuple[str, ...], str]]:
+    """Group short profile facts without fragmenting identity and appointments."""
+    if not units:
+        return []
+    specialty_start = next((index for index, unit in enumerate(units) if _is_profile_specialty(unit)), len(units))
+    before_specialty = units[:specialty_start]
+    specialty = units[specialty_start:] if specialty_start < len(units) else []
+
+    experience_start = next(
+        (
+            index
+            for index, (_, text) in enumerate(before_specialty)
+            if _PROFILE_EXPERIENCE.search(text) or len(text) >= 180
+        ),
+        len(before_specialty),
+    )
+    identity = before_specialty[:experience_start]
+    experience = before_specialty[experience_start:]
+
+    # A concise profile with no biography marker is still kept together; when
+    # it is longer, split after the first few identity facts for readability.
+    if not experience and len(identity) > 1:
+        identity_size = 0
+        split = 0
+        for index, (_, text) in enumerate(identity):
+            if split and identity_size + len(text) > 260:
+                break
+            identity_size += len(text)
+            split = index + 1
+        if split < len(identity):
+            experience = identity[split:]
+            identity = identity[:split]
+
+    groups: list[tuple[tuple[str, ...], str]] = []
+    groups.extend(_pack_profile_units(identity, "身份与职称"))
+    groups.extend(_pack_profile_units(experience, "任职与经历"))
+    groups.extend(_pack_profile_units(specialty, "主要擅长"))
+    return groups
+
+
 def chunk_documents(data_root: Path) -> dict[str, Any]:
     source_path = data_root / "normalized" / "documents.jsonl"
     docs = [json.loads(line) for line in source_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     chunks: list[AtomicChunk] = []
     for document in sorted(docs, key=lambda row: row["document_id"]):
         ordinal = 0
-        for section_path, unit in _semantic_units(document["content"]):
+        units = _semantic_units(document["content"])
+        if document["document_type"] == "doctor_profile":
+            chunk_units = _doctor_profile_groups(units)
+        else:
+            chunk_units = units
+        for section_path, unit in chunk_units:
             for piece in _split_long_unit(unit):
                 digest = sha256_text(piece)
                 chunk_id = "huiyi-chunk-" + hashlib.sha256(
@@ -101,7 +174,8 @@ def chunk_documents(data_root: Path) -> dict[str, Any]:
                     source_id=document["source_id"],
                     document_type=document["document_type"],
                     department=document.get("department"),
-                    topic=document.get("topic"),
+                    primary_topic=document.get("primary_topic"),
+                    topics=tuple(document.get("topics", [])),
                     title=document["title"],
                     section_path=section_path,
                     text=piece,

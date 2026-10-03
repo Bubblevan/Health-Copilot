@@ -24,10 +24,9 @@ def main() -> int:
     corpus_manifest = {
         "schema_version": CORPUS_SCHEMA_VERSION,
         **corpus,
-        "embedding_manifest_sha256": None,
-        "corpus_identity_sha256": None,
     }
     write_json(index_root / "corpus_manifest.json", corpus_manifest)
+    (index_root / "index_manifest.json").unlink(missing_ok=True)
     RUN_ROOT.mkdir(parents=True, exist_ok=True)
     copy_if_exists(DATA_ROOT / "source_report.json", RUN_ROOT / "source_report.json")
     write_json(RUN_ROOT / "normalization_report.json", reports["normalization"])
@@ -39,6 +38,7 @@ def main() -> int:
         "corpus": corpus,
         "normalization": reports["normalization"],
         "chunking": chunk_report,
+        "corpus_identity_sha256": corpus["corpus_identity_sha256"],
         "embedding_model": "Qwen/Qwen3-Embedding-0.6B",
         "index_status": "pending",
     }

@@ -14,7 +14,6 @@ from _common import DATA_ROOT, REPO_ROOT, RUN_ROOT, load_jsonl, update_summary, 
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from health_ai_copilot.huiyi.bm25 import HuiyiBM25
-from health_ai_copilot.huiyi.chunk import CHUNKER_VERSION
 from health_ai_copilot.huiyi.embed import (
     DEFAULT_MODEL_ROOT,
     LocalModelUnavailable,
@@ -40,6 +39,11 @@ def main() -> int:
     parser.add_argument("--milvus-uri", default="http://127.0.0.1:19530")
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--milvus-batch-size", type=int, default=256)
+    parser.add_argument(
+        "--replace-collection",
+        action="store_true",
+        help=f"Drop and rebuild only the configured Huiyi collection ({COLLECTION_NAME}).",
+    )
     args = parser.parse_args()
 
     corpus = validate_corpus(DATA_ROOT)
@@ -83,6 +87,14 @@ def main() -> int:
     write_json(DATA_ROOT / "index" / "bm25_manifest.json", bm25_manifest)
 
     store = HuiyiMilvusStore(args.milvus_uri, collection_name=COLLECTION_NAME)
+    if store.collection_exists():
+        if not args.replace_collection:
+            store.close()
+            raise SystemExit(
+                f"Collection {COLLECTION_NAME!r} already exists; pass --replace-collection "
+                "to explicitly rebuild this Huiyi index."
+            )
+        store.drop_collection()
     store.create_collection()
     inserted = store.insert(chunks, vectors, batch_size=args.milvus_batch_size)
     entity_count = store.entity_count()
@@ -102,42 +114,70 @@ def main() -> int:
         "entity_count": entity_count,
         "chunk_count": len(chunks),
         "chunks_jsonl_sha256": corpus["chunks_jsonl_sha256"],
+        "vectors_sha256": vector_sha,
         "uri": args.milvus_uri,
     }
+    embedding_manifest_sha = sha256_bytes((DATA_ROOT / "index" / "embedding_manifest.json").read_bytes())
+    bm25_manifest_sha = sha256_bytes((DATA_ROOT / "index" / "bm25_manifest.json").read_bytes())
+    model_identity = {
+        "model_id": embedding_manifest["model_id"],
+        "resolved_revision": embedding_manifest["resolved_revision"],
+        "model_file_hashes": embedding_manifest["model_file_hashes"],
+        "embedding_dimension": embedding_manifest["embedding_dimension"],
+        "dtype": embedding_manifest["dtype"],
+        "pooling": embedding_manifest["pooling"],
+        "max_length": embedding_manifest["max_length"],
+        "normalized_embeddings": embedding_manifest["normalized_embeddings"],
+        "document_instruction": embedding_manifest["document_instruction"],
+        "query_instruction": embedding_manifest["query_instruction"],
+        "query_format": embedding_manifest["query_format"],
+        "library_versions": embedding_manifest["library_versions"],
+    }
+    index_identity = {
+        "index_schema_version": "huiyi-index-v0.1",
+        "corpus_identity_sha256": corpus["corpus_identity_sha256"],
+        "embedding_model_identity": model_identity,
+        "vectors_sha256": vector_sha,
+        "bm25_manifest_sha256": bm25_manifest_sha,
+        "milvus": {
+            "collection_name": COLLECTION_NAME,
+            "server_version": store.server_version,
+            "pymilvus_version": store.pymilvus_version,
+            "entity_count": entity_count,
+            "index_type": "HNSW",
+            "metric_type": "COSINE",
+            "index_params": {"M": 16, "efConstruction": 128},
+            "search_params": {"ef": 64},
+            "collection_schema": HuiyiMilvusStore.schema_manifest(),
+        },
+    }
+    index_identity_sha256 = canonical_json_sha256(index_identity)
+    index_manifest = {
+        **index_identity,
+        "embedding_manifest_sha256": embedding_manifest_sha,
+        "index_identity_sha256": index_identity_sha256,
+    }
+    write_json(DATA_ROOT / "index" / "corpus_manifest.json", corpus)
+    write_json(DATA_ROOT / "index" / "index_manifest.json", index_manifest)
+    milvus_manifest["corpus_identity_sha256"] = corpus["corpus_identity_sha256"]
+    milvus_manifest["index_identity_sha256"] = index_identity_sha256
     write_json(DATA_ROOT / "index" / "milvus_manifest.json", milvus_manifest)
     write_json(RUN_ROOT / "milvus_report.json", {
         **milvus_manifest,
         "metadata_filter_smoke": "pending retrieval smoke",
     })
-
-    embedding_manifest_sha = sha256_bytes((DATA_ROOT / "index" / "embedding_manifest.json").read_bytes())
-    identity = {
-        "schema_version": corpus.get("schema_version", "huiyi-knowledge-corpus-v0"),
-        "source_catalog_sha256": corpus["source_catalog_sha256"],
-        "raw_manifest_sha256": corpus["raw_manifest_sha256"],
-        "documents_sha256": corpus["documents_jsonl_sha256"],
-        "chunks_sha256": corpus["chunks_jsonl_sha256"],
-        "embedding_manifest_sha256": embedding_manifest_sha,
-        "embedding_model_identity": {
-            "model_id": embedding_manifest["model_id"],
-            "resolved_revision": embedding_manifest["resolved_revision"],
-        },
-        "chunker_version": CHUNKER_VERSION,
-    }
-    corpus_manifest = {**corpus, "embedding_manifest_sha256": embedding_manifest_sha, **identity}
-    corpus_manifest["corpus_identity_sha256"] = canonical_json_sha256(identity)
-    write_json(DATA_ROOT / "index" / "corpus_manifest.json", corpus_manifest)
     write_json(RUN_ROOT / "build_report.json", {
         "pipeline": "HY-DATA-0",
         "status": "indexed",
         "corpus": corpus,
         "embedding_count": len(vectors),
         "milvus_entity_count": entity_count,
-        "corpus_identity_sha256": corpus_manifest["corpus_identity_sha256"],
+        "corpus_identity_sha256": corpus["corpus_identity_sha256"],
+        "index_identity_sha256": index_identity_sha256,
         "index_status": "complete",
     })
     update_summary()
-    print(json.dumps({"embedding_manifest": embedding_manifest, "milvus": milvus_manifest, "corpus_identity_sha256": corpus_manifest["corpus_identity_sha256"]}, ensure_ascii=False, indent=2, sort_keys=True))
+    print(json.dumps({"embedding_manifest": embedding_manifest, "milvus": milvus_manifest, "corpus_identity_sha256": corpus["corpus_identity_sha256"], "index_identity_sha256": index_identity_sha256}, ensure_ascii=False, indent=2, sort_keys=True))
     store.close()
     return 0
 

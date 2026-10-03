@@ -38,6 +38,7 @@ def render_summary() -> str:
     chunk = _json_or_empty(RUN_ROOT / "chunk_report.json")
     embedding = _json_or_empty(RUN_ROOT / "embedding_report.json")
     milvus = _json_or_empty(RUN_ROOT / "milvus_report.json")
+    build = _json_or_empty(RUN_ROOT / "build_report.json")
     retrieval = _json_or_empty(RUN_ROOT / "retrieval_smoke.json")
     retrieval_metrics = retrieval.get("metrics", {})
     table_rows = []
@@ -57,6 +58,8 @@ def render_summary() -> str:
         "# HY-DATA-0 Summary",
         "",
         "**HY-DATA-0 SMOKE · NOT FROZEN BENCHMARK · NOT CLINICAL ACCURACY**",
+        "",
+        f"- Corpus identity: `{build.get('corpus_identity_sha256', 'pending')}`; index identity: `{build.get('index_identity_sha256', 'pending')}`.",
         "",
         "## Data quality",
         "",

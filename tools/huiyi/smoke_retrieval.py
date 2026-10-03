@@ -79,14 +79,19 @@ def main() -> int:
     embedder = Qwen3LocalEmbedder(args.model_root)
     store = HuiyiMilvusStore(args.milvus_uri, collection_name=COLLECTION_NAME)
     # Exercise a real metadata filter against Milvus and verify every row.
-    department_chunk = next((row for row in chunks if row["document_type"] == "department"), None)
-    if department_chunk is None:
-        raise SystemExit("No department chunk available for metadata-filter smoke.")
+    tagged_department = next(
+        (row for row in chunks if row["document_type"] == "department" and row.get("topics")),
+        None,
+    )
+    if tagged_department is None:
+        raise SystemExit("No tagged department chunk available for metadata-filter smoke.")
     filter_vector = embedder.encode_query("医院有哪些眼科专科？")
-    filtered = store.search(filter_vector, top_k=5, filter_expression='document_type == "department"')
-    filter_ok = bool(filtered) and all(row["document_type"] == "department" for row in filtered)
+    filter_topic = tagged_department["topics"][0]
+    array_filter = f'ARRAY_CONTAINS(topics, "{filter_topic}")'
+    filtered = store.search(filter_vector, top_k=5, filter_expression=array_filter)
+    filter_ok = bool(filtered) and all(filter_topic in row["topics"] for row in filtered)
     if not filter_ok:
-        raise SystemExit("Milvus metadata filter smoke failed for document_type == 'department'")
+        raise SystemExit(f"Milvus topic-array filter smoke failed for {array_filter}")
 
     detailed: list[dict[str, Any]] = []
     bm25_latencies: list[float] = []
@@ -147,8 +152,9 @@ def main() -> int:
         "candidate_k": args.candidate_k,
         "rrf": {"k": RRF_K, "bm25_weight": 1.0, "dense_weight": 1.0},
         "corpus_identity_sha256": json.loads((DATA_ROOT / "index" / "corpus_manifest.json").read_text(encoding="utf-8")).get("corpus_identity_sha256"),
+        "index_identity_sha256": json.loads((DATA_ROOT / "index" / "index_manifest.json").read_text(encoding="utf-8")).get("index_identity_sha256"),
         "metadata_filter_smoke": {
-            "filter": 'document_type == "department"',
+            "filter": array_filter,
             "passed": filter_ok,
             "result_count": len(filtered),
         },

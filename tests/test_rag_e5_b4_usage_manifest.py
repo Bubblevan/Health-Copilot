@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from tools.research.rag_e5.repair_e5b4_cpu_usage_manifest import derive_usage_totals
+from tools.research.rag_e5.repair_e5b4_cpu_usage_manifest import \
+    derive_usage_totals
 
 
 def test_usage_aggregation_ignores_zero_call_arms() -> None:

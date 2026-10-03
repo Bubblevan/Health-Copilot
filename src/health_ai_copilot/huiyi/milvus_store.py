@@ -52,7 +52,8 @@ class HuiyiMilvusStore:
             {"name": "title", "type": "VARCHAR", "max_length": 1024},
             {"name": "document_type", "type": "VARCHAR", "max_length": 64},
             {"name": "department", "type": "VARCHAR", "max_length": 256},
-            {"name": "topic", "type": "VARCHAR", "max_length": 128},
+            {"name": "primary_topic", "type": "VARCHAR", "max_length": 128},
+            {"name": "topics", "type": "ARRAY<VARCHAR>", "max_capacity": 32, "max_length": 128},
             {"name": "review_status", "type": "VARCHAR", "max_length": 64},
             {"name": "freshness_class", "type": "VARCHAR", "max_length": 64},
             {"name": "source_url", "type": "VARCHAR", "max_length": 2048},
@@ -74,7 +75,14 @@ class HuiyiMilvusStore:
         schema.add_field(field_name="title", datatype=data_type.VARCHAR, max_length=1024)
         schema.add_field(field_name="document_type", datatype=data_type.VARCHAR, max_length=64)
         schema.add_field(field_name="department", datatype=data_type.VARCHAR, max_length=256)
-        schema.add_field(field_name="topic", datatype=data_type.VARCHAR, max_length=128)
+        schema.add_field(field_name="primary_topic", datatype=data_type.VARCHAR, max_length=128)
+        schema.add_field(
+            field_name="topics",
+            datatype=data_type.ARRAY,
+            element_type=data_type.VARCHAR,
+            max_capacity=32,
+            max_length=128,
+        )
         schema.add_field(field_name="review_status", datatype=data_type.VARCHAR, max_length=64)
         schema.add_field(field_name="freshness_class", datatype=data_type.VARCHAR, max_length=64)
         schema.add_field(field_name="source_url", datatype=data_type.VARCHAR, max_length=2048)
@@ -92,6 +100,13 @@ class HuiyiMilvusStore:
             index_params=indexes,
         )
 
+    def collection_exists(self) -> bool:
+        return bool(self.client.has_collection(self.collection_name))
+
+    def drop_collection(self) -> None:
+        if self.collection_exists():
+            self.client.drop_collection(self.collection_name)
+
     def insert(self, chunks: list[dict[str, Any]], vectors: list[list[float]], *, batch_size: int = 256) -> int:
         if len(chunks) != len(vectors):
             raise ValueError(f"embedding count {len(vectors)} != chunk count {len(chunks)}")
@@ -108,7 +123,8 @@ class HuiyiMilvusStore:
                     "title": chunk["title"],
                     "document_type": chunk["document_type"],
                     "department": chunk.get("department") or "",
-                    "topic": chunk.get("topic") or "",
+                    "primary_topic": chunk.get("primary_topic") or "",
+                    "topics": list(chunk.get("topics", [])),
                     "review_status": chunk["review_status"],
                     "freshness_class": chunk["freshness_class"],
                     "source_url": chunk["source_url"],
@@ -143,7 +159,8 @@ class HuiyiMilvusStore:
             filter=filter_expression,
             output_fields=[
                 "chunk_id", "document_id", "source_id", "text", "title", "document_type",
-                "department", "topic", "review_status", "freshness_class", "source_url", "content_sha256",
+                "department", "primary_topic", "topics", "review_status", "freshness_class",
+                "source_url", "content_sha256",
             ],
         )
         return [dict(hit["entity"], score=float(hit["distance"])) for hit in (result[0] if result else [])]

@@ -1,10 +1,10 @@
 {
   "device": "cuda:0",
-  "dtype": "bfloat16",
+  "dtype": "float32",
   "embedding_dimension": 1024,
   "embedding_failures": 0,
-  "embedding_successes": 181,
+  "embedding_successes": 138,
   "model_id": "Qwen/Qwen3-Embedding-0.6B",
-  "resolved_revision": "local-files-sha256:1bae8c15874434017ed2f5310c98c4445c0ebc485b4dcb83812b981a1bb6adfc",
-  "vectors_sha256": "46ed5119340b88f2823ffdac2cd7162ea21130a14eacc4a2646e1c530801916b"
+  "resolved_revision": "local-files-sha256:16e825c8e129fc69dd1dc75d06cc8f76e5db7e30b632b39348fdfb499ecc1923",
+  "vectors_sha256": "cc059c547f4b0f83e14d342d77c550245ce7ae70259e2691e012e941589d5610"
 }

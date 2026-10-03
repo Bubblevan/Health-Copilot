@@ -112,7 +112,8 @@ class CanonicalDocument:
     source_url: str
     document_type: str
     department: str | None
-    topic: str | None
+    primary_topic: str | None
+    topics: tuple[str, ...]
     title: str
     content: str
     published_at: str | None
@@ -137,7 +138,8 @@ class AtomicChunk:
     source_id: str
     document_type: str
     department: str | None
-    topic: str | None
+    primary_topic: str | None
+    topics: tuple[str, ...]
     title: str
     section_path: tuple[str, ...]
     text: str
@@ -151,6 +153,7 @@ class AtomicChunk:
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
         value["section_path"] = list(self.section_path)
+        value["topics"] = list(self.topics)
         return value
 
 

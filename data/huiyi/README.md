@@ -1,4 +1,4 @@
-# Huiyi Knowledge Corpus v0
+# Huiyi Knowledge Corpus v0.1
 
 This namespace contains a reproducible public-source pipeline for the official
 Enshi Huiyi Eye Hospital site at `https://yk.huiyi9e.com/`. It is separate from
@@ -32,12 +32,27 @@ Stale-looking or dynamic text is excluded or flagged for human review. Exact
 duplicate text retains each source's provenance. Near duplicates are only
 reported; they are not merged.
 
+Topic annotations use an ordered `primary_topic` and a deduplicated `topics[]`
+list. Titles and department names determine the primary label; doctor profiles
+can add tags from an explicit major-specialty section. Incidental mentions in a
+profile's biography do not become topic tags. Hospital-information documents
+remain untagged. Doctor profiles group short facts into identity, experience,
+and specialty chunks; patient-education paragraphs and list items remain
+atomic.
+
 ## Build and retrieve
 
 Install the isolated dependencies with `uv pip install -e ".[huiyi]"`.
 
+For an initial, intentional acquisition only:
+
 ```powershell
 python tools/huiyi/crawl.py
+```
+
+To rebuild from the already captured snapshots, do not rerun the crawler:
+
+```powershell
 python tools/huiyi/build_corpus.py
 docker compose -f infra/milvus/docker-compose.yml up -d
 python tools/huiyi/build_index.py `
@@ -53,13 +68,21 @@ model. To re-index with a different local model, retain `raw/`, `normalized/`,
 and `chunks/`, pass its local directory to `build_index.py`, and review the new
 embedding manifest. The corpus snapshots and chunks do not depend on the model.
 
-`data/huiyi/index/` holds small manifests and corpus identity. Rebuildable local
-vectors and Milvus volumes are under ignored `artifacts/` and
-`infra/milvus/volumes/`. Removing a collection is a separate operator action;
-the build command refuses to replace a collection with the same name. To stop
-Milvus, use `docker compose -f infra/milvus/docker-compose.yml down`. To clear
-the local database after stopping it, remove `infra/milvus/volumes/` from the
-repository's `infra/milvus` directory.
+`corpus_manifest.json` identifies the source catalog, raw manifest, normalized
+documents, chunks, and transformation versions. `index_manifest.json` has a
+separate identity for the inference-critical local model files, vectors, BM25
+configuration, and Milvus schema/index settings. Model identity hashes the
+weights, model and pooling configs, and tokenizer files; it excludes download
+logs, README files, and other repository metadata. Milvus stores both topic
+fields, with `topics[]` as an `ARRAY<VARCHAR>` that supports topic filters.
+
+Rebuildable local vectors and Milvus volumes are under ignored `artifacts/` and
+`infra/milvus/volumes/`. `build_index.py` refuses to overwrite an existing
+collection by default. Add `--replace-collection` to explicitly replace only
+`huiyi_knowledge_v0`. To stop Milvus, use `docker compose -f
+infra/milvus/docker-compose.yml down`. To clear the local database after
+stopping it, remove `infra/milvus/volumes/` from the repository's `infra/milvus`
+directory.
 
 The reported retrieval numbers are labeled **HY-DATA-0 SMOKE**, **NOT FROZEN
 BENCHMARK**, and **NOT CLINICAL ACCURACY**. Do not add patient information to

@@ -38,9 +38,22 @@ markers = ["integration: requires an explicitly configured external service"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Frozen experiment implementations and run snapshots are preserved as evidence;
+# Ruff checks maintained application, test, and pipeline code instead.
+extend-exclude = [
+    "eval/rag_e5/**",
+    "runs/**",
+    "tools/research/memory/**",
+    "tools/research/rag_e5/**",
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["eval", "health_ai_copilot"]
+
+[tool.ruff.lint.per-file-ignores]
+# Keep the checked-in frozen E5 test import layout byte-for-byte unchanged.
+"tests/test_rag_e5_b4.py" = ["I001"]
+"tests/test_rag_e5_b4_usage_manifest.py" = ["I001"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

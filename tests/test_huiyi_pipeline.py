@@ -8,7 +8,7 @@ import pytest
 
 from health_ai_copilot.huiyi.acquire import _canonical_discovered_url, classify_url
 from health_ai_copilot.huiyi.chunk import chunk_documents
-from health_ai_copilot.huiyi.embed import Qwen3LocalEmbedder
+from health_ai_copilot.huiyi.embed import INFERENCE_FILES, Qwen3LocalEmbedder, _file_hashes
 from health_ai_copilot.huiyi.hybrid import reciprocal_rank_fusion
 from health_ai_copilot.huiyi.normalize import normalize_raw_corpus
 from health_ai_copilot.huiyi.schema import SourceSpec, source_id_for_url
@@ -154,9 +154,10 @@ def test_chunk_ids_are_stable_and_heading_list_units_remain_atomic(tmp_path: Pat
     document = {
         "document_id": "huiyi-doc-test",
         "source_id": "huiyi-official-test",
-        "document_type": "perioperative_instruction",
-        "department": None,
-        "topic": "白内障",
+            "document_type": "perioperative_instruction",
+            "department": None,
+            "primary_topic": "白内障",
+            "topics": ["白内障"],
         "title": "白内障术后注意事项",
         "content": "## 用药\n\n- 按医院交代的方法用药。\n- 如果出现异常情况，应联系医院。\n\n## 复查\n\n按照页面说明复查。",
         "review_status": "NEEDS_HUMAN_REVIEW",
@@ -176,6 +177,104 @@ def test_chunk_ids_are_stable_and_heading_list_units_remain_atomic(tmp_path: Pat
     assert rows[1]["section_path"] == ["用药"]
     assert rows[2]["section_path"] == ["复查"]
     assert len({row["chunk_id"] for row in rows}) == len(rows)
+
+
+def test_topic_primary_prefers_profile_title_and_hospital_info_stays_untagged(tmp_path: Path) -> None:
+    pages = [
+        (
+            "https://yk.huiyi9e.com/info/1021/1.htm",
+            "doctor_profile",
+            "canonical",
+            _page(
+                "廖康达 眼表专科副主任",
+                "<p>曾参与白内障相关临床工作。</p><p>主要擅长：干眼、角膜及白内障疾病诊治。</p>",
+            ),
+        ),
+        (
+            "https://yk.huiyi9e.com/info/1021/2.htm",
+            "doctor_profile",
+            "canonical",
+            _page(
+                "张晓峰 主治医师 屈光中心副主任 科教科秘书",
+                "<p>履历提及白内障手术和泪道相关工作。</p>"
+                "<p>主要擅长：全飞秒屈光手术及近视矫治。</p>",
+            ),
+        ),
+        (
+            "https://yk.huiyi9e.com/about/1.htm",
+            "hospital_info",
+            "canonical",
+            _page("恩施慧宜眼科医院", "<p>医院介绍白内障、青光眼等项目。</p>"),
+        ),
+    ]
+    _write_corpus_inputs(tmp_path, pages)
+    normalize_raw_corpus(tmp_path)
+    documents = [
+        json.loads(line)
+        for line in (tmp_path / "normalized" / "documents.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    doctor = next(row for row in documents if row["document_type"] == "doctor_profile")
+    refractive_doctor = next(row for row in documents if "张晓峰" in row["title"])
+    hospital = next(row for row in documents if row["document_type"] == "hospital_info")
+    assert doctor["primary_topic"] == "眼表"
+    assert doctor["topics"] == ["眼表", "干眼", "角膜", "白内障"]
+    assert refractive_doctor["primary_topic"] == "屈光"
+    assert refractive_doctor["topics"] == ["屈光", "近视"]
+    assert hospital["primary_topic"] is None
+    assert hospital["topics"] == []
+
+
+def test_doctor_profile_chunks_group_identity_experience_and_specialty(tmp_path: Path) -> None:
+    root = tmp_path / "huiyi"
+    (root / "normalized").mkdir(parents=True)
+    document = {
+        "document_id": "huiyi-doc-doctor",
+        "source_id": "huiyi-official-doctor",
+        "document_type": "doctor_profile",
+        "department": None,
+        "primary_topic": "屈光",
+        "topics": ["屈光", "白内障"],
+        "title": "张晓峰 主治医师 屈光中心副主任 科教科秘书",
+        "content": (
+            "张晓峰\n\n主治医师\n\n屈光中心副主任 科教科秘书\n\n"
+            "国际认证的全飞秒手术医师\n\n委员：湖北省眼科学会委员\n\n"
+            "从事眼科临床工作近十年，曾在多家医院进修并发表专业论文。\n\n"
+            "主要擅长：各类屈光不正、白内障的诊断与治疗。"
+        ),
+        "review_status": "AUTO_ACCEPTED_PUBLIC_INFO",
+        "freshness_class": "STATIC_PROFILE",
+        "source_url": "https://yk.huiyi9e.com/info/1021/doctor.htm",
+    }
+    (root / "normalized" / "documents.jsonl").write_text(
+        json.dumps(document, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    chunk_documents(root)
+    rows = [
+        json.loads(line)
+        for line in (root / "chunks" / "chunks.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    assert len(rows) == 3
+    assert rows[0]["section_path"] == ["身份与职称"]
+    assert "国际认证" in rows[0]["text"] and "屈光中心副主任" in rows[0]["text"]
+    assert rows[1]["section_path"] == ["任职与经历"]
+    assert rows[2]["section_path"] == ["主要擅长"]
+    assert "白内障" in rows[2]["text"]
+    assert all(row["topics"] == ["屈光", "白内障"] for row in rows)
+
+
+def test_model_identity_hashes_only_inference_critical_files(tmp_path: Path) -> None:
+    for name in INFERENCE_FILES:
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(name.encode("utf-8"))
+    first = _file_hashes(tmp_path)
+    assert set(first) == set(INFERENCE_FILES)
+    (tmp_path / "README.md").write_text("metadata", encoding="utf-8")
+    (tmp_path / ".hfd").mkdir()
+    (tmp_path / ".hfd" / "download.log").write_text("download log", encoding="utf-8")
+    assert _file_hashes(tmp_path) == first
+    (tmp_path / "config.json").write_text("changed model config", encoding="utf-8")
+    assert _file_hashes(tmp_path) != first
 
 
 def test_embedding_validation_uses_normalized_1024d_vectors() -> None:
@@ -216,7 +315,8 @@ def test_milvus_create_insert_search_filter_drop_when_enabled() -> None:
                 "title": "测试",
                 "document_type": "department" if index < 3 else "faq",
                 "department": "青光眼专科",
-                "topic": "青光眼",
+                "primary_topic": "青光眼",
+                "topics": ["青光眼", "视神经"],
                 "review_status": "AUTO_ACCEPTED_PUBLIC_INFO",
                 "freshness_class": "STATIC_PROFILE",
                 "source_url": "https://yk.huiyi9e.com/",
@@ -232,8 +332,13 @@ def test_milvus_create_insert_search_filter_drop_when_enabled() -> None:
         assert store.insert(rows, vectors) == 4
         result = store.search(vectors[0], top_k=3)
         filtered = store.search(vectors[0], top_k=5, filter_expression='document_type == "department"')
+        topic_filtered = store.search(
+            vectors[0], top_k=5, filter_expression='ARRAY_CONTAINS(topics, "青光眼")'
+        )
         assert result and len(filtered) == 3
         assert all(row["document_type"] == "department" for row in filtered)
+        assert len(topic_filtered) == 4
+        assert all("青光眼" in row["topics"] for row in topic_filtered)
     finally:
         store.client.drop_collection(collection_name="huiyi_test_integration")
         store.close()

@@ -19,6 +19,8 @@ def main() -> int:
     documents = load_jsonl(DATA_ROOT / "normalized" / "documents.jsonl")
     chunks = load_jsonl(DATA_ROOT / "chunks" / "chunks.jsonl")
     corpus_identity = json.loads((DATA_ROOT / "index" / "corpus_manifest.json").read_text(encoding="utf-8"))
+    index_manifest_path = DATA_ROOT / "index" / "index_manifest.json"
+    index_identity = json.loads(index_manifest_path.read_text(encoding="utf-8")) if index_manifest_path.is_file() else {}
     sample = sorted(chunks, key=lambda row: hashlib.sha256(row["chunk_id"].encode()).hexdigest())[:8]
     output = {
         **stats,
@@ -26,8 +28,9 @@ def main() -> int:
         "review_statuses": dict(Counter(row["review_status"] for row in documents)),
         "freshness_classes": dict(Counter(row["freshness_class"] for row in documents)),
         "corpus_identity_sha256": corpus_identity.get("corpus_identity_sha256"),
+        "index_identity_sha256": index_identity.get("index_identity_sha256"),
         "deterministic_chunk_samples": [
-            {key: row[key] for key in ("chunk_id", "source_id", "document_type", "title", "section_path", "text", "source_url")}
+            {key: row[key] for key in ("chunk_id", "source_id", "document_type", "primary_topic", "topics", "title", "section_path", "text", "source_url")}
             for row in sample
         ],
     }

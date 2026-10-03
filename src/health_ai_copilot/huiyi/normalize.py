@@ -22,7 +22,7 @@ from .schema import (
     sha256_text,
 )
 
-NORMALIZER_VERSION = "huiyi-normalizer-v1"
+NORMALIZER_VERSION = "huiyi-normalizer-v0.1"
 _DATE = re.compile(r"(?P<year>20\d{2})[-年/.](?P<month>\d{1,2})[-月/.](?P<day>\d{1,2})日?")
 _URL_TEXT = re.compile(r"https?://\S+", flags=re.IGNORECASE)
 _DYNAMIC_MARKERS = re.compile(
@@ -37,10 +37,28 @@ _DATE_RANGE = re.compile(
 )
 _COVID_STALE = re.compile(r"新冠|核酸检测|疫情防控|隔离观察|居家隔离|健康码|行程码")
 _PERIOPERATIVE_TITLE = re.compile(r"术前|术后|手术前后|手术前|手术后|复诊须知|复查时间")
-_TOPICS = (
-    "白内障", "青光眼", "近视", "屈光", "斜视", "弱视", "眼底病", "糖尿病眼病",
-    "干眼", "角膜", "眼表", "泪道", "眼外伤", "黄斑", "视网膜", "儿童眼科",
+_TOPIC_ALIASES = (
+    ("糖尿病眼病", ("糖尿病视网膜病变", "糖尿病眼病", "糖网")),
+    ("儿童眼科", ("儿童眼科", "小儿眼科", "儿童眼病")),
+    ("神经眼科", ("神经眼科", "视神经", "视路疾病")),
+    ("综合眼病", ("综合眼病",)),
+    ("白内障", ("白内障",)),
+    ("青光眼", ("青光眼",)),
+    ("近视", ("高度近视", "近视")),
+    ("屈光", ("屈光不正", "屈光")),
+    ("斜视", ("斜视",)),
+    ("弱视", ("弱视",)),
+    ("眼底病", ("眼底病", "视网膜", "黄斑", "葡萄膜")),
+    ("干眼", ("干眼",)),
+    ("角膜", ("角膜",)),
+    ("眼表", ("眼表", "结膜")),
+    ("泪道", ("泪道",)),
+    ("眼外伤", ("眼外伤",)),
+    ("眼整形", ("眼整形", "眼睑整形")),
+    ("视光", ("视光", "医学验光", "RGP")),
 )
+_SPECIALTY_LABEL = re.compile(r"主要擅长|专业特长|业务专长|擅长领域|擅长")
+_MARKDOWN_HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*$")
 
 
 def _normalize_text(value: str) -> str:
@@ -153,10 +171,64 @@ def _content_date(soup: BeautifulSoup, root: Tag, raw_text: str) -> str | None:
     return _parse_date(raw_text[:2000])
 
 
-def _topic(title: str, content: str) -> str | None:
-    combined = title + "\n" + content[:1000]
-    matches = [topic for topic in _TOPICS if topic in combined]
-    return matches[0] if matches else None
+def _matched_topics(text: str) -> list[str]:
+    matches: list[tuple[int, int, str]] = []
+    for topic, aliases in _TOPIC_ALIASES:
+        for alias in aliases:
+            start = text.find(alias)
+            if start >= 0:
+                matches.append((start, -len(alias), topic))
+    ordered: list[str] = []
+    for _, _, topic in sorted(matches):
+        if topic not in ordered:
+            ordered.append(topic)
+    return ordered
+
+
+def _doctor_specialty_text(content: str) -> str:
+    paragraphs = re.split(r"\n\s*\n", content)
+    selected: list[str] = []
+    in_specialty_heading = False
+    for paragraph in paragraphs:
+        headings = [
+            match.group(1)
+            for line in paragraph.splitlines()
+            if (match := _MARKDOWN_HEADING.match(line))
+        ]
+        if headings:
+            in_specialty_heading = any(_SPECIALTY_LABEL.search(heading) for heading in headings)
+            if in_specialty_heading:
+                selected.append(paragraph)
+            continue
+        if _SPECIALTY_LABEL.search(paragraph) or in_specialty_heading:
+            selected.append(paragraph)
+    return "\n".join(selected)
+
+
+def _topics(
+    title: str,
+    content: str,
+    document_type: str,
+    department: str | None,
+) -> tuple[str | None, tuple[str, ...]]:
+    if document_type == "hospital_info":
+        return None, ()
+
+    title_topics = _matched_topics(title)
+    department_topics = _matched_topics(department or "")
+    if document_type == "doctor_profile":
+        specialty_topics = _matched_topics(_doctor_specialty_text(content))
+        ordered = list(dict.fromkeys(title_topics + department_topics + specialty_topics))
+        primary = next(iter(title_topics + department_topics + specialty_topics), None)
+        return primary, tuple(ordered)
+
+    heading_text = "\n".join(
+        match.group(1) for line in content.splitlines() if (match := _MARKDOWN_HEADING.match(line))
+    )
+    heading_topics = _matched_topics(heading_text)
+    ordered = list(dict.fromkeys(title_topics + department_topics + heading_topics))
+    primary = next(iter(title_topics + department_topics + heading_topics), None)
+    return primary, tuple(ordered)
 
 
 def _is_dynamic(text: str) -> bool:
@@ -284,6 +356,7 @@ def normalize_raw_corpus(data_root: Path) -> dict[str, Any]:
             f"{source.source_id}\0{content_hash}".encode()
         ).hexdigest()[:24]
         department = title if document_type == "department" else None
+        primary_topic, topics = _topics(title, content, document_type, department)
         documents.append(CanonicalDocument(
             document_id=document_id,
             source_id=source.source_id,
@@ -291,7 +364,8 @@ def normalize_raw_corpus(data_root: Path) -> dict[str, Any]:
             source_url=source.url,
             document_type=document_type,
             department=department,
-            topic=_topic(title, content),
+            primary_topic=primary_topic,
+            topics=topics,
             title=title,
             content=content,
             published_at=published_at,
