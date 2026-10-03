@@ -169,7 +169,11 @@ class JevClient:
         except HTTPError as exc:
             raise JevAPIError(f"Jev API returned HTTP {exc.code}") from None
         except (URLError, TimeoutError) as exc:
-            raise JevAPIError(f"Jev API request failed: {type(exc).__name__}") from None
+            reason = exc.reason if isinstance(exc, URLError) else exc
+            reason_type = type(reason).__name__
+            reason_errno = getattr(reason, "errno", None)
+            detail = f"{reason_type};errno={reason_errno}" if reason_errno is not None else reason_type
+            raise JevAPIError(f"Jev API request failed: {type(exc).__name__};{detail}") from None
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
             raise JevAPIError(f"Jev API returned invalid JSON: {type(exc).__name__}") from None
         if not isinstance(parsed, Mapping):

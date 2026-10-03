@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Iterable
 from statistics import mean
 from typing import Any
 
 from ..research.integration.owned_universe.evaluator_truth import evaluate_structured
 from ..research.integration.owned_universe.schema import FactLocation, StructuredAnswerType
-from .contracts import RouteMode, WorkerRole
+from .contracts import CoverageStatus, RouteMode, WorkerRole
 from .data import EvaluationRecord
 from .runtime import RuntimeExecution
 
@@ -79,6 +79,11 @@ def score_execution(
     useful_workers = sum(_worker_useful(report) for report in execution.worker_reports)
     failed_workers = sum(report.status.value in {"failed", "timed_out"}
                          for report in execution.worker_reports)
+    coverage_items = execution.coverage_ledger.items if execution.coverage_ledger else ()
+    coverage_counts = {
+        status.value: sum(item.status == status for item in coverage_items)
+        for status in CoverageStatus
+    }
     return {
         "episode_id": record.episode_id,
         "system": system,
@@ -101,6 +106,18 @@ def score_execution(
         "route_mode": execution.response.route_mode.value,
         "initial_route_mode": execution.route_decision.mode.value,
         "route_reason": execution.route_decision.reason,
+        "triage_decision": (execution.triage_decision.to_dict()
+                            if execution.triage_decision is not None else None),
+        "triage_provider": (execution.triage_decision.provider
+                            if execution.triage_decision is not None else None),
+        "triage_input_tokens": (execution.triage_decision.input_tokens
+                                if execution.triage_decision is not None else 0),
+        "triage_output_tokens": (execution.triage_decision.output_tokens
+                                 if execution.triage_decision is not None else 0),
+        "triage_latency_ms": (execution.triage_decision.latency_ms
+                              if execution.triage_decision is not None else 0.0),
+        "triage_cost_usd": (execution.triage_decision.cost_usd
+                            if execution.triage_decision is not None else None),
         "expected_capabilities": sorted(role.value for role in expected_caps),
         "predicted_capabilities": sorted(role.value for role in predicted_caps),
         "exact_worker_set_match": expected_caps == predicted_caps,
@@ -111,6 +128,12 @@ def score_execution(
         "over_activation_count": len(predicted_caps - expected_caps),
         "under_activation_count": len(expected_caps - predicted_caps),
         **_route_usage_flags(execution),
+        "repair_wave_used": bool(execution.repair_wave.get("invoked")),
+        "coverage_aspect_counts": coverage_counts,
+        "coverage_ledger_covered_rate": (
+            sum(item.status == CoverageStatus.COVERED for item in coverage_items) / len(coverage_items)
+            if coverage_items else None
+        ),
         "workers_assigned": len(execution.worker_reports),
         "workers_completed": sum(report.status.value == "complete"
                                   for report in execution.worker_reports),
@@ -158,7 +181,7 @@ def aggregate_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     for key in (
         "task_success", "grounded_task_success", "answer_accuracy", "grounding_pass",
         "correct_abstention", "citation_validity", "single_fast_path",
-        "router_team_candidate", "team_activated",
+        "router_team_candidate", "team_activated", "repair_wave_used",
     ):
         selected = [bool(row[key]) for row in rows]
         values[f"{key}_numerator"] = sum(selected)
@@ -168,6 +191,7 @@ def aggregate_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "required_fact_coverage", "external_evidence_coverage", "patient_state_fact_coverage",
         "patient_state_record_coverage",
         "parallel_speedup",
+        "coverage_ledger_covered_rate",
     ):
         selected = [float(row[key]) for row in rows if row[key] is not None]
         values[key] = round(mean(selected), 6) if selected else None
@@ -207,6 +231,18 @@ def aggregate_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     values["input_tokens"] = sum(int(row["input_tokens"]) for row in rows)
     values["output_tokens"] = sum(int(row["output_tokens"]) for row in rows)
     values["total_tokens"] = values["input_tokens"] + values["output_tokens"]
+    triage_costs = [float(row["triage_cost_usd"]) for row in rows
+                    if row["triage_cost_usd"] is not None]
+    values["triage_cost_usd"] = round(sum(triage_costs), 8) if triage_costs else None
+    values["triage_cost_reported_calls"] = len(triage_costs)
+    values["triage_input_tokens"] = sum(int(row["triage_input_tokens"]) for row in rows)
+    values["triage_output_tokens"] = sum(int(row["triage_output_tokens"]) for row in rows)
+    values["triage_mean_latency_ms"] = round(mean(
+        float(row["triage_latency_ms"]) for row in rows
+    ), 3)
+    values["triage_provider_counts"] = dict(Counter(
+        str(row["triage_provider"]) for row in rows if row["triage_provider"] is not None
+    ))
     return values
 
 
@@ -256,6 +292,8 @@ def _expected_capabilities(truth: dict[str, Any]) -> frozenset[WorkerRole]:
 
 
 def _predicted_capabilities(execution: RuntimeExecution) -> frozenset[WorkerRole]:
+    if execution.triage_decision is not None:
+        return frozenset(execution.route_decision.predicted_capabilities)
     if execution.response.route_mode == RouteMode.TEAM and execution.plan is not None:
         return frozenset(role for role, _objective in execution.plan.tasks)
     if execution.route_decision.mode == RouteMode.SINGLE:

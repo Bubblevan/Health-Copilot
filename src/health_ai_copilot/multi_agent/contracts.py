@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import StrEnum
+from math import isfinite
 from typing import Any
 
 from ..research.integration.contracts import IntegrationEpisode
@@ -29,6 +30,207 @@ class WorkerStatus(StrEnum):
     PARTIAL = "partial"
     FAILED = "failed"
     TIMED_OUT = "timed_out"
+
+
+class CoverageStatus(StrEnum):
+    COVERED = "COVERED"
+    PARTIAL = "PARTIAL"
+    MISSING = "MISSING"
+
+
+@dataclass(frozen=True)
+class TriageDecision:
+    """Question-only capability scores; answer generation stays with the LLM runtime."""
+
+    need_patient_context: float
+    need_external_evidence: float
+    need_care_analysis: float
+    complexity: float
+    provider: str = "local"
+    provider_version: str = "local-triage-v1"
+    model: str | None = None
+    fallback_reason: str | None = None
+    input_tokens: int = 0
+    output_tokens: int = 0
+    latency_ms: float = 0.0
+    cost_usd: float | None = None
+
+    def __post_init__(self) -> None:
+        for name in (
+            "need_patient_context", "need_external_evidence",
+            "need_care_analysis", "complexity",
+        ):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise TypeError(f"{name} must be numeric")
+            if not 0.0 <= float(value) <= 1.0:
+                raise ValueError(f"{name} must be between 0 and 1")
+        if self.cost_usd is not None and (
+            isinstance(self.cost_usd, bool)
+            or not isinstance(self.cost_usd, (int, float))
+            or not isfinite(float(self.cost_usd))
+            or self.cost_usd < 0
+        ):
+            raise ValueError("cost_usd must be nonnegative when provided")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "need_patient_context": float(self.need_patient_context),
+            "need_external_evidence": float(self.need_external_evidence),
+            "need_care_analysis": float(self.need_care_analysis),
+            "complexity": float(self.complexity),
+            "provider": self.provider,
+            "provider_version": self.provider_version,
+            "model": self.model,
+            "fallback_reason": self.fallback_reason,
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
+            "latency_ms": round(self.latency_ms, 3),
+            "cost_usd": self.cost_usd,
+        }
+
+
+@dataclass(frozen=True)
+class PlannedAspect:
+    """Untrusted Lead text before the harness attaches identities and assignments."""
+
+    aspect: str
+    worker: WorkerRole
+    expected_output: str
+
+
+@dataclass(frozen=True)
+class TaskAspect:
+    aspect_id: str
+    aspect: str
+    worker: WorkerRole
+    expected_output: str
+    acceptance_criteria: tuple[str, ...]
+    status: str = "pending"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "aspect_id": self.aspect_id,
+            "aspect": self.aspect,
+            "worker": self.worker.value,
+            "expected_output": self.expected_output,
+            "acceptance_criteria": list(self.acceptance_criteria),
+            "status": self.status,
+        }
+
+
+@dataclass(frozen=True)
+class TaskAssignment:
+    assignment_id: str
+    aspect_id: str
+    worker_id: str
+    worker: WorkerRole
+    objective: str
+    status: str = "assigned"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "assignment_id": self.assignment_id,
+            "aspect_id": self.aspect_id,
+            "worker_id": self.worker_id,
+            "worker": self.worker.value,
+            "objective": self.objective,
+            "status": self.status,
+        }
+
+
+@dataclass(frozen=True)
+class TaskLedger:
+    request_id: str
+    aspects: tuple[TaskAspect, ...]
+    assignments: tuple[TaskAssignment, ...]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "request_id": self.request_id,
+            "aspects": [item.to_dict() for item in self.aspects],
+            "assignments": [item.to_dict() for item in self.assignments],
+            "acceptance_criteria": {
+                item.aspect_id: list(item.acceptance_criteria) for item in self.aspects
+            },
+            "statuses": {item.aspect_id: item.status for item in self.aspects},
+        }
+
+
+@dataclass(frozen=True)
+class ArtifactFact:
+    fact_id: str
+    text: str
+    source_id: str
+    tool_id: str
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "fact_id": self.fact_id,
+            "text": self.text,
+            "source_id": self.source_id,
+            "tool_id": self.tool_id,
+        }
+
+
+@dataclass(frozen=True)
+class WorkerArtifact:
+    worker_id: str
+    role: WorkerRole
+    findings: tuple[str, ...] = ()
+    facts: tuple[ArtifactFact, ...] = ()
+    evidence_refs: tuple[str, ...] = ()
+    patient_record_refs: tuple[str, ...] = ()
+    unresolved: tuple[str, ...] = ()
+    answer_fragment: str = ""
+    status: WorkerStatus = WorkerStatus.PENDING
+    aspect_ids: tuple[str, ...] = ()
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "worker_id": self.worker_id,
+            "role": self.role.value,
+            "findings": list(self.findings),
+            "facts": [item.to_dict() for item in self.facts],
+            "evidence_refs": list(self.evidence_refs),
+            "patient_record_refs": list(self.patient_record_refs),
+            "unresolved": list(self.unresolved),
+            "answer_fragment": self.answer_fragment,
+            "status": self.status.value,
+            "aspect_ids": list(self.aspect_ids),
+        }
+
+
+@dataclass(frozen=True)
+class CoverageItem:
+    aspect_id: str
+    status: CoverageStatus
+    supporting_worker_ids: tuple[str, ...] = ()
+    evidence_refs: tuple[str, ...] = ()
+    reason: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "aspect_id": self.aspect_id,
+            "status": self.status.value,
+            "supporting_worker_ids": list(self.supporting_worker_ids),
+            "evidence_refs": list(self.evidence_refs),
+            "reason": self.reason,
+        }
+
+
+@dataclass(frozen=True)
+class CoverageLedger:
+    request_id: str
+    items: tuple[CoverageItem, ...]
+    judge: str = "harness+bounded-model"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "request_id": self.request_id,
+            "items": [item.to_dict() for item in self.items],
+            "judge": self.judge,
+        }
 
 
 @dataclass(frozen=True)
@@ -58,6 +260,7 @@ class WorkerTask:
     role: WorkerRole
     objective: str
     depends_on: tuple[WorkerRole, ...] = ()
+    aspect_ids: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -66,6 +269,7 @@ class WorkerTask:
             "role": self.role.value,
             "objective": self.objective,
             "depends_on": [role.value for role in self.depends_on],
+            "aspect_ids": list(self.aspect_ids),
         }
 
 
@@ -116,6 +320,8 @@ class WorkerReport:
     latency_ms: float = 0.0
     error: str | None = None
     model_turns: int = 0
+    raw_output: str = ""
+    artifact: WorkerArtifact | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -134,6 +340,8 @@ class WorkerReport:
             "latency_ms": round(self.latency_ms, 3),
             "error": self.error,
             "model_turns": self.model_turns,
+            "raw_output": self.raw_output,
+            "artifact": self.artifact.to_dict() if self.artifact else None,
         }
 
 

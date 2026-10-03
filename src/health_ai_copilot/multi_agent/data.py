@@ -16,6 +16,7 @@ DATASET_ROOT_HASH = "e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80f
 RUN_RELATIVE = Path("runs/integration/u2f-owned-v1-55955b2eff38")
 SPEC_ROOT_RELATIVE = Path("benchmarks/integration_owned_v1")
 TRAIN_DEV_SIZE = 256
+TRAIN_TUNE_SIZE = 512
 _FORBIDDEN_RUNTIME_KEYS = frozenset({
     "answer_fact_ids", "answer_values", "architecture_label", "architecture_requirement",
     "architecture_supervision", "capability_requirement_oracle", "counterfactual_family_id",
@@ -46,8 +47,8 @@ class EvaluationRecord:
 
 def load_records(repository_root: Path, split: str) -> tuple[EvaluationRecord, ...]:
     """Load only TRAIN_DEV or DEV. Reserved TEST/OOD row files are never opened."""
-    if split not in {"train_dev", "dev"}:
-        raise ValueError("split must be train_dev or dev")
+    if split not in {"train_dev", "train_tune", "dev"}:
+        raise ValueError("split must be train_dev, train_tune, or dev")
     root = repository_root / RUN_RELATIVE
     manifest = _read_json(root / "manifest.json")
     if manifest.get("dataset_id") != DATASET_ID:
@@ -61,7 +62,7 @@ def load_records(repository_root: Path, split: str) -> tuple[EvaluationRecord, .
     }:
         raise ValueError("OWNED_DATASET_SPLIT_COUNTS_MISMATCH")
 
-    if split == "train_dev":
+    if split in {"train_dev", "train_tune"}:
         roles = ("TRAIN",)
         file_roles = (("TRAIN", "train"),)
     else:
@@ -117,9 +118,18 @@ def load_records(repository_root: Path, split: str) -> tuple[EvaluationRecord, .
             f"MA_MVP1_TRAIN_DEV_V1|{row.episode_id}".encode()
         ).digest())
         records = records[:TRAIN_DEV_SIZE]
+    if split == "train_tune":
+        records.sort(key=lambda row: hashlib.sha256(
+            f"MA_MVP2_TRAIN_TUNE_V1|{row.episode_id}".encode()
+        ).digest())
+        records = records[:TRAIN_TUNE_SIZE]
     if split == "dev":
         records.sort(key=lambda row: (row.split, row.episode_id))
-    expected_count = TRAIN_DEV_SIZE if split == "train_dev" else 1024
+    expected_count = {
+        "train_dev": TRAIN_DEV_SIZE,
+        "train_tune": TRAIN_TUNE_SIZE,
+        "dev": 1024,
+    }[split]
     if len(records) != expected_count:
         raise ValueError(f"OWNED_SELECTED_ROWS_COUNT_MISMATCH:{split}")
     return tuple(records)

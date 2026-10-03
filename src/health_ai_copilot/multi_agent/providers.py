@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from time import monotonic
 from typing import Protocol
 
+from .contracts import TriageDecision
+
 
 @dataclass(frozen=True)
 class ModelReply:
@@ -27,6 +29,13 @@ class ModelProvider(Protocol):
         json_mode: bool = False,
     ) -> ModelReply:
         """Return one bounded completion; retries are owned by the harness."""
+
+
+class TriageProvider(Protocol):
+    """Classify routing needs from user text and explicitly observable context only."""
+
+    async def triage(self, query: str, observable_context: str) -> TriageDecision:
+        ...
 
 
 class LocalLlamaCppProvider:
