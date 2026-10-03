@@ -30,8 +30,17 @@ foreach ($Candidate in $Candidates) {
     if ($CandidateHash -ne $ExpectedServerSha256) {
         continue
     }
-    $VersionOutput = (& $Candidate --version 2>&1 | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or
+    $PreviousErrorActionPreference = $ErrorActionPreference
+    try {
+        # llama.cpp may write its version banner to stderr; treat it as captured text.
+        $ErrorActionPreference = "Continue"
+        $VersionOutput = (& $Candidate --version 2>&1 | Out-String).Trim()
+        $VersionExitCode = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $PreviousErrorActionPreference
+    }
+    if ($VersionExitCode -ne 0 -or
         $VersionOutput -notmatch "\b$ExpectedServerVersion\b" -or
         $VersionOutput -notmatch [regex]::Escape($ExpectedServerBuild)) {
         throw "Pinned llama-server.exe SHA256 matched, but its runtime version/build did not match $ExpectedServerVersion ($ExpectedServerBuild): $VersionOutput"
