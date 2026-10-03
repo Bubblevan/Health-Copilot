@@ -13,6 +13,12 @@ assert SPEC and SPEC.loader
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 
+JUDGE_COMPAT_SCRIPT = Path(__file__).parents[1] / "tools" / "research" / "memory" / "run_memora_qwen_locomo_judge_compat.py"
+JUDGE_COMPAT_SPEC = importlib.util.spec_from_file_location("memora_qwen_judge_compat", JUDGE_COMPAT_SCRIPT)
+assert JUDGE_COMPAT_SPEC and JUDGE_COMPAT_SPEC.loader
+JUDGE_COMPAT = importlib.util.module_from_spec(JUDGE_COMPAT_SPEC)
+JUDGE_COMPAT_SPEC.loader.exec_module(JUDGE_COMPAT)
+
 
 def test_official_memora_metrics_and_empty_prediction():
     values = MODULE._official_metrics("The blue sky!", "blue sky")
@@ -136,3 +142,26 @@ def test_chroma_query_failures_are_audited_and_terminal_failures_are_counted(tmp
             if getattr(handler, "_healthcopilot_storage_event_path", None) == str(event_path):
                 logger.removeHandler(handler)
                 handler.close()
+
+
+def test_judge_compat_accepts_json_label_with_trailing_rationale():
+    parse = JUDGE_COMPAT.parse_local_judge_output
+    extract = lambda text: text.strip()
+    assert parse('{"label":"WRONG"}\nThe dates differ.', extract) == ("WRONG", True, "")
+    assert parse('The answer matches.\n{"label":"CORRECT"}', extract) == ("CORRECT", True, "")
+
+
+def test_judge_compat_keeps_strict_label_and_rejects_conflicts():
+    parse = JUDGE_COMPAT.parse_local_judge_output
+    extract = lambda text: text.strip()
+    assert parse('{"label":"CORRECT"}', extract) == ("CORRECT", False, "")
+    assert parse("Reasoning\nWRONG", extract) == ("WRONG", True, "")
+    for value in (
+        '{"label":"WRONG"}\n{"label":"CORRECT"}',
+        "Unlabeled judge reasoning only.",
+    ):
+        try:
+            parse(value, extract)
+        except RuntimeError:
+            continue
+        raise AssertionError(f"Ambiguous judge output must not be scored: {value!r}")
