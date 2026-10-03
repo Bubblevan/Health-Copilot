@@ -1,8 +1,8 @@
 """Resume Memora LoCoMo after a local-Qwen judge-format compatibility amendment.
 
-The upstream judge prompt and model are unchanged. This adapter accepts the
-official JSON label when Qwen appends rationale text and gives the same judge
-request a larger output allowance so the label is not truncated.
+The upstream judge prompt and model are unchanged. This adapter accepts an
+unambiguous official label when Qwen appends rationale text and gives the same
+judge request a larger output allowance so the label is not truncated.
 """
 
 from __future__ import annotations
@@ -57,6 +57,12 @@ def parse_local_judge_output(text: str, extract_json) -> tuple[str, bool, str]:
     labeled_line = re.fullmatch(r"label\s*:\s*(CORRECT|WRONG)", last_line.strip(), re.IGNORECASE)
     if labeled_line:
         return labeled_line.group(1).upper(), True, ""
+    terminal_label = re.search(r"\b(CORRECT|WRONG)\b[\s`*_\"'.,!?;:]*$", last_line, re.IGNORECASE)
+    if terminal_label:
+        explicit_labels = re.findall(r"\b(CORRECT|WRONG)\b", text)
+        label = terminal_label.group(1).upper()
+        if explicit_labels and {value.upper() for value in explicit_labels} == {label}:
+            return label, True, ""
     raise RuntimeError(f"Local Qwen judge output contains no unambiguous label: {text[:200]!r}")
 
 
@@ -130,7 +136,7 @@ def main() -> None:
         "judge_response_format": "json_object unchanged",
         "judge_max_tokens": JUDGE_MAX_TOKENS,
         "format_retries": JUDGE_FORMAT_RETRIES,
-        "parsing": "accept one unambiguous JSON label object anywhere in response; otherwise strict final standalone label",
+        "parsing": "accept one unambiguous JSON label object anywhere, a strict final label/label line, or one unambiguous terminal label token on the final nonempty line",
         "scope": "evaluation formatting only; reader answers, memory stores, retrieval, prompts, and deterministic metrics unchanged",
     }
     runner._write_json(run_root / "judge_format_amendment.json", amendment)

@@ -150,6 +150,7 @@ def test_judge_compat_accepts_json_label_with_trailing_rationale():
     assert parse('{"label":"WRONG"}\nThe dates differ.', extract) == ("WRONG", True, "")
     assert parse('The answer matches.\n{"label":"CORRECT"}', extract) == ("CORRECT", True, "")
     assert parse("Reasoning\nlabel: CORRECT", extract) == ("CORRECT", True, "")
+    assert parse("The date differs from the gold answer. WRONG.", extract) == ("WRONG", True, "")
 
 
 def test_judge_compat_keeps_strict_label_and_rejects_conflicts():
@@ -159,6 +160,7 @@ def test_judge_compat_keeps_strict_label_and_rejects_conflicts():
     assert parse("Reasoning\nWRONG", extract) == ("WRONG", True, "")
     for value in (
         '{"label":"WRONG"}\n{"label":"CORRECT"}',
+        "The answer is CORRECT, but the final judgment is WRONG.",
         "Unlabeled judge reasoning only.",
     ):
         try:
