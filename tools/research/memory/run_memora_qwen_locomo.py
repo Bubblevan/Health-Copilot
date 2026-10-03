@@ -7,6 +7,7 @@ It does not modify Memora source files or train a retrieval policy.
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import ipaddress
 import json
@@ -15,6 +16,7 @@ import re
 import socket
 import subprocess
 import sys
+import threading
 import time
 import types
 from collections import defaultdict
@@ -32,7 +34,7 @@ LOCOMO_ROOT = EXTERNAL_MEMORY / "LoCoMo"
 MEMEVAL_ROOT = EXTERNAL_MEMORY / "MemEval"
 DATASET_PATH = LOCOMO_ROOT / "data" / "locomo10.json"
 MEMENTAL_PATCH = ROOT / "tools" / "research" / "memory" / "patches" / "memeval_qwen_main_v1.patch"
-RUN_ROOT = ROOT / "runs" / "memory" / "memora-locomo-qwen-v3"
+RUN_ROOT = ROOT / "runs" / "memory" / "memora-locomo-qwen-v4-parallel"
 REPORT_PATH = ROOT / "docs" / "research" / "memory" / "memora_qwen_locomo_results.md"
 
 EXPECTED_MEMORA_COMMIT = "dec3f8f2444eace7004fc084abe1be9f3d88270e"
@@ -50,6 +52,7 @@ READER_MODEL = "health-memory-qwen3-8b"
 EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
 ANSWER_BUDGET = 256
 INTERNAL_BUDGET = 8192
+WORKERS = 4
 BOOTSTRAP_SEED = 42
 BOOTSTRAP_SAMPLES = 10_000
 SCHEMA_VERSION = 1
@@ -60,6 +63,8 @@ CATEGORY_NAMES = {
     4: "open-domain",
     5: "adversarial",
 }
+_JSONL_LOCK = threading.Lock()
+_EMBEDDING_LOCK = threading.Lock()
 
 
 def _canonical(value: Any) -> bytes:
@@ -87,10 +92,11 @@ def _write_json(path: Path, value: Any) -> None:
 
 def _append_jsonl(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8", newline="\n") as stream:
-        stream.write(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
-        stream.flush()
-        os.fsync(stream.fileno())
+    with _JSONL_LOCK:
+        with path.open("a", encoding="utf-8", newline="\n") as stream:
+            stream.write(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -172,6 +178,7 @@ def _configure_local_environment() -> None:
         "ANONYMIZED_TELEMETRY": "false",
         "NO_PROXY": "*",
         "no_proxy": "*",
+        "TQDM_DISABLE": "1",
         "HC_MEMORY_TRACK": "main_local_only",
         "HC_LOCAL_READER_BASE_URL": ENDPOINT,
         "HC_READER_MODEL": READER_MODEL,
@@ -233,7 +240,7 @@ def _reader_process() -> dict[str, Any]:
     command = str(process["CommandLine"])
     required = (
         "--ctx-size 131072", "--n-gpu-layers 99", "--flash-attn on",
-        "--cache-type-k q4_0", "--cache-type-v q4_0", "--parallel 1",
+        "--cache-type-k q4_0", "--cache-type-v q4_0", f"--parallel {WORKERS}",
         "--rope-scaling yarn", "--rope-scale 4",
     )
     missing = [flag for flag in required if flag.lower() not in command.lower()]
@@ -247,6 +254,8 @@ def _reader_process() -> dict[str, Any]:
         "model_sha256": READER_SHA256,
         "build": "llama.cpp 10068 / 571d0d540",
         "command_line": command,
+        "parallel_slots": WORKERS,
+        "max_context_tokens_per_sequence": 131072 // WORKERS,
     }
 
 
@@ -296,6 +305,9 @@ def _prepare_manifests(identity: dict[str, Any], dataset: list[dict[str, Any]], 
             "model": READER_MODEL,
             "artifact": str(READER_PATH),
             "sha256": READER_SHA256,
+            "server_context_tokens": 131072,
+            "parallel_sequences": WORKERS,
+            "context_tokens_per_sequence": 131072 // WORKERS,
             "answer_max_new_tokens": ANSWER_BUDGET,
         },
         "memory_internal_llm": {"model": READER_MODEL, "max_new_tokens": INTERNAL_BUDGET},
@@ -335,7 +347,7 @@ def _prepare_manifests(identity: dict[str, Any], dataset: list[dict[str, Any]], 
             "use_segments_as_episodic": True,
             "combined_user": True,
             "prompted_policy_max_steps": 4,
-            "workers": 1,
+            "workers": WORKERS,
             "grpo": "not trained or evaluated",
         },
         "scoring": {
@@ -455,7 +467,8 @@ def _install_local_adapters(provider: Any, config: Any) -> dict[str, Any]:
         input_type = "document" if role == "memory_ingest" else "query"
         runtime = get_local_embedding_runtime(str(EMBEDDING_PATH), device="cuda:0", dtype="float16")
         texts = [str(item) for item in inputs]
-        vectors, token_count, truncated, latency = runtime.encode(texts, input_type)
+        with _EMBEDDING_LOCK:
+            vectors, token_count, truncated, latency = runtime.encode(texts, input_type)
         with call_context(context.system, context.question_id, "embedding"):
             record_call(
                 role="embedding",
@@ -555,7 +568,7 @@ def _config(run_root: Path, strategy: str):
     cfg.memory.enable_episodic_memory = True
     cfg.memory.use_segments_as_episodic = True
     cfg.memory.multimodal_support = False
-    cfg.eval.max_workers = 1
+    cfg.eval.max_workers = WORKERS
     cfg.eval.use_combined_user = True
     cfg.eval.prompt_template = "mem0"
     cfg.eval.subset_idx = -1
@@ -630,6 +643,24 @@ def _question_call_health(path: Path, question_id: str, strategy: str) -> dict[s
     }
 
 
+def _parse_local_judge_output(text: str, extract_json) -> tuple[str, bool]:
+    candidate = extract_json(text)
+    try:
+        payload = json.loads(candidate)
+    except json.JSONDecodeError:
+        payload = None
+    if isinstance(payload, dict):
+        label = str(payload.get("label", "")).upper()
+        if label in {"CORRECT", "WRONG"}:
+            return label, False
+
+    last_line = next((line.strip() for line in reversed(text.splitlines()) if line.strip()), "")
+    normalized_last_line = last_line.strip("`*_ \"'.,!?;:").upper()
+    if normalized_last_line in {"CORRECT", "WRONG"}:
+        return normalized_last_line, True
+    raise RuntimeError(f"Local Qwen judge did not end with a CORRECT/WRONG label: {text[:160]!r}")
+
+
 def _judge(searcher: Any, helpers: dict[str, Any], qa: dict[str, Any], response: str, question_id: str, strategy: str) -> dict[str, Any]:
     prompt = helpers["ACCURACY_PROMPT"].format(
         question=qa["question"], gold_answer=qa["answer"], generated_answer=response
@@ -644,11 +675,20 @@ def _judge(searcher: Any, helpers: dict[str, Any], qa: dict[str, Any], response:
             max_tokens=64,
             extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         )
-    payload = json.loads(helpers["extract_json"](result.choices[0].message.content or "{}"))
-    label = str(payload.get("label", "")).upper()
-    if label not in {"CORRECT", "WRONG"}:
-        raise RuntimeError(f"Local Qwen judge returned an invalid label: {label!r}")
-    return {"label": label, "correct": int(label == "CORRECT"), "explanation": payload.get("reason", "")}
+    content = result.choices[0].message.content or ""
+    label, format_fallback = _parse_local_judge_output(content, helpers["extract_json"])
+    explanation = ""
+    try:
+        payload = json.loads(helpers["extract_json"](content))
+        explanation = str(payload.get("reason", "")) if isinstance(payload, dict) else ""
+    except json.JSONDecodeError:
+        explanation = content.strip()
+    return {
+        "label": label,
+        "correct": int(label == "CORRECT"),
+        "explanation": explanation,
+        "format_fallback": format_fallback,
+    }
 
 
 def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str, cfg: Any, helpers: dict[str, Any]) -> dict[str, Any]:
@@ -661,7 +701,6 @@ def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str,
             raise RuntimeError("Ingestion resume state belongs to a different frozen run")
         completed = [int(value) for value in state.get("completed_conversation_indices", [])]
     checkpoint_root.mkdir(parents=True, exist_ok=True)
-    prior_build_log = []
     for idx in completed:
         checkpoint_path = checkpoint_root / f"{idx:02d}.json"
         if not checkpoint_path.is_file():
@@ -669,49 +708,56 @@ def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str,
         checkpoint = json.loads(checkpoint_path.read_text(encoding="utf-8"))
         if checkpoint.get("run_identity") != identity:
             raise RuntimeError(f"Conversation checkpoint identity mismatch: {idx}")
-        prior_build_log.extend(checkpoint.get("build_log", []))
-    manager = helpers["MemoraADD"](cfg, data_path=str(DATASET_PATH))
-    manager.build_log.extend(prior_build_log)
-    segmenter_method = manager.segmenter._segment_with_llm
-    def tracked_segmenter(messages):
-        result = segmenter_method(messages)
-        if result is None:
-            manager.segmenter._hc_fallback_count = getattr(manager.segmenter, "_hc_fallback_count", 0) + 1
-        return result
-    manager.segmenter._segment_with_llm = tracked_segmenter
-    for idx, item in enumerate(dataset):
-        if idx in completed:
-            continue
+    def process_conversation(idx: int, item: dict[str, Any]) -> dict[str, Any]:
+        manager = helpers["MemoraADD"](cfg)
+        segmenter_method = manager.segmenter._segment_with_llm
+
+        def tracked_segmenter(messages):
+            result = segmenter_method(messages)
+            if result is None:
+                manager.segmenter._hc_fallback_count = getattr(manager.segmenter, "_hc_fallback_count", 0) + 1
+            return result
+
+        manager.segmenter._hc_fallback_count = 0
+        manager.segmenter._segment_with_llm = tracked_segmenter
         sample_id = str(item["sample_id"])
         started = time.perf_counter()
-        call_id = f"ingest:{sample_id}"
-        fallback_before = getattr(manager.segmenter, "_hc_fallback_count", 0)
-        build_log_before = len(manager.build_log)
-        with helpers["call_context"]("Memora", call_id, "memory_ingest"):
+        with helpers["call_context"]("Memora", f"ingest:{sample_id}", "memory_ingest"):
             manager.process_conversation(item, idx)
         elapsed_ms = (time.perf_counter() - started) * 1000
         client_id = f"{item['conversation']['speaker_a']}_{item['conversation']['speaker_b']}_{idx}"
         client = manager.get_memory_client(client_id)
-        current = sorted(set(completed + [idx]))
-        build_log_delta = manager.build_log[build_log_before:]
-        _write_json(checkpoint_root / f"{idx:02d}.json", {
+        build_log = list(manager.build_log)
+        return {
             "run_identity": identity,
             "sample_id": sample_id,
             "conversation_index": idx,
             "wall_time_ms": round(elapsed_ms, 3),
             "memory_count": client.count(),
-            "segments": len(build_log_delta),
-            "segmenter_fallback_count": getattr(manager.segmenter, "_hc_fallback_count", 0) - fallback_before,
-            "build_log": build_log_delta,
-        })
-        _write_json(state_path, {
-            "run_identity": identity,
-            "completed_conversation_indices": current,
-            "completed_sample_ids": [str(dataset[number]["sample_id"]) for number in current],
-            "last_completed_at_utc": datetime.now(UTC).isoformat(),
-        })
-        completed = current
-        print(f"[ingest {len(completed)}/{len(dataset)}] {sample_id}: {elapsed_ms / 1000:.1f}s")
+            "segments": len(build_log),
+            "segmenter_fallback_count": manager.segmenter._hc_fallback_count,
+            "build_log": build_log,
+        }
+
+    pending = [(idx, item) for idx, item in enumerate(dataset) if idx not in completed]
+    worker_count = min(WORKERS, len(pending))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(worker_count, 1)) as executor:
+        futures = {executor.submit(process_conversation, idx, item): (idx, item) for idx, item in pending}
+        for future in concurrent.futures.as_completed(futures):
+            idx, item = futures[future]
+            checkpoint = future.result()
+            _write_json(checkpoint_root / f"{idx:02d}.json", checkpoint)
+            completed = sorted(set(completed + [idx]))
+            _write_json(state_path, {
+                "run_identity": identity,
+                "completed_conversation_indices": completed,
+                "completed_sample_ids": [str(dataset[number]["sample_id"]) for number in completed],
+                "last_completed_at_utc": datetime.now(UTC).isoformat(),
+            })
+            print(
+                f"[ingest {len(completed)}/{len(dataset)}] {item['sample_id']}: "
+                f"{checkpoint['wall_time_ms'] / 1000:.1f}s (workers={worker_count})"
+            )
     if sorted(completed) != list(range(len(dataset))):
         raise RuntimeError("Not every LoCoMo conversation has a completed memory build")
     checkpoint_rows = [
@@ -723,8 +769,9 @@ def _run_ingestion(dataset: list[dict[str, Any]], run_root: Path, identity: str,
     temporary = conversations_path.with_suffix(".jsonl.tmp")
     temporary.write_text("".join(json.dumps({key: value for key, value in row.items() if key != "build_log"}, separators=(",", ":")) + "\n" for row in checkpoint_rows), encoding="utf-8")
     os.replace(temporary, conversations_path)
-    _write_json(run_root / "ingestion" / "build_log.json", manager.build_log)
-    return {"completed_conversations": len(completed), "build_log_entries": len(manager.build_log)}
+    build_log = [entry for row in checkpoint_rows for entry in row.get("build_log", [])]
+    _write_json(run_root / "ingestion" / "build_log.json", build_log)
+    return {"completed_conversations": len(completed), "build_log_entries": len(build_log), "workers": WORKERS}
 
 
 def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]], run_root: Path, identity: str, cfg: Any, strategy: str, helpers: dict[str, Any]) -> dict[str, Any]:
@@ -734,31 +781,43 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
     expected = {row["question_id"] for row in questions}
     predictions = _existing_rows(predictions_path, expected, identity)
     judgments = _existing_rows(judgments_path, expected, identity)
-    searcher = helpers["MemoraSearch"](
-        cfg,
-        output_path=str(run_root / "outputs" / f"official-{strategy}-output.json"),
-        top_k=30,
-        retrieval_strategy=strategy,
-    )
-    original_search_memory = searcher.search_memory
-    active_question_id = ""
+    searcher_local = threading.local()
 
-    def search_with_memory_role(user_id, query, *args, **kwargs):
-        with helpers["call_context"](f"Memora-{strategy}", active_question_id, "memory_reasoning"):
-            return original_search_memory(user_id, query, *args, **kwargs)
+    def get_searcher():
+        searcher = getattr(searcher_local, "searcher", None)
+        if searcher is None:
+            searcher = helpers["MemoraSearch"](
+                cfg,
+                output_path=str(run_root / "outputs" / f"official-{strategy}-output.json"),
+                top_k=30,
+                retrieval_strategy=strategy,
+            )
+            original_search_memory = searcher.search_memory
 
-    searcher.search_memory = search_with_memory_role
+            def search_with_memory_role(user_id, query, *args, **kwargs):
+                active = helpers["current_call_context"]()
+                with helpers["call_context"](f"Memora-{strategy}", active.question_id, "memory_reasoning"):
+                    return original_search_memory(user_id, query, *args, **kwargs)
+
+            searcher.search_memory = search_with_memory_role
+            searcher_local.searcher = searcher
+        return searcher
+
     items_by_sample = {str(item["sample_id"]): item for item in dataset}
     indices_by_sample = {str(item["sample_id"]): index for index, item in enumerate(dataset)}
     totals = {"generated": len(predictions), "judged": len(judgments), "infra_failures": 0}
-    for position, row in enumerate(questions, 1):
+    state_lock = threading.Lock()
+
+    def process_question(row: dict[str, Any]) -> None:
         qid = row["question_id"]
         sample_id = row["sample_id"]
         item = items_by_sample[sample_id]
         qa = item["qa"][row["qa_index"]]
         category = int(qa.get("category", -1))
-        if qid not in predictions:
-            active_question_id = qid
+        searcher = get_searcher()
+        with state_lock:
+            prediction = predictions.get(qid)
+        if prediction is None:
             speaker_a = item["conversation"]["speaker_a"]
             speaker_b = item["conversation"]["speaker_b"]
             user_id = f"{speaker_a}_{speaker_b}_{indices_by_sample[sample_id]}"
@@ -774,7 +833,8 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
                     "provider_health": provider_health,
                     "run_identity": identity,
                 })
-                totals["infra_failures"] += 1
+                with state_lock:
+                    totals["infra_failures"] += 1
                 raise RuntimeError(f"Local provider failure at {qid}; no quality score was recorded")
             metrics = _official_metrics(response, str(qa.get("answer", "")))
             answer_row = {
@@ -796,11 +856,14 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
                 "run_identity": identity,
             }
             _append_jsonl(predictions_path, answer_row)
-            predictions[qid] = answer_row
-            totals["generated"] += 1
+            with state_lock:
+                predictions[qid] = answer_row
+                totals["generated"] += 1
+            prediction = answer_row
 
-        prediction = predictions[qid]
-        if qid not in judgments and category != 5:
+        with state_lock:
+            has_judgment = qid in judgments
+        if not has_judgment and category != 5:
             try:
                 judge = _judge(searcher, helpers, qa, prediction["response"], qid, strategy)
             except Exception as error:
@@ -811,7 +874,8 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
                     "error": str(error)[:500],
                     "run_identity": identity,
                 })
-                totals["infra_failures"] += 1
+                with state_lock:
+                    totals["infra_failures"] += 1
                 raise RuntimeError(f"Local Qwen judge failed at {qid}; judge score not recorded") from error
             judge_row = {
                 "question_id": qid,
@@ -820,10 +884,19 @@ def _run_strategy(dataset: list[dict[str, Any]], questions: list[dict[str, Any]]
                 "run_identity": identity,
             }
             _append_jsonl(judgments_path, judge_row)
-            judgments[qid] = judge_row
-            totals["judged"] += 1
-        if position % 25 == 0 or position == len(questions):
-            print(f"[{strategy} {position}/{len(questions)}] answers={len(predictions)} judges={len(judgments)}")
+            with state_lock:
+                judgments[qid] = judge_row
+                totals["judged"] += 1
+
+    worker_count = min(WORKERS, len(questions))
+    completed = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(worker_count, 1)) as executor:
+        futures = [executor.submit(process_question, row) for row in questions]
+        for future in concurrent.futures.as_completed(futures):
+            future.result()
+            completed += 1
+            if completed % 25 == 0 or completed == len(questions):
+                print(f"[{strategy} {completed}/{len(questions)}] answers={len(predictions)} judges={len(judgments)} (workers={worker_count})")
     return {
         "strategy": strategy,
         "predictions": len(predictions),
@@ -919,6 +992,10 @@ def _summarize(
                     if row["question_id"] in judged
                 ]) if any(row["question_id"] in judged for row in group_rows) else None,
                 "local_qwen_judge_count": sum(row["question_id"] in judged for row in group_rows),
+                "judge_format_fallback_count": sum(
+                    bool(judged[row["question_id"]].get("format_fallback"))
+                    for row in group_rows if row["question_id"] in judged
+                ),
                 "avg_memory_context_reader_tokens": mean([
                     float((row.get("latency_breakdown") or {}).get("prompt_stats", {}).get("total_tokens"))
                     for row in group_rows
@@ -935,6 +1012,7 @@ def _summarize(
         summary["local_qwen_judge"] = {
             "count": len(eligible),
             "accuracy": mean([int(judged[row["question_id"]]["correct"]) for row in eligible]) if eligible else None,
+            "format_fallback_count": sum(bool(judged[row["question_id"]].get("format_fallback")) for row in eligible),
             "category_5_excluded": True,
         }
         strategy_calls = [row for row in call_ledger if row.get("system") == f"Memora-{strategy}"]
@@ -994,14 +1072,14 @@ def _write_markdown_report(result: dict[str, Any], run_root: Path) -> None:
         "",
         "## Main Results",
         "",
-        "| Strategy | N | Official token F1 | Official EM | Normalized EM | Local Qwen judge accuracy | Judge N | Mean memory-context tokens | Retrieval sec | Answer sec |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Strategy | N | Official token F1 | Official EM | Normalized EM | Local Qwen judge accuracy | Judge N | Judge format fallbacks | Mean memory-context tokens | Retrieval sec | Answer sec |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for strategy, values in result["strategies"].items():
         overall = values["overall"]
         judge = values["local_qwen_judge"]
         lines.append(
-            f"| {strategy} | {overall['count']} | {_fmt(overall['official_f1'])} | {_fmt(overall['official_exact_match'])} | {_fmt(overall['normalized_em'])} | {_fmt(judge['accuracy'])} | {judge['count']} | {_fmt(overall['avg_memory_context_reader_tokens'])} | {_fmt(overall['avg_retrieval_latency_seconds'])} | {_fmt(overall['avg_answer_latency_seconds'])} |"
+            f"| {strategy} | {overall['count']} | {_fmt(overall['official_f1'])} | {_fmt(overall['official_exact_match'])} | {_fmt(overall['normalized_em'])} | {_fmt(judge['accuracy'])} | {judge['count']} | {judge['format_fallback_count']} | {_fmt(overall['avg_memory_context_reader_tokens'])} | {_fmt(overall['avg_retrieval_latency_seconds'])} | {_fmt(overall['avg_answer_latency_seconds'])} |"
         )
     lines.extend(["", "## Category Results", "", "| Strategy | Category | N | Official token F1 | Official EM | Normalized EM | Local Qwen judge accuracy | Mean memory-context tokens | Retrieval sec | Answer sec |", "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"])
     for strategy, values in result["strategies"].items():
@@ -1058,8 +1136,11 @@ def _write_markdown_report(result: dict[str, Any], run_root: Path) -> None:
         f"Run artifacts: `{run_root}`",
         "",
     ])
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text("\n".join(lines), encoding="utf-8")
+    report_text = "\n".join(lines)
+    (run_root / "report.md").write_text(report_text, encoding="utf-8")
+    if result.get("status") == "complete" and result.get("question_count") == 1986:
+        REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        REPORT_PATH.write_text(report_text, encoding="utf-8")
 
 
 def _fmt(value: Any) -> str:
@@ -1088,6 +1169,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         keep = {"speaker_a", "speaker_b", "session_1", "session_1_date_time"}
         dataset[0]["conversation"] = {key: value for key, value in conversation.items() if key in keep}
         run_root = RUN_ROOT / "smoke"
+    elif args.phase == "parallel-smoke":
+        dataset = json.loads(json.dumps(dataset[:4]))
+        for item in dataset:
+            item["qa"] = item["qa"][:2]
+            conversation = item["conversation"]
+            keep = {"speaker_a", "speaker_b", "session_1", "session_1_date_time"}
+            item["conversation"] = {key: value for key, value in conversation.items() if key in keep}
+        run_root = RUN_ROOT / "parallel-smoke-v3"
     else:
         run_root = RUN_ROOT
     base_identity = {
@@ -1116,6 +1205,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             raise RuntimeError("Local Qwen embedding artifact did not match the frozen revision")
         runtime_info = {
             "reader": reader,
+            "server_context_tokens": 131072,
+            "context_tokens_per_sequence": 131072 // WORKERS,
             "embedding": {
                 "repo": embedding_runtime.artifact.repo,
                 "revision": embedding_runtime.artifact.revision,
@@ -1145,7 +1236,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         }
         _write_json(run_root / "runtime_manifest.json", runtime_info)
         cfg = _config(run_root, "semantic")
-        if args.phase in {"smoke", "full"}:
+        if args.phase in {"smoke", "parallel-smoke", "full"}:
             ingestion = _run_ingestion(dataset, run_root, run_identity, cfg, helpers)
             questions = _question_rows(dataset)
             strategies = args.strategies
@@ -1176,7 +1267,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--phase", choices=("smoke", "full"), default="full")
+    parser.add_argument("--phase", choices=("smoke", "parallel-smoke", "full"), default="full")
     parser.add_argument("--strategies", nargs="+", choices=("semantic", "prompt"), default=["semantic", "prompt"])
     return parser.parse_args()
 

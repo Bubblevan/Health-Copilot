@@ -18,6 +18,8 @@ The pinned upstream Memora implementation is used without tracked source edits. 
 
 The run does not train or evaluate GRPO. The two retrieval strategies share the same built memory and the same Qwen model configuration.
 
+Runtime scheduling uses four workers across independent LoCoMo conversations and four workers across independent QA items. Session ingestion remains sequential within each conversation, preserving the upstream temporal order. This matches the concurrency pattern supported by the pinned upstream LoCoMo runner; it changes scheduling only, not prompts, memory operations, retrieval logic, or scoring. The server keeps the same 131,072-token aggregate context allocation, split into four 32,768-token parallel sequences.
+
 ## Frozen Data And Models
 
 - Dataset: LoCoMo `locomo10.json`, 10 conversations, 1,986 questions; SHA-256 and upstream revision are frozen in each run manifest.
@@ -32,7 +34,7 @@ The run does not train or evaluate GRPO. The two retrieval strategies share the 
 - Upstream Memora token F1: set-overlap F1 after lowercase and its punctuation splitting; this is deliberately named `official_f1` in artifacts.
 - Upstream exact match: case-insensitive exact string equality.
 - Additional normalized EM: lowercase, remove English articles and punctuation, then normalize whitespace.
-- Local Qwen judge accuracy, reported separately and not treated as the paper's GPT-4o-mini judge score.
+- Local Qwen judge accuracy, reported separately and not treated as the paper's GPT-4o-mini judge score. The official JSON label is preferred; if Qwen instead returns prose followed by a standalone final `CORRECT`/`WRONG` line, that unambiguous label is accepted and counted as a format fallback. Ambiguous or missing labels remain infrastructure failures.
 - Per-category quality, local reader-token estimate over formatted memory lines, retrieval latency, answer latency, local provider token usage when available, and ingestion latency/memory counts.
 - Prompted-policy minus semantic paired F1 difference with 10,000 category-stratified bootstrap resamples (seed 42). A CI crossing zero is inconclusive.
 
@@ -47,3 +49,4 @@ Each conversation has an atomic checkpoint containing its memory-build log and t
 - Memora paper snapshot and local PDF checksum: [memora_paper_snapshot.md](memora_paper_snapshot.md).
 - Runner and artifact manifests record the upstream commits, model hashes, local runtime, split/question-manifest hash, software versions, and runner SHA-256.
 - Raw predictions, judgments, local call ledger, Chroma state, and resumable checkpoints remain under the generated run directory and are not committed as repository source.
+- The first serial full-run attempt (`memora-locomo-qwen-v3`) was interrupted before its first conversation checkpoint after measuring the avoidable single-worker bottleneck. It is an incomplete runtime diagnostic, not a benchmark result. The controlled parallel run uses a new identity and artifact root.

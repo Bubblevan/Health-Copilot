@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 
@@ -64,3 +65,32 @@ def test_local_usage_does_not_impute_unknown_token_usage_as_zero():
     assert usage["completion_tokens"] == 4
     assert usage["completion_token_calls_known"] == 1
     assert usage["latency_seconds"] == 2.0
+
+
+def test_parallel_jsonl_appends_remain_parseable_and_unique(tmp_path):
+    path = tmp_path / "parallel.jsonl"
+    rows = [{"question_id": f"q{index}", "answer": str(index)} for index in range(128)]
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(lambda row: MODULE._append_jsonl(path, row), rows))
+    actual = MODULE._read_jsonl(path)
+    assert len(actual) == len(rows)
+    assert {row["question_id"] for row in actual} == {row["question_id"] for row in rows}
+
+
+def test_local_judge_accepts_official_json_and_qwen_label_suffix():
+    parse = MODULE._parse_local_judge_output
+    extract = lambda text: text.strip()
+    assert parse('{"label":"CORRECT"}', extract) == ("CORRECT", False)
+    assert parse("The answer matches the reference.\nCORRECT", extract) == ("CORRECT", True)
+    assert parse("The dates differ.\nWRONG", extract) == ("WRONG", True)
+
+
+def test_local_judge_rejects_ambiguous_or_missing_suffix():
+    parse = MODULE._parse_local_judge_output
+    extract = lambda text: text.strip()
+    for output in ("CORRECT and WRONG", "The answer seems reasonable."):
+        try:
+            parse(output, extract)
+        except RuntimeError:
+            continue
+        raise AssertionError(f"Ambiguous judge output should not be scored: {output!r}")
