@@ -1,0 +1,1 @@
+{"candidate_count":0,"candidates":[],"gold_included":false,"method":"candidate manifest only; no SFT/OPD/GRPO started","rsel_structured_relation_successes_excluded":true,"schema_version":"rag-e6b-post-training-candidates-v1","selection":"RAG capability; RSEL_NO_MATCH; all required external evidence in shared top-10; Vanilla grounded-task failure"}
