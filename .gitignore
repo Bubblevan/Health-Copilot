@@ -19,6 +19,10 @@ artifacts/
 /.cache/health-copilot/mem3a2-embedding/
 /.cache/health-copilot/mem3a2-minimal-flatprop-v3-writer/
 /.cache/health-copilot/mem3a2r-minimal-flatprop-v3-16k-writer/
+/.cache/ma-mvp1-cpu/
+/.cache/ma-mvp1-pytest/
+/.cache/ma-mvp1-work/
+/.cache/ma-mvp1-invalid-train-dev-20261003-cpu/
 data/raw/
 data/processed/
 *.db
