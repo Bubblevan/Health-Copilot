@@ -2,7 +2,13 @@
 
 ## Status
 
-MA-MVP1 runtime, TRAIN_DEV selection, frozen configuration, and full 1,024-episode DEV evaluation are complete. The complete runnable artifacts are stored in `runs/multi_agent/ma-mvp1-20261003-cpu-r2/`. Implementation commit and remote push details are recorded after commit.
+MA-MVP1 runtime, TRAIN_DEV selection, frozen configuration, and full 1,024-episode DEV evaluation are complete. The complete runnable artifacts are stored in `runs/multi_agent/ma-mvp1-20261003-cpu-r2/`.
+
+## Version control
+
+- Implementation and run-artifact commit: `24c97c090a0836d7a2255892d9159379ebca6757`.
+- Branch: `multi-agent-ma-mvp1-20261002`.
+- Push target: `origin/multi-agent-ma-mvp1-20261002`.
 
 ## Baseline identity
 
