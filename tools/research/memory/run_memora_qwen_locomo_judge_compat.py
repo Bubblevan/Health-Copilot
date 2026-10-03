@@ -16,7 +16,7 @@ from typing import Any
 
 
 RUNNER_PATH = Path(__file__).with_name("run_memora_qwen_locomo.py")
-JUDGE_MAX_TOKENS = 128
+JUDGE_MAX_TOKENS = 256
 JUDGE_FORMAT_RETRIES = 1
 
 
@@ -54,6 +54,9 @@ def parse_local_judge_output(text: str, extract_json) -> tuple[str, bool, str]:
     normalized_last_line = last_line.strip("`*_ \"'.,!?;:").upper()
     if normalized_last_line in {"CORRECT", "WRONG"}:
         return normalized_last_line, True, ""
+    labeled_line = re.fullmatch(r"label\s*:\s*(CORRECT|WRONG)", last_line.strip(), re.IGNORECASE)
+    if labeled_line:
+        return labeled_line.group(1).upper(), True, ""
     raise RuntimeError(f"Local Qwen judge output contains no unambiguous label: {text[:200]!r}")
 
 

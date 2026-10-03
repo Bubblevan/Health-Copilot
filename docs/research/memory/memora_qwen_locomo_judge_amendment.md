@@ -12,9 +12,10 @@ The local-only compatibility wrapper `tools/research/memory/run_memora_qwen_loco
 
 - Judge model remains the same local Qwen3-8B Q4_K_M loopback service.
 - The pinned Microsoft Memora `ACCURACY_PROMPT`, JSON response mode, temperature `0`, and seed `42` are unchanged.
-- Every judge row in the final pass uses `max_tokens=128`, providing room for the requested rationale and label.
-- Parsing accepts exactly one unambiguous `label` field (`CORRECT` or `WRONG`) in a JSON object anywhere in the response, or a strict final standalone label. Conflicting or missing labels remain failures; no label is inferred from answer wording.
+- The initial compatibility pass used `max_tokens=128`, but a long rationale still truncated one output before the label. That pass is retained separately and is not mixed into final judge accuracy.
+- Every judge row in the final pass uses `max_tokens=256`, providing room for the requested rationale and label.
+- Parsing accepts exactly one unambiguous `label` field (`CORRECT` or `WRONG`) in a JSON object anywhere in the response, or a strict final standalone label / `label: CORRECT|WRONG` line. Conflicting or missing labels remain failures; no label is inferred from answer wording.
 - One additional same-prompt, same-model, same-budget local retry is allowed for an unparseable judge response. The retry is recorded in the judgment row.
-- Existing predictions are resumed as-is. The initial 64-token judge file is retained under `judgments-initial64/` as audit evidence and is not mixed into final judge accuracy.
+- Existing predictions are resumed as-is. The initial 64-token judge file is retained under `judgments-initial64/`, and the interrupted 128-token judge file under `judgments-initial128/`; neither is mixed into final judge accuracy.
 
 The wrapper writes `judge_format_amendment.json` inside the run artifact root with the parent run identity, both relevant source hashes, and the exact amended format settings. This is a local-model output-format compatibility amendment, not an attempt to improve answer quality or reproduce the paper's proprietary judge numerically.

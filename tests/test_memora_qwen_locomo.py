@@ -149,6 +149,7 @@ def test_judge_compat_accepts_json_label_with_trailing_rationale():
     extract = lambda text: text.strip()
     assert parse('{"label":"WRONG"}\nThe dates differ.', extract) == ("WRONG", True, "")
     assert parse('The answer matches.\n{"label":"CORRECT"}', extract) == ("CORRECT", True, "")
+    assert parse("Reasoning\nlabel: CORRECT", extract) == ("CORRECT", True, "")
 
 
 def test_judge_compat_keeps_strict_label_and_rejects_conflicts():
