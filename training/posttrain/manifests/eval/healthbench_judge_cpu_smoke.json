@@ -1,0 +1,25 @@
+{
+  "schema_version": "pt-e0-local-judge-cpu-smoke-v1",
+  "not_a_benchmark_result": true,
+  "synthetic_only": true,
+  "medical_eval_data_used": false,
+  "judge_model_manifest": "../model/mistral-small-3.1-24b-q4-local-judge.json",
+  "gguf_sha256": "c5743c1bf39db0ae8a5ade5df0374b8e9e492754a199cfdad7ef393c1590f7c0",
+  "llama_cpp_commit": "836d57176dc699a726c55418e4f96b8ca628e1bf",
+  "server_binary_sha256": "e85c1074f278fdd776ee224fd952b11593de38a49913388e7ef152bc0b29302b",
+  "smoke_runtime": {
+    "device": "CPU only",
+    "ctx_size": 2048,
+    "gpu_layers": 0,
+    "parallel_slots": 1,
+    "flash_attention": "off",
+    "threads": 8,
+    "loopback_port": 8081
+  },
+  "synthetic_prompt_sha256": "0d18e346ad0ad97576fc0a99cc765f7ab0eb71743e42f279757565b316b2bfc8",
+  "criteria_met": true,
+  "raw_output_sha256": "0da9123098a3f1ee36ecd7104f48c23514a2a3155ab0261ff8eff2e1027c4a8a",
+  "latency_seconds": 70.708,
+  "hosted_api_calls": 0,
+  "openai_api_key_used": false
+}

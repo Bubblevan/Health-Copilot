@@ -1,0 +1,28 @@
+{
+  "captured_at_utc": "2026-10-04T03:41:25.863766+00:00",
+  "python": "3.11.17 (main, Oct  1 2026, 20:58:47) [Clang 22.1.3 ]",
+  "python_implementation": "CPython",
+  "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.39",
+  "torch": "2.13.0+cu130",
+  "cuda_runtime": "13.0",
+  "nvidia_driver": "580.126.09",
+  "gpu": {
+    "name": "NVIDIA L40",
+    "memory_total": "46068 MiB",
+    "memory_used_at_capture": "39827 MiB",
+    "utilization_at_capture": "0 %"
+  },
+  "packages": {
+    "torch": "2.13.0+cu130",
+    "transformers": "5.17.0",
+    "trl": "1.13.0",
+    "peft": "0.21.2",
+    "unsloth": "2026.9.14",
+    "vllm": "0.30.1rc1.dev622+gf03026a54",
+    "flashinfer-python": "0.7.0.post1",
+    "datasets": "4.8.5",
+    "accelerate": "1.15.0"
+  },
+  "hosted_api_calls": 0,
+  "openai_api_key_used": false
+}

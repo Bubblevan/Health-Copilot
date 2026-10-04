@@ -1,0 +1,25 @@
+{
+  "repo_id": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+  "gguf_repo_id": "bartowski/mistralai_Mistral-Small-3.1-24B-Instruct-2503-GGUF",
+  "gguf_revision": "f73dfd9e812922fb503a993e3fa5671424f486d3",
+  "file": "mistralai_Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M.gguf",
+  "file_sha256": "c5743c1bf39db0ae8a5ade5df0374b8e9e492754a199cfdad7ef393c1590f7c0",
+  "file_bytes": 14333910496,
+  "quantization": "Q4_K_M",
+  "local_path": "/root/gpufree-share/models/Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M/mistralai_Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M.gguf",
+  "adapter": null,
+  "runtime": "ggml-org/llama.cpp",
+  "runtime_commit": "836d57176dc699a726c55418e4f96b8ca628e1bf",
+  "runtime_version": "version: 0.5.0-dev (build 1, commit 836d571)\nbuilt with GNU 13.3.0 for Linux x86_64",
+  "server_binary_sha256": "e85c1074f278fdd776ee224fd952b11593de38a49913388e7ef152bc0b29302b",
+  "build": {
+    "cmake_build_type": "Release",
+    "GGML_CUDA": true,
+    "GGML_NATIVE": false,
+    "CMAKE_CUDA_ARCHITECTURES": "89",
+    "LLAMA_BUILD_TESTS": false,
+    "LLAMA_BUILD_EXAMPLES": false,
+    "LLAMA_BUILD_SERVER": true,
+    "cuda_toolkit": "13.0.88"
+  }
+}

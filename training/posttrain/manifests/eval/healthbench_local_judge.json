@@ -1,0 +1,59 @@
+{
+  "schema_version": "pt-e0-hbpro-local-rubric-v1",
+  "metric_name": "HB-Pro Local-Rubric Score",
+  "official_healthbench_leaderboard_score": false,
+  "model_manifest": "../model/mistral-small-3.1-24b-q4-local-judge.json",
+  "judge_model_manifest_sha256": "01e568ba0365f5d3fef6a2ebd812a8c4da65e6bd77ef31a93fa50c18ba221aed",
+  "prompt_template_sha256": "4ab3846a78afd76a0016df1cfa7f68b9427dce407ece10baf4631ba048ea34cf",
+  "prompt_builder_sha256": "374a0af756d3c922aeca87efa3cfd409d63dbff266db0ec1865f9bf18de509d2",
+  "grader_entrypoint_sha256": "ad43dc559a1160f862c77c744c908f971f3e25dfe61cf9da7a3005238a8c80ad",
+  "judge_runtime": {
+    "launcher_sha256": "063943584390db72fdfe9c78e073b4969eb45c30e4205a3ebb76ac823df7a525",
+    "base_url": "http://127.0.0.1:8080",
+    "model_alias": "Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M",
+    "context_size": 32768,
+    "gpu_layers": 99,
+    "parallel_slots": 1,
+    "flash_attention": "on",
+    "threads": 8,
+    "cache_type_k": "f16",
+    "cache_type_v": "f16",
+    "web_ui": false,
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "generation": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 512,
+    "seed": 20261004,
+    "response_format": "json_object",
+    "max_attempts_for_invalid_json": 2
+  },
+  "candidate_visibility": [
+    "conversation",
+    "Qwen final answer",
+    "one rubric criterion and its points"
+  ],
+  "hidden_from_judge": [
+    "physician_response",
+    "difficulty",
+    "grader decisions",
+    "other rubric criteria",
+    "checkpoint identity"
+  ],
+  "score_calculation": {
+    "positive_denominator": "sum of positive rubric points",
+    "numerator": "sum of signed points for every criterion marked met",
+    "case_aggregation": "clipped mean in [0, 1]",
+    "length_adjustment_center_characters": 2000,
+    "length_penalty_per_500_characters": 0.0147,
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 20261004,
+    "scoring_code_sha256": "479bb8f1a716ca644a1ff30e2ed441119fa02854efc191ba6416a59a7577a724",
+    "scorer_entrypoint_sha256": "7b248d93430376e948b7c1fecb1d91d22603e907ddb17706eb907b8c10298b87"
+  },
+  "reference_scoring_source": "https://github.com/openai/simple-evals/blob/main/healthbench_eval.py",
+  "hosted_api_calls": 0,
+  "openai_api_key_used": false
+}

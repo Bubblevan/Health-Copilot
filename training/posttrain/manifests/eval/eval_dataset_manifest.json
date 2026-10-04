@@ -1,0 +1,92 @@
+{
+  "schema_version": "pt-e0-eval-datasets-v1",
+  "created_utc_date": "2026-10-04",
+  "sources": {
+    "DiagnosisArena": {
+      "repo_id": "SII-SPIRAL-MED/DiagnosisArena",
+      "revision": "64bb873fe651e1c71cd8b0958104dd911f042872",
+      "file": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/diagnosisarena/data/test-00000-of-00001.parquet",
+      "file_sha256": "de980033fa681d9cb5bf4138f04dea204c1326d18017a752a137458195c36520",
+      "rows": 915,
+      "candidate_columns": [
+        "id",
+        "Case Information",
+        "Physical Examination",
+        "Diagnostic Tests",
+        "Options"
+      ],
+      "scorer_columns": [
+        "id",
+        "Right Option"
+      ]
+    },
+    "CMB-Exam": {
+      "repo_id": "FreedomIntelligence/CMB",
+      "revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+      "question_file": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/cmb/CMB-Exam/CMB-test/CMB-test-choice-question-merge.json",
+      "question_sha256": "99e6e858dd1955fe2b27fd1da75a7be8fbf6d27059fdb8cf61bc28383a68129c",
+      "answer_key_repo": "FreedomIntelligence/CMB",
+      "answer_key_revision": "6c8ece46097dae736c6805dd3b831e1a38c08971",
+      "answer_key_file": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/cmb/CMB-test-choice-answer.json",
+      "answer_key_sha256": "42130b20f7660a83dd92f3c005eb6a8ef1221c98d9b27d3351204143944b532f",
+      "rows": 11200
+    },
+    "HealthBench Professional": {
+      "repo_id": "openai/healthbench-professional",
+      "revision": "349962fd46dd02343a0d8a606491baf59154ea1a",
+      "file": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/hbpro/healthbench_professional_eval.jsonl",
+      "file_sha256": "d44b08e6e952e04c945e2c406f02533d9e7a989a84e35820ee7efdff20c9e4e2",
+      "rows": 525,
+      "candidate_fields": [
+        "conversation"
+      ],
+      "scorer_fields": [
+        "rubric_items",
+        "physician_response",
+        "use_case",
+        "type",
+        "difficulty",
+        "specialty"
+      ]
+    },
+    "LiveMedBench": {
+      "repo_id": "JuelieYann/LiveMedBench",
+      "revision": "db7eb218959aeac83fc9d9353efd7d909b6616f0",
+      "snapshot_file": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/livemedbench/LiveMedBench_v202604_new.json",
+      "snapshot_sha256": "8b0fffadd77f45ff6e5a54c8f88b886ff6830d7ad49b8f4eb7759e4e35c48651",
+      "rows": 5286,
+      "reserved_n": 1024,
+      "reserved_ids_sha256": "686577f315ac523f56244b1f93e0d22c2aed52d8fdf4c1b25276bb104be56ea0",
+      "reserved_theme_counts": {
+        "Responding under Uncertainty": 275,
+        "Expertise-Tailored": 507,
+        "Response Depth": 162,
+        "Context-Seeking": 51,
+        "Emergency Referrals": 29
+      },
+      "reserved_language_theme_counts": {
+        "en|Context-Seeking": 29,
+        "en|Emergency Referrals": 16,
+        "en|Expertise-Tailored": 265,
+        "en|Responding under Uncertainty": 134,
+        "en|Response Depth": 72,
+        "zh|Context-Seeking": 22,
+        "zh|Emergency Referrals": 13,
+        "zh|Expertise-Tailored": 242,
+        "zh|Responding under Uncertainty": 141,
+        "zh|Response Depth": 90
+      },
+      "score_status": "UNOPENED"
+    }
+  },
+  "prepared_artifacts": {
+    "diagnosisarena/candidate_view.jsonl": "d06df7e686b6452176465e13caa155ba55f7ab5aee0b9a415fb8035c28d99a4b",
+    "diagnosisarena/scorer_view.jsonl": "afb68b68ab95b4aa90e2702858cdc4e7a4167afe56dcd1f324f0a5b7dcff7fd1",
+    "cmb/candidate_view.jsonl": "264f309d31fe24c5c3788ef9170124bf78c942842cbff06a971d57364d109ccb",
+    "cmb/scorer_view.jsonl": "3127e55f1704c590c3efec6bfd4637d7bd06229a70540d48a701b5966cc23e64",
+    "hbpro/candidate_view.jsonl": "0139a71d99b04f08df536f056da213b0468b41b903891eddef96c2bb57de1af8",
+    "hbpro/scorer_view.jsonl": "337390a658d8ca9de304dd8e2e62086a2d08367e3e9109e655ade3728a01d2e0",
+    "livemedbench/reserved1024_candidate_view.jsonl": "06adc23e3ef5c4b23786f31168d419fc6676deae4d4015bde10b076aa8decfe1",
+    "livemedbench/reserved1024_ids.json": "686577f315ac523f56244b1f93e0d22c2aed52d8fdf4c1b25276bb104be56ea0"
+  }
+}

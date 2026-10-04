@@ -1,0 +1,31 @@
+{
+  "schema_version": "pt-e0-eval-protocol-v1",
+  "candidate_system_prompt": "",
+  "candidate_system_prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_chat_template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+  "prompt_builder_sha256": "06ba7ea047e6c620a9e93d5f2ca381c1f067b16377db6cd4e32d5826cce92752",
+  "parser_sha256": "3dea7ed84f76821a63b3e8dcd8f075c2826ccef505a86ef8e958c8b376af3a23",
+  "candidate_view_preparer_sha256": "633925fe6c18cba4c35164c32a700104639c37019a3935de36b7688f3fc23cc7",
+  "candidate_generation_code_sha256": "3d1c6b6f7e1ec7519455b630fd8ee7f6665dd3092e33b63cee8df745d3ca41dd",
+  "mcq_scorer_code_sha256": "93c5a6c820107b0573dcf9c0e699167acfbca05d6868fa66a3f8f574b8f0063e",
+  "generation": {
+    "temperature": 0,
+    "do_sample": false,
+    "top_p": 1,
+    "max_new_tokens": 2048,
+    "enable_thinking": true,
+    "RAG": false,
+    "memory": false,
+    "tools": false,
+    "retrieved_evidence": false,
+    "answer_autofix": false,
+    "system_safety_postprocessing": false
+  },
+  "scoring_contract": {
+    "DiagnosisArena": "final selected option; exact match",
+    "CMB": "exact answer string after canonical letter ordering; multi-answer exact match",
+    "HealthBench Professional": "frozen local rubric judge, criterion-level; raw and length-adjusted scores",
+    "LiveMedBench": "reserved; no candidate generations and no rubric scoring in PT-E0"
+  },
+  "candidate_view_manifest_sha256": "644570055e513dd24652fc765cf70b963996508ee4aaab38ff5736650c4074ed"
+}

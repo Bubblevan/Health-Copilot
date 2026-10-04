@@ -1,0 +1,96 @@
+{
+  "schema_version": "pt-e0-training-source-manifest-v1",
+  "sources": {
+    "o1_en": {
+      "raw_rows": 19704,
+      "unique_question_families": 19677,
+      "within_source_duplicate_rows": 27,
+      "within_source_duplicate_rate": 0.0013702801461632156,
+      "raw_file": "/root/gpufree-share/data/posttrain/sft/medical-o1-reasoning-SFT/medical_o1_sft.json",
+      "raw_file_sha256": "6a0289ebe0d07e3e77e8dbc81c31fcfc02cc99c7bca1602694cb2f76d505667e",
+      "repo_id": "FreedomIntelligence/medical-o1-reasoning-SFT",
+      "repo_file": "medical_o1_sft.json",
+      "repo_metadata": {
+        "revision": "fc2c9e8a37b38f38da6d449564a8c350b244aef4",
+        "license": "apache-2.0"
+      },
+      "medreason_dataset_name_counts": null
+    },
+    "o1_zh": {
+      "raw_rows": 20171,
+      "unique_question_families": 17172,
+      "within_source_duplicate_rows": 2999,
+      "within_source_duplicate_rate": 0.1486787962917059,
+      "raw_file": "/root/gpufree-share/data/posttrain/sft/medical-o1-reasoning-SFT/medical_o1_sft_Chinese.json",
+      "raw_file_sha256": "e64b1426723b63899287236d20e9bbaec9f185e1ce4b24e9b61f610facb4369a",
+      "repo_id": "FreedomIntelligence/medical-o1-reasoning-SFT",
+      "repo_file": "medical_o1_sft_Chinese.json",
+      "repo_metadata": {
+        "revision": "fc2c9e8a37b38f38da6d449564a8c350b244aef4",
+        "license": "apache-2.0"
+      },
+      "medreason_dataset_name_counts": null
+    },
+    "medreason": {
+      "raw_rows": 32682,
+      "unique_question_families": 32624,
+      "within_source_duplicate_rows": 58,
+      "within_source_duplicate_rate": 0.0017746771923382902,
+      "raw_file": "/root/gpufree-share/data/posttrain/sft/MedReason/ours_quality_33000.jsonl",
+      "raw_file_sha256": "4cdbc9d584a7563fdfbebd653605244fa04e2f349c7c2ec8786d71ca18f478ce",
+      "repo_id": "UCSC-VLAA/MedReason",
+      "repo_file": "ours_quality_33000.jsonl",
+      "repo_metadata": {
+        "revision": "7fc0ddb80653c839be359ac4496ec6ee00bdd52f",
+        "license": "apache-2.0"
+      },
+      "medreason_dataset_name_counts": {
+        "medmcqa": 6197,
+        "huatuo": 6475,
+        "medqa": 8016,
+        "pubmedqa_unlabeled": 1747,
+        "MMLU": 827,
+        "pubmedqa": 603,
+        "LastHumanity": 57,
+        "pubmedqa_artificial": 8094,
+        "MedXpertQA": 666
+      }
+    },
+    "huatuo": {
+      "raw_rows": 177703,
+      "unique_question_families": 177703,
+      "within_source_duplicate_rows": 0,
+      "within_source_duplicate_rate": 0.0,
+      "raw_file": "/root/gpufree-share/data/posttrain/sft/Huatuo26M-Lite/format_data.jsonl",
+      "raw_file_sha256": "84b849f07ab3b9517443f5efeb6c7230dcadf1f71ccaf41f3bf889e53618d4e8",
+      "repo_id": "FreedomIntelligence/Huatuo26M-Lite",
+      "repo_file": "format_data.jsonl",
+      "repo_metadata": {
+        "revision": "90ce61699e90568db82cdce4c4035c6918d70aa6",
+        "license": "apache-2.0"
+      },
+      "medreason_dataset_name_counts": null
+    },
+    "rl": {
+      "raw_rows": 40644,
+      "unique_question_families": 40310,
+      "within_source_duplicate_rows": 334,
+      "within_source_duplicate_rate": 0.008217695108749139,
+      "raw_file": "/root/gpufree-share/data/posttrain/rl/medical-o1-verifiable-problem/medical_o1_verifiable_problem.json",
+      "raw_file_sha256": "f5998431acb0eb35e9365f81b6e434d67c44392a5667280068c63ec072ba53cd",
+      "repo_id": "FreedomIntelligence/medical-o1-verifiable-problem",
+      "repo_file": "medical_o1_verifiable_problem.json",
+      "repo_metadata": {
+        "revision": "46d5175eb74fdef3516d51d52e8c40db04bbdf35",
+        "license": "apache-2.0"
+      },
+      "medreason_dataset_name_counts": null
+    }
+  },
+  "source_counts_sha256": "a07372b8305eb5133ef4ce9885bb404b45655d6675efe34c5e328665d92ae5aa",
+  "clean_source_counts_sha256": "36f177f36f1c098565b2b18836e3acb0c2eeef5c25f40a27096271fd9a123206",
+  "exclusions_sha256": "19b7ac13c9bf87f8959f6fc51247f5bc584e16b633113a487f183d42f972ef54",
+  "overlap_matrix_sha256": "e363825260de61a1ec9b5896a0fc787e37030717bb4854d1308d5f4222045a1f",
+  "stage_split_manifest_sha256": "fd3c3aaa2b62e991afef2040ecac262ddbbe57794c95db159b945269e99e1e28",
+  "report_sha256": "996173809c0f39e86d6e6a8c719041864c0355f6f9980148a148d4a94fb3dfb4"
+}
