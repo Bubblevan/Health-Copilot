@@ -168,3 +168,69 @@ def test_judge_compat_keeps_strict_label_and_rejects_conflicts():
         except RuntimeError:
             continue
         raise AssertionError(f"Ambiguous judge output must not be scored: {value!r}")
+
+
+def test_reader_provider_retry_only_retries_explicit_failure_once():
+    call = iter([
+        ("ERROR: LLM call failed.",),
+        ("Answer recovered",),
+    ])
+    result, retry_count = JUDGE_COMPAT.call_reader_with_provider_retry(lambda: next(call))
+    assert result == ("Answer recovered",)
+    assert retry_count == 1
+
+    calls = 0
+
+    def successful_call():
+        nonlocal calls
+        calls += 1
+        return ("Answer",)
+
+    result, retry_count = JUDGE_COMPAT.call_reader_with_provider_retry(successful_call)
+    assert result == ("Answer",)
+    assert retry_count == 0
+    assert calls == 1
+
+    calls = 0
+
+    def persistently_failed_call():
+        nonlocal calls
+        calls += 1
+        return ("ERROR: LLM call failed.",)
+
+    result, retry_count = JUDGE_COMPAT.call_reader_with_provider_retry(persistently_failed_call)
+    assert result == ("ERROR: LLM call failed.",)
+    assert retry_count == 1
+    assert calls == 2
+
+
+def test_reader_provider_retry_is_installed_per_strategy_and_audited():
+    class FakeSearch:
+        responses = iter([
+            ("ERROR: LLM call failed.",),
+            ("Recovered answer",),
+        ])
+
+        def answer_question(self):
+            return next(self.responses)
+
+    audit = []
+
+    def run_strategy(dataset, questions, run_root, identity, cfg, strategy, helpers):
+        return helpers["MemoraSearch"]().answer_question()
+
+    runner = SimpleNamespace(_run_strategy=run_strategy, _append_jsonl=lambda *row: audit.append(row))
+    original = FakeSearch.answer_question
+    helpers = {
+        "MemoraSearch": FakeSearch,
+        "current_call_context": lambda: SimpleNamespace(question_id="conv:qa:1"),
+    }
+    JUDGE_COMPAT._install_reader_provider_retry(runner)
+
+    result = runner._run_strategy([], [], Path("run"), "identity", None, "prompt", helpers)
+
+    assert result == ("Recovered answer",)
+    assert len(audit) == 1
+    assert audit[0][1]["question_id"] == "conv:qa:1"
+    assert audit[0][1]["retry_count"] == 1
+    assert FakeSearch.answer_question is original

@@ -18,6 +18,21 @@ from typing import Any
 RUNNER_PATH = Path(__file__).with_name("run_memora_qwen_locomo.py")
 JUDGE_MAX_TOKENS = 256
 JUDGE_FORMAT_RETRIES = 1
+READER_PROVIDER_RETRIES = 1
+
+
+def call_reader_with_provider_retry(call, retries: int = READER_PROVIDER_RETRIES):
+    result = call()
+    retry_count = 0
+    while (
+        isinstance(result, tuple)
+        and result
+        and str(result[0]).startswith("ERROR: LLM call failed.")
+        and retry_count < retries
+    ):
+        retry_count += 1
+        result = call()
+    return result, retry_count
 
 
 def parse_local_judge_output(text: str, extract_json) -> tuple[str, bool, str]:
@@ -115,6 +130,41 @@ def _install_judge_compat(runner: Any) -> None:
     runner._judge = compatible_judge
 
 
+def _install_reader_provider_retry(runner: Any) -> None:
+    original_run_strategy = runner._run_strategy
+
+    def run_strategy_with_reader_retry(dataset, questions, run_root, identity, cfg, strategy, helpers):
+        searcher_class = helpers["MemoraSearch"]
+        original_answer_question = searcher_class.answer_question
+
+        def answer_question_with_retry(searcher, *args, **kwargs):
+            result, retry_count = call_reader_with_provider_retry(
+                lambda: original_answer_question(searcher, *args, **kwargs)
+            )
+            if retry_count:
+                active = helpers["current_call_context"]()
+                runner._append_jsonl(
+                    run_root / "provider_retry_events.jsonl",
+                    {
+                        "question_id": active.question_id,
+                        "strategy": strategy,
+                        "stage": "reader_answer",
+                        "retry_count": retry_count,
+                        "condition": "explicit ERROR: LLM call failed. response",
+                        "run_identity": identity,
+                    },
+                )
+            return result
+
+        searcher_class.answer_question = answer_question_with_retry
+        try:
+            return original_run_strategy(dataset, questions, run_root, identity, cfg, strategy, helpers)
+        finally:
+            searcher_class.answer_question = original_answer_question
+
+    runner._run_strategy = run_strategy_with_reader_retry
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--strategies", nargs="+", choices=("semantic", "prompt"), default=["semantic", "prompt"])
@@ -136,10 +186,13 @@ def main() -> None:
         "judge_response_format": "json_object unchanged",
         "judge_max_tokens": JUDGE_MAX_TOKENS,
         "format_retries": JUDGE_FORMAT_RETRIES,
+        "reader_provider_retries": READER_PROVIDER_RETRIES,
         "parsing": "accept one unambiguous JSON label object anywhere, a strict final label/label line, or one unambiguous terminal label token on the final nonempty line",
-        "scope": "evaluation formatting only; reader answers, memory stores, retrieval, prompts, and deterministic metrics unchanged",
+        "reader_retry_condition": "retry once only on the explicit generic ERROR: LLM call failed. response; a second failure remains INFRA_FAILURE",
+        "scope": "evaluation formatting compatibility plus one reader transport retry on explicit provider failure; no failed response is scored and answer prompts, memory stores, retrieval, and metrics remain unchanged",
     }
     runner._write_json(run_root / "judge_format_amendment.json", amendment)
+    _install_reader_provider_retry(runner)
     summary = runner.run(argparse.Namespace(phase="full", strategies=args.strategies))
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
