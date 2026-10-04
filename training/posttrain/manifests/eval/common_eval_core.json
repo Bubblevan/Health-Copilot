@@ -1,0 +1,83 @@
+{
+  "schema_version": "health-copilot-common-eval-core-v1",
+  "name": "Health-Copilot Common Medical Evaluation Core",
+  "shared_across": [
+    "Single",
+    "RAG",
+    "Multi-Agent",
+    "RAG+Multi-Agent",
+    "post-trained checkpoints"
+  ],
+  "shared_contract": "same frozen evaluation IDs, hidden gold answers, and answer parser/scorer; each system may use its intended execution path and module-specific prompt/context",
+  "system_specific_context": "RAG may add retrieved evidence; Multi-Agent may add agent coordination/context; record these inputs per arm and never expose benchmark references or scorer metadata",
+  "closed_book_comparability": "B0, P0, and R0 use the same standalone prompt and decoding settings",
+  "system_arms": {
+    "B0": "Qwen3-8B Base + Single + closed-book",
+    "B1": "Qwen3-8B Base + RAG",
+    "B2": "Qwen3-8B Base + Multi-Agent",
+    "B3": "Qwen3-8B Base + RAG + Multi-Agent",
+    "P0-P3": "same four system arms with the Medical SFT checkpoint",
+    "R0-R3": "same four system arms with the SFT + GSPO/GDPO checkpoint"
+  },
+  "benchmarks": {
+    "DiagnosisArena-915": {
+      "repo_id": "SII-SPIRAL-MED/DiagnosisArena",
+      "revision": "64bb873fe651e1c71cd8b0958104dd911f042872",
+      "split": "test",
+      "n": 915,
+      "ids_file": "diagnosisarena915_ids.json",
+      "ids_file_sha256": "b0203d2259b256dfd600241ab5b6d7972ae4cca8137094e0e79af9a008216c1e"
+    },
+    "CMB-COMMON-1024": {
+      "repo_id": "FreedomIntelligence/CMB",
+      "revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+      "config": "exam",
+      "split": "test",
+      "n": 1024,
+      "seed": 20261004,
+      "ids_file": "cmb_common1024_ids.json",
+      "ids_manifest_sha256": "8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397",
+      "ids_sequence_sha256": "ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4",
+      "candidate_view_sha256": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+      "scorer_view_sha256": "8bd9402e308b631ec5dac99d4f5681b069a2b92d89cda8249c30952192eefdd2",
+      "allocation": {
+        "中医学与中药学": 36,
+        "中医综合": 36,
+        "中级职称": 36,
+        "临床医学": 36,
+        "主管中药师": 37,
+        "主管技师": 37,
+        "主管护师": 37,
+        "主管药师": 37,
+        "初级中药士": 37,
+        "初级中药师": 36,
+        "初级药士": 36,
+        "初级药师": 36,
+        "医技士": 37,
+        "医技师": 37,
+        "基础医学": 37,
+        "执业中药师": 37,
+        "执业助理医师": 36,
+        "执业医师": 37,
+        "执业西药师": 37,
+        "护士执业资格": 36,
+        "护师执业资格": 37,
+        "护理学": 36,
+        "考研政治": 36,
+        "西医综合": 37,
+        "规培结业": 37,
+        "预防医学与公共卫生学": 37,
+        "高级护师": 36,
+        "高级职称": 37
+      }
+    }
+  },
+  "non_core_extensions": {
+    "CMB-Exam-test-full-11200": "backbone-only extended evaluation; not the common system-level run",
+    "HealthBench-Professional": "open-ended post-training backbone evaluation with frozen local rubric judge",
+    "MedQA-1273": "historical MDAgents reproduction-specific benchmark",
+    "R2MED": "retrieval-specific benchmark",
+    "LoCoMo": "memory-specific benchmark",
+    "LiveMedBench": "reserved final confirmation set; scores remain unopened"
+  }
+}

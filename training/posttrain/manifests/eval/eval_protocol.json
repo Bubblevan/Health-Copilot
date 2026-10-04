@@ -1,13 +1,70 @@
 {
-  "schema_version": "pt-e0-eval-protocol-v1",
+  "schema_version": "pt-e0-eval-protocol-v4-half-vram-common-core",
   "candidate_system_prompt": "",
   "candidate_system_prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "candidate_chat_template_sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
-  "prompt_builder_sha256": "06ba7ea047e6c620a9e93d5f2ca381c1f067b16377db6cd4e32d5826cce92752",
+  "prompt_builder_sha256": "2df53388c7374cd69704d15e5459d166d43af8fd2da5f7cba8d6f174cc9c77b6",
   "parser_sha256": "3dea7ed84f76821a63b3e8dcd8f075c2826ccef505a86ef8e958c8b376af3a23",
-  "candidate_view_preparer_sha256": "633925fe6c18cba4c35164c32a700104639c37019a3935de36b7688f3fc23cc7",
-  "candidate_generation_code_sha256": "a71f9eaab1027891d7a96e27f7957782a5c9872cf2951c259355964986efecd8",
-  "mcq_scorer_code_sha256": "93c5a6c820107b0573dcf9c0e699167acfbca05d6868fa66a3f8f574b8f0063e",
+  "candidate_view_preparer_sha256": "b4e2fe33f57feab41dc5e6184a1c78fe43f964a98d8d8ab5cc486b18df6e19dd",
+  "candidate_metadata_enricher_sha256": "4dfbf9aea1de5b41eac7fc381597c71146351314a41cdd42855cb58c62478b59",
+  "candidate_generation_code_sha256": "ddbc97edc6942673d5efa7cf7c6e5076accd065cd62170d6cb3997a36a7f13e1",
+  "mcq_scorer_code_sha256": "37cdc10319e86d62ed0afa81f07c4b260d00ec241f13815e6ba5ca372c65f4e1",
+  "cmb_scoring_code_sha256": "bc029adc756d1e8e599d613c9731da198b0fd377bf4024a160956e1cd2319b12",
+  "common_cmb_scorer_code_sha256": "09c8897133fe5a9da1c5a7f82841d3f64c70179c65211461dde32d64ddfa462b",
+  "common_eval_core_manifest_sha256": "c1fbf535c3fe9861167da8b556e7d5840b1e3f8a149fe3faf5479cce4fb3242e",
+  "common_eval_core": {
+    "DiagnosisArena-915": {
+      "repo_id": "SII-SPIRAL-MED/DiagnosisArena",
+      "revision": "64bb873fe651e1c71cd8b0958104dd911f042872",
+      "split": "test",
+      "n": 915,
+      "ids_file": "diagnosisarena915_ids.json",
+      "ids_file_sha256": "b0203d2259b256dfd600241ab5b6d7972ae4cca8137094e0e79af9a008216c1e"
+    },
+    "CMB-COMMON-1024": {
+      "repo_id": "FreedomIntelligence/CMB",
+      "revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+      "config": "exam",
+      "split": "test",
+      "n": 1024,
+      "seed": 20261004,
+      "ids_file": "cmb_common1024_ids.json",
+      "ids_manifest_sha256": "8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397",
+      "ids_sequence_sha256": "ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4",
+      "candidate_view_sha256": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+      "scorer_view_sha256": "8bd9402e308b631ec5dac99d4f5681b069a2b92d89cda8249c30952192eefdd2",
+      "allocation": {
+        "中医学与中药学": 36,
+        "中医综合": 36,
+        "中级职称": 36,
+        "临床医学": 36,
+        "主管中药师": 37,
+        "主管技师": 37,
+        "主管护师": 37,
+        "主管药师": 37,
+        "初级中药士": 37,
+        "初级中药师": 36,
+        "初级药士": 36,
+        "初级药师": 36,
+        "医技士": 37,
+        "医技师": 37,
+        "基础医学": 37,
+        "执业中药师": 37,
+        "执业助理医师": 36,
+        "执业医师": 37,
+        "执业西药师": 37,
+        "护士执业资格": 36,
+        "护师执业资格": 37,
+        "护理学": 36,
+        "考研政治": 36,
+        "西医综合": 37,
+        "规培结业": 37,
+        "预防医学与公共卫生学": 37,
+        "高级护师": 36,
+        "高级职称": 37
+      }
+    }
+  },
   "inference_runtime": {
     "engine": "vllm",
     "version": "0.30.1rc1.dev622+gf03026a54",
@@ -21,7 +78,7 @@
     "max_model_len": 16384,
     "max_num_seqs": 16,
     "max_num_batched_tokens": 16384,
-    "gpu_memory_utilization": 0.88,
+    "gpu_memory_utilization": 0.5,
     "prefix_caching": false,
     "attention_backend": "auto",
     "seed": 20261004
@@ -45,5 +102,5 @@
     "HealthBench Professional": "frozen local rubric judge, criterion-level; raw and length-adjusted scores",
     "LiveMedBench": "reserved; no candidate generations and no rubric scoring in PT-E0"
   },
-  "candidate_view_manifest_sha256": "644570055e513dd24652fc765cf70b963996508ee4aaab38ff5736650c4074ed"
+  "candidate_view_manifest_sha256": "4df335604275298a0212d84dfd67c23979f57cb29359f30253f00e808f6a9fc8"
 }

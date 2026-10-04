@@ -1,0 +1,113 @@
+{
+  "schema_version": "pt-e0-prediction-v1",
+  "checkpoint": "Qwen/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "base_model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "model_artifacts": {
+    "kind": "frozen_base_model_manifest",
+    "manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+    "files": {
+      "config.json": {
+        "sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "bytes": 728
+      },
+      "model.safetensors.index.json": {
+        "sha256": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "bytes": 32878
+      },
+      "tokenizer.json": {
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "bytes": 11422654
+      },
+      "tokenizer_config.json": {
+        "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "bytes": 9732
+      },
+      "vocab.json": {
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "bytes": 2776833
+      },
+      "merges.txt": {
+        "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "bytes": 1671853
+      },
+      "model-00001-of-00005.safetensors": {
+        "sha256": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+        "bytes": 3996250744
+      },
+      "model-00002-of-00005.safetensors": {
+        "sha256": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+        "bytes": 3993160032
+      },
+      "model-00003-of-00005.safetensors": {
+        "sha256": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+        "bytes": 3959604768
+      },
+      "model-00004-of-00005.safetensors": {
+        "sha256": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+        "bytes": 3187841392
+      },
+      "model-00005-of-00005.safetensors": {
+        "sha256": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+        "bytes": 1244659840
+      }
+    }
+  },
+  "base_model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "adapter": null,
+  "candidate_view_sha256": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd",
+  "eval_protocol_sha256": "f291a0d4eb8ccbdc9ecbafa472ee15a60ad321e6d86e05e39942b45aa9f7c763",
+  "generation": {
+    "temperature": 0,
+    "do_sample": false,
+    "top_p": 1,
+    "max_new_tokens": 2048,
+    "enable_thinking": true,
+    "backend": "vllm-greedy",
+    "batch_size": 16,
+    "system_prompt": null,
+    "system_prompt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "inference_runtime": {
+    "engine": "vllm",
+    "version": "0.30.1rc1.dev622+gf03026a54",
+    "flashinfer_python_version": "0.7.0.post1",
+    "cuda_home": "/usr/local/cuda-13.0",
+    "ninja_package_version": "1.13.2",
+    "ninja_binary_version": "1.13.2.git.kitware.jobserver-pipe-1",
+    "dtype": "bfloat16",
+    "tensor_parallel_size": 1,
+    "batch_size": 16,
+    "max_model_len": 16384,
+    "max_num_seqs": 16,
+    "max_num_batched_tokens": 16384,
+    "gpu_memory_utilization": 0.5,
+    "prefix_caching": false,
+    "attention_backend": "auto",
+    "seed": 20261004
+  },
+  "predictions_sha256": "cff79f9f584918a6a6c666864d8290988266d03fa26d2600d948f02db6c04455",
+  "n": 915,
+  "prompt_template_sha256": "2df53388c7374cd69704d15e5459d166d43af8fd2da5f7cba8d6f174cc9c77b6",
+  "parser_sha256": "3dea7ed84f76821a63b3e8dcd8f075c2826ccef505a86ef8e958c8b376af3a23",
+  "started_at_utc": "2026-10-04T11:49:51.665079+00:00",
+  "completed_at_utc": "2026-10-04T13:27:50.718410+00:00",
+  "resumed_from_partial": false,
+  "gpu_free_gib_at_start": 43.968,
+  "gpu_total_gib": 44.392,
+  "environment": {
+    "torch": "2.13.0+cu130",
+    "transformers": "5.17.0",
+    "trl": "1.13.0",
+    "peft": "0.21.2",
+    "unsloth": "2026.9.14",
+    "vllm": "0.30.1rc1.dev622+gf03026a54",
+    "flashinfer-python": "0.7.0.post1"
+  },
+  "generation_latency_seconds": {
+    "mean": 100.84953192108479,
+    "p50": 123.20761394081637,
+    "p95": 126.4949195489753
+  }
+}

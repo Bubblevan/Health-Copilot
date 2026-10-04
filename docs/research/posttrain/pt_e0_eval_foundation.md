@@ -1,6 +1,6 @@
-# PT-E0 Frozen Evaluation and Decontamination Foundation
+# PT-E0 Frozen Common Medical Evaluation and Decontamination Foundation
 
-**Status: IN PROGRESS.** The evaluation and source protocols are frozen. A preliminary Transformers serial attempt produced four unscored partial responses and was stopped after measuring about 55 seconds per response. The first vLLM startup loaded the BF16 model and selected FlashAttention 2, then stopped at torch.compile because the Ninja executable was missing from PATH. Ninja package 1.13.2 (binary `1.13.2.git.kitware.jobserver-pipe-1`) is already installed; the runner now puts its venv bin and CUDA 13.0 toolkit on PATH before engine startup and records both versions. The authoritative runtime remains batched vLLM with the original prompts and greedy decoding; the L40 was free at the last check. Full Base predictions and scores remain pending. PT-E0 has not trained or updated any model weights.
+**Status: IN PROGRESS.** Frozen protocol v4 defines a shared Common Medical Evaluation Core: full DiagnosisArena test (915) plus CMB-COMMON-1024, selected by subcategory metadata before training. Both Base prediction sets are complete and scored under a 0.50 vLLM GPU-memory limit. Per user scope, CMB full-test generation was stopped after 352 partial rows; 35 rows overlapping Common-1024 were reused, the other 989 Common rows were generated, and no full-CMB score was computed. The 352-row full-test partial remains preserved. HealthBench Professional remains pending. Earlier protocol-v2 predictions (including a completed DiagnosisArena run) were invalidated after the multi-answer parser/candidate contract was corrected; the partial protocol-v3 run at 0.88 utilization was also archived when the user requested a half-memory cap. Neither archived run contributes scores. PT-E0 has not trained or updated any model weights.
 
 ## 1. Purpose
 
@@ -29,6 +29,13 @@ Config, tokenizer, index, and five weight shard hashes are recorded in [`qwen3-8
 
 The complete file list, prepared-view hashes, answer-key revision, and LiveMedBench reserved ID hash are in [`eval_dataset_manifest.json`](../../../training/posttrain/manifests/eval/eval_dataset_manifest.json). LiveMedBench reserved ID SHA256 is `686577f315ac523f56244b1f93e0d22c2aed52d8fdf4c1b25276bb104be56ea0`; `SCORE=UNOPENED`.
 
+### Cross-module Common Medical Evaluation Core
+
+The shared system-level core is frozen as DiagnosisArena-915 plus CMB-COMMON-1024. DiagnosisArena uses its complete test split. CMB-COMMON-1024 is a deterministic proportional stratified subset across all 28 subcategories, seed 20261004; every category contributes 36 or 37 items. Selection reads only row ID and subcategory. The exact DiagnosisArena IDs are in `training/posttrain/manifests/eval/diagnosisarena915_ids.json` (SHA256 `b0203d2259b256dfd60024105b6d7972ae4cca8137094e0e79af9a008216c1e`); the exact CMB IDs are in `training/posttrain/manifests/eval/cmb_common1024_ids.json` (SHA256 `8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397`, sequence SHA256 `ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4`). The allocation, candidate-view hash, scorer-view hash, and selection code hash are recorded in the common core manifest.
+
+Single, RAG, Multi-Agent, RAG+Multi-Agent, and later post-trained checkpoints inherit the same frozen IDs, gold-answer isolation, answer parser, and scorer. RAG and Multi-Agent arms may add their intended evidence or coordination context, and must record it per run. Closed-book Base/SFT/RL comparisons share the standalone prompt and decoding settings. There is no weighted combined score. Common MCQ predictions use one JSONL row per ID with raw_generation, final_answer, parse_success, parsed_answer, raw_output_hash, output_tokens, and generation_latency_seconds; the adjacent prediction manifest records checkpoint, revision, and prediction SHA256. score_base_eval.py accepts --prediction-file/--prediction-manifest for DiagnosisArena-915 and CMB full; score_cmb_common.py applies the same shared exact-match CMB scorer to CMB-COMMON-1024. CMB full test (11,200) remains a backbone-only extended endpoint; HB-Pro remains the open-ended backbone endpoint with a frozen local judge. The owner-provided historical MedQA-1,273 reproduction results remain separate: Qwen3-8B Single 61.27%, MDAgents 56.09%. They are not the common headline benchmark because of training-source provenance. R2MED and LoCoMo remain track-specific retrieval and memory evaluations.
+
+
 DiagnosisArena has no specialty field in its frozen test file, so specialty scores will be reported as unavailable. CMB contains 9,999 single-choice rows, 1,190 multiple-answer rows, and 11 C-type rows. HealthBench Professional contains 1,135 rubric criteria; subgroup metadata includes consult 236, writing 142, research 147, good-faith 334, red-teaming 191, typical 256, and difficult 269.
 
 ## 4. Candidate prompt and inference contract
@@ -37,7 +44,7 @@ The candidate model sees no custom system prompt and receives no RAG, memory, to
 
 DiagnosisArena candidates receive only the case, exam, diagnostic tests, and options. CMB candidates receive only the question and options. HealthBench generation sees only the conversation. Gold answers, rubrics, physician responses, and grader metadata are loaded separately by scorer code. LiveMedBench candidates are prepared for decontamination and reservation only.
 
-All Qwen checkpoints use the same Qwen chat template, thinking enabled, greedy decoding (`temperature=0`, `do_sample=false`, `top_p=1`), and `max_new_tokens=2048`. The frozen candidate runtime is vLLM `0.30.1rc1.dev622+gf03026a54` with BF16 weights, 16 concurrent sequences, 16,384-token model and prefill limits, 0.88 GPU memory utilization, and automatic attention-backend selection; FlashInfer `0.7.0.post1` is installed; the observed vLLM auto-selection uses FlashAttention 2 for attention and FlashInfer for top-p/top-k sampling. FlashInfer attention kernels are unavailable because `flashinfer-cubin` is absent, so the frozen runtime records the actual fallback rather than claiming FlashInfer attention. Prompts are rendered and tokenized with the pinned Hugging Face tokenizer, then passed to vLLM as token IDs so its chat formatting cannot change the candidate view. Both raw generation and extracted final answer are retained. Scoring starts only after the complete prediction file and its SHA256 sidecar are written.
+All Qwen checkpoints use the same Qwen chat template, thinking enabled, greedy decoding (`temperature=0`, `do_sample=false`, `top_p=1`), and `max_new_tokens=2048`. The frozen candidate runtime is vLLM `0.30.1rc1.dev622+gf03026a54` with BF16 weights, 16 concurrent sequences, 16,384-token model and prefill limits, 0.50 GPU memory utilization, and automatic attention-backend selection; FlashInfer `0.7.0.post1` is installed; the observed vLLM auto-selection uses FlashAttention 2 for attention and FlashInfer for top-p/top-k sampling. On the L40, vLLM loaded BF16 model weights in 15.27 GiB, allocated 5.2 GiB KV cache, and reported maximum concurrency 2.31 for 16K-token requests. With vLLM alone, nvidia-smi measured 22,944 MiB of 46,068 MiB; with both workloads active the whole GPU ranged 42,297–43,951 MiB, leaving 2,117–3,771 MiB. The 0.50 setting limits this vLLM instance; it is not a hard GPU partition, and both projects compete for compute. FlashInfer attention kernels are unavailable because `flashinfer-cubin` is absent, so the frozen runtime records the actual fallback rather than claiming FlashInfer attention. Prompts are rendered and tokenized with the pinned Hugging Face tokenizer, then passed to vLLM as token IDs so its chat formatting cannot change the candidate view. Both raw generation and extracted final answer are retained. Scoring starts only after the complete prediction file and its SHA256 sidecar are written.
 
 The frozen prompt builder, parser, candidate generator, and MCQ scorer hashes are in [`eval_protocol.json`](../../../training/posttrain/manifests/eval/eval_protocol.json). The same runner accepts `--checkpoint-name`, `--model-path`, and `--model-revision` for later merged SFT/RL HF checkpoints, records all local checkpoint file hashes, and rejects a changed Qwen chat template, vLLM/FlashInfer runtime, or evaluation protocol. A preliminary Transformers serial attempt was stopped after four unfrozen, unscored predictions (about 55 seconds per response); those partial artifacts are archived separately and are excluded from official results. The scorer reports the checkpoint identity from its frozen prediction manifest.
 
@@ -92,19 +99,21 @@ SFT DEV is deterministically stratified by source and language. These counts are
 
 ## 8. Qwen3-8B Base results
 
-**Pending.** The preliminary Transformers attempt generated four unscored partial responses and was archived separately. The official vLLM run has not yet generated predictions: its first engine startup exited before generation because Ninja was not on PATH. The runner now fixes PATH and records CUDA_HOME/Ninja in the runtime manifest; the L40 was free at the latest check. No metrics below are inferred from other papers or model cards.
+The v4 DiagnosisArena full Base run and CMB-COMMON-1024 Base run are complete and scored. CMB full-test generation was intentionally stopped after 352 partial rows; the partial was retained, and no score was calculated from it. HealthBench Professional Base remains pending.
 
-| Checkpoint | DiagnosisArena | CMB-Exam | HB-Pro Local-Rubric | LiveMedBench reserved |
-|---|---:|---:|---:|---:|
-| Qwen3-8B Base | PENDING | PENDING | PENDING | UNOPENED |
-| Medical SFT | NOT RUN | NOT RUN | NOT RUN | UNOPENED |
-| SFT + GSPO/GDPO | NOT RUN | NOT RUN | NOT RUN | UNOPENED |
+| Checkpoint | DiagnosisArena-915 | CMB-COMMON-1024 | CMB full 11,200 | HB-Pro Local-Rubric | LiveMedBench reserved |
+|---|---:|---:|---:|---:|---:|
+| Qwen3-8B Base | 34.86% (319/915) | 66.70% (683/1,024) | NOT RUN (352 partial retained) | PENDING | UNOPENED |
+| Medical SFT | NOT RUN | NOT RUN | NOT RUN | NOT RUN | UNOPENED |
+| SFT + GSPO/GDPO | NOT RUN | NOT RUN | NOT RUN | NOT RUN | UNOPENED |
 
-After Base generation, the report will include DiagnosisArena accuracy, Wilson 95% CI, invalid rate, mean tokens and latency; CMB exact accuracy, macro-28, major-category, single/multiple scores and Wilson intervals; HB-Pro Local raw and adjusted scores, requested subgroups and paired/bootstrap-ready CIs. No weighted overall medical score will be created.
+DiagnosisArena v4 details: N=915; accuracy 34.8634%; Wilson 95% CI [31.8448%, 38.0086%]; invalid-answer rate 10.2732%; mean output tokens 1,880.32; generation latency mean 100.85 s, p50 123.21 s, p95 126.49 s. Prediction SHA256: cff79f9f584918a6a6c666864d8290988266d03fa26d2600d948f02db6c04455. Protocol-v2 score artifacts and protocol-v3 partial outputs are retained under runs/posttrain/pt-e0/invalidated/ and must not be used.
+
+CMB-COMMON-1024 details: N=1,024; exact accuracy 66.6992% (683/1,024), Wilson 95% CI [63.7549%, 69.5187%]; macro-28 accuracy 66.7149%; single-choice 70.5819% (655/928), multiple-answer exact match 29.1667% (28/96); invalid-answer rate 6.5430%; mean output 1,458.31 tokens; generation latency mean 110.90 s, p50 114.36 s, p95 118.82 s. Frozen prediction SHA256: `41d332e737b3e50ed41baa0066c491d121c5fb3020d976d7c2b863209c7b7b55`; frozen ID sequence SHA256: `ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4`. The 35 reused rows came from the preserved 352-row full-CMB partial; 989 rows were generated specifically for Common-1024. CMB full results are intentionally not reported. HB-Pro will include raw and length-adjusted Local-Rubric scores, requested subgroups and paired/bootstrap-ready CIs. No metrics from papers or model cards are substituted for this local Base run.
 
 ## 9. Known limitations
 
-- Full baseline generation and actual Q4 judge GPU inference have not run yet. A CPU-only synthetic judge smoke passed, but it is not a benchmark score. The official runner now uses the frozen vLLM runtime and checks available VRAM before loading.
+- CMB full-test scoring/generation was not part of the agreed scope; only a 352-row partial was produced before stopping and retained without a score. HB-Pro v4 Base generation and actual Q4 judge GPU inference remain pending. A CPU-only synthetic judge smoke passed, but it is not a benchmark score. The DiagnosisArena score is from the frozen local parser and no specialty slices are available because the pinned test file has no specialty metadata.
 - DiagnosisArena provides no specialty metadata in the pinned test file.
 - The local Q4 judge is an independent grader and may disagree with the official GPT-5.4 HealthBench grader; its score is explicitly labeled local.
 - Near-duplicate filters are deterministic string methods and do not detect all semantic paraphrases.
@@ -120,11 +129,14 @@ Run from `training/posttrain` with the existing isolated environment and data pa
 ```bash
 export PT_E0_DATA_ROOT=/root/gpufree-data/Health-Copilot-PT-E0-data
 export PYTHONPATH=/root/gpufree-data/Health-Copilot-PT-E0/training/posttrain
+export PATH=/root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin:/usr/local/cuda-13.0/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/prepare_external_eval.py
 PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/audit_training_sources.py
+PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/freeze_cmb_common_ids.py
 PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/freeze_pt_e0_manifests.py
 PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/run_base_eval.py --benchmark diagnosisarena
-PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/run_base_eval.py --benchmark cmb
+PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/run_cmb_common_subset.py --source-partial "$PT_E0_DATA_ROOT/runs/posttrain/pt-e0/cmb/predictions.jsonl.partial" --source-manifest "$PT_E0_DATA_ROOT/runs/posttrain/pt-e0/cmb/partial_run_manifest.json" --output-dir "$PT_E0_DATA_ROOT/runs/posttrain/pt-e0/cmb_common1024-repro"
+PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/score_cmb_common.py --prediction-file "$PT_E0_DATA_ROOT/runs/posttrain/pt-e0/cmb_common1024-repro/predictions.jsonl" --output-dir "$PT_E0_DATA_ROOT/runs/posttrain/pt-e0/cmb_common1024-repro"
 PYTHONDONTWRITEBYTECODE=1 /root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python scripts/run_base_eval.py --benchmark hbpro
 ```
 

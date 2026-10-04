@@ -35,7 +35,7 @@ BATCH_SIZE = 16
 MAX_MODEL_LEN = 16384
 MAX_NUM_BATCHED_TOKENS = 16384
 MAX_NUM_SEQS = 16
-GPU_MEMORY_UTILIZATION = 0.88
+GPU_MEMORY_UTILIZATION = 0.50
 
 
 def sha256_file(path: Path) -> str:
@@ -157,6 +157,14 @@ def main() -> None:
     if len(set(candidate_ids)) != len(candidate_ids):
         raise ValueError("Candidate IDs are not unique")
     candidate_hash = sha256_file(candidate_path)
+    dataset_manifest = json.loads(
+        (project_root / "manifests/eval/eval_dataset_manifest.json").read_text(encoding="utf-8")
+    )
+    expected_candidate_hash = dataset_manifest["prepared_artifacts"].get(
+        f"{benchmark}/candidate_view.jsonl"
+    )
+    if expected_candidate_hash != candidate_hash:
+        raise ValueError("Candidate view differs from its frozen dataset manifest")
     generation = {
         "temperature": 0,
         "do_sample": False,
@@ -250,8 +258,13 @@ def main() -> None:
                 raw_generation = tokenizer.decode(new_ids, skip_special_tokens=False)
                 final = final_response(raw_generation)
                 if benchmark in {"diagnosisarena", "cmb"}:
+                    valid_options = row.get("valid_options")
+                    if not isinstance(valid_options, list) or not valid_options:
+                        raise ValueError(f"Candidate {row.get('id')} lacks valid option metadata")
                     multi = benchmark == "cmb" and row.get("question_type") == "多项选择题"
-                    parsed = extract_mcq_answer(raw_generation, set("ABCDEF"), allow_multiple=multi)
+                    if benchmark == "cmb" and row.get("question_type") not in {"单项选择题", "多项选择题", "C型选择题"}:
+                        raise ValueError(f"Candidate {row.get('id')} lacks a recognized CMB question type")
+                    parsed = extract_mcq_answer(raw_generation, set(valid_options), allow_multiple=multi)
                 else:
                     parsed = final
                 metrics = request.metrics

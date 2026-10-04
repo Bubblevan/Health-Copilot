@@ -1,10 +1,36 @@
 from __future__ import annotations
 
+import re
 from typing import Any
 
 # No custom system message is injected into candidate context.
 SYSTEM_PROMPT: str | None = None
 SYSTEM_PROMPT_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+
+def option_labels(options: Any) -> list[str]:
+    if isinstance(options, dict):
+        raw_labels = list(options.keys())
+    elif isinstance(options, list):
+        raw_labels = [
+            item.get("label", item.get("key", chr(65 + index)))
+            if isinstance(item, dict)
+            else chr(65 + index)
+            for index, item in enumerate(options)
+        ]
+    elif isinstance(options, str):
+        raw_labels = re.findall(r"(?m)^\s*([A-F])\s*[.、:：）)]", options)
+    else:
+        raw_labels = []
+
+    labels = set()
+    for raw_label in raw_labels:
+        match = re.fullmatch(r"\s*([A-F])\s*", str(raw_label), re.IGNORECASE)
+        if match:
+            labels.add(match.group(1).upper())
+    if not labels:
+        raise ValueError("Could not derive valid A-F option labels from candidate options")
+    return sorted(labels)
 
 
 def _options_text(options: Any) -> str:

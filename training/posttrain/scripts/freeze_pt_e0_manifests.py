@@ -172,16 +172,26 @@ def freeze() -> dict[str, Any]:
     if not dataset_manifest.is_file():
         raise FileNotFoundError(dataset_manifest)
     shutil.copyfile(dataset_manifest, MANIFEST_DIR / "eval/eval_dataset_manifest.json")
+    core_manifest_path = MANIFEST_DIR / "eval/common_eval_core.json"
+    core_manifest = json.loads(core_manifest_path.read_text(encoding="utf-8"))
     protocol = {
-        "schema_version": "pt-e0-eval-protocol-v1",
+        "schema_version": "pt-e0-eval-protocol-v4-half-vram-common-core",
         "candidate_system_prompt": "",
         "candidate_system_prompt_sha256": hashlib.sha256(b"").hexdigest(),
         "candidate_chat_template_sha256": chat_template_hash,
         "prompt_builder_sha256": sha256_file(POSTTRAIN_ROOT / "eval/prompts.py"),
         "parser_sha256": sha256_file(POSTTRAIN_ROOT / "eval/parsers.py"),
         "candidate_view_preparer_sha256": sha256_file(POSTTRAIN_ROOT / "scripts/prepare_external_eval.py"),
+        "candidate_metadata_enricher_sha256": sha256_file(POSTTRAIN_ROOT / "scripts/enrich_mcq_candidate_metadata.py"),
         "candidate_generation_code_sha256": sha256_file(POSTTRAIN_ROOT / "scripts/run_base_eval.py"),
         "mcq_scorer_code_sha256": sha256_file(POSTTRAIN_ROOT / "scripts/score_base_eval.py"),
+        "cmb_scoring_code_sha256": sha256_file(POSTTRAIN_ROOT / "eval/cmb_scoring.py"),
+        "common_cmb_scorer_code_sha256": sha256_file(POSTTRAIN_ROOT / "scripts/score_cmb_common.py"),
+        "common_eval_core_manifest_sha256": sha256_file(core_manifest_path),
+        "common_eval_core": {
+            "DiagnosisArena-915": core_manifest["benchmarks"]["DiagnosisArena-915"],
+            "CMB-COMMON-1024": core_manifest["benchmarks"]["CMB-COMMON-1024"],
+        },
         "inference_runtime": {
             "engine": "vllm",
             "version": importlib.metadata.version("vllm"),
@@ -195,7 +205,7 @@ def freeze() -> dict[str, Any]:
             "max_model_len": 16384,
             "max_num_seqs": 16,
             "max_num_batched_tokens": 16384,
-            "gpu_memory_utilization": 0.88,
+            "gpu_memory_utilization": 0.5,
             "prefix_caching": False,
             "attention_backend": "auto",
             "seed": 20261004,

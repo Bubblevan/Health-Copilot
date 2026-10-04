@@ -1,0 +1,23 @@
+{
+  "checkpoint": "Qwen/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "benchmark": "diagnosisarena",
+  "n": 915,
+  "correct": 319,
+  "accuracy": 0.34863387978142074,
+  "wilson_95_ci": [
+    0.318447832751601,
+    0.380085578708172
+  ],
+  "invalid_answer_rate": 0.10273224043715846,
+  "mean_output_tokens": 1880.3169398907103,
+  "generation_latency_seconds": {
+    "mean": 100.84953192108479,
+    "p50": 123.20761394081637,
+    "p95": 126.4949195489753
+  },
+  "per_specialty": null,
+  "specialty_note": "The frozen DiagnosisArena test file has no specialty metadata.",
+  "prediction_sha256": "cff79f9f584918a6a6c666864d8290988266d03fa26d2600d948f02db6c04455",
+  "score_protocol_sha256": "f291a0d4eb8ccbdc9ecbafa472ee15a60ad321e6d86e05e39942b45aa9f7c763"
+}

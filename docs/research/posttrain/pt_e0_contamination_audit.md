@@ -48,6 +48,10 @@ The rate denominator is the union of exact-unique raw prompt families across the
 | rl | hbpro | 0 | 0 | 0 |
 | rl | livemedbench | 0 | 0 | 1 |
 
+## Common Eval Core coverage
+
+DiagnosisArena-915 is the full 915-row test set and is covered by the DiagnosisArena contamination audit above. CMB-COMMON-1024 is a frozen subset of the full CMB-Exam test set; the source audit compared against all 11,200 CMB test questions before subset selection. Full-test exclusions were exact 0, near-duplicate 5, and 64-character overlap 6 source rows. The exclusion log does not retain which CMB eval IDs triggered each match, so no subset-only overlap count is inferred. PT-1 must continue to exclude training examples against the entire frozen CMB test source.
+
 ## MedReason provenance
 
 | dataset_name | Rows |

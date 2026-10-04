@@ -12,7 +12,7 @@ from typing import Any
 import pandas as pd
 
 from data.canonicalize import canonicalize, fingerprint
-from eval.prompts import cmb_prompt, diagnosisarena_prompt, healthbench_messages, livemedbench_prompt
+from eval.prompts import cmb_prompt, diagnosisarena_prompt, healthbench_messages, livemedbench_prompt, option_labels
 
 DATA_ROOT = Path(os.environ.get("PT_E0_DATA_ROOT", "/root/gpufree-data/Health-Copilot-PT-E0-data"))
 OUT = DATA_ROOT / "eval" / "prepared"
@@ -117,7 +117,7 @@ def prepare() -> dict[str, Any]:
     diag_scorers = []
     for row in diag_frame.to_dict(orient="records"):
         row_id = str(row["id"])
-        diag_candidates.append({"id": f"diagnosisarena:{row_id}", "prompt": diagnosisarena_prompt(row), "fingerprint_text": "\n".join(str(row.get(field, "")) for field in ("Case Information", "Physical Examination", "Diagnostic Tests", "Options"))})
+        diag_candidates.append({"id": f"diagnosisarena:{row_id}", "prompt": diagnosisarena_prompt(row), "fingerprint_text": "\n".join(str(row.get(field, "")) for field in ("Case Information", "Physical Examination", "Diagnostic Tests", "Options")), "valid_options": option_labels(row["Options"])})
         diag_scorers.append({"id": f"diagnosisarena:{row_id}", "answer": None})
     # Right Option is loaded in a separate scorer-only read.
     diag_gold = pd.read_parquet(diag_file, columns=["id", "Right Option"])
@@ -135,7 +135,7 @@ def prepare() -> dict[str, Any]:
     for row in cmb_questions:
         row_id = str(row["id"])
         gold = answer_by_id[row_id]
-        cmb_candidates.append({"id": f"cmb:{row_id}", "prompt": cmb_prompt(row), "fingerprint_text": str(row.get("question", "")), "question_type": row.get("question_type")})
+        cmb_candidates.append({"id": f"cmb:{row_id}", "prompt": cmb_prompt(row), "fingerprint_text": str(row.get("question", "")), "question_type": row["question_type"], "valid_options": option_labels(row["option"])})
         cmb_scorers.append({
             "id": f"cmb:{row_id}",
             "answer": gold["answer"],

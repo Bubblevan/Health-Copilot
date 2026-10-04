@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from eval.statistics import wilson_interval
+from eval.cmb_scoring import score_cmb_predictions
 
 DATA_ROOT = Path("/root/gpufree-data/Health-Copilot-PT-E0-data")
 RUNS = DATA_ROOT / "runs/posttrain/pt-e0"
@@ -21,9 +22,14 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def verify_predictions(run_dir: Path) -> list[dict[str, Any]]:
-    path = run_dir / "predictions.jsonl"
-    manifest = json.loads((run_dir / "prediction_manifest.json").read_text(encoding="utf-8"))
+def verify_predictions(
+    run_dir: Path,
+    prediction_file: Path | None = None,
+    prediction_manifest_file: Path | None = None,
+) -> list[dict[str, Any]]:
+    path = prediction_file or run_dir / "predictions.jsonl"
+    manifest_path = prediction_manifest_file or run_dir / "prediction_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     expected = manifest["predictions_sha256"]
     sidecar = (run_dir / "predictions.sha256").read_text(encoding="ascii").split()[0]
@@ -60,74 +66,105 @@ def binary_metrics(items: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def score(benchmark: str) -> dict[str, Any]:
+def score(
+    benchmark: str,
+    *,
+    prediction_file: Path | None = None,
+    prediction_manifest_file: Path | None = None,
+    output_file: Path | None = None,
+) -> dict[str, Any]:
     protocol = json.loads(EVAL_PROTOCOL.read_text(encoding="utf-8"))
     if protocol["mcq_scorer_code_sha256"] != hashlib.sha256(Path(__file__).read_bytes()).hexdigest():
         raise ValueError("MCQ scorer code differs from the frozen evaluation protocol")
     if protocol["parser_sha256"] != hashlib.sha256((POSTTRAIN_ROOT / "eval/parsers.py").read_bytes()).hexdigest():
         raise ValueError("MCQ parser differs from the frozen evaluation protocol")
-    run_dir = RUNS / benchmark
-    prediction_manifest = json.loads((run_dir / "prediction_manifest.json").read_text(encoding="utf-8"))
-    predictions = verify_predictions(run_dir)
+    if protocol.get("cmb_scoring_code_sha256") != hashlib.sha256((POSTTRAIN_ROOT / "eval/cmb_scoring.py").read_bytes()).hexdigest():
+        raise ValueError("Shared CMB scorer differs from the frozen evaluation protocol")
+    default_run_dir = RUNS / benchmark
+    run_dir = Path(prediction_file).parent if prediction_file is not None else default_run_dir
+    predictions_path = Path(prediction_file) if prediction_file is not None else run_dir / "predictions.jsonl"
+    manifest_path = (
+        Path(prediction_manifest_file)
+        if prediction_manifest_file is not None
+        else run_dir / "prediction_manifest.json"
+    )
+    prediction_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    predictions = verify_predictions(run_dir, predictions_path, manifest_path)
     scorer_path = DATA_ROOT / "eval/prepared" / benchmark / "scorer_view.jsonl"
+    dataset_manifest_path = POSTTRAIN_ROOT / "manifests/eval/eval_dataset_manifest.json"
+    dataset_manifest = json.loads(dataset_manifest_path.read_text(encoding="utf-8"))
+    expected_scorer_hash = dataset_manifest["prepared_artifacts"].get(
+        f"{benchmark}/scorer_view.jsonl"
+    )
+    actual_scorer_hash = hashlib.sha256(scorer_path.read_bytes()).hexdigest()
+    expected_candidate_hash = dataset_manifest["prepared_artifacts"].get(
+        f"{benchmark}/candidate_view.jsonl"
+    )
+    if actual_scorer_hash != expected_scorer_hash:
+        raise ValueError("Scorer view differs from its frozen dataset manifest")
+    if prediction_manifest.get("candidate_view_sha256") != expected_candidate_hash:
+        raise ValueError("Predictions were not generated from the frozen candidate view")
     gold_rows = read_jsonl(scorer_path)
     by_id = {str(row["id"]): row for row in gold_rows}
     pred_by_id = {str(row["id"]): row for row in predictions}
+    if benchmark == "diagnosisarena":
+        ids_path = POSTTRAIN_ROOT / "manifests/eval/diagnosisarena915_ids.json"
+        frozen_ids = {str(row_id) for row_id in json.loads(ids_path.read_text(encoding="utf-8"))}
+        if frozen_ids != set(by_id):
+            raise ValueError("DiagnosisArena scorer view differs from the frozen common-core ID list")
     if len(by_id) != len(gold_rows) or len(pred_by_id) != len(predictions) or set(by_id) != set(pred_by_id):
         raise ValueError("Prediction and scorer IDs are not a one-to-one exact match")
 
-    items = []
-    for row_id, gold in by_id.items():
-        pred = pred_by_id[row_id]
-        actual = pred.get("parsed_answer")
-        if benchmark == "diagnosisarena":
-            expected = normalized_labels(gold["answer"])
-        else:
-            expected = normalized_labels(gold["answer"])
-        items.append({
-            "id": row_id,
-            "correct": actual is not None and expected is not None and str(actual).upper() == expected,
-            "parsed": bool(pred.get("parse_success")),
-            "latency": pred["generation_latency_seconds"],
-            "tokens": pred["output_tokens"],
-            "subcategory": gold.get("subcategory"),
-            "major_category": gold.get("major_category"),
-            "question_type": gold.get("question_type"),
-        })
-
-    result: dict[str, Any] = {
-        "checkpoint": prediction_manifest["checkpoint"],
-        "model_revision": prediction_manifest["model_revision"],
-        "benchmark": benchmark,
-        **binary_metrics(items),
-    }
-    if benchmark == "diagnosisarena":
-        result["per_specialty"] = None
-        result["specialty_note"] = "The frozen DiagnosisArena test file has no specialty metadata."
+    if benchmark == "cmb":
+        result = score_cmb_predictions(
+            predictions,
+            gold_rows,
+            checkpoint=prediction_manifest["checkpoint"],
+            model_revision=prediction_manifest["model_revision"],
+            benchmark="cmb",
+        )
     else:
-        by_subcategory: dict[str, list[dict[str, Any]]] = defaultdict(list)
-        by_major: dict[str, list[dict[str, Any]]] = defaultdict(list)
-        for item in items:
-            by_subcategory[str(item["subcategory"])].append(item)
-            by_major[str(item["major_category"])].append(item)
-        subcategory_metrics = {name: binary_metrics(rows) for name, rows in sorted(by_subcategory.items())}
-        major_metrics = {name: binary_metrics(rows) for name, rows in sorted(by_major.items())}
-        singles = [item for item in items if item["question_type"] in {"单项选择题", "C型选择题"}]
-        multiples = [item for item in items if item["question_type"] == "多项选择题"]
-        result.update({
-            "macro_28_subcategory_accuracy": statistics.mean(row["accuracy"] for row in subcategory_metrics.values()),
-            "subcategory_count": len(subcategory_metrics),
-            "major_categories": major_metrics,
-            "subcategories": subcategory_metrics,
-            "single_choice": binary_metrics(singles),
-            "multiple_answer": binary_metrics(multiples),
-        })
-    (run_dir / "scores.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        items = []
+        for row_id, gold in by_id.items():
+            pred = pred_by_id[row_id]
+            expected = normalized_labels(gold["answer"])
+            actual = pred.get("parsed_answer")
+            items.append({
+                "id": row_id,
+                "correct": actual is not None and expected is not None and str(actual).upper() == expected,
+                "parsed": bool(pred.get("parse_success")),
+                "latency": pred["generation_latency_seconds"],
+                "tokens": pred["output_tokens"],
+                "subcategory": gold.get("subcategory"),
+                "major_category": gold.get("major_category"),
+                "question_type": gold.get("question_type"),
+            })
+        result = {
+            "checkpoint": prediction_manifest["checkpoint"],
+            "model_revision": prediction_manifest["model_revision"],
+            "benchmark": benchmark,
+            **binary_metrics(items),
+            "per_specialty": None,
+            "specialty_note": "The frozen DiagnosisArena test file has no specialty metadata.",
+        }
+    result["prediction_sha256"] = prediction_manifest["predictions_sha256"]
+    result["score_protocol_sha256"] = hashlib.sha256(EVAL_PROTOCOL.read_bytes()).hexdigest()
+    score_path = Path(output_file) if output_file is not None else run_dir / "scores.json"
+    score_path.parent.mkdir(parents=True, exist_ok=True)
+    score_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return result
 
 
 if __name__ == "__main__":
     cli = argparse.ArgumentParser()
     cli.add_argument("--benchmark", choices=["diagnosisarena", "cmb"], required=True)
+    cli.add_argument("--prediction-file", type=Path, default=None)
+    cli.add_argument("--prediction-manifest", type=Path, default=None)
+    cli.add_argument("--output", type=Path, default=None)
     args = cli.parse_args()
-    print(json.dumps(score(args.benchmark), ensure_ascii=False, indent=2))
+    print(json.dumps(score(
+        args.benchmark,
+        prediction_file=args.prediction_file,
+        prediction_manifest_file=args.prediction_manifest,
+        output_file=args.output,
+    ), ensure_ascii=False, indent=2))
