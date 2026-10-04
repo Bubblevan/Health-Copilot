@@ -1,0 +1,35 @@
+{
+  "evaluation_id": "COMMON_MEDICAL_EVAL_V1",
+  "status": "BLOCKED_MISSING_PUBLIC_SNAPSHOTS",
+  "semantics": "PUBLIC_EXTERNAL_EVAL",
+  "evaluation_set_frozen_before_post_training": false,
+  "datasets": {
+    "diagnosisarena": {
+      "dataset_id": "diagnosisarena",
+      "expected_cases": 915,
+      "source_revision": null,
+      "snapshot_path": "data/public/diagnosisarena/test.jsonl",
+      "snapshot_sha256": null,
+      "answer_schema": "single_choice",
+      "readiness": "BLOCKED_MISSING_SNAPSHOT"
+    },
+    "cmb-common": {
+      "dataset_id": "cmb-common-1024",
+      "expected_cases": 1024,
+      "source_revision": null,
+      "snapshot_path": "data/public/cmb/test.jsonl",
+      "snapshot_sha256": null,
+      "subset_manifest": "configs/eval/cmb_common_1024.json",
+      "answer_schema": "single_choice_or_multi_select",
+      "readiness": "BLOCKED_MISSING_SNAPSHOT_AND_FROZEN_SUBSET"
+    }
+  },
+  "extended_dataset": {
+    "dataset_id": "cmb-exam",
+    "expected_cases": 11200,
+    "expected_subcategories": 28,
+    "readiness": "BLOCKED_MISSING_SNAPSHOT"
+  },
+  "stateless_profiles_memory_mode": "off",
+  "common_medical_kb_v1_ready": false
+}

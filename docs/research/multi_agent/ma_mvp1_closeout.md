@@ -1,5 +1,7 @@
 # MA-MVP1 closeout
 
+> Archive note (2026-10-04): the MA-MVP implementation and runners were later removed from the active tree when the product path was consolidated around the Harness and adaptive MDAgents. The frozen metrics and run artifacts below are unchanged. Reproducing the old pipeline requires checking out its recorded Git history; these commands are not current entry points.
+
 ## Status
 
 MA-MVP1 runtime, TRAIN_DEV selection, frozen configuration, and full 1,024-episode DEV evaluation are complete. The complete runnable artifacts are stored in `runs/multi_agent/ma-mvp1-20261003-cpu-r2/`.

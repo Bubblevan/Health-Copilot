@@ -1,0 +1,13 @@
+{
+  "report_id": "COMMON_EVAL_V1_POSTTRAIN_CONTAMINATION_AUDIT",
+  "status": "BLOCKED_MISSING_EVALUATION_AND_TRAINING_SNAPSHOTS",
+  "scope": ["DiagnosisArena-MCQ-915", "CMB-COMMON-1024"],
+  "exact_matches": null,
+  "near_duplicate_candidates": null,
+  "semantic_review_candidates": null,
+  "confirmed_overlaps": null,
+  "removed_training_rows": [],
+  "training_datasets_audited": [],
+  "claim": "No contamination result is claimed because the pinned Common Eval snapshots and post-training manifests are not present in this checkout.",
+  "qwen_pretraining_absence": "NOT_ASSESSED_AND_NOT_CLAIMED"
+}

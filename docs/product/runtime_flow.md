@@ -1,26 +1,24 @@
-# Runtime flow and API contract
+# Product runtime flow
 
-1. The Harness creates a unique `trace_id` and records the raw query.
-2. `MedicalRouter` evaluates only the query and explicit conversation context. Single-source questions use the Single fast path; multiple capability cues go to the Lead.
-3. The Lead emits a JSON plan containing only `mode` and bounded `{worker, objective}` tasks. The Harness validates roles, uniqueness, and limits, then assigns task and worker IDs.
-4. The Harness executes each worker's allowed skills. Independent workers use concurrent tasks; a dependent Care task runs in the second wave. Provider and tool calls, evidence, and failure status are appended to Shared Context.
-5. The Lead receives successful and failed worker statuses plus the evidence ledger and synthesizes a direct answer. If no worker returns a usable result, the runtime falls back to Strong Single.
-6. Harness verification filters citations against observed evidence, applies deterministic urgent-symptom flags, and returns a response.
+There is one product request path:
 
-The response object is a plain dataclass with `to_dict()`, suitable for a FastAPI response body:
-
-```json
-{
-  "answer": "...",
-  "route_mode": "SINGLE",
-  "workers_used": [],
-  "citations": [],
-  "safety_flags": [],
-  "trace_id": "trace-...",
-  "latency_ms": 123
-}
+```text
+POST /medical/answer
+        ↓
+HarnessRequest → HealthCopilotHarness → safety → Memory/RAG providers
+                                           ↓
+                                  AdaptiveMDTReasoner
+                             basic / intermediate / advanced
+                                           ↓
+                         verification → HarnessResponse + trace
 ```
 
-`create_fastapi_app(runtime)` exposes `POST /medical/answer` and `GET /medical/metrics` when the optional `api` extra is installed. The runtime accepts injected model, Memory, Evidence, and hospital providers; deployments must construct it with their approved providers and request identity policy.
+The API accepts only runtime-visible fields. Gold answers, evaluator truth, expected routes, and benchmark labels cannot enter the request.
 
-Aggregate metrics include request count, Single/Team ratio, average workers, latency percentiles, provider/tool calls, token use, and worker error rate. Per-request traces preserve route decision, Lead plan, skill/tool calls, evidence acquisition, worker report status, synthesis input, verification, and final response.
+AdaptiveMDTReasoner is the only product reasoning strategy. It chooses a one-agent fast path for basic questions, dynamically recruits specialists for intermediate questions, and recruits variable teams for advanced questions. Safety, provider calls, memory, retrieval, evidence identity, hard budgets, and response verification belong to HealthCopilotHarness; the reasoner consumes only the supplied ReasoningContext.
+
+Memory and retrieval are provider capabilities on the shared Harness path. The product-adaptive-v1 profile keeps both off until the production memory result and Common Medical KB qualification are ready. Evaluation profiles can enable the same providers for paired ablations, with identical retrieval evidence supplied to Single and Adaptive arms.
+
+The stable FastAPI entry is create_fastapi_app(harness). Static Single is available only to the Common Evaluation runner as a baseline, and cannot be selected through the product API. See [Common Medical Eval V1](../evaluation/common_medical_eval_v1.md) for the one runner and factorial profile matrix.
+
+Each response includes validated citations, safety flags, a trace ID, provider/tool counts, token totals, latency, selected profile, and reasoning route in Harness metrics. Traces contain request metadata and execution decisions but no evaluator truth.

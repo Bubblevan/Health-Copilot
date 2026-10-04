@@ -1,63 +1,33 @@
-# MDAgents-style Health-Copilot graft
+# Adaptive MDAgents integration and frozen parity result
 
-## Design
+## Active integration
 
-The integration is an opt-in sub-runtime behind MedicalAgentRuntime. It does not replace PatientContext, Evidence, Care, RAG, Memory, or HospitalKnowledgeProvider, and the default runtime remains unchanged unless a ClinicalReasoningSkill is injected.
+There is one system entry point: HealthCopilotHarness. It owns request parsing, safety, Memory/RAG provider execution, budgets, evidence identity, verification, and traces. AdaptiveMDTReasoner receives the resulting ReasoningContext and runs the MDAgents-style complexity route:
 
-The independently implemented flow is:
+1. Basic: one agent.
+2. Intermediate: dynamically recruited specialists.
+3. Advanced: dynamically recruited teams, with team and specialist limits set by configuration.
 
-1. Run the existing deterministic safety route before provider or harness work.
-2. Ask the same model to classify the question as basic, intermediate, or advanced.
-3. Basic uses one strong medical agent.
-4. Intermediate recruits domain specialists and synthesizes their results.
-5. Advanced uses multiple small teams followed by moderation.
-6. Enforce provider-call, tool, token, and deadline budgets, recording trace and shared context through Health-Copilot contracts.
+The former standalone MDAgents request/skill pipeline and the MA-MVP fixed-team runtime are no longer active entry points. Static Single remains only as a common-evaluation baseline. The product API defaults to the AdaptiveMDT profile; RAG and Memory are composed by Harness profiles without parallel retrieval or memory pipelines.
 
-This implements the algorithmic pattern independently and does not import or copy upstream MDAgents implementation. The local provider only accepts HTTP loopback endpoints, disables inherited proxy environment settings, uses the OpenAI-compatible API, temperature 0, and Qwen no-think mode.
+Use the single Common Evaluation runner and profile registry for paired model/RAG/reasoning comparisons. The core matrix is B0-B3; P0-P3 and R0-R3 add the SFT and GSPO model variants. Memory is off for stateless medical MCQ. RAG-enabled profiles remain blocked until a Common Medical KB is qualified.
 
-## Opt-in construction
+## Frozen 128-case parity sample
 
-```python
-from health_ai_copilot.multi_agent import (
-    ClinicalReasoningSkill,
-    LocalVllmProvider,
-    MedicalAgentRuntime,
-)
+This artifact predates the unified runtime and remains immutable. It compares the earlier Health-Copilot graft with frozen local MDAgents Adaptive outputs on a deterministic MedQA sample; it is a parity check, not a benefit estimate.
 
-provider = LocalVllmProvider(
-    base_url="http://127.0.0.1:8000/v1",
-    model="qwen3-8b-local",
-)
-reasoning = ClinicalReasoningSkill(provider)
-runtime = MedicalAgentRuntime(
-    provider=provider,
-    clinical_reasoning_skill=reasoning,
-)
-response = await runtime.respond(request)
-```
-
-Call await provider.close() when the provider is no longer needed. Applications that do not inject clinical_reasoning_skill continue to use the existing routing path. The FastAPI response contract remains MedicalAgentResponse.
-
-## 128-case parity sample
-
-The deterministic sample uses random.Random(20261003).sample(range(1273), 128) and compares the same shuffled model_question and labels against the already frozen local reference Adaptive rows. It runs only the Health-Copilot arm; it does not rerun the reference or all 1,273 cases.
-
-| Metric | Frozen reference | Health-Copilot graft | Delta |
+| Metric | Frozen reference | Earlier graft | Delta |
 |---|---:|---:|---:|
 | Accuracy | 77/128 = 60.16% | 76/128 = 59.38% | -0.78 pp |
 | Parse success | 87.50% | 99.22% | +11.72 pp |
 | Exact answer agreement | — | 76/128 = 59.38% | — |
-| Answer agreement when both parsed | — | 76/111 = 68.47% | — |
+| Agreement when both parsed | — | 76/111 = 68.47% | — |
 | Exact route agreement | — | 75/128 = 58.59% | — |
 
-Health-Copilot used 5.98 provider calls and 6,311.9 total tokens per sampled case on average, with mean latency 49.32 seconds. There were no runtime failures. Route counts were basic 90, intermediate 21, and advanced 17 (reference counts: 82, 33, and 13).
+The earlier graft averaged 5.98 provider calls, 6,311.9 tokens, and 49.32 seconds per case. This sample does not demonstrate an accuracy gain.
 
-The sample meets the predeclared absolute accuracy-delta target of at most 2 percentage points. It misses the answer-agreement target of 85% and route-agreement target of 90%. The measured sample accuracy is close; individual answers and route decisions are not highly concordant. This sample does not prove that all 1,273 cases would match, and no full Health-Copilot rerun was performed.
+## Related frozen result
 
-## Artifacts and identity
+The full local Qwen3-8B MedQA reproduction is documented in [MDAgents local reproduction](mdagents_local_reproduction.md): Adaptive scored 56.09% (714/1,273) versus Single at 61.27% (780/1,273), a -5.18 pp difference, with higher calls, token use, and latency. These local results are preserved as historical evidence. The planned remote factorial run will use the unified Harness and the user's current server/model setup; it must produce a new paired result before any positive claim.
 
-The checkpoint JSONL, paired case results, metrics, report, and manifest are preserved under:
-
-runs/multi_agent/mdagents-graft-parity-final-20261004/
-
-The manifest records the sample indices, seed, reference hash, model identity, source hashes, and result hashes. The parity runner is tools/research/multi_agent/run_mdagents_health_copilot_parity.py.
+Frozen earlier output remains under runs/multi_agent/mdagents-graft-parity-final-20261004/. The standalone parity runner was removed from the active tree; the unified Common Evaluation runner is the sole ongoing evaluation entry.

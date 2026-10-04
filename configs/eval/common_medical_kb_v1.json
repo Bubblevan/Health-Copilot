@@ -1,0 +1,14 @@
+{
+  "corpus_id": null,
+  "status": "BLOCKED_NO_QUALIFIED_COMMON_CORPUS",
+  "source_list": [],
+  "use_status": null,
+  "document_hashes": [],
+  "index_hash": null,
+  "bm25_index_config": null,
+  "dense_encoder_version": null,
+  "rrf_config": null,
+  "retrieval_top_k": null,
+  "provider_factory": null,
+  "readiness": "NO"
+}

@@ -1,0 +1,17 @@
+{
+  "registry_version": "common-eval-profiles-v1",
+  "profiles": {
+    "B0": {"profile_id": "B0", "model_variant": "qwen3_8b_base", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "single"},
+    "B1": {"profile_id": "B1", "model_variant": "qwen3_8b_base", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "single"},
+    "B2": {"profile_id": "B2", "model_variant": "qwen3_8b_base", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"},
+    "B3": {"profile_id": "B3", "model_variant": "qwen3_8b_base", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"},
+    "P0": {"profile_id": "P0", "model_variant": "medical_sft", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "single"},
+    "P1": {"profile_id": "P1", "model_variant": "medical_sft", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "single"},
+    "P2": {"profile_id": "P2", "model_variant": "medical_sft", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"},
+    "P3": {"profile_id": "P3", "model_variant": "medical_sft", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"},
+    "R0": {"profile_id": "R0", "model_variant": "medical_sft_gspo", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "single"},
+    "R1": {"profile_id": "R1", "model_variant": "medical_sft_gspo", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "single"},
+    "R2": {"profile_id": "R2", "model_variant": "medical_sft_gspo", "retrieval_mode": "off", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"},
+    "R3": {"profile_id": "R3", "model_variant": "medical_sft_gspo", "retrieval_mode": "standard", "memory_mode": "off", "reasoning_mode": "adaptive_mdt"}
+  }
+}

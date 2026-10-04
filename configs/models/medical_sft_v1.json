@@ -1,0 +1,16 @@
+{
+  "model_variant": "medical_sft",
+  "model_id": null,
+  "base_revision": null,
+  "checkpoint_sha256": null,
+  "training_manifest_sha256": null,
+  "tokenizer_revision": null,
+  "serving": {
+    "api": "openai-compatible-vllm",
+    "base_url_env": "VLLM_BASE_URL",
+    "served_model_env": "VLLM_MODEL_NAME",
+    "temperature": 0,
+    "max_output_tokens": 512
+  },
+  "status": "NOT_TRAINED_OR_FROZEN"
+}

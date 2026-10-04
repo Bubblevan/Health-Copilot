@@ -1,0 +1,14 @@
+{
+  "subset_id": "CMB-COMMON-1024",
+  "status": "NOT_FROZEN_MISSING_SOURCE_SNAPSHOT",
+  "source_dataset": "CMB-Exam-test-11200",
+  "source_revision": null,
+  "source_sha256": null,
+  "selection_algorithm": "sorted categories; as-even allocation; per-category seeded sampling without replacement",
+  "selection_seed": 20261004,
+  "target_size": 1024,
+  "category_count_expected": 28,
+  "allocation_rule": "as-even-as-possible; 1024 divided across 28 categories",
+  "case_ids": [],
+  "case_ids_sha256": null
+}
