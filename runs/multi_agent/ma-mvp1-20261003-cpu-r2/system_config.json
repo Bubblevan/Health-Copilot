@@ -1,0 +1,56 @@
+{
+  "config_sha256": "d0ae79ac5ad550dc255d55c7e65d0fb50448df46eb9d2534d9272c4e5b22a774",
+  "config_version": "MA_MVP1_CONFIG_V1",
+  "constraints": {
+    "hospital_corpus_enabled": false,
+    "max_tool_calls_per_worker": 2,
+    "max_waves": 2,
+    "max_worker_calls_per_request": 3,
+    "max_worker_model_turns": 3,
+    "parallel_independent_workers": true,
+    "recursive_delegation": false
+  },
+  "frozen": true,
+  "frozen_at_utc": "20261002T202228Z",
+  "generation": {
+    "lead_max_output_tokens": 96,
+    "plan_max_output_tokens": 80,
+    "retries": 0,
+    "single_max_output_tokens": 96,
+    "worker_max_output_tokens": 64
+  },
+  "model": {
+    "artifact_sha256": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "base_url": "http://127.0.0.1:8083/v1",
+    "device_policy": "CPU_ONLY; llama-server uses --n-gpu-layers 0",
+    "name": "Qwen3-8B-Q4_K_M.gguf",
+    "provider": "local llama.cpp OpenAI-compatible API",
+    "reasoning_mode": "Qwen3 /no_think; server --reasoning off",
+    "server_context_tokens": 16384,
+    "server_parallel_sequences": 3,
+    "server_threads": 24,
+    "temperature": 0
+  },
+  "router": "medical-router-v1",
+  "skills": [
+    "PatientStateLookupSkill",
+    "TimelineCompareSkill",
+    "MedicalKnowledgeSearchSkill",
+    "ExternalEvidenceSearchSkill",
+    "RiskAssessmentSkill",
+    "AnswerabilitySkill",
+    "HospitalKnowledgeSearchSkill"
+  ],
+  "train_dev": {
+    "dataset_root_hash": "e28ea9ef9ecae47d3f27f28c68042066e9af297fe808cafebf1d3c8c80fb2134",
+    "engineering_rounds": 1,
+    "sample_size": 256,
+    "selection": "sha256(MA_MVP1_TRAIN_DEV_V1|episode_id), first 256"
+  },
+  "training_dev_metrics_sha256": "b429e79550f0074bcc7e4aeeab9c2b6b5c5b50b28e8dc10ff0e04eb52127ce3c",
+  "workers": [
+    "patient_context",
+    "evidence",
+    "care"
+  ]
+}

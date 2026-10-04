@@ -1,0 +1,75 @@
+{
+  "ROUTED_MEDICAL_TEAM_ALL": {
+    "count": 1024,
+    "input_tokens": 788668,
+    "mean_ms": 23639.334,
+    "output_tokens": 88655,
+    "p50_ms": 8200,
+    "p95_ms": 72734,
+    "provider_calls": 1865,
+    "tool_calls": 2099,
+    "workers": 561
+  },
+  "ROUTED_MEDICAL_TEAM_SINGLE_FAST_PATH": {
+    "count": 744,
+    "input_tokens": 239210,
+    "mean_ms": 7803.405,
+    "output_tokens": 21333,
+    "p50_ms": 7372,
+    "p95_ms": 12823,
+    "provider_calls": 744,
+    "tool_calls": 1488,
+    "workers": 0
+  },
+  "ROUTED_MEDICAL_TEAM_TEAM": {
+    "count": 280,
+    "input_tokens": 549458,
+    "mean_ms": 65717.661,
+    "output_tokens": 67322,
+    "p50_ms": 65719,
+    "p95_ms": 81691,
+    "provider_calls": 1121,
+    "tool_calls": 611,
+    "workers": 561
+  },
+  "STRONG_SINGLE_ALL": {
+    "count": 1024,
+    "input_tokens": 349138,
+    "mean_ms": 9681.977,
+    "output_tokens": 40837,
+    "p50_ms": 8333,
+    "p95_ms": 16402,
+    "provider_calls": 1024,
+    "tool_calls": 2048,
+    "workers": 0
+  },
+  "STRONG_SINGLE_SINGLE_FAST_PATH": {
+    "count": 1024,
+    "input_tokens": 349138,
+    "mean_ms": 9681.977,
+    "output_tokens": 40837,
+    "p50_ms": 8333,
+    "p95_ms": 16402,
+    "provider_calls": 1024,
+    "tool_calls": 2048,
+    "workers": 0
+  },
+  "STRONG_SINGLE_TEAM": {
+    "count": 0,
+    "input_tokens": 0,
+    "mean_ms": null,
+    "output_tokens": 0,
+    "p50_ms": null,
+    "p95_ms": null,
+    "provider_calls": 0,
+    "tool_calls": 0,
+    "workers": 0
+  },
+  "parallel_speedup": {
+    "aggregate_speedup_ratio": 1.892479,
+    "mean_worker_parallel_wall_ms": 4739992.519,
+    "mean_worker_sequential_sum_ms": 8982092.932,
+    "simple_fast_path_count": 744,
+    "team_request_count": 1024
+  }
+}

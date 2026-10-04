@@ -1,0 +1,70 @@
+{
+  "schema_version": "ma-mvp2-reserved-internal-test-v1",
+  "dataset_id": "health-copilot-owned-longitudinal-v1",
+  "materialized": false,
+  "episode_count": 1024,
+  "selection": "fixed prefix of disjoint U2-F reserved seed pools; paired scenarios remain intact",
+  "same_surface_pair_fraction": 0.25,
+  "pools": [
+    {
+      "split_role": "IID_TEST",
+      "episode_count": 128,
+      "subject_count": 64,
+      "persona_seed_range": [510000, 510063],
+      "scenario_seed_range": [4000000, 4000063],
+      "template_families": ["TRAIN_LOOKUP", "TRAIN_TEMPORAL", "TRAIN_UPDATE", "TRAIN_AGGREGATE", "TRAIN_SOURCE", "TRAIN_BOOLEAN", "TRAIN_SEQUENCE", "TRAIN_NUMERIC", "TRAIN_ABSTAIN", "TRAIN_COMPOSE", "TRAIN_CONVERSATION", "TRAIN_TREND", "TRAIN_CURRENT"]
+    },
+    {
+      "split_role": "OOD_PATIENT",
+      "episode_count": 128,
+      "subject_count": 64,
+      "persona_seed_range": [520000, 520063],
+      "scenario_seed_range": [4100000, 4100063],
+      "template_families": ["DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE", "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"],
+      "scenario_family_weights": {"MEMORY_LOOKUP": 0.25, "MEMORY_REVISION": 0.2, "MEMORY_TEMPORAL_COMPARE": 0.15, "MEMORY_MULTI_RECORD": 0.2, "MEMORY_EXTERNAL_JOIN": 0.1, "CURRENT_ONLY": 0.1}
+    },
+    {
+      "split_role": "OOD_TASK",
+      "episode_count": 128,
+      "subject_count": 64,
+      "persona_seed_range": [530000, 530063],
+      "scenario_seed_range": [4200000, 4200063],
+      "template_families": ["DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE", "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"],
+      "scenario_family_weights": {"EXTERNAL_LOOKUP": 0.2, "EXTERNAL_VERSIONED": 0.15, "EXTERNAL_MULTI_SOURCE": 0.2, "INSUFFICIENT_EVIDENCE": 0.2, "DISTRACTOR_HEAVY": 0.1, "COMPOSITIONAL_MULTI_FACT": 0.15}
+    },
+    {
+      "split_role": "OOD_TEMPORAL",
+      "episode_count": 128,
+      "subject_count": 64,
+      "persona_seed_range": [540000, 540063],
+      "scenario_seed_range": [4300000, 4300063],
+      "template_families": ["DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE", "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"],
+      "scenario_family_weights": {"TEMPORAL_BOUNDARY": 0.2, "MEMORY_TEMPORAL_COMPARE": 0.2, "MEMORY_REVISION": 0.2, "EXTERNAL_VERSIONED": 0.2, "MEMORY_MULTI_RECORD": 0.1, "MEMORY_EXTERNAL_CONFLICT": 0.1}
+    },
+    {
+      "split_role": "OOD_SOURCE",
+      "episode_count": 128,
+      "subject_count": 64,
+      "persona_seed_range": [550000, 550063],
+      "scenario_seed_range": [4400000, 4400063],
+      "template_families": ["DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE", "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"],
+      "scenario_family_weights": {"EXTERNAL_LOOKUP": 0.15, "EXTERNAL_VERSIONED": 0.15, "EXTERNAL_MULTI_SOURCE": 0.3, "MEMORY_EXTERNAL_JOIN": 0.2, "MEMORY_EXTERNAL_CONFLICT": 0.2}
+    },
+    {
+      "split_role": "OOD_COMPOSITION",
+      "episode_count": 384,
+      "subject_count": 192,
+      "persona_seed_range": [560000, 560191],
+      "scenario_seed_range": [4500000, 4500191],
+      "template_families": ["DEV_STRUCTURAL_ORDER", "DEV_STRUCTURAL_COMPOSE", "DEV_STRUCTURAL_CONDITION", "DEV_STRUCTURAL_CONTRAST"],
+      "scenario_family_weights": {"MEMORY_EXTERNAL_JOIN": 0.25, "MEMORY_EXTERNAL_CONFLICT": 0.25, "COMPOSITIONAL_MULTI_FACT": 0.25, "EXTERNAL_MULTI_SOURCE": 0.25},
+      "reserved_compositions": [
+        "deep MEMORY→RAG serial chains",
+        "multi-source RAG plus memory revision",
+        "three-branch compositional tasks",
+        "long-history plus versioned external evidence"
+      ]
+    }
+  ],
+  "truth_access_policy": "materialize only after MA_MVP2_CONFIG_V1 is frozen and hashed"
+}

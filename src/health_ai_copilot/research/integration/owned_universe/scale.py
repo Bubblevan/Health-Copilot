@@ -123,10 +123,12 @@ def generate_u2f_plan(plan: dict[str, Any], profile: dict[str, Any]) -> tuple[La
         raise ValueError(f"{role} same-surface count must match the frozen scale profile")
     if not 0 <= same_surface_pairs <= pair_count:
         raise ValueError("same_surface_pair_count exceeds the split pair pool")
-    weights = {str(key): float(value)
-               for key, value in profile["scenario_family_weights"].items()}
-    if set(weights) != set(SCENARIO_FAMILIES) or abs(sum(weights.values()) - 1.0) > 1e-9:
-        raise ValueError("scenario family weights must cover the frozen grammar and sum to one")
+    weights = {str(key): float(value) for key, value in
+               plan.get("scenario_family_weights", profile["scenario_family_weights"]).items()}
+    if (not weights or set(weights) - set(SCENARIO_FAMILIES)
+            or any(value < 0 for value in weights.values())
+            or abs(sum(weights.values()) - 1.0) > 1e-9):
+        raise ValueError("scenario family weights must use registered families and sum to one")
 
     matched_indices = set(sorted(
         range(pair_count),
