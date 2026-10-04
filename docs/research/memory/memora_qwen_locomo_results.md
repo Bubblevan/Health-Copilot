@@ -8,14 +8,14 @@ Questions answered: 1986 expected.
 
 ## Main Results
 
-| Strategy | N | Official token F1 | Official EM | Normalized EM | Local Qwen judge accuracy | Judge N | Judge format fallbacks | Mean memory-context tokens | Retrieval sec | Answer sec |
+| Strategy | N | Token F1 (all categories) | Exact match (all categories) | Normalized EM | Local Qwen judge accuracy | Judge N | Judge format fallbacks | Mean memory-context tokens | Retrieval sec | Answer sec |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | semantic | 1986 | 0.3186 | 0.0403 | 0.0826 | 0.8195 | 1540 | 177 | 19542.1616 | 0.6429 | 26.9251 |
 | prompt | 1986 | 0.3181 | 0.0468 | 0.0811 | 0.8026 | 1540 | 157 | 20373.2034 | 31.6205 | 15.0351 |
 
 ## Category Results
 
-| Strategy | Category | N | Official token F1 | Official EM | Normalized EM | Local Qwen judge accuracy | Mean memory-context tokens | Retrieval sec | Answer sec |
+| Strategy | Category | N | Token F1 | Exact match | Normalized EM | Local Qwen judge accuracy | Mean memory-context tokens | Retrieval sec | Answer sec |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
 | semantic | single-hop | 282 | 0.3437 | 0.0071 | 0.0355 | 0.8227 | 20416.4858 | 0.6637 | 27.3873 |
 | semantic | temporal | 321 | 0.3646 | 0.0187 | 0.0374 | 0.6947 | 19473.4361 | 0.6972 | 28.6177 |
@@ -30,7 +30,7 @@ Questions answered: 1986 expected.
 
 ## Paired Strategy Contrast
 
-Prompted-policy minus semantic official F1: `-0.0006` over 1986 paired questions; stratified paired-bootstrap 95% CI `-0.0100 to 0.0087` (10,000 resamples, seed 42).
+Prompted-policy minus semantic all-category token F1: `-0.0006` over 1986 paired questions; stratified paired-bootstrap 95% CI `-0.0100 to 0.0087` (10,000 resamples, seed 42).
 
 Prompted-policy minus semantic local-Qwen judge accuracy: `-0.0169` over 1540 paired, judge-eligible questions; stratified paired-bootstrap 95% CI `-0.0364 to 0.0026` (10,000 resamples, seed 42; category 5 excluded). Both intervals include zero, so this run does not establish a quality difference between the two retrieval strategies.
 
@@ -38,7 +38,13 @@ Prompted-policy minus semantic local-Qwen judge accuracy: `-0.0169` over 1540 pa
 
 - Under this local Qwen stack, the prompted policy shows no statistically resolved quality gain over semantic retrieval on either deterministic F1 or local-Qwen judge accuracy.
 - Mean retrieval-plus-answer latency is about `27.57s` for semantic and `46.66s` for prompted policy; prompted retrieval also uses about `831` more reader-context tokens on average. Semantic is therefore the practical local default from this run, not a claim of general superiority.
-- The semantic token F1 is `0.3186`, and this experiment contains no same-run FullContext comparator. It supports successful method transfer and a measured policy ablation, but does not support a claim that Memora improves answer quality or reduces context versus FullContext under Qwen.
+- The paper's LoCoMo Table 1 reports four task categories, and the pinned upstream Memora evaluator skips category 5 before calculating F1 and judge scores. This report's headline table instead includes all `1986` questions, including `446` category-5 adversarial questions (F1 `0.0045` semantic / `0.0022` prompted). Re-aggregating the local category means over the four non-adversarial categories only (`N=1540`) gives F1 `0.4096` semantic and `0.4095` prompted. The paper reports `0.552` / `0.553` for those strategies. So `0.3186` / `0.3181` is not a like-for-like headline comparison; after aligning the category set, the local run remains about `14.2` / `14.3` F1 points lower.
+- The already-completed local Qwen FullContext run reports `0.4413` over all `1986` questions. Re-aggregated over the same four non-adversarial categories, local FullContext is `0.4347`, versus the paper's reported `0.565`. The absolute score gap therefore also appears without a memory architecture. Within our local stack, Memora S/P are about `2.5` points below local FullContext on four-category F1; in the paper, Memora S/P are about `1.3` / `1.2` points below FullContext on F1. (The paper's reported Memora advantage is on its LLM-judge metric, not token F1.)
+- The MEM-Q1 scorecard additionally reports all-five-category PropMem `0.3814` and PropMem-TVR `0.3789`. These are prior local coordinates from separate experiments, not a paired comparison against this Memora run; answer protocols differ and no paired uncertainty estimate is available.
+- Model stack differs materially: the paper uses GPT-4.1-mini for memory curation, answer generation, and prompted-policy retrieval; GPT-4o-mini for evaluation; and the upstream config defaults to `text-embedding-3-small`. Our local transfer uses Qwen3-8B Q4_K_M for curation/answer/policy/judge and Qwen3-Embedding-0.6B locally. Our run pins its dataset SHA and Memora commit and uses the upstream set-overlap F1 implementation, but it does not hold the paper's model stack constant. The paper's judge score and our local-Qwen judge accuracy are not directly comparable. The judge choice does not affect token F1.
+- There is also a confirmed answer-prompt divergence: the paper's Appendix B says it uses Mem0's official `ANSWER_PROMPT`; our frozen upstream config sets `use_combined_user=true`, which selects Memora's `ANSWER_PROMPT_COMBINED`. The template is similar in intent but is not byte-identical. The local Qwen run also has an explicit 256-token answer cap. These are additional protocol differences, so the remaining F1 gap cannot be assigned to model capability alone without a prompt-matched rerun.
+- The separate FullContext run used the same LoCoMo dataset SHA and Qwen3-8B checkpoint but temperature `0.1` and a 50-token answer cap. The MEM-Q1 PropMem runs used temperature `0` and a 256-token answer budget. These are not the Memora run's matched controls: the FullContext predictions were frozen before MEM-Q1 and were not rerun in the Memora invocation. Treat cross-run F1 gaps as descriptive only; they do not isolate memory architecture causally and have no paired confidence interval.
+- This Memora invocation has no FullContext system under its exact same per-question protocol. Its reported memory-context-token counts are not full reader-prompt token counts, so they do not establish a token-reduction percentage versus FullContext. Overall, the current numbers do not support a quality-improvement claim for Memora under this local Qwen transfer.
 
 ## Shared Memory Ingestion Usage
 
