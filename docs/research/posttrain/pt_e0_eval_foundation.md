@@ -1,6 +1,6 @@
 # PT-E0 Frozen Evaluation and Decontamination Foundation
 
-**Status: IN PROGRESS.** The evaluation, source, and judge protocols are frozen. Full Base predictions and scores remain pending because the last L40 check showed 39,827 MiB allocated (about 6 GiB free), 0% utilization, and no visible GPU process; the evaluation runner refuses to load Qwen3 below its 20 GiB free-memory guard. PT-E0 has not trained or updated any model weights.
+**Status: IN PROGRESS.** The evaluation and source protocols are frozen. A preliminary Transformers serial attempt produced four unscored partial responses and was stopped after measuring about 55 seconds per response. The authoritative generation runtime is now frozen to batched vLLM with the existing BF16 model and greedy decoding; the L40 was free at the last check. Full Base predictions and scores remain pending. PT-E0 has not trained or updated any model weights.
 
 ## 1. Purpose
 
@@ -37,9 +37,9 @@ The candidate model sees no custom system prompt and receives no RAG, memory, to
 
 DiagnosisArena candidates receive only the case, exam, diagnostic tests, and options. CMB candidates receive only the question and options. HealthBench generation sees only the conversation. Gold answers, rubrics, physician responses, and grader metadata are loaded separately by scorer code. LiveMedBench candidates are prepared for decontamination and reservation only.
 
-All Qwen checkpoints use the same Qwen chat template, thinking enabled, `temperature=0`, `do_sample=false`, `top_p=1`, and `max_new_tokens=2048`. Both raw generation and extracted final answer are retained. Scoring starts only after the complete prediction file and its SHA256 sidecar are written.
+All Qwen checkpoints use the same Qwen chat template, thinking enabled, greedy decoding (`temperature=0`, `do_sample=false`, `top_p=1`), and `max_new_tokens=2048`. The frozen candidate runtime is vLLM `0.30.1rc1.dev622+gf03026a54` with BF16 weights, 16 concurrent sequences, 16,384-token model and prefill limits, 0.88 GPU memory utilization, and automatic attention-backend selection; FlashInfer `0.7.0.post1` is installed. Prompts are rendered and tokenized with the pinned Hugging Face tokenizer, then passed to vLLM as token IDs so its chat formatting cannot change the candidate view. Both raw generation and extracted final answer are retained. Scoring starts only after the complete prediction file and its SHA256 sidecar are written.
 
-The frozen prompt builder, parser, candidate generator, and MCQ scorer hashes are in [`eval_protocol.json`](../../../training/posttrain/manifests/eval/eval_protocol.json). The same runner accepts `--checkpoint-name`, `--model-path`, and `--model-revision` for later merged SFT/RL HF checkpoints, records all local checkpoint file hashes, and rejects a changed Qwen chat template or evaluation protocol. The scorer reports the checkpoint identity from its frozen prediction manifest.
+The frozen prompt builder, parser, candidate generator, and MCQ scorer hashes are in [`eval_protocol.json`](../../../training/posttrain/manifests/eval/eval_protocol.json). The same runner accepts `--checkpoint-name`, `--model-path`, and `--model-revision` for later merged SFT/RL HF checkpoints, records all local checkpoint file hashes, and rejects a changed Qwen chat template, vLLM/FlashInfer runtime, or evaluation protocol. A preliminary Transformers serial attempt was stopped after four unfrozen, unscored predictions (about 55 seconds per response); those partial artifacts are archived separately and are excluded from official results. The scorer reports the checkpoint identity from its frozen prediction manifest.
 
 ## 5. HealthBench local judge contract
 
@@ -49,7 +49,7 @@ The local OpenAI-compatible server is built from `ggml-org/llama.cpp` commit `83
 
 Each grader request contains one candidate conversation, the Qwen final answer, and one criterion with its points. It does not contain `physician_response`, difficulty, checkpoint identity, or other rubric items. Criterion-level JSON, explanation, raw judge output, prompt/output hashes, and latency are retained outside Git. The local judge protocol and its prompt/runtime hashes are in [`healthbench_local_judge.json`](../../../training/posttrain/manifests/eval/healthbench_local_judge.json).
 
-A CPU-only format/generation smoke passed on a synthetic arithmetic prompt (no medical evaluation data): the Q4 GGUF loaded and returned parseable JSON with `criteria_met=true` in 70.708 seconds. The prompt and output hashes plus CPU smoke settings are recorded in [`healthbench_judge_cpu_smoke.json`](../../../training/posttrain/manifests/eval/healthbench_judge_cpu_smoke.json). The official GPU judge runtime has not yet run because the L40 is occupied.
+A CPU-only format/generation smoke passed on a synthetic arithmetic prompt (no medical evaluation data): the Q4 GGUF loaded and returned parseable JSON with `criteria_met=true` in 70.708 seconds. The prompt and output hashes plus CPU smoke settings are recorded in [`healthbench_judge_cpu_smoke.json`](../../../training/posttrain/manifests/eval/healthbench_judge_cpu_smoke.json). The official GPU judge runtime has not yet run; it is scheduled after Qwen Base generation so the candidate and judge do not compete for the same L40.
 
 The score follows the published per-case calculation: sum signed points for every criterion marked met, divided by the sum of positive rubric points. Aggregate means are clipped to [0, 1]. Length adjustment is `score - 0.0147 * ((answer_characters - 2000) / 500)`. Raw and length-adjusted means use 10,000 bootstrap resamples with seed 20261004. See the [HealthBench reference scoring implementation](https://github.com/openai/simple-evals/blob/main/healthbench_eval.py). Hosted API calls: 0. OpenAI API key: not used.
 
@@ -92,7 +92,7 @@ SFT DEV is deterministically stratified by source and language. These counts are
 
 ## 8. Qwen3-8B Base results
 
-**Pending.** No baseline predictions have been started because the L40 currently has only about 6 GiB free. The runner's safety guard requires 20 GiB free. No metrics below are inferred from other papers or model cards.
+**Pending.** The preliminary Transformers attempt generated four unscored partial responses and was archived separately. The official vLLM run has not yet started. The L40 was free at the latest check, above the runner's 20 GiB free-memory guard. No metrics below are inferred from other papers or model cards.
 
 | Checkpoint | DiagnosisArena | CMB-Exam | HB-Pro Local-Rubric | LiveMedBench reserved |
 |---|---:|---:|---:|---:|
@@ -104,7 +104,7 @@ After Base generation, the report will include DiagnosisArena accuracy, Wilson 9
 
 ## 9. Known limitations
 
-- Baseline model generation and actual Q4 judge GPU inference have not run yet. The GPU currently belongs to an unseen process; PT-E0 does not kill it. A CPU-only synthetic judge smoke passed, but it is not a benchmark score.
+- Full baseline generation and actual Q4 judge GPU inference have not run yet. A CPU-only synthetic judge smoke passed, but it is not a benchmark score. The official runner now uses the frozen vLLM runtime and checks available VRAM before loading.
 - DiagnosisArena provides no specialty metadata in the pinned test file.
 - The local Q4 judge is an independent grader and may disagree with the official GPT-5.4 HealthBench grader; its score is explicitly labeled local.
 - Near-duplicate filters are deterministic string methods and do not detect all semantic paraphrases.
