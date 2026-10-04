@@ -15,7 +15,21 @@ from .contracts import (
     WorkerRole,
     WorkerStatus,
 )
-from .providers import LocalLlamaCppProvider, ModelProvider, ModelReply, TriageProvider
+from .mdagents_style import (
+    ClinicalReasoningSkill,
+    Complexity,
+    MDAgentsStyleConfig,
+    MDAgentsStyleExecution,
+    MDAgentsStyleOrchestrator,
+    parse_medqa_option,
+)
+from .providers import (
+    LocalLlamaCppProvider,
+    LocalVllmProvider,
+    ModelProvider,
+    ModelReply,
+    TriageProvider,
+)
 from .routing import JevTriageProvider, LocalTriageProvider
 from .runtime import MedicalAgentRuntime, RuntimeExecution
 from .skills import (
@@ -27,6 +41,8 @@ from .skills import (
 
 __all__ = [
     "Citation",
+    "ClinicalReasoningSkill",
+    "Complexity",
     "CoverageLedger",
     "CoverageStatus",
     "ExternalEvidenceProvider",
@@ -35,6 +51,10 @@ __all__ = [
     "LeadPlan",
     "LocalLlamaCppProvider",
     "LocalTriageProvider",
+    "LocalVllmProvider",
+    "MDAgentsStyleConfig",
+    "MDAgentsStyleExecution",
+    "MDAgentsStyleOrchestrator",
     "MedicalAgentRequest",
     "MedicalAgentResponse",
     "MedicalAgentRuntime",
@@ -51,4 +71,5 @@ __all__ = [
     "WorkerReport",
     "WorkerRole",
     "WorkerStatus",
+    "parse_medqa_option",
 ]

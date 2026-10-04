@@ -30,6 +30,7 @@ from .contracts import (
     WorkerRole,
     WorkerStatus,
 )
+from .mdagents_style import ClinicalReasoningSkill
 from .orchestration import (
     artifact_from_worker_output,
     coverage_judgment_prompt,
@@ -259,6 +260,7 @@ class MedicalAgentRuntime:
         observability: AggregateObservability | None = None,
         triage_provider=None,
         triage_thresholds: dict[str, float] | None = None,
+        clinical_reasoning_skill: ClinicalReasoningSkill | None = None,
     ) -> None:
         self.provider = provider
         self.router = router or MedicalRouter()
@@ -267,11 +269,14 @@ class MedicalAgentRuntime:
         self.observability = observability or AggregateObservability()
         self.triage_provider = triage_provider
         self.triage_thresholds = dict(triage_thresholds or {})
+        self.clinical_reasoning_skill = clinical_reasoning_skill
 
     async def respond(self, request: MedicalAgentRequest) -> MedicalAgentResponse:
         return (await self.execute(request)).response
 
     async def execute(self, request: MedicalAgentRequest) -> RuntimeExecution:
+        if self.clinical_reasoning_skill is not None:
+            return await self._execute_clinical_reasoning(request)
         if self.triage_provider is not None:
             return await self._execute_mvp2(request)
         started = monotonic()
@@ -417,6 +422,59 @@ class MedicalAgentRuntime:
             worker_wave_wall_ms=wave_wall_ms,
             sequential_worker_latency_ms=sequential_worker_ms,
             partial_failure_recovered=partial_failure_recovered,
+            trajectory=trajectory,
+        )
+        self.observability.record(execution)
+        return execution
+
+    async def _execute_clinical_reasoning(
+        self, request: MedicalAgentRequest,
+    ) -> RuntimeExecution:
+        """Adapt the opt-in MDAgents-style sub-runtime to the stable API execution contract."""
+        result = await self.clinical_reasoning_skill.run(request)
+        response = result.response
+        complexity = result.complexity
+        route = RouteDecision(
+            mode=response.route_mode,
+            reason=f"mdagents_style_complexity:{complexity.value}",
+            predicted_capabilities=(WorkerRole.CARE,),
+            unique_key_count=0,
+        )
+        events = [
+            {
+                "sequence": event.sequence,
+                "event_type": event.event_type.value,
+                **dict(event.fields),
+            }
+            for event in result.trace_events
+        ]
+        trajectory = {
+            "runtime_version": "MDAGENTS_STYLE_V1",
+            "complexity": complexity.value,
+            "parsed_option": result.parsed_option,
+            "raw_model_output": result.raw_model_output,
+            "failure_reason": result.failure_reason,
+            "token_usage_known": (
+                result.input_tokens is not None and result.output_tokens is not None
+            ),
+        }
+        execution = RuntimeExecution(
+            response=response,
+            route_decision=route,
+            plan=None,
+            worker_reports=(),
+            trace={
+                "runtime_version": "MDAGENTS_STYLE_V1",
+                "events": events,
+                "shared_context": result.shared_context,
+            },
+            provider_calls=result.provider_calls,
+            tool_calls=result.tool_calls,
+            input_tokens=int(result.input_tokens or 0),
+            output_tokens=int(result.output_tokens or 0),
+            worker_wave_wall_ms=result.latency_ms,
+            sequential_worker_latency_ms=result.latency_ms,
+            partial_failure_recovered=False,
             trajectory=trajectory,
         )
         self.observability.record(execution)
