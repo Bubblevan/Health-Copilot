@@ -1,6 +1,6 @@
 # PT-E0 Frozen Evaluation and Decontamination Foundation
 
-**Status: IN PROGRESS.** The evaluation, source, and judge protocols are frozen. Full Base predictions and scores remain pending because the L40 currently has 39,827 MiB in use at 100% utilization; the evaluation runner refuses to load Qwen3 below its 20 GiB free-memory guard. PT-E0 has not trained or updated any model weights.
+**Status: IN PROGRESS.** The evaluation, source, and judge protocols are frozen. Full Base predictions and scores remain pending because the last L40 check showed 39,827 MiB allocated (about 6 GiB free), 0% utilization, and no visible GPU process; the evaluation runner refuses to load Qwen3 below its 20 GiB free-memory guard. PT-E0 has not trained or updated any model weights.
 
 ## 1. Purpose
 
