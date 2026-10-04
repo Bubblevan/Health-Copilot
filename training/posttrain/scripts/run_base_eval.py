@@ -6,10 +6,16 @@ import importlib.metadata
 import json
 import os
 import statistics
+import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+CUDA_HOME = os.environ.get("CUDA_HOME", "/usr/local/cuda-13.0")
+os.environ["CUDA_HOME"] = CUDA_HOME
+os.environ["PATH"] = os.pathsep.join((str(Path(sys.executable).resolve().parent), f"{CUDA_HOME}/bin", os.environ.get("PATH", "")))
 
 import torch
 from transformers import AutoTokenizer
@@ -111,6 +117,9 @@ def main() -> None:
         "engine": "vllm",
         "version": importlib.metadata.version("vllm"),
         "flashinfer_python_version": importlib.metadata.version("flashinfer-python"),
+        "cuda_home": CUDA_HOME,
+        "ninja_package_version": importlib.metadata.version("ninja"),
+        "ninja_binary_version": subprocess.check_output(["ninja", "--version"], text=True).strip(),
         "dtype": "bfloat16",
         "tensor_parallel_size": 1,
         "batch_size": BATCH_SIZE,

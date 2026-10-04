@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.metadata
 import json
+import os
 import platform
 import shutil
 import subprocess
@@ -185,6 +186,9 @@ def freeze() -> dict[str, Any]:
             "engine": "vllm",
             "version": importlib.metadata.version("vllm"),
             "flashinfer_python_version": importlib.metadata.version("flashinfer-python"),
+            "cuda_home": os.environ.get("CUDA_HOME", "/usr/local/cuda-13.0"),
+            "ninja_package_version": importlib.metadata.version("ninja"),
+            "ninja_binary_version": command_output(["ninja", "--version"]),
             "dtype": "bfloat16",
             "tensor_parallel_size": 1,
             "batch_size": 16,
