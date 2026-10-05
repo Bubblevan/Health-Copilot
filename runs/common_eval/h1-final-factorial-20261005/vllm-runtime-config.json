@@ -1,0 +1,63 @@
+{
+  "attention_backend": "FLASH_ATTN (resolved from auto)",
+  "base_url": "http://127.0.0.1:8001/v1",
+  "captured_at_utc": "2026-10-05T10:51:00.387750+00:00",
+  "decoding": {
+    "chat_template_kwargs": {
+      "enable_thinking": true
+    },
+    "do_sample": false,
+    "max_output_tokens": 2048,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "dtype": "bfloat16",
+  "enforce_eager": false,
+  "gpu_memory_utilization": 0.5,
+  "gpu_startup_snapshot": "NVIDIA L40, GPU-4440877c-ed30-97d8-4730-cb2a1984cc2a, 580.126.09, 46068 MiB, 41646 MiB, 3812 MiB, 100 %",
+  "harness_request_limits": {
+    "deadline_ms": 900000,
+    "max_provider_calls": 32,
+    "max_tool_calls": 16
+  },
+  "host": "127.0.0.1",
+  "kv_cache_dtype": "auto",
+  "max_model_len": 16384,
+  "max_num_batched_tokens": 16384,
+  "max_num_seqs": 16,
+  "model_id": "Qwen/Qwen3-8B",
+  "model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "other_gpu_service": {
+    "owner": "Memory reproduction; left running and untouched",
+    "port": 8000
+  },
+  "port": 8001,
+  "prefix_caching": false,
+  "runtime": {
+    "cuda_runtime": "13.0",
+    "python": "3.11.17",
+    "torch": "2.13.0+cu130",
+    "vllm": "0.30.1rc1.dev622+gf03026a54"
+  },
+  "schema_version": "harness-v1-final-factorial-vllm-runtime-v1",
+  "seed": 20261004,
+  "served_model": "qwen3-8b-system-v1",
+  "startup_findings": {
+    "available_kv_cache_gib": 5.2,
+    "jit_kernel_warmup": "completed",
+    "kv_cache_tokens": 37888,
+    "max_full_context_concurrency": 2.31
+  },
+  "startup_log_snapshot": {
+    "path": "runs/common_eval/h1-final-factorial-20261005/vllm-8001-startup.log",
+    "sha256": "76841a5adcbe7bf4edd44a49b5c6bea07afd020a00e7f008c5fd12de49915a20"
+  },
+  "structured_outputs_config": {
+    "backend": "xgrammar",
+    "disable_any_whitespace": true
+  },
+  "tensor_parallel_size": 1,
+  "vllm_frontend_pid": 90872
+}

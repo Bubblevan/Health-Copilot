@@ -1,0 +1,10 @@
+{
+  "schema_version": "h1-smoke-invalidation-v1",
+  "valid_for_reporting": false,
+  "invalidated_at_utc": "2026-10-05T11:52:23Z",
+  "reason": "Harness B1 raised TypeError before any provider call because HealthCopilotHarness passed the request as one positional argument to _RuntimeContext instead of mapping request_id, subject_id, and as_of_time.",
+  "scope": "This first CMB smoke attempt is retained as debugging evidence only. None of its rows or scores may be combined with, resumed into, or reported as the valid smoke.",
+  "superseded_by": "../smoke20-r1/cmb-common-1024",
+  "fix_commit": "9800e5c679ad5de3bad0e31d70c73a6e6c94ce7b",
+  "verification": "The corrected smoke20-r1 B1/B3 completed retrieval for the same 20 CMB cases, and B1/B3 evidence parity passed."
+}

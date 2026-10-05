@@ -1,0 +1,42 @@
+{
+  "candidate_view_sha256": {
+    "cmb-common": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+    "diagnosisarena": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd"
+  },
+  "gold_accessed": false,
+  "method": "Read only candidate-view case IDs/question_type and case_id plus response answer_text/parsed_answer/safety_flags. Do not inspect gold, score.correct, or evaluator labels. Parser-missed candidates are surfaced for manual review; no candidate is auto-corrected.",
+  "parser_missed_explicit_choice_candidates": [],
+  "runs": {
+    "cmb-common-1024/B0": {
+      "case_count": 20,
+      "cases": [],
+      "categories": {},
+      "checkpoint_sha256": "6f8bbe501daedb41d99be26f2b349b8907eb1c6cf7a6b1781c5d0c09f213b2dd",
+      "parse_success": 20,
+      "parse_success_rate": 1.0,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 0
+    },
+    "cmb-common-1024/B1": {
+      "case_count": 20,
+      "cases": [
+        {
+          "case_id": "cmb:10149",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        }
+      ],
+      "categories": {
+        "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE": 1
+      },
+      "checkpoint_sha256": "a54f1fdd56c157b0f62da4a66f526107449c8052b787b4d06cf98cd869661b1e",
+      "parse_success": 19,
+      "parse_success_rate": 0.95,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 1
+    }
+  },
+  "schema_version": "gold-blind-parser-failure-audit-v1",
+  "scoring_revision": "deterministic-mcq-parser-v7",
+  "status": "NO_PARSER_FALSE_NEGATIVE_CANDIDATES_FOUND"
+}

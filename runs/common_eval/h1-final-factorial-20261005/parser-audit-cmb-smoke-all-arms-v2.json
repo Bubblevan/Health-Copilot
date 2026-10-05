@@ -1,0 +1,187 @@
+{
+  "candidate_view_sha256": {
+    "cmb-common": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+    "diagnosisarena": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd"
+  },
+  "gold_accessed": false,
+  "method": "Read only candidate-view case IDs/question_type and case_id plus response answer_text/parsed_answer/safety_flags. Do not inspect gold, score.correct, or evaluator labels. Parser-missed candidates are surfaced for manual review; no candidate is auto-corrected.",
+  "parser_missed_explicit_choice_candidates": [],
+  "runs": {
+    "cmb-common-1024/B0": {
+      "case_count": 20,
+      "cases": [],
+      "categories": {},
+      "checkpoint_sha256": "6f8bbe501daedb41d99be26f2b349b8907eb1c6cf7a6b1781c5d0c09f213b2dd",
+      "parse_success": 20,
+      "parse_success_rate": 1.0,
+      "parser_mismatches_vs_frozen_response": [],
+      "trace_checkpoint_sha256": "3ad0a2d0735ba1a2cd71f8c302de23d7b3c9059647171f0c04d55b28ed3c8d58",
+      "unparsed_count": 0
+    },
+    "cmb-common-1024/B1": {
+      "case_count": 20,
+      "cases": [
+        {
+          "case_id": "cmb:10149",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        }
+      ],
+      "categories": {
+        "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE": 1
+      },
+      "checkpoint_sha256": "a54f1fdd56c157b0f62da4a66f526107449c8052b787b4d06cf98cd869661b1e",
+      "parse_success": 19,
+      "parse_success_rate": 0.95,
+      "parser_mismatches_vs_frozen_response": [],
+      "trace_checkpoint_sha256": "2811925bedb39a9fbf71d108cb32e9e3e391b3636ff802a1b56602d031edd169",
+      "unparsed_count": 1
+    },
+    "cmb-common-1024/B2": {
+      "case_count": 20,
+      "cases": [
+        {
+          "case_id": "cmb:10016",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10026",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10041",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10050",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10099",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:1011",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10147",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10149",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10165",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        }
+      ],
+      "categories": {
+        "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE": 1,
+        "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID": 8
+      },
+      "checkpoint_sha256": "487fe96d273420896451d1f03b2484882131a23ac699504b1d0c847ca28e2ee4",
+      "parse_success": 11,
+      "parse_success_rate": 0.55,
+      "parser_mismatches_vs_frozen_response": [],
+      "trace_checkpoint_sha256": "e0d6868945288d0f16aa17a262d5ceb05d8a92df6df430fd94d60999e6b57039",
+      "unparsed_count": 9
+    },
+    "cmb-common-1024/B3": {
+      "case_count": 20,
+      "cases": [
+        {
+          "case_id": "cmb:1002",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10149",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10165",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        },
+        {
+          "case_id": "cmb:10193",
+          "category": "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID",
+          "reasoning_failure_code": "ValueError",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ],
+          "strategy_failure_reason": "ValueError:invalid_complexity_output"
+        }
+      ],
+      "categories": {
+        "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID": 4
+      },
+      "checkpoint_sha256": "a4f64c4fa6a1a3e8855733eb9b8c424d4ab9c7880a43ad149d6f9d85fe021859",
+      "parse_success": 16,
+      "parse_success_rate": 0.8,
+      "parser_mismatches_vs_frozen_response": [],
+      "trace_checkpoint_sha256": "1635d4c9bf2d010e3bdd67fccf037d6b048b267650a21f2932ee66144afb23bd",
+      "unparsed_count": 4
+    }
+  },
+  "schema_version": "gold-blind-parser-failure-audit-v2",
+  "scoring_revision": "deterministic-mcq-parser-v7",
+  "status": "NO_PARSER_FALSE_NEGATIVE_CANDIDATES_FOUND",
+  "trace_diagnostics_opened": true
+}

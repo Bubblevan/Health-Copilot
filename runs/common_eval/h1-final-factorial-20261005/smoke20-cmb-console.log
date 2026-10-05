@@ -1,0 +1,131 @@
+W1005 18:52:48.571000 92969 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1005 18:52:48.598000 92969 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 10242.92it/s]
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.451 seconds.
+Prefix dict has been built successfully.
+{
+  "profile": "B0",
+  "summary": {
+    "correct": 18,
+    "parse_success": 20,
+    "accuracy": 0.9,
+    "parse_rate": 1.0,
+    "safety_route_abstentions": 0,
+    "safety_route_abstention_rate": 0.0,
+    "reasoning_failures": 0,
+    "model_abstentions": 0,
+    "answer_format_failures": 0,
+    "unparsed_non_safety": 0,
+    "unparsed_non_safety_rate": 0.0,
+    "scoring_revision": "deterministic-mcq-parser-v7",
+    "provider_calls_per_case": 1.0,
+    "input_tokens_per_case": 222.7,
+    "output_tokens_per_case": 425.45,
+    "total_tokens_per_case": 648.15,
+    "mean_latency_ms": 21960.524,
+    "p50_latency_ms": 16675.797,
+    "p95_latency_ms": 54301.103,
+    "retrieval_calls": 0,
+    "retrieved_documents": 0,
+    "mdt_activation": 0,
+    "mdt_complexity_distribution": {},
+    "macro_accuracy_by_category": {
+      "执业医师": 1,
+      "考研政治": 0.875
+    },
+    "dataset_id": "cmb-common-1024",
+    "source_revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+    "dataset_snapshot_sha256": "894c9f52a55b35824353c7047443fb03968fb4ab2d680a436c5ced1f1aa1432d",
+    "dataset_selection_sha256": "a504be8585da9dffe566e475acf6ba6e4593248ccb7802c603c799dab8f92cbf",
+    "profile_id": "B0",
+    "model_hash": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+    "case_count": 20,
+    "completed_cases_this_invocation": 20,
+    "checkpoint": "cases.jsonl",
+    "case_concurrency": 2,
+    "run_wall_seconds": 226.08,
+    "cases_per_second": 0.08846,
+    "provider_requests_per_second": 0.08846,
+    "tokens_per_second": 57.338
+  }
+}
+{
+  "profile": "B1",
+  "summary": {
+    "correct": 0,
+    "parse_success": 0,
+    "accuracy": 0.0,
+    "parse_rate": 0.0,
+    "safety_route_abstentions": 0,
+    "safety_route_abstention_rate": 0.0,
+    "reasoning_failures": 0,
+    "model_abstentions": 20,
+    "answer_format_failures": 0,
+    "unparsed_non_safety": 0,
+    "unparsed_non_safety_rate": 0.0,
+    "scoring_revision": "deterministic-mcq-parser-v7",
+    "provider_calls_per_case": 0.0,
+    "input_tokens_per_case": 0.0,
+    "output_tokens_per_case": 0.0,
+    "total_tokens_per_case": 0.0,
+    "mean_latency_ms": 0.043,
+    "p50_latency_ms": 0.041,
+    "p95_latency_ms": 0.053,
+    "retrieval_calls": 0,
+    "retrieved_documents": 0,
+    "mdt_activation": 0,
+    "mdt_complexity_distribution": {},
+    "macro_accuracy_by_category": {
+      "执业医师": 0,
+      "考研政治": 0
+    },
+    "dataset_id": "cmb-common-1024",
+    "source_revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+    "dataset_snapshot_sha256": "894c9f52a55b35824353c7047443fb03968fb4ab2d680a436c5ced1f1aa1432d",
+    "dataset_selection_sha256": "a504be8585da9dffe566e475acf6ba6e4593248ccb7802c603c799dab8f92cbf",
+    "profile_id": "B1",
+    "model_hash": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+    "case_count": 20,
+    "completed_cases_this_invocation": 20,
+    "checkpoint": "cases.jsonl",
+    "case_concurrency": 2,
+    "run_wall_seconds": 0.01,
+    "cases_per_second": 2000.0,
+    "provider_requests_per_second": 0.0,
+    "tokens_per_second": 0.0
+  }
+}
+Traceback (most recent call last):
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/tools/eval/run_common_eval.py", line 288, in _run
+    summary = await run_dataset(
+              ^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/src/health_ai_copilot/evaluation/runner.py", line 116, in run_dataset
+    outcomes = await asyncio.gather(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/src/health_ai_copilot/evaluation/runner.py", line 85, in execute_case
+    async with semaphore:
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/locks.py", line 15, in __aenter__
+    await self.acquire()
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/locks.py", line 387, in acquire
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/tools/eval/run_common_eval.py", line 559, in <module>
+    asyncio.run(_run(_arguments()))
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt
