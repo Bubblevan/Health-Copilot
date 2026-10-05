@@ -1,0 +1,27 @@
+{
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "served_model": "qwen3-8b-h0",
+  "base_url": "http://127.0.0.1:8001/v1",
+  "host": "127.0.0.1",
+  "port": 8001,
+  "dtype": "bfloat16",
+  "gpu_memory_utilization": 0.46,
+  "max_model_len": 32768,
+  "max_num_seqs": 8,
+  "max_num_batched_tokens": 16384,
+  "kv_cache_dtype": "fp8",
+  "enable_prefix_caching": false,
+  "seed": 20261004,
+  "tensor_parallel_size": 1,
+  "attention_backend": "auto",
+  "temperature": 0.0,
+  "max_output_tokens": 512,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "vllm_version": "0.30.1rc1.dev622+gf03026a54",
+  "torch_version": "2.13.0+cu130",
+  "cuda_runtime": "13.0",
+  "gpu": "NVIDIA L40",
+  "runtime_adjustment_reason": "Raised GPU memory reservation from profile nominal 0.43 to 0.46 because 0.43 exposed only 2.09 GiB KV cache for a 2.25 GiB requirement at 32768 context. Model, dtype, context, KV dtype, batching limits, cache policy, and decoding remain fixed."
+}

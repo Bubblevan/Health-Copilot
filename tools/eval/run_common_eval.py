@@ -7,7 +7,9 @@ import asyncio
 import importlib
 import json
 import os
+import subprocess
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,6 +19,9 @@ from health_ai_copilot.evaluation.datasets import (
     CMBAdapter,
     CMBCommon1024Adapter,
     DiagnosisArenaAdapter,
+    PreparedViewsAdapter,
+    SelectedCaseAdapter,
+    case_ids_sha256,
 )
 from health_ai_copilot.evaluation.factorial import (
     CORE_PROFILE_ALIASES,
@@ -31,6 +36,7 @@ from health_ai_copilot.harness.profiles import (
 )
 from health_ai_copilot.harness.runtime import HealthCopilotHarness
 from health_ai_copilot.harness.trace import JsonlTraceSink
+from health_ai_copilot.harness.verification import ANSWER_PARSER_REVISION
 from health_ai_copilot.providers.model import VllmModelProvider
 
 
@@ -41,11 +47,35 @@ def _arguments() -> argparse.Namespace:
     selection.add_argument("--profile")
     selection.add_argument("--matrix", choices=("core",))
     parser.add_argument("--model-config", type=Path, required=True)
+    parser.add_argument(
+        "--vllm-runtime-config",
+        type=Path,
+        help="JSON manifest of the actual local vLLM engine settings for this run",
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--case-ids-file",
+        type=Path,
+        help="JSON array or {case_ids, case_ids_sha256} to run a frozen subset of the selected dataset",
+    )
     parser.add_argument("--dataset-path", type=Path)
     parser.add_argument("--subset-manifest", type=Path, default=ROOT / "configs/eval/cmb_common_1024.json")
-    return parser.parse_args()
+    parser.add_argument("--candidate-view", type=Path)
+    parser.add_argument("--scorer-view", type=Path)
+    parser.add_argument("--ids-manifest", type=Path)
+    parser.add_argument("--prepared-config", type=Path)
+    parser.add_argument("--concurrency", type=int, default=4)
+    args = parser.parse_args()
+    if args.prepared_config:
+        prepared = json.loads(args.prepared_config.read_text(encoding="utf-8"))
+        entry = prepared.get("datasets", {}).get(args.dataset)
+        if not isinstance(entry, dict):
+            parser.error(f"no prepared views configured for dataset {args.dataset}")
+        args.candidate_view = Path(entry["candidate_view_path"])
+        args.scorer_view = Path(entry["scorer_view_path"])
+        args.ids_manifest = Path(entry["ids_manifest_path"])
+    return args
 
 
 def _load_adapter(args: argparse.Namespace):
@@ -56,6 +86,28 @@ def _load_adapter(args: argparse.Namespace):
         dataset = configuration["datasets"]["cmb-common"]
     else:
         dataset = configuration["extended_dataset"]
+    prepared_mode = bool(args.candidate_view or args.scorer_view or args.ids_manifest)
+    if prepared_mode:
+        if args.dataset == "cmb":
+            raise SystemExit("prepared-view mode supports DiagnosisArena-915 and CMB-COMMON-1024 only")
+        if not all((args.candidate_view, args.scorer_view, args.ids_manifest)):
+            raise SystemExit("prepared evaluation requires candidate view, scorer view, and frozen ID manifest")
+        if dataset.get("readiness") != "READY_WITH_PREPARED_VIEWS":
+            raise SystemExit(f"prepared dataset is not qualified: {dataset.get('readiness', 'BLOCKED')}")
+        subset = json.loads(args.subset_manifest.read_text(encoding="utf-8")) if args.dataset == "cmb-common" else {}
+        return PreparedViewsAdapter(
+            dataset_id="cmb-common-1024" if args.dataset == "cmb-common" else "diagnosisarena",
+            candidate_path=args.candidate_view,
+            scorer_path=args.scorer_view,
+            ids_manifest_path=args.ids_manifest,
+            source_revision=dataset["source_revision"],
+            expected_count=dataset["expected_cases"],
+            expected_candidate_sha256=dataset["candidate_view_sha256"],
+            expected_scorer_sha256=dataset["scorer_view_sha256"],
+            expected_ids_manifest_sha256=dataset["ids_manifest_sha256"],
+            expected_ids_sequence_sha256=dataset["ids_sequence_sha256"],
+            expected_subset_sha256=subset.get("case_ids_sha256"),
+        )
     if dataset.get("readiness", "") != "READY":
         raise SystemExit(f"dataset is not qualified: {dataset.get('readiness', 'BLOCKED')}")
     path = args.dataset_path or ROOT / dataset["snapshot_path"]
@@ -106,6 +158,15 @@ async def _run(args: argparse.Namespace) -> None:
     served_model = os.environ.get("VLLM_MODEL_NAME")
     if not base_url or not served_model:
         raise SystemExit("set VLLM_BASE_URL and VLLM_MODEL_NAME for the OpenAI-compatible endpoint")
+    runtime_config = (
+        json.loads(args.vllm_runtime_config.read_text(encoding="utf-8"))
+        if args.vllm_runtime_config
+        else dict(model_config.get("serving", {}))
+    )
+    if runtime_config.get("base_url", base_url) != base_url:
+        raise SystemExit("vLLM runtime manifest base_url does not match VLLM_BASE_URL")
+    if runtime_config.get("served_model", served_model) != served_model:
+        raise SystemExit("vLLM runtime manifest served_model does not match VLLM_MODEL_NAME")
     if any(profile.memory_mode is MemoryMode.READ for profile in profiles.values()):
         raise SystemExit("Memory READ profiles require an explicitly bound MemoryProvider")
 
@@ -115,18 +176,56 @@ async def _run(args: argparse.Namespace) -> None:
         if profile.retrieval_mode is RetrievalMode.STANDARD:
             retrieval_providers[alias] = _load_retrieval_provider()
 
-    # Fail on dataset identity or parser errors before the first full run begins.
-    _load_adapter(args).cases()
+    # Fail on dataset identity or parser errors before the first model call.
+    _select_cases(_load_adapter(args), args.case_ids_file)
     for alias, profile in profiles.items():
+        adapter = _select_cases(_load_adapter(args), args.case_ids_file)
+        output_dir = args.output / alias if args.matrix else args.output
+        output_dir.mkdir(parents=True, exist_ok=True)
+        manifest_path = output_dir / "run_manifest.json"
+        current_manifest = _run_manifest(args, alias, profile, model_config, runtime_config, adapter)
+        if args.resume and manifest_path.is_file():
+            run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            for field in (
+                "git_sha", "model_config_sha256", "implementation_sha256",
+                "vllm_runtime_config_sha256",
+            ):
+                if run_manifest.get(field) != current_manifest.get(field):
+                    raise SystemExit(f"resume refused: run manifest {field} changed")
+            if run_manifest.get("system_profile") != current_manifest.get("system_profile"):
+                raise SystemExit("resume refused: system profile changed")
+            old_dataset = run_manifest.get("dataset", {})
+            new_dataset = current_manifest.get("dataset", {})
+            for field in (
+                "source_revision", "combined_dataset_identity_sha256",
+                "ids_manifest_sha256", "ids_sequence_sha256",
+                "selected_case_ids_sha256", "case_ids_file_sha256",
+            ):
+                if old_dataset.get(field) != new_dataset.get(field):
+                    raise SystemExit(f"resume refused: dataset {field} changed")
+        else:
+            run_manifest = current_manifest
+            run_manifest["started_at_utc"] = datetime.now(UTC).isoformat()
+            run_manifest["execution_segments"] = []
+        segment = {
+            "started_at_utc": datetime.now(UTC).isoformat(),
+            "case_concurrency": args.concurrency,
+            "served_model": served_model,
+            "base_url": base_url,
+            "vllm_runtime_config": runtime_config,
+        }
+        run_manifest.setdefault("execution_segments", []).append(segment)
+        run_manifest["status"] = "RUNNING"
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
         provider = VllmModelProvider(
             base_url=base_url,
             model=served_model,
             api_key=os.environ.get("VLLM_API_KEY", "local-vllm"),
             default_temperature=float(model_config["serving"]["temperature"]),
             max_output_tokens=int(model_config["serving"]["max_output_tokens"]),
+            chat_template_kwargs=model_config["serving"].get("chat_template_kwargs"),
         )
-        output_dir = args.output / alias if args.matrix else args.output
-        output_dir.mkdir(parents=True, exist_ok=True)
         traces: dict[str, dict[str, object]] = {}
         trace_sink = JsonlTraceSink(output_dir / "traces.jsonl")
 
@@ -141,13 +240,45 @@ async def _run(args: argparse.Namespace) -> None:
         )
         summary = await run_dataset(
             harness=harness,
-            adapter=_load_adapter(args),
+            adapter=adapter,
             profile=profile,
             model_hash=checkpoint_hash,
             output_dir=output_dir,
             resume=args.resume,
+            concurrency=args.concurrency,
             trace_reader=traces.get,
         )
+        segment["completed_at_utc"] = datetime.now(UTC).isoformat()
+        segment["completed_cases"] = summary["completed_cases_this_invocation"]
+        segment["wall_seconds"] = summary["run_wall_seconds"]
+        segment["summary"] = summary
+        total_wall_seconds = sum(float(item.get("wall_seconds", 0.0)) for item in run_manifest["execution_segments"])
+        total_wall_seconds = max(total_wall_seconds, 1e-9)
+        summary["run_wall_seconds"] = round(total_wall_seconds, 3)
+        summary["completed_cases_this_invocation"] = sum(
+            int(item.get("completed_cases", 0)) for item in run_manifest["execution_segments"]
+        )
+        summary["cases_per_second"] = round(summary["case_count"] / total_wall_seconds, 5)
+        summary["provider_requests_per_second"] = round(
+            float(summary["provider_calls_per_case"] or 0) * summary["case_count"] / total_wall_seconds,
+            5,
+        )
+        if summary["input_tokens_per_case"] is None or summary["output_tokens_per_case"] is None:
+            summary["tokens_per_second"] = None
+        else:
+            summary["tokens_per_second"] = round(
+                (float(summary["input_tokens_per_case"]) + float(summary["output_tokens_per_case"]))
+                * summary["case_count"] / total_wall_seconds,
+                3,
+            )
+        (output_dir / "summary.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        run_manifest["status"] = "COMPLETE"
+        run_manifest["completed_at_utc"] = datetime.now(UTC).isoformat()
+        run_manifest["summary"] = summary
+        manifest_path.write_text(json.dumps(run_manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         print(json.dumps({"profile": alias, "summary": summary}, ensure_ascii=False, indent=2))
 
     if args.matrix == "core":
@@ -182,6 +313,107 @@ async def _run(args: argparse.Namespace) -> None:
             encoding="utf-8",
         )
         print(json.dumps({"matrix_summary": matrix_summary}, ensure_ascii=False, indent=2))
+
+
+def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -> dict[str, object]:
+    try:
+        git_sha = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError):
+        git_sha = "UNKNOWN"
+    implementation_files = (
+        ROOT / "src/health_ai_copilot/evaluation/datasets.py",
+        ROOT / "src/health_ai_copilot/evaluation/runner.py",
+        ROOT / "src/health_ai_copilot/harness/runtime.py",
+        ROOT / "src/health_ai_copilot/harness/verification.py",
+        ROOT / "src/health_ai_copilot/providers/model.py",
+        ROOT / "src/health_ai_copilot/reasoning/single.py",
+        ROOT / "src/health_ai_copilot/reasoning/adaptive_mdt.py",
+        ROOT / "src/health_ai_copilot/multi_agent/mdagents_style.py",
+        ROOT / "tools/eval/run_common_eval.py",
+        ROOT / "configs/eval/common_eval_v1.json",
+        ROOT / "configs/eval/cmb_common_1024.json",
+        ROOT / "configs/eval/local_prepared_views_h0.json",
+        ROOT / "tools/eval/extract_failed_case_ids.py",
+    )
+    input_hashes = {
+        "candidate_view_sha256": getattr(adapter, "candidate_sha256", None),
+        "scorer_view_sha256": getattr(adapter, "scorer_sha256", None),
+        "ids_manifest_sha256": getattr(adapter, "ids_manifest_sha256", None),
+        "ids_sequence_sha256": getattr(
+            adapter, "frozen_subset_sha256", getattr(adapter, "subset_sha256", None)
+        ),
+        "combined_dataset_identity_sha256": getattr(adapter, "snapshot_sha256", None),
+    }
+    return {
+        "schema_version": "harness-v1-run-manifest",
+        "git_sha": git_sha,
+        "dataset": {
+            "dataset_id": adapter.dataset_id,
+            "source_revision": adapter.source_revision,
+            "expected_case_count": len(adapter.cases()),
+            "candidate_path": str(getattr(adapter, "candidate_path", args.dataset_path or "")),
+            "scorer_path": str(getattr(adapter, "scorer_path", "")),
+            "ids_manifest_path": str(getattr(adapter, "ids_manifest_path", args.subset_manifest)),
+            "selected_case_ids_sha256": getattr(adapter, "selected_case_ids_sha256", None),
+            "case_ids_file_path": str(args.case_ids_file) if args.case_ids_file else None,
+            "case_ids_file_sha256": file_sha256(args.case_ids_file) if args.case_ids_file else None,
+            **input_hashes,
+        },
+        "system_profile": {
+            "profile_id": alias,
+            "model_variant": profile.model_variant.value,
+            "retrieval_mode": profile.retrieval_mode.value,
+            "memory_mode": profile.memory_mode.value,
+            "reasoning_mode": profile.reasoning_mode.value,
+        },
+        "model": model_config,
+        "model_config_sha256": file_sha256(args.model_config),
+        "implementation_sha256": {
+            str(path.relative_to(ROOT)): file_sha256(path)
+            for path in implementation_files if path.is_file()
+        },
+        "decoding": {
+            "temperature": model_config["serving"]["temperature"],
+            "max_output_tokens": model_config["serving"]["max_output_tokens"],
+            "chat_template_kwargs": model_config["serving"].get("chat_template_kwargs", {}),
+            "seed": model_config["serving"].get("seed"),
+        },
+        "scoring_revision": ANSWER_PARSER_REVISION,
+        "configured_model_serving": model_config.get("serving", {}),
+        "serving": runtime_config,
+        "vllm_runtime_config": runtime_config,
+        "vllm_runtime_config_sha256": (
+            file_sha256(args.vllm_runtime_config) if args.vllm_runtime_config else None
+        ),
+        "concurrency": args.concurrency,
+        "retrieval_corpus": None if profile.retrieval_mode.value == "off" else "COMMON_MEDICAL_KB_V1",
+    }
+
+
+def _select_cases(adapter, case_ids_file: Path | None):
+    if case_ids_file is None:
+        return adapter
+    document = json.loads(case_ids_file.read_text(encoding="utf-8"))
+    if isinstance(document, list):
+        case_ids = document
+        declared_hash = None
+    elif isinstance(document, dict):
+        case_ids = document.get("case_ids")
+        declared_hash = document.get("case_ids_sha256")
+    else:
+        raise SystemExit("case IDs file must be a JSON array or manifest object")
+    if not isinstance(case_ids, list) or any(not isinstance(item, str) for item in case_ids):
+        raise SystemExit("case IDs file must contain a string 'case_ids' list")
+    selected_ids = tuple(case_ids)
+    actual_hash = case_ids_sha256(selected_ids) if selected_ids else None
+    if declared_hash is not None and declared_hash != actual_hash:
+        raise SystemExit("case IDs file hash does not match its case_ids sequence")
+    try:
+        return SelectedCaseAdapter(adapter, selected_ids)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
 
 
 def _load_retrieval_provider():

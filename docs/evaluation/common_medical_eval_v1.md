@@ -10,30 +10,38 @@ The alias registry in `configs/eval/profile_registry.json` defines B0-B3, P0-P3,
 
 | Set | Intended size | Score | H0 state |
 |---|---:|---|---|
-| DiagnosisArena MCQ | 915 | Exact single-choice accuracy | Snapshot/revision/hash absent; not frozen |
-| CMB-Exam full | 11,200 across 28 subcategories | Exact answer-set accuracy and category macro accuracy | Snapshot/revision/hash absent; not qualified |
-| CMB-COMMON-1024 | 1,024 stratified public cases | Exact answer-set accuracy and category macro accuracy | IDs/hash cannot be materialized without the source snapshot |
+| DiagnosisArena MCQ | 915 | Exact single-choice accuracy | IDs and candidate/scorer view hashes frozen; evaluation ready |
+| CMB-Exam full | 11,200 across 28 subcategories | Exact answer-set accuracy and category macro accuracy | Not scored as a full set; the earlier 352-row partial remains preserved |
+| CMB-COMMON-1024 | 1,024 stratified public cases | Exact answer-set accuracy and category macro accuracy | IDs and candidate/scorer view hashes frozen; evaluation ready |
 
-These are `PUBLIC_EXTERNAL_EVAL`, not blind or untouched tests. The Common Eval config records that evaluation freeze preceded post-training as false until the actual snapshots are pinned.
+These are `PUBLIC_EXTERNAL_EVAL`, not blind or untouched tests. The frozen IDs were established in PT-E0 before any SFT/GSPO optimizer run. Exact source revisions, ID hashes, candidate-view hashes, and scorer-view hashes are recorded in `configs/eval/common_eval_v1.json` and `configs/eval/local_prepared_views_h0.json`.
 
 ## Deterministic subset protocol
 
-`stratified_case_ids()` sorts category names and case IDs, allocates `floor(1024 / 28)` to each category and distributes the remainder in sorted-category order, then samples without replacement from a category-specific seed derived from the fixed seed. The selected ordered ID list is SHA-256 hashed. The resulting IDs and source snapshot hash must be committed to `configs/eval/cmb_common_1024.json` before training. The current manifest is explicitly `NOT_FROZEN_MISSING_SOURCE_SNAPSHOT` and has no case IDs.
+Use the supplied canonical CMB ID manifest without re-sampling. It records source revision `935fbc09edf1303d89872b21265ff597f426ac0d`, seed `20261004`, proportional largest-remainder quotas, and deterministic per-category SHA-256 selection. The 1,024-ID sequence hash is `ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4`; the ID-manifest hash is `8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397`. The exact manifest is copied to `configs/eval/cmb_common1024_ids.json`. DiagnosisArena uses the frozen 915-ID list at `configs/eval/diagnosisarena915_ids.json`.
+
+Candidate and scorer views are separate. `PreparedViewsAdapter` joins them by ID in evaluator memory; only candidate prompts and answer schemas become `HarnessRequest` fields. Labels are used for `CaseScore` and are never serialized to the model or run checkpoint.
 
 ## Runner and checkpointing
 
-```powershell
-uv run --project . python tools/eval/run_common_eval.py `
-  --dataset diagnosisarena --profile B0 `
-  --model-config configs/models/qwen3_8b_base.json `
-  --output runs/common_eval/<run-id>
+```bash
+VLLM_BASE_URL=http://127.0.0.1:8001/v1 \
+VLLM_MODEL_NAME=qwen3-8b-h0 \
+uv run python tools/eval/run_common_eval.py \
+  --dataset diagnosisarena --profile B0 \
+  --model-config configs/models/qwen3_8b_base.json \
+  --vllm-runtime-config runs/common_eval/harness-v1-base-20261005/recovery_inputs/vllm-runtime-config-8001-concurrency16.json \
+  --prepared-config configs/eval/local_prepared_views_h0.json \
+  --output runs/common_eval/<run-id>/diagnosisarena/B0 --resume --concurrency 4
 ```
 
-Every result is appended to `cases.jsonl` before the next case starts. Resume validates dataset/profile/model identity and every completed case ID. The record contains response and deterministic score, never gold. Traces are metadata-only JSONL. Summary metrics include exact accuracy, parse rate, category macro accuracy, provider calls, tokens, mean/P50/P95 latency, retrieval and MDT metrics where available.
+Start the matching loopback vLLM service before using this example. Use a free port and a runtime-config file that describes the actual server; do not assume or reconfigure a port owned by another task.
 
-The runner rejects missing or mismatched dataset hashes, incomplete model identity, unready Common KB for RAG profiles, and memory-enabled profiles without a bound provider. Once the KB is qualified, its config must also point to a local `module:function` provider factory that returns a `RetrievalProvider`; a READY flag alone will not create an implicit or richer corpus. H0 does not start the full matrix.
+Every result is appended and fsynced to `cases.jsonl` as soon as the case finishes. Resume validates dataset/profile/model identity, source hashes, subset identity, and every completed case ID. Independent cases may run concurrently; calls inside a case keep their required order. The record contains response and deterministic score, never gold. Traces are metadata-only JSONL. Summary metrics include exact accuracy, answer parse rate, safety-route abstentions, reasoning failures, model abstentions, answer-format failures, category macro accuracy, provider calls, tokens, mean/P50/P95 latency, throughput, retrieval and MDT metrics where available. Parser v6 recognizes schema-named JSON fields, unambiguous leading answer fields in malformed-rationale JSON, Markdown emphasis, and explicit English/Chinese final-choice labels. Ambiguous output remains incorrect; safety abstention, reasoning failure, and model abstention are reported separately from answer-format failures.
 
-For the remote Qwen3-8B factorial ablation, the same entry point can run all four B profiles in order and emit paired deltas and the RAG×Adaptive interaction:
+The runner rejects missing or mismatched dataset hashes, incomplete model identity, unready Common KB for RAG profiles, and memory-enabled profiles without a bound provider. Until the KB is qualified, run only B0 and B2 as separate `--profile` invocations. Once qualified, its config must point to a local `module:function` provider factory that returns a `RetrievalProvider`; a READY flag alone will not create an implicit or richer corpus. B1/B3 remain blocked today.
+
+For the remote Qwen3-8B factorial ablation, the same entry point can run all four B profiles and emit paired deltas and the RAG×Adaptive interaction once Common KB V1 is ready:
 
 ```powershell
 uv run --project . python tools/eval/run_common_eval.py `
@@ -50,4 +58,21 @@ B1/B3, P1/P3, and R1/R3 are blocked until `configs/eval/common_medical_kb_v1.jso
 
 ## H0 execution record
 
-This checkout does not contain the public snapshots or frozen model identity required by these profiles. The matrix runner is wired, but this architecture change runs no benchmark cases and makes no accuracy or system-delta claim. On the remote host, first bind the supplied dataset snapshot/revision/hash and served model SHA, then qualify the shared RAG provider before invoking `--matrix core`.
+The Base model is `Qwen/Qwen3-8B` revision `b968826d9c46dd6066d109eabc6255188de91218`, with local model-manifest SHA-256 `e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26`. B0 uses `temperature=0`, Qwen thinking disabled, and 512 output tokens. Under deterministic parser v6, DiagnosisArena-915 B0 is 339/915 (37.05%) with 915/915 parseable answers and zero answer-format failures. CMB-COMMON-1024 B0 is 638/1,024 (62.30%); 969/1,024 answers produce a choice, the remaining 55 are explicit safety-route abstentions, and answer-format failures are zero. Parser-v2 through v5 artifacts remain separate; parser-v6 copies were rescored from raw model outputs, leaving the original raw B0 runs unchanged.
+
+Serving parity needs a caveat. The B0 run manifests captured the model config but no per-run vLLM runtime config or server process ID. A host vLLM log whose timestamp overlaps B0 records the same Qwen3-8B BF16 weights and vLLM build, but observed `gpu_memory_utilization=0.88`, 16,384 context, automatic KV cache, and prefix caching enabled. The B2 transport-recovery runs used port 8001, 32,768 context, FP8 KV cache, and prefix caching disabled. CMB targeted recovery used the `.46` reservation; DiagnosisArena resumed from `.46`/8 sequences to `.88`/16 sequences after capacity-wait metrics showed unused KV cache. Both arms use temperature 0 and thinking disabled, but exact server parity is unproven and the KV-cache configuration differs. Treat B0/B2 as descriptive same-backbone results, not a controlled causal estimate of reasoning architecture. Details and the source-log hash are in `recovery_inputs/serving-parity-audit.json`; each execution segment is recorded in its run manifest.
+
+The original B2 checkpoints remain marked `INVALID_INFRASTRUCTURE_FAILURE`; their raw rows, traces, and invalidation manifests were not changed. The invalidated CMB source had 671 connection failures; the targeted recovery selected 674 transport failures (671 API connection errors, 2 API timeouts, 1 timeout). The invalidated DiagnosisArena source selected 791 transport failures (788 API connection errors, 2 API timeouts, 1 timeout), leaving its other 124 source rows untouched; these include 37 non-transport reasoning failures. The first DiagnosisArena retry still contained three connection failures (`diagnosisarena:428`, `:602`, `:7`), so those three alone were rerun into a separate repair run and overlaid without editing the original retry checkpoint. All selected IDs now merge into complete cohorts of 1,024 and 915 rows. The full-cohort B2 copies were rescored from raw outputs using deterministic parser v6; no transport failures or answer-format failures remain in those composite scores.
+
+### Paired B0/B2 results (descriptive)
+
+| Dataset | B0 Single | B2 Adaptive MDT | Delta | B2 parseable | B2 reasoning failures | B2 answer-format failures |
+|---|---:|---:|---:|---:|---:|---:|
+| CMB-COMMON-1024 | 638/1,024 (62.30%) | 695/1,024 (67.87%) | +5.57 pp | 960/1,024 | 9 | 0 |
+| DiagnosisArena-915 | 339/915 (37.05%) | 280/915 (30.60%) | −6.45 pp | 685/915 | 230 | 0 |
+
+The datasets disagree on the Adaptive effect. CMB has 107 cases correct only under B2 and 50 correct only under B0. DiagnosisArena has 103 correct only under B2 and 162 correct only under B0. The DiagnosisArena shortfall is not an answer-format parser issue: 230 cases ended in an Adaptive reasoning failure and were counted incorrect. MDT routes were 279 advanced, 502 intermediate, 124 basic, and 10 failed. CMB mostly routed to basic (890), with 77 intermediate, 1 advanced, and 1 failed. The paired JSON and Markdown reports in `runs/common_eval/harness-v1-base-20261005/paired/` include correctness pairs, answer agreement, Wilson intervals, latency/call/token metrics, and the serving-parity caveat. H0 freezes these observations; it does not tune MDAgents prompts or routing.
+
+PT-E0 separately reports CMB-COMMON-1024 at 683/1,024 (66.70%), 95% Wilson CI 63.75%–69.52%. It used an empty system prompt, thinking enabled, and up to 2,048 output tokens; it is a reference result, not a paired B0 score under this Harness prompt/decoding contract. B0 and B2 keep the same frozen Harness prompt. Post-training may affect format adherence, which will be measured on its own profile rather than assumed. Parser v6 yielded zero answer-format failures for both H0 arms; no output format errors were hidden by the accuracy denominator. The 352-row full-CMB partial remains unscored as a full benchmark; 35 rows are reused within the common subset.
+
+The GPU is an NVIDIA L40 (46,068 MiB). Port 8000 was not stopped or reconfigured. The local vLLM server on loopback 8001 used the shared post-training venv, BF16 Qwen3-8B, FP8 KV cache, 32,768-token context, 16 sequences, 16,384 batched tokens, and prefix caching disabled. The `.88` phase exposed 22.01 GiB KV cache. Normal `torch.compile` (33.06 seconds on the first start), CUDA graph capture, FlashInfer initialization, and JIT warmup completed with the venv Ninja on PATH; the repeated repair start loaded cached compile artifacts in 0.63 seconds. Both 8001 runs were stopped after completion and GPU usage returned to zero. Full startup logs, runtime configs, targeted selections, repair overlay provenance, and serving parity evidence are saved under `runs/common_eval/harness-v1-base-20261005/recovery_inputs/`.

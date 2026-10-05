@@ -1,0 +1,42 @@
+{
+  "current_parser_revision": "deterministic-mcq-parser-v6",
+  "dataset_identity_verified": true,
+  "first_segment_parser_revision": "deterministic-mcq-parser-v3 (execution-start; from recorded run history)",
+  "first_segment_runtime_config": {
+    "attention_backend": "auto",
+    "base_url": "http://127.0.0.1:8001/v1",
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "cuda_runtime": "13.0",
+    "dtype": "bfloat16",
+    "enable_prefix_caching": false,
+    "gpu": "NVIDIA L40",
+    "gpu_memory_utilization": 0.46,
+    "host": "127.0.0.1",
+    "kv_cache_dtype": "fp8",
+    "max_model_len": 32768,
+    "max_num_batched_tokens": 16384,
+    "max_num_seqs": 8,
+    "max_output_tokens": 512,
+    "model_path": "/root/gpufree-share/data/Qwen3-8B",
+    "port": 8001,
+    "runtime_adjustment_reason": "Raised GPU memory reservation from profile nominal 0.43 to 0.46 because 0.43 exposed only 2.09 GiB KV cache for a 2.25 GiB requirement at 32768 context. Model, dtype, context, KV dtype, batching limits, cache policy, and decoding remain fixed.",
+    "seed": 20261004,
+    "served_model": "qwen3-8b-h0",
+    "temperature": 0.0,
+    "tensor_parallel_size": 1,
+    "torch_version": "2.13.0+cu130",
+    "vllm_version": "0.30.1rc1.dev622+gf03026a54"
+  },
+  "first_segment_wall_basis": "cases.jsonl last modification time minus segment start; approximate",
+  "first_segment_wall_seconds_estimate": 3971.254,
+  "manifest_backup_path": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/diagnosisarena-915-B2-manifest-before-concurrency16-resume.json",
+  "model_and_profile_identity_verified": true,
+  "next_segment_runtime_config_path": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/vllm-runtime-config-8001-concurrency16.json",
+  "previous_checkpoint_rows": 483,
+  "previous_unique_case_ids": 483,
+  "schema_version": "harness-v1-resume-manifest-adjustment-v1",
+  "selected_retry_case_count": 791,
+  "selected_retry_case_ids_sha256": "c530a9cf573c09752a393137d27df9e0b7123ee84ce2e3d05174b68a559b4039"
+}

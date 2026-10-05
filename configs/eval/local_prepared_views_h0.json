@@ -1,0 +1,25 @@
+{
+  "schema_version": "harness-v1-prepared-views-v1",
+  "created_from": "Health-Copilot-PT-E0 eval manifests; no IDs resampled",
+  "candidate_and_scorer_views_are_separate": true,
+  "datasets": {
+    "diagnosisarena": {
+      "candidate_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/diagnosisarena/candidate_view.jsonl",
+      "scorer_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/diagnosisarena/scorer_view.jsonl",
+      "ids_manifest_path": "configs/eval/diagnosisarena915_ids.json",
+      "candidate_view_sha256": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd",
+      "scorer_view_sha256": "afb68b68ab95b4aa90e2702858cdc4e7a4167afe56dcd1f324f0a5b7dcff7fd1",
+      "ids_manifest_sha256": "b0203d2259b256dfd600241ab5b6d7972ae4cca8137094e0e79af9a008216c1e",
+      "ids_sequence_sha256": "b6c4102a3d2bdcf3d464b77f67df0e02a9f04a5036d7a6e45e34aedb606967e7"
+    },
+    "cmb-common": {
+      "candidate_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/cmb_common1024/candidate_view.jsonl",
+      "scorer_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/cmb_common1024/scorer_view.jsonl",
+      "ids_manifest_path": "configs/eval/cmb_common1024_ids.json",
+      "candidate_view_sha256": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+      "scorer_view_sha256": "8bd9402e308b631ec5dac99d4f5681b069a2b92d89cda8249c30952192eefdd2",
+      "ids_manifest_sha256": "8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397",
+      "ids_sequence_sha256": "ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4"
+    }
+  }
+}

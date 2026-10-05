@@ -1,0 +1,39 @@
+{
+  "accuracy": 0.014207650273224045,
+  "case_concurrency": 4,
+  "case_count": 915,
+  "cases_per_second": 0.52173,
+  "checkpoint": "cases.jsonl",
+  "correct": 13,
+  "dataset_id": "diagnosisarena",
+  "dataset_selection_sha256": "b6c4102a3d2bdcf3d464b77f67df0e02a9f04a5036d7a6e45e34aedb606967e7",
+  "dataset_snapshot_sha256": "bdf63ade2d1a892e9e3abe9d41c70cfbf62e414989a289dd8e319b339e66f2f5",
+  "input_tokens_per_case": 652.1574,
+  "invalidation_file": "invalidation.json",
+  "macro_accuracy_by_category": {
+    "unknown": 0.014208
+  },
+  "mdt_activation": 0.1082,
+  "mdt_complexity_distribution": {
+    "advanced": 39,
+    "basic": 21,
+    "failed": 795,
+    "intermediate": 60
+  },
+  "mean_latency_ms": 7643.918,
+  "output_tokens_per_case": 167.2787,
+  "p50_latency_ms": 4.105,
+  "p95_latency_ms": 60355.511,
+  "parse_rate": 0.05027322404371585,
+  "parse_success": 46,
+  "provider_calls_per_case": 1.918,
+  "provider_requests_per_second": 1.00069,
+  "rescored_from_raw_model_outputs": true,
+  "retrieval_calls": 0,
+  "retrieved_documents": 0,
+  "run_wall_seconds": 1753.796,
+  "scoring_revision": "deterministic-mcq-parser-v2",
+  "source_revision": "64bb873fe651e1c71cd8b0958104dd911f042872",
+  "tokens_per_second": 427.521,
+  "validity_status": "INVALID_INFRASTRUCTURE_FAILURE"
+}

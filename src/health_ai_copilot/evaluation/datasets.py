@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from ..harness.contracts import AnswerSchema, HarnessResponse
-from .contracts import CaseScore, EvalCase
+from .contracts import CaseScore, DatasetAdapter, EvalCase
 from .parser import canonical_option_set
 
 
@@ -85,7 +85,11 @@ class DiagnosisArenaAdapter(JsonlPublicAdapter):
                 query=query.strip(),
                 answer_schema=AnswerSchema.SINGLE_CHOICE,
                 gold=gold[0],
-                metadata={"source_dataset": self.dataset_id, "public": True},
+                metadata={
+                    "source_dataset": self.dataset_id,
+                    "public": True,
+                    "valid_options": tuple(options),
+                },
             ))
         if len({case.case_id for case in output}) != len(output):
             raise ValueError("DiagnosisArena source contains duplicate case IDs")
@@ -94,6 +98,9 @@ class DiagnosisArenaAdapter(JsonlPublicAdapter):
     def score(self, case: EvalCase, response: HarnessResponse) -> CaseScore:
         parsed = response.parsed_answer
         ok = isinstance(parsed, str) and len(parsed) == 1
+        valid_options = set(case.metadata.get("valid_options", ()))
+        if ok and valid_options and parsed not in valid_options:
+            ok = False
         return CaseScore(
             case_id=case.case_id,
             correct=bool(ok and parsed == case.gold),
@@ -128,7 +135,11 @@ class CMBAdapter(JsonlPublicAdapter):
                 query=question,
                 answer_schema=schema,
                 gold=gold[0] if schema is AnswerSchema.SINGLE_CHOICE else gold,
-                metadata={"subcategory": category, "public": True},
+                metadata={
+                    "subcategory": category,
+                    "public": True,
+                    "valid_options": tuple(options),
+                },
             ))
         categories = {str(case.metadata["subcategory"]) for case in output}
         if self.expected_category_count is not None and len(categories) != self.expected_category_count:
@@ -141,11 +152,16 @@ class CMBAdapter(JsonlPublicAdapter):
 
     def score(self, case: EvalCase, response: HarnessResponse) -> CaseScore:
         parsed = response.parsed_answer
+        valid_options = set(case.metadata.get("valid_options", ()))
         if case.answer_schema is AnswerSchema.SINGLE_CHOICE:
             parse_success = isinstance(parsed, str) and len(parsed) == 1
+            if parse_success and valid_options and parsed not in valid_options:
+                parse_success = False
             correct = bool(parse_success and parsed == case.gold)
         else:
             parse_success = isinstance(parsed, tuple) and bool(parsed)
+            if parse_success and valid_options and not set(parsed).issubset(valid_options):
+                parse_success = False
             expected = tuple(case.gold) if isinstance(case.gold, tuple) else (case.gold,)
             correct = bool(parse_success and tuple(sorted(set(parsed))) == tuple(sorted(set(expected))))
         return CaseScore(
@@ -187,12 +203,167 @@ class CMBCommon1024Adapter(CMBAdapter):
         by_id = {case.case_id: case for case in all_cases}
         if not set(self.case_ids).issubset(by_id):
             raise ValueError("frozen CMB subset references IDs missing from its source snapshot")
-        expected_order = stratified_case_ids(
-            all_cases, size=1024, seed=self.selection_seed,
-        )
-        if self.case_ids != expected_order:
-            raise ValueError("frozen CMB IDs do not match the recorded deterministic selection protocol")
+        # The frozen ID manifest is the authority. Re-running a locally chosen
+        # sampler here could silently substitute a different 1,024-case set.
         return tuple(by_id[item] for item in self.case_ids)
+
+
+class PreparedViewsAdapter(JsonlPublicAdapter):
+    """Join model-visible candidates with evaluator-only labels by frozen ID."""
+
+    def __init__(
+        self,
+        *,
+        dataset_id: str,
+        candidate_path: Path,
+        scorer_path: Path,
+        ids_manifest_path: Path,
+        source_revision: str,
+        expected_count: int,
+        expected_candidate_sha256: str,
+        expected_scorer_sha256: str,
+        expected_ids_manifest_sha256: str,
+        expected_ids_sequence_sha256: str | None = None,
+        expected_subset_sha256: str | None = None,
+    ) -> None:
+        self.dataset_id = dataset_id
+        self.expected_count = expected_count
+        self.candidate_path = Path(candidate_path)
+        self.scorer_path = Path(scorer_path)
+        self.ids_manifest_path = Path(ids_manifest_path)
+        self.source_revision = source_revision
+        self.candidate_sha256 = _file_sha256(self.candidate_path)
+        self.scorer_sha256 = _file_sha256(self.scorer_path)
+        self.ids_manifest_sha256 = _file_sha256(self.ids_manifest_path)
+        if self.candidate_sha256 != expected_candidate_sha256:
+            raise ValueError("candidate view hash does not match the frozen evaluation manifest")
+        if self.scorer_sha256 != expected_scorer_sha256:
+            raise ValueError("scorer view hash does not match the frozen evaluation manifest")
+        if self.ids_manifest_sha256 != expected_ids_manifest_sha256:
+            raise ValueError("ID manifest hash does not match the frozen evaluation manifest")
+
+        id_document = json.loads(self.ids_manifest_path.read_text(encoding="utf-8"))
+        if isinstance(id_document, dict):
+            raw_ids = id_document.get("ids")
+            declared_sequence_sha256 = id_document.get("ids_sequence_sha256")
+        else:
+            raw_ids = id_document
+            declared_sequence_sha256 = None
+        if not isinstance(raw_ids, list) or any(not isinstance(item, str) for item in raw_ids):
+            raise ValueError("frozen ID manifest must contain a string ID list")
+        self.case_ids = tuple(raw_ids)
+        if len(self.case_ids) != expected_count or len(set(self.case_ids)) != expected_count:
+            raise ValueError(f"expected {expected_count} unique frozen evaluation IDs")
+        sequence_hash = sha256(("\n".join(self.case_ids) + "\n").encode("utf-8")).hexdigest()
+        if declared_sequence_sha256 and declared_sequence_sha256 != sequence_hash:
+            raise ValueError("ID sequence hash inside the manifest is invalid")
+        if expected_ids_sequence_sha256 and sequence_hash != expected_ids_sequence_sha256:
+            raise ValueError("ID sequence hash does not match the frozen evaluation manifest")
+        self.subset_sha256 = expected_subset_sha256 or sequence_hash
+        if self.subset_sha256 != sequence_hash:
+            raise ValueError("dataset selection hash does not match its frozen ID sequence")
+        self.snapshot_sha256 = sha256(
+            f"{self.candidate_sha256}\0{self.scorer_sha256}\0{self.ids_manifest_sha256}".encode()
+        ).hexdigest()
+
+    def _read_jsonl(self, path: Path) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        with path.open(encoding="utf-8") as handle:
+            for line_no, line in enumerate(handle, 1):
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                if not isinstance(row, dict):
+                    raise TypeError(f"{path.name}:{line_no} must be a JSON object")
+                rows.append(row)
+        return rows
+
+    def cases(self) -> tuple[EvalCase, ...]:
+        candidates = self._read_jsonl(self.candidate_path)
+        scorers = self._read_jsonl(self.scorer_path)
+        candidate_by_id = _unique_rows_by_id(candidates, "candidate")
+        scorer_by_id = _unique_rows_by_id(scorers, "scorer")
+        expected = set(self.case_ids)
+        if set(candidate_by_id) != expected or set(scorer_by_id) != expected:
+            raise ValueError("candidate/scorer IDs must exactly match the frozen evaluation IDs")
+        forbidden = {"answer", "right_option", "gold", "label", "answer_key"}
+        output: list[EvalCase] = []
+        for case_id in self.case_ids:
+            candidate = candidate_by_id[case_id]
+            scorer = scorer_by_id[case_id]
+            if forbidden.intersection(candidate):
+                raise ValueError(f"candidate view contains evaluator-only label fields for {case_id}")
+            query = candidate.get("prompt")
+            if not isinstance(query, str) or not query.strip():
+                raise ValueError(f"candidate view has no prompt for {case_id}")
+            allowed = candidate.get("valid_options")
+            if allowed is not None and not isinstance(allowed, list):
+                raise ValueError(f"valid_options must be a list for {case_id}")
+            gold = canonical_option_set(scorer.get("answer"), allowed=allowed)
+            if self.dataset_id == "diagnosisarena":
+                if len(gold) != 1:
+                    raise ValueError(f"DiagnosisArena case {case_id} must be single-choice")
+                schema = AnswerSchema.SINGLE_CHOICE
+                expected_gold: str | tuple[str, ...] = gold[0]
+            else:
+                question_type = str(candidate.get("question_type", ""))
+                is_multi = "多项" in question_type or "多选" in question_type or "multi" in question_type.casefold()
+                if is_multi:
+                    schema = AnswerSchema.MULTI_SELECT
+                    expected_gold = gold
+                else:
+                    if len(gold) != 1:
+                        raise ValueError(f"CMB single-choice case {case_id} has {len(gold)} labels")
+                    schema = AnswerSchema.SINGLE_CHOICE
+                    expected_gold = gold[0]
+            output.append(EvalCase(
+                case_id=case_id,
+                query=query.strip(),
+                answer_schema=schema,
+                gold=expected_gold,
+                metadata={
+                    "source_dataset": self.dataset_id,
+                    "public": True,
+                    "subcategory": scorer.get("subcategory"),
+                    "question_type": candidate.get("question_type"),
+                    "valid_options": tuple(str(item).upper() for item in (allowed or ())),
+                },
+            ))
+        return tuple(output)
+
+    def score(self, case: EvalCase, response: HarnessResponse) -> CaseScore:
+        parsed = response.parsed_answer
+        valid_options = set(case.metadata.get("valid_options", ()))
+        if case.answer_schema is AnswerSchema.SINGLE_CHOICE:
+            parse_success = isinstance(parsed, str) and len(parsed) == 1
+            if parse_success and valid_options and parsed not in valid_options:
+                parse_success = False
+            correct = bool(parse_success and parsed == case.gold)
+            metric = "exact_choice_accuracy"
+        else:
+            parse_success = isinstance(parsed, tuple) and bool(parsed)
+            if parse_success and valid_options and not set(parsed).issubset(valid_options):
+                parse_success = False
+            expected = tuple(case.gold) if isinstance(case.gold, tuple) else (case.gold,)
+            correct = bool(parse_success and tuple(sorted(set(parsed))) == tuple(sorted(set(expected))))
+            metric = "exact_set_accuracy"
+        return CaseScore(
+            case_id=case.case_id,
+            correct=correct,
+            parse_success=parse_success,
+            metric=metric,
+            category=str(case.metadata.get("subcategory") or "unknown"),
+        )
+
+
+def _unique_rows_by_id(rows: list[dict[str, Any]], view_name: str) -> dict[str, dict[str, Any]]:
+    output: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        case_id = _stable_case_id(row, len(output))
+        if case_id in output:
+            raise ValueError(f"duplicate {view_name} ID: {case_id}")
+        output[case_id] = row
+    return output
 
 
 def stratified_case_ids(
@@ -221,8 +392,39 @@ def stratified_case_ids(
 
 
 def case_ids_sha256(case_ids: tuple[str, ...]) -> str:
-    payload = "\n".join(case_ids).encode("utf-8")
+    payload = ("\n".join(case_ids) + "\n").encode("utf-8")
     return sha256(payload).hexdigest()
+
+
+class SelectedCaseAdapter:
+    """Restrict a frozen adapter to an explicit, hashed case list."""
+
+    def __init__(self, adapter: DatasetAdapter, case_ids: tuple[str, ...]) -> None:
+        if not case_ids or any(not isinstance(case_id, str) or not case_id for case_id in case_ids):
+            raise ValueError("selected case IDs must be a non-empty tuple of strings")
+        if len(set(case_ids)) != len(case_ids):
+            raise ValueError("selected case IDs must be unique")
+
+        available = {case.case_id: case for case in adapter.cases()}
+        missing = set(case_ids) - set(available)
+        if missing:
+            raise ValueError(f"selected case IDs are absent from frozen dataset: {sorted(missing)[:5]}")
+
+        self._adapter = adapter
+        self._cases = tuple(available[case_id] for case_id in case_ids)
+        self.selected_case_ids = case_ids
+        self.selected_case_ids_sha256 = case_ids_sha256(case_ids)
+        self.frozen_subset_sha256 = getattr(adapter, "subset_sha256", None)
+        self.subset_sha256 = self.selected_case_ids_sha256
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._adapter, name)
+
+    def cases(self) -> tuple[EvalCase, ...]:
+        return self._cases
+
+    def score(self, case: EvalCase, response: HarnessResponse) -> CaseScore:
+        return self._adapter.score(case, response)
 
 
 def _file_sha256(path: Path) -> str:

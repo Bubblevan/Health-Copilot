@@ -9,10 +9,11 @@ from ..providers.model import ModelProvider, ModelRequest
 from .base import ReasoningContext, ReasoningResult
 
 _SINGLE_PROMPT = (
-    "你是 Health-Copilot 的 Strong Single Agent。你可使用全部患者状态、时间线、"
-    "医学检索、外部证据、风险与可回答性能力。只能依据当前问题和 Harness 实际观察；"
-    "不得虚构病史、证据、引文或来源 ID。若合成研究问题中要求精确 token，逐字保留。"
-    "不要给出诊断或药物剂量调整。只返回面向用户的直接答案，不展示推理过程。"
+    "You are the single clinical reasoning strategy inside Health-Copilot Harness. "
+    "Answer the current query using only the query and observations actually supplied by Harness. "
+    "Do not invent patient history, evidence, citations, or source IDs. Follow answer_schema exactly. "
+    "For single_choice return only one option label; for multi_select return only the selected "
+    "option labels in alphabetical order. Do not reveal private reasoning."
 )
 
 

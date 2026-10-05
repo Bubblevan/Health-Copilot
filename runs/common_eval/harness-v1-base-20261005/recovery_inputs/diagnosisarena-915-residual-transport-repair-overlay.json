@@ -1,0 +1,17 @@
+{
+  "overlay_cases_sha256": "886614bb65ce9ceab5a3d62d42caa3800a46a35d0dba8ef1e35a085a64a935a8",
+  "overlay_run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/recovery_retries/diagnosisarena-915/B2-repaired-overlay",
+  "overlay_run_manifest_sha256": "9b438509c6909c93a1b2077f06cc22b9cc3fc784a3af6528ba9c70532cdd118e",
+  "overlay_traces_sha256": "465c29ecc53492ad6334760ff4cf597b3a2b6a4ee5753b5f588d6b94b1b3deaf",
+  "parent_retry_run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/recovery_retries/diagnosisarena-915/B2",
+  "remaining_transport_failures": 0,
+  "repair_ids": [
+    "diagnosisarena:428",
+    "diagnosisarena:602",
+    "diagnosisarena:7"
+  ],
+  "repair_run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/recovery_repairs/diagnosisarena-915/B2-residual-transport",
+  "repair_selection_manifest_sha256": "61cce4840d9a7d6b4195a8fcad086ac8c84f8b82b78e8ea4fb269ee9b51645ae",
+  "schema_version": "harness-v1-residual-repair-overlay-manifest-v1",
+  "trace_count": 794
+}

@@ -1,0 +1,18 @@
+{
+  "case_count": 3,
+  "case_ids": [
+    "diagnosisarena:428",
+    "diagnosisarena:602",
+    "diagnosisarena:7"
+  ],
+  "case_ids_sha256": "02da8b429163971a72893123363eacd6e93ff9107dc73252e1c407342a5acd86",
+  "dataset_id": "diagnosisarena",
+  "parent_retry_run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/recovery_retries/diagnosisarena-915/B2",
+  "parent_selection_manifest_path": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/diagnosisarena-915-transport-failures.json",
+  "profile_id": "B2",
+  "retryable_failure_counts": {
+    "APIConnectionError": 3
+  },
+  "schema_version": "harness-v1-residual-transport-repair-case-ids-v1",
+  "selection_reason": "repair only transport failures that remained in the completed first targeted retry"
+}

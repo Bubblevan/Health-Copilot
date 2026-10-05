@@ -1,0 +1,34 @@
+{
+  "arms": {
+    "B0": {
+      "cases_sha256": "db516f4e8a98335b679588d1ce1e8555cdc38777022fcc0be42673fc653cec5a",
+      "run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/rescored-parser-v6/cmb-common-1024/B0",
+      "run_manifest_sha256": "73e40268b3a2955fe63c376067967cd71300c48f5013cabc2ed6d8be7a2b2fa2",
+      "scoring_revision": "deterministic-mcq-parser-v6",
+      "summary_sha256": "0b7abe2a094823234c283191ca2e626bcbdbb44fffb18ed163ddc5cf086dea65"
+    },
+    "B2": {
+      "cases_sha256": "3a6e4ce1d8f77851c21c82ef4e49339fdfd35347484a44159bd4f50591384f61",
+      "run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/rescored-parser-v6/cmb-common-1024/B2",
+      "run_manifest_sha256": "c44c148330f43f1a9f67503774b0fded6dc235b9157880b0f12c4e5527040685",
+      "scoring_revision": "deterministic-mcq-parser-v6",
+      "summary_sha256": "02045505d621f50b4bd62a7aeb191cbdc09865bc6e2149b6dab444d77a7225ae"
+    }
+  },
+  "case_count": 1024,
+  "created_at_utc": "2026-10-05T05:22:29.105878+00:00",
+  "dataset_id": "cmb-common-1024",
+  "ids_sequence_sha256": "ed5816263ee3f20dec4fd6f76f5b8b6ceb6f89a4b01b35716a2b8afc4ffd4fc4",
+  "model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "paired_results_sha256": "d434445dd042ef29f2c51b94bf1d25557011eef23452f83ea030012f955fc520",
+  "profile_ids": [
+    "B0",
+    "B2"
+  ],
+  "report_sha256": "f066e236c68173d784b54542ab32e64cf5b60c7b52b7c996a2af986eeafe61fa",
+  "schema_version": "harness-v1-paired-result-manifest-v1",
+  "scoring_revision": "deterministic-mcq-parser-v6",
+  "serving_parity_audit_path": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/serving-parity-audit.json",
+  "serving_parity_status": "INCOMPLETE_B0_RUNTIME_CAPTURE",
+  "source_revision": "935fbc09edf1303d89872b21265ff597f426ac0d"
+}

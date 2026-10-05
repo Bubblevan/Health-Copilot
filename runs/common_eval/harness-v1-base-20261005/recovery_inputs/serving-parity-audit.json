@@ -1,0 +1,52 @@
+{
+  "schema_version": "harness-v1-serving-parity-audit-v1",
+  "base_arm": {
+    "endpoint": "http://127.0.0.1:8000/v1",
+    "run_manifest_runtime_config": null,
+    "declared_model_config": {
+      "gpu_memory_utilization": 0.43,
+      "max_model_len": 32768,
+      "max_num_seqs": 8,
+      "kv_cache_dtype": "fp8",
+      "prefix_caching": false
+    },
+    "time_correlated_host_log_observation": {
+      "source_log": "/root/gpufree-share/logs/vllm-qwen3-8b.log",
+      "source_log_sha256": "1415f632c98cee40c6a47145d1e8a6b7deac321e0b8cb6036330eff32c1c319e",
+      "observed_model_path": "/root/gpufree-share/data/Qwen3-8B",
+      "observed_served_model_name": "qwen3-8b-local",
+      "observed_dtype": "bfloat16",
+      "observed_max_model_len": 16384,
+      "observed_gpu_memory_utilization": 0.88,
+      "observed_max_num_seqs": 32,
+      "observed_kv_cache_dtype": "auto",
+      "observed_enable_prefix_caching": true,
+      "observed_vllm_version": "0.30.1rc1.dev622+gf03026a54",
+      "log_lines": [
+        9,
+        408,
+        458,
+        466
+      ],
+      "attribution": "The host log overlaps the B0 run window, but the B0 manifests contain no process ID or captured execution segment. This is an observed service configuration, not a proven per-request binding."
+    }
+  },
+  "adaptive_recovery_arm": {
+    "endpoint": "http://127.0.0.1:8001/v1",
+    "runtime_config": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/vllm-runtime-config-8001.json",
+    "gpu_memory_utilization": 0.46,
+    "max_model_len": 32768,
+    "max_num_seqs": 8,
+    "kv_cache_dtype": "fp8",
+    "prefix_caching": false,
+    "served_model_name": "qwen3-8b-h0"
+  },
+  "shared_generation_identity": {
+    "model_path": "/root/gpufree-share/data/Qwen3-8B",
+    "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "dtype": "bfloat16",
+    "temperature": 0.0,
+    "enable_thinking": false
+  },
+  "qualification": "Describe B0/B2 deltas, but do not attribute them solely to reasoning strategy: the B0 per-run serving capture is incomplete and the observed B0 service used auto KV cache while the B2 recovery server used FP8 KV cache."
+}

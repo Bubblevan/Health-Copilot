@@ -2,7 +2,7 @@
 
 ## Purpose and status
 
-Harness V1 is the single request, context, execution, budget, trace, and response boundary for product requests and future common system evaluations. This change introduces the boundary and adapters; it does not claim a production model profile, public dataset snapshot, or Common Medical KB is qualified.
+Harness V1 is the single request, context, execution, budget, trace, and response boundary for product requests and common system evaluations. The Base Qwen3-8B profile and the prepared DiagnosisArena-915/CMB-COMMON-1024 evaluator views are frozen for this local run; Common Medical KB V1 is not qualified.
 
 ```text
 Product API ─┐
@@ -40,14 +40,15 @@ Provider configuration is dependency injection. A model variant maps to its own 
 
 ## Readiness gates at H0 closeout
 
-The current checkout has local knowledge cards and historical subsystem fixtures, but it has no pinned DiagnosisArena-915 or CMB-11,200 public snapshot, no frozen CMB-COMMON-1024 IDs, no post-training manifest snapshots, and no qualified Common Medical KB V1 manifest. Therefore:
+The current run uses separate prepared candidate/scorer views from the PT-E0 data disk for DiagnosisArena-915 and CMB-COMMON-1024. Their source revisions, ordered IDs, and view hashes are frozen in the evaluation manifests. The checkout still has no qualified Common Medical KB V1 manifest or contamination audit. Therefore:
 
-- DiagnosisArena-915 and CMB-COMMON-1024 are **not frozen**.
+- DiagnosisArena-915 and CMB-COMMON-1024 IDs are **frozen**; scorer labels remain evaluator-only.
+- CMB full-test 11,200 is not scored as a full set; the earlier 352-row partial remains historical.
 - Common Medical KB is **not ready**; RAG-enabled common profiles are blocked.
 - Post-training contamination audit is **not complete**.
-- No B0/B1/B2/B3 benchmark run, SFT, or GSPO run was started by H0.
+- B0 and targeted-recovery B2 are complete for both common sets. Parser-v6 results show Adaptive MDT at +5.57 pp on CMB-COMMON-1024 and −6.45 pp on DiagnosisArena-915; the DiagnosisArena Adaptive arm includes 230 reasoning failures and both arms have zero answer-format failures. This result is descriptive because historical B0 vLLM runtime capture is incomplete. B1/B3, SFT, and GSPO have not started.
 
-The runner refuses a dataset that is not marked READY with matching hashes, refuses an unfrozen checkpoint identity, and blocks RAG profiles unless the Common KB is READY. The workstation is RTX 4090; H0 validation is limited to deterministic smoke checks, not the evaluation matrix.
+The runner refuses a dataset that is not marked ready with matching hashes, refuses an unfrozen checkpoint identity, and blocks RAG profiles unless the Common KB is READY. This run used an NVIDIA L40. The isolated vLLM endpoint on loopback port 8001 completed normal compile and warmup for targeted recovery and was shut down afterward; port 8000 was not stopped or reconfigured. The Harness client uses the frozen Qwen3-8B model identity. See `docs/evaluation/common_medical_eval_v1.md` for the recovered B0/B2 results and serving-parity limits.
 
 ## Freeze record
 

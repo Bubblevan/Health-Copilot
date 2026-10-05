@@ -79,6 +79,7 @@ class VllmModelProvider:
         api_key: str = "local-vllm",
         default_temperature: float | None = None,
         max_output_tokens: int | None = None,
+        chat_template_kwargs: Mapping[str, object] | None = None,
     ) -> None:
         if not base_url.startswith(("http://", "https://")):
             raise ValueError("base_url must be an HTTP(S) OpenAI-compatible endpoint")
@@ -100,6 +101,7 @@ class VllmModelProvider:
         self.base_url = base_url.rstrip("/")
         self.default_temperature = default_temperature
         self.max_output_tokens = max_output_tokens
+        self.chat_template_kwargs = dict(chat_template_kwargs or {})
         self._client = AsyncOpenAI(
             api_key=api_key,
             base_url=self.base_url,
@@ -120,6 +122,8 @@ class VllmModelProvider:
         }
         if request.json_mode:
             kwargs["response_format"] = {"type": "json_object"}
+        if self.chat_template_kwargs:
+            kwargs["extra_body"] = {"chat_template_kwargs": self.chat_template_kwargs}
         response = await self._client.chat.completions.create(**kwargs)
         choice = response.choices[0]
         content = getattr(choice.message, "content", None)

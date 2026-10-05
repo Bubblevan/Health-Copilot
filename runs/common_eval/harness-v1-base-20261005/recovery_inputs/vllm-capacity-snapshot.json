@@ -1,0 +1,20 @@
+{
+  "schema_version": "harness-v1-vllm-capacity-snapshot-v1",
+  "sampled_at_utc": "2026-10-05T04:37:26Z",
+  "endpoint": "http://127.0.0.1:8001",
+  "gpu": {
+    "name": "NVIDIA L40",
+    "memory_used_mib": 21355,
+    "memory_free_mib": 24104,
+    "utilization_percent": 100,
+    "temperature_c": 70
+  },
+  "vllm": {
+    "model_name": "qwen3-8b-h0",
+    "running_requests": 8,
+    "waiting_requests": 1,
+    "kv_cache_usage_fraction": 0.14478330658105942,
+    "preemptions": 0
+  },
+  "decision": "Keep the current server stable. Nearby snapshots showed zero waiting requests; this sample shows one waiting request, while KV cache remains below 15%, preemptions are zero, and GPU compute is saturated. Increasing reserved VRAM alone is not supported as a throughput fix by these measurements."
+}

@@ -1,0 +1,23 @@
+{
+  "case_count": 4,
+  "case_ids": [
+    "cmb:2916",
+    "cmb:2923",
+    "cmb:2928",
+    "cmb:2934"
+  ],
+  "case_ids_sha256": "cea29eed6c1fabc8842a3b97b7bde177107f51a829b740f9c20969abb724ded4",
+  "dataset_id": "cmb-common-1024",
+  "invalidation_dataset_id": "cmb-common-1024",
+  "profile_id": "B2",
+  "retryable_failure_counts": {
+    "APIConnectionError": 671,
+    "APITimeoutError": 2,
+    "TimeoutError": 1
+  },
+  "schema_version": "harness-v1-targeted-retry-case-ids-v1",
+  "selection_reason": "retry transport failures only; retain all non-transport rows unchanged",
+  "source_cases_sha256": "d6a4d4691928159563ad53b01bbe420207e628e30124cce4b4a43b73d0eb66d3",
+  "source_invalidation_sha256": "fef419d540a32fc28e7d24b2d032e8fc0adc85fa043eb3030e9398f51ce98f08",
+  "source_run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/cmb-common-1024/B2"
+}

@@ -1,0 +1,21 @@
+{
+  "case_count": 915,
+  "connection_failures": {
+    "APIConnectionError": 788,
+    "APITimeoutError": 2,
+    "TimeoutError": 1
+  },
+  "dataset_id": "diagnosisarena-915",
+  "invalidated_at_utc": "2026-10-04T18:06:00.517626+00:00",
+  "other_reasoning_failures": {
+    "TypeError": 32,
+    "ValueError": 5
+  },
+  "parsed_with": "deterministic-mcq-parser-v2",
+  "profile_id": "B2",
+  "raw_checkpoint_retained": true,
+  "run_wall_seconds": 1753.796,
+  "schema_version": "harness-v1-infrastructure-invalidation-v1",
+  "status": "INVALID_INFRASTRUCTURE_FAILURE",
+  "validity_reason": "Shared vLLM endpoint became unavailable during the B2 run; connection-failure abstentions dominate the checkpoint."
+}

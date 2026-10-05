@@ -8,16 +8,22 @@ from types import SimpleNamespace
 import pytest
 
 from eval.rag_e5 import b4_evaluator, b4_execution
-from eval.rag_e5.b4_execution import (ACTION_ORDER, make_execution_plan,
-                                      verify_protocol_lock)
-from eval.rag_e5.b4_guidance import (CONTEXT_SIZE, MAX_OUTPUT_TOKENS,
-                                     GuidanceCompletion, chat_payload,
-                                     render_guidance_prompt)
-from eval.rag_e5.b4_materializer import (StateClaim, classify_runtime_task,
-                                         extract_citations,
-                                         materialize_final_response,
-                                         materialize_state_claims,
-                                         strip_aliases)
+from eval.rag_e5.b4_execution import ACTION_ORDER, make_execution_plan, verify_protocol_lock
+from eval.rag_e5.b4_guidance import (
+    CONTEXT_SIZE,
+    MAX_OUTPUT_TOKENS,
+    GuidanceCompletion,
+    chat_payload,
+    render_guidance_prompt,
+)
+from eval.rag_e5.b4_materializer import (
+    StateClaim,
+    classify_runtime_task,
+    extract_citations,
+    materialize_final_response,
+    materialize_state_claims,
+    strip_aliases,
+)
 
 
 class FakeTokenizer:

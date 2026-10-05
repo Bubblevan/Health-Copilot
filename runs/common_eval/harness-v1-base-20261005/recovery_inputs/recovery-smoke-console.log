@@ -1,0 +1,78 @@
+{
+  "profile": "B2",
+  "summary": {
+    "correct": 3,
+    "parse_success": 4,
+    "accuracy": 0.75,
+    "parse_rate": 1.0,
+    "provider_calls_per_case": 7.5,
+    "input_tokens_per_case": 3055.5,
+    "output_tokens_per_case": 1282.5,
+    "mean_latency_ms": 24154.039,
+    "p50_latency_ms": 20617.846,
+    "p95_latency_ms": 24481.813,
+    "retrieval_calls": 0,
+    "retrieved_documents": 0,
+    "mdt_activation": 0.5,
+    "mdt_complexity_distribution": {
+      "basic": 2,
+      "intermediate": 2
+    },
+    "macro_accuracy_by_category": {
+      "主管护师": 0.75
+    },
+    "dataset_id": "cmb-common-1024",
+    "source_revision": "935fbc09edf1303d89872b21265ff597f426ac0d",
+    "dataset_snapshot_sha256": "894c9f52a55b35824353c7047443fb03968fb4ab2d680a436c5ced1f1aa1432d",
+    "dataset_selection_sha256": "cea29eed6c1fabc8842a3b97b7bde177107f51a829b740f9c20969abb724ded4",
+    "profile_id": "B2",
+    "model_hash": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+    "case_count": 4,
+    "completed_cases_this_invocation": 4,
+    "checkpoint": "cases.jsonl",
+    "case_concurrency": 2,
+    "run_wall_seconds": 53.098,
+    "cases_per_second": 0.07533,
+    "provider_requests_per_second": 0.56499,
+    "tokens_per_second": 326.792
+  }
+}
+{
+  "profile": "B2",
+  "summary": {
+    "correct": 2,
+    "parse_success": 3,
+    "accuracy": 0.5,
+    "parse_rate": 0.75,
+    "provider_calls_per_case": 9.75,
+    "input_tokens_per_case": 5105.5,
+    "output_tokens_per_case": 1026.5,
+    "mean_latency_ms": 24015.198,
+    "p50_latency_ms": 22458.514,
+    "p95_latency_ms": 24115.222,
+    "retrieval_calls": 0,
+    "retrieved_documents": 0,
+    "mdt_activation": 0.75,
+    "mdt_complexity_distribution": {
+      "basic": 1,
+      "intermediate": 3
+    },
+    "macro_accuracy_by_category": {
+      "unknown": 0.5
+    },
+    "dataset_id": "diagnosisarena",
+    "source_revision": "64bb873fe651e1c71cd8b0958104dd911f042872",
+    "dataset_snapshot_sha256": "bdf63ade2d1a892e9e3abe9d41c70cfbf62e414989a289dd8e319b339e66f2f5",
+    "dataset_selection_sha256": "13f19340893b04d11fb7eb336f2f9d51370e8ac4818d7205e41728f81503e009",
+    "profile_id": "B2",
+    "model_hash": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+    "case_count": 4,
+    "completed_cases_this_invocation": 4,
+    "checkpoint": "cases.jsonl",
+    "case_concurrency": 2,
+    "run_wall_seconds": 51.302,
+    "cases_per_second": 0.07797,
+    "provider_requests_per_second": 0.7602,
+    "tokens_per_second": 478.11
+  }
+}

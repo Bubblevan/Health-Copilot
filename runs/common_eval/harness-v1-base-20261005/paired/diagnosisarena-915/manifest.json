@@ -1,0 +1,34 @@
+{
+  "arms": {
+    "B0": {
+      "cases_sha256": "b81831a5ef4ef5044ea4daed1b71998e8b3a3fd39565d9be2947e8a30bfc98a2",
+      "run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/rescored-parser-v6/diagnosisarena-915/B0",
+      "run_manifest_sha256": "f834fb929d84cb6dbf5fa656ed4a86239213eb0daedfe53aec8c0fc2e0bd80aa",
+      "scoring_revision": "deterministic-mcq-parser-v6",
+      "summary_sha256": "d8dc8b2038d6601272536a13e6723f84c5f9964b1027784cac137cc0cb0008c0"
+    },
+    "B2": {
+      "cases_sha256": "6c1a0487129265ab708284d92ae505bacca26a1a1f698beffcfeef39c88e1070",
+      "run_dir": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/harness-v1-base-20261005/rescored-parser-v6/diagnosisarena-915/B2",
+      "run_manifest_sha256": "3bd3b4a2ebd1d1a7bed57fc4be2428d45f21595a3d2b71331fd096bbb7f3285d",
+      "scoring_revision": "deterministic-mcq-parser-v6",
+      "summary_sha256": "24c4f122a8a42f5195e1aeb9c8134385573c7eb0b84328e7501759cc4c4c4f31"
+    }
+  },
+  "case_count": 915,
+  "created_at_utc": "2026-10-05T05:22:29.110414+00:00",
+  "dataset_id": "diagnosisarena-915",
+  "ids_sequence_sha256": "b6c4102a3d2bdcf3d464b77f67df0e02a9f04a5036d7a6e45e34aedb606967e7",
+  "model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "paired_results_sha256": "2dd0993870ee86886fccb8ac5ca0d577a84962a164a14ae56d6a1e72e2a1167b",
+  "profile_ids": [
+    "B0",
+    "B2"
+  ],
+  "report_sha256": "2c14af26613df62cbe08db20160f6020d41a398fae4c342c6ae3354edf142a14",
+  "schema_version": "harness-v1-paired-result-manifest-v1",
+  "scoring_revision": "deterministic-mcq-parser-v6",
+  "serving_parity_audit_path": "runs/common_eval/harness-v1-base-20261005/recovery_inputs/serving-parity-audit.json",
+  "serving_parity_status": "INCOMPLETE_B0_RUNTIME_CAPTURE",
+  "source_revision": "64bb873fe651e1c71cd8b0958104dd911f042872"
+}

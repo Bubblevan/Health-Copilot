@@ -1,15 +1,39 @@
 {
   "model_variant": "qwen3_8b_base",
-  "model_id": "Qwen3-8B",
-  "base_revision": null,
-  "checkpoint_sha256": null,
-  "tokenizer_revision": null,
+  "model_id": "Qwen/Qwen3-8B",
+  "base_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "checkpoint_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "tokenizer_revision": "b968826d9c46dd6066d109eabc6255188de91218",
   "serving": {
     "api": "openai-compatible-vllm",
     "base_url_env": "VLLM_BASE_URL",
     "served_model_env": "VLLM_MODEL_NAME",
-    "temperature": 0,
-    "max_output_tokens": 512
+    "temperature": 0.0,
+    "max_output_tokens": 512,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "seed": 20261004,
+    "vllm_version": "0.30.1rc1.dev622+gf03026a54",
+    "torch_version": "2.13.0+cu130",
+    "cuda_runtime": "13.0",
+    "gpu": "NVIDIA L40",
+    "gpu_memory_utilization": 0.43,
+    "max_model_len": 32768,
+    "max_num_seqs": 8,
+    "max_num_batched_tokens": 16384,
+    "prefix_caching": false,
+    "served_model": "Qwen/Qwen3-8B",
+    "base_url": "http://127.0.0.1:8000/v1",
+    "kv_cache_dtype": "fp8",
+    "do_sample": false,
+    "top_p": 1.0,
+    "dtype": "bfloat16",
+    "tensor_parallel_size": 1,
+    "attention_backend": "auto",
+    "seed_scope": "evaluation/subset protocol only; decoding is greedy"
   },
-  "status": "IDENTITY_INCOMPLETE"
+  "status": "READY",
+  "model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "model_path": "/root/gpufree-share/data/Qwen3-8B"
 }
