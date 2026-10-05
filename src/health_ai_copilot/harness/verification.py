@@ -11,7 +11,7 @@ _ABSTENTION_MARKERS = (
     "insufficient evidence", "cannot determine", "can't determine", "unable to determine",
     "cannot reliably answer", "not enough information", "无法判断", "证据不足", "无法可靠",
 )
-ANSWER_PARSER_REVISION = "deterministic-mcq-parser-v6"
+ANSWER_PARSER_REVISION = "deterministic-mcq-parser-v7"
 
 
 def parse_answer(text: str, schema: AnswerSchema) -> str | tuple[str, ...] | None:
@@ -69,6 +69,10 @@ def parse_answer(text: str, schema: AnswerSchema) -> str | tuple[str, ...] | Non
         candidate = _unwrap_markdown(explicit or compact or (lines[0] if lines else ""))
         candidate = re.sub(r"[*`]", "", candidate)
         candidate = re.sub(r"(?<!\w)_([^_]+)_(?!\w)", r"\1", candidate)
+        if explicit is not None:
+            enumerated = _enumerated_multi_choice_labels(candidate)
+            if enumerated:
+                return enumerated
         candidate = re.sub(r"\bAND\b", ",", candidate, flags=re.IGNORECASE)
         candidate = re.sub(
             r"^(?:多选题答案|正确答案|答案|选项字母|正确选项|最佳选项|选项)(?:是)?\s*[:：=]?\s*",
@@ -85,6 +89,31 @@ def parse_answer(text: str, schema: AnswerSchema) -> str | tuple[str, ...] | Non
         )
         return tuple(sorted(set(re.findall(r"[A-Z]", match.group(1).upper())))) if match else None
     raise ValueError(f"unsupported answer schema: {schema}")
+
+
+def _enumerated_multi_choice_labels(text: str) -> tuple[str, ...] | None:
+    """Read option labels from an explicit answer line that includes option text.
+
+    For example, ``正确选项：B. 心、C. 肾、D. 脾`` is an answer set, not
+    the single label B followed by rationale. Restrict subsequent labels to
+    item separators so ordinary capital letters in the option text are ignored.
+    """
+    value = re.sub(
+        r"^(?:final\s+)?(?:correct\s+)?(?:answer|options?|choices?|答案|正确答案|多选题答案|选项字母|正确选项|最佳选项)\s*[:：=-]?\s*",
+        "",
+        text.strip(),
+        flags=re.IGNORECASE,
+    )
+    labels = [
+        match.group(1).upper()
+        for match in re.finditer(
+            r"(?:^|[,，、;；])\s*([A-E])\s*[.)](?=\s*\S)",
+            value,
+        )
+    ]
+    if len(labels) < 2:
+        return None
+    return tuple(sorted(set(labels)))
 
 
 def is_explicit_abstention(text: str) -> bool:

@@ -1,0 +1,201 @@
+{
+  "case_parse_or_score_diffs": {
+    "cmb-common-1024": {
+      "B0": [],
+      "B2": [
+        {
+          "b0_correct_v6": false,
+          "case_id": "cmb:10555",
+          "correct_v6": false,
+          "correct_v7": true,
+          "parsed_v6": [
+            "B"
+          ],
+          "parsed_v7": [
+            "B",
+            "D"
+          ]
+        },
+        {
+          "b0_correct_v6": true,
+          "case_id": "cmb:10699",
+          "correct_v6": false,
+          "correct_v7": true,
+          "parsed_v6": [
+            "B"
+          ],
+          "parsed_v7": [
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "b0_correct_v6": false,
+          "case_id": "cmb:11188",
+          "correct_v6": false,
+          "correct_v7": false,
+          "parsed_v6": [
+            "B"
+          ],
+          "parsed_v7": [
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "b0_correct_v6": true,
+          "case_id": "cmb:3921",
+          "correct_v6": false,
+          "correct_v7": true,
+          "parsed_v6": [
+            "B"
+          ],
+          "parsed_v7": [
+            "B",
+            "C",
+            "D",
+            "E"
+          ]
+        },
+        {
+          "b0_correct_v6": true,
+          "case_id": "cmb:9375",
+          "correct_v6": false,
+          "correct_v7": true,
+          "parsed_v6": [
+            "C"
+          ],
+          "parsed_v7": [
+            "C",
+            "E"
+          ]
+        },
+        {
+          "b0_correct_v6": false,
+          "case_id": "cmb:9881",
+          "correct_v6": false,
+          "correct_v7": false,
+          "parsed_v6": [
+            "C"
+          ],
+          "parsed_v7": [
+            "C",
+            "D"
+          ]
+        }
+      ]
+    },
+    "diagnosisarena-915": {
+      "B0": [],
+      "B2": []
+    }
+  },
+  "created_at_utc": "2026-10-05T06:03:13.093423+00:00",
+  "diagnosisarena_adaptive_failure_reasons": {
+    "TypeError:invalid_team_recruitment": 219,
+    "ValueError:insufficient_specialists_recruited": 1,
+    "ValueError:invalid_complexity_output": 10
+  },
+  "diagnosisarena_b0_correct_loss_failure_reasons": {
+    "TypeError:invalid_team_recruitment": 89,
+    "ValueError:insufficient_specialists_recruited": 1,
+    "ValueError:invalid_complexity_output": 5
+  },
+  "input_case_file_sha256": {
+    "cmb-common-1024/B0": "db516f4e8a98335b679588d1ce1e8555cdc38777022fcc0be42673fc653cec5a",
+    "cmb-common-1024/B2": "3a6e4ce1d8f77851c21c82ef4e49339fdfd35347484a44159bd4f50591384f61",
+    "diagnosisarena-915/B0": "b81831a5ef4ef5044ea4daed1b71998e8b3a3fd39565d9be2947e8a30bfc98a2",
+    "diagnosisarena-915/B2": "6c1a0487129265ab708284d92ae505bacca26a1a1f698beffcfeef39c88e1070"
+  },
+  "memory_mode": "off for B0 and B2",
+  "metrics": {
+    "cmb-common-1024": {
+      "B0": {
+        "n": 1024,
+        "v6_accuracy": 0.623046875,
+        "v6_correct": 638,
+        "v7_accuracy": 0.623046875,
+        "v7_answer_format_failures": 0,
+        "v7_correct": 638,
+        "v7_parse_success": 969,
+        "v7_reasoning_failures": 0
+      },
+      "B2": {
+        "n": 1024,
+        "v6_accuracy": 0.6787109375,
+        "v6_correct": 695,
+        "v7_accuracy": 0.6826171875,
+        "v7_answer_format_failures": 0,
+        "v7_correct": 699,
+        "v7_parse_success": 960,
+        "v7_reasoning_failures": 9
+      },
+      "trace_execution": {
+        "memory_events": 0,
+        "retrieval_calls": 0,
+        "retrieval_events": 0
+      }
+    },
+    "diagnosisarena-915": {
+      "B0": {
+        "n": 915,
+        "v6_accuracy": 0.3704918032786885,
+        "v6_correct": 339,
+        "v7_accuracy": 0.3704918032786885,
+        "v7_answer_format_failures": 0,
+        "v7_correct": 339,
+        "v7_parse_success": 915,
+        "v7_reasoning_failures": 0
+      },
+      "B2": {
+        "n": 915,
+        "v6_accuracy": 0.30601092896174864,
+        "v6_correct": 280,
+        "v7_accuracy": 0.30601092896174864,
+        "v7_answer_format_failures": 0,
+        "v7_correct": 280,
+        "v7_parse_success": 685,
+        "v7_reasoning_failures": 230
+      },
+      "trace_execution": {
+        "memory_events": 0,
+        "retrieval_calls": 0,
+        "retrieval_events": 0
+      }
+    }
+  },
+  "model_calls": 0,
+  "notes": [
+    "No generation was performed; parser v7 rescored stored answer_text only.",
+    "Parser-v6 artifacts remain unchanged.",
+    "All B0/B2 run manifests specify retrieval_mode=off and memory_mode=off; B2 traces have zero retrieval or memory events."
+  ],
+  "output_case_file_sha256": {
+    "cmb-common-1024/B0": "db516f4e8a98335b679588d1ce1e8555cdc38777022fcc0be42673fc653cec5a",
+    "cmb-common-1024/B2": "2d3cddb245b631b4f4774a9058491ea00ff01d0cf570e9c569c376e78be560b4",
+    "diagnosisarena-915/B0": "b81831a5ef4ef5044ea4daed1b71998e8b3a3fd39565d9be2947e8a30bfc98a2",
+    "diagnosisarena-915/B2": "6c1a0487129265ab708284d92ae505bacca26a1a1f698beffcfeef39c88e1070"
+  },
+  "paired": {
+    "cmb-common-1024": {
+      "b0_only_correct": 47,
+      "b2_only_correct": 108,
+      "delta_correct": 61,
+      "delta_pp": 5.957
+    },
+    "diagnosisarena-915": {
+      "b0_only_correct": 162,
+      "b2_only_correct": 103,
+      "delta_correct": -59,
+      "delta_pp": -6.4481
+    }
+  },
+  "parser_sha256": "a3d1d42a7f53c3a2b5924863d5826eb463839972b9a721215ad2cf01f684a5e3",
+  "retrieval_mode": "off for B0 and B2",
+  "schema_version": "harness-v1-parser-v7-offline-audit-v1",
+  "scoring_revision": "deterministic-mcq-parser-v7",
+  "source_commit": "e851b250d039c811e075265d30c04ca2a4397811",
+  "source_scoring_revision": "deterministic-mcq-parser-v6"
+}

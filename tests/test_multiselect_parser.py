@@ -42,3 +42,22 @@ def test_single_choice_json_value_may_include_choice_text() -> None:
     ) == "C"
     assert parse_answer("单选题答案：E. 以上均是", AnswerSchema.SINGLE_CHOICE) == "E"
     assert parse_answer("**Correct options: B. 丁香**", AnswerSchema.MULTI_SELECT) == ("B",)
+
+
+def test_multiselect_keeps_all_labels_when_explicit_answer_lists_option_text() -> None:
+    assert parse_answer(
+        "**正确选项：B. 心、C. 肾、D. 脾**\n\n理由：……",
+        AnswerSchema.MULTI_SELECT,
+    ) == ("B", "C", "D")
+    assert parse_answer(
+        "**Correct options: B. mannitol, D. sucrose**",
+        AnswerSchema.MULTI_SELECT,
+    ) == ("B", "D")
+    assert parse_answer(
+        "正确选项：C. 脾, E. 肾",
+        AnswerSchema.MULTI_SELECT,
+    ) == ("C", "E")
+    assert parse_answer(
+        "正确选项：A、B、C、D",
+        AnswerSchema.MULTI_SELECT,
+    ) == ("A", "B", "C", "D")
