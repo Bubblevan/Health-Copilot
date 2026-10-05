@@ -1,0 +1,36 @@
+{
+  "api": "openai-compatible-vllm",
+  "base_url": "http://127.0.0.1:8001/v1",
+  "served_model": "Qwen/Qwen3-8B",
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "gpu": "NVIDIA L40",
+  "dtype": "bfloat16",
+  "kv_cache_dtype": "fp8",
+  "vllm_version": "0.30.1rc1.dev622+gf03026a54",
+  "torch_version": "2.13.0+cu130",
+  "cuda_runtime": "13.0",
+  "seed": 20261004,
+  "seed_scope": "vLLM server engine seed; API requests are greedy temperature=0 and do not send per-request seed",
+  "temperature": 0.0,
+  "do_sample": false,
+  "max_output_tokens": 512,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  },
+  "gpu_memory_utilization": 0.4,
+  "max_model_len": 8192,
+  "max_num_seqs": 1,
+  "max_num_batched_tokens": 8192,
+  "prefix_caching": false,
+  "tensor_parallel_size": 1,
+  "attention_backend": "auto",
+  "enforce_eager": false,
+  "max_input_tokens_observed_in_prior_full_run": 1966,
+  "model_generation_config_defaults": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95
+  },
+  "effective_decoding_note": "The provider sends temperature=0; in vLLM this uses greedy decoding. Sampling defaults from generation_config.json do not introduce sampling at temperature zero.",
+  "case_concurrency": 1
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "common-eval-seed-repeat-audit-v1",
+  "status": "SAMPLE_COMPLETE_FULL_RERUN_NOT_RUN",
+  "selection_seed": 20261004,
+  "vllm_engine_seed": 20261004,
+  "temperature": 0.0,
+  "decoding": "greedy; provider does not send per-request seed",
+  "model_checkpoint_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "parser_revision": "deterministic-mcq-parser-v7",
+  "runtime_config_sha256": "0c1aca5a9d90fed196f58dd7ef106769890fb4c3c26bcaa3eff5bb26f47eb27e",
+  "serving": {
+    "base_url": "http://127.0.0.1:8001/v1",
+    "seed": 20261004,
+    "max_model_len": 8192,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 8192,
+    "gpu_memory_utilization": 0.4,
+    "case_concurrency": 1,
+    "dtype": "bfloat16",
+    "kv_cache_dtype": "fp8",
+    "vllm_version": "0.30.1rc1.dev622+gf03026a54"
+  },
+  "datasets": {
+    "cmb-common-1024": {
+      "sample_n": 20,
+      "sample_ids_path": "smoke20-cmb-ids.json",
+      "sample_ids_sha256": "a504be8585da9dffe566e475acf6ba6e4593248ccb7802c603c799dab8f92cbf",
+      "B0": {
+        "correct": 16,
+        "parse_success": 20,
+        "same_parsed_as_original": 19,
+        "same_case_correctness_as_original": 20,
+        "same_raw_text_as_original": 17
+      },
+      "B2": {
+        "correct": 17,
+        "parse_success": 20,
+        "same_parsed_as_original": 20,
+        "same_case_correctness_as_original": 20,
+        "same_raw_text_as_original": 4,
+        "route_agreement": 19
+      }
+    },
+    "diagnosisarena-915": {
+      "sample_n": 20,
+      "sample_ids_path": "smoke20-diagnosisarena-ids.json",
+      "sample_ids_sha256": "d6975298f1cc1e66b3875c55b5694d4742d482e04e8d3dccd496533e5498e658",
+      "B0": {
+        "correct": 9,
+        "parse_success": 20,
+        "same_parsed_as_original": 17,
+        "same_case_correctness_as_original": 18,
+        "same_raw_text_as_original": 15,
+        "correctness_flips": [
+          {
+            "case_id": "diagnosisarena:102",
+            "old": true,
+            "repeat": false
+          },
+          {
+            "case_id": "diagnosisarena:108",
+            "old": false,
+            "repeat": true
+          }
+        ]
+      },
+      "B2": {
+        "correct": 8,
+        "parse_success": 16,
+        "same_parsed_as_original": 15,
+        "same_case_correctness_as_original": 16,
+        "same_raw_text_as_original": 7,
+        "route_agreement": 13,
+        "reasoning_failures": {
+          "TypeError": 4
+        },
+        "recovered_from_prior_mdt_fallbacks": [
+          "diagnosisarena:100",
+          "diagnosisarena:101",
+          "diagnosisarena:109",
+          "diagnosisarena:112"
+        ],
+        "repeat_typeerror_cases": [
+          "diagnosisarena:103",
+          "diagnosisarena:104",
+          "diagnosisarena:106",
+          "diagnosisarena:11"
+        ]
+      }
+    }
+  },
+  "invalid_attempt": {
+    "dataset": "cmb-common-1024",
+    "profile": "B0",
+    "case_count": 1024,
+    "status": "INVALID_INFRASTRUCTURE_FAILURE",
+    "reason": "FlashInfer illegal memory access at case concurrency 4; retained checkpoint invalid for scoring"
+  },
+  "retrieval_mode": "off",
+  "memory_mode": "off",
+  "infrastructure_attempts": [
+    {
+      "max_model_len": 32768,
+      "status": "FAILED_BEFORE_RUN",
+      "reason": "Only 0.76 GiB KV cache available; 2.25 GiB required for one 32768-token request."
+    },
+    {
+      "max_model_len": 8192,
+      "max_num_seqs": 8,
+      "case_concurrency": 4,
+      "status": "INVALID_INFRASTRUCTURE_FAILURE",
+      "reason": "FlashInfer BatchPrefillWithPagedKVCache CUDA illegal memory access; B0 full checkpoint retained but invalid."
+    },
+    {
+      "max_model_len": 8192,
+      "max_num_seqs": 1,
+      "case_concurrency": 1,
+      "status": "SAMPLE_COMPLETE",
+      "reason": "All four 20-case profile/dataset runs completed; standard torch.compile and JIT warmup succeeded."
+    }
+  ]
+}
