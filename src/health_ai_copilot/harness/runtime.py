@@ -179,7 +179,11 @@ class HealthCopilotHarness:
                     retrieval_result = await asyncio.wait_for(
                         self.retrieval_provider.retrieve(
                             query=request.query,
-                            context=_RuntimeContext(request),
+                            context=_RuntimeContext(
+                                request_id=request.request_id,
+                                subject_id=request.subject_id,
+                                as_of_time=request.as_of_time,
+                            ),
                         ),
                         timeout=timeout,
                     )
