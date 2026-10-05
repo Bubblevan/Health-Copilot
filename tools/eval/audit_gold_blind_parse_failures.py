@@ -68,9 +68,40 @@ def _explicit_answer_statements(text: str) -> list[tuple[str, ...]]:
     return statements
 
 
-def _classify_unparsed(answer: str, safety_flags: list[str], schema: AnswerSchema) -> tuple[str, dict[str, Any]]:
-    if any(flag.startswith("reasoning_failure:") for flag in safety_flags):
-        return "C_ORCHESTRATOR_OR_RUNTIME_FAILURE", {}
+def _classify_unparsed(
+    answer: str,
+    safety_flags: list[str],
+    schema: AnswerSchema,
+    failure_diagnostics: dict[str, Any] | None = None,
+) -> tuple[str, dict[str, Any]]:
+    reasoning_failure = next(
+        (flag.partition(":")[2] for flag in safety_flags if flag.startswith("reasoning_failure:")),
+        None,
+    )
+    if reasoning_failure is not None:
+        diagnostics = failure_diagnostics or {}
+        reason_text = " ".join(
+            [str(diagnostics.get("fallback_reason", "")), *diagnostics.get("validation_errors", ())]
+        ).casefold()
+        details = {
+            "reasoning_failure_code": reasoning_failure,
+            "strategy_failure_reason": diagnostics.get("fallback_reason"),
+        }
+        if any(marker in reason_text for marker in (
+            "invalid_complexity_output", "ambiguous_complexity_output",
+        )):
+            return "F_ADAPTIVE_CLASSIFIER_OUTPUT_INVALID", details
+        if any(marker in reason_text for marker in (
+            "invalid_team_recruitment", "invalid_specialist_recruitment",
+            "insufficient_specialists_recruited",
+        )):
+            return "G_ADAPTIVE_RECRUITMENT_OUTPUT_INVALID", details
+        if any(marker in reason_text for marker in (
+            "apiconnectionerror", "connectionerror", "apitimeouterror",
+            "timeouterror", "transporterror",
+        )):
+            return "H_PROVIDER_TRANSPORT_FAILURE", details
+        return "C_UNCLASSIFIED_ORCHESTRATOR_OR_RUNTIME_FAILURE", details
     if any(
         flag.startswith(("urgent_marker:", "prescription_marker:", "safety_route:"))
         for flag in safety_flags
@@ -93,6 +124,32 @@ def _classify_unparsed(answer: str, safety_flags: list[str], schema: AnswerSchem
 def _read_rows(path: Path) -> list[dict[str, Any]]:
     with path.open(encoding="utf-8") as handle:
         return [json.loads(line) for line in handle if line.strip()]
+
+
+def _read_reasoning_failure_diagnostics(path: Path) -> dict[str, dict[str, Any]]:
+    trace_path = path.with_name("traces.jsonl")
+    if not trace_path.is_file():
+        return {}
+    diagnostics: dict[str, dict[str, Any]] = {}
+    for trace in _read_rows(trace_path):
+        trace_id = str(trace.get("trace_id", ""))
+        if not trace_id:
+            continue
+        for event in trace.get("events", ()):
+            fields = event.get("fields", {})
+            if (
+                event.get("kind") == "reasoning_detail"
+                and fields.get("event") == "adaptive_validation_audit"
+            ):
+                validation_errors = fields.get("validation_errors", ())
+                diagnostics[trace_id] = {
+                    "fallback_reason": fields.get("fallback_reason"),
+                    "validation_errors": [
+                        str(item.get("error", "")) if isinstance(item, dict) else str(item)
+                        for item in validation_errors
+                    ],
+                }
+    return diagnostics
 
 
 def _candidate_schemas() -> tuple[dict[str, AnswerSchema], dict[str, str]]:
@@ -134,6 +191,7 @@ def audit(runs: dict[str, Path], output: Path) -> dict[str, Any]:
         unparsed_cases: list[dict[str, Any]] = []
         parser_mismatches: list[str] = []
         rows = _read_rows(path)
+        trace_diagnostics = _read_reasoning_failure_diagnostics(path)
         for row in rows:
             case_id = row.get("case_id")
             response = row.get("response", {})
@@ -154,7 +212,12 @@ def audit(runs: dict[str, Path], output: Path) -> dict[str, Any]:
                 continue
             flags = response.get("safety_flags", [])
             flags = [str(item) for item in flags] if isinstance(flags, list) else []
-            category, details = _classify_unparsed(answer, flags, schema)
+            category, details = _classify_unparsed(
+                answer,
+                flags,
+                schema,
+                trace_diagnostics.get(str(response.get("trace_id", ""))),
+            )
             category_counts[category] += 1
             record = {
                 "case_id": str(case_id),
@@ -174,10 +237,14 @@ def audit(runs: dict[str, Path], output: Path) -> dict[str, Any]:
             "categories": dict(sorted(category_counts.items())),
             "parser_mismatches_vs_frozen_response": parser_mismatches,
             "checkpoint_sha256": file_sha256(path),
+            "trace_checkpoint_sha256": (
+                file_sha256(path.with_name("traces.jsonl"))
+                if path.with_name("traces.jsonl").is_file() else None
+            ),
             "cases": unparsed_cases,
         }
     result = {
-        "schema_version": "gold-blind-parser-failure-audit-v1",
+        "schema_version": "gold-blind-parser-failure-audit-v2",
         "status": "REVIEW_REQUIRED" if all_candidates or any(
             run["parser_mismatches_vs_frozen_response"] for run in run_results.values()
         ) else "NO_PARSER_FALSE_NEGATIVE_CANDIDATES_FOUND",
@@ -192,6 +259,7 @@ def audit(runs: dict[str, Path], output: Path) -> dict[str, Any]:
         "candidate_view_sha256": candidate_hashes,
         "parser_missed_explicit_choice_candidates": all_candidates,
         "gold_accessed": False,
+        "trace_diagnostics_opened": True,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
