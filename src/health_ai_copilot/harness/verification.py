@@ -99,7 +99,9 @@ def _enumerated_multi_choice_labels(text: str) -> tuple[str, ...] | None:
     item separators so ordinary capital letters in the option text are ignored.
     """
     value = re.sub(
-        r"^(?:final\s+)?(?:correct\s+)?(?:answer|options?|choices?|答案|正确答案|多选题答案|选项字母|正确选项|最佳选项)\s*[:：=-]?\s*",
+        r"^(?:final\s+)?(?:correct\s+)?"
+        r"(?:answer|options?|choices?|答案|正确答案|多选题答案|选项字母|正确选项|最佳选项)"
+        r"\s*[:：=-]?\s*",
         "",
         text.strip(),
         flags=re.IGNORECASE,
