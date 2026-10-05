@@ -201,8 +201,25 @@ def audit(runs: dict[str, Path], output: Path) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "runs/common_eval/harness-v1-base-20261005/parser-audit-v7-gold-blind/audit.json")
+    parser.add_argument(
+        "--run",
+        action="append",
+        default=[],
+        metavar="NAME=CASES_JSONL",
+        help="audit a specific run; repeat for each arm. Defaults to the historical B0/B2 set.",
+    )
     args = parser.parse_args()
-    result = audit(DEFAULT_RUNS, args.output)
+    runs = dict(DEFAULT_RUNS)
+    if args.run:
+        runs = {}
+        for item in args.run:
+            name, separator, path = item.partition("=")
+            if not separator or not name or not path:
+                parser.error("--run must have NAME=CASES_JSONL form")
+            if name in runs:
+                parser.error(f"duplicate --run name: {name}")
+            runs[name] = Path(path)
+    result = audit(runs, args.output)
     print(json.dumps({
         "output": str(args.output),
         "status": result["status"],

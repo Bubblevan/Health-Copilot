@@ -41,5 +41,5 @@
     "readiness": "BLOCKED_MISSING_SNAPSHOT"
   },
   "stateless_profiles_memory_mode": "off",
-  "common_medical_kb_v1_ready": false
+  "common_medical_kb_v1_ready": true
 }

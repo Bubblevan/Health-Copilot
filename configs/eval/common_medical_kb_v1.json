@@ -1,14 +1,431 @@
 {
-  "corpus_id": null,
-  "status": "BLOCKED_NO_QUALIFIED_COMMON_CORPUS",
-  "source_list": [],
-  "use_status": null,
-  "document_hashes": [],
-  "index_hash": null,
-  "bm25_index_config": null,
-  "dense_encoder_version": null,
-  "rrf_config": null,
-  "retrieval_top_k": null,
-  "provider_factory": null,
-  "readiness": "NO"
+  "artifact_root": "/root/gpufree-share/data/health-copilot/common-medical-kb-v1",
+  "bm25_index_config": {
+    "b": 0.75,
+    "fields": [
+      "title",
+      "content",
+      "tags"
+    ],
+    "implementation": "health_ai_copilot.retrieval.bm25.BM25Retriever",
+    "k1": 1.5,
+    "tokenizer": "jieba-nfkc-lowercase-v1"
+  },
+  "build_environment": {
+    "embedding_device": "cpu",
+    "packages": {
+      "jieba": "0.42.1",
+      "numpy": "2.3.5",
+      "safetensors": "0.8.0",
+      "sentence-transformers": "6.1.0",
+      "torch": "2.13.0+cu130",
+      "transformers": "5.17.0"
+    },
+    "python": "3.11.17"
+  },
+  "corpus_id": "COMMON_MEDICAL_KB_V1_CDC_WHO_BP_26_399c528c7784",
+  "corpus_scope": "Hypertension patient education only; 21 CDC and 5 WHO cards.",
+  "corpus_sha256": "399c528c7784b1a722e20c181d6889f2c4a043d56240bf6e5dd1d4824da5f4e0",
+  "dense_encoder": {
+    "device": "cpu",
+    "dimension": 1024,
+    "document_prefix": "",
+    "model": "BAAI/bge-large-en-v1.5",
+    "model_file_hashes": {
+      "1_Pooling/config.json": "e54c164a07274f2eb45bb724f54a79d1efcc90c41573887cd9a29aeee0597352",
+      "config.json": "446712fac367857b4b1302762fe1cd7bfa8b3c4b77b4dc5d77c4025407660896",
+      "config_sentence_transformers.json": "940d5f50db195fa6e5e6a4f122c095f77880de259d74b14a65779ed48bdd7c56",
+      "modules.json": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+      "sentence_bert_config.json": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf",
+      "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+      "tokenizer_config.json": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3",
+      "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+    },
+    "model_root": "/root/gpufree-share/models/bge-large-en-v1.5",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+    "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+  },
+  "dense_index_manifest": {
+    "build_commit": "common-medical-kb-v1-bge-hybrid",
+    "corpus_sha256": "cd2242bbce8e8f0c9b342402e042a080a9c2218a1cee89629822e8013a771ea0",
+    "document_count": 26,
+    "embedding_dimension": 1024,
+    "embedding_identity": "BAAI/bge-large-en-v1.5@d4aa6901d3a41ba39fb536a557fa166f842b0e09:45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+    "knowledge_pack_version": "COMMON_MEDICAL_KB_V1_CDC_WHO_BP_26_399c528c7784",
+    "normalized": true
+  },
+  "dense_vectors_sha256": "595559b8d3a5b3c56bd8b5599872221c2ba6a9241ae28418d9a9019b69846760",
+  "document_hashes": {
+    "cdc-high-blood-pressure-about-01-us-threshold": "7a47bc14878338cad2d879822b91f308f9b611043d7efafada5707a4e5bcafde",
+    "cdc-high-blood-pressure-about-02-symptoms": "4d4e2883910a8fef42ffda4961115d1ba3424007101e1945c3b486bb2ef6006d",
+    "cdc-high-blood-pressure-about-03-organ-risks": "d34ae985222ceec51296fae750341ee1881b472c0500347ef00ab9f85e1bf5e8",
+    "cdc-high-blood-pressure-managing-01-monitoring": "1ce7d9c6afdbd4295bff25a02b6609a9123e478aaf5c9374e26930194f903528",
+    "cdc-high-blood-pressure-managing-02-care-plan": "78a8abca59c957a16dec1131e650a0a5ff2b9578d3f51838c4d41ac278e3f5a9",
+    "cdc-high-blood-pressure-managing-03-medicine-safety": "588112a91ccb4a11622106cf6493b66586a5f873527c7e0e5f58e3de1d330558",
+    "cdc-high-blood-pressure-managing-04-otc": "54c5af239bc69b39e3f1e48bfeaaef0741f505f88eb36c714093069559ae85cc",
+    "cdc-high-blood-pressure-measuring-01-home": "ca01921cc4c4c49dbfede03331f558e7493c409e6724544939ed3a50345f8795",
+    "cdc-high-blood-pressure-measuring-02-repeat": "02508b2aa0e72455af8208464c4ab93ad1c7630ad9e484d0e4d4b6aa0cd1979d",
+    "cdc-high-blood-pressure-measuring-03-before-reading": "7e76f2934790aab1d1b37e36603bf3541b0449ff5e3ff03b29f9561babdeec8f",
+    "cdc-high-blood-pressure-measuring-04-position": "18fc3abb265e620d12cf50c6b219837e29c648eb96ef4effe8d5fddadfcd5b7f",
+    "cdc-high-blood-pressure-measuring-05-white-coat": "720744ff2e0f24eeb5463d25aa3c411ca0e6688d8c0486a5d1db83b0effb68c8",
+    "cdc-high-blood-pressure-prevention-01-diet": "6c24dc5d0d60fbc1639aeb5ac3b2b3af9fe45dff0316431eec1eb4639c96ad0d",
+    "cdc-high-blood-pressure-prevention-02-dash": "6c63e6243feb93fc78e7e8c7feebeb2af6bf44a79a1f9ab297aaefac89b8bb7f",
+    "cdc-high-blood-pressure-prevention-03-activity": "1ae6478959006f7dbd0fdecd40223f81085d54d64415a5be3e4a4a49b8a8b480",
+    "cdc-high-blood-pressure-prevention-04-sleep": "d4b5413e097e6511bc7f9caf9558eda7a16f2e1a1abbd91b0cd480ef9c6e4fbd",
+    "cdc-high-blood-pressure-risk-01-sodium": "a546bbeb1f07631031f15a847b89ab75c1376293243a7e8177f49e53228dc83e",
+    "cdc-high-blood-pressure-risk-02-inactivity": "3c150947b33e1ee181b16decfdba69edac3a382aaba64478ccfd317d8f96800c",
+    "cdc-high-blood-pressure-risk-03-alcohol": "8cf4889beb397aa2716f95830d2ab7e5eef414184b195f9030b0c5c551cb775a",
+    "cdc-high-blood-pressure-risk-04-tobacco": "48bca4be941ae99246cdf01758816f1cda855eb209c83e691a7d58c42dfb6469",
+    "cdc-high-blood-pressure-risk-05-overweight": "aebfc8977d945af3da7258ef1eaaac5fb4cb1a18978e073fe9c540e6f66a7c53",
+    "who-hypertension-01-definition": "da5801a8677c1cbfb8a266394a64638c57a75fde6ebab6016c0bacac420c5517",
+    "who-hypertension-02-confirmation": "c74c4bead9bd22883507b293ef47665a9b5e8ba20815f832771b4d8422badfd4",
+    "who-hypertension-03-silent": "a269943d1463e2a89ecb16dcf5d3c8a741f29b68f464786fb8bd16f2503cd583",
+    "who-hypertension-04-risk-factors": "312988890a2a75f40d208e291270ea4e90b99a0f89a29ca0292245c692d7ad8f",
+    "who-hypertension-05-lifestyle": "46637a4c6ebc379fca2fe93a27a8a04c3366fb460f613ec43f9519f91278ee76"
+  },
+  "implementation_hashes": {
+    "src/health_ai_copilot/knowledge/loader.py": "03077cc07640d64a7b6ad30f398fedd74590f6846a72cd46943c78a85a0746d9",
+    "src/health_ai_copilot/providers/common_medical_kb_v1.py": "acba5951819aa1db9ea2f19a9cfb52da9c4cc134e35e761c9734aa0be5b36250",
+    "src/health_ai_copilot/providers/retrieval.py": "1c583cfd925c9472df4ee839ca0e60f4bd706bdac38c9701225606cd62fbdb39",
+    "src/health_ai_copilot/retrieval/bm25.py": "b49e0b15b6d2fa8545fa8393ea586195150d23d9b897291e9a945e7b89b6f8e2",
+    "src/health_ai_copilot/retrieval/dense.py": "caaa9b55597c57f4916aa24b075f19dce008821a76dc20cfbab67c303762e9b1",
+    "src/health_ai_copilot/retrieval/documents.py": "22f7dba807ff560cfafeaf484d2a9912853e7558ca175340e3017725517559f6",
+    "src/health_ai_copilot/retrieval/hybrid.py": "3cde76c44e15d58f757d2976792b4129c06d0ceb007a3d526d1de82cc35ef192",
+    "src/health_ai_copilot/retrieval/tokenizer.py": "3fcd07671c7864c9bd5079683ed9b55deff6cc3c4df1cd3bfc1401014998722e",
+    "tools/eval/build_common_medical_kb_v1.py": "29a2200eb375edaa2802ceb12ce8aa03754083dc131ead2c39445f51509fe80c"
+  },
+  "index_hash": "e9ad9ff82073f63867487c118602d5da1e7c4f156dec6ea31d4a3005b8f3834c",
+  "index_identity_payload": {
+    "bm25_config": {
+      "b": 0.75,
+      "fields": [
+        "title",
+        "content",
+        "tags"
+      ],
+      "implementation": "health_ai_copilot.retrieval.bm25.BM25Retriever",
+      "k1": 1.5,
+      "tokenizer": "jieba-nfkc-lowercase-v1"
+    },
+    "build_environment": {
+      "embedding_device": "cpu",
+      "packages": {
+        "jieba": "0.42.1",
+        "numpy": "2.3.5",
+        "safetensors": "0.8.0",
+        "sentence-transformers": "6.1.0",
+        "torch": "2.13.0+cu130",
+        "transformers": "5.17.0"
+      },
+      "python": "3.11.17"
+    },
+    "corpus_sha256": "399c528c7784b1a722e20c181d6889f2c4a043d56240bf6e5dd1d4824da5f4e0",
+    "dense_encoder": {
+      "device": "cpu",
+      "dimension": 1024,
+      "document_prefix": "",
+      "model": "BAAI/bge-large-en-v1.5",
+      "model_file_hashes": {
+        "1_Pooling/config.json": "e54c164a07274f2eb45bb724f54a79d1efcc90c41573887cd9a29aeee0597352",
+        "config.json": "446712fac367857b4b1302762fe1cd7bfa8b3c4b77b4dc5d77c4025407660896",
+        "config_sentence_transformers.json": "940d5f50db195fa6e5e6a4f122c095f77880de259d74b14a65779ed48bdd7c56",
+        "modules.json": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+        "sentence_bert_config.json": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf",
+        "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+        "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+        "tokenizer_config.json": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3",
+        "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      },
+      "query_prefix": "Represent this sentence for searching relevant passages: ",
+      "revision": "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+      "weights_sha256": "45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7"
+    },
+    "dense_index_manifest": {
+      "build_commit": "common-medical-kb-v1-bge-hybrid",
+      "corpus_sha256": "cd2242bbce8e8f0c9b342402e042a080a9c2218a1cee89629822e8013a771ea0",
+      "document_count": 26,
+      "embedding_dimension": 1024,
+      "embedding_identity": "BAAI/bge-large-en-v1.5@d4aa6901d3a41ba39fb536a557fa166f842b0e09:45e1954914e29bd74080e6c1510165274ff5279421c89f76c418878732f64ae7",
+      "knowledge_pack_version": "COMMON_MEDICAL_KB_V1_CDC_WHO_BP_26_399c528c7784",
+      "normalized": true
+    },
+    "dense_vectors_sha256": "595559b8d3a5b3c56bd8b5599872221c2ba6a9241ae28418d9a9019b69846760",
+    "implementation_hashes": {
+      "src/health_ai_copilot/knowledge/loader.py": "03077cc07640d64a7b6ad30f398fedd74590f6846a72cd46943c78a85a0746d9",
+      "src/health_ai_copilot/providers/common_medical_kb_v1.py": "acba5951819aa1db9ea2f19a9cfb52da9c4cc134e35e761c9734aa0be5b36250",
+      "src/health_ai_copilot/providers/retrieval.py": "1c583cfd925c9472df4ee839ca0e60f4bd706bdac38c9701225606cd62fbdb39",
+      "src/health_ai_copilot/retrieval/bm25.py": "b49e0b15b6d2fa8545fa8393ea586195150d23d9b897291e9a945e7b89b6f8e2",
+      "src/health_ai_copilot/retrieval/dense.py": "caaa9b55597c57f4916aa24b075f19dce008821a76dc20cfbab67c303762e9b1",
+      "src/health_ai_copilot/retrieval/documents.py": "22f7dba807ff560cfafeaf484d2a9912853e7558ca175340e3017725517559f6",
+      "src/health_ai_copilot/retrieval/hybrid.py": "3cde76c44e15d58f757d2976792b4129c06d0ceb007a3d526d1de82cc35ef192",
+      "src/health_ai_copilot/retrieval/tokenizer.py": "3fcd07671c7864c9bd5079683ed9b55deff6cc3c4df1cd3bfc1401014998722e",
+      "tools/eval/build_common_medical_kb_v1.py": "29a2200eb375edaa2802ceb12ce8aa03754083dc131ead2c39445f51509fe80c"
+    },
+    "retrieval_top_k": 5,
+    "rrf_config": {
+      "candidate_depth": 5,
+      "k": 60,
+      "weights": [
+        1,
+        1
+      ]
+    },
+    "source_manifest_sha256": "7da048435a7a4f579aae4aedc9acad147065b6040e1a4e663c8eba5dd9327bc7"
+  },
+  "provider_factory": "health_ai_copilot.providers.common_medical_kb_v1:common_medical_kb_v1_provider_factory",
+  "readiness": "YES",
+  "retrieval_top_k": 5,
+  "rrf_config": {
+    "candidate_depth": 5,
+    "k": 60,
+    "weights": [
+      1,
+      1
+    ]
+  },
+  "schema_version": "common-medical-kb-v1",
+  "source_inventory": [
+    {
+      "id": "cdc-high-blood-pressure-about-01-us-threshold",
+      "path": "cdc-high-blood-pressure-about-01-us-threshold.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "7a47bc14878338cad2d879822b91f308f9b611043d7efafada5707a4e5bcafde",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/about/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-about-02-symptoms",
+      "path": "cdc-high-blood-pressure-about-02-symptoms.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "4d4e2883910a8fef42ffda4961115d1ba3424007101e1945c3b486bb2ef6006d",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/about/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-about-03-organ-risks",
+      "path": "cdc-high-blood-pressure-about-03-organ-risks.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "d34ae985222ceec51296fae750341ee1881b472c0500347ef00ab9f85e1bf5e8",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/about/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-managing-01-monitoring",
+      "path": "cdc-high-blood-pressure-managing-01-monitoring.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "1ce7d9c6afdbd4295bff25a02b6609a9123e478aaf5c9374e26930194f903528",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-managing-02-care-plan",
+      "path": "cdc-high-blood-pressure-managing-02-care-plan.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "78a8abca59c957a16dec1131e650a0a5ff2b9578d3f51838c4d41ac278e3f5a9",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-managing-03-medicine-safety",
+      "path": "cdc-high-blood-pressure-managing-03-medicine-safety.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "588112a91ccb4a11622106cf6493b66586a5f873527c7e0e5f58e3de1d330558",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-managing-04-otc",
+      "path": "cdc-high-blood-pressure-managing-04-otc.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "54c5af239bc69b39e3f1e48bfeaaef0741f505f88eb36c714093069559ae85cc",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/living-with/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-measuring-01-home",
+      "path": "cdc-high-blood-pressure-measuring-01-home.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "ca01921cc4c4c49dbfede03331f558e7493c409e6724544939ed3a50345f8795",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-measuring-02-repeat",
+      "path": "cdc-high-blood-pressure-measuring-02-repeat.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "02508b2aa0e72455af8208464c4ab93ad1c7630ad9e484d0e4d4b6aa0cd1979d",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-measuring-03-before-reading",
+      "path": "cdc-high-blood-pressure-measuring-03-before-reading.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "7e76f2934790aab1d1b37e36603bf3541b0449ff5e3ff03b29f9561babdeec8f",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-measuring-04-position",
+      "path": "cdc-high-blood-pressure-measuring-04-position.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "18fc3abb265e620d12cf50c6b219837e29c648eb96ef4effe8d5fddadfcd5b7f",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-measuring-05-white-coat",
+      "path": "cdc-high-blood-pressure-measuring-05-white-coat.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "720744ff2e0f24eeb5463d25aa3c411ca0e6688d8c0486a5d1db83b0effb68c8",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/measure/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-prevention-01-diet",
+      "path": "cdc-high-blood-pressure-prevention-01-diet.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "6c24dc5d0d60fbc1639aeb5ac3b2b3af9fe45dff0316431eec1eb4639c96ad0d",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-prevention-02-dash",
+      "path": "cdc-high-blood-pressure-prevention-02-dash.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "6c63e6243feb93fc78e7e8c7feebeb2af6bf44a79a1f9ab297aaefac89b8bb7f",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-prevention-03-activity",
+      "path": "cdc-high-blood-pressure-prevention-03-activity.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "1ae6478959006f7dbd0fdecd40223f81085d54d64415a5be3e4a4a49b8a8b480",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-prevention-04-sleep",
+      "path": "cdc-high-blood-pressure-prevention-04-sleep.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "d4b5413e097e6511bc7f9caf9558eda7a16f2e1a1abbd91b0cd480ef9c6e4fbd",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/prevention/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-risk-01-sodium",
+      "path": "cdc-high-blood-pressure-risk-01-sodium.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "a546bbeb1f07631031f15a847b89ab75c1376293243a7e8177f49e53228dc83e",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-risk-02-inactivity",
+      "path": "cdc-high-blood-pressure-risk-02-inactivity.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "3c150947b33e1ee181b16decfdba69edac3a382aaba64478ccfd317d8f96800c",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-risk-03-alcohol",
+      "path": "cdc-high-blood-pressure-risk-03-alcohol.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "8cf4889beb397aa2716f95830d2ab7e5eef414184b195f9030b0c5c551cb775a",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-risk-04-tobacco",
+      "path": "cdc-high-blood-pressure-risk-04-tobacco.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "48bca4be941ae99246cdf01758816f1cda855eb209c83e691a7d58c42dfb6469",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html"
+    },
+    {
+      "id": "cdc-high-blood-pressure-risk-05-overweight",
+      "path": "cdc-high-blood-pressure-risk-05-overweight.json",
+      "publisher": "CDC",
+      "reviewed_at": "2026-09-15",
+      "sha256": "aebfc8977d945af3da7258ef1eaaac5fb4cb1a18978e073fe9c540e6f66a7c53",
+      "source_url": "https://www.cdc.gov/high-blood-pressure/risk-factors/index.html"
+    },
+    {
+      "id": "who-hypertension-01-definition",
+      "path": "who-hypertension-01-definition.json",
+      "publisher": "WHO",
+      "reviewed_at": "2026-09-15",
+      "sha256": "da5801a8677c1cbfb8a266394a64638c57a75fde6ebab6016c0bacac420c5517",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+    },
+    {
+      "id": "who-hypertension-02-confirmation",
+      "path": "who-hypertension-02-confirmation.json",
+      "publisher": "WHO",
+      "reviewed_at": "2026-09-15",
+      "sha256": "c74c4bead9bd22883507b293ef47665a9b5e8ba20815f832771b4d8422badfd4",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+    },
+    {
+      "id": "who-hypertension-03-silent",
+      "path": "who-hypertension-03-silent.json",
+      "publisher": "WHO",
+      "reviewed_at": "2026-09-15",
+      "sha256": "a269943d1463e2a89ecb16dcf5d3c8a741f29b68f464786fb8bd16f2503cd583",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+    },
+    {
+      "id": "who-hypertension-04-risk-factors",
+      "path": "who-hypertension-04-risk-factors.json",
+      "publisher": "WHO",
+      "reviewed_at": "2026-09-15",
+      "sha256": "312988890a2a75f40d208e291270ea4e90b99a0f89a29ca0292245c692d7ad8f",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+    },
+    {
+      "id": "who-hypertension-05-lifestyle",
+      "path": "who-hypertension-05-lifestyle.json",
+      "publisher": "WHO",
+      "reviewed_at": "2026-09-15",
+      "sha256": "46637a4c6ebc379fca2fe93a27a8a04c3366fb460f613ec43f9519f91278ee76",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+    }
+  ],
+  "source_list": [
+    "cdc-high-blood-pressure-about-01-us-threshold",
+    "cdc-high-blood-pressure-about-02-symptoms",
+    "cdc-high-blood-pressure-about-03-organ-risks",
+    "cdc-high-blood-pressure-managing-01-monitoring",
+    "cdc-high-blood-pressure-managing-02-care-plan",
+    "cdc-high-blood-pressure-managing-03-medicine-safety",
+    "cdc-high-blood-pressure-managing-04-otc",
+    "cdc-high-blood-pressure-measuring-01-home",
+    "cdc-high-blood-pressure-measuring-02-repeat",
+    "cdc-high-blood-pressure-measuring-03-before-reading",
+    "cdc-high-blood-pressure-measuring-04-position",
+    "cdc-high-blood-pressure-measuring-05-white-coat",
+    "cdc-high-blood-pressure-prevention-01-diet",
+    "cdc-high-blood-pressure-prevention-02-dash",
+    "cdc-high-blood-pressure-prevention-03-activity",
+    "cdc-high-blood-pressure-prevention-04-sleep",
+    "cdc-high-blood-pressure-risk-01-sodium",
+    "cdc-high-blood-pressure-risk-02-inactivity",
+    "cdc-high-blood-pressure-risk-03-alcohol",
+    "cdc-high-blood-pressure-risk-04-tobacco",
+    "cdc-high-blood-pressure-risk-05-overweight",
+    "who-hypertension-01-definition",
+    "who-hypertension-02-confirmation",
+    "who-hypertension-03-silent",
+    "who-hypertension-04-risk-factors",
+    "who-hypertension-05-lifestyle"
+  ],
+  "source_qualification": "docs/research/integration/u2d_external_evidence_qualification.json",
+  "source_qualification_sha256": "7da048435a7a4f579aae4aedc9acad147065b6040e1a4e663c8eba5dd9327bc7",
+  "status": "READY",
+  "use_status": "U2-D owner-qualified non-commercial external retrieval only; preserve CDC/WHO attribution and source links; no source-document redistribution or training."
 }

@@ -204,7 +204,7 @@ async def _run(args: argparse.Namespace) -> None:
             run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             for field in (
                 "git_sha", "model_config_sha256", "implementation_sha256",
-                "vllm_runtime_config_sha256",
+                "vllm_runtime_config_sha256", "retrieval_provider",
             ):
                 if run_manifest.get(field) != current_manifest.get(field):
                     raise SystemExit(f"resume refused: run manifest {field} changed")
@@ -375,6 +375,12 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
         ROOT / "src/health_ai_copilot/harness/runtime.py",
         ROOT / "src/health_ai_copilot/harness/verification.py",
         ROOT / "src/health_ai_copilot/providers/model.py",
+        ROOT / "src/health_ai_copilot/providers/retrieval.py",
+        ROOT / "src/health_ai_copilot/providers/common_medical_kb_v1.py",
+        ROOT / "src/health_ai_copilot/retrieval/bm25.py",
+        ROOT / "src/health_ai_copilot/retrieval/dense.py",
+        ROOT / "src/health_ai_copilot/retrieval/hybrid.py",
+        ROOT / "src/health_ai_copilot/retrieval/tokenizer.py",
         ROOT / "src/health_ai_copilot/reasoning/single.py",
         ROOT / "src/health_ai_copilot/reasoning/adaptive_mdt.py",
         ROOT / "src/health_ai_copilot/multi_agent/mdagents_style.py",
@@ -385,6 +391,8 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
         ROOT / "tools/eval/extract_failed_case_ids.py",
         ROOT / "tools/eval/audit_gold_blind_parse_failures.py",
         ROOT / "tools/eval/build_adaptive_failure_replay_manifest.py",
+        ROOT / "tools/eval/build_common_medical_kb_v1.py",
+        ROOT / "tools/eval/audit_common_kb_eval_overlap.py",
     )
     input_hashes = {
         "candidate_view_sha256": getattr(adapter, "candidate_sha256", None),
@@ -395,6 +403,22 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
         ),
         "combined_dataset_identity_sha256": getattr(adapter, "snapshot_sha256", None),
     }
+    retrieval_identity = None
+    if profile.retrieval_mode is RetrievalMode.STANDARD:
+        kb_path = ROOT / "configs/eval/common_medical_kb_v1.json"
+        kb_config = json.loads(kb_path.read_text(encoding="utf-8"))
+        artifact_manifest_path = Path(kb_config["artifact_root"]) / "manifest.json"
+        retrieval_identity = {
+            "manifest_path": str(kb_path),
+            "manifest_sha256": file_sha256(kb_path),
+            "corpus_id": kb_config["corpus_id"],
+            "corpus_sha256": kb_config["corpus_sha256"],
+            "source_qualification_sha256": kb_config["source_qualification_sha256"],
+            "index_hash": kb_config["index_hash"],
+            "dense_vectors_sha256": kb_config["dense_vectors_sha256"],
+            "artifact_manifest_path": str(artifact_manifest_path),
+            "artifact_manifest_sha256": file_sha256(artifact_manifest_path),
+        }
     return {
         "schema_version": "harness-v1-run-manifest",
         "git_sha": git_sha,
@@ -446,7 +470,7 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
             "max_tool_calls": 16,
             "deadline_ms": 120_000,
         }),
-        "retrieval_corpus": None if profile.retrieval_mode.value == "off" else "COMMON_MEDICAL_KB_V1",
+        "retrieval_provider": retrieval_identity,
     }
 
 

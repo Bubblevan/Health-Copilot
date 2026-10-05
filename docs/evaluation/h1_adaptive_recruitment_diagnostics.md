@@ -44,8 +44,8 @@ JSONL hashes: default-whitespace replay `d9fad119ad338f9f409350dd1a53004d60c07fb
 
 ## Evaluation status
 
-Historical parser-v7 B0/B2 scores remain development evidence. The old runs used thinking disabled, a 512-token cap, and incompletely matched vLLM settings. The new one-case smoke is not a baseline. Before the final factorial, use one actual vLLM process/config for B0/B1/B2/B3, run the gold-blind parser audit on the new outputs, and retain runtime failures in the accuracy denominator with a separate failure taxonomy. B1/B3 remain blocked until Common Medical KB V1 is qualified.
+Historical parser-v7 B0/B2 scores remain development evidence. Those runs used thinking disabled, a 512-token cap, and incompletely matched vLLM settings. The debug smokes and recruiter replay do not replace them. The parser-v7 gold-blind audit found no explicit-choice parser-miss candidates in the historical B0/B2 checkpoints; parser v7 is frozen for the next factorial, and the same audit must run on all new arms before scores are frozen.
 
-Current gate: `configs/eval/common_medical_kb_v1.json` remains `BLOCKED_NO_QUALIFIED_COMMON_CORPUS` (`readiness=NO`). No new full B0/B2 accuracy run and no B1/B3 run was started in this fix stage. The debug vLLM process on 8001 has been stopped after replay; port 8000 remains running and untouched.
+H1-C has qualified `COMMON_MEDICAL_KB_V1` for its documented narrow 21-CDC/5-WHO hypertension patient-education scope. Its corpus/index/provider identities and usage restrictions are in [the qualification record](common_medical_kb_v1_qualification.md). This makes B1/B3 eligible only for that declared corpus; it does not establish broad medical coverage or a retrieval accuracy gain. No final B0/B1/B2/B3 factorial has started yet. H1-D must capture the actual shared vLLM runtime first.
 
-The debug vLLM instance used only loopback port 8001. Port 8000 belongs to the separate Memory run and was not accessed or reconfigured.
+The debug vLLM instances used loopback port 8001 and are stopped. Port 8000 belongs to the separate Memory run and remains running and untouched.
