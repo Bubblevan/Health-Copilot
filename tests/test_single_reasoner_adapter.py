@@ -22,3 +22,11 @@ def test_single_adapter_uses_frozen_strong_single_prompt_and_supplied_context() 
     assert provider.request.messages[0]["content"] == _SINGLE_PROMPT
     assert '"answer_schema":"single_choice"' in provider.request.messages[1]["content"]
     assert result.answer_text == "A. answer"
+    assert provider.request.max_output_tokens == 512
+
+
+def test_single_adapter_accepts_frozen_protocol_output_cap() -> None:
+    provider = CaptureProvider()
+    context = ReasoningContext("question", (), (), (), AnswerSchema.SINGLE_CHOICE)
+    asyncio.run(SingleReasoner(provider, max_output_tokens=2048).reason(context))
+    assert provider.request.max_output_tokens == 2048

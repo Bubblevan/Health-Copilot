@@ -1,0 +1,50 @@
+{
+  "model_variant": "qwen3_8b_base",
+  "model_id": "Qwen/Qwen3-8B",
+  "base_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "checkpoint_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "tokenizer_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "model_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "evaluation_track": "SYSTEM_CAPABILITY",
+  "protocol_id": "COMMON_EVAL_V1_SYSTEM_THINKING_COMPACT_JSON",
+  "status": "READY",
+  "harness_runtime": {
+    "max_provider_calls": 32,
+    "max_tool_calls": 16,
+    "deadline_ms": 900000
+  },
+  "serving": {
+    "api": "openai-compatible-vllm",
+    "base_url_env": "VLLM_BASE_URL",
+    "served_model_env": "VLLM_MODEL_NAME",
+    "base_url": "http://127.0.0.1:8001/v1",
+    "served_model": "qwen3-8b-system-v1",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "do_sample": false,
+    "structured_outputs_config": {
+      "backend": "xgrammar",
+      "disable_any_whitespace": true
+    },
+    "max_output_tokens": 2048,
+    "chat_template_kwargs": {
+      "enable_thinking": true
+    },
+    "seed": 20261004,
+    "seed_scope": "fixed evaluation protocol; decoding is greedy",
+    "dtype": "bfloat16",
+    "gpu": "NVIDIA L40",
+    "gpu_memory_utilization": 0.5,
+    "max_model_len": 16384,
+    "max_num_seqs": 16,
+    "max_num_batched_tokens": 16384,
+    "kv_cache_dtype": "auto",
+    "prefix_caching": false,
+    "tensor_parallel_size": 1,
+    "attention_backend": "auto",
+    "vllm_version": "0.30.1rc1.dev622+gf03026a54",
+    "torch_version": "2.13.0+cu130",
+    "cuda_runtime": "13.0",
+    "system_track_protocol": "Harness prompt and safety; same config/model server/parser/scorer for B0-B3"
+  }
+}

@@ -17,6 +17,7 @@ class ModelRequest:
     max_output_tokens: int = 512
     timeout_seconds: float = 120.0
     json_mode: bool = False
+    json_schema: Mapping[str, object] | None = None
 
     def __post_init__(self) -> None:
         messages = tuple(dict(item) for item in self.messages)
@@ -37,6 +38,11 @@ class ModelRequest:
         if self.model is not None and not self.model.strip():
             raise ValueError("model must be nonempty or None")
         object.__setattr__(self, "messages", messages)
+        if self.json_schema is not None:
+            schema = dict(self.json_schema)
+            if not schema:
+                raise ValueError("json_schema must not be empty")
+            object.__setattr__(self, "json_schema", schema)
 
 
 @dataclass(frozen=True)
@@ -47,6 +53,7 @@ class ModelReply:
     output_tokens: int | None = None
     latency_ms: float = 0.0
     provider_request_id: str | None = None
+    finish_reason: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.content, str) or not self.content.strip():
@@ -78,6 +85,7 @@ class VllmModelProvider:
         model: str,
         api_key: str = "local-vllm",
         default_temperature: float | None = None,
+        default_top_p: float | None = None,
         max_output_tokens: int | None = None,
         chat_template_kwargs: Mapping[str, object] | None = None,
     ) -> None:
@@ -87,6 +95,10 @@ class VllmModelProvider:
             raise ValueError("model must not be empty")
         if default_temperature is not None and not isfinite(default_temperature):
             raise ValueError("default_temperature must be finite")
+        if default_top_p is not None and (
+            not isfinite(default_top_p) or not 0 < default_top_p <= 1
+        ):
+            raise ValueError("default_top_p must be in (0, 1] or None")
         if max_output_tokens is not None and (
             isinstance(max_output_tokens, bool)
             or not isinstance(max_output_tokens, int)
@@ -100,6 +112,7 @@ class VllmModelProvider:
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.default_temperature = default_temperature
+        self.default_top_p = default_top_p
         self.max_output_tokens = max_output_tokens
         self.chat_template_kwargs = dict(chat_template_kwargs or {})
         self._client = AsyncOpenAI(
@@ -120,8 +133,15 @@ class VllmModelProvider:
             if self.max_output_tokens is not None else request.max_output_tokens,
             "timeout": request.timeout_seconds,
         }
-        if request.json_mode:
+        if request.json_schema is not None:
+            kwargs["response_format"] = {
+                "type": "json_schema",
+                "json_schema": dict(request.json_schema),
+            }
+        elif request.json_mode:
             kwargs["response_format"] = {"type": "json_object"}
+        if self.default_top_p is not None:
+            kwargs["top_p"] = self.default_top_p
         if self.chat_template_kwargs:
             kwargs["extra_body"] = {"chat_template_kwargs": self.chat_template_kwargs}
         response = await self._client.chat.completions.create(**kwargs)
@@ -137,6 +157,7 @@ class VllmModelProvider:
             output_tokens=getattr(usage, "completion_tokens", None),
             latency_ms=(monotonic() - started) * 1000,
             provider_request_id=getattr(response, "_request_id", None),
+            finish_reason=getattr(choice, "finish_reason", None),
         )
 
 

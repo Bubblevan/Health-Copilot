@@ -26,9 +26,22 @@ def _strip_nonanswer(text: str) -> str:
 
 
 class SingleReasoner:
-    def __init__(self, provider: ModelProvider, *, model: str | None = None) -> None:
+    def __init__(
+        self,
+        provider: ModelProvider,
+        *,
+        model: str | None = None,
+        max_output_tokens: int = 512,
+    ) -> None:
+        if (
+            isinstance(max_output_tokens, bool)
+            or not isinstance(max_output_tokens, int)
+            or max_output_tokens <= 0
+        ):
+            raise ValueError("max_output_tokens must be a positive integer")
         self.provider = provider
         self.model = model
+        self.max_output_tokens = max_output_tokens
 
     async def reason(self, context: ReasoningContext) -> ReasoningResult:
         observations: list[dict[str, str]] = []
@@ -61,7 +74,7 @@ class SingleReasoner:
                 {"role": "system", "content": _SINGLE_PROMPT},
                 {"role": "user", "content": user_payload},
             ),
-            max_output_tokens=512,
+            max_output_tokens=self.max_output_tokens,
         ))
         answer = _strip_nonanswer(reply.content)
         cited = tuple(dict.fromkeys(match.group(1) for match in re.finditer(

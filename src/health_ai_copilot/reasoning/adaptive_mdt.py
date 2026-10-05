@@ -26,6 +26,7 @@ class _HarnessProviderBridge:
         max_output_tokens: int,
         timeout_seconds: float,
         json_mode: bool = False,
+        json_schema: dict[str, Any] | None = None,
     ) -> Any:
         reply = await self.provider.complete(ModelRequest(
             model=self.model,
@@ -36,6 +37,7 @@ class _HarnessProviderBridge:
             max_output_tokens=max_output_tokens,
             timeout_seconds=timeout_seconds,
             json_mode=json_mode,
+            json_schema=json_schema,
         ))
         return ModelReply(
             content=reply.content,
@@ -43,6 +45,7 @@ class _HarnessProviderBridge:
             output_tokens=reply.output_tokens or 0,
             latency_ms=reply.latency_ms,
             model=reply.model,
+            finish_reason=reply.finish_reason,
         )
 
     async def complete_messages(
@@ -52,6 +55,7 @@ class _HarnessProviderBridge:
         max_output_tokens: int,
         timeout_seconds: float,
         json_mode: bool = False,
+        json_schema: dict[str, Any] | None = None,
     ) -> Any:
         reply = await self.provider.complete(ModelRequest(
             model=self.model,
@@ -59,6 +63,7 @@ class _HarnessProviderBridge:
             max_output_tokens=max_output_tokens,
             timeout_seconds=timeout_seconds,
             json_mode=json_mode,
+            json_schema=json_schema,
         ))
         return ModelReply(
             content=reply.content,
@@ -66,6 +71,7 @@ class _HarnessProviderBridge:
             output_tokens=reply.output_tokens or 0,
             latency_ms=reply.latency_ms,
             model=reply.model,
+            finish_reason=reply.finish_reason,
         )
 
 
@@ -127,6 +133,37 @@ class AdaptiveMDTReasoner:
             {"event": f"adaptive_{row['step']}", **dict(row)}
             for row in execution.shared_context.get("timeline", ())
         )
+        validation_audit = ()
+        if execution.diagnostic_outputs:
+            complexity_outputs = [
+                item for item in execution.diagnostic_outputs
+                if item["stage"].startswith("complexity_classifier")
+            ]
+            recruitment_outputs = [
+                item for item in execution.diagnostic_outputs
+                if item["stage"] in {"dynamic_recruitment", "multi_team_recruitment"}
+            ]
+            validation_audit = ({
+                "event": "adaptive_validation_audit",
+                "raw_complexity_output": next((
+                    item["raw_output"] for item in reversed(complexity_outputs)
+                    if item["stage"] == "complexity_classifier"
+                ), None),
+                "raw_complexity_outputs": complexity_outputs,
+                "raw_recruitment_output": (
+                    recruitment_outputs[-1]["raw_output"] if recruitment_outputs else None
+                ),
+                "raw_recruitment_outputs": recruitment_outputs,
+                "validation_error": next((
+                    item["validation_error"] for item in reversed(execution.diagnostic_outputs)
+                    if item.get("validation_error")
+                ), None),
+                "validation_errors": [
+                    {"stage": item["stage"], "error": item["validation_error"]}
+                    for item in execution.diagnostic_outputs if item.get("validation_error")
+                ],
+                "fallback_reason": execution.failure_reason,
+            },)
         return ReasoningResult(
             answer_text=response.answer,
             citation_ids=citations,
@@ -146,6 +183,7 @@ class AdaptiveMDTReasoner:
                 *assignments,
                 *worker_statuses,
                 *timeline,
+                *validation_audit,
             ),
             failure_reason=(execution.failure_reason.split(":", 1)[0]
                             if execution.failure_reason else None),

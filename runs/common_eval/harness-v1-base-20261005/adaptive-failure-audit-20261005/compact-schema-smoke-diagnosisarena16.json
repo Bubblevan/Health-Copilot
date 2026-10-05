@@ -1,0 +1,14 @@
+{
+  "case_id": "diagnosisarena:16",
+  "validation": "valid",
+  "teams": 2,
+  "specialists": 6,
+  "error": null,
+  "raw_recruitment_output": "{\"teams\": [{\"name\": \"Neuroendocrinology and Radiology Team\", \"specialists\": [{\"name\": \"Dr. Elena Martinez\", \"focus\": \"Pituitary Disorders\"}, {\"name\": \"Dr. Raj Patel\", \"focus\": \"Neuroimaging Interpretation\"}, {\"name\": \"Dr. Sarah Kim\", \"focus\": \"Endocrine Hormone Analysis\"}]}, {\"name\": \"Ophthalmology and Endocrinology Team\", \"specialists\": [{\"name\": \"Dr. Michael Chen\", \"focus\": \"Visual Field Analysis\"}, {\"name\": \"Dr. Lisa Nguyen\", \"focus\": \"Hormonal Imbalance Diagnosis\"}, {\"name\": \"Dr. David Lee\", \"focus\": \"Neurological Symptom Correlation\"}]}]}",
+  "raw_output_sha256": "c4ef1cc17f7b97bb816cf7e98a77e189e0e4ef29d299fed7e2276cde2b1fc5aa",
+  "finish_reason": "stop",
+  "input_tokens": 488,
+  "output_tokens": 159,
+  "latency_ms": 4035.467853071168,
+  "runtime_config_sha256": "54667fee0cefe65ea7ccbadbed6ca0e9a9f4ca5266a89b4986ee6462d9218491"
+}

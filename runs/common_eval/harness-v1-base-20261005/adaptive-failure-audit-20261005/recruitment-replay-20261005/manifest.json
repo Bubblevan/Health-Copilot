@@ -1,0 +1,30 @@
+{
+  "base_url": "http://127.0.0.1:8001/v1",
+  "candidate_view_sha256": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd",
+  "case_count": 219,
+  "case_ids_sha256": "d3e4ab8452ca88ea6ded5ebd9aa627dcd6485b6e50ef290fc70141f493a70f75",
+  "completed_at_utc": "2026-10-05T09:02:28.346377+00:00",
+  "concurrency": 1,
+  "failure_id_manifest_sha256": "1e1a5122b96dff1983b0757e8f259da2b8f24a632ba0379f19dab1819b13dfa0",
+  "full_reasoning_replayed": false,
+  "gold_visible": false,
+  "invalid_team_schemas": 19,
+  "max_output_tokens": 320,
+  "model_config_sha256": "d4630a70aca802baea554c289be7820838a57c3ae74611ed87d56e2b95fe2ae2",
+  "provider_errors": 0,
+  "purpose": "diagnose only the previously failing advanced team-recruitment stage",
+  "recruitment_jsonl_sha256": "d9fad119ad338f9f409350dd1a53004d60c07fbed56e080b62ff2a01e2f7e75d",
+  "replay_scope": "same advanced recruiter prompt/schema; classifier and downstream MDT stages skipped",
+  "schema_version": "adaptive-recruitment-replay-v1",
+  "seed": 20261004,
+  "served_model": "qwen3-8b-system-v1",
+  "status": "COMPLETE",
+  "status_counts": {
+    "complete:invalid": 19,
+    "complete:valid": 200
+  },
+  "temperature": 0.0,
+  "thinking": true,
+  "top_p": 1.0,
+  "valid_team_schemas": 200
+}

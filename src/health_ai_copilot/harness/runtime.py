@@ -54,6 +54,7 @@ class _BudgetedModelProvider:
                 max_output_tokens=output_cap,
                 timeout_seconds=min(request.timeout_seconds, timeout),
                 json_mode=request.json_mode,
+                json_schema=request.json_schema,
             )
         self.trace.emit("model_call_started", model=request.model or "provider_default")
         try:

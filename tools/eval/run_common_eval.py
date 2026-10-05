@@ -29,15 +29,20 @@ from health_ai_copilot.evaluation.factorial import (
 )
 from health_ai_copilot.evaluation.manifests import file_sha256
 from health_ai_copilot.evaluation.runner import run_dataset
+from health_ai_copilot.harness.budget import BudgetLimits
 from health_ai_copilot.harness.profiles import (
     MemoryMode,
+    ReasoningMode,
     RetrievalMode,
     profile_from_dict,
 )
-from health_ai_copilot.harness.runtime import HealthCopilotHarness
+from health_ai_copilot.harness.runtime import HarnessConfig, HealthCopilotHarness
 from health_ai_copilot.harness.trace import JsonlTraceSink
 from health_ai_copilot.harness.verification import ANSWER_PARSER_REVISION
+from health_ai_copilot.multi_agent.mdagents_style import MDAgentsStyleConfig
 from health_ai_copilot.providers.model import VllmModelProvider
+from health_ai_copilot.reasoning.adaptive_mdt import AdaptiveMDTReasoner
+from health_ai_copilot.reasoning.single import SingleReasoner
 
 
 def _arguments() -> argparse.Namespace:
@@ -66,6 +71,11 @@ def _arguments() -> argparse.Namespace:
     parser.add_argument("--ids-manifest", type=Path)
     parser.add_argument("--prepared-config", type=Path)
     parser.add_argument("--concurrency", type=int, default=4)
+    parser.add_argument(
+        "--capture-adaptive-diagnostics",
+        action="store_true",
+        help="persist raw classifier/recruiter replies and validation errors in Adaptive traces",
+    )
     args = parser.parse_args()
     if args.prepared_config:
         prepared = json.loads(args.prepared_config.read_text(encoding="utf-8"))
@@ -167,6 +177,12 @@ async def _run(args: argparse.Namespace) -> None:
         raise SystemExit("vLLM runtime manifest base_url does not match VLLM_BASE_URL")
     if runtime_config.get("served_model", served_model) != served_model:
         raise SystemExit("vLLM runtime manifest served_model does not match VLLM_MODEL_NAME")
+    configured_structured = model_config.get("serving", {}).get("structured_outputs_config")
+    if (
+        configured_structured is not None
+        and runtime_config.get("structured_outputs_config") != configured_structured
+    ):
+        raise SystemExit("vLLM structured_outputs_config differs from the frozen model config")
     if any(profile.memory_mode is MemoryMode.READ for profile in profiles.values()):
         raise SystemExit("Memory READ profiles require an explicitly bound MemoryProvider")
 
@@ -223,6 +239,10 @@ async def _run(args: argparse.Namespace) -> None:
             model=served_model,
             api_key=os.environ.get("VLLM_API_KEY", "local-vllm"),
             default_temperature=float(model_config["serving"]["temperature"]),
+            default_top_p=(
+                float(model_config["serving"]["top_p"])
+                if model_config["serving"].get("top_p") is not None else None
+            ),
             max_output_tokens=int(model_config["serving"]["max_output_tokens"]),
             chat_template_kwargs=model_config["serving"].get("chat_template_kwargs"),
         )
@@ -236,6 +256,33 @@ async def _run(args: argparse.Namespace) -> None:
         harness = HealthCopilotHarness(
             model_providers={profile.model_variant: provider},
             retrieval_provider=retrieval_providers.get(alias),
+            reasoner_factories={
+                ReasoningMode.SINGLE: lambda model_provider: SingleReasoner(
+                    model_provider,
+                    model=served_model,
+                    max_output_tokens=int(model_config["serving"]["max_output_tokens"]),
+                ),
+                ReasoningMode.ADAPTIVE_MDT: lambda model_provider: AdaptiveMDTReasoner(
+                    model_provider,
+                    model=served_model,
+                    config=MDAgentsStyleConfig(
+                        model_name=served_model,
+                        max_output_tokens=int(model_config["serving"]["max_output_tokens"]),
+                        capture_validation_outputs=args.capture_adaptive_diagnostics,
+                    ),
+                ),
+            },
+            config=HarnessConfig(budget=BudgetLimits(
+                max_provider_calls=int(model_config.get("harness_runtime", {}).get(
+                    "max_provider_calls", 32
+                )),
+                max_tool_calls=int(model_config.get("harness_runtime", {}).get(
+                    "max_tool_calls", 16
+                )),
+                deadline_ms=float(model_config.get("harness_runtime", {}).get(
+                    "deadline_ms", 120_000
+                )),
+            )),
             trace_sink=collect_trace,
         )
         summary = await run_dataset(
@@ -336,6 +383,8 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
         ROOT / "configs/eval/cmb_common_1024.json",
         ROOT / "configs/eval/local_prepared_views_h0.json",
         ROOT / "tools/eval/extract_failed_case_ids.py",
+        ROOT / "tools/eval/audit_gold_blind_parse_failures.py",
+        ROOT / "tools/eval/build_adaptive_failure_replay_manifest.py",
     )
     input_hashes = {
         "candidate_view_sha256": getattr(adapter, "candidate_sha256", None),
@@ -376,9 +425,12 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
         },
         "decoding": {
             "temperature": model_config["serving"]["temperature"],
-            "max_output_tokens": model_config["serving"]["max_output_tokens"],
-            "chat_template_kwargs": model_config["serving"].get("chat_template_kwargs", {}),
-            "seed": model_config["serving"].get("seed"),
+            "top_p": model_config["serving"].get("top_p"),
+            "do_sample": model_config["serving"].get("do_sample"),
+        "max_output_tokens": model_config["serving"]["max_output_tokens"],
+        "chat_template_kwargs": model_config["serving"].get("chat_template_kwargs", {}),
+        "structured_outputs_config": model_config["serving"].get("structured_outputs_config", {}),
+        "seed": model_config["serving"].get("seed"),
         },
         "scoring_revision": ANSWER_PARSER_REVISION,
         "configured_model_serving": model_config.get("serving", {}),
@@ -388,6 +440,12 @@ def _run_manifest(args, alias, profile, model_config, runtime_config, adapter) -
             file_sha256(args.vllm_runtime_config) if args.vllm_runtime_config else None
         ),
         "concurrency": args.concurrency,
+        "capture_adaptive_diagnostics": args.capture_adaptive_diagnostics,
+        "harness_runtime": model_config.get("harness_runtime", {
+            "max_provider_calls": 32,
+            "max_tool_calls": 16,
+            "deadline_ms": 120_000,
+        }),
         "retrieval_corpus": None if profile.retrieval_mode.value == "off" else "COMMON_MEDICAL_KB_V1",
     }
 

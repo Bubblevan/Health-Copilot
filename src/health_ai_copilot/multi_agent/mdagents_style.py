@@ -42,6 +42,7 @@ class MDAgentsCompletionProvider(Protocol):
         max_output_tokens: int,
         timeout_seconds: float,
         json_mode: bool = False,
+        json_schema: dict[str, Any] | None = None,
     ) -> ModelReply:
         ...
 
@@ -52,6 +53,7 @@ class MDAgentsCompletionProvider(Protocol):
         max_output_tokens: int,
         timeout_seconds: float,
         json_mode: bool = False,
+        json_schema: dict[str, Any] | None = None,
     ) -> ModelReply:
         ...
 
@@ -64,14 +66,15 @@ class MDAgentsStyleConfig:
     max_intermediate_specialists: int = 5
     max_advanced_teams: int = 2
     max_specialists_per_team: int = 3
+    capture_validation_outputs: bool = False
 
     def __post_init__(self) -> None:
-        if not 1 <= self.max_intermediate_specialists <= 8:
-            raise ValueError("max_intermediate_specialists must be between 1 and 8")
-        if not 1 <= self.max_advanced_teams <= 4:
-            raise ValueError("max_advanced_teams must be between 1 and 4")
-        if not 1 <= self.max_specialists_per_team <= 5:
-            raise ValueError("max_specialists_per_team must be between 1 and 5")
+        if not 3 <= self.max_intermediate_specialists <= 8:
+            raise ValueError("max_intermediate_specialists must be between 3 and 8")
+        if not 2 <= self.max_advanced_teams <= 4:
+            raise ValueError("max_advanced_teams must be between 2 and 4")
+        if not 2 <= self.max_specialists_per_team <= 5:
+            raise ValueError("max_specialists_per_team must be between 2 and 5")
 
 
 @dataclass(frozen=True)
@@ -98,6 +101,7 @@ class MDAgentsStyleExecution:
     failure_reason: str | None
     trace_events: tuple[TraceEvent, ...]
     shared_context: dict[str, Any] = field(default_factory=dict)
+    diagnostic_outputs: tuple[dict[str, Any], ...] = ()
 
 
 class MDAgentsStyleOrchestrator:
@@ -165,6 +169,8 @@ class MDAgentsStyleOrchestrator:
         final_reply: ModelReply | None = None
         failure_reason: str | None = None
         workers: list[str] = []
+        diagnostic_outputs: list[dict[str, Any]] = []
+        captured_outputs = diagnostic_outputs if self.config.capture_validation_outputs else None
 
         try:
             question = _format_question(query, conversation_context, observations)
@@ -178,6 +184,7 @@ class MDAgentsStyleOrchestrator:
                 user_prompt=classifier_instruction,
                 budget=budget, trace=trace, shared=shared,
                 max_output_tokens=self.config.max_output_tokens,
+                diagnostic_outputs=captured_outputs,
             )
             difficulty_prompt = (
                 "Now, given the medical query as below, you need to decide the "
@@ -203,8 +210,13 @@ class MDAgentsStyleOrchestrator:
                 messages=classifier_history,
                 budget=budget, trace=trace, shared=shared,
                 max_output_tokens=self.config.max_output_tokens,
+                diagnostic_outputs=captured_outputs,
             )
-            complexity = _parse_complexity(triage.content)
+            try:
+                complexity = _parse_complexity(triage.content)
+            except Exception as exc:
+                _record_validation_error(diagnostic_outputs, "complexity_classifier", exc)
+                raise
             shared._harness_timeline(
                 "complexity_decided", complexity=complexity.value,
                 provider_call=budget.provider_calls_used,
@@ -217,13 +229,13 @@ class MDAgentsStyleOrchestrator:
                 mode = RouteMode.SINGLE
             elif complexity is Complexity.INTERMEDIATE:
                 final_reply, specialists = await self._intermediate(
-                    question, budget, trace, shared,
+                    question, budget, trace, shared, captured_outputs,
                 )
                 workers.extend(specialists)
                 mode = RouteMode.TEAM
             else:
                 final_reply, team_members = await self._advanced(
-                    question, budget, trace, shared,
+                    question, budget, trace, shared, captured_outputs,
                 )
                 workers.extend(team_members)
                 mode = RouteMode.TEAM
@@ -273,6 +285,7 @@ class MDAgentsStyleOrchestrator:
             failure_reason=failure_reason,
             trace_events=tuple(trace.events),
             shared_context=shared.to_dict(),
+            diagnostic_outputs=tuple(diagnostic_outputs),
         )
 
     async def _single(
@@ -294,7 +307,12 @@ class MDAgentsStyleOrchestrator:
         return reply
 
     async def _intermediate(
-        self, question: str, budget: RunBudgetState, trace: RunTrace, shared: SharedContext,
+        self,
+        question: str,
+        budget: RunBudgetState,
+        trace: RunTrace,
+        shared: SharedContext,
+        diagnostic_outputs: list[dict[str, Any]] | None = None,
     ) -> tuple[ModelReply, list[str]]:
         recruitment = await self._call_json(
             stage="dynamic_recruitment",
@@ -306,8 +324,18 @@ class MDAgentsStyleOrchestrator:
             user_prompt=f"Question:\n{question}",
             budget=budget, trace=trace, shared=shared,
             max_output_tokens=256,
+            diagnostic_outputs=diagnostic_outputs,
+            json_schema=_specialist_recruitment_schema(
+                self.config.max_intermediate_specialists
+            ),
         )
-        specialists = _parse_specialists(recruitment.content, self.config.max_intermediate_specialists)
+        try:
+            specialists = _parse_specialists(recruitment.content, self.config.max_intermediate_specialists)
+        except Exception as exc:
+            _record_validation_error(
+                diagnostic_outputs, "dynamic_recruitment", exc,
+            )
+            raise
         tasks = [
             shared._harness_register_task("care", f"Specialist {name}: {focus}")
             for name, focus in specialists
@@ -353,7 +381,12 @@ class MDAgentsStyleOrchestrator:
         return final, [name for name, _ in specialists]
 
     async def _advanced(
-        self, question: str, budget: RunBudgetState, trace: RunTrace, shared: SharedContext,
+        self,
+        question: str,
+        budget: RunBudgetState,
+        trace: RunTrace,
+        shared: SharedContext,
+        diagnostic_outputs: list[dict[str, Any]] | None = None,
     ) -> tuple[ModelReply, list[str]]:
         recruitment = await self._call_json(
             stage="multi_team_recruitment",
@@ -366,12 +399,23 @@ class MDAgentsStyleOrchestrator:
             user_prompt=f"Question:\n{question}",
             budget=budget, trace=trace, shared=shared,
             max_output_tokens=320,
+            diagnostic_outputs=diagnostic_outputs,
+            json_schema=_team_recruitment_schema(
+                max_teams=self.config.max_advanced_teams,
+                max_specialists=self.config.max_specialists_per_team,
+            ),
         )
-        teams = _parse_teams(
-            recruitment.content,
-            max_teams=self.config.max_advanced_teams,
-            max_specialists=self.config.max_specialists_per_team,
-        )
+        try:
+            teams = _parse_teams(
+                recruitment.content,
+                max_teams=self.config.max_advanced_teams,
+                max_specialists=self.config.max_specialists_per_team,
+            )
+        except Exception as exc:
+            _record_validation_error(
+                diagnostic_outputs, "multi_team_recruitment", exc,
+            )
+            raise
         all_names = [member[0] for _team, members in teams for member in members]
         tasks = {
             name: shared._harness_register_task("care", f"Advanced specialist {name}: {focus}")
@@ -451,6 +495,8 @@ class MDAgentsStyleOrchestrator:
         trace: RunTrace,
         shared: SharedContext,
         max_output_tokens: int,
+        diagnostic_outputs: list[dict[str, Any]] | None = None,
+        json_schema: dict[str, Any] | None = None,
     ) -> ModelReply:
         reply = await self._call(
             stage=stage,
@@ -461,8 +507,14 @@ class MDAgentsStyleOrchestrator:
             shared=shared,
             max_output_tokens=max_output_tokens,
             json_mode=True,
+            diagnostic_outputs=diagnostic_outputs,
+            json_schema=json_schema,
         )
-        _json_object(reply.content)
+        try:
+            _json_object(reply.content)
+        except Exception as exc:
+            _record_validation_error(diagnostic_outputs, stage, exc)
+            raise
         return reply
 
     async def _call(
@@ -477,6 +529,8 @@ class MDAgentsStyleOrchestrator:
         max_output_tokens: int,
         json_mode: bool = False,
         messages: list[dict[str, str]] | None = None,
+        diagnostic_outputs: list[dict[str, Any]] | None = None,
+        json_schema: dict[str, Any] | None = None,
     ) -> ModelReply:
         call_id = f"{stage}-{uuid4().hex[:12]}"
         prompt_for_hash = (
@@ -495,6 +549,13 @@ class MDAgentsStyleOrchestrator:
             prompt_sha256=prompt_hash,
             model=self.config.model_name,
             max_output_tokens=max_output_tokens,
+            output_format="json_schema" if json_schema is not None else (
+                "json_object" if json_mode else "text"
+            ),
+            json_schema_sha256=(
+                _digest(json.dumps(json_schema, sort_keys=True, separators=(",", ":")))
+                if json_schema is not None else None
+            ),
         )
         call_started = monotonic()
         try:
@@ -505,6 +566,7 @@ class MDAgentsStyleOrchestrator:
                     max_output_tokens=max_output_tokens,
                     timeout_seconds=timeout,
                     json_mode=json_mode,
+                    **({"json_schema": json_schema} if json_schema is not None else {}),
                 )
             elif messages is not None:
                 flattened_history = "\n\n".join(
@@ -516,6 +578,7 @@ class MDAgentsStyleOrchestrator:
                     max_output_tokens=max_output_tokens,
                     timeout_seconds=timeout,
                     json_mode=json_mode,
+                    **({"json_schema": json_schema} if json_schema is not None else {}),
                 )
             else:
                 reply = await self.provider.complete(
@@ -524,6 +587,7 @@ class MDAgentsStyleOrchestrator:
                     max_output_tokens=max_output_tokens,
                     timeout_seconds=timeout,
                     json_mode=json_mode,
+                    **({"json_schema": json_schema} if json_schema is not None else {}),
                 )
         except Exception as exc:
             budget.record_usage(None)
@@ -549,6 +613,7 @@ class MDAgentsStyleOrchestrator:
             input_tokens=reply.input_tokens,
             output_tokens=reply.output_tokens,
             response_sha256=_digest(reply.content),
+            finish_reason=reply.finish_reason,
             latency_ms=round(latency, 3),
         )
         shared._harness_record_call(
@@ -560,6 +625,19 @@ class MDAgentsStyleOrchestrator:
             prompt_sha256=prompt_hash,
             response_sha256=_digest(reply.content),
         )
+        if diagnostic_outputs is not None and stage in {
+            "complexity_classifier_init",
+            "complexity_classifier",
+            "dynamic_recruitment",
+            "multi_team_recruitment",
+        }:
+            diagnostic_outputs.append({
+                "stage": stage,
+                "raw_output": reply.content,
+                "raw_output_sha256": _digest(reply.content),
+                "finish_reason": reply.finish_reason,
+                "validation_error": None,
+            })
         return reply
 
 
@@ -584,18 +662,42 @@ def parse_medqa_option(text: str) -> str | None:
 
 
 def _parse_complexity(text: str) -> Complexity:
-    normalized = text.casefold()
-    # Match the pinned reference parser's label precedence and numeric fallbacks.
-    if "basic" in normalized or "1)" in normalized:
-        return Complexity.BASIC
-    if "intermediate" in normalized or "2)" in normalized:
-        return Complexity.INTERMEDIATE
-    if "advanced" in normalized or "3)" in normalized:
-        return Complexity.ADVANCED
-    if re.fullmatch(r"\s*([123])[.)]?\s*", normalized):
-        return {"1": Complexity.BASIC, "2": Complexity.INTERMEDIATE, "3": Complexity.ADVANCED}[
-            normalized.strip().rstrip(".)")
-        ]
+    visible = re.sub(r"<think>.*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
+    normalized = visible.casefold()
+    labels = {
+        "basic": Complexity.BASIC,
+        "intermediate": Complexity.INTERMEDIATE,
+        "advanced": Complexity.ADVANCED,
+    }
+    explicit = re.findall(
+        r"(?:difficulty|complexity|classification)\s*(?:level\s*)?(?:is|:|=)?\s*"
+        r"(basic|intermediate|advanced)\b",
+        normalized,
+    )
+    if explicit:
+        return labels[explicit[-1]]
+    line_labels: list[Complexity] = []
+    for line in normalized.splitlines():
+        candidate = line.strip().strip("*` .")
+        match = re.fullmatch(r"(?:[123][.)]\s*)?(basic|intermediate|advanced)", candidate)
+        if match:
+            line_labels.append(labels[match.group(1)])
+            continue
+        numeric = re.fullmatch(r"([123])[.)]?", candidate)
+        if numeric:
+            line_labels.append({
+                "1": Complexity.BASIC,
+                "2": Complexity.INTERMEDIATE,
+                "3": Complexity.ADVANCED,
+            }[numeric.group(1)])
+    if line_labels:
+        distinct = set(line_labels)
+        if len(distinct) == 1:
+            return line_labels[-1]
+        raise ValueError("ambiguous_complexity_output")
+    mentioned = [name for name in labels if re.search(rf"\b{name}\b", normalized)]
+    if len(mentioned) == 1:
+        return labels[mentioned[0]]
     raise ValueError("invalid_complexity_output")
 
 
@@ -652,6 +754,77 @@ def _parse_teams(
     return output
 
 
+def _specialist_recruitment_schema(maximum: int) -> dict[str, Any]:
+    return {
+        "name": "mdagents_specialist_recruitment",
+        "strict": True,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "specialists": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": maximum,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "minLength": 1},
+                            "focus": {"type": "string", "minLength": 1},
+                        },
+                        "required": ["name", "focus"],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": ["specialists"],
+            "additionalProperties": False,
+        },
+    }
+
+
+def _team_recruitment_schema(
+    *, max_teams: int, max_specialists: int,
+) -> dict[str, Any]:
+    return {
+        "name": "mdagents_team_recruitment",
+        "strict": True,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "teams": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": max_teams,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "minLength": 1},
+                            "specialists": {
+                                "type": "array",
+                                "minItems": 2,
+                                "maxItems": max_specialists,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {"type": "string", "minLength": 1},
+                                        "focus": {"type": "string", "minLength": 1},
+                                    },
+                                    "required": ["name", "focus"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                        },
+                        "required": ["name", "specialists"],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": ["teams"],
+            "additionalProperties": False,
+        },
+    }
+
+
 def _json_object(text: str) -> dict[str, Any]:
     cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip(), flags=re.IGNORECASE)
     try:
@@ -667,6 +840,19 @@ def _json_object(text: str) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise TypeError("json_output_must_be_object")
     return value
+
+
+def _record_validation_error(
+    diagnostic_outputs: list[dict[str, Any]] | None,
+    stage: str,
+    exc: Exception,
+) -> None:
+    if diagnostic_outputs is None:
+        return
+    for item in reversed(diagnostic_outputs):
+        if item.get("stage") == stage:
+            item["validation_error"] = f"{type(exc).__name__}:{exc}"
+            return
 
 
 def _format_peer_view(

@@ -1,0 +1,2513 @@
+{
+  "candidate_view_sha256": {
+    "cmb-common": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+    "diagnosisarena": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd"
+  },
+  "gold_accessed": false,
+  "method": "Read only candidate-view case IDs/question_type and case_id plus response answer_text/parsed_answer/safety_flags. Do not inspect gold, score.correct, or evaluator labels. Parser-missed candidates are surfaced for manual review; no candidate is auto-corrected.",
+  "parser_missed_explicit_choice_candidates": [],
+  "runs": {
+    "cmb-common-1024/B0": {
+      "case_count": 1024,
+      "cases": [
+        {
+          "case_id": "cmb:10689",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1104",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:11049",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:1116",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:1137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清",
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:1641",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1966",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:213",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:2764",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:2971",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3222",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3253",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:3291",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:3292",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3456",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3532",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:3549",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷",
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:3636",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3686",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3912",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:410",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:4101",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4518",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4599",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4816",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4860",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4962",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4965",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4987",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5180",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5270",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5397",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:5479",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:5547",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛"
+          ]
+        },
+        {
+          "case_id": "cmb:5624",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6031",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6143",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6254",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:6265",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6368",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6581",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7245",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7284",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7427",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:7476",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7525",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7630",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:8746",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:8795",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛",
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:890",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:8984",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:9124",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:9576",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:9717",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        }
+      ],
+      "categories": {
+        "B_SAFETY_ABSTENTION": 55
+      },
+      "checkpoint_sha256": "db516f4e8a98335b679588d1ce1e8555cdc38777022fcc0be42673fc653cec5a",
+      "parse_success": 969,
+      "parse_success_rate": 0.9462890625,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 55
+    },
+    "cmb-common-1024/B2": {
+      "case_count": 1024,
+      "cases": [
+        {
+          "case_id": "cmb:10689",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1104",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:11049",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:1116",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:1137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清",
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:1212",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:1641",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1889",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:1966",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:213",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:2764",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:2971",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3222",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3253",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:3291",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:3292",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3456",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3532",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:3549",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷",
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:3636",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3686",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3912",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3931",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:410",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:4101",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4518",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4599",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4816",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4860",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4962",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4965",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4987",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5180",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5270",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5397",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:545",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:5479",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:5547",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛"
+          ]
+        },
+        {
+          "case_id": "cmb:5624",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6031",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6143",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6254",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:6265",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6368",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6581",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7245",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7284",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:731",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:7427",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:7476",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7525",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7630",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7805",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:7992",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "cmb:8155",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:8596",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "cmb:8746",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:8795",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛",
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:890",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:8984",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:9124",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:9576",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:9717",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        }
+      ],
+      "categories": {
+        "B_SAFETY_ABSTENTION": 55,
+        "C_ORCHESTRATOR_OR_RUNTIME_FAILURE": 9
+      },
+      "checkpoint_sha256": "2d3cddb245b631b4f4774a9058491ea00ff01d0cf570e9c569c376e78be560b4",
+      "parse_success": 960,
+      "parse_success_rate": 0.9375,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 64
+    },
+    "diagnosisarena-915/B0": {
+      "case_count": 915,
+      "cases": [],
+      "categories": {},
+      "checkpoint_sha256": "b81831a5ef4ef5044ea4daed1b71998e8b3a3fd39565d9be2947e8a30bfc98a2",
+      "parse_success": 915,
+      "parse_success_rate": 1.0,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 0
+    },
+    "diagnosisarena-915/B2": {
+      "case_count": 915,
+      "cases": [
+        {
+          "case_id": "diagnosisarena:100",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:101",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:103",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:104",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:106",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:109",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:11",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:110",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:112",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:118",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:121",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:126",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:129",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:128",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:131",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:139",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:144",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:143",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:145",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:149",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:157",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:16",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:160",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:162",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:163",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:164",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:169",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:176",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:177",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:178",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:183",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:186",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:195",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:20",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:202",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:206",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:21",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:22",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:225",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:227",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:228",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:229",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:231",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:249",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:250",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:257",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:258",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:260",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:263",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:274",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:276",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:289",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:291",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:293",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:296",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:305",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:310",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:313",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:327",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:333",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:336",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:34",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:340",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:359",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:37",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:370",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:379",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:381",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:386",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:388",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:407",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:409",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:421",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:433",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:438",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:444",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:448",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:449",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:467",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:470",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:475",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:476",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:483",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:484",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:487",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:491",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:492",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:494",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:501",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:502",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:505",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:506",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:507",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:508",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:510",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:512",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:518",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:519",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:525",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:529",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:53",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:531",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:534",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:536",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:538",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:539",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:543",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:545",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:549",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:552",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:553",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:554",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:558",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:565",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:566",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:569",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:574",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:580",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:582",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:585",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:589",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:593",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:594",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:6",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:600",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:604",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:605",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:606",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:612",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:614",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:615",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:618",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:619",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:62",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:621",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:623",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:624",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:626",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:629",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:630",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:631",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:644",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:649",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:651",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:654",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:655",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:664",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:667",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:678",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:685",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:686",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:687",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:691",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:693",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:697",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:698",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:70",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:701",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:704",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:706",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:709",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:724",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:729",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:735",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:736",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:738",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:742",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:747",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:748",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:750",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:751",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:753",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:754",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:758",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:761",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:762",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:763",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:766",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:767",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:768",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:769",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:77",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:772",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:775",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:780",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:783",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:784",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:79",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:792",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:793",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:794",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:795",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:796",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:797",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:799",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:804",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:807",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:808",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:81",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:813",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:815",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:816",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:817",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:819",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:82",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:822",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:827",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:830",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:833",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:835",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:837",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:84",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:848",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:849",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:852",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:853",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:856",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:877",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:893",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:896",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:897",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:899",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:900",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:901",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:903",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:904",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:908",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:ValueError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:911",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:912",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        },
+        {
+          "case_id": "diagnosisarena:913",
+          "category": "C_ORCHESTRATOR_OR_RUNTIME_FAILURE",
+          "safety_flags": [
+            "reasoning_failure:TypeError"
+          ]
+        }
+      ],
+      "categories": {
+        "C_ORCHESTRATOR_OR_RUNTIME_FAILURE": 230
+      },
+      "checkpoint_sha256": "6c1a0487129265ab708284d92ae505bacca26a1a1f698beffcfeef39c88e1070",
+      "parse_success": 685,
+      "parse_success_rate": 0.7486338797814208,
+      "parser_mismatches_vs_frozen_response": [],
+      "unparsed_count": 230
+    }
+  },
+  "schema_version": "gold-blind-parser-failure-audit-v1",
+  "scoring_revision": "deterministic-mcq-parser-v7",
+  "status": "NO_PARSER_FALSE_NEGATIVE_CANDIDATES_FOUND"
+}

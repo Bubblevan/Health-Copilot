@@ -1,0 +1,37 @@
+{
+  "attention_backend": "auto",
+  "base_url": "http://127.0.0.1:8001/v1",
+  "chat_template_kwargs": {
+    "enable_thinking": true
+  },
+  "cuda_runtime": "13.0",
+  "do_sample": false,
+  "dtype": "bfloat16",
+  "enable_prefix_caching": false,
+  "gpu": "NVIDIA L40",
+  "gpu_memory_utilization": 0.4,
+  "host": "127.0.0.1",
+  "is_final_factorial_runtime": false,
+  "kv_cache_dtype": "fp8",
+  "max_model_len": 8192,
+  "max_num_batched_tokens": 4096,
+  "max_num_seqs": 1,
+  "max_output_tokens": 2048,
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "model_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "port": 8001,
+  "purpose": "diagnostic replay with compact structured JSON to prevent greedy whitespace-only completion",
+  "schema_version": "harness-v1-adaptive-debug-serving-compact-json-v1",
+  "seed": 20261004,
+  "served_model": "qwen3-8b-system-v1",
+  "structured_outputs_config": {
+    "backend": "xgrammar",
+    "disable_any_whitespace": true
+  },
+  "temperature": 0.0,
+  "tensor_parallel_size": 1,
+  "top_p": 1.0,
+  "torch_version": "2.13.0+cu130",
+  "vllm_version": "0.30.1rc1.dev622+gf03026a54"
+}

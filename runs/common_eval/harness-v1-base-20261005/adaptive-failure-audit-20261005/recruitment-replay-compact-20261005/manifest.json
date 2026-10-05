@@ -1,0 +1,48 @@
+{
+  "base_url": "http://127.0.0.1:8001/v1",
+  "candidate_view_sha256": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd",
+  "case_count": 219,
+  "case_ids_sha256": "d3e4ab8452ca88ea6ded5ebd9aa627dcd6485b6e50ef290fc70141f493a70f75",
+  "completed_at_utc": "2026-10-05T09:32:57.246960+00:00",
+  "concurrency": 1,
+  "effective_server_runtime_config_path": "runs/common_eval/harness-v1-base-20261005/adaptive-failure-audit-20261005/vllm-debug-replay-compact-runtime-config.json",
+  "effective_server_runtime_config_sha256": "54667fee0cefe65ea7ccbadbed6ca0e9a9f4ca5266a89b4986ee6462d9218491",
+  "effective_server_startup_log_path": "runs/common_eval/harness-v1-base-20261005/adaptive-failure-audit-20261005/vllm-debug-replay-compact.log.gz",
+  "effective_server_startup_log_sha256": "994061485364fcbb662ffd6c5a4809c84accebedb83f7e25806dd82de8991d07",
+  "failure_id_manifest_sha256": "1e1a5122b96dff1983b0757e8f259da2b8f24a632ba0379f19dab1819b13dfa0",
+  "full_reasoning_replayed": false,
+  "gold_visible": false,
+  "invalid_team_schemas": 0,
+  "max_output_tokens": 320,
+  "model_config_sha256": "ec312b88fba9c9a6f6f9d2bbecfbc11535536e845f0e76d5812529c8f5c20d30",
+  "model_config_snapshot_path": "runs/common_eval/harness-v1-base-20261005/adaptive-failure-audit-20261005/recruitment-replay-compact-20261005/model-config-at-launch.json",
+  "model_config_snapshot_sha256": "ec312b88fba9c9a6f6f9d2bbecfbc11535536e845f0e76d5812529c8f5c20d30",
+  "provider_errors": 0,
+  "purpose": "diagnose only the previously failing advanced team-recruitment stage",
+  "recruitment_jsonl_sha256": "dd814bd4b74050409b6cdb3059b917c82183eda1430e0c3640cc40bf18675c20",
+  "replay_scope": "same advanced recruiter prompt/schema; classifier and downstream MDT stages skipped",
+  "runtime_config_snapshot_path": "runs/common_eval/harness-v1-base-20261005/adaptive-failure-audit-20261005/recruitment-replay-compact-20261005/runtime-file-at-launch.json",
+  "runtime_config_snapshot_sha256": "f2708d33688473a023c87b2021cd9d7379beafae6c11e21ff89e740bc7c21cc0",
+  "runtime_note": "The script manifest supplied disable_any_whitespace=true with backend omitted (auto); the actual loopback server startup explicitly selected xgrammar, confirmed in the startup log. The corrected runtime-config file records that effective setting.",
+  "schema_version": "adaptive-recruitment-replay-v1",
+  "seed": 20261004,
+  "served_model": "qwen3-8b-system-v1",
+  "status": "COMPLETE",
+  "status_counts": {
+    "complete:valid": 219
+  },
+  "structured_outputs_config": {
+    "backend": "xgrammar",
+    "disable_any_whitespace": true
+  },
+  "structured_outputs_config_at_script_launch": {
+    "disable_any_whitespace": true
+  },
+  "temperature": 0.0,
+  "thinking": true,
+  "top_p": 1.0,
+  "valid_team_schemas": 219,
+  "vllm_runtime_config_sha256": "f2708d33688473a023c87b2021cd9d7379beafae6c11e21ff89e740bc7c21cc0",
+  "effective_server_startup_log_encoding": "gzip -n; decompresses byte-for-byte to original vLLM stdout log",
+  "effective_server_startup_log_uncompressed_sha256": "daff7ad5f018e3fedb873b7a972d8fdce1fa5282fd2efdb29cefcbf8055f8229"
+}

@@ -6,6 +6,19 @@ All system arms use `HealthCopilotHarness.execute(profile, HarnessRequest)`. Gol
 
 The alias registry in `configs/eval/profile_registry.json` defines B0-B3, P0-P3, and R0-R3 as orthogonal model/retrieval/memory/reasoning axes. Profiles do not implement alias-specific runtime behavior. Common medical MCQ profiles set Memory OFF. The product API uses the single `product-adaptive-v1` profile; static Single remains only as a paired evaluation control. See [the pruning decision](../architecture/architecture_pruning_decision.md) for the evidence behind this cut.
 
+## Model capability and system capability are separate tracks
+
+Use the same frozen DiagnosisArena-915 and CMB-COMMON-1024 IDs, gold source, parser, and scorer in both tracks, but do not compare their absolute scores as if the runtimes were identical.
+
+| Track | Question | Runtime | Required paired controls |
+|---|---|---|---|
+| Model capability | Did medical post-training improve Qwen3 itself? | PT-E0 standalone evaluator; no Harness safety, RAG, or MDT | Base / SFT / GSPO share one prompt, thinking mode, token cap, parser, scorer, model-serving runtime, and frozen IDs. |
+| System capability | What do RAG and Adaptive MDT add to one model? | Health-Copilot Harness; B0-B3 factorial | All four arms share one base checkpoint, thinking mode, token cap, parser, scorer, vLLM process/config, and frozen IDs. |
+
+PT-E0's `66.70%` CMB base result and the old Harness B0 `62.30%` are from different tracks and are not a model-training delta. The old B0/B2 runs remain development evidence only: Harness thinking was disabled, the output cap was 512, and B0/B2 runtime capture was not fully matched. The final system run must use [`qwen3_8b_base_system_eval.json`](../../configs/models/qwen3_8b_base_system_eval.json), with Qwen thinking explicitly enabled and a 2,048-token provider cap to match the PT-E0 generation protocol. It also freezes a 900-second per-request Harness deadline and xgrammar compact JSON for structured recruitment calls. The run manifest must record the actual vLLM runtime, and all B0-B3 cases must use the same live process/config. Adaptive's per-stage output caps remain method configuration and are recorded with the reasoning implementation hash.
+
+Primary end-to-end accuracy keeps every frozen ID in the denominator; safety routes, parser failures, and runtime failures are not dropped. Report them as separate error categories alongside parse success. Freeze parser v7 across model and system tracks. A parser change requires offline rescoring of every existing arm before any new model run.
+
 ## Intended public evaluation sets
 
 | Set | Intended size | Score | H0 state |
@@ -26,11 +39,11 @@ Candidate and scorer views are separate. `PreparedViewsAdapter` joins them by ID
 
 ```bash
 VLLM_BASE_URL=http://127.0.0.1:8001/v1 \
-VLLM_MODEL_NAME=qwen3-8b-h0 \
+VLLM_MODEL_NAME=qwen3-8b-system-v1 \
 uv run python tools/eval/run_common_eval.py \
   --dataset diagnosisarena --profile B0 \
-  --model-config configs/models/qwen3_8b_base.json \
-  --vllm-runtime-config runs/common_eval/harness-v1-base-20261005/recovery_inputs/vllm-runtime-config-8001-concurrency16.json \
+  --model-config configs/models/qwen3_8b_base_system_eval.json \
+  --vllm-runtime-config runs/common_eval/<frozen-system-v1-runtime>.json \
   --prepared-config configs/eval/local_prepared_views_h0.json \
   --output runs/common_eval/<run-id>/diagnosisarena/B0 --resume --concurrency 4
 ```
@@ -46,7 +59,7 @@ For the remote Qwen3-8B factorial ablation, the same entry point can run all fou
 ```powershell
 uv run --project . python tools/eval/run_common_eval.py `
   --dataset cmb-common --matrix core `
-  --model-config configs/models/qwen3_8b_base.json `
+  --model-config configs/models/qwen3_8b_base_system_eval.json `
   --output runs/common_eval/<run-id> --resume
 ```
 
@@ -58,7 +71,7 @@ B1/B3, P1/P3, and R1/R3 are blocked until `configs/eval/common_medical_kb_v1.jso
 
 ## H0 execution record
 
-The Base model is `Qwen/Qwen3-8B` revision `b968826d9c46dd6066d109eabc6255188de91218`, with local model-manifest SHA-256 `e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26`. B0 uses `temperature=0`, Qwen thinking disabled, and 512 output tokens. Under deterministic parser v6, DiagnosisArena-915 B0 is 339/915 (37.05%) with 915/915 parseable answers and zero answer-format failures. CMB-COMMON-1024 B0 is 638/1,024 (62.30%); 969/1,024 answers produce a choice, the remaining 55 are explicit safety-route abstentions, and answer-format failures are zero. Parser-v2 through v5 artifacts remain separate; parser-v6 copies were rescored from raw model outputs, leaving the original raw B0 runs unchanged.
+The Base model is `Qwen/Qwen3-8B` revision `b968826d9c46dd6066d109eabc6255188de91218`, with local model-manifest SHA-256 `e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26`. Historical B0 used `temperature=0`, Qwen thinking disabled, and 512 output tokens. Under deterministic parser v6, DiagnosisArena-915 B0 is 339/915 (37.05%) with 915/915 parseable answers and zero answer-format failures. CMB-COMMON-1024 B0 is 638/1,024 (62.30%); 969/1,024 answers produce a choice, the remaining 55 are explicit safety-route abstentions, and answer-format failures are zero. Parser-v2 through v5 artifacts remain separate; parser-v6 copies were rescored from raw model outputs, leaving the original raw B0 runs unchanged. These are historical development results, not the final system factorial baseline.
 
 Serving parity needs a caveat. The B0 run manifests captured the model config but no per-run vLLM runtime config or server process ID. A host vLLM log whose timestamp overlaps B0 records the same Qwen3-8B BF16 weights and vLLM build, but observed `gpu_memory_utilization=0.88`, 16,384 context, automatic KV cache, and prefix caching enabled. The B2 transport-recovery runs used port 8001, 32,768 context, FP8 KV cache, and prefix caching disabled. CMB targeted recovery used the `.46` reservation; DiagnosisArena resumed from `.46`/8 sequences to `.88`/16 sequences after capacity-wait metrics showed unused KV cache. Both arms use temperature 0 and thinking disabled, but exact server parity is unproven and the KV-cache configuration differs. Treat B0/B2 as descriptive same-backbone results, not a controlled causal estimate of reasoning architecture. Details and the source-log hash are in `recovery_inputs/serving-parity-audit.json`; each execution segment is recorded in its run manifest.
 
@@ -87,4 +100,8 @@ B0 and B2 both have RAG OFF and Memory OFF; manifests and traces confirm zero re
 
 PT-E0 separately reports CMB-COMMON-1024 at 683/1,024 (66.70%), 95% Wilson CI 63.75%–69.52%. It used an empty system prompt, thinking enabled, and up to 2,048 output tokens; it is a reference result, not a paired B0 score under this Harness prompt/decoding contract. B0 and B2 keep the same frozen Harness prompt. Post-training may affect format adherence, which will be measured on its own profile rather than assumed. Parser v7 reports zero answer-format failures and also corrects the identified silent set truncations. The 352-row full-CMB partial remains unscored as a full benchmark; 35 rows are reused within the common subset.
 
-The GPU is an NVIDIA L40 (46,068 MiB). Port 8000 was not stopped or reconfigured. The local vLLM server on loopback 8001 used the shared post-training venv, BF16 Qwen3-8B, FP8 KV cache, 32,768-token context, 16 sequences, 16,384 batched tokens, and prefix caching disabled. The `.88` phase exposed 22.01 GiB KV cache. Normal `torch.compile` (33.06 seconds on the first start), CUDA graph capture, FlashInfer initialization, and JIT warmup completed with the venv Ninja on PATH; the repeated repair start loaded cached compile artifacts in 0.63 seconds. Both 8001 runs were stopped after completion and GPU usage returned to zero. Full startup logs, runtime configs, targeted selections, repair overlay provenance, and serving parity evidence are saved under `runs/common_eval/harness-v1-base-20261005/recovery_inputs/`.
+The gold-blind parser-failure audit is stored at [`audit.json`](../../runs/common_eval/harness-v1-base-20261005/parser-audit-v7-gold-blind/audit.json). On parser-v7 outputs, all unparsed CMB answers are safety routes or Adaptive runtime failures, and all unparsed DiagnosisArena B2 answers are Adaptive runtime failures. The audit found no explicit-choice parser-miss candidates; it read candidate answer-schema metadata and response text/flags, not scorer gold or correctness. It audits the historical no-thinking checkpoints; the final thinking-enabled system outputs need the same audit before scores are frozen.
+
+H1-A located and fixed a Harness provider-copy bug that dropped `json_schema` when the per-request deadline reduced the provider timeout. The fix is covered by a budget-layer regression test. A thinking-enabled one-case B2 smoke then completed advanced recruitment and the full 12-call route. The 219 frozen historical recruitment failures are being replayed at the recruiter stage only, using candidate data, the same prompt/schema, and the Harness budget wrapper; no gold or score is read. Findings, exact scope, and artifact paths are in [H1-A diagnostics](h1_adaptive_recruitment_diagnostics.md). These debug artifacts do not replace historical scores or count as a new accuracy baseline.
+
+The H1 debug vLLM service is on loopback port 8001 using BF16 Qwen3-8B, model revision `b968826d9c46dd6066d109eabc6255188de91218`, thinking enabled, temperature 0, top-p 1, and 2,048-token serving cap. Its actual debug runtime is recorded at `runs/common_eval/harness-v1-base-20261005/adaptive-failure-audit-20261005/vllm-debug-replay-runtime-config.json` (8,192 context, one active sequence, FP8 KV cache, `.40` GPU reservation). This is not the final factorial vLLM profile. Port 8000 remains untouched. Do not launch B1/B3 before Common Medical KB V1 is qualified, and do not label any new B0/B2 scores causal until all four arms share one captured vLLM runtime and request protocol.
