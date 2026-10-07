@@ -117,3 +117,42 @@ M10 初期可以生成“正确”的 plan，但 provider 仍然收到旧的 `Ag
 - 提交前至少核对 `git diff --cached --check`、`git status --short` 和 staged diff stat。
 - 用户明确要求推送时，提交后执行 `git push origin main`，再核对 `git log -2 --oneline --decorate` 与 `git rev-list --left-right --count origin/main...main`；理想结果为 `0 0`。
 - 最终报告要区分：已验证的离线证据、未执行的 live/provider smoke，以及工作区中保留的无关未跟踪文件。不要把“测试通过”扩写成临床安全或真实 provider 质量结论。
+
+## 2026-10-05 L40 / vLLM / Ninja 排查记录（暂停点）
+
+### 已确认的环境事实
+
+- Qwen3-8B 本地权重路径为 `/root/gpufree-share/data/Qwen3-8B`。
+- 当前复用的后训练环境是 `/root/gpufree-data/Health-Copilot/training/posttrain/.venv`，Python 3.11，vLLM 为开发构建 `0.30.1rc1.dev622+gf03026a54`；不要在实验报告里称为 stable。
+- `ninja` 可执行文件已在该环境的 `.venv/bin/ninja`，版本 `1.13.2.git.kitware.jobserver-pipe-1`；但默认 shell 的 `PATH` 不含 `.venv/bin`，所以裸跑 `command -v ninja` 会误报缺失。启动 vLLM 前显式将该目录加入 `PATH`。
+- `/usr/local/cuda/bin/nvcc` 存在，CUDA Toolkit 13.0；Python `flashinfer` 包存在，但 `flashinfer_cubin` 不存在。缺少 cubin 时会走其他可用后端或 JIT 路径，不能单凭这个包缺失断定启动失败。
+- H0 未提交实现和运行产物原先在临时目录 `/tmp/health-copilot-h0-203b2cdc`。为防止关机清掉 `/tmp`，已原样复制到持久目录 `/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004`；明天从该目录继续，分支 `harness-v1-consolidation-20261004`，HEAD `203b2cdcfe3765695f405e4afe6c0704da07d80f`，现有未提交文件和 `runs/common_eval/` checkpoint 均已核对保留。不要从主 checkout 的 `main` 误接着改。
+
+### 故障判别顺序
+
+1. 先查 `nvidia-smi`、服务进程、目标端口和 `PATH`，再决定是否归因显存。此前 GPU 空闲时，vLLM 子进程在受限 sandbox 中报 `Can't initialize NVML`、`cudaGetDeviceCount Error 304` 和 `Failed to infer device type`；同样的模型与参数在可访问 GPU 的执行环境里可以启动。这种错误先按执行环境隔离排查，不要先当作 OOM。
+2. 先执行 `command -v ninja`、`.venv/bin/ninja --version` 和 `nvcc --version`。当前 Ninja 本身已安装，关键是启动 vLLM 的进程能从 `PATH` 找到它。
+3. 只有看到明确 CUDA OOM 日志并同时记录当时 GPU 占用，才把失败归因显存不足。曾经的 8001 nohup 日志文件是 0 字节，不能拿它们证明 OOM 或 Ninja 编译失败；后台启动要确认日志确实有内容，诊断时优先保留前台完整 stderr/stdout。
+4. 不要停止或重配 Memory 会话的 8000 服务。Multi-Agent/H0 的临时 vLLM 诊断使用 loopback 的 8001；每次长跑前重新查看 GPU 占用，避免和 Memory 任务争用。
+
+### 已验证与未验证的边界
+
+- 在完整 GPU 访问环境中，设置 `PATH=/root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin:$PATH` 后，Qwen3-8B 可在 8001 以 BF16 启动；`--gpu-memory-utilization 0.88` 启动记录约有 23.47 GiB KV cache，并成功完成一条 temperature=0 的本地聊天请求。
+- 那次诊断启动使用了 `--enforce-eager`。vLLM 明确说明该参数会禁用 `torch.compile`、CUDAGraph 和 JIT kernel warmup，因此它只验证了模型加载、GPU 推理和 OpenAI 兼容接口，**没有验证 Ninja 驱动的 JIT warmup**。
+- 下一次验证应保持 `.venv/bin` 在 `PATH` 中，使用正常编译路径（不加 `--enforce-eager`），保存完整日志，再判断 Ninja/JIT 是否通过。若明确报编译错误，先保存 traceback 和编译命令；若明确 OOM，再结合 `nvidia-smi` 调整显存预算。
+- vLLM 启动后从同一网络命名空间检查 `/health`、`/v1/models`，再发一条很小的确定性请求。受限 sandbox 的 curl 曾无法访问本机 loopback，即使服务实际已启动；这表示网络命名空间隔离，不能据此判定服务未监听。
+- 这次单题是合成算术 smoke，只证明接口可以返回结果，不构成医学准确率证据。之前 H0 的 B2 运行仍标记为基础设施失败；不能把它们改称有效成绩。修好服务后，先核对原失败 checkpoint/manifest，再只恢复确实失败且配置身份匹配的样本。
+
+### 明日继续时的最短检查
+
+```bash
+git status --short
+nvidia-smi
+ps -eo pid,ppid,pgid,etime,stat,cmd
+VLLM_ENV=/root/gpufree-data/Health-Copilot/training/posttrain/.venv
+PATH="$VLLM_ENV/bin:$PATH" command -v ninja
+"$VLLM_ENV/bin/ninja" --version
+/usr/local/cuda/bin/nvcc --version
+```
+
+启动前确认 8000 属于 Memory 且不碰它；在 GPU 空闲或用户明确允许的剩余预算内，只启动绑定 `127.0.0.1:8001` 的服务。不要为这次 Ninja 排查重装整个共享环境、改锁文件或覆盖现有运行结果。

@@ -1,0 +1,11 @@
+.tools/
+.uv-cache/
+.uv-python/
+.venv/
+.cache/
+outputs/
+checkpoints/
+exports/
+wandb/
+unsloth_compiled_cache/
+*.log
