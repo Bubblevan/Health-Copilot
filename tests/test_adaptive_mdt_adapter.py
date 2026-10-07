@@ -94,6 +94,12 @@ def test_complexity_parser_uses_final_output_after_qwen_thinking_block() -> None
     ) is Complexity.ADVANCED
 
 
+def test_complexity_parser_accepts_numbered_json_classifier_output() -> None:
+    assert _parse_complexity('{"difficulty": "1"}') is Complexity.BASIC
+    assert _parse_complexity('{"difficulty": "2"}') is Complexity.INTERMEDIATE
+    assert _parse_complexity('{"difficulty": 3}') is Complexity.ADVANCED
+
+
 def test_advanced_recruitment_uses_constrained_team_schema() -> None:
     provider = StructuredRecruitmentProvider()
     result = asyncio.run(AdaptiveMDTReasoner(provider).reason(

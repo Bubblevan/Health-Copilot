@@ -676,6 +676,27 @@ def _parse_complexity(text: str) -> Complexity:
     )
     if explicit:
         return labels[explicit[-1]]
+    try:
+        payload = _json_object(visible)
+    except (TypeError, ValueError):
+        payload = {}
+    numeric_labels = {
+        "1": Complexity.BASIC,
+        "2": Complexity.INTERMEDIATE,
+        "3": Complexity.ADVANCED,
+    }
+    for key in ("difficulty", "complexity", "classification", "level"):
+        value = payload.get(key)
+        if isinstance(value, str):
+            candidate = value.strip().casefold()
+            if candidate in labels:
+                return labels[candidate]
+            if candidate in numeric_labels:
+                return numeric_labels[candidate]
+        elif isinstance(value, int) and not isinstance(value, bool):
+            mapped = numeric_labels.get(str(value))
+            if mapped is not None:
+                return mapped
     line_labels: list[Complexity] = []
     for line in normalized.splitlines():
         candidate = line.strip().strip("*` .")
