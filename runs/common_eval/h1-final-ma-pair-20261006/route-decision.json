@@ -1,0 +1,22 @@
+{
+  "b1_b3": "CANCELLED; no broad medical RAG effect claim will be made from COMMON_MEDICAL_KB_V1",
+  "cmb": "Reuse frozen full B0; run full B2 on the new server process.",
+  "cmb_b0_git_sha": "9b0a39dd42d771fc724b8387b7aa1ea11d91d2bf",
+  "cmb_b0_reference": "runs/common_eval/h1-final-factorial-20261005/full/cmb-common-1024/B0/run_manifest.json",
+  "cmb_b0_runtime_config_sha256": "f7da7d58dc530313e64cc59f51d06fc1c001fdb4f555349ce570a398d47d59dc",
+  "cmb_b0_score": "727/1024 (71.00%)",
+  "cmb_b0_status": "COMPLETE",
+  "cmb_b0_vllm_frontend_pid": 90872,
+  "common_kb_v2": "NOT_BUILDING_IN_THIS_STAGE",
+  "datasets": [
+    "DiagnosisArena-915",
+    "CMB-COMMON-1024"
+  ],
+  "diagnosisarena": "Run full B0 then full B2 on the same new live server process.",
+  "multi_agent_track": "FINAL_B0_VS_B2_ONLY",
+  "next": "After paired B0/B2 analysis, release compute to medical SFT/GSPO/GDPO.",
+  "rag_track": "CLOSED_FOR_COMMON_EVAL_FACTORIAL",
+  "runtime_alignment_note": "The frozen CMB B0 used the earlier 8001 server process; that process was stopped after the B1 coverage-smoke cancellation. New arms use a restarted server with the same model, weights, vLLM build, dtype, seed, decoding, chat-template, token limits, and runtime flags. Literal PID identity cannot be preserved; no B0 rerun is planned.",
+  "schema_version": "h1-ma-closeout-route-v1",
+  "updated_at_utc": "2026-10-05T17:36:38.336622+00:00"
+}

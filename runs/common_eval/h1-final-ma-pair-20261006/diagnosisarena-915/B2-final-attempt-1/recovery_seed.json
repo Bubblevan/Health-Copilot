@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-10-06T03:35:30.416372+00:00",
+  "excluded_case_rows": 597,
+  "excluded_reasoning_failure_rows": 597,
+  "excluded_transport_failure_rows": 415,
+  "initial_buggy_attempt": true,
+  "kept_case_ids_sha256": "0331940b202aacbf87f254b9731f7282d17e50353e29fc660b4b5eca5e8eea98",
+  "reused_case_rows": 318,
+  "schema_version": "h1-b2-recovery-seed-v1",
+  "selection_rule": "reuse only rows with no reasoning failure and no failed MDT route from the invalid first B2 attempt",
+  "source_case_rows": 915,
+  "source_manifest_sha256": "7a69865e7724a5b2616aa09a84750b3a69280bf3c3ed4f4c2213cd77db8532a2",
+  "source_output": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/diagnosisarena-915/B2",
+  "written_trace_rows": 318
+}

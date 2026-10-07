@@ -1,0 +1,47 @@
+{
+  "available_kv_cache_gib": 5.2,
+  "base_url": "http://127.0.0.1:8001/v1",
+  "captured_at_utc": "2026-10-06T03:35:30.186349+00:00",
+  "cuda_runtime": "13.0",
+  "current_server_pid": 208870,
+  "decoding": {
+    "chat_template_kwargs": {
+      "enable_thinking": true
+    },
+    "do_sample": false,
+    "max_output_tokens": 2048,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "dtype": "bfloat16",
+  "enforce_eager": false,
+  "gpu_memory_utilization": 0.5,
+  "host": "127.0.0.1",
+  "jit_kernel_warmup": "completed",
+  "kv_cache_dtype": "auto",
+  "kv_cache_tokens": 37888,
+  "literal_same_process_as_frozen_cmb_b0": false,
+  "max_full_context_concurrency": 2.31,
+  "max_model_len": 16384,
+  "max_num_batched_tokens": 16384,
+  "max_num_seqs": 16,
+  "memory_server_port_8000": "not accessed or modified by this run",
+  "model_id": "Qwen/Qwen3-8B",
+  "model_path": "/root/gpufree-share/data/Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "model_weight_manifest_sha256": "e5466c735d57bd3e32d4607a3e372b1862579edfef7864ca514e709a38853e26",
+  "port": 8001,
+  "prefix_caching": false,
+  "previous_cmb_b0_server_pid": 90872,
+  "python": "3.11.17",
+  "recovery_generation": 1,
+  "schema_version": "h1-ma-pair-vllm-runtime-v1",
+  "seed": 20261004,
+  "served_model": "qwen3-8b-system-v1",
+  "structured_outputs_config": {
+    "backend": "xgrammar",
+    "disable_any_whitespace": true
+  },
+  "torch_version": "2.13.0+cu130",
+  "vllm_version": "0.30.1rc1.dev622+gf03026a54"
+}

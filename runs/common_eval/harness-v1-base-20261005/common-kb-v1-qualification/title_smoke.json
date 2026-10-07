@@ -1,0 +1,352 @@
+{
+  "benchmark_rows_opened": false,
+  "cases": [
+    {
+      "evidence_sha256": "d47670a406273f9a127dcaa1ac8dd7eee21348d75b3f9f08b0d3066014204816",
+      "query_source_id": "cdc-high-blood-pressure-about-01-us-threshold",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-about-01-us-threshold",
+        "cdc-high-blood-pressure-prevention-03-activity",
+        "cdc-high-blood-pressure-about-02-symptoms",
+        "who-hypertension-01-definition",
+        "cdc-high-blood-pressure-managing-01-monitoring"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "d466b1bfcbdc52cf38549bc00e5d72e56073b903145722af605afa071b3e04fa",
+      "query_source_id": "cdc-high-blood-pressure-about-02-symptoms",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-about-02-symptoms",
+        "cdc-high-blood-pressure-managing-01-monitoring",
+        "who-hypertension-03-silent",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-about-01-us-threshold"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "8725303018cd31f05564f1230e7425b63c5acb05cf274199328203b7b0746888",
+      "query_source_id": "cdc-high-blood-pressure-about-03-organ-risks",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-about-03-organ-risks",
+        "cdc-high-blood-pressure-managing-01-monitoring",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-about-02-symptoms",
+        "who-hypertension-03-silent"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "46d1b04ab8d3756e22b71712f27c1121ef4895de4b474d344c621d967a3c9c09",
+      "query_source_id": "cdc-high-blood-pressure-managing-01-monitoring",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-managing-01-monitoring",
+        "cdc-high-blood-pressure-about-02-symptoms",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-prevention-04-sleep"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "a1abc93d24e86fa27cec015b05cf79a1687e4b34e60af0fcb14f0aa016fec4ce",
+      "query_source_id": "cdc-high-blood-pressure-managing-02-care-plan",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-prevention-02-dash",
+        "cdc-high-blood-pressure-measuring-01-home",
+        "cdc-high-blood-pressure-risk-02-inactivity"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "dc177eed50ec42dff5a51484f72bfdb47e7e9c91a0e383435663e1a208264825",
+      "query_source_id": "cdc-high-blood-pressure-managing-03-medicine-safety",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-managing-03-medicine-safety",
+        "cdc-high-blood-pressure-managing-04-otc",
+        "cdc-high-blood-pressure-measuring-04-position",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-risk-02-inactivity"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "81694125bff1fc14f4c140ab37062bcdabe8f92abccd9fdec5c3abc0471c6f69",
+      "query_source_id": "cdc-high-blood-pressure-managing-04-otc",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-managing-04-otc",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-measuring-04-position",
+        "who-hypertension-05-lifestyle",
+        "cdc-high-blood-pressure-measuring-03-before-reading"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "f8af3328a93d2429f65368fc03b558b8d360b49f80fc1655d3af9117036dcba3",
+      "query_source_id": "cdc-high-blood-pressure-measuring-01-home",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-measuring-01-home",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "cdc-high-blood-pressure-risk-05-overweight"
+      ],
+      "target_rank_at_k5": 3,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "3d3add7026b02cb6ec0675c2392248fb4a46d4ca19e0df63b4d62a3e474db852",
+      "query_source_id": "cdc-high-blood-pressure-measuring-02-repeat",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-measuring-03-before-reading",
+        "cdc-high-blood-pressure-managing-03-medicine-safety"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "5797b0765bd0f36876f7065bb099d4951f59561a59e9f69782fff462b81e6a66",
+      "query_source_id": "cdc-high-blood-pressure-measuring-03-before-reading",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-measuring-03-before-reading",
+        "cdc-high-blood-pressure-managing-03-medicine-safety"
+      ],
+      "target_rank_at_k5": 4,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "0abf7ece847446737f8419066198ae359051ec02156ab6aa8b3015a8ecb7d150",
+      "query_source_id": "cdc-high-blood-pressure-measuring-04-position",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-measuring-04-position",
+        "cdc-high-blood-pressure-measuring-03-before-reading"
+      ],
+      "target_rank_at_k5": 4,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "29672d5f5a26c9b1f4ed2bc20256f61b7ad32b9d76d27e4a7cdf4c69440fb943",
+      "query_source_id": "cdc-high-blood-pressure-measuring-05-white-coat",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-measuring-05-white-coat",
+        "cdc-high-blood-pressure-measuring-02-repeat",
+        "cdc-high-blood-pressure-managing-03-medicine-safety",
+        "cdc-high-blood-pressure-measuring-03-before-reading",
+        "cdc-high-blood-pressure-managing-04-otc"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "3779ed731a8a464be542f6a265845e3f6d6dc92406c8d4a3d26fd8fd0de9af51",
+      "query_source_id": "cdc-high-blood-pressure-prevention-01-diet",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-prevention-01-diet",
+        "cdc-high-blood-pressure-prevention-02-dash",
+        "cdc-high-blood-pressure-measuring-03-before-reading",
+        "cdc-high-blood-pressure-managing-01-monitoring",
+        "cdc-high-blood-pressure-risk-01-sodium"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "ae99e936b256fcd8b0927a933b5f8e0576831d071dbeac9c5c67378a6b59d194",
+      "query_source_id": "cdc-high-blood-pressure-prevention-02-dash",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-prevention-02-dash",
+        "cdc-high-blood-pressure-prevention-01-diet",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "cdc-high-blood-pressure-measuring-03-before-reading"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "6112c0b366cbd0749035e850acf9d5f291c090a77378e1367b6fa041552d5052",
+      "query_source_id": "cdc-high-blood-pressure-prevention-03-activity",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-prevention-03-activity",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "cdc-high-blood-pressure-prevention-04-sleep",
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-measuring-05-white-coat"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "35840b6e919e999abb63b3d0386e6f341bc7ace8be5e3f8c5f9f155ec4cd1021",
+      "query_source_id": "cdc-high-blood-pressure-prevention-04-sleep",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-prevention-04-sleep",
+        "cdc-high-blood-pressure-managing-02-care-plan",
+        "cdc-high-blood-pressure-risk-04-tobacco",
+        "cdc-high-blood-pressure-about-02-symptoms",
+        "cdc-high-blood-pressure-about-03-organ-risks"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "6093403b416d28eb66333b8691da8e1440991ad85df42bc5841a6b2c96efcae7",
+      "query_source_id": "cdc-high-blood-pressure-risk-01-sodium",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "cdc-high-blood-pressure-prevention-01-diet",
+        "cdc-high-blood-pressure-risk-04-tobacco",
+        "cdc-high-blood-pressure-risk-05-overweight",
+        "cdc-high-blood-pressure-prevention-04-sleep"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "47fe6b8460f3a240a89c91855fce8fc03f96927ea4052c4746a6963005f4c406",
+      "query_source_id": "cdc-high-blood-pressure-risk-02-inactivity",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "cdc-high-blood-pressure-managing-03-medicine-safety",
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-prevention-03-activity",
+        "cdc-high-blood-pressure-prevention-04-sleep"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "76e4f6f9ae9a707b520882837202d206bb58081a26141682ed4fbb29635c5542",
+      "query_source_id": "cdc-high-blood-pressure-risk-03-alcohol",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-risk-05-overweight",
+        "cdc-high-blood-pressure-risk-03-alcohol",
+        "cdc-high-blood-pressure-risk-04-tobacco",
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "who-hypertension-04-risk-factors"
+      ],
+      "target_rank_at_k5": 2,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "be8c401bc2a159ca11d3cf39d0d0347f60d66335115dab4a210525f6e7aa7e72",
+      "query_source_id": "cdc-high-blood-pressure-risk-04-tobacco",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-risk-04-tobacco",
+        "cdc-high-blood-pressure-prevention-04-sleep",
+        "cdc-high-blood-pressure-risk-05-overweight",
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "cdc-high-blood-pressure-about-03-organ-risks"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "f980a1c14be0c8cd9576309a85bb7b55345aee02fa2e2b69be623519160de231",
+      "query_source_id": "cdc-high-blood-pressure-risk-05-overweight",
+      "retrieved_source_ids": [
+        "cdc-high-blood-pressure-risk-05-overweight",
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "cdc-high-blood-pressure-risk-04-tobacco",
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-prevention-04-sleep"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "e3f5ac9662c31015b1deae6e84d74ef602d7927e61a571e586ac8c7d4f4b8b5c",
+      "query_source_id": "who-hypertension-01-definition",
+      "retrieved_source_ids": [
+        "who-hypertension-04-risk-factors",
+        "who-hypertension-01-definition",
+        "who-hypertension-03-silent",
+        "who-hypertension-02-confirmation",
+        "who-hypertension-05-lifestyle"
+      ],
+      "target_rank_at_k5": 2,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "6b153e787d69f7c11c68f1eb616c61173eda2a2bc8619737e2e48725dca3ea30",
+      "query_source_id": "who-hypertension-02-confirmation",
+      "retrieved_source_ids": [
+        "who-hypertension-02-confirmation",
+        "who-hypertension-03-silent",
+        "who-hypertension-05-lifestyle",
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-about-02-symptoms"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "fd0f6fd7ea11d8bb8edcbd6898acfe6bd490d2b43183b79f8e102252fa2e0e62",
+      "query_source_id": "who-hypertension-03-silent",
+      "retrieved_source_ids": [
+        "who-hypertension-03-silent",
+        "who-hypertension-04-risk-factors",
+        "who-hypertension-01-definition",
+        "cdc-high-blood-pressure-managing-01-monitoring",
+        "who-hypertension-02-confirmation"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "57aeba568d0b363bd47f0c69a539694f45fec745a4d4aa5605cec47497e197e2",
+      "query_source_id": "who-hypertension-04-risk-factors",
+      "retrieved_source_ids": [
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-risk-01-sodium",
+        "who-hypertension-03-silent",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "who-hypertension-02-confirmation"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    },
+    {
+      "evidence_sha256": "4ad527928c37a1b720570afbd9dca60787b099c74af79018390553c774ab34b1",
+      "query_source_id": "who-hypertension-05-lifestyle",
+      "retrieved_source_ids": [
+        "who-hypertension-05-lifestyle",
+        "who-hypertension-03-silent",
+        "cdc-high-blood-pressure-risk-02-inactivity",
+        "who-hypertension-04-risk-factors",
+        "cdc-high-blood-pressure-about-03-organ-risks"
+      ],
+      "target_rank_at_k5": 1,
+      "top_k": 5
+    }
+  ],
+  "classification": "DIAGNOSTIC_NOT_ACCURACY",
+  "corpus_id": "COMMON_MEDICAL_KB_V1_CDC_WHO_BP_26_399c528c7784",
+  "corpus_sha256": "399c528c7784b1a722e20c181d6889f2c4a043d56240bf6e5dd1d4824da5f4e0",
+  "index_hash": "e9ad9ff82073f63867487c118602d5da1e7c4f156dec6ea31d4a3005b8f3834c",
+  "provider_model_calls": 0,
+  "query_count": 26,
+  "schema_version": "common-medical-kb-v1-title-smoke",
+  "target_source_hits_at_5": 26,
+  "target_source_recall_at_5": 1.0
+}

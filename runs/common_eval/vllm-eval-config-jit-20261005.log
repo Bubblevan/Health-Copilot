@@ -1,0 +1,167 @@
+W1005 11:15:22.952000 2237 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1005 11:15:22.978000 2237 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347] 
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.1rc1.dev622+gf03026a54
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /root/gpufree-share/data/Qwen3-8B
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:347] 
+(APIServer pid=2237) INFO 10-05 11:15:26 [api_utils.py:286] non-default args: {'model_tag': '/root/gpufree-share/data/Qwen3-8B', 'host': '127.0.0.1', 'port': 8001, 'model': '/root/gpufree-share/data/Qwen3-8B', 'dtype': 'bfloat16', 'seed': 20261004, 'max_model_len': 32768, 'served_model_name': ['Qwen/Qwen3-8B'], 'gpu_memory_utilization': 0.43, 'kv_cache_dtype': 'fp8', 'max_num_batched_tokens': 16384, 'max_num_seqs': 8}
+(APIServer pid=2237) INFO 10-05 11:15:26 [model.py:725] Resolved architecture: Qwen3ForCausalLM
+(APIServer pid=2237) INFO 10-05 11:15:26 [model.py:2136] Using max model len 32768
+(APIServer pid=2237) INFO 10-05 11:15:26 [cache.py:349] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+(APIServer pid=2237) INFO 10-05 11:15:26 [scheduler.py:308] Chunked prefill is enabled with max_num_batched_tokens=16384.
+(APIServer pid=2237) INFO 10-05 11:15:26 [kernel.py:459] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+W1005 11:15:32.602000 2524 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1005 11:15:32.627000 2524 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+(EngineCore pid=2524) INFO 10-05 11:15:35 [core.py:129] Initializing a V1 LLM engine (v0.30.1rc1.dev622+gf03026a54) with config: model='/root/gpufree-share/data/Qwen3-8B', speculative_config=None, tokenizer='/root/gpufree-share/data/Qwen3-8B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=fp8, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=20261004, served_model_name=Qwen/Qwen3-8B, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 16, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=2524) INFO 10-05 11:15:35 [parallel_state.py:1825] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_4d3784bf8192458a98cd0a2aed859cc1 backend=nccl
+(EngineCore pid=2524) INFO 10-05 11:15:35 [parallel_state.py:2269] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=2524) INFO 10-05 11:15:35 [gpu_worker.py:500] Using V2 Model Runner
+(EngineCore pid=2524) INFO 10-05 11:15:36 [model_runner.py:375] Loading model from scratch...
+(EngineCore pid=2524) INFO 10-05 11:15:37 [cuda.py:526] Using FLASHINFER attention backend out of potential backends: ['FLASHINFER', 'TRITON_ATTN'].
+(EngineCore pid=2524) INFO 10-05 11:15:38 [base_loader.py:81] Initializing model took 1.700237 seconds
+(EngineCore pid=2524) INFO 10-05 11:15:38 [weight_utils.py:1063] Filesystem type for checkpoints: FUSE.JUICEFS. Checkpoint size: 15.26 GiB. Available RAM: 114.98 GiB.
+(EngineCore pid=2524) INFO 10-05 11:15:38 [weight_utils.py:1086] Auto-prefetch is disabled because the filesystem (FUSE.JUICEFS) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/5 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  20% Completed | 1/5 [00:00<00:02,  1.59it/s]
+Loading safetensors checkpoint shards:  40% Completed | 2/5 [00:01<00:02,  1.50it/s]
+Loading safetensors checkpoint shards:  60% Completed | 3/5 [00:02<00:01,  1.48it/s]
+Loading safetensors checkpoint shards:  80% Completed | 4/5 [00:02<00:00,  1.58it/s]
+Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:02<00:00,  2.03it/s]
+Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:02<00:00,  1.77it/s]
+
+(EngineCore pid=2524) INFO 10-05 11:15:41 [default_loader.py:484] Loading weights took 2.85 seconds
+(EngineCore pid=2524) INFO 10-05 11:15:41 [model_runner.py:407] Model loading took 15.27 GiB memory and 5.538764 seconds
+(EngineCore pid=2524) INFO 10-05 11:15:41 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=2524) INFO 10-05 11:15:41 [torch_utils.py:286] Reducing Torch threads from 14 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=2524) INFO 10-05 11:15:41 [utils.py:343] Using LBNHC KV cache layout.
+(EngineCore pid=2524) INFO 10-05 11:15:42 [monitor.py:40] [backbone] Starting torch.compile
+(EngineCore pid=2524) INFO 10-05 11:15:49 [backends.py:1101] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/46c55e7421/rank_0_0/backbone for vLLM's torch.compile
+(EngineCore pid=2524) INFO 10-05 11:15:49 [backends.py:1163] [backbone] Dynamo bytecode transform time: 6.47 s
+(EngineCore pid=2524) INFO 10-05 11:16:11 [backends.py:398] [backbone] Compiling a graph for compile range (1, 16384) takes 22.18 s
+(EngineCore pid=2524) INFO 10-05 11:16:15 [backends.py:927] collected artifacts: 37 entries, 3 artifacts, 5957341 bytes total
+(EngineCore pid=2524) INFO 10-05 11:16:15 [decorators.py:743] [backbone] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/b9894bd0cb4200430d5a07056b5c6552f2878aceb7dfc191aa17f217b4365902/rank_0_0/model
+(EngineCore pid=2524) INFO 10-05 11:16:15 [monitor.py:62] [backbone] torch.compile took 32.91 s in total
+(EngineCore pid=2524) INFO 10-05 11:16:16 [monitor.py:91] [backbone] Initial profiling/warmup run took 0.36 s
+(EngineCore pid=2524) INFO 10-05 11:16:19 [flashinfer.py:910] FlashInfer resolved query dtypes: prefill=torch.bfloat16, decode=torch.bfloat16, decode_backend=flashinfer-native, kv_cache_dtype=torch.float8_e4m3fn, arch=sm89
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/5 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):  20%|██        | 1/5 [00:00<00:00,  6.72it/s]Capturing CUDA graphs (PIECEWISE):  60%|██████    | 3/5 [00:00<00:00, 12.95it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 5/5 [00:00<00:00, 14.78it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 5/5 [00:00<00:00, 13.49it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 28.12it/s]
+(EngineCore pid=2524) INFO 10-05 11:16:20 [model_runner.py:1103] Graph capturing finished in 1 secs, took 0.10 GiB
+(EngineCore pid=2524) INFO 10-05 11:16:21 [gpu_worker.py:721] Available KV cache memory: 2.09 GiB
+(EngineCore pid=2524) INFO 10-05 11:16:21 [gpu_worker.py:736] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.4300 is equivalent to --gpu-memory-utilization=0.4276 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.4324. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436] EngineCore failed to start.
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436] Traceback (most recent call last):
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1398, in run_engine_core
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     return func(*args, **kwargs)
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1154, in __init__
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     super().__init__(
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 151, in __init__
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     kv_cache_config = self._initialize_kv_caches(vllm_config)
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     return func(*args, **kwargs)
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 320, in _initialize_kv_caches
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     kv_cache_configs = get_kv_cache_configs(
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]                        ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/core/kv_cache_utils.py", line 2812, in get_kv_cache_configs
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     _check_enough_kv_cache_memory(
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]   File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/core/kv_cache_utils.py", line 942, in _check_enough_kv_cache_memory
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436]     raise ValueError(
+(EngineCore pid=2524) ERROR 10-05 11:16:21 [core.py:1436] ValueError: To serve at least one request with the model's max seq len (32768), (2.25 GiB KV cache is needed, which is larger than the available KV cache memory (2.09 GiB). Based on the available memory, the estimated maximum model length is 30448. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+Process EngineCore:
+Traceback (most recent call last):
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1440, in run_engine_core
+    raise e
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1398, in run_engine_core
+    engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 1154, in __init__
+    super().__init__(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 151, in __init__
+    kv_cache_config = self._initialize_kv_caches(vllm_config)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 320, in _initialize_kv_caches
+    kv_cache_configs = get_kv_cache_configs(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/core/kv_cache_utils.py", line 2812, in get_kv_cache_configs
+    _check_enough_kv_cache_memory(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/core/kv_cache_utils.py", line 942, in _check_enough_kv_cache_memory
+    raise ValueError(
+ValueError: To serve at least one request with the model's max seq len (32768), (2.25 GiB KV cache is needed, which is larger than the available KV cache memory (2.09 GiB). Based on the available memory, the estimated maximum model length is 30448. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+[rank0]:[W1005 11:16:21.467192979 ProcessGroupNCCL.cpp:1624] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=2237) INFO 10-05 11:16:23 [utils.py:655] [shutdown] Process manager: send sigterm to process EngineCore
+Traceback (most recent call last):
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/vllm", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/cli/main.py", line 118, in main
+    args.dispatch_function(args)
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/cli/serve.py", line 156, in cmd
+    uvloop.run(run_server(args))
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/uvloop/__init__.py", line 92, in run
+    return runner.run(wrapper())
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1515, in uvloop.loop.Loop.run_until_complete
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/uvloop/__init__.py", line 48, in wrapper
+    return await main
+           ^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 175, in run_server
+    await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 188, in run_server_worker
+    async with build_async_engine_client(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 61, in build_async_engine_client
+    async with build_async_engine_client_from_engine_args(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 95, in build_async_engine_client_from_engine_args
+    async_llm = AsyncLLM.from_vllm_config(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/async_llm.py", line 248, in from_vllm_config
+    return cls(
+           ^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/async_llm.py", line 180, in __init__
+    self.engine_core = EngineCoreClient.make_async_mp_client(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 167, in make_async_mp_client
+    return AsyncMPClient(
+           ^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 1100, in __init__
+    super().__init__(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 674, in __init__
+    with launch_core_engines(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.uv-python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 1283, in launch_core_engines
+    wait_for_engine_startup(
+  File "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 1363, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

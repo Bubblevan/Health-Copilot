@@ -1,0 +1,40 @@
+{
+  "datasets": {
+    "cmb_common1024": {
+      "candidate_ids_match_manifest": true,
+      "candidate_row_count": 1024,
+      "candidate_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/cmb_common1024/candidate_view.jsonl",
+      "candidate_view_sha256": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+      "id_manifest_path": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/configs/eval/cmb_common1024_ids.json",
+      "id_manifest_sha256": "8bb899d3b1577a606915535749e9455d6e5bc53aed27d7057cf2007918c37397",
+      "runtime_candidate_text_fields_checked": 2048
+    },
+    "diagnosisarena915": {
+      "candidate_ids_match_manifest": true,
+      "candidate_row_count": 915,
+      "candidate_view_path": "/root/gpufree-data/Health-Copilot-PT-E0-data/eval/prepared/diagnosisarena/candidate_view.jsonl",
+      "candidate_view_sha256": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd",
+      "id_manifest_path": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/configs/eval/diagnosisarena915_ids.json",
+      "id_manifest_sha256": "b0203d2259b256dfd600241ab5b6d7972ae4cca8137094e0e79af9a008216c1e",
+      "runtime_candidate_text_fields_checked": 1830
+    }
+  },
+  "exact_overlap_pair_count": 0,
+  "exact_overlap_pairs": [],
+  "exact_test": "normalized full prompt/fingerprint containment in normalized source-card title+content",
+  "gold_opened": false,
+  "near_duplicate_candidate_count": 0,
+  "near_duplicate_candidate_test": {
+    "feature": "set of five-character shingles",
+    "interpretation": "candidate discovery only; requires gold-blind text review",
+    "metric": "intersection divided by smaller shingle-set size",
+    "threshold": 0.95
+  },
+  "near_duplicate_candidates": [],
+  "normalization": "Unicode NFKC + casefold + alphanumeric/CJK only",
+  "schema_version": "common-kb-eval-overlap-audit-v1",
+  "scorer_view_opened": false,
+  "source_corpus_id": "COMMON_MEDICAL_KB_V1_CDC_WHO_BP_26_399c528c7784",
+  "source_corpus_sha256": "399c528c7784b1a722e20c181d6889f2c4a043d56240bf6e5dd1d4824da5f4e0",
+  "source_document_count": 26
+}

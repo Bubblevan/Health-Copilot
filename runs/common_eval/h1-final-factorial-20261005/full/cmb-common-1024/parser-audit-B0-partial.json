@@ -1,0 +1,750 @@
+{
+  "candidate_view_sha256": {
+    "cmb-common": "9b90ef5f072aefdffd7850b284cc2a56f3bef5f7bbc055c0510bb3b6f9615119",
+    "diagnosisarena": "6bff8dab6683b4bf8954f45d1bba27eec6e75d9fba5f0cb5f233fe7f0f9b53dd"
+  },
+  "gold_accessed": false,
+  "method": "Read only candidate-view case IDs/question_type and case_id plus response answer_text/parsed_answer/safety_flags. Do not inspect gold, score.correct, or evaluator labels. Parser-missed candidates are surfaced for manual review; no candidate is auto-corrected.",
+  "parser_missed_explicit_choice_candidates": [],
+  "runs": {
+    "cmb-common-1024/B0": {
+      "case_count": 1024,
+      "cases": [
+        {
+          "case_id": "cmb:10228",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10528",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10689",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:10779",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10788",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10838",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:10963",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1104",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:11049",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:11047",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1116",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:11188",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清",
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:1298",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1395",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:141",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1429",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1530",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1551",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1641",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1607",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1813",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1944",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:1966",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:1987",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:213",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:2521",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:2764",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:2971",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:296",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:3222",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3253",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:3291",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:3292",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:3320",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:3456",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3532",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:意识不清"
+          ]
+        },
+        {
+          "case_id": "cmb:3549",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷",
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:3515",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:3636",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3686",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:3730",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:3793",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:3912",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:410",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:4101",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4025",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:4137",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4413",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:4518",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4599",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4816",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4860",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:4962",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4965",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:4987",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5180",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5153",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5188",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5240",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5270",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5257",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5318",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5397",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:5479",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:5547",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛"
+          ]
+        },
+        {
+          "case_id": "cmb:5525",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5624",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:5662",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5713",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5826",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5834",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5927",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:5980",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6031",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6006",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6143",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:6254",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:昏迷"
+          ]
+        },
+        {
+          "case_id": "cmb:6265",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6241",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6368",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6449",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6479",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6581",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:6584",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:6623",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:708",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7100",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7245",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7284",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:729",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7427",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:7406",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7476",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7525",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7630",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:7632",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7662",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7732",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:7824",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:8108",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:819",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:8255",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:8339",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:8441",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:8610",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": [
+            "unverified_citation_removed"
+          ]
+        },
+        {
+          "case_id": "cmb:8746",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:8795",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:胸痛",
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:890",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:8984",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:剂量"
+          ]
+        },
+        {
+          "case_id": "cmb:8890",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9124",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:自杀"
+          ]
+        },
+        {
+          "case_id": "cmb:9129",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9225",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9279",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9303",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:949",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9576",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "prescription_marker:处方"
+          ]
+        },
+        {
+          "case_id": "cmb:9556",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        },
+        {
+          "case_id": "cmb:9717",
+          "category": "B_SAFETY_ABSTENTION",
+          "safety_flags": [
+            "urgent_marker:呼吸困难"
+          ]
+        },
+        {
+          "case_id": "cmb:9881",
+          "category": "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE",
+          "safety_flags": []
+        }
+      ],
+      "categories": {
+        "B_SAFETY_ABSTENTION": 55,
+        "D_MODEL_NEVER_COMMITS_TO_VALID_CHOICE": 66
+      },
+      "checkpoint_sha256": "6a75a55db5da3412793baef6183c30427ec6d93e82edf8761df7b4cec23ee0f9",
+      "parse_success": 903,
+      "parse_success_rate": 0.8818359375,
+      "parser_mismatches_vs_frozen_response": [],
+      "trace_checkpoint_sha256": "f6f51ee9ac6401ff3be10db28956c834da616ee968fa9f51a17a305d6be2c709",
+      "unparsed_count": 121
+    }
+  },
+  "schema_version": "gold-blind-parser-failure-audit-v2",
+  "scoring_revision": "deterministic-mcq-parser-v7",
+  "status": "NO_PARSER_FALSE_NEGATIVE_CANDIDATES_FOUND",
+  "trace_diagnostics_opened": true
+}

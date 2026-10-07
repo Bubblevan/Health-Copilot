@@ -1,0 +1,21 @@
+{
+  "b1_case_count": 1024,
+  "b1_completed_at_utc": null,
+  "b1_status": "RUNNING",
+  "b2_status_at_detection": "NOT_STARTED_WITHIN_GRACE_PERIOD",
+  "detected_at_utc": "2026-10-05T17:23:29.635806+00:00",
+  "queue_attempted": true,
+  "queue_attempts": [
+    {
+      "at_utc": "2026-10-05T17:23:29.663707+00:00",
+      "attempt": 1,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Queued message 01a10d17-8cfb-7253-b1a1-e1398b9d82bf for thread 01a1026e-ee85-75c1-a03f-57fc20c3c9e5.\n"
+    }
+  ],
+  "queue_succeeded": true,
+  "runner_alive_at_detection": false,
+  "runner_pid": null,
+  "schema_version": "h1-b1-completion-wake-v1"
+}

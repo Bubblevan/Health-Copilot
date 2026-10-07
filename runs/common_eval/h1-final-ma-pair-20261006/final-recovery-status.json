@@ -1,0 +1,63 @@
+{
+  "active_stage": {
+    "attempt": 1,
+    "checkpoint_rows": 6,
+    "checkpoint_updated_at_utc": "2026-10-06T04:52:30.654899+00:00",
+    "command": [
+      "/root/gpufree-data/Health-Copilot/training/posttrain/.venv/bin/python",
+      "-u",
+      "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/tools/eval/run_common_eval.py",
+      "--dataset",
+      "cmb-common",
+      "--profile",
+      "B2",
+      "--model-config",
+      "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/configs/models/qwen3_8b_base_system_eval.json",
+      "--vllm-runtime-config",
+      "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/vllm-runtime-config-recovery-2.json",
+      "--prepared-config",
+      "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/configs/eval/local_prepared_views_h0.json",
+      "--output",
+      "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/cmb-common-1024/B2-final-attempt-1",
+      "--concurrency",
+      "2",
+      "--resume",
+      "--capture-adaptive-diagnostics"
+    ],
+    "dataset": "cmb-common-1024",
+    "output": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/cmb-common-1024/B2-final-attempt-1",
+    "pause_reason": "User requested pausing CMB B2 before switching post-training datasets.",
+    "paused_at_utc": "2026-10-06T04:53:30.224590+00:00",
+    "pid": 221924,
+    "profile": "B2",
+    "started_at_utc": "2026-10-06T04:45:15.624294+00:00",
+    "status": "PAUSED_BY_USER"
+  },
+  "attempts": [],
+  "b1_b3": "CANCELLED",
+  "diagnosisarena": {
+    "checkpoint_rows": 368,
+    "expected_rows": 915,
+    "output": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/diagnosisarena-915/B2-final-attempt-1",
+    "paused_at_utc": "2026-10-06T04:44:35.615047+00:00",
+    "resume_command": "python runs/common_eval/h1-final-ma-pair-20261006/run_final_recovery.py",
+    "status": "PAUSED_BY_USER"
+  },
+  "git_sha": "9b0a39dd42d771fc724b8387b7aa1ea11d91d2bf",
+  "operation_mode": "CMB_B2_PAUSED_FOR_BIOMED_R1_DATASET_SWITCH",
+  "prior_status": "RUNNING",
+  "prior_status_snapshot": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/diagnosisarena-paused-before-cmb-only.json",
+  "rag": "CLOSED_FOR_COMMON_EVAL_FACTORIAL",
+  "schema_version": "h1-final-ma-recovery-v1",
+  "started_at_utc": "2026-10-06T04:44:35.615033+00:00",
+  "status": "CMB_B2_PAUSED_BY_USER",
+  "vllm": {
+    "generation": 2,
+    "healthy_at_utc": "2026-10-06T04:45:15.622685+00:00",
+    "log": "/root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-ma-pair-20261006/vllm-8001-recovery-2.log",
+    "pid": 221450,
+    "started_at_utc": "2026-10-06T04:44:35.615737+00:00",
+    "status": "STOPPED_BY_USER",
+    "stopped_at_utc": "2026-10-06T04:53:30.224590+00:00"
+  }
+}

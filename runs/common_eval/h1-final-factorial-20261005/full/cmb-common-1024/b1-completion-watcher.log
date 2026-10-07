@@ -1,0 +1,4 @@
+2026-10-05T17:23:29.634877+00:00 watching /root/gpufree-data/Health-Copilot-harness-v1-consolidation-20261004/runs/common_eval/h1-final-factorial-20261005/full/cmb-common-1024/B1/run_manifest.json; pid=146269
+2026-10-05T17:23:29.635790+00:00 runner process is no longer alive before B1 reached a terminal status
+2026-10-05T17:23:29.663738+00:00 queued follow-up to thread; b1=RUNNING, b2=NOT_STARTED_WITHIN_GRACE_PERIOD
+2026-10-05T17:23:29.663874+00:00 notice written; queue_succeeded=True

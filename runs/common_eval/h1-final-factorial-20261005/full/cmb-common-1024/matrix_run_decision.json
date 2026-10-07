@@ -1,0 +1,31 @@
+{
+  "B0": {
+    "accuracy": 0.7099609375,
+    "cases": 1024,
+    "correct": 727,
+    "status": "COMPLETE"
+  },
+  "B1": {
+    "accuracy": "NOT_COMPUTED",
+    "checkpoint_rows": 91,
+    "retrieval_calls": 90,
+    "status": "INTERRUPTED_COVERAGE_SMOKE_ONLY"
+  },
+  "B2": {
+    "status": "NOT_STARTED"
+  },
+  "B3": {
+    "status": "NOT_STARTED"
+  },
+  "decided_at_utc": "2026-10-05T17:29:33.153480+00:00",
+  "decision_amendment": {
+    "compute_handoff": "After B0/B2 reporting, hand off GPU capacity to Medical SFT then GSPO/GDPO.",
+    "new_next_step": "RAG CLOSED. Complete only the final B0/B2 Adaptive MDT pair on DiagnosisArena-915 and CMB-COMMON-1024; no B1/B3 and no Common KB V2 in this stage.",
+    "supersedes_next_step": "COMMON_MEDICAL_KB_V2 qualification and further RAG arms",
+    "updated_at_utc": "2026-10-05T17:36:38.336622+00:00"
+  },
+  "next_step": "Qualify and freeze COMMON_MEDICAL_KB_V2 with broad medical coverage, documented use rights, benchmark contamination controls, and multilingual retrieval before any new RAG arm.",
+  "old_b1_checkpoint_retained": true,
+  "reasoning": "COMMON_MEDICAL_KB_V1 is a 26-card English hypertension patient-education corpus and is not fit to support a broad-medical CMB RAG effect claim.",
+  "schema_version": "common-eval-run-decision-v1"
+}
